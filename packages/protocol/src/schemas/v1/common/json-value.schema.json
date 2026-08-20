@@ -1,0 +1,55 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:agp:schema:v1:protocol:common:json-value",
+  "title": "JsonValue",
+  "description": "A recursively bounded-at-codec JSON value using the AGP finite/safe numeric profile.",
+  "x-agp": {
+    "owner": "@agp/protocol",
+    "typescript": "JsonValue",
+    "kind": "json-value",
+    "mechanics": "A recursively bounded-at-codec JSON value using the AGP finite/safe numeric profile.",
+    "rationale": "A sovereign contract gives validators and consumers one stable reasoning boundary.",
+    "consequence": "Accepting another shape would make peer interpretation or ownership ambiguous.",
+    "semanticRules": []
+  },
+  "oneOf": [
+    {
+      "type": "null"
+    },
+    {
+      "type": "boolean"
+    },
+    {
+      "type": "string"
+    },
+    {
+      "oneOf": [
+        {
+          "type": "integer",
+          "minimum": -9007199254740991,
+          "maximum": 9007199254740991
+        },
+        {
+          "type": "number",
+          "minimum": -1.7976931348623157e+308,
+          "maximum": 1.7976931348623157e+308,
+          "not": {
+            "type": "integer"
+          }
+        }
+      ]
+    },
+    {
+      "type": "array",
+      "items": {
+        "$ref": "urn:agp:schema:v1:protocol:common:json-value"
+      }
+    },
+    {
+      "type": "object",
+      "additionalProperties": {
+        "$ref": "urn:agp:schema:v1:protocol:common:json-value"
+      }
+    }
+  ]
+}

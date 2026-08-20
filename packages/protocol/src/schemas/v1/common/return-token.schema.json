@@ -1,0 +1,21 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:agp:schema:v1:protocol:common:return-token",
+  "title": "ReturnToken",
+  "description": "Hop-scoped unsigned 64-bit reverse-correlation token in fixed-width lowercase hexadecimal.",
+  "x-agp": {
+    "owner": "@agp/protocol",
+    "typescript": "ReturnToken",
+    "kind": "scalar",
+    "mechanics": "Hop-scoped unsigned 64-bit reverse-correlation token in fixed-width lowercase hexadecimal.",
+    "rationale": "A sovereign contract gives validators and consumers one stable reasoning boundary.",
+    "consequence": "Accepting another shape would make peer interpretation or ownership ambiguous.",
+    "semanticRules": [
+      "RETURN-TOKEN-NONREUSE-1"
+    ]
+  },
+  "type": "string",
+  "minLength": 16,
+  "maxLength": 16,
+  "pattern": "^[0-9a-f]{16}$"
+}

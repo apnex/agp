@@ -1,0 +1,262 @@
+{
+  "schemaVersion": "agp.semantic-rules/v1",
+  "owner": "@agp/core",
+  "rules": [
+    {
+      "id": "FSM-ESTABLISHED-MATRIX-1",
+      "owner": "@agp/core",
+      "phase": "session",
+      "inputSchemaIds": [
+        "urn:agp:schema:v1:protocol:wire:message"
+      ],
+      "resultCodes": [
+        "ACCEPT",
+        "UNEXPECTED_MESSAGE"
+      ],
+      "designReferences": [
+        "docs/design/agp-uniform-node/fsm.md#66-established"
+      ],
+      "implementation": "packages/core/src/fsm.ts#reducePeerSession",
+      "owningTest": "packages/core/test/unit/peer-fsm-established-matrix.test.js"
+    },
+    {
+      "id": "SESSION-PAIR-SCOPE-1",
+      "owner": "@agp/core",
+      "phase": "session",
+      "inputSchemaIds": [
+        "urn:agp:schema:v1:protocol:wire:open-body"
+      ],
+      "resultCodes": [
+        "ACCEPT",
+        "ADJACENCY_COLLISION"
+      ],
+      "designReferences": [
+        "docs/design/agp-uniform-node/decisions.md#d5--route-provenance-and-identity-lifetime"
+      ],
+      "implementation": "packages/core/src/fsm.ts#sessionPublicKey",
+      "owningTest": "packages/core/test/unit/session-pair-scope.test.js"
+    },
+    {
+      "id": "SESSION-CROSS-DIAL-1",
+      "owner": "@agp/core",
+      "phase": "session",
+      "inputSchemaIds": [
+        "urn:agp:schema:v1:protocol:wire:open-body"
+      ],
+      "resultCodes": [
+        "WINNER",
+        "ADJACENCY_COLLISION"
+      ],
+      "designReferences": [
+        "docs/design/agp-uniform-node/decisions.md#d11--cross-dial-collision"
+      ],
+      "implementation": "packages/core/src/fsm.ts#compareConnectionCandidates",
+      "owningTest": "packages/core/test/unit/peer-fsm-cross-dial.test.js"
+    },
+    {
+      "id": "ROUTE-SNAPSHOT-REVISION-1",
+      "owner": "@agp/core",
+      "phase": "session",
+      "inputSchemaIds": [
+        "urn:agp:schema:v1:protocol:wire:route-update-message"
+      ],
+      "resultCodes": [
+        "ACCEPT",
+        "ROUTE_REVISION_ERROR"
+      ],
+      "designReferences": [
+        "docs/design/agp-uniform-node/protocol.md#42-update"
+      ],
+      "implementation": "packages/core/src/fsm.ts#validateInboundRouteRevision",
+      "owningTest": "packages/core/test/unit/peer-fsm-revisions.test.js"
+    },
+    {
+      "id": "ROUTE-ACK-CORRELATION-1",
+      "owner": "@agp/core",
+      "phase": "session",
+      "inputSchemaIds": [
+        "urn:agp:schema:v1:protocol:wire:route-ack-message"
+      ],
+      "resultCodes": [
+        "ACCEPT",
+        "INVALID_MESSAGE"
+      ],
+      "designReferences": [
+        "docs/design/agp-uniform-node/protocol.md#43-acknowledgement"
+      ],
+      "implementation": "packages/core/src/fsm.ts#validateRouteAck",
+      "owningTest": "packages/core/test/unit/peer-fsm-route-ack.test.js"
+    },
+    {
+      "id": "ROUTE-RECEIVER-LOOP-1",
+      "owner": "@agp/core",
+      "phase": "routing",
+      "inputSchemaIds": [
+        "urn:agp:schema:v1:protocol:routing:route-advertisement"
+      ],
+      "resultCodes": [
+        "ACCEPT",
+        "LOOP"
+      ],
+      "designReferences": [
+        "docs/design/agp-uniform-node/routing.md#52-route-validation-classes"
+      ],
+      "implementation": "packages/core/src/routing.ts#classifyImportedRoute",
+      "owningTest": "packages/core/test/unit/route-receiver-loop.test.js"
+    },
+    {
+      "id": "ROUTE-PEER-LOOP-1",
+      "owner": "@agp/core",
+      "phase": "routing",
+      "inputSchemaIds": [
+        "urn:agp:schema:v1:core:operations:selected-route-snapshot"
+      ],
+      "resultCodes": [
+        "EXPORT",
+        "PEER_IN_PATH"
+      ],
+      "designReferences": [
+        "docs/design/agp-uniform-node/routing.md#71-desired-adj-rib-out"
+      ],
+      "implementation": "packages/core/src/routing.ts#derivePeerExport",
+      "owningTest": "packages/core/test/unit/route-peer-loop.test.js"
+    },
+    {
+      "id": "ROUTE-SNAPSHOT-REPLACE-1",
+      "owner": "@agp/core",
+      "phase": "routing",
+      "inputSchemaIds": [
+        "urn:agp:schema:v1:protocol:wire:route-update-body"
+      ],
+      "resultCodes": [
+        "COMMITTED"
+      ],
+      "designReferences": [
+        "docs/design/agp-uniform-node/routing.md#54-atomic-replacement-algorithm"
+      ],
+      "implementation": "packages/core/src/routing.ts#replaceAdjRibIn",
+      "owningTest": "packages/core/test/unit/route-import.test.js"
+    },
+    {
+      "id": "ROUTE-REJECTION-MEMORY-1",
+      "owner": "@agp/core",
+      "phase": "routing",
+      "inputSchemaIds": [
+        "urn:agp:schema:v1:protocol:wire:route-ack-body"
+      ],
+      "resultCodes": [
+        "REJECTED",
+        "DESIRED"
+      ],
+      "designReferences": [
+        "docs/design/agp-uniform-node/routing.md#72-snapshot-state-machine"
+      ],
+      "implementation": "packages/core/src/routing.ts#applyRouteAck",
+      "owningTest": "packages/core/test/unit/rib-remote-rejection-memory.test.js"
+    },
+    {
+      "id": "ROUTE-REJECTION-RETRY-1",
+      "owner": "@agp/core",
+      "phase": "routing",
+      "inputSchemaIds": [
+        "urn:agp:schema:v1:protocol:wire:route-ack-body",
+        "urn:agp:schema:v1:core:configuration:route-rejection-retry"
+      ],
+      "resultCodes": [
+        "REJECTED",
+        "DESIRED",
+        "CANCELLED"
+      ],
+      "designReferences": [
+        "docs/design/agp-uniform-node/routing.md#36-per-peer-adj-rib-out"
+      ],
+      "implementation": "packages/core/src/routing.ts#advanceRemoteRejectionRetry",
+      "owningTest": "packages/core/test/unit/route-remote-rejection-retry.test.js"
+    },
+    {
+      "id": "RIB-BEST-PATH-1",
+      "owner": "@agp/core",
+      "phase": "routing",
+      "inputSchemaIds": [
+        "urn:agp:schema:v1:core:operations:candidate-route-snapshot"
+      ],
+      "resultCodes": [
+        "SELECTED",
+        "NOT_SELECTED",
+        "INELIGIBLE"
+      ],
+      "designReferences": [
+        "docs/design/agp-uniform-node/routing.md#62-total-best-path-order"
+      ],
+      "implementation": "packages/core/src/routing.ts#compareCandidates",
+      "owningTest": "packages/core/test/unit/route-selection.test.js"
+    },
+    {
+      "id": "RIB-SELECTED-EXPORT-1",
+      "owner": "@agp/core",
+      "phase": "routing",
+      "inputSchemaIds": [
+        "urn:agp:schema:v1:core:operations:selected-route-snapshot"
+      ],
+      "resultCodes": [
+        "DESIRED",
+        "SUPPRESSED"
+      ],
+      "designReferences": [
+        "docs/design/agp-uniform-node/routing.md#7-selected-route-export"
+      ],
+      "implementation": "packages/core/src/routing.ts#derivePeerExport",
+      "owningTest": "packages/core/test/unit/route-export-eligibility.test.js"
+    },
+    {
+      "id": "ROUTE-WRITE-ORDER-1",
+      "owner": "@agp/core",
+      "phase": "routing",
+      "inputSchemaIds": [
+        "urn:agp:schema:v1:core:operations:export-snapshot"
+      ],
+      "resultCodes": [
+        "ADMIT",
+        "SOURCE_NOT_ADVERTISED"
+      ],
+      "designReferences": [
+        "docs/design/agp-uniform-node/routing.md#74-withdrawal-ordering-barrier"
+      ],
+      "implementation": "packages/core/src/routing.ts#sourceExportEpoch",
+      "owningTest": "packages/core/test/unit/export-epoch-closure.test.js"
+    },
+    {
+      "id": "OPERATIONS-ATOMIC-REVISION-1",
+      "owner": "@agp/core",
+      "phase": "operations",
+      "inputSchemaIds": [
+        "urn:agp:schema:v1:core:operations:operations-snapshot"
+      ],
+      "resultCodes": [
+        "COMMITTED"
+      ],
+      "designReferences": [
+        "docs/design/agp-uniform-node/routing.md#11-atomic-state-and-revision-mechanics"
+      ],
+      "implementation": "packages/core/src/operations.ts#commit",
+      "owningTest": "packages/core/test/unit/rib-atomic-revision.test.js"
+    },
+    {
+      "id": "CORE-MONOTONIC-EXHAUSTION-1",
+      "owner": "@agp/core",
+      "phase": "operations",
+      "inputSchemaIds": [
+        "urn:agp:schema:v1:core:operations:operations-snapshot"
+      ],
+      "resultCodes": [
+        "COMMITTED",
+        "MONOTONIC_DOMAIN_EXHAUSTED"
+      ],
+      "designReferences": [
+        "docs/design/agp-uniform-node/sdk-operations.md#52-snapshot-metadata-and-revisions"
+      ],
+      "implementation": "packages/core/src/operations.ts#preflightMonotonicDomain",
+      "owningTest": "packages/core/test/unit/monotonic-domain-exhaustion.test.js"
+    }
+  ]
+}

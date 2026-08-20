@@ -1,0 +1,29 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:agp:schema:v1:transport:codes:transport-operation-error-code",
+  "title": "TransportOperationErrorCode",
+  "description": "Closed transport-operation-error-code code domain.",
+  "x-agp": {
+    "owner": "@agp/transport",
+    "typescript": "TransportOperationErrorCode",
+    "kind": "code",
+    "mechanics": "Defines the bounded transport-operation-error-code value crossing the neutral transport boundary.",
+    "rationale": "One schema and generated type prevent adapter-specific reinterpretation.",
+    "consequence": "A divergent shape makes transport implementations observably incompatible.",
+    "semanticRules": []
+  },
+  "type": "string",
+  "enum": [
+    "REFERENCE_INVALID",
+    "BINDING_UNAVAILABLE",
+    "LISTEN_FAILED",
+    "CONNECT_FAILED",
+    "CAPACITY_EXCEEDED",
+    "PACKET_TOO_LARGE",
+    "CONCURRENT_OPERATION",
+    "CHANNEL_TERMINAL",
+    "OPERATION_ABORTED",
+    "SEND_FAILED",
+    "ADAPTER_FAULT"
+  ]
+}

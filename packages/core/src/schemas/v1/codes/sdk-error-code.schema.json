@@ -1,0 +1,36 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:agp:schema:v1:core:codes:sdk-error-code",
+  "title": "AGP core sdk-error-code",
+  "x-agp": {
+    "owner": "@agp/core",
+    "typescript": "AgpErrorCode",
+    "kind": "code",
+    "mechanics": "Sovereign sdk-error-code data contract owned by @agp/core.",
+    "rationale": "One schema gives runtime validators and consumers one stable reasoning boundary.",
+    "consequence": "Accepting another shape would make canonical state or SDK interpretation ambiguous.",
+    "semanticRules": []
+  },
+  "type": "string",
+  "enum": [
+    "CONFIG_INVALID",
+    "OPTIONS_INVALID",
+    "LIFECYCLE_INVALID",
+    "NOT_RUNNING",
+    "ABORTED",
+    "ENDPOINT_INVALID",
+    "HANDLER_INVALID",
+    "ENDPOINT_ALREADY_EXPOSED",
+    "ENDPOINT_CAPACITY",
+    "CORRELATION_INVALID",
+    "SOURCE_NOT_OWNED",
+    "PAYLOAD_NOT_JSON",
+    "MESSAGE_TOO_LARGE",
+    "NO_ROUTE",
+    "SOURCE_NOT_ADVERTISED",
+    "NEXT_HOP_UNAVAILABLE",
+    "QUEUE_FULL",
+    "TRANSPORT_FAILURE",
+    "INTERNAL"
+  ]
+}

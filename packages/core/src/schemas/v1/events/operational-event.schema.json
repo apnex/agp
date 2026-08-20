@@ -1,0 +1,73 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:agp:schema:v1:core:event:operational-event",
+  "title": "AGP core operational-event",
+  "x-agp": {
+    "owner": "@agp/core",
+    "typescript": "OperationalEvent",
+    "kind": "union",
+    "mechanics": "Sovereign operational-event data contract owned by @agp/core.",
+    "rationale": "One schema gives runtime validators and consumers one stable reasoning boundary.",
+    "consequence": "Accepting another shape would make canonical state or SDK interpretation ambiguous.",
+    "semanticRules": []
+  },
+  "oneOf": [
+    {
+      "$ref": "urn:agp:schema:v1:core:event:lifecycle-starting"
+    },
+    {
+      "$ref": "urn:agp:schema:v1:core:event:lifecycle-running"
+    },
+    {
+      "$ref": "urn:agp:schema:v1:core:event:lifecycle-stopped"
+    },
+    {
+      "$ref": "urn:agp:schema:v1:core:event:endpoint-exposed"
+    },
+    {
+      "$ref": "urn:agp:schema:v1:core:event:endpoint-closed"
+    },
+    {
+      "$ref": "urn:agp:schema:v1:core:event:session-established"
+    },
+    {
+      "$ref": "urn:agp:schema:v1:core:event:session-transition"
+    },
+    {
+      "$ref": "urn:agp:schema:v1:core:event:session-routes-purged"
+    },
+    {
+      "$ref": "urn:agp:schema:v1:core:event:session-closed"
+    },
+    {
+      "$ref": "urn:agp:schema:v1:core:event:connection-preidentity-closed"
+    },
+    {
+      "$ref": "urn:agp:schema:v1:core:event:route-imported"
+    },
+    {
+      "$ref": "urn:agp:schema:v1:core:event:route-export-acked"
+    },
+    {
+      "$ref": "urn:agp:schema:v1:core:event:message-accepted"
+    },
+    {
+      "$ref": "urn:agp:schema:v1:core:event:message-forwarded"
+    },
+    {
+      "$ref": "urn:agp:schema:v1:core:event:message-received"
+    },
+    {
+      "$ref": "urn:agp:schema:v1:core:event:message-failed"
+    },
+    {
+      "$ref": "urn:agp:schema:v1:core:event:handler-completed"
+    },
+    {
+      "$ref": "urn:agp:schema:v1:core:event:handler-failed"
+    },
+    {
+      "$ref": "urn:agp:schema:v1:core:event:observer-gap"
+    }
+  ]
+}

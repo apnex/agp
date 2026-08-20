@@ -1,0 +1,34 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:agp:schema:v1:protocol:routing:endpoint-source",
+  "title": "EndpointSource",
+  "description": "Source endpoint and its final originating node.",
+  "x-agp": {
+    "owner": "@agp/protocol",
+    "typescript": "EndpointSource",
+    "kind": "routing-record",
+    "mechanics": "Source endpoint and its final originating node.",
+    "rationale": "A sovereign contract gives validators and consumers one stable reasoning boundary.",
+    "consequence": "Accepting another shape would make peer interpretation or ownership ambiguous.",
+    "semanticRules": [
+      "DATA-FEASIBLE-SOURCE-1",
+      "DATA-SOURCE-EXPORT-1"
+    ]
+  },
+  "type": "object",
+  "required": [
+    "endpoint",
+    "originNodeId"
+  ],
+  "properties": {
+    "endpoint": {
+      "$ref": "urn:agp:schema:v1:protocol:common:endpoint-name",
+      "description": "Routable endpoint name."
+    },
+    "originNodeId": {
+      "$ref": "urn:agp:schema:v1:protocol:common:node-id",
+      "description": "Final node that originates the endpoint."
+    }
+  },
+  "additionalProperties": false
+}

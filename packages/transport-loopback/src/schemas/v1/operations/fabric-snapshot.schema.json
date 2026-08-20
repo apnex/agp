@@ -1,0 +1,225 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:agp:schema:v1:transport-loopback:operations:fabric-snapshot",
+  "title": "AGP Loopback fabric-snapshot",
+  "x-agp": {
+    "owner": "@agp/transport-loopback",
+    "typescript": "FabricSnapshot",
+    "kind": "operations",
+    "mechanics": "Sovereign fabric-snapshot data contract owned by @agp/transport-loopback.",
+    "rationale": "One closed record keeps production Loopback configuration and state independently inspectable.",
+    "consequence": "Accepting another shape would make fabric capacity, lifecycle, or terminal evidence ambiguous.",
+    "semanticRules": []
+  },
+  "oneOf": [
+    {
+      "type": "object",
+      "properties": {
+        "fabricId": {
+          "description": "Display identity of this explicit fabric.",
+          "$ref": "urn:agp:schema:v1:transport-loopback:common:fabric-id"
+        },
+        "revision": {
+          "description": "Canonical visible-state revision.",
+          "$ref": "urn:agp:schema:v1:transport-loopback:common:fabric-revision"
+        },
+        "listeners": {
+          "description": "Deterministically ordered bounded listener rows.",
+          "type": "array",
+          "maxItems": 4096,
+          "items": {
+            "$ref": "urn:agp:schema:v1:transport-loopback:operations:listener-snapshot"
+          }
+        },
+        "channels": {
+          "description": "Deterministically ordered bounded channel rows.",
+          "type": "array",
+          "maxItems": 4096,
+          "items": {
+            "$ref": "urn:agp:schema:v1:transport-loopback:operations:channel-snapshot"
+          }
+        },
+        "resources": {
+          "description": "Current finite resource gauges.",
+          "$ref": "urn:agp:schema:v1:transport-loopback:operations:resources-snapshot"
+        },
+        "counters": {
+          "description": "Closed monotonic counter catalog.",
+          "$ref": "urn:agp:schema:v1:transport-loopback:operations:counters-snapshot"
+        },
+        "state": {
+          "description": "Fabric lifecycle state Running.",
+          "const": "Running"
+        }
+      },
+      "required": [
+        "fabricId",
+        "revision",
+        "listeners",
+        "channels",
+        "resources",
+        "counters",
+        "state"
+      ],
+      "additionalProperties": false
+    },
+    {
+      "type": "object",
+      "properties": {
+        "fabricId": {
+          "description": "Display identity of this explicit fabric.",
+          "$ref": "urn:agp:schema:v1:transport-loopback:common:fabric-id"
+        },
+        "revision": {
+          "description": "Canonical visible-state revision.",
+          "$ref": "urn:agp:schema:v1:transport-loopback:common:fabric-revision"
+        },
+        "listeners": {
+          "description": "Deterministically ordered bounded listener rows.",
+          "type": "array",
+          "maxItems": 4096,
+          "items": {
+            "$ref": "urn:agp:schema:v1:transport-loopback:operations:listener-snapshot"
+          }
+        },
+        "channels": {
+          "description": "Deterministically ordered bounded channel rows.",
+          "type": "array",
+          "maxItems": 4096,
+          "items": {
+            "$ref": "urn:agp:schema:v1:transport-loopback:operations:channel-snapshot"
+          }
+        },
+        "resources": {
+          "description": "Current finite resource gauges.",
+          "$ref": "urn:agp:schema:v1:transport-loopback:operations:resources-snapshot"
+        },
+        "counters": {
+          "description": "Closed monotonic counter catalog.",
+          "$ref": "urn:agp:schema:v1:transport-loopback:operations:counters-snapshot"
+        },
+        "state": {
+          "description": "Fabric lifecycle state Closing.",
+          "const": "Closing"
+        }
+      },
+      "required": [
+        "fabricId",
+        "revision",
+        "listeners",
+        "channels",
+        "resources",
+        "counters",
+        "state"
+      ],
+      "additionalProperties": false
+    },
+    {
+      "type": "object",
+      "properties": {
+        "fabricId": {
+          "description": "Display identity of this explicit fabric.",
+          "$ref": "urn:agp:schema:v1:transport-loopback:common:fabric-id"
+        },
+        "revision": {
+          "description": "Canonical visible-state revision.",
+          "$ref": "urn:agp:schema:v1:transport-loopback:common:fabric-revision"
+        },
+        "listeners": {
+          "description": "Deterministically ordered bounded listener rows.",
+          "type": "array",
+          "maxItems": 4096,
+          "items": {
+            "$ref": "urn:agp:schema:v1:transport-loopback:operations:listener-snapshot"
+          }
+        },
+        "channels": {
+          "description": "Deterministically ordered bounded channel rows.",
+          "type": "array",
+          "maxItems": 4096,
+          "items": {
+            "$ref": "urn:agp:schema:v1:transport-loopback:operations:channel-snapshot"
+          }
+        },
+        "resources": {
+          "description": "Current finite resource gauges.",
+          "$ref": "urn:agp:schema:v1:transport-loopback:operations:resources-snapshot"
+        },
+        "counters": {
+          "description": "Closed monotonic counter catalog.",
+          "$ref": "urn:agp:schema:v1:transport-loopback:operations:counters-snapshot"
+        },
+        "state": {
+          "description": "Fabric lifecycle state Closed.",
+          "const": "Closed"
+        }
+      },
+      "required": [
+        "fabricId",
+        "revision",
+        "listeners",
+        "channels",
+        "resources",
+        "counters",
+        "state"
+      ],
+      "additionalProperties": false
+    },
+    {
+      "type": "object",
+      "properties": {
+        "fabricId": {
+          "description": "Display identity of this explicit fabric.",
+          "$ref": "urn:agp:schema:v1:transport-loopback:common:fabric-id"
+        },
+        "revision": {
+          "description": "Canonical visible-state revision.",
+          "$ref": "urn:agp:schema:v1:transport-loopback:common:fabric-revision"
+        },
+        "listeners": {
+          "description": "Deterministically ordered bounded listener rows.",
+          "type": "array",
+          "maxItems": 4096,
+          "items": {
+            "$ref": "urn:agp:schema:v1:transport-loopback:operations:listener-snapshot"
+          }
+        },
+        "channels": {
+          "description": "Deterministically ordered bounded channel rows.",
+          "type": "array",
+          "maxItems": 4096,
+          "items": {
+            "$ref": "urn:agp:schema:v1:transport-loopback:operations:channel-snapshot"
+          }
+        },
+        "resources": {
+          "description": "Current finite resource gauges.",
+          "$ref": "urn:agp:schema:v1:transport-loopback:operations:resources-snapshot"
+        },
+        "counters": {
+          "description": "Closed monotonic counter catalog.",
+          "$ref": "urn:agp:schema:v1:transport-loopback:operations:counters-snapshot"
+        },
+        "state": {
+          "description": "Terminal failed fabric state.",
+          "const": "Failed"
+        },
+        "failure": {
+          "description": "Exact terminal fabric failure.",
+          "$ref": "urn:agp:schema:v1:transport-loopback:operations:fabric-failure-snapshot"
+        }
+      },
+      "required": [
+        "fabricId",
+        "revision",
+        "listeners",
+        "channels",
+        "resources",
+        "counters",
+        "state",
+        "failure"
+      ],
+      "additionalProperties": false
+    }
+  ]
+}

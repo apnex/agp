@@ -1,0 +1,32 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:agp:schema:v1:transport-loopback:configuration:fabric",
+  "title": "AGP Loopback fabric",
+  "x-agp": {
+    "owner": "@agp/transport-loopback",
+    "typescript": "Fabric",
+    "kind": "configuration",
+    "mechanics": "Sovereign fabric data contract owned by @agp/transport-loopback.",
+    "rationale": "One closed record keeps production Loopback configuration and state independently inspectable.",
+    "consequence": "Accepting another shape would make fabric capacity, lifecycle, or terminal evidence ambiguous.",
+    "semanticRules": [
+      "LOOPBACK-EXPLICIT-FABRIC-1"
+    ]
+  },
+  "type": "object",
+  "properties": {
+    "fabricId": {
+      "description": "Display identity checked against bound listener and target data.",
+      "$ref": "urn:agp:schema:v1:transport-loopback:common:fabric-id"
+    },
+    "limits": {
+      "description": "Finite production resource ceilings.",
+      "$ref": "urn:agp:schema:v1:transport-loopback:configuration:limits"
+    }
+  },
+  "required": [
+    "fabricId",
+    "limits"
+  ],
+  "additionalProperties": false
+}

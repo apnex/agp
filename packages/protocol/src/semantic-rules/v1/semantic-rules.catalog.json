@@ -1,0 +1,57 @@
+{
+  "schemaVersion": "agp.semantic-rules/v1",
+  "owner": "@agp/protocol",
+  "rules": [
+    {
+      "id": "OPEN-IDENTITY-1",
+      "owner": "@agp/protocol",
+      "phase": "session",
+      "inputSchemaIds": [
+        "urn:agp:schema:v1:protocol:wire:open-message"
+      ],
+      "resultCodes": [
+        "ACCEPT",
+        "IDENTITY_REJECTED"
+      ],
+      "designReferences": [
+        "docs/design/agp-uniform-node/protocol.md#3-open"
+      ],
+      "implementation": "packages/protocol/src/semantic.ts#validateOpenIdentity",
+      "owningTest": "packages/protocol/test/unit/open-identity.test.js"
+    },
+    {
+      "id": "ROUTE-PATH-OWNERSHIP-1",
+      "owner": "@agp/protocol",
+      "phase": "routing",
+      "inputSchemaIds": [
+        "urn:agp:schema:v1:protocol:routing:route-advertisement"
+      ],
+      "resultCodes": [
+        "ACCEPT",
+        "INVALID_MESSAGE"
+      ],
+      "designReferences": [
+        "docs/design/agp-uniform-node/protocol.md#41-wire-route"
+      ],
+      "implementation": "packages/protocol/src/semantic.ts#validateRoutePathOwnership",
+      "owningTest": "packages/protocol/test/unit/route-path-semantics.test.js"
+    },
+    {
+      "id": "ROUTE-PATH-LIMIT-1",
+      "owner": "@agp/protocol",
+      "phase": "routing",
+      "inputSchemaIds": [
+        "urn:agp:schema:v1:protocol:routing:route-advertisement"
+      ],
+      "resultCodes": [
+        "ACCEPT",
+        "PATH_TOO_LONG"
+      ],
+      "designReferences": [
+        "docs/design/agp-uniform-node/routing.md#52-route-validation-classes"
+      ],
+      "implementation": "packages/protocol/src/semantic.ts#validateImportedPathLength",
+      "owningTest": "packages/protocol/test/unit/route-path-limit.test.js"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:agp:schema:v1:transport:codes:transport-input-rejection-code",
+  "title": "TransportInputRejectionCode",
+  "description": "Closed transport-input-rejection-code code domain.",
+  "x-agp": {
+    "owner": "@agp/transport",
+    "typescript": "TransportInputRejectionCode",
+    "kind": "code",
+    "mechanics": "Defines the bounded transport-input-rejection-code value crossing the neutral transport boundary.",
+    "rationale": "One schema and generated type prevent adapter-specific reinterpretation.",
+    "consequence": "A divergent shape makes transport implementations observably incompatible.",
+    "semanticRules": []
+  },
+  "type": "string",
+  "enum": [
+    "PACKET_TOO_LARGE",
+    "MALFORMED_CARRIER_INPUT"
+  ]
+}

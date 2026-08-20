@@ -1,0 +1,69 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:agp:schema:v1:core:operations:adj-rib-out-route-snapshot",
+  "title": "AGP core adj-rib-out-route-snapshot",
+  "x-agp": {
+    "owner": "@agp/core",
+    "typescript": "AdjRibOutRouteSnapshot",
+    "kind": "operations",
+    "mechanics": "Sovereign adj-rib-out-route-snapshot data contract owned by @agp/core.",
+    "rationale": "One schema gives runtime validators and consumers one stable reasoning boundary.",
+    "consequence": "Accepting another shape would make canonical state or SDK interpretation ambiguous.",
+    "semanticRules": [
+      "ROUTE-REJECTION-MEMORY-1"
+    ]
+  },
+  "type": "object",
+  "properties": {
+    "remoteNodeId": {
+      "$ref": "urn:agp:schema:v1:protocol:common:node-id"
+    },
+    "owningSessionId": {
+      "$ref": "urn:agp:schema:v1:protocol:common:session-id"
+    },
+    "endpoint": {
+      "$ref": "urn:agp:schema:v1:protocol:common:endpoint-name"
+    },
+    "originNodeId": {
+      "$ref": "urn:agp:schema:v1:protocol:common:node-id"
+    },
+    "path": {
+      "$ref": "urn:agp:schema:v1:protocol:common:node-path"
+    },
+    "state": {
+      "type": "string",
+      "enum": [
+        "desired",
+        "outstanding",
+        "acked",
+        "rejected",
+        "suppressed"
+      ]
+    },
+    "reasonCode": {
+      "$ref": "urn:agp:schema:v1:core:codes:route-reason-code"
+    },
+    "remoteRejectionCode": {
+      "$ref": "urn:agp:schema:v1:protocol:codes:route-rejection-code"
+    },
+    "remoteRetryAttempt": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "remoteRetryAt": {
+      "$ref": "urn:agp:schema:v1:core:common:timestamp"
+    },
+    "revision": {
+      "$ref": "urn:agp:schema:v1:protocol:common:wire-revision"
+    }
+  },
+  "required": [
+    "remoteNodeId",
+    "owningSessionId",
+    "endpoint",
+    "originNodeId",
+    "path",
+    "state"
+  ],
+  "additionalProperties": false
+}

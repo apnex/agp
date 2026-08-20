@@ -1,0 +1,77 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:agp:schema:v1:transport-loopback:operations:fabric-failure-snapshot",
+  "title": "AGP Loopback fabric-failure-snapshot",
+  "x-agp": {
+    "owner": "@agp/transport-loopback",
+    "typescript": "FabricFailureSnapshot",
+    "kind": "operations",
+    "mechanics": "Sovereign fabric-failure-snapshot data contract owned by @agp/transport-loopback.",
+    "rationale": "One closed record keeps production Loopback configuration and state independently inspectable.",
+    "consequence": "Accepting another shape would make fabric capacity, lifecycle, or terminal evidence ambiguous.",
+    "semanticRules": [
+      "LOOPBACK-ADAPTER-INVARIANT-FAILURE-1",
+      "LOOPBACK-MONOTONIC-EXHAUSTION-1"
+    ]
+  },
+  "oneOf": [
+    {
+      "type": "object",
+      "properties": {
+        "code": {
+          "description": "Terminal adapter-invariant failure code.",
+          "const": "ADAPTER_FAULT"
+        }
+      },
+      "required": [
+        "code"
+      ],
+      "additionalProperties": false
+    },
+    {
+      "type": "object",
+      "properties": {
+        "code": {
+          "description": "Terminal monotonic-domain failure code.",
+          "const": "MONOTONIC_DOMAIN_EXHAUSTED"
+        },
+        "domain": {
+          "description": "Exhausted revision or arbitration domain.",
+          "type": "string",
+          "enum": [
+            "revision",
+            "arbitration-sequence"
+          ]
+        }
+      },
+      "required": [
+        "code",
+        "domain"
+      ],
+      "additionalProperties": false
+    },
+    {
+      "type": "object",
+      "properties": {
+        "code": {
+          "description": "Terminal monotonic-domain failure code.",
+          "const": "MONOTONIC_DOMAIN_EXHAUSTED"
+        },
+        "domain": {
+          "description": "Counter-domain discriminator.",
+          "const": "counter"
+        },
+        "counterKey": {
+          "description": "Exact counter whose delta could not commit.",
+          "$ref": "urn:agp:schema:v1:transport-loopback:codes:counter-key"
+        }
+      },
+      "required": [
+        "code",
+        "domain",
+        "counterKey"
+      ],
+      "additionalProperties": false
+    }
+  ]
+}

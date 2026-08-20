@@ -1,0 +1,61 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:agp:schema:v1:protocol:wire:envelope",
+  "title": "AgpEnvelope",
+  "description": "Closed common envelope shared by every AGP v1 wire message.",
+  "x-agp": {
+    "owner": "@agp/protocol",
+    "typescript": "AgpEnvelope",
+    "kind": "wire-envelope",
+    "mechanics": "Closed common envelope shared by every AGP v1 wire message.",
+    "rationale": "A sovereign contract gives validators and consumers one stable reasoning boundary.",
+    "consequence": "Accepting another shape would make peer interpretation or ownership ambiguous.",
+    "semanticRules": []
+  },
+  "type": "object",
+  "required": [
+    "agp",
+    "plane",
+    "type",
+    "id",
+    "body"
+  ],
+  "properties": {
+    "agp": {
+      "const": 1,
+      "description": "AGP wire major version."
+    },
+    "plane": {
+      "enum": [
+        "control",
+        "data"
+      ],
+      "description": "Protocol plane carrying the message."
+    },
+    "type": {
+      "enum": [
+        "open",
+        "keepalive",
+        "route.update",
+        "route.ack",
+        "notification",
+        "error",
+        "message"
+      ],
+      "description": "Closed v1 message discriminator."
+    },
+    "id": {
+      "$ref": "urn:agp:schema:v1:protocol:common:message-id",
+      "description": "Envelope message identity."
+    },
+    "body": {
+      "type": "object",
+      "description": "Type-specific sovereign body."
+    },
+    "extensions": {
+      "$ref": "urn:agp:schema:v1:protocol:common:extensions",
+      "description": "Optional bounded extension object preserved where specified."
+    }
+  },
+  "additionalProperties": false
+}

@@ -1,0 +1,21 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:agp:schema:v1:transport-loopback:codes:monotonic-domain",
+  "title": "AGP Loopback monotonic-domain",
+  "x-agp": {
+    "owner": "@agp/transport-loopback",
+    "typescript": "MonotonicDomain",
+    "kind": "code",
+    "mechanics": "Sovereign monotonic-domain data contract owned by @agp/transport-loopback.",
+    "rationale": "One closed record keeps production Loopback configuration and state independently inspectable.",
+    "consequence": "Accepting another shape would make fabric capacity, lifecycle, or terminal evidence ambiguous.",
+    "semanticRules": []
+  },
+  "description": "Finite ordering domain that caused fabric failure.",
+  "type": "string",
+  "enum": [
+    "revision",
+    "counter",
+    "arbitration-sequence"
+  ]
+}

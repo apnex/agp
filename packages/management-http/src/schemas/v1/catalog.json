@@ -1,0 +1,102 @@
+{
+  "schemaVersion": "agp.schema-catalog/v1",
+  "owner": "@agp/management-http",
+  "schemas": [
+    {
+      "id": "urn:agp:schema:v1:management:advertisements-response",
+      "owner": "@agp/management-http",
+      "path": "responses/advertisements-response.schema.json",
+      "kind": "management-response",
+      "typescript": "ManagementAdvertisementList",
+      "sha256": "c8f4aaf83c99c46464ad4212ec9eb951aa735dffd644f3df5c8572a684bf341d"
+    },
+    {
+      "id": "urn:agp:schema:v1:management:configuration-response",
+      "owner": "@agp/management-http",
+      "path": "responses/configuration-response.schema.json",
+      "kind": "management-response",
+      "typescript": "ManagementConfiguration",
+      "sha256": "4883577d2f2a2b6da4485821260637700d81dd6a769c38010a3b830f3b754d2e"
+    },
+    {
+      "id": "urn:agp:schema:v1:management:connections-response",
+      "owner": "@agp/management-http",
+      "path": "responses/connections-response.schema.json",
+      "kind": "management-response",
+      "typescript": "ManagementConnectionList",
+      "sha256": "9b46b98f3062e29ece8f51c2405893ac411c5b3e47fe6f208a8870522afafc58"
+    },
+    {
+      "id": "urn:agp:schema:v1:management:counters-response",
+      "owner": "@agp/management-http",
+      "path": "responses/counters-response.schema.json",
+      "kind": "management-response",
+      "typescript": "ManagementCounters",
+      "sha256": "d151c08ef5197e7026caedd430c2cbff8205a41e856994219e24e5386290b3a2"
+    },
+    {
+      "id": "urn:agp:schema:v1:management:error-response",
+      "owner": "@agp/management-http",
+      "path": "common/error-response.schema.json",
+      "kind": "management-error",
+      "typescript": "ManagementError",
+      "sha256": "bd486b4bf8f3eb7716ebf42c50f99f33b2a8b3239978739f75fcbddec230eeaa"
+    },
+    {
+      "id": "urn:agp:schema:v1:management:forwarding-response",
+      "owner": "@agp/management-http",
+      "path": "responses/forwarding-response.schema.json",
+      "kind": "management-response",
+      "typescript": "ManagementForwardingList",
+      "sha256": "0348f361a915363a4ae4d7729eb6587c34db8f6f378b91561a6b3dd8d901deca"
+    },
+    {
+      "id": "urn:agp:schema:v1:management:health-response",
+      "owner": "@agp/management-http",
+      "path": "responses/health-response.schema.json",
+      "kind": "management-response",
+      "typescript": "ManagementHealth",
+      "sha256": "091eb7d5677e976b5d8c6561448ed77fd46a08de9d85e90b037d94988870367e"
+    },
+    {
+      "id": "urn:agp:schema:v1:management:local-endpoints-response",
+      "owner": "@agp/management-http",
+      "path": "responses/local-endpoints-response.schema.json",
+      "kind": "management-response",
+      "typescript": "ManagementLocalEndpointList",
+      "sha256": "73b92a52a23a8c1410e65a4dd4d483166c988ca43fe42e1920092487e0fa5d9b"
+    },
+    {
+      "id": "urn:agp:schema:v1:management:operations-response",
+      "owner": "@agp/management-http",
+      "path": "responses/operations-response.schema.json",
+      "kind": "management-response",
+      "typescript": "ManagementOperationsSnapshot",
+      "sha256": "0a70aa799900f6c519eb2f229047e4c261e9ec614dd898be85576f70a759dd10"
+    },
+    {
+      "id": "urn:agp:schema:v1:management:resources-response",
+      "owner": "@agp/management-http",
+      "path": "responses/resources-response.schema.json",
+      "kind": "management-response",
+      "typescript": "ManagementResources",
+      "sha256": "d3c33f5b7dfda92214de666f7a727a59470370783c4ba56f4a1e2f956f64922d"
+    },
+    {
+      "id": "urn:agp:schema:v1:management:response-meta",
+      "owner": "@agp/management-http",
+      "path": "common/response-meta.schema.json",
+      "kind": "management-common",
+      "typescript": "ManagementMeta",
+      "sha256": "9233657d6098833adec460c21fa9be73711e7cfbd474ed410200e13df4e20c69"
+    },
+    {
+      "id": "urn:agp:schema:v1:management:routes-response",
+      "owner": "@agp/management-http",
+      "path": "responses/routes-response.schema.json",
+      "kind": "management-response",
+      "typescript": "ManagementRouteTable",
+      "sha256": "db73bb05e16c14b51fd3fc92cbc4b498eb7b45088253ae50c8d5e9a92fd7b7b4"
+    }
+  ]
+}

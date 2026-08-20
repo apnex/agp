@@ -1,0 +1,26 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:agp:schema:v1:core:configuration:identity-admission-policy",
+  "title": "AGP core identity-admission-policy",
+  "x-agp": {
+    "owner": "@agp/core",
+    "typescript": "IdentityAdmissionPolicy",
+    "kind": "configuration",
+    "mechanics": "Sovereign identity-admission-policy data contract owned by @agp/core.",
+    "rationale": "One schema gives runtime validators and consumers one stable reasoning boundary.",
+    "consequence": "Accepting another shape would make canonical state or SDK interpretation ambiguous.",
+    "semanticRules": []
+  },
+  "type": "object",
+  "properties": {
+    "mode": {
+      "type": "string",
+      "enum": [
+        "allow",
+        "port"
+      ]
+    }
+  },
+  "required": [],
+  "additionalProperties": false
+}

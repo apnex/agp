@@ -1,0 +1,278 @@
+{
+  "schemaVersion": "agp.schema-catalog/v1",
+  "owner": "@agp/protocol",
+  "schemas": [
+    {
+      "id": "urn:agp:schema:v1:protocol:codes:delivery-error-code",
+      "owner": "@agp/protocol",
+      "path": "codes/delivery-error-code.schema.json",
+      "kind": "code",
+      "typescript": "DeliveryErrorCode",
+      "sha256": "87fdc73abdfd4523bd309e1cf5f19c103906ff3feb0fdbf6cdf803ff5b8f1a9f"
+    },
+    {
+      "id": "urn:agp:schema:v1:protocol:codes:fatal-notification-code",
+      "owner": "@agp/protocol",
+      "path": "codes/fatal-notification-code.schema.json",
+      "kind": "code",
+      "typescript": "FatalNotificationCode",
+      "sha256": "2f8998a2e9ec3dc13f76c0bb4e267027da64abf17c8c053e81b6ec32f45ae61f"
+    },
+    {
+      "id": "urn:agp:schema:v1:protocol:codes:route-rejection-code",
+      "owner": "@agp/protocol",
+      "path": "codes/route-rejection-code.schema.json",
+      "kind": "code",
+      "typescript": "RouteRejectionCode",
+      "sha256": "9cb8b34f73fabd94853f827f03f43f2e24ad120e00d4b0b9468d812ea1dbda21"
+    },
+    {
+      "id": "urn:agp:schema:v1:protocol:common:correlation-id",
+      "owner": "@agp/protocol",
+      "path": "common/correlation-id.schema.json",
+      "kind": "scalar",
+      "typescript": "CorrelationId",
+      "sha256": "d8271c245465ae19358d832479215e280afe4b6c2af6f7b94b7be61ed60601f0"
+    },
+    {
+      "id": "urn:agp:schema:v1:protocol:common:endpoint-name",
+      "owner": "@agp/protocol",
+      "path": "common/endpoint-name.schema.json",
+      "kind": "scalar",
+      "typescript": "EndpointName",
+      "sha256": "64cce8992bb38dc8672ba655df4194d2b712bac071ff4393b28dc0ce95e74cec"
+    },
+    {
+      "id": "urn:agp:schema:v1:protocol:common:extensions",
+      "owner": "@agp/protocol",
+      "path": "common/extensions.schema.json",
+      "kind": "extensions",
+      "typescript": "Extensions",
+      "sha256": "a3c324d50b44c76f6f36a267c26532b6cde626e7a8c4bf2a70b5efb0c779f04f"
+    },
+    {
+      "id": "urn:agp:schema:v1:protocol:common:json-object",
+      "owner": "@agp/protocol",
+      "path": "common/json-object.schema.json",
+      "kind": "json-object",
+      "typescript": "JsonObject",
+      "sha256": "529fcf2561325e1b91652bedd465f111ae2dafba8f2ee5cafe408952c82d29cb"
+    },
+    {
+      "id": "urn:agp:schema:v1:protocol:common:json-value",
+      "owner": "@agp/protocol",
+      "path": "common/json-value.schema.json",
+      "kind": "json-value",
+      "typescript": "JsonValue",
+      "sha256": "f35ec77529204ce889169ec4ab774f68c57ae0a02c25c2fb19b971c7b5a38c86"
+    },
+    {
+      "id": "urn:agp:schema:v1:protocol:common:message-id",
+      "owner": "@agp/protocol",
+      "path": "common/message-id.schema.json",
+      "kind": "scalar",
+      "typescript": "MessageId",
+      "sha256": "e265b2828f56919248642c94b5fd68b0fc77bf252c6774a1cecc329c7423c7b1"
+    },
+    {
+      "id": "urn:agp:schema:v1:protocol:common:node-id",
+      "owner": "@agp/protocol",
+      "path": "common/node-id.schema.json",
+      "kind": "scalar",
+      "typescript": "NodeId",
+      "sha256": "0cac5a43bf1c940828e70224fbfd20c08ad413eafb4139b9d9778ff368368942"
+    },
+    {
+      "id": "urn:agp:schema:v1:protocol:common:node-path",
+      "owner": "@agp/protocol",
+      "path": "common/node-path.schema.json",
+      "kind": "array",
+      "typescript": "NodePath",
+      "sha256": "62a92cdd4e4530dfd749422e40439b54757554ca13d96d89b522a3cadcca289d"
+    },
+    {
+      "id": "urn:agp:schema:v1:protocol:common:return-token",
+      "owner": "@agp/protocol",
+      "path": "common/return-token.schema.json",
+      "kind": "scalar",
+      "typescript": "ReturnToken",
+      "sha256": "7747860fd1e51ea5df4f1fce1ce743e8a5383fd5a5897491d60acec22fb2f3d1"
+    },
+    {
+      "id": "urn:agp:schema:v1:protocol:common:session-id",
+      "owner": "@agp/protocol",
+      "path": "common/session-id.schema.json",
+      "kind": "scalar",
+      "typescript": "SessionId",
+      "sha256": "5807b8a33aa952aa37c556f335f11de04f271d11e2183bc03c87c9caec7050f9"
+    },
+    {
+      "id": "urn:agp:schema:v1:protocol:common:wire-revision",
+      "owner": "@agp/protocol",
+      "path": "common/wire-revision.schema.json",
+      "kind": "scalar",
+      "typescript": "WireRevision",
+      "sha256": "ff8e5d687ec3ce9f45b2c6f12f720632689d125212375c4cc15658c6c00ff4d8"
+    },
+    {
+      "id": "urn:agp:schema:v1:protocol:routing:endpoint-source",
+      "owner": "@agp/protocol",
+      "path": "routing/endpoint-source.schema.json",
+      "kind": "routing-record",
+      "typescript": "EndpointSource",
+      "sha256": "ef8e4f39ba55da21ff53d724af253f90fb937c2692d130884cabfab7c1f3dbfe"
+    },
+    {
+      "id": "urn:agp:schema:v1:protocol:routing:route-advertisement",
+      "owner": "@agp/protocol",
+      "path": "routing/route-advertisement.schema.json",
+      "kind": "routing-record",
+      "typescript": "RouteAdvertisement",
+      "sha256": "46aa0925a4854f76002d1cc6904ab16d4ebbdd9014d6f9195dfb27c5fd46f460"
+    },
+    {
+      "id": "urn:agp:schema:v1:protocol:routing:route-key",
+      "owner": "@agp/protocol",
+      "path": "routing/route-key.schema.json",
+      "kind": "routing-record",
+      "typescript": "RouteKey",
+      "sha256": "5fd00438f1d11cdcb39bbcec33e1bbd5bcb6840d8aa7ed5441249e8a75022d9a"
+    },
+    {
+      "id": "urn:agp:schema:v1:protocol:routing:route-rejection",
+      "owner": "@agp/protocol",
+      "path": "routing/route-rejection.schema.json",
+      "kind": "routing-record",
+      "typescript": "RouteRejection",
+      "sha256": "11e05890d773d6906ef82049a9736dd8031e83463996a17b09a86626e1212f21"
+    },
+    {
+      "id": "urn:agp:schema:v1:protocol:wire:data-body",
+      "owner": "@agp/protocol",
+      "path": "wire/data-body.schema.json",
+      "kind": "wire-body",
+      "typescript": "DataBody",
+      "sha256": "b16be255c822073af94ee181a18f207dab836269c3e4c21e252518f650ba0a7c"
+    },
+    {
+      "id": "urn:agp:schema:v1:protocol:wire:data-message",
+      "owner": "@agp/protocol",
+      "path": "wire/data-message.schema.json",
+      "kind": "wire-message",
+      "typescript": "DataMessage",
+      "sha256": "1b136bfa0d67ea1f72eaa556c6e32f50103eb6b7b1522ba24a653b216a8ff086"
+    },
+    {
+      "id": "urn:agp:schema:v1:protocol:wire:delivery-error-body",
+      "owner": "@agp/protocol",
+      "path": "wire/delivery-error-body.schema.json",
+      "kind": "wire-body",
+      "typescript": "DeliveryErrorBody",
+      "sha256": "dba00c012144b0ff79790b9257650fe6e2e421d1fb8bc469e0250cc7e9b46aa0"
+    },
+    {
+      "id": "urn:agp:schema:v1:protocol:wire:envelope",
+      "owner": "@agp/protocol",
+      "path": "wire/envelope.schema.json",
+      "kind": "wire-envelope",
+      "typescript": "AgpEnvelope",
+      "sha256": "d736885c2f99e5041ab959fd6ae0e8a7affb32a028df002de9bf0606de3f8c87"
+    },
+    {
+      "id": "urn:agp:schema:v1:protocol:wire:error-message",
+      "owner": "@agp/protocol",
+      "path": "wire/error-message.schema.json",
+      "kind": "wire-message",
+      "typescript": "ErrorMessage",
+      "sha256": "cc8805c5ccfb6472c87f179aaea831ac192269284beb019aab2878e9eceff045"
+    },
+    {
+      "id": "urn:agp:schema:v1:protocol:wire:keepalive-body",
+      "owner": "@agp/protocol",
+      "path": "wire/keepalive-body.schema.json",
+      "kind": "wire-body",
+      "typescript": "KeepaliveBody",
+      "sha256": "54b0b2956d9afb3cb7eb006d3bf201193010906095e3607ff877420b0a312252"
+    },
+    {
+      "id": "urn:agp:schema:v1:protocol:wire:keepalive-message",
+      "owner": "@agp/protocol",
+      "path": "wire/keepalive-message.schema.json",
+      "kind": "wire-message",
+      "typescript": "KeepaliveMessage",
+      "sha256": "092b578ed83cd916fbc221ac15f95f21ca371db242c5fe519ad6afad782d43cb"
+    },
+    {
+      "id": "urn:agp:schema:v1:protocol:wire:message",
+      "owner": "@agp/protocol",
+      "path": "wire/message.schema.json",
+      "kind": "wire-union",
+      "typescript": "AgpMessage",
+      "sha256": "9e48c48624a16e1f042ef0702feb12f6d5e03e4fd825deeb76e2b7d3f56c8f80"
+    },
+    {
+      "id": "urn:agp:schema:v1:protocol:wire:notification-body",
+      "owner": "@agp/protocol",
+      "path": "wire/notification-body.schema.json",
+      "kind": "wire-body",
+      "typescript": "NotificationBody",
+      "sha256": "a838d85e2deb12ccc45208ebbcfa0f971e2961d459ccb80ed60e7dfdcf23fffa"
+    },
+    {
+      "id": "urn:agp:schema:v1:protocol:wire:notification-message",
+      "owner": "@agp/protocol",
+      "path": "wire/notification-message.schema.json",
+      "kind": "wire-message",
+      "typescript": "NotificationMessage",
+      "sha256": "d26cf192e1cabfb7125ee0689112836d81575812f377de755e1807a76c69b55f"
+    },
+    {
+      "id": "urn:agp:schema:v1:protocol:wire:open-body",
+      "owner": "@agp/protocol",
+      "path": "wire/open-body.schema.json",
+      "kind": "wire-body",
+      "typescript": "OpenBody",
+      "sha256": "b630279d4d4ef6a465b78f00054f4a8625b7aff20f28917176d58b1b32150fab"
+    },
+    {
+      "id": "urn:agp:schema:v1:protocol:wire:open-message",
+      "owner": "@agp/protocol",
+      "path": "wire/open-message.schema.json",
+      "kind": "wire-message",
+      "typescript": "OpenMessage",
+      "sha256": "8cb73c5224ee7390882b9a08418f246117b8767c5ec68df5d2dd5859d42d754c"
+    },
+    {
+      "id": "urn:agp:schema:v1:protocol:wire:route-ack-body",
+      "owner": "@agp/protocol",
+      "path": "wire/route-ack-body.schema.json",
+      "kind": "wire-body",
+      "typescript": "RouteAckBody",
+      "sha256": "e2776b8ba9100539b377c1631827b3dc350759c5e60ca67744b85781404c9537"
+    },
+    {
+      "id": "urn:agp:schema:v1:protocol:wire:route-ack-message",
+      "owner": "@agp/protocol",
+      "path": "wire/route-ack-message.schema.json",
+      "kind": "wire-message",
+      "typescript": "RouteAckMessage",
+      "sha256": "d7d14a19c97ab6010f6702fb3d8a234d611ffd15bc5227d510c28195084e2c97"
+    },
+    {
+      "id": "urn:agp:schema:v1:protocol:wire:route-update-body",
+      "owner": "@agp/protocol",
+      "path": "wire/route-update-body.schema.json",
+      "kind": "wire-body",
+      "typescript": "RouteUpdateBody",
+      "sha256": "88c0f7fbaba799a78c9496fa858f2092e7484b867e8347086c79676a88c5ee31"
+    },
+    {
+      "id": "urn:agp:schema:v1:protocol:wire:route-update-message",
+      "owner": "@agp/protocol",
+      "path": "wire/route-update-message.schema.json",
+      "kind": "wire-message",
+      "typescript": "RouteUpdateMessage",
+      "sha256": "fa325332ff18e5acef231c4c0213a9d29f54565d203520d10697e9570f6bc207"
+    }
+  ]
+}

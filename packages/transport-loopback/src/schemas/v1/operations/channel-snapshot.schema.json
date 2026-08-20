@@ -1,0 +1,207 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:agp:schema:v1:transport-loopback:operations:channel-snapshot",
+  "title": "AGP Loopback channel-snapshot",
+  "x-agp": {
+    "owner": "@agp/transport-loopback",
+    "typescript": "ChannelSnapshot",
+    "kind": "operations",
+    "mechanics": "Sovereign channel-snapshot data contract owned by @agp/transport-loopback.",
+    "rationale": "One closed record keeps production Loopback configuration and state independently inspectable.",
+    "consequence": "Accepting another shape would make fabric capacity, lifecycle, or terminal evidence ambiguous.",
+    "semanticRules": [
+      "LOOPBACK-SNAPSHOT-RETENTION-1"
+    ]
+  },
+  "oneOf": [
+    {
+      "type": "object",
+      "properties": {
+        "channelId": {
+          "description": "Opaque bounded fabric-local channel identity.",
+          "type": "string",
+          "pattern": "^channel-[0-9a-f]{16}$"
+        },
+        "leftTransport": {
+          "description": "Connecting transport, fixed at commit.",
+          "$ref": "urn:agp:schema:v1:transport-loopback:common:transport-name"
+        },
+        "rightTransport": {
+          "description": "Accepting transport, fixed at commit.",
+          "$ref": "urn:agp:schema:v1:transport-loopback:common:transport-name"
+        },
+        "queuedPacketsLeft": {
+          "description": "Packets queued for the connecting endpoint.",
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 9007199254740991
+        },
+        "queuedBytesLeft": {
+          "description": "Bytes queued for the connecting endpoint.",
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 9007199254740991
+        },
+        "queuedPacketsRight": {
+          "description": "Packets queued for the accepting endpoint.",
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 9007199254740991
+        },
+        "queuedBytesRight": {
+          "description": "Bytes queued for the accepting endpoint.",
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 9007199254740991
+        },
+        "state": {
+          "description": "Both endpoints are open.",
+          "const": "Open"
+        }
+      },
+      "required": [
+        "channelId",
+        "leftTransport",
+        "rightTransport",
+        "queuedPacketsLeft",
+        "queuedBytesLeft",
+        "queuedPacketsRight",
+        "queuedBytesRight",
+        "state"
+      ],
+      "additionalProperties": false
+    },
+    {
+      "type": "object",
+      "properties": {
+        "channelId": {
+          "description": "Opaque bounded fabric-local channel identity.",
+          "type": "string",
+          "pattern": "^channel-[0-9a-f]{16}$"
+        },
+        "leftTransport": {
+          "description": "Connecting transport, fixed at commit.",
+          "$ref": "urn:agp:schema:v1:transport-loopback:common:transport-name"
+        },
+        "rightTransport": {
+          "description": "Accepting transport, fixed at commit.",
+          "$ref": "urn:agp:schema:v1:transport-loopback:common:transport-name"
+        },
+        "queuedPacketsLeft": {
+          "description": "Packets queued for the connecting endpoint.",
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 9007199254740991
+        },
+        "queuedBytesLeft": {
+          "description": "Bytes queued for the connecting endpoint.",
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 9007199254740991
+        },
+        "queuedPacketsRight": {
+          "description": "Packets queued for the accepting endpoint.",
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 9007199254740991
+        },
+        "queuedBytesRight": {
+          "description": "Bytes queued for the accepting endpoint.",
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 9007199254740991
+        },
+        "state": {
+          "description": "Close is initiated or one endpoint is terminal.",
+          "const": "Closing"
+        },
+        "leftTerminal": {
+          "description": "Connecting endpoint terminal, when committed.",
+          "$ref": "urn:agp:schema:v1:transport:contracts:transport-terminal"
+        },
+        "rightTerminal": {
+          "description": "Accepting endpoint terminal, when committed.",
+          "$ref": "urn:agp:schema:v1:transport:contracts:transport-terminal"
+        }
+      },
+      "required": [
+        "channelId",
+        "leftTransport",
+        "rightTransport",
+        "state",
+        "queuedPacketsLeft",
+        "queuedBytesLeft",
+        "queuedPacketsRight",
+        "queuedBytesRight"
+      ],
+      "additionalProperties": false
+    },
+    {
+      "type": "object",
+      "properties": {
+        "channelId": {
+          "description": "Opaque bounded fabric-local channel identity.",
+          "type": "string",
+          "pattern": "^channel-[0-9a-f]{16}$"
+        },
+        "leftTransport": {
+          "description": "Connecting transport, fixed at commit.",
+          "$ref": "urn:agp:schema:v1:transport-loopback:common:transport-name"
+        },
+        "rightTransport": {
+          "description": "Accepting transport, fixed at commit.",
+          "$ref": "urn:agp:schema:v1:transport-loopback:common:transport-name"
+        },
+        "queuedPacketsLeft": {
+          "description": "Packets queued for the connecting endpoint.",
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 9007199254740991
+        },
+        "queuedBytesLeft": {
+          "description": "Bytes queued for the connecting endpoint.",
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 9007199254740991
+        },
+        "queuedPacketsRight": {
+          "description": "Packets queued for the accepting endpoint.",
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 9007199254740991
+        },
+        "queuedBytesRight": {
+          "description": "Bytes queued for the accepting endpoint.",
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 9007199254740991
+        },
+        "state": {
+          "description": "Both endpoint terminals are committed.",
+          "const": "Terminal"
+        },
+        "leftTerminal": {
+          "description": "Connecting endpoint terminal.",
+          "$ref": "urn:agp:schema:v1:transport:contracts:transport-terminal"
+        },
+        "rightTerminal": {
+          "description": "Accepting endpoint terminal.",
+          "$ref": "urn:agp:schema:v1:transport:contracts:transport-terminal"
+        }
+      },
+      "required": [
+        "channelId",
+        "leftTransport",
+        "rightTransport",
+        "queuedPacketsLeft",
+        "queuedBytesLeft",
+        "queuedPacketsRight",
+        "queuedBytesRight",
+        "state",
+        "leftTerminal",
+        "rightTerminal"
+      ],
+      "additionalProperties": false
+    }
+  ]
+}

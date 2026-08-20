@@ -1,0 +1,38 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:agp:schema:v1:transport:contracts:transport-close-intent",
+  "title": "TransportCloseIntent",
+  "description": "Bounded neutral graceful-close intent.",
+  "x-agp": {
+    "owner": "@agp/transport",
+    "typescript": "TransportCloseIntent",
+    "kind": "contract",
+    "mechanics": "Defines the bounded transport-close-intent value crossing the neutral transport boundary.",
+    "rationale": "One schema and generated type prevent adapter-specific reinterpretation.",
+    "consequence": "A divergent shape makes transport implementations observably incompatible.",
+    "semanticRules": []
+  },
+  "type": "object",
+  "properties": {
+    "kind": {
+      "type": "string",
+      "enum": [
+        "normal",
+        "node-stop",
+        "session-replaced",
+        "protocol-fatal"
+      ],
+      "description": "Neutral close classification."
+    },
+    "code": {
+      "type": "string",
+      "pattern": "^[A-Z][A-Z0-9_]{0,63}$",
+      "description": "Stable bounded local diagnostic code."
+    }
+  },
+  "required": [
+    "kind",
+    "code"
+  ],
+  "additionalProperties": false
+}

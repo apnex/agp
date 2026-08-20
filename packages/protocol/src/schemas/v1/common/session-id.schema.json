@@ -1,0 +1,19 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:agp:schema:v1:protocol:common:session-id",
+  "title": "SessionId",
+  "description": "Pair-scoped identifier issued by one session controller.",
+  "x-agp": {
+    "owner": "@agp/protocol",
+    "typescript": "SessionId",
+    "kind": "scalar",
+    "mechanics": "Pair-scoped identifier issued by one session controller.",
+    "rationale": "A sovereign contract gives validators and consumers one stable reasoning boundary.",
+    "consequence": "Accepting another shape would make peer interpretation or ownership ambiguous.",
+    "semanticRules": []
+  },
+  "type": "string",
+  "minLength": 6,
+  "maxLength": 6,
+  "pattern": "^[0-9a-f]{6}$"
+}

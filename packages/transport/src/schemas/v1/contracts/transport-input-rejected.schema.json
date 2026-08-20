@@ -1,0 +1,31 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:agp:schema:v1:transport:contracts:transport-input-rejected",
+  "title": "TransportInputRejected",
+  "description": "Ordered evidence that one carrier record could not form a common packet.",
+  "x-agp": {
+    "owner": "@agp/transport",
+    "typescript": "TransportInputRejected",
+    "kind": "contract",
+    "mechanics": "Defines the bounded transport-input-rejected value crossing the neutral transport boundary.",
+    "rationale": "One schema and generated type prevent adapter-specific reinterpretation.",
+    "consequence": "A divergent shape makes transport implementations observably incompatible.",
+    "semanticRules": []
+  },
+  "type": "object",
+  "properties": {
+    "kind": {
+      "const": "input-rejected",
+      "description": "Read-result discriminator."
+    },
+    "code": {
+      "$ref": "urn:agp:schema:v1:transport:codes:transport-input-rejection-code",
+      "description": "Stable rejection classification."
+    }
+  },
+  "required": [
+    "kind",
+    "code"
+  ],
+  "additionalProperties": false
+}

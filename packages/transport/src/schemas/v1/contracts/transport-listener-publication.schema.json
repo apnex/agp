@@ -1,0 +1,27 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:agp:schema:v1:transport:contracts:transport-listener-publication",
+  "title": "TransportListenerPublication",
+  "description": "Sanitized operator evidence returned by one listener.",
+  "x-agp": {
+    "owner": "@agp/transport",
+    "typescript": "TransportListenerPublication",
+    "kind": "contract",
+    "mechanics": "Defines the bounded transport-listener-publication value crossing the neutral transport boundary.",
+    "rationale": "One schema and generated type prevent adapter-specific reinterpretation.",
+    "consequence": "A divergent shape makes transport implementations observably incompatible.",
+    "semanticRules": []
+  },
+  "type": "object",
+  "properties": {
+    "displayAddress": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 256,
+      "pattern": "^[^\\u0000-\\u001F\\u007F]+$",
+      "description": "Optional non-authoritative display address."
+    }
+  },
+  "required": [],
+  "additionalProperties": false
+}

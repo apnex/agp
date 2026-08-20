@@ -1,0 +1,64 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:agp:schema:v1:core:operations:adjacency-snapshot",
+  "title": "AGP core adjacency-snapshot",
+  "x-agp": {
+    "owner": "@agp/core",
+    "typescript": "AdjacencySnapshot",
+    "kind": "operations",
+    "mechanics": "Sovereign adjacency-snapshot data contract owned by @agp/core.",
+    "rationale": "One schema gives runtime validators and consumers one stable reasoning boundary.",
+    "consequence": "Accepting another shape would make canonical state or SDK interpretation ambiguous.",
+    "semanticRules": [
+      "SESSION-CROSS-DIAL-1"
+    ]
+  },
+  "type": "object",
+  "properties": {
+    "adjacencyId": {
+      "$ref": "urn:agp:schema:v1:core:common:adjacency-id"
+    },
+    "expectedNodeId": {
+      "$ref": "urn:agp:schema:v1:protocol:common:node-id"
+    },
+    "transportRef": {
+      "$ref": "urn:agp:schema:v1:transport:common:transport-ref"
+    },
+    "desired": {
+      "type": "boolean"
+    },
+    "state": {
+      "type": "string",
+      "enum": [
+        "idle",
+        "dialing",
+        "satisfied",
+        "retry-wait",
+        "terminal"
+      ]
+    },
+    "activeControllerId": {
+      "type": "string",
+      "minLength": 1
+    },
+    "retryAttempt": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "retryAt": {
+      "$ref": "urn:agp:schema:v1:core:common:timestamp"
+    },
+    "lastReason": {
+      "type": "string",
+      "minLength": 1
+    }
+  },
+  "required": [
+    "adjacencyId",
+    "transportRef",
+    "desired",
+    "state",
+    "retryAttempt"
+  ],
+  "additionalProperties": false
+}

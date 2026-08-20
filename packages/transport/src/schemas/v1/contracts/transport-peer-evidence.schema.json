@@ -1,0 +1,86 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:agp:schema:v1:transport:contracts:transport-peer-evidence",
+  "title": "TransportPeerEvidence",
+  "description": "Closed immutable facts established during channel acquisition.",
+  "x-agp": {
+    "owner": "@agp/transport",
+    "typescript": "TransportPeerEvidence",
+    "kind": "contract",
+    "mechanics": "Defines the bounded transport-peer-evidence value crossing the neutral transport boundary.",
+    "rationale": "One schema and generated type prevent adapter-specific reinterpretation.",
+    "consequence": "A divergent shape makes transport implementations observably incompatible.",
+    "semanticRules": []
+  },
+  "type": "object",
+  "properties": {
+    "locality": {
+      "type": "string",
+      "enum": [
+        "process-local",
+        "network"
+      ],
+      "description": "Observed carrier locality."
+    },
+    "protection": {
+      "type": "string",
+      "enum": [
+        "none",
+        "integrity",
+        "confidentiality-and-integrity"
+      ],
+      "description": "Observed carrier protection."
+    },
+    "authentication": {
+      "oneOf": [
+        {
+          "type": "object",
+          "properties": {
+            "kind": {
+              "const": "none",
+              "description": "No authenticated principal."
+            }
+          },
+          "required": [
+            "kind"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "kind": {
+              "const": "verified",
+              "description": "Verified-principal discriminator."
+            },
+            "principal": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 256,
+              "pattern": "^[^\\u0000-\\u001F\\u007F]+$",
+              "description": "Bounded verified deployment principal."
+            },
+            "method": {
+              "type": "string",
+              "pattern": "^[a-z][a-z0-9._-]{0,63}$",
+              "description": "Stable verification method."
+            }
+          },
+          "required": [
+            "kind",
+            "principal",
+            "method"
+          ],
+          "additionalProperties": false
+        }
+      ],
+      "description": "Observed authentication evidence."
+    }
+  },
+  "required": [
+    "locality",
+    "protection",
+    "authentication"
+  ],
+  "additionalProperties": false
+}

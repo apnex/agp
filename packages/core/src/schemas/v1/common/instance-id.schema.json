@@ -1,0 +1,17 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:agp:schema:v1:core:common:instance-id",
+  "title": "AGP core instance-id",
+  "x-agp": {
+    "owner": "@agp/core",
+    "typescript": "InstanceId",
+    "kind": "scalar",
+    "mechanics": "Sovereign instance-id data contract owned by @agp/core.",
+    "rationale": "One schema gives runtime validators and consumers one stable reasoning boundary.",
+    "consequence": "Accepting another shape would make canonical state or SDK interpretation ambiguous.",
+    "semanticRules": []
+  },
+  "type": "string",
+  "minLength": 1,
+  "maxLength": 160
+}

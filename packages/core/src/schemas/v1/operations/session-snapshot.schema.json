@@ -1,0 +1,89 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:agp:schema:v1:core:operations:session-snapshot",
+  "title": "AGP core session-snapshot",
+  "x-agp": {
+    "owner": "@agp/core",
+    "typescript": "SessionSnapshot",
+    "kind": "operations",
+    "mechanics": "Sovereign session-snapshot data contract owned by @agp/core.",
+    "rationale": "One schema gives runtime validators and consumers one stable reasoning boundary.",
+    "consequence": "Accepting another shape would make canonical state or SDK interpretation ambiguous.",
+    "semanticRules": [
+      "FSM-ESTABLISHED-MATRIX-1",
+      "SESSION-PAIR-SCOPE-1"
+    ]
+  },
+  "type": "object",
+  "properties": {
+    "identityState": {
+      "const": "admitted"
+    },
+    "sessionId": {
+      "$ref": "urn:agp:schema:v1:protocol:common:session-id"
+    },
+    "remoteNodeId": {
+      "$ref": "urn:agp:schema:v1:protocol:common:node-id"
+    },
+    "remoteSessionId": {
+      "$ref": "urn:agp:schema:v1:protocol:common:session-id"
+    },
+    "direction": {
+      "$ref": "urn:agp:schema:v1:core:common:direction"
+    },
+    "state": {
+      "$ref": "urn:agp:schema:v1:core:codes:connection-state"
+    },
+    "stateSince": {
+      "$ref": "urn:agp:schema:v1:core:common:timestamp"
+    },
+    "lastTransition": {
+      "$ref": "urn:agp:schema:v1:core:operations:session-transition-snapshot"
+    },
+    "timers": {
+      "type": "array",
+      "items": {
+        "$ref": "urn:agp:schema:v1:core:operations:timer-snapshot"
+      }
+    },
+    "queues": {
+      "$ref": "urn:agp:schema:v1:core:operations:session-queues-snapshot"
+    },
+    "lastTransportTerminal": {
+      "$ref": "urn:agp:schema:v1:transport:contracts:transport-terminal"
+    },
+    "establishedAt": {
+      "$ref": "urn:agp:schema:v1:core:common:timestamp"
+    },
+    "establishedDurationMs": {
+      "$ref": "urn:agp:schema:v1:core:common:duration-ms"
+    },
+    "negotiated": {
+      "$ref": "urn:agp:schema:v1:core:operations:negotiated-capabilities-snapshot"
+    },
+    "routeImport": {
+      "$ref": "urn:agp:schema:v1:core:operations:route-import-state"
+    },
+    "routeExport": {
+      "$ref": "urn:agp:schema:v1:core:operations:route-export-state"
+    },
+    "returnTokenAllocator": {
+      "$ref": "urn:agp:schema:v1:core:operations:return-token-allocator-snapshot"
+    }
+  },
+  "required": [
+    "identityState",
+    "sessionId",
+    "remoteNodeId",
+    "direction",
+    "state",
+    "stateSince",
+    "lastTransition",
+    "timers",
+    "queues",
+    "routeImport",
+    "routeExport",
+    "returnTokenAllocator"
+  ],
+  "additionalProperties": false
+}

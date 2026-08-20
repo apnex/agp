@@ -1,0 +1,116 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:agp:schema:v1:transport-loopback:operations:listener-snapshot",
+  "title": "AGP Loopback listener-snapshot",
+  "x-agp": {
+    "owner": "@agp/transport-loopback",
+    "typescript": "ListenerSnapshot",
+    "kind": "operations",
+    "mechanics": "Sovereign listener-snapshot data contract owned by @agp/transport-loopback.",
+    "rationale": "One closed record keeps production Loopback configuration and state independently inspectable.",
+    "consequence": "Accepting another shape would make fabric capacity, lifecycle, or terminal evidence ambiguous.",
+    "semanticRules": [
+      "LOOPBACK-SNAPSHOT-RETENTION-1"
+    ]
+  },
+  "oneOf": [
+    {
+      "type": "object",
+      "properties": {
+        "listenerId": {
+          "description": "Opaque bounded fabric-local listener identity.",
+          "type": "string",
+          "pattern": "^listener-[0-9a-f]{16}$"
+        },
+        "address": {
+          "description": "Exact registered address.",
+          "$ref": "urn:agp:schema:v1:transport-loopback:common:loopback-address"
+        },
+        "activeChannels": {
+          "description": "Physically retained accepted channels.",
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 9007199254740991
+        },
+        "state": {
+          "description": "Live listener state.",
+          "const": "Listening"
+        }
+      },
+      "required": [
+        "listenerId",
+        "address",
+        "activeChannels",
+        "state"
+      ],
+      "additionalProperties": false
+    },
+    {
+      "type": "object",
+      "properties": {
+        "listenerId": {
+          "description": "Opaque bounded fabric-local listener identity.",
+          "type": "string",
+          "pattern": "^listener-[0-9a-f]{16}$"
+        },
+        "address": {
+          "description": "Exact registered address.",
+          "$ref": "urn:agp:schema:v1:transport-loopback:common:loopback-address"
+        },
+        "activeChannels": {
+          "description": "Physically retained accepted channels.",
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 9007199254740991
+        },
+        "state": {
+          "description": "Listener close has begun.",
+          "const": "Closing"
+        }
+      },
+      "required": [
+        "listenerId",
+        "address",
+        "activeChannels",
+        "state"
+      ],
+      "additionalProperties": false
+    },
+    {
+      "type": "object",
+      "properties": {
+        "listenerId": {
+          "description": "Opaque bounded fabric-local listener identity.",
+          "type": "string",
+          "pattern": "^listener-[0-9a-f]{16}$"
+        },
+        "address": {
+          "description": "Exact registered address.",
+          "$ref": "urn:agp:schema:v1:transport-loopback:common:loopback-address"
+        },
+        "activeChannels": {
+          "description": "Physically retained accepted channels.",
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 9007199254740991
+        },
+        "state": {
+          "description": "Listener terminal is committed.",
+          "const": "Terminal"
+        },
+        "terminal": {
+          "description": "Exact neutral listener terminal.",
+          "$ref": "urn:agp:schema:v1:transport:contracts:transport-listener-terminal"
+        }
+      },
+      "required": [
+        "listenerId",
+        "address",
+        "activeChannels",
+        "state",
+        "terminal"
+      ],
+      "additionalProperties": false
+    }
+  ]
+}

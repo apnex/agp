@@ -1,0 +1,26 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:agp:schema:v1:binding-websocket:configuration:security",
+  "title": "WebSocketSecurityConfigData",
+  "x-agp": {
+    "owner": "@agp/binding-websocket",
+    "typescript": "WebSocketSecurityConfigData",
+    "kind": "configuration",
+    "mechanics": "Defines the security value owned by the WebSocket binding.",
+    "rationale": "Carrier-specific configuration and mapping remain outside the neutral kernel.",
+    "consequence": "Divergence makes WebSocket behavior ambiguous or leaks carrier authority.",
+    "semanticRules": []
+  },
+  "description": "Certified trusted-development security declaration.",
+  "type": "object",
+  "properties": {
+    "mode": {
+      "const": "trusted-development",
+      "description": "Explicit unauthenticated cleartext development profile."
+    }
+  },
+  "required": [
+    "mode"
+  ],
+  "additionalProperties": false
+}

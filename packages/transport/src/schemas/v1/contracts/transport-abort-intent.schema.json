@@ -1,0 +1,38 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:agp:schema:v1:transport:contracts:transport-abort-intent",
+  "title": "TransportAbortIntent",
+  "description": "Bounded neutral immediate-abort intent.",
+  "x-agp": {
+    "owner": "@agp/transport",
+    "typescript": "TransportAbortIntent",
+    "kind": "contract",
+    "mechanics": "Defines the bounded transport-abort-intent value crossing the neutral transport boundary.",
+    "rationale": "One schema and generated type prevent adapter-specific reinterpretation.",
+    "consequence": "A divergent shape makes transport implementations observably incompatible.",
+    "semanticRules": []
+  },
+  "type": "object",
+  "properties": {
+    "kind": {
+      "type": "string",
+      "enum": [
+        "deadline",
+        "capacity",
+        "invariant",
+        "forced-stop"
+      ],
+      "description": "Neutral abort classification."
+    },
+    "code": {
+      "type": "string",
+      "pattern": "^[A-Z][A-Z0-9_]{0,63}$",
+      "description": "Stable bounded local diagnostic code."
+    }
+  },
+  "required": [
+    "kind",
+    "code"
+  ],
+  "additionalProperties": false
+}

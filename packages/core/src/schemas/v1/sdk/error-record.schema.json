@@ -1,0 +1,43 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:agp:schema:v1:core:sdk:error-record",
+  "title": "AGP core error-record",
+  "x-agp": {
+    "owner": "@agp/core",
+    "typescript": "ErrorRecord",
+    "kind": "sdk",
+    "mechanics": "Sovereign error-record data contract owned by @agp/core.",
+    "rationale": "One schema gives runtime validators and consumers one stable reasoning boundary.",
+    "consequence": "Accepting another shape would make canonical state or SDK interpretation ambiguous.",
+    "semanticRules": []
+  },
+  "type": "object",
+  "properties": {
+    "code": {
+      "$ref": "urn:agp:schema:v1:core:codes:sdk-error-code"
+    },
+    "operation": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 128
+    },
+    "message": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 1024
+    },
+    "retryable": {
+      "type": "boolean"
+    },
+    "details": {
+      "$ref": "urn:agp:schema:v1:protocol:common:json-object"
+    }
+  },
+  "required": [
+    "code",
+    "operation",
+    "message",
+    "retryable"
+  ],
+  "additionalProperties": false
+}

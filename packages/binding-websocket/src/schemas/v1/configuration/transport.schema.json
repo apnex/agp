@@ -1,0 +1,41 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:agp:schema:v1:binding-websocket:configuration:transport",
+  "title": "WebSocketTransportConfigData",
+  "x-agp": {
+    "owner": "@agp/binding-websocket",
+    "typescript": "WebSocketTransportConfigData",
+    "kind": "configuration",
+    "mechanics": "Defines the transport value owned by the WebSocket binding.",
+    "rationale": "Carrier-specific configuration and mapping remain outside the neutral kernel.",
+    "consequence": "Divergence makes WebSocket behavior ambiguous or leaks carrier authority.",
+    "semanticRules": [
+      "WEBSOCKET-REFERENCE-UNIQUENESS-1"
+    ]
+  },
+  "description": "Complete resolver input for one certified WebSocket adapter.",
+  "type": "object",
+  "properties": {
+    "listeners": {
+      "type": "array",
+      "description": "Listener capability bindings.",
+      "items": {
+        "$ref": "urn:agp:schema:v1:binding-websocket:configuration:listener"
+      },
+      "maxItems": 4096
+    },
+    "targets": {
+      "type": "array",
+      "description": "Outbound target capability bindings.",
+      "items": {
+        "$ref": "urn:agp:schema:v1:binding-websocket:configuration:target"
+      },
+      "maxItems": 4096
+    }
+  },
+  "required": [
+    "listeners",
+    "targets"
+  ],
+  "additionalProperties": false
+}

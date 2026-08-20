@@ -1,0 +1,317 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:agp:design:uniform-node:artifact-certificate",
+  "title": "AGP uniform-node sandbox verification certificate",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schemaVersion",
+    "title",
+    "status",
+    "scope",
+    "sourceRevision",
+    "issuedAt",
+    "artifactRoot",
+    "schemaCatalogDigest",
+    "evidenceDigest",
+    "gateEvidence",
+    "claims",
+    "environment",
+    "findings",
+    "cleanup"
+  ],
+  "properties": {
+    "schemaVersion": {
+      "const": "agp.verification-certificate/v1"
+    },
+    "title": {
+      "const": "AGP ARTIFACT — SANDBOX VERIFIED"
+    },
+    "status": {
+      "const": "PASS"
+    },
+    "scope": {
+      "const": "AGP artifact sandbox"
+    },
+    "sourceRevision": {
+      "$ref": "urn:agp:design:uniform-node:verification-evidence#/$defs/sourceRevision"
+    },
+    "issuedAt": {
+      "$ref": "urn:agp:design:uniform-node:verification-evidence#/$defs/timestamp"
+    },
+    "artifactRoot": {
+      "type": "string",
+      "pattern": "^artifacts/verification/[A-Za-z0-9][A-Za-z0-9._-]{0,127}$"
+    },
+    "schemaCatalogDigest": {
+      "$ref": "urn:agp:design:uniform-node:verification-evidence#/$defs/sha256"
+    },
+    "evidenceDigest": {
+      "$ref": "urn:agp:design:uniform-node:verification-evidence#/$defs/sha256"
+    },
+    "gateEvidence": {
+      "type": "array",
+      "minItems": 9,
+      "maxItems": 9,
+      "prefixItems": [
+        {
+          "$ref": "#/$defs/AX0"
+        },
+        {
+          "$ref": "#/$defs/AX1"
+        },
+        {
+          "$ref": "#/$defs/AX2"
+        },
+        {
+          "$ref": "#/$defs/AX3"
+        },
+        {
+          "$ref": "#/$defs/AX4"
+        },
+        {
+          "$ref": "#/$defs/AX5"
+        },
+        {
+          "$ref": "#/$defs/AX6"
+        },
+        {
+          "$ref": "#/$defs/AX7"
+        },
+        {
+          "$ref": "#/$defs/AX8"
+        }
+      ],
+      "items": false
+    },
+    "claims": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["A9", "A14", "A0"],
+      "properties": {
+        "A9": {
+          "const": "sandbox-derived partial evidence"
+        },
+        "A14": {
+          "const": "finding-lifecycle subset evidence"
+        },
+        "A0": {
+          "const": "lineage context only; not certified"
+        }
+      }
+    },
+    "environment": {
+      "$ref": "urn:agp:design:uniform-node:verification-evidence#/$defs/environment"
+    },
+    "findings": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {
+        "type": "string",
+        "pattern": "^[A-Z0-9][A-Z0-9._-]{0,127}$"
+      }
+    },
+    "cleanup": {
+      "const": "PASS"
+    }
+  },
+  "$defs": {
+    "gateEvidence": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["gate", "path", "sha256"],
+      "properties": {
+        "gate": {
+          "$ref": "urn:agp:design:uniform-node:verification-evidence#/$defs/gate"
+        },
+        "path": {
+          "type": "string",
+          "pattern": "^AX[0-8]\\.json$"
+        },
+        "sha256": {
+          "$ref": "urn:agp:design:uniform-node:verification-evidence#/$defs/sha256"
+        }
+      }
+    },
+    "AX0": {
+      "allOf": [
+        {
+          "$ref": "#/$defs/gateEvidence"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "gate": {
+              "type": "string",
+              "const": "AX0"
+            },
+            "path": {
+              "type": "string",
+              "const": "AX0.json"
+            }
+          }
+        }
+      ]
+    },
+    "AX1": {
+      "allOf": [
+        {
+          "$ref": "#/$defs/gateEvidence"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "gate": {
+              "type": "string",
+              "const": "AX1"
+            },
+            "path": {
+              "type": "string",
+              "const": "AX1.json"
+            }
+          }
+        }
+      ]
+    },
+    "AX2": {
+      "allOf": [
+        {
+          "$ref": "#/$defs/gateEvidence"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "gate": {
+              "type": "string",
+              "const": "AX2"
+            },
+            "path": {
+              "type": "string",
+              "const": "AX2.json"
+            }
+          }
+        }
+      ]
+    },
+    "AX3": {
+      "allOf": [
+        {
+          "$ref": "#/$defs/gateEvidence"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "gate": {
+              "type": "string",
+              "const": "AX3"
+            },
+            "path": {
+              "type": "string",
+              "const": "AX3.json"
+            }
+          }
+        }
+      ]
+    },
+    "AX4": {
+      "allOf": [
+        {
+          "$ref": "#/$defs/gateEvidence"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "gate": {
+              "type": "string",
+              "const": "AX4"
+            },
+            "path": {
+              "type": "string",
+              "const": "AX4.json"
+            }
+          }
+        }
+      ]
+    },
+    "AX5": {
+      "allOf": [
+        {
+          "$ref": "#/$defs/gateEvidence"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "gate": {
+              "type": "string",
+              "const": "AX5"
+            },
+            "path": {
+              "type": "string",
+              "const": "AX5.json"
+            }
+          }
+        }
+      ]
+    },
+    "AX6": {
+      "allOf": [
+        {
+          "$ref": "#/$defs/gateEvidence"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "gate": {
+              "type": "string",
+              "const": "AX6"
+            },
+            "path": {
+              "type": "string",
+              "const": "AX6.json"
+            }
+          }
+        }
+      ]
+    },
+    "AX7": {
+      "allOf": [
+        {
+          "$ref": "#/$defs/gateEvidence"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "gate": {
+              "type": "string",
+              "const": "AX7"
+            },
+            "path": {
+              "type": "string",
+              "const": "AX7.json"
+            }
+          }
+        }
+      ]
+    },
+    "AX8": {
+      "allOf": [
+        {
+          "$ref": "#/$defs/gateEvidence"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "gate": {
+              "type": "string",
+              "const": "AX8"
+            },
+            "path": {
+              "type": "string",
+              "const": "AX8.json"
+            }
+          }
+        }
+      ]
+    }
+  }
+}

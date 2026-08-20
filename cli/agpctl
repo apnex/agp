@@ -1,0 +1,39 @@
+#!/usr/bin/env bash
+set -uo pipefail
+
+AGP_CLI_ROOT=${BASH_SOURCE[0]%/*}
+if [[ ${AGP_CLI_ROOT} == "${BASH_SOURCE[0]}" ]]; then
+  AGP_CLI_ROOT=.
+fi
+
+usage() {
+  printf '%s\n' \
+    "usage: agpctl connections.list [--json] [--url URL]" \
+    "       agpctl routes.list [--json] [--url URL]" >&2
+}
+
+if (( $# == 0 )); then
+  usage
+  exit 2
+fi
+
+command_name=$1
+shift
+
+case "${command_name}" in
+  connections.list)
+    exec "${AGP_CLI_ROOT}/cmd.connections.list.sh" "$@"
+    ;;
+  routes.list)
+    exec "${AGP_CLI_ROOT}/cmd.routes.list.sh" "$@"
+    ;;
+  -h|--help)
+    usage
+    exit 0
+    ;;
+  *)
+    printf 'agpctl: unsupported command: %s\n' "${command_name}" >&2
+    usage
+    exit 2
+    ;;
+esac

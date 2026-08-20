@@ -1,0 +1,39 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:agp:schema:v1:core:operations:session-transition-snapshot",
+  "title": "AGP core session-transition-snapshot",
+  "x-agp": {
+    "owner": "@agp/core",
+    "typescript": "SessionTransitionSnapshot",
+    "kind": "operations",
+    "mechanics": "Sovereign session-transition-snapshot data contract owned by @agp/core.",
+    "rationale": "One schema gives runtime validators and consumers one stable reasoning boundary.",
+    "consequence": "Accepting another shape would make canonical state or SDK interpretation ambiguous.",
+    "semanticRules": []
+  },
+  "type": "object",
+  "properties": {
+    "event": {
+      "$ref": "urn:agp:schema:v1:core:codes:session-event-code"
+    },
+    "from": {
+      "$ref": "urn:agp:schema:v1:core:codes:connection-state"
+    },
+    "to": {
+      "$ref": "urn:agp:schema:v1:core:codes:connection-state"
+    },
+    "at": {
+      "$ref": "urn:agp:schema:v1:core:common:timestamp"
+    },
+    "reasonCode": {
+      "$ref": "urn:agp:schema:v1:core:codes:session-reason-code"
+    }
+  },
+  "required": [
+    "event",
+    "from",
+    "to",
+    "at"
+  ],
+  "additionalProperties": false
+}

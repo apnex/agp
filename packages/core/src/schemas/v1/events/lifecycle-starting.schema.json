@@ -1,0 +1,58 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:agp:schema:v1:core:event:lifecycle-starting",
+  "title": "AGP core lifecycle-starting",
+  "x-agp": {
+    "owner": "@agp/core",
+    "typescript": "LifecycleStarting",
+    "kind": "event",
+    "mechanics": "Sovereign lifecycle-starting data contract owned by @agp/core.",
+    "rationale": "One schema gives runtime validators and consumers one stable reasoning boundary.",
+    "consequence": "Accepting another shape would make canonical state or SDK interpretation ambiguous.",
+    "semanticRules": []
+  },
+  "type": "object",
+  "properties": {
+    "schemaVersion": {
+      "const": "agp.event/v1"
+    },
+    "sequence": {
+      "$ref": "urn:agp:schema:v1:core:common:event-sequence"
+    },
+    "revision": {
+      "$ref": "urn:agp:schema:v1:core:common:operations-revision"
+    },
+    "nodeId": {
+      "$ref": "urn:agp:schema:v1:protocol:common:node-id"
+    },
+    "instanceId": {
+      "$ref": "urn:agp:schema:v1:core:common:instance-id"
+    },
+    "occurredAt": {
+      "$ref": "urn:agp:schema:v1:core:common:timestamp"
+    },
+    "kind": {
+      "const": "lifecycle.starting"
+    },
+    "subjectId": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 256
+    },
+    "data": {
+      "$ref": "urn:agp:schema:v1:core:event:lifecycle-starting-data"
+    }
+  },
+  "required": [
+    "schemaVersion",
+    "sequence",
+    "revision",
+    "nodeId",
+    "instanceId",
+    "occurredAt",
+    "kind",
+    "subjectId",
+    "data"
+  ],
+  "additionalProperties": false
+}

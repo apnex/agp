@@ -1,0 +1,35 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:agp:schema:v1:core:event:connection-preidentity-closed-data",
+  "title": "AGP core connection-preidentity-closed-data",
+  "x-agp": {
+    "owner": "@agp/core",
+    "typescript": "ConnectionPreidentityClosedData",
+    "kind": "event-data",
+    "mechanics": "Sovereign connection-preidentity-closed-data data contract owned by @agp/core.",
+    "rationale": "One schema gives runtime validators and consumers one stable reasoning boundary.",
+    "consequence": "Accepting another shape would make canonical state or SDK interpretation ambiguous.",
+    "semanticRules": []
+  },
+  "type": "object",
+  "properties": {
+    "localSessionId": {
+      "$ref": "urn:agp:schema:v1:protocol:common:session-id"
+    },
+    "direction": {
+      "$ref": "urn:agp:schema:v1:core:common:direction"
+    },
+    "reason": {
+      "$ref": "urn:agp:schema:v1:core:codes:session-reason-code"
+    },
+    "terminal": {
+      "$ref": "urn:agp:schema:v1:transport:contracts:transport-terminal"
+    }
+  },
+  "required": [
+    "localSessionId",
+    "direction",
+    "reason"
+  ],
+  "additionalProperties": false
+}

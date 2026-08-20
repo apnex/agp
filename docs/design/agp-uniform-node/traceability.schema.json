@@ -1,0 +1,194 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:agp:design:uniform-node:traceability",
+  "title": "AGP uniform-node requirement traceability",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schemaVersion", "sourceRevision", "records"],
+  "properties": {
+    "schemaVersion": {
+      "const": "agp.traceability/v1"
+    },
+    "sourceRevision": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 128
+    },
+    "records": {
+      "type": "array",
+      "minItems": 32,
+      "maxItems": 32,
+      "uniqueItems": true,
+      "items": {
+        "$ref": "#/$defs/requirementTrace"
+      }
+    }
+  },
+  "$defs": {
+    "nonEmptyString": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 512
+    },
+    "stringList": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/nonEmptyString"
+      },
+      "uniqueItems": true
+    },
+    "surveyAuthority": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["kind", "reference", "ratification"],
+      "properties": {
+        "kind": {
+          "const": "survey"
+        },
+        "reference": {
+          "$ref": "#/$defs/nonEmptyString"
+        },
+        "ratification": {
+          "const": "confirmed"
+        }
+      }
+    },
+    "decisionAuthority": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["kind", "reference", "ratification"],
+      "properties": {
+        "kind": {
+          "const": "decision"
+        },
+        "reference": {
+          "type": "string",
+          "pattern": "^D(?:[1-9]|1[0-7])$"
+        },
+        "ratification": {
+          "enum": ["required", "ratified", "proposed"]
+        }
+      }
+    },
+    "stakeholderAuthority": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["kind", "reference", "ratification"],
+      "properties": {
+        "kind": {
+          "const": "stakeholder"
+        },
+        "reference": {
+          "$ref": "#/$defs/nonEmptyString"
+        },
+        "ratification": {
+          "const": "explicitly-approved"
+        }
+      }
+    },
+    "axiomAuthority": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["kind", "reference", "ratification"],
+      "properties": {
+        "kind": {
+          "const": "axiom"
+        },
+        "reference": {
+          "enum": ["A3", "A4", "A8", "A9", "A14"]
+        },
+        "ratification": {
+          "const": "applicable-mechanics"
+        }
+      }
+    },
+    "requirementTrace": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "requirementId",
+        "ratificationStatus",
+        "authorities",
+        "designReferences",
+        "schemaIds",
+        "semanticRuleIds",
+        "owningGate",
+        "owningTests",
+        "integrationWitnesses"
+      ],
+      "properties": {
+        "requirementId": {
+          "type": "string",
+          "pattern": "^(?:U(?:[1-9]|1[0-5])|D(?:[1-9]|1[0-7]))$"
+        },
+        "ratificationStatus": {
+          "enum": ["required", "ratified", "proposed"]
+        },
+        "authorities": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "oneOf": [
+              {
+                "$ref": "#/$defs/surveyAuthority"
+              },
+              {
+                "$ref": "#/$defs/decisionAuthority"
+              },
+              {
+                "$ref": "#/$defs/stakeholderAuthority"
+              },
+              {
+                "$ref": "#/$defs/axiomAuthority"
+              }
+            ]
+          }
+        },
+        "designReferences": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/stringList"
+            },
+            {
+              "type": "array",
+              "minItems": 1
+            }
+          ]
+        },
+        "schemaIds": {
+          "$ref": "#/$defs/stringList"
+        },
+        "semanticRuleIds": {
+          "$ref": "#/$defs/stringList"
+        },
+        "owningGate": {
+          "enum": [
+            "AX0",
+            "AX1",
+            "AX2",
+            "AX3",
+            "AX4",
+            "AX5",
+            "AX6",
+            "AX7",
+            "AX8"
+          ]
+        },
+        "owningTests": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/stringList"
+            },
+            {
+              "type": "array",
+              "minItems": 1
+            }
+          ]
+        },
+        "integrationWitnesses": {
+          "$ref": "#/$defs/stringList"
+        }
+      }
+    }
+  }
+}

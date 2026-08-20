@@ -1,0 +1,24 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:agp:schema:v1:core:sdk:event-subscription-policy",
+  "title": "AGP core event-subscription-policy",
+  "x-agp": {
+    "owner": "@agp/core",
+    "typescript": "EventSubscriptionPolicy",
+    "kind": "sdk",
+    "mechanics": "Sovereign event-subscription-policy data contract owned by @agp/core.",
+    "rationale": "One schema gives runtime validators and consumers one stable reasoning boundary.",
+    "consequence": "Accepting another shape would make canonical state or SDK interpretation ambiguous.",
+    "semanticRules": []
+  },
+  "type": "object",
+  "properties": {
+    "bufferSize": {
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 65536
+    }
+  },
+  "required": [],
+  "additionalProperties": false
+}

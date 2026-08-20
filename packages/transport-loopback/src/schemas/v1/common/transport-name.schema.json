@@ -1,0 +1,17 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:agp:schema:v1:transport-loopback:common:transport-name",
+  "title": "AGP Loopback transport-name",
+  "x-agp": {
+    "owner": "@agp/transport-loopback",
+    "typescript": "TransportName",
+    "kind": "common",
+    "mechanics": "Sovereign transport-name data contract owned by @agp/transport-loopback.",
+    "rationale": "One closed record keeps production Loopback configuration and state independently inspectable.",
+    "consequence": "Accepting another shape would make fabric capacity, lifecycle, or terminal evidence ambiguous.",
+    "semanticRules": []
+  },
+  "description": "Fabric-issued name of one scoped transport capability.",
+  "type": "string",
+  "pattern": "^[a-z0-9][a-z0-9._-]{0,62}$"
+}

@@ -1,0 +1,49 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:agp:schema:v1:core:sdk:endpoint-delivery-context",
+  "title": "AGP core endpoint-delivery-context",
+  "x-agp": {
+    "owner": "@agp/core",
+    "typescript": "EndpointDeliveryContext",
+    "kind": "sdk",
+    "mechanics": "Sovereign endpoint-delivery-context data contract owned by @agp/core.",
+    "rationale": "One schema gives runtime validators and consumers one stable reasoning boundary.",
+    "consequence": "Accepting another shape would make canonical state or SDK interpretation ambiguous.",
+    "semanticRules": []
+  },
+  "type": "object",
+  "properties": {
+    "messageId": {
+      "$ref": "urn:agp:schema:v1:protocol:common:message-id"
+    },
+    "correlationId": {
+      "$ref": "urn:agp:schema:v1:protocol:common:correlation-id"
+    },
+    "source": {
+      "$ref": "urn:agp:schema:v1:protocol:routing:endpoint-source"
+    },
+    "destination": {
+      "$ref": "urn:agp:schema:v1:protocol:common:endpoint-name"
+    },
+    "receivedAt": {
+      "$ref": "urn:agp:schema:v1:core:common:timestamp"
+    },
+    "ingressNodeId": {
+      "$ref": "urn:agp:schema:v1:protocol:common:node-id"
+    },
+    "ingressSessionId": {
+      "$ref": "urn:agp:schema:v1:protocol:common:session-id"
+    },
+    "operationsRevision": {
+      "$ref": "urn:agp:schema:v1:core:common:operations-revision"
+    }
+  },
+  "required": [
+    "messageId",
+    "source",
+    "destination",
+    "receivedAt",
+    "operationsRevision"
+  ],
+  "additionalProperties": false
+}

@@ -1,0 +1,44 @@
+{
+  "profile": "hub",
+  "managementPort": 47101,
+  "endpoints": [
+    "hub/service"
+  ],
+  "transport": {
+    "listeners": [
+      {
+        "transportRef": "ws.listen",
+        "url": "ws://127.0.0.1:47100/agp",
+        "compression": {
+          "mode": "disabled"
+        },
+        "security": {
+          "mode": "trusted-development"
+        }
+      }
+    ],
+    "targets": []
+  },
+  "config": {
+    "nodeId": "hub",
+    "listen": {
+      "transportRef": "ws.listen"
+    },
+    "transit": {
+      "enabled": true,
+      "defaultHopLimit": 16
+    },
+    "identityAdmission": {
+      "mode": "allow"
+    },
+    "routeAdmission": {
+      "mode": "allow"
+    },
+    "limits": {
+      "maxLocalEndpoints": 16,
+      "maxRoutesPerSnapshot": 256,
+      "maxPathLength": 64,
+      "maxHopCount": 16
+    }
+  }
+}

@@ -1,0 +1,111 @@
+[
+  {
+    "agp": 1,
+    "plane": "control",
+    "type": "open",
+    "id": "open-1",
+    "body": {
+      "nodeId": "node.alpha",
+      "sessionId": "a0b1c2",
+      "holdTimeMs": 9000,
+      "receiveLimitBytes": 131072,
+      "maxRoutesPerSnapshot": 16,
+      "maxPathLength": 8,
+      "maxDataHopLimit": 16,
+      "transit": true
+    }
+  },
+  {
+    "agp": 1,
+    "plane": "control",
+    "type": "keepalive",
+    "id": "keepalive-1",
+    "body": {}
+  },
+  {
+    "agp": 1,
+    "plane": "control",
+    "type": "route.update",
+    "id": "routes-1",
+    "body": {
+      "revision": 1,
+      "routes": [
+        {
+          "endpoint": "demo/client",
+          "originNodeId": "node.alpha",
+          "path": ["node.alpha"]
+        },
+        {
+          "endpoint": "demo/service",
+          "originNodeId": "node.alpha",
+          "path": ["node.alpha"]
+        }
+      ]
+    }
+  },
+  {
+    "agp": 1,
+    "plane": "control",
+    "type": "route.ack",
+    "id": "routes-ack-1",
+    "body": {
+      "refId": "routes-1",
+      "revision": 1,
+      "rejected": [
+        {
+          "endpoint": "demo/service",
+          "originNodeId": "node.alpha",
+          "reasonCode": "POLICY"
+        }
+      ]
+    }
+  },
+  {
+    "agp": 1,
+    "plane": "control",
+    "type": "notification",
+    "id": "notification-1",
+    "body": {
+      "code": "CEASE",
+      "reason": "administrative stop"
+    }
+  },
+  {
+    "agp": 1,
+    "plane": "control",
+    "type": "error",
+    "id": "error-1",
+    "body": {
+      "code": "NO_ROUTE",
+      "refId": "data-1",
+      "returnToken": "0000000000000001",
+      "failedAtNodeId": "node.beta",
+      "reason": "no selected route"
+    }
+  },
+  {
+    "agp": 1,
+    "plane": "data",
+    "type": "message",
+    "id": "data-1",
+    "body": {
+      "source": {
+        "endpoint": "demo/client",
+        "originNodeId": "node.alpha"
+      },
+      "destination": "demo/service",
+      "correlationId": "request-1",
+      "returnToken": "0000000000000000",
+      "hopLimit": 8,
+      "payload": {
+        "operation": "ping",
+        "sequence": 1
+      }
+    },
+    "extensions": {
+      "example.trace": {
+        "sampled": true
+      }
+    }
+  }
+]

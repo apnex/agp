@@ -1,0 +1,570 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:agp:schema:message:v1",
+  "title": "AGP version 1 message",
+  "description": "One complete AGP JSON document carried in one WebSocket text message.",
+  "oneOf": [
+    {
+      "$ref": "#/$defs/openMessage"
+    },
+    {
+      "$ref": "#/$defs/keepaliveMessage"
+    },
+    {
+      "$ref": "#/$defs/endpointUpdateMessage"
+    },
+    {
+      "$ref": "#/$defs/endpointAckMessage"
+    },
+    {
+      "$ref": "#/$defs/notificationMessage"
+    },
+    {
+      "$ref": "#/$defs/errorMessage"
+    },
+    {
+      "$ref": "#/$defs/dataMessage"
+    }
+  ],
+  "$defs": {
+    "identifier": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 128,
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]{0,127}$"
+    },
+    "nodeId": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 128,
+      "pattern": "^[a-z0-9][a-z0-9._-]{0,127}$"
+    },
+    "endpointName": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 253,
+      "pattern": "^[a-z0-9][a-z0-9._-]{0,62}(?:/[a-z0-9][a-z0-9._-]{0,62})*$"
+    },
+    "wireNumber": {
+      "oneOf": [
+        {
+          "type": "integer",
+          "minimum": -9007199254740991,
+          "maximum": 9007199254740991
+        },
+        {
+          "type": "number",
+          "minimum": -1.7976931348623157e+308,
+          "maximum": 1.7976931348623157e+308,
+          "not": {
+            "type": "integer"
+          }
+        }
+      ],
+      "$comment": "Semantic validation must inspect the original token before lossy conversion. Every number must be finite IEEE-754 binary64; integer-valued numbers are limited to the safe-integer range."
+    },
+    "wireValue": {
+      "oneOf": [
+        {
+          "type": "null"
+        },
+        {
+          "type": "boolean"
+        },
+        {
+          "type": "string"
+        },
+        {
+          "$ref": "#/$defs/wireNumber"
+        },
+        {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/wireValue"
+          }
+        },
+        {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/$defs/wireValue"
+          }
+        }
+      ]
+    },
+    "extensions": {
+      "type": "object",
+      "maxProperties": 32,
+      "propertyNames": {
+        "type": "string",
+        "minLength": 3,
+        "maxLength": 128,
+        "pattern": "^[a-z0-9]+(?:[.-][a-z0-9][a-z0-9_-]*)+$"
+      },
+      "additionalProperties": {
+        "$ref": "#/$defs/wireValue"
+      }
+    },
+    "baseMessage": {
+      "type": "object",
+      "required": [
+        "agp",
+        "plane",
+        "type",
+        "id",
+        "body"
+      ],
+      "properties": {
+        "agp": {
+          "const": 1
+        },
+        "plane": {
+          "enum": [
+            "control",
+            "data"
+          ]
+        },
+        "type": {
+          "enum": [
+            "open",
+            "keepalive",
+            "endpoint.update",
+            "endpoint.ack",
+            "notification",
+            "error",
+            "message"
+          ]
+        },
+        "id": {
+          "$ref": "#/$defs/identifier",
+          "$comment": "The sender must generate a deployment-globally unique value; JSON Schema cannot prove uniqueness across messages."
+        },
+        "body": {
+          "type": "object"
+        },
+        "extensions": {
+          "$ref": "#/$defs/extensions"
+        }
+      },
+      "additionalProperties": false
+    },
+    "openBody": {
+      "type": "object",
+      "required": [
+        "nodeId",
+        "sessionId",
+        "role",
+        "holdTimeMs",
+        "receiveLimitBytes",
+        "maxEndpointsPerSession"
+      ],
+      "properties": {
+        "nodeId": {
+          "$ref": "#/$defs/nodeId"
+        },
+        "sessionId": {
+          "$ref": "#/$defs/identifier",
+          "$comment": "Session IDs are node-local, not deployment-global. The reference default emits exactly six lowercase hexadecimal characters; injected sources may use any schema-valid opaque identifier."
+        },
+        "role": {
+          "enum": [
+            "hub",
+            "spoke"
+          ]
+        },
+        "holdTimeMs": {
+          "oneOf": [
+            {
+              "const": 0
+            },
+            {
+              "type": "integer",
+              "minimum": 3000,
+              "maximum": 300000
+            }
+          ]
+        },
+        "receiveLimitBytes": {
+          "type": "integer",
+          "minimum": 131072,
+          "maximum": 16777216
+        },
+        "maxEndpointsPerSession": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 256
+        }
+      },
+      "additionalProperties": false
+    },
+    "openMessage": {
+      "allOf": [
+        {
+          "$ref": "#/$defs/baseMessage"
+        },
+        {
+          "properties": {
+            "plane": {
+              "const": "control"
+            },
+            "type": {
+              "const": "open"
+            },
+            "body": {
+              "$ref": "#/$defs/openBody"
+            }
+          }
+        }
+      ]
+    },
+    "keepaliveBody": {
+      "type": "object",
+      "maxProperties": 0,
+      "additionalProperties": false
+    },
+    "keepaliveMessage": {
+      "allOf": [
+        {
+          "$ref": "#/$defs/baseMessage"
+        },
+        {
+          "properties": {
+            "plane": {
+              "const": "control"
+            },
+            "type": {
+              "const": "keepalive"
+            },
+            "body": {
+              "$ref": "#/$defs/keepaliveBody"
+            }
+          }
+        }
+      ]
+    },
+    "endpointList": {
+      "type": "array",
+      "maxItems": 256,
+      "uniqueItems": true,
+      "items": {
+        "$ref": "#/$defs/endpointName"
+      }
+    },
+    "endpointUpdateBody": {
+      "type": "object",
+      "required": [
+        "revision",
+        "endpoints"
+      ],
+      "properties": {
+        "revision": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 9007199254740991
+        },
+        "endpoints": {
+          "$ref": "#/$defs/endpointList"
+        }
+      },
+      "additionalProperties": false
+    },
+    "endpointUpdateMessage": {
+      "allOf": [
+        {
+          "$ref": "#/$defs/baseMessage"
+        },
+        {
+          "properties": {
+            "plane": {
+              "const": "control"
+            },
+            "type": {
+              "const": "endpoint.update"
+            },
+            "body": {
+              "$ref": "#/$defs/endpointUpdateBody"
+            }
+          }
+        }
+      ]
+    },
+    "endpointAckBody": {
+      "type": "object",
+      "required": [
+        "refId",
+        "revision"
+      ],
+      "properties": {
+        "refId": {
+          "$ref": "#/$defs/identifier"
+        },
+        "revision": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 9007199254740991
+        }
+      },
+      "additionalProperties": false
+    },
+    "endpointAckMessage": {
+      "allOf": [
+        {
+          "$ref": "#/$defs/baseMessage"
+        },
+        {
+          "properties": {
+            "plane": {
+              "const": "control"
+            },
+            "type": {
+              "const": "endpoint.ack"
+            },
+            "body": {
+              "$ref": "#/$defs/endpointAckBody"
+            }
+          }
+        }
+      ]
+    },
+    "notificationBody": {
+      "type": "object",
+      "required": [
+        "code",
+        "reason"
+      ],
+      "properties": {
+        "code": {
+          "enum": [
+            "CEASE",
+            "UNSUPPORTED_VERSION",
+            "INVALID_MESSAGE",
+            "UNEXPECTED_MESSAGE",
+            "ROLE_MISMATCH",
+            "IDENTITY_REJECTED",
+            "IDENTITY_COLLISION",
+            "HOLD_TIMEOUT",
+            "ENDPOINT_CAPACITY_MISMATCH",
+            "UPDATE_REVISION_ERROR",
+            "SOURCE_NOT_OWNED",
+            "INTERNAL_ERROR"
+          ]
+        },
+        "reason": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 256
+        },
+        "refId": {
+          "$ref": "#/$defs/identifier"
+        }
+      },
+      "additionalProperties": false
+    },
+    "notificationMessage": {
+      "allOf": [
+        {
+          "$ref": "#/$defs/baseMessage"
+        },
+        {
+          "properties": {
+            "plane": {
+              "const": "control"
+            },
+            "type": {
+              "const": "notification"
+            },
+            "body": {
+              "$ref": "#/$defs/notificationBody"
+            }
+          }
+        }
+      ]
+    },
+    "deliveryErrorBody": {
+      "type": "object",
+      "required": [
+        "code",
+        "reason",
+        "refId"
+      ],
+      "properties": {
+        "code": {
+          "enum": [
+            "NO_ROUTE",
+            "SOURCE_NOT_SELECTED",
+            "DESTINATION_UNAVAILABLE",
+            "DESTINATION_LIMIT_EXCEEDED",
+            "BACKPRESSURE"
+          ]
+        },
+        "reason": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 256
+        },
+        "refId": {
+          "$ref": "#/$defs/identifier"
+        }
+      },
+      "additionalProperties": false
+    },
+    "endpointRejectedErrorBody": {
+      "type": "object",
+      "required": [
+        "code",
+        "reasonCode",
+        "reason",
+        "refId",
+        "revision",
+        "rejectedEndpoints"
+      ],
+      "properties": {
+        "code": {
+          "const": "ENDPOINT_REJECTED"
+        },
+        "reasonCode": {
+          "enum": [
+            "POLICY",
+            "CAPACITY"
+          ]
+        },
+        "reason": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 256
+        },
+        "refId": {
+          "$ref": "#/$defs/identifier"
+        },
+        "revision": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 9007199254740991
+        },
+        "rejectedEndpoints": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/endpointList"
+            },
+            {
+              "minItems": 1
+            }
+          ]
+        }
+      },
+      "additionalProperties": false
+    },
+    "sourceNotActiveErrorBody": {
+      "type": "object",
+      "required": [
+        "code",
+        "reasonCode",
+        "reason",
+        "refId",
+        "source"
+      ],
+      "properties": {
+        "code": {
+          "const": "SOURCE_NOT_ACTIVE"
+        },
+        "reasonCode": {
+          "enum": [
+            "POLICY_REJECTED",
+            "CAPACITY_REJECTED",
+            "UPDATE_NOT_INSTALLED"
+          ]
+        },
+        "reason": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 256
+        },
+        "refId": {
+          "$ref": "#/$defs/identifier"
+        },
+        "source": {
+          "$ref": "#/$defs/endpointName"
+        }
+      },
+      "additionalProperties": false
+    },
+    "errorBody": {
+      "oneOf": [
+        {
+          "$ref": "#/$defs/deliveryErrorBody"
+        },
+        {
+          "$ref": "#/$defs/endpointRejectedErrorBody"
+        },
+        {
+          "$ref": "#/$defs/sourceNotActiveErrorBody"
+        }
+      ]
+    },
+    "errorMessage": {
+      "allOf": [
+        {
+          "$ref": "#/$defs/baseMessage"
+        },
+        {
+          "properties": {
+            "plane": {
+              "const": "control"
+            },
+            "type": {
+              "const": "error"
+            },
+            "body": {
+              "$ref": "#/$defs/errorBody"
+            }
+          }
+        }
+      ]
+    },
+    "dataBody": {
+      "type": "object",
+      "required": [
+        "source",
+        "destination",
+        "payload"
+      ],
+      "properties": {
+        "source": {
+          "$ref": "#/$defs/endpointName"
+        },
+        "destination": {
+          "$ref": "#/$defs/endpointName"
+        },
+        "correlationId": {
+          "$ref": "#/$defs/identifier"
+        },
+        "payload": {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/$defs/wireValue"
+          }
+        }
+      },
+      "additionalProperties": false
+    },
+    "dataMessage": {
+      "allOf": [
+        {
+          "$ref": "#/$defs/baseMessage"
+        },
+        {
+          "properties": {
+            "plane": {
+              "const": "data"
+            },
+            "type": {
+              "const": "message"
+            },
+            "body": {
+              "$ref": "#/$defs/dataBody"
+            }
+          }
+        }
+      ]
+    }
+  }
+}

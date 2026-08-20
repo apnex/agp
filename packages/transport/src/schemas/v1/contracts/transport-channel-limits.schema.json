@@ -1,0 +1,44 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:agp:schema:v1:transport:contracts:transport-channel-limits",
+  "title": "TransportChannelLimits",
+  "description": "Exact common packet and inbound-buffer bounds for one channel.",
+  "x-agp": {
+    "owner": "@agp/transport",
+    "typescript": "TransportChannelLimits",
+    "kind": "contract",
+    "mechanics": "Defines the bounded transport-channel-limits value crossing the neutral transport boundary.",
+    "rationale": "One schema and generated type prevent adapter-specific reinterpretation.",
+    "consequence": "A divergent shape makes transport implementations observably incompatible.",
+    "semanticRules": [
+      "TRANSPORT-CHANNEL-ORDER-1"
+    ]
+  },
+  "type": "object",
+  "properties": {
+    "maxPacketBytes": {
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 9007199254740991,
+      "description": "Maximum bytes in one decoded packet."
+    },
+    "maxBufferedPackets": {
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 9007199254740991,
+      "description": "Maximum complete inbound packets retained."
+    },
+    "maxBufferedBytes": {
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 9007199254740991,
+      "description": "Maximum aggregate inbound packet bytes retained."
+    }
+  },
+  "required": [
+    "maxPacketBytes",
+    "maxBufferedPackets",
+    "maxBufferedBytes"
+  ],
+  "additionalProperties": false
+}

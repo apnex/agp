@@ -1,0 +1,25 @@
+{
+  "name": "@agp/transport-loopback",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
+    },
+    "./schemas/v1/*": "./dist/schemas/v1/*",
+    "./semantic-rules/v1/*": "./dist/semantic-rules/v1/*"
+  },
+  "scripts": {
+    "contracts:generate": "node scripts/generate-contracts.mjs",
+    "contracts:check": "node scripts/generate-contracts.mjs --check",
+    "build": "npm run contracts:check && tsc -b",
+    "test": "npm run build && node ../../scripts/run-tests.mjs test"
+  },
+  "dependencies": {
+    "@agp/transport": "0.1.0"
+  }
+}

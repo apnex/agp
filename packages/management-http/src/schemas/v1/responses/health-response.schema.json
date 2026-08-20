@@ -1,0 +1,61 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:agp:schema:v1:management:health-response",
+  "title": "ManagementHealth",
+  "description": "Health management response from one canonical SDK query.",
+  "x-agp": {
+    "owner": "@agp/management-http",
+    "typescript": "ManagementHealth",
+    "kind": "management-response",
+    "mechanics": "Health management response from one canonical SDK query.",
+    "rationale": "A sovereign response preserves the canonical SDK projection without adapter-owned inference.",
+    "consequence": "A generic or duplicated shape could diverge from the node operations truth.",
+    "semanticRules": []
+  },
+  "type": "object",
+  "required": [
+    "apiVersion",
+    "kind",
+    "meta",
+    "data"
+  ],
+  "properties": {
+    "apiVersion": {
+      "const": "agp.management/v1",
+      "description": "Stable management response envelope version."
+    },
+    "kind": {
+      "const": "Health",
+      "description": "Exact response discriminator."
+    },
+    "meta": {
+      "$ref": "urn:agp:schema:v1:management:response-meta",
+      "description": "Metadata captured by the one canonical OperationsReader query."
+    },
+    "data": {
+      "description": "Lifecycle evidence plus adapter-derived health and readiness flags.",
+      "type": "object",
+      "required": [
+        "lifecycle",
+        "healthy",
+        "ready"
+      ],
+      "properties": {
+        "lifecycle": {
+          "$ref": "urn:agp:schema:v1:core:operations:lifecycle-snapshot",
+          "description": "Exact canonical lifecycle snapshot."
+        },
+        "healthy": {
+          "type": "boolean",
+          "description": "False only when the node lifecycle is Failed."
+        },
+        "ready": {
+          "type": "boolean",
+          "description": "True only while the adapter is serving and the node lifecycle is Running."
+        }
+      },
+      "additionalProperties": false
+    }
+  },
+  "additionalProperties": false
+}

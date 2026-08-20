@@ -1,0 +1,77 @@
+{
+  "schemaVersion": "agp.semantic-rules/v1",
+  "owner": "@agp/transport-loopback",
+  "rules": [
+    {
+      "id": "LOOPBACK-EXPLICIT-FABRIC-1",
+      "phase": "construction",
+      "inputSchemaIds": [
+        "urn:agp:schema:v1:transport-loopback:configuration:fabric",
+        "urn:agp:schema:v1:transport-loopback:configuration:transport",
+        "urn:agp:schema:v1:transport-loopback:configuration:listener",
+        "urn:agp:schema:v1:transport-loopback:configuration:target"
+      ],
+      "resultCodes": [
+        "BOUND",
+        "REJECTED"
+      ],
+      "designReferences": [
+        "docs/design/agp-uniform-node/transports/loopback.md#2-explicit-fabric",
+        "docs/design/agp-uniform-node/transports/loopback.md#4-production-api-sketch"
+      ],
+      "implementation": "packages/transport-loopback/src/fabric.ts#createLoopbackFabric",
+      "owningTest": "packages/transport-loopback/test/contract/production-surface.test.js"
+    },
+    {
+      "id": "LOOPBACK-ADAPTER-INVARIANT-FAILURE-1",
+      "phase": "fabric",
+      "inputSchemaIds": [
+        "urn:agp:schema:v1:transport-loopback:operations:fabric-failure-snapshot",
+        "urn:agp:schema:v1:transport-loopback:operations:fabric-snapshot"
+      ],
+      "resultCodes": [
+        "ADAPTER_FAULT"
+      ],
+      "designReferences": [
+        "docs/design/agp-uniform-node/transports/loopback.md#11-invariants"
+      ],
+      "implementation": "packages/transport-loopback/src/fabric.ts#failAdapterInvariant",
+      "owningTest": "packages/transport-loopback/test/contract/operations-adapter-invariant-failure.test.js"
+    },
+    {
+      "id": "LOOPBACK-MONOTONIC-EXHAUSTION-1",
+      "phase": "fabric",
+      "inputSchemaIds": [
+        "urn:agp:schema:v1:transport-loopback:configuration:fabric",
+        "urn:agp:schema:v1:transport-loopback:operations:fabric-snapshot"
+      ],
+      "resultCodes": [
+        "COMMITTED",
+        "MONOTONIC_DOMAIN_EXHAUSTED"
+      ],
+      "designReferences": [
+        "docs/design/agp-uniform-node/transports/loopback.md#81-finite-monotonic-domains"
+      ],
+      "implementation": "packages/transport-loopback/src/operations.ts#preflightMonotonicDomain",
+      "owningTest": "packages/transport-loopback/test/contract/operations-monotonic-exhaustion.test.js"
+    },
+    {
+      "id": "LOOPBACK-SNAPSHOT-RETENTION-1",
+      "phase": "operations",
+      "inputSchemaIds": [
+        "urn:agp:schema:v1:transport-loopback:operations:listener-snapshot",
+        "urn:agp:schema:v1:transport-loopback:operations:channel-snapshot"
+      ],
+      "resultCodes": [
+        "LIVE_ROW",
+        "RELEASED",
+        "FAILED_FROZEN"
+      ],
+      "designReferences": [
+        "docs/design/agp-uniform-node/transports/loopback.md#102-snapshot-records"
+      ],
+      "implementation": "packages/transport-loopback/src/operations.ts#snapshot",
+      "owningTest": "packages/transport-loopback/test/contract/operations-snapshot-retention.test.js"
+    }
+  ]
+}

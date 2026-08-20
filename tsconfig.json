@@ -1,0 +1,29 @@
+{
+  "files": [],
+  "references": [
+    {
+      "path": "./packages/protocol"
+    },
+    {
+      "path": "./packages/transport"
+    },
+    {
+      "path": "./packages/binding-websocket"
+    },
+    {
+      "path": "./packages/transport-loopback"
+    },
+    {
+      "path": "./packages/core"
+    },
+    {
+      "path": "./packages/transport-node-ws"
+    },
+    {
+      "path": "./packages/node"
+    },
+    {
+      "path": "./packages/management-http"
+    }
+  ]
+}

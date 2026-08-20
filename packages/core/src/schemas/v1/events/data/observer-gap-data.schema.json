@@ -1,0 +1,28 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:agp:schema:v1:core:event:observer-gap-data",
+  "title": "AGP core observer-gap-data",
+  "x-agp": {
+    "owner": "@agp/core",
+    "typescript": "ObserverGapData",
+    "kind": "event-data",
+    "mechanics": "Sovereign observer-gap-data data contract owned by @agp/core.",
+    "rationale": "One schema gives runtime validators and consumers one stable reasoning boundary.",
+    "consequence": "Accepting another shape would make canonical state or SDK interpretation ambiguous.",
+    "semanticRules": []
+  },
+  "type": "object",
+  "properties": {
+    "droppedFrom": {
+      "$ref": "urn:agp:schema:v1:core:common:event-sequence"
+    },
+    "droppedTo": {
+      "$ref": "urn:agp:schema:v1:core:common:event-sequence"
+    }
+  },
+  "required": [
+    "droppedFrom",
+    "droppedTo"
+  ],
+  "additionalProperties": false
+}

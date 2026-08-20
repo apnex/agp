@@ -1,0 +1,27 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:agp:schema:v1:core:sdk:route-admission-result",
+  "title": "AGP core route-admission-result",
+  "x-agp": {
+    "owner": "@agp/core",
+    "typescript": "RouteAdmissionResult",
+    "kind": "sdk",
+    "mechanics": "Sovereign route-admission-result data contract owned by @agp/core.",
+    "rationale": "One schema gives runtime validators and consumers one stable reasoning boundary.",
+    "consequence": "Accepting another shape would make canonical state or SDK interpretation ambiguous.",
+    "semanticRules": []
+  },
+  "type": "object",
+  "properties": {
+    "decisions": {
+      "type": "array",
+      "items": {
+        "$ref": "urn:agp:schema:v1:core:sdk:route-admission-decision"
+      }
+    }
+  },
+  "required": [
+    "decisions"
+  ],
+  "additionalProperties": false
+}

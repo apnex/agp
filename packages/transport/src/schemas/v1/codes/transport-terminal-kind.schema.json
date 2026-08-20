@@ -1,0 +1,24 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:agp:schema:v1:transport:codes:transport-terminal-kind",
+  "title": "TransportTerminalKind",
+  "description": "Closed transport-terminal-kind code domain.",
+  "x-agp": {
+    "owner": "@agp/transport",
+    "typescript": "TransportTerminalKind",
+    "kind": "code",
+    "mechanics": "Defines the bounded transport-terminal-kind value crossing the neutral transport boundary.",
+    "rationale": "One schema and generated type prevent adapter-specific reinterpretation.",
+    "consequence": "A divergent shape makes transport implementations observably incompatible.",
+    "semanticRules": []
+  },
+  "type": "string",
+  "enum": [
+    "graceful",
+    "aborted",
+    "io-failure",
+    "resource-exhausted",
+    "binding-violation",
+    "adapter-fault"
+  ]
+}

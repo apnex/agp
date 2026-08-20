@@ -1,0 +1,16 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:agp:schema:v1:core:common:adjacency-id",
+  "title": "AGP core adjacency-id",
+  "x-agp": {
+    "owner": "@agp/core",
+    "typescript": "AdjacencyId",
+    "kind": "scalar",
+    "mechanics": "Sovereign adjacency-id data contract owned by @agp/core.",
+    "rationale": "One schema gives runtime validators and consumers one stable reasoning boundary.",
+    "consequence": "Accepting another shape would make canonical state or SDK interpretation ambiguous.",
+    "semanticRules": []
+  },
+  "type": "string",
+  "pattern": "^[A-Za-z0-9][A-Za-z0-9._-]{0,63}$"
+}

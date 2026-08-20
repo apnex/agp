@@ -1,0 +1,112 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:agp:schema:v1:core:operations:pre-identity-controller-snapshot",
+  "title": "AGP core pre-identity-controller-snapshot",
+  "x-agp": {
+    "owner": "@agp/core",
+    "typescript": "PreIdentityControllerSnapshot",
+    "kind": "operations",
+    "mechanics": "Sovereign pre-identity-controller-snapshot data contract owned by @agp/core.",
+    "rationale": "One schema gives runtime validators and consumers one stable reasoning boundary.",
+    "consequence": "Accepting another shape would make canonical state or SDK interpretation ambiguous.",
+    "semanticRules": []
+  },
+  "oneOf": [
+    {
+      "type": "object",
+      "properties": {
+        "identityState": {
+          "const": "pending"
+        },
+        "localSessionId": {
+          "$ref": "urn:agp:schema:v1:protocol:common:session-id"
+        },
+        "direction": {
+          "const": "inbound"
+        },
+        "state": {
+          "$ref": "urn:agp:schema:v1:core:codes:connection-state"
+        },
+        "stateSince": {
+          "$ref": "urn:agp:schema:v1:core:common:timestamp"
+        },
+        "lastTransition": {
+          "$ref": "urn:agp:schema:v1:core:operations:session-transition-snapshot"
+        },
+        "timers": {
+          "type": "array",
+          "items": {
+            "$ref": "urn:agp:schema:v1:core:operations:timer-snapshot"
+          }
+        },
+        "queues": {
+          "$ref": "urn:agp:schema:v1:core:operations:session-queues-snapshot"
+        },
+        "lastTransportTerminal": {
+          "$ref": "urn:agp:schema:v1:transport:contracts:transport-terminal"
+        }
+      },
+      "required": [
+        "identityState",
+        "localSessionId",
+        "direction",
+        "state",
+        "stateSince",
+        "lastTransition",
+        "timers",
+        "queues"
+      ],
+      "additionalProperties": false
+    },
+    {
+      "type": "object",
+      "properties": {
+        "identityState": {
+          "const": "pending"
+        },
+        "localSessionId": {
+          "$ref": "urn:agp:schema:v1:protocol:common:session-id"
+        },
+        "direction": {
+          "const": "outbound"
+        },
+        "state": {
+          "$ref": "urn:agp:schema:v1:core:codes:connection-state"
+        },
+        "stateSince": {
+          "$ref": "urn:agp:schema:v1:core:common:timestamp"
+        },
+        "lastTransition": {
+          "$ref": "urn:agp:schema:v1:core:operations:session-transition-snapshot"
+        },
+        "timers": {
+          "type": "array",
+          "items": {
+            "$ref": "urn:agp:schema:v1:core:operations:timer-snapshot"
+          }
+        },
+        "queues": {
+          "$ref": "urn:agp:schema:v1:core:operations:session-queues-snapshot"
+        },
+        "lastTransportTerminal": {
+          "$ref": "urn:agp:schema:v1:transport:contracts:transport-terminal"
+        },
+        "adjacencyId": {
+          "$ref": "urn:agp:schema:v1:core:common:adjacency-id"
+        }
+      },
+      "required": [
+        "identityState",
+        "localSessionId",
+        "direction",
+        "adjacencyId",
+        "state",
+        "stateSince",
+        "lastTransition",
+        "timers",
+        "queues"
+      ],
+      "additionalProperties": false
+    }
+  ]
+}

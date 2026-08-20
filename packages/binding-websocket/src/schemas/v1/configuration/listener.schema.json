@@ -1,0 +1,55 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:agp:schema:v1:binding-websocket:configuration:listener",
+  "title": "WebSocketListenerConfigData",
+  "x-agp": {
+    "owner": "@agp/binding-websocket",
+    "typescript": "WebSocketListenerConfigData",
+    "kind": "configuration",
+    "mechanics": "Defines the listener value owned by the WebSocket binding.",
+    "rationale": "Carrier-specific configuration and mapping remain outside the neutral kernel.",
+    "consequence": "Divergence makes WebSocket behavior ambiguous or leaks carrier authority.",
+    "semanticRules": []
+  },
+  "description": "One WebSocket listener capability binding.",
+  "type": "object",
+  "properties": {
+    "transportRef": {
+      "$ref": "urn:agp:schema:v1:transport:common:transport-ref",
+      "description": "Application-local logical acquisition reference."
+    },
+    "url": {
+      "type": "string",
+      "description": "Bound trusted-development ws: locator.",
+      "minLength": 1,
+      "maxLength": 2048,
+      "pattern": "^[^\\u0000-\\u001F\\u007F]+$"
+    },
+    "compression": {
+      "$ref": "urn:agp:schema:v1:binding-websocket:configuration:compression",
+      "description": "Carrier compression policy."
+    },
+    "liveness": {
+      "$ref": "urn:agp:schema:v1:binding-websocket:configuration:liveness",
+      "description": "Optional carrier-private liveness policy."
+    },
+    "security": {
+      "$ref": "urn:agp:schema:v1:binding-websocket:configuration:security",
+      "description": "Exact certified security profile."
+    },
+    "displayAddress": {
+      "type": "string",
+      "description": "Optional sanitized operator display evidence.",
+      "minLength": 1,
+      "maxLength": 256,
+      "pattern": "^[^\\u0000-\\u001F\\u007F]+$"
+    }
+  },
+  "required": [
+    "transportRef",
+    "url",
+    "compression",
+    "security"
+  ],
+  "additionalProperties": false
+}

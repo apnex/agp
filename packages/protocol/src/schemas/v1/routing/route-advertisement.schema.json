@@ -1,0 +1,40 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:agp:schema:v1:protocol:routing:route-advertisement",
+  "title": "RouteAdvertisement",
+  "description": "One selected path-vector route advertised by a peer.",
+  "x-agp": {
+    "owner": "@agp/protocol",
+    "typescript": "RouteAdvertisement",
+    "kind": "routing-record",
+    "mechanics": "One selected path-vector route advertised by a peer.",
+    "rationale": "A sovereign contract gives validators and consumers one stable reasoning boundary.",
+    "consequence": "Accepting another shape would make peer interpretation or ownership ambiguous.",
+    "semanticRules": [
+      "ROUTE-PATH-OWNERSHIP-1",
+      "ROUTE-PATH-LIMIT-1",
+      "ROUTE-RECEIVER-LOOP-1"
+    ]
+  },
+  "type": "object",
+  "required": [
+    "endpoint",
+    "originNodeId",
+    "path"
+  ],
+  "properties": {
+    "endpoint": {
+      "$ref": "urn:agp:schema:v1:protocol:common:endpoint-name",
+      "description": "Routable endpoint name."
+    },
+    "originNodeId": {
+      "$ref": "urn:agp:schema:v1:protocol:common:node-id",
+      "description": "Final node that originates the endpoint."
+    },
+    "path": {
+      "$ref": "urn:agp:schema:v1:protocol:common:node-path",
+      "description": "Complete ordered path through the advertising node, excluding the receiver."
+    }
+  },
+  "additionalProperties": false
+}

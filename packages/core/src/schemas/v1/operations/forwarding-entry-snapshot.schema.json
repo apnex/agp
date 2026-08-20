@@ -1,0 +1,40 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:agp:schema:v1:core:operations:forwarding-entry-snapshot",
+  "title": "AGP core forwarding-entry-snapshot",
+  "x-agp": {
+    "owner": "@agp/core",
+    "typescript": "ForwardingEntrySnapshot",
+    "kind": "operations",
+    "mechanics": "Sovereign forwarding-entry-snapshot data contract owned by @agp/core.",
+    "rationale": "One schema gives runtime validators and consumers one stable reasoning boundary.",
+    "consequence": "Accepting another shape would make canonical state or SDK interpretation ambiguous.",
+    "semanticRules": []
+  },
+  "type": "object",
+  "properties": {
+    "endpoint": {
+      "$ref": "urn:agp:schema:v1:protocol:common:endpoint-name"
+    },
+    "selectedRouteId": {
+      "$ref": "urn:agp:schema:v1:core:common:route-id"
+    },
+    "originNodeId": {
+      "$ref": "urn:agp:schema:v1:protocol:common:node-id"
+    },
+    "nextHop": {
+      "$ref": "urn:agp:schema:v1:core:operations:next-hop"
+    },
+    "resolvedAtRevision": {
+      "$ref": "urn:agp:schema:v1:core:common:operations-revision"
+    }
+  },
+  "required": [
+    "endpoint",
+    "selectedRouteId",
+    "originNodeId",
+    "nextHop",
+    "resolvedAtRevision"
+  ],
+  "additionalProperties": false
+}

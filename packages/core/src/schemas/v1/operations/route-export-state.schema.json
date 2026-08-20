@@ -1,0 +1,45 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:agp:schema:v1:core:operations:route-export-state",
+  "title": "AGP core route-export-state",
+  "x-agp": {
+    "owner": "@agp/core",
+    "typescript": "RouteExportState",
+    "kind": "operations",
+    "mechanics": "Sovereign route-export-state data contract owned by @agp/core.",
+    "rationale": "One schema gives runtime validators and consumers one stable reasoning boundary.",
+    "consequence": "Accepting another shape would make canonical state or SDK interpretation ambiguous.",
+    "semanticRules": [
+      "ROUTE-ACK-CORRELATION-1"
+    ]
+  },
+  "type": "object",
+  "properties": {
+    "routeDecisions": {
+      "type": "array",
+      "items": {
+        "$ref": "urn:agp:schema:v1:core:operations:adj-rib-out-route-snapshot"
+      }
+    },
+    "nextRevision": {
+      "$ref": "urn:agp:schema:v1:protocol:common:wire-revision"
+    },
+    "acked": {
+      "$ref": "urn:agp:schema:v1:core:operations:export-snapshot"
+    },
+    "outstanding": {
+      "$ref": "urn:agp:schema:v1:core:operations:export-snapshot"
+    },
+    "coalescedDesired": {
+      "type": "array",
+      "items": {
+        "$ref": "urn:agp:schema:v1:protocol:routing:route-advertisement"
+      }
+    }
+  },
+  "required": [
+    "routeDecisions",
+    "nextRevision"
+  ],
+  "additionalProperties": false
+}

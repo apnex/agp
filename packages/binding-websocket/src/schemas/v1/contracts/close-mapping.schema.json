@@ -1,0 +1,55 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:agp:schema:v1:binding-websocket:contracts:close-mapping",
+  "title": "WebSocketCloseMapping",
+  "x-agp": {
+    "owner": "@agp/binding-websocket",
+    "typescript": "WebSocketCloseMapping",
+    "kind": "contract",
+    "mechanics": "Defines the close-mapping value owned by the WebSocket binding.",
+    "rationale": "Carrier-specific configuration and mapping remain outside the neutral kernel.",
+    "consequence": "Divergence makes WebSocket behavior ambiguous or leaks carrier authority.",
+    "semanticRules": [
+      "WEBSOCKET-PACKET-BINDING-1"
+    ]
+  },
+  "description": "Sovereign projection from binding condition to empty-reason RFC 6455 close action.",
+  "type": "object",
+  "properties": {
+    "condition": {
+      "type": "string",
+      "enum": [
+        "local-close",
+        "malformed-framing",
+        "text-message",
+        "invalid-text-utf8",
+        "packet-too-large",
+        "receive-overflow",
+        "adapter-fault"
+      ],
+      "description": "Closed binding-owned condition."
+    },
+    "closeCode": {
+      "type": "integer",
+      "enum": [
+        1000,
+        1002,
+        1003,
+        1007,
+        1009,
+        1011
+      ],
+      "description": "RFC 6455 close status selected by the binding."
+    },
+    "reason": {
+      "const": "",
+      "description": "Binding-initiated close reasons are always empty."
+    }
+  },
+  "required": [
+    "condition",
+    "closeCode",
+    "reason"
+  ],
+  "additionalProperties": false
+}

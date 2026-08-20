@@ -1,0 +1,37 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:agp:schema:v1:protocol:wire:route-update-body",
+  "title": "RouteUpdateBody",
+  "description": "One authoritative complete route snapshot in an independent revision stream.",
+  "x-agp": {
+    "owner": "@agp/protocol",
+    "typescript": "RouteUpdateBody",
+    "kind": "wire-body",
+    "mechanics": "One authoritative complete route snapshot in an independent revision stream.",
+    "rationale": "A sovereign contract gives validators and consumers one stable reasoning boundary.",
+    "consequence": "Accepting another shape would make peer interpretation or ownership ambiguous.",
+    "semanticRules": [
+      "ROUTE-SNAPSHOT-REPLACE-1"
+    ]
+  },
+  "type": "object",
+  "required": [
+    "revision",
+    "routes"
+  ],
+  "properties": {
+    "revision": {
+      "$ref": "urn:agp:schema:v1:protocol:common:wire-revision",
+      "description": "Consumed inbound snapshot revision."
+    },
+    "routes": {
+      "type": "array",
+      "maxItems": 256,
+      "items": {
+        "$ref": "urn:agp:schema:v1:protocol:routing:route-advertisement"
+      },
+      "description": "Canonical complete route set; omission withdraws prior session-owned state."
+    }
+  },
+  "additionalProperties": false
+}

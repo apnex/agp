@@ -1,0 +1,41 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:agp:schema:v1:management:response-meta",
+  "title": "ManagementMeta",
+  "description": "Point-in-time identity and revision of one management projection.",
+  "x-agp": {
+    "owner": "@agp/management-http",
+    "typescript": "ManagementMeta",
+    "kind": "management-common",
+    "mechanics": "Point-in-time identity and revision of one management projection.",
+    "rationale": "A sovereign response preserves the canonical SDK projection without adapter-owned inference.",
+    "consequence": "A generic or duplicated shape could diverge from the node operations truth.",
+    "semanticRules": []
+  },
+  "type": "object",
+  "required": [
+    "nodeId",
+    "instanceId",
+    "capturedAt",
+    "revision"
+  ],
+  "properties": {
+    "nodeId": {
+      "$ref": "urn:agp:schema:v1:protocol:common:node-id",
+      "description": "Node whose state was queried."
+    },
+    "instanceId": {
+      "$ref": "urn:agp:schema:v1:core:common:instance-id",
+      "description": "Ephemeral runtime instance whose revision is represented."
+    },
+    "capturedAt": {
+      "$ref": "urn:agp:schema:v1:core:common:timestamp",
+      "description": "Wall-clock capture evidence."
+    },
+    "revision": {
+      "$ref": "urn:agp:schema:v1:core:common:operations-revision",
+      "description": "Canonical instance-local operations revision."
+    }
+  },
+  "additionalProperties": false
+}

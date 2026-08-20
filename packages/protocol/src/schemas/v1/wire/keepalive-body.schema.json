@@ -1,0 +1,18 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:agp:schema:v1:protocol:wire:keepalive-body",
+  "title": "KeepaliveBody",
+  "description": "Empty liveness-refresh body.",
+  "x-agp": {
+    "owner": "@agp/protocol",
+    "typescript": "KeepaliveBody",
+    "kind": "wire-body",
+    "mechanics": "Empty liveness-refresh body.",
+    "rationale": "A sovereign contract gives validators and consumers one stable reasoning boundary.",
+    "consequence": "Accepting another shape would make peer interpretation or ownership ambiguous.",
+    "semanticRules": []
+  },
+  "type": "object",
+  "properties": {},
+  "additionalProperties": false
+}

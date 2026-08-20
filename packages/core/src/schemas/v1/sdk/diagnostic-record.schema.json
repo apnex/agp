@@ -1,0 +1,58 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:agp:schema:v1:core:sdk:diagnostic-record",
+  "title": "AGP core diagnostic-record",
+  "x-agp": {
+    "owner": "@agp/core",
+    "typescript": "DiagnosticRecord",
+    "kind": "sdk",
+    "mechanics": "Sovereign diagnostic-record data contract owned by @agp/core.",
+    "rationale": "One schema gives runtime validators and consumers one stable reasoning boundary.",
+    "consequence": "Accepting another shape would make canonical state or SDK interpretation ambiguous.",
+    "semanticRules": []
+  },
+  "type": "object",
+  "properties": {
+    "schemaVersion": {
+      "const": "agp.diagnostic/v1"
+    },
+    "nodeId": {
+      "$ref": "urn:agp:schema:v1:protocol:common:node-id"
+    },
+    "instanceId": {
+      "$ref": "urn:agp:schema:v1:core:common:instance-id"
+    },
+    "occurredAt": {
+      "$ref": "urn:agp:schema:v1:core:common:timestamp"
+    },
+    "operationsRevision": {
+      "$ref": "urn:agp:schema:v1:core:common:operations-revision"
+    },
+    "domain": {
+      "$ref": "urn:agp:schema:v1:core:codes:diagnostic-domain"
+    },
+    "severity": {
+      "$ref": "urn:agp:schema:v1:core:codes:diagnostic-severity"
+    },
+    "code": {
+      "$ref": "urn:agp:schema:v1:core:codes:diagnostic-code"
+    },
+    "message": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 256,
+      "pattern": "^[^\\u0000-\\u001F\\u007F]+$"
+    }
+  },
+  "required": [
+    "schemaVersion",
+    "nodeId",
+    "instanceId",
+    "occurredAt",
+    "operationsRevision",
+    "domain",
+    "severity",
+    "code"
+  ],
+  "additionalProperties": false
+}

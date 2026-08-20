@@ -1,0 +1,33 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:agp:schema:v1:core:operations:route-import-state",
+  "title": "AGP core route-import-state",
+  "x-agp": {
+    "owner": "@agp/core",
+    "typescript": "RouteImportState",
+    "kind": "operations",
+    "mechanics": "Sovereign route-import-state data contract owned by @agp/core.",
+    "rationale": "One schema gives runtime validators and consumers one stable reasoning boundary.",
+    "consequence": "Accepting another shape would make canonical state or SDK interpretation ambiguous.",
+    "semanticRules": [
+      "ROUTE-SNAPSHOT-REVISION-1"
+    ]
+  },
+  "type": "object",
+  "properties": {
+    "consumedRevision": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 9007199254740991
+    },
+    "routeCount": {
+      "type": "integer",
+      "minimum": 0
+    }
+  },
+  "required": [
+    "consumedRevision",
+    "routeCount"
+  ],
+  "additionalProperties": false
+}

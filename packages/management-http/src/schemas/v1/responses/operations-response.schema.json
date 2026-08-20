@@ -1,0 +1,143 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:agp:schema:v1:management:operations-response",
+  "title": "ManagementOperationsSnapshot",
+  "description": "OperationsSnapshot management response from one canonical SDK query.",
+  "x-agp": {
+    "owner": "@agp/management-http",
+    "typescript": "ManagementOperationsSnapshot",
+    "kind": "management-response",
+    "mechanics": "OperationsSnapshot management response from one canonical SDK query.",
+    "rationale": "A sovereign response preserves the canonical SDK projection without adapter-owned inference.",
+    "consequence": "A generic or duplicated shape could diverge from the node operations truth.",
+    "semanticRules": []
+  },
+  "type": "object",
+  "required": [
+    "apiVersion",
+    "kind",
+    "meta",
+    "data"
+  ],
+  "properties": {
+    "apiVersion": {
+      "const": "agp.management/v1",
+      "description": "Stable management response envelope version."
+    },
+    "kind": {
+      "const": "OperationsSnapshot",
+      "description": "Exact response discriminator."
+    },
+    "meta": {
+      "$ref": "urn:agp:schema:v1:management:response-meta",
+      "description": "Metadata captured by the one canonical OperationsReader query."
+    },
+    "data": {
+      "description": "Complete same-revision operations state with only exact core entity schemas.",
+      "type": "object",
+      "required": [
+        "configuration",
+        "lifecycle",
+        "listener",
+        "adjacencies",
+        "localEndpoints",
+        "connections",
+        "advertisements",
+        "candidateRoutes",
+        "selectedRoutes",
+        "forwarding",
+        "routeExports",
+        "reverseCorrelations",
+        "resources",
+        "counters"
+      ],
+      "properties": {
+        "configuration": {
+          "$ref": "urn:agp:schema:v1:core:operations:configuration-snapshot",
+          "description": "Effective redacted configuration."
+        },
+        "lifecycle": {
+          "$ref": "urn:agp:schema:v1:core:operations:lifecycle-snapshot",
+          "description": "Runtime lifecycle."
+        },
+        "listener": {
+          "$ref": "urn:agp:schema:v1:core:operations:listener-snapshot",
+          "description": "Listener state."
+        },
+        "adjacencies": {
+          "type": "array",
+          "items": {
+            "$ref": "urn:agp:schema:v1:core:operations:adjacency-snapshot"
+          },
+          "description": "Canonical desired adjacency rows."
+        },
+        "localEndpoints": {
+          "type": "array",
+          "items": {
+            "$ref": "urn:agp:schema:v1:core:operations:local-endpoint-snapshot"
+          },
+          "description": "Canonical local endpoint bindings."
+        },
+        "connections": {
+          "type": "array",
+          "items": {
+            "$ref": "urn:agp:schema:v1:core:operations:connection-snapshot"
+          },
+          "description": "Canonical pending pre-identity controllers and admitted session rows."
+        },
+        "advertisements": {
+          "type": "array",
+          "items": {
+            "$ref": "urn:agp:schema:v1:core:operations:advertisement-snapshot"
+          },
+          "description": "Canonical Adj-RIB-In advertisements."
+        },
+        "candidateRoutes": {
+          "type": "array",
+          "items": {
+            "$ref": "urn:agp:schema:v1:core:operations:candidate-route-snapshot"
+          },
+          "description": "Canonical candidate route rows."
+        },
+        "selectedRoutes": {
+          "type": "array",
+          "items": {
+            "$ref": "urn:agp:schema:v1:core:operations:selected-route-snapshot"
+          },
+          "description": "Canonical selected route rows."
+        },
+        "forwarding": {
+          "type": "array",
+          "items": {
+            "$ref": "urn:agp:schema:v1:core:operations:forwarding-entry-snapshot"
+          },
+          "description": "Canonical forwarding rows."
+        },
+        "routeExports": {
+          "type": "array",
+          "items": {
+            "$ref": "urn:agp:schema:v1:core:operations:adj-rib-out-route-snapshot"
+          },
+          "description": "Canonical per-peer Adj-RIB-Out decisions."
+        },
+        "reverseCorrelations": {
+          "type": "array",
+          "items": {
+            "$ref": "urn:agp:schema:v1:core:operations:reverse-correlation-snapshot"
+          },
+          "description": "Canonical bounded reverse-correlation rows."
+        },
+        "resources": {
+          "$ref": "urn:agp:schema:v1:core:operations:resources-snapshot",
+          "description": "Canonical bounded resource gauges."
+        },
+        "counters": {
+          "$ref": "urn:agp:schema:v1:core:operations:counters-snapshot",
+          "description": "Canonical instance-local counters."
+        }
+      },
+      "additionalProperties": false
+    }
+  },
+  "additionalProperties": false
+}

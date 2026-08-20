@@ -1,0 +1,70 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:agp:schema:v1:transport-loopback:operations:counters-snapshot",
+  "title": "AGP Loopback counters-snapshot",
+  "x-agp": {
+    "owner": "@agp/transport-loopback",
+    "typescript": "CountersSnapshot",
+    "kind": "operations",
+    "mechanics": "Sovereign counters-snapshot data contract owned by @agp/transport-loopback.",
+    "rationale": "One closed record keeps production Loopback configuration and state independently inspectable.",
+    "consequence": "Accepting another shape would make fabric capacity, lifecycle, or terminal evidence ambiguous.",
+    "semanticRules": []
+  },
+  "type": "object",
+  "properties": {
+    "connectionsAccepted": {
+      "description": "Monotonic connectionsAccepted counter.",
+      "$ref": "urn:agp:schema:v1:transport-loopback:common:counter-value"
+    },
+    "connectionsRejected": {
+      "description": "Monotonic connectionsRejected counter.",
+      "$ref": "urn:agp:schema:v1:transport-loopback:common:counter-value"
+    },
+    "packetsAcceptedLeftToRight": {
+      "description": "Monotonic packetsAcceptedLeftToRight counter.",
+      "$ref": "urn:agp:schema:v1:transport-loopback:common:counter-value"
+    },
+    "bytesAcceptedLeftToRight": {
+      "description": "Monotonic bytesAcceptedLeftToRight counter.",
+      "$ref": "urn:agp:schema:v1:transport-loopback:common:counter-value"
+    },
+    "packetsAcceptedRightToLeft": {
+      "description": "Monotonic packetsAcceptedRightToLeft counter.",
+      "$ref": "urn:agp:schema:v1:transport-loopback:common:counter-value"
+    },
+    "bytesAcceptedRightToLeft": {
+      "description": "Monotonic bytesAcceptedRightToLeft counter.",
+      "$ref": "urn:agp:schema:v1:transport-loopback:common:counter-value"
+    },
+    "backpressureActivations": {
+      "description": "Monotonic backpressureActivations counter.",
+      "$ref": "urn:agp:schema:v1:transport-loopback:common:counter-value"
+    },
+    "gracefulChannelCloses": {
+      "description": "Monotonic gracefulChannelCloses counter.",
+      "$ref": "urn:agp:schema:v1:transport-loopback:common:counter-value"
+    },
+    "forcedChannelAborts": {
+      "description": "Monotonic forcedChannelAborts counter.",
+      "$ref": "urn:agp:schema:v1:transport-loopback:common:counter-value"
+    },
+    "adapterInvariantFaults": {
+      "description": "Monotonic adapterInvariantFaults counter.",
+      "$ref": "urn:agp:schema:v1:transport-loopback:common:counter-value"
+    }
+  },
+  "required": [
+    "connectionsAccepted",
+    "connectionsRejected",
+    "packetsAcceptedLeftToRight",
+    "bytesAcceptedLeftToRight",
+    "packetsAcceptedRightToLeft",
+    "bytesAcceptedRightToLeft",
+    "backpressureActivations",
+    "gracefulChannelCloses",
+    "forcedChannelAborts",
+    "adapterInvariantFaults"
+  ],
+  "additionalProperties": false
+}

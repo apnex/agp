@@ -1,0 +1,41 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:agp:schema:v1:management:configuration-response",
+  "title": "ManagementConfiguration",
+  "description": "Configuration management response from one canonical SDK query.",
+  "x-agp": {
+    "owner": "@agp/management-http",
+    "typescript": "ManagementConfiguration",
+    "kind": "management-response",
+    "mechanics": "Configuration management response from one canonical SDK query.",
+    "rationale": "A sovereign response preserves the canonical SDK projection without adapter-owned inference.",
+    "consequence": "A generic or duplicated shape could diverge from the node operations truth.",
+    "semanticRules": []
+  },
+  "type": "object",
+  "required": [
+    "apiVersion",
+    "kind",
+    "meta",
+    "data"
+  ],
+  "properties": {
+    "apiVersion": {
+      "const": "agp.management/v1",
+      "description": "Stable management response envelope version."
+    },
+    "kind": {
+      "const": "Configuration",
+      "description": "Exact response discriminator."
+    },
+    "meta": {
+      "$ref": "urn:agp:schema:v1:management:response-meta",
+      "description": "Metadata captured by the one canonical OperationsReader query."
+    },
+    "data": {
+      "$ref": "urn:agp:schema:v1:core:operations:configuration-snapshot",
+      "description": "Exact redacted core configuration snapshot."
+    }
+  },
+  "additionalProperties": false
+}

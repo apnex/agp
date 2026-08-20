@@ -1,0 +1,27 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:agp:schema:v1:core:operations:resources-snapshot",
+  "title": "AGP core resources-snapshot",
+  "x-agp": {
+    "owner": "@agp/core",
+    "typescript": "ResourcesSnapshot",
+    "kind": "operations",
+    "mechanics": "Sovereign resources-snapshot data contract owned by @agp/core.",
+    "rationale": "One schema gives runtime validators and consumers one stable reasoning boundary.",
+    "consequence": "Accepting another shape would make canonical state or SDK interpretation ambiguous.",
+    "semanticRules": []
+  },
+  "type": "object",
+  "properties": {
+    "gauges": {
+      "type": "object",
+      "additionalProperties": {
+        "$ref": "urn:agp:schema:v1:core:operations:resource-gauge"
+      }
+    }
+  },
+  "required": [
+    "gauges"
+  ],
+  "additionalProperties": false
+}

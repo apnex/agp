@@ -1,0 +1,17 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:agp:schema:v1:transport-loopback:common:fabric-id",
+  "title": "AGP Loopback fabric-id",
+  "x-agp": {
+    "owner": "@agp/transport-loopback",
+    "typescript": "FabricId",
+    "kind": "common",
+    "mechanics": "Sovereign fabric-id data contract owned by @agp/transport-loopback.",
+    "rationale": "One closed record keeps production Loopback configuration and state independently inspectable.",
+    "consequence": "Accepting another shape would make fabric capacity, lifecycle, or terminal evidence ambiguous.",
+    "semanticRules": []
+  },
+  "description": "Bounded display identity of one explicit fabric object.",
+  "type": "string",
+  "pattern": "^[a-z0-9][a-z0-9._-]{0,62}$"
+}

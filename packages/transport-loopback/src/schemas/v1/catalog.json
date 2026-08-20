@@ -1,0 +1,120 @@
+{
+  "schemaVersion": "agp.schema-catalog/v1",
+  "owner": "@agp/transport-loopback",
+  "schemas": [
+    {
+      "id": "urn:agp:schema:v1:transport-loopback:codes:counter-key",
+      "path": "codes/counter-key.schema.json",
+      "typescript": "CounterKey",
+      "sha256": "c399b281c306abdf2a3311ea6f0aaf500e51dbcc6da6bc6f8848de1b3cb103cf"
+    },
+    {
+      "id": "urn:agp:schema:v1:transport-loopback:codes:fabric-failure-code",
+      "path": "codes/fabric-failure-code.schema.json",
+      "typescript": "FabricFailureCode",
+      "sha256": "b266efac76c22cfa4ff64909a2a91476fb95e3f167c528120c1f8afd27c22c03"
+    },
+    {
+      "id": "urn:agp:schema:v1:transport-loopback:codes:monotonic-domain",
+      "path": "codes/monotonic-domain.schema.json",
+      "typescript": "MonotonicDomain",
+      "sha256": "ca96cc62b611990ea9ed27aa3268c68c7a3fb251259cb7f94d505a0cfc2b8f4a"
+    },
+    {
+      "id": "urn:agp:schema:v1:transport-loopback:common:counter-value",
+      "path": "common/counter-value.schema.json",
+      "typescript": "CounterValue",
+      "sha256": "ffe132a82672284fff820292de28136fc2acd2c6a0cb6d8a2e123a10df3adfdf"
+    },
+    {
+      "id": "urn:agp:schema:v1:transport-loopback:common:fabric-id",
+      "path": "common/fabric-id.schema.json",
+      "typescript": "FabricId",
+      "sha256": "45aa2f34d1ae4fd79e0fbdeb4155221f23ce70ee1b2d4c5d2d6ab9d9b3d8b109"
+    },
+    {
+      "id": "urn:agp:schema:v1:transport-loopback:common:fabric-revision",
+      "path": "common/fabric-revision.schema.json",
+      "typescript": "FabricRevision",
+      "sha256": "354c867b2fd4911b4beef325d6b5f0bea3cca93024c1834c1ed9363037a4e87a"
+    },
+    {
+      "id": "urn:agp:schema:v1:transport-loopback:common:loopback-address",
+      "path": "common/loopback-address.schema.json",
+      "typescript": "LoopbackAddress",
+      "sha256": "fba5eddbe2e6b08a90e501a9a1da60500de62c92d21e8080ded6c610d0410eee"
+    },
+    {
+      "id": "urn:agp:schema:v1:transport-loopback:common:transport-name",
+      "path": "common/transport-name.schema.json",
+      "typescript": "TransportName",
+      "sha256": "71b305e14b53cc79bc233a063d88ca80f91aab49595a6527383006cada38b539"
+    },
+    {
+      "id": "urn:agp:schema:v1:transport-loopback:configuration:fabric",
+      "path": "configuration/fabric.schema.json",
+      "typescript": "Fabric",
+      "sha256": "1f342fd079c8885b40f34fb575363da5324e4ae29d291ab2202933b224b8361d"
+    },
+    {
+      "id": "urn:agp:schema:v1:transport-loopback:configuration:limits",
+      "path": "configuration/limits.schema.json",
+      "typescript": "Limits",
+      "sha256": "ef6c5c95df06c852ed23a2d57a7b843c83df5e44933d3807375b943e3531cd8f"
+    },
+    {
+      "id": "urn:agp:schema:v1:transport-loopback:configuration:listener",
+      "path": "configuration/listener.schema.json",
+      "typescript": "Listener",
+      "sha256": "80b01fcf85f287d282845a8d3c7b4360fbe3ee60409d32956881ca72b0e78b9b"
+    },
+    {
+      "id": "urn:agp:schema:v1:transport-loopback:configuration:target",
+      "path": "configuration/target.schema.json",
+      "typescript": "Target",
+      "sha256": "d840640f6b359c64d3dd7a43c69d3d65ed39be787359950eedc3d2685a5856f4"
+    },
+    {
+      "id": "urn:agp:schema:v1:transport-loopback:configuration:transport",
+      "path": "configuration/transport.schema.json",
+      "typescript": "Transport",
+      "sha256": "f96dfce49b3322bad482764b1d944ba370154b2b4184106272a788c40a9557ec"
+    },
+    {
+      "id": "urn:agp:schema:v1:transport-loopback:operations:channel-snapshot",
+      "path": "operations/channel-snapshot.schema.json",
+      "typescript": "ChannelSnapshot",
+      "sha256": "deb9b3ad84e954c04b0e013b278abb4f7d9a546af692a3067a0ac533f917eaf8"
+    },
+    {
+      "id": "urn:agp:schema:v1:transport-loopback:operations:counters-snapshot",
+      "path": "operations/counters-snapshot.schema.json",
+      "typescript": "CountersSnapshot",
+      "sha256": "da83d953cf28fe2e3160d3723c897045b5ceea826af096df948728cc133f8be1"
+    },
+    {
+      "id": "urn:agp:schema:v1:transport-loopback:operations:fabric-failure-snapshot",
+      "path": "operations/fabric-failure-snapshot.schema.json",
+      "typescript": "FabricFailureSnapshot",
+      "sha256": "fa03fb252e2ae8d9b198f1745d8dc00f3ba8e828e7c90f5ccda2e7407f77299d"
+    },
+    {
+      "id": "urn:agp:schema:v1:transport-loopback:operations:fabric-snapshot",
+      "path": "operations/fabric-snapshot.schema.json",
+      "typescript": "FabricSnapshot",
+      "sha256": "fa0011d0cac42998137e13bbd0b7669ffdf98204a59dd17140d10750276173ba"
+    },
+    {
+      "id": "urn:agp:schema:v1:transport-loopback:operations:listener-snapshot",
+      "path": "operations/listener-snapshot.schema.json",
+      "typescript": "ListenerSnapshot",
+      "sha256": "28e72c0df6a6816a2f5e69ef0726bca6f54252f3996629f6d8b997c47d387e61"
+    },
+    {
+      "id": "urn:agp:schema:v1:transport-loopback:operations:resources-snapshot",
+      "path": "operations/resources-snapshot.schema.json",
+      "typescript": "ResourcesSnapshot",
+      "sha256": "64da01880f44d95ff9b99425b268af895db59fa9bd83e3dfde4f1f4070f4d976"
+    }
+  ]
+}

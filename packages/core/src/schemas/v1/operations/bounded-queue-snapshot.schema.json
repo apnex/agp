@@ -1,0 +1,44 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:agp:schema:v1:core:operations:bounded-queue-snapshot",
+  "title": "AGP core bounded-queue-snapshot",
+  "x-agp": {
+    "owner": "@agp/core",
+    "typescript": "BoundedQueueSnapshot",
+    "kind": "operations",
+    "mechanics": "Sovereign bounded-queue-snapshot data contract owned by @agp/core.",
+    "rationale": "One schema gives runtime validators and consumers one stable reasoning boundary.",
+    "consequence": "Accepting another shape would make canonical state or SDK interpretation ambiguous.",
+    "semanticRules": []
+  },
+  "type": "object",
+  "properties": {
+    "currentMessages": {
+      "$ref": "urn:agp:schema:v1:core:common:counter-value"
+    },
+    "maximumMessages": {
+      "$ref": "urn:agp:schema:v1:core:common:counter-value"
+    },
+    "highWaterMessages": {
+      "$ref": "urn:agp:schema:v1:core:common:counter-value"
+    },
+    "currentBytes": {
+      "$ref": "urn:agp:schema:v1:core:common:counter-value"
+    },
+    "maximumBytes": {
+      "$ref": "urn:agp:schema:v1:core:common:counter-value"
+    },
+    "highWaterBytes": {
+      "$ref": "urn:agp:schema:v1:core:common:counter-value"
+    }
+  },
+  "required": [
+    "currentMessages",
+    "maximumMessages",
+    "highWaterMessages",
+    "currentBytes",
+    "maximumBytes",
+    "highWaterBytes"
+  ],
+  "additionalProperties": false
+}

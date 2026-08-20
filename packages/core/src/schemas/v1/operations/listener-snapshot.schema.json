@@ -1,0 +1,47 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:agp:schema:v1:core:operations:listener-snapshot",
+  "title": "AGP core listener-snapshot",
+  "x-agp": {
+    "owner": "@agp/core",
+    "typescript": "ListenerSnapshot",
+    "kind": "operations",
+    "mechanics": "Sovereign listener-snapshot data contract owned by @agp/core.",
+    "rationale": "One schema gives runtime validators and consumers one stable reasoning boundary.",
+    "consequence": "Accepting another shape would make canonical state or SDK interpretation ambiguous.",
+    "semanticRules": []
+  },
+  "type": "object",
+  "properties": {
+    "configured": {
+      "type": "boolean"
+    },
+    "transportRef": {
+      "$ref": "urn:agp:schema:v1:transport:common:transport-ref"
+    },
+    "state": {
+      "type": "string",
+      "enum": [
+        "disabled",
+        "stopped",
+        "starting",
+        "listening",
+        "terminal"
+      ]
+    },
+    "publication": {
+      "$ref": "urn:agp:schema:v1:transport:contracts:transport-listener-publication"
+    },
+    "terminal": {
+      "$ref": "urn:agp:schema:v1:transport:contracts:transport-listener-terminal"
+    },
+    "lastErrorCode": {
+      "$ref": "urn:agp:schema:v1:core:codes:sdk-error-code"
+    }
+  },
+  "required": [
+    "configured",
+    "state"
+  ],
+  "additionalProperties": false
+}

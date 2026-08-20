@@ -1,0 +1,54 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:agp:schema:v1:protocol:wire:data-body",
+  "title": "DataBody",
+  "description": "One source-authorized routed application JSON object.",
+  "x-agp": {
+    "owner": "@agp/protocol",
+    "typescript": "DataBody",
+    "kind": "wire-body",
+    "mechanics": "One source-authorized routed application JSON object.",
+    "rationale": "A sovereign contract gives validators and consumers one stable reasoning boundary.",
+    "consequence": "Accepting another shape would make peer interpretation or ownership ambiguous.",
+    "semanticRules": [
+      "DATA-SELECTED-RIB-1"
+    ]
+  },
+  "type": "object",
+  "required": [
+    "source",
+    "destination",
+    "returnToken",
+    "hopLimit",
+    "payload"
+  ],
+  "properties": {
+    "source": {
+      "$ref": "urn:agp:schema:v1:protocol:routing:endpoint-source",
+      "description": "Exact source endpoint identity."
+    },
+    "destination": {
+      "$ref": "urn:agp:schema:v1:protocol:common:endpoint-name",
+      "description": "Destination endpoint lookup key."
+    },
+    "correlationId": {
+      "$ref": "urn:agp:schema:v1:protocol:common:correlation-id",
+      "description": "Optional application correlation identity."
+    },
+    "returnToken": {
+      "$ref": "urn:agp:schema:v1:protocol:common:return-token",
+      "description": "Exact hop-scoped reverse-correlation token."
+    },
+    "hopLimit": {
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 255,
+      "description": "Remaining bounded data hops; local delivery does not decrement it."
+    },
+    "payload": {
+      "$ref": "urn:agp:schema:v1:protocol:common:json-object",
+      "description": "Opaque application JSON object payload."
+    }
+  },
+  "additionalProperties": false
+}

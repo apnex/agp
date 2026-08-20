@@ -1,0 +1,16 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:agp:schema:v1:binding-websocket:common:subprotocol-token",
+  "title": "WebSocketSubprotocolToken",
+  "x-agp": {
+    "owner": "@agp/binding-websocket",
+    "typescript": "WebSocketSubprotocolToken",
+    "kind": "scalar",
+    "mechanics": "Defines the subprotocol-token value owned by the WebSocket binding.",
+    "rationale": "Carrier-specific configuration and mapping remain outside the neutral kernel.",
+    "consequence": "Divergence makes WebSocket behavior ambiguous or leaks carrier authority.",
+    "semanticRules": []
+  },
+  "description": "Exact RFC 6455 subprotocol token selecting the AGP v1 binary binding.",
+  "const": "agp.v1"
+}

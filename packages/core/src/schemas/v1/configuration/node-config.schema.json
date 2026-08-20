@@ -1,0 +1,58 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:agp:schema:v1:core:configuration:node-config",
+  "title": "AGP core node-config",
+  "x-agp": {
+    "owner": "@agp/core",
+    "typescript": "NodeConfig",
+    "kind": "configuration",
+    "mechanics": "Sovereign node-config data contract owned by @agp/core.",
+    "rationale": "One schema gives runtime validators and consumers one stable reasoning boundary.",
+    "consequence": "Accepting another shape would make canonical state or SDK interpretation ambiguous.",
+    "semanticRules": [
+      "PEER-ADJACENCY-UNIQUENESS-1",
+      "TRANSPORT-REFERENCE-RESOLUTION-1"
+    ]
+  },
+  "type": "object",
+  "properties": {
+    "nodeId": {
+      "$ref": "urn:agp:schema:v1:protocol:common:node-id"
+    },
+    "listen": {
+      "$ref": "urn:agp:schema:v1:core:configuration:listener-config"
+    },
+    "peers": {
+      "type": "array",
+      "maxItems": 4096,
+      "items": {
+        "$ref": "urn:agp:schema:v1:core:configuration:peer-config"
+      }
+    },
+    "transit": {
+      "$ref": "urn:agp:schema:v1:core:configuration:transit-config"
+    },
+    "routeRejectionRetry": {
+      "$ref": "urn:agp:schema:v1:core:configuration:route-rejection-retry"
+    },
+    "timers": {
+      "$ref": "urn:agp:schema:v1:core:configuration:timers"
+    },
+    "limits": {
+      "$ref": "urn:agp:schema:v1:core:configuration:limits"
+    },
+    "capacity": {
+      "$ref": "urn:agp:schema:v1:core:configuration:capacity"
+    },
+    "identityAdmission": {
+      "$ref": "urn:agp:schema:v1:core:configuration:identity-admission-policy"
+    },
+    "routeAdmission": {
+      "$ref": "urn:agp:schema:v1:core:configuration:route-admission-policy"
+    }
+  },
+  "required": [
+    "nodeId"
+  ],
+  "additionalProperties": false
+}

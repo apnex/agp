@@ -1,0 +1,1046 @@
+{
+  "schemaVersion": "agp.schema-catalog/v1",
+  "owner": "@agp/core",
+  "schemas": [
+    {
+      "id": "urn:agp:schema:v1:core:codes:candidate-selection-reason",
+      "owner": "@agp/core",
+      "path": "codes/candidate-selection-reason.schema.json",
+      "kind": "code",
+      "typescript": "CandidateSelectionReason",
+      "sha256": "72cefcdf213b33faf4b25fa79486ccb4ca0c3d6471f57189164456ca5e5d685c"
+    },
+    {
+      "id": "urn:agp:schema:v1:core:codes:connection-state",
+      "owner": "@agp/core",
+      "path": "codes/connection-state.schema.json",
+      "kind": "code",
+      "typescript": "ConnectionState",
+      "sha256": "5db9e8bef9d95e952b642514808a8f2d5523320cfc8c3cb46b110682a298af07"
+    },
+    {
+      "id": "urn:agp:schema:v1:core:codes:counter-key",
+      "owner": "@agp/core",
+      "path": "codes/counter-key.schema.json",
+      "kind": "code",
+      "typescript": "CounterKey",
+      "sha256": "2e112bb3a651df771b024ae070e9934d8716f1e952ab900e977d275ef34b23ac"
+    },
+    {
+      "id": "urn:agp:schema:v1:core:codes:diagnostic-code",
+      "owner": "@agp/core",
+      "path": "codes/diagnostic-code.schema.json",
+      "kind": "code",
+      "typescript": "DiagnosticCode",
+      "sha256": "85906ace2a4abd275122fd40d1e24a22e0a40a0a0144446a58770a5bb8c410e9"
+    },
+    {
+      "id": "urn:agp:schema:v1:core:codes:diagnostic-domain",
+      "owner": "@agp/core",
+      "path": "codes/diagnostic-domain.schema.json",
+      "kind": "code",
+      "typescript": "DiagnosticDomain",
+      "sha256": "2ee69eb9a2de73ceccca6017a43ee3e1cdf4e0f1c16c392a184a5ed2e85ba29e"
+    },
+    {
+      "id": "urn:agp:schema:v1:core:codes:diagnostic-severity",
+      "owner": "@agp/core",
+      "path": "codes/diagnostic-severity.schema.json",
+      "kind": "code",
+      "typescript": "DiagnosticSeverity",
+      "sha256": "5cb39aedcc9ae8726a66d05c01f550c4ec3fa3be0e813fe3f5ca889c1a984290"
+    },
+    {
+      "id": "urn:agp:schema:v1:core:codes:host-failure-code",
+      "owner": "@agp/core",
+      "path": "codes/host-failure-code.schema.json",
+      "kind": "code",
+      "typescript": "HostFailureCode",
+      "sha256": "1018a068fed668c014e713afac3800bae75caebcb151164b900aa2795b7a5f80"
+    },
+    {
+      "id": "urn:agp:schema:v1:core:codes:host-state",
+      "owner": "@agp/core",
+      "path": "codes/host-state.schema.json",
+      "kind": "code",
+      "typescript": "HostState",
+      "sha256": "c0de830adf114042b54b46d317d327d742c92f6bf32f33eca622f37719d40d0f"
+    },
+    {
+      "id": "urn:agp:schema:v1:core:codes:identity-denial-code",
+      "owner": "@agp/core",
+      "path": "codes/identity-denial-code.schema.json",
+      "kind": "code",
+      "typescript": "IdentityDenialCode",
+      "sha256": "6a89bf8c7b41e89ac0ee0c8c08c5cb788d50500f11bebdd419fb8cf1603c7275"
+    },
+    {
+      "id": "urn:agp:schema:v1:core:codes:ineligible-reason",
+      "owner": "@agp/core",
+      "path": "codes/ineligible-reason.schema.json",
+      "kind": "code",
+      "typescript": "IneligibleReason",
+      "sha256": "b85308c595a5ddf7e27fa2758d276673d9506c763d2296761b17e2c61ff590cb"
+    },
+    {
+      "id": "urn:agp:schema:v1:core:codes:monotonic-domain",
+      "owner": "@agp/core",
+      "path": "codes/monotonic-domain.schema.json",
+      "kind": "code",
+      "typescript": "MonotonicDomain",
+      "sha256": "953bfd898eca16ced677af16d7053aa81215f2ea3a7abe2d8c04e6c4ac370799"
+    },
+    {
+      "id": "urn:agp:schema:v1:core:codes:resource-code",
+      "owner": "@agp/core",
+      "path": "codes/resource-code.schema.json",
+      "kind": "code",
+      "typescript": "ResourceCode",
+      "sha256": "684aa12dd87f6e0882f6a04a1cac200e5a7d71f3d0be9878529bdde714d18f64"
+    },
+    {
+      "id": "urn:agp:schema:v1:core:codes:route-reason-code",
+      "owner": "@agp/core",
+      "path": "codes/route-reason-code.schema.json",
+      "kind": "code",
+      "typescript": "RouteReasonCode",
+      "sha256": "75d0b06fc4be76fab08ba41fd8244787b5e64fac5910fd04dd31829cc3c9ab1a"
+    },
+    {
+      "id": "urn:agp:schema:v1:core:codes:sdk-error-code",
+      "owner": "@agp/core",
+      "path": "codes/sdk-error-code.schema.json",
+      "kind": "code",
+      "typescript": "AgpErrorCode",
+      "sha256": "0fefec159173f8b7f1552e9a5b600dd1ac273796b42bbfb7c587d7e7ff2d2cfa"
+    },
+    {
+      "id": "urn:agp:schema:v1:core:codes:selected-reason",
+      "owner": "@agp/core",
+      "path": "codes/selected-reason.schema.json",
+      "kind": "code",
+      "typescript": "SelectedReason",
+      "sha256": "455e7606a15a5810cd5318656796531b66cf12ad39d1656415b9c3b6e84c7d33"
+    },
+    {
+      "id": "urn:agp:schema:v1:core:codes:session-event-code",
+      "owner": "@agp/core",
+      "path": "codes/session-event-code.schema.json",
+      "kind": "code",
+      "typescript": "SessionEventCode",
+      "sha256": "3bfd8f172bbef846aedef29cef9eb421bcb49001e569f80dcdd2606d83f333c7"
+    },
+    {
+      "id": "urn:agp:schema:v1:core:codes:session-reason-code",
+      "owner": "@agp/core",
+      "path": "codes/session-reason-code.schema.json",
+      "kind": "code",
+      "typescript": "SessionReasonCode",
+      "sha256": "4ee01031850c35158b9309eb243adb8706ff45e626c89ffabd532f36694cbba2"
+    },
+    {
+      "id": "urn:agp:schema:v1:core:common:adjacency-id",
+      "owner": "@agp/core",
+      "path": "common/adjacency-id.schema.json",
+      "kind": "scalar",
+      "typescript": "AdjacencyId",
+      "sha256": "21e132b26b29675d74b926285f83bbbbb5bd1b3ec5f0661190ab8fcd80ecfe3c"
+    },
+    {
+      "id": "urn:agp:schema:v1:core:common:binding-id",
+      "owner": "@agp/core",
+      "path": "common/binding-id.schema.json",
+      "kind": "scalar",
+      "typescript": "BindingId",
+      "sha256": "3e498e2f4d5fa8842a45ccbce53892b59712f7e5303d2229b40d4446e2345f49"
+    },
+    {
+      "id": "urn:agp:schema:v1:core:common:counter-value",
+      "owner": "@agp/core",
+      "path": "common/counter-value.schema.json",
+      "kind": "scalar",
+      "typescript": "CounterValue",
+      "sha256": "38b20780bd606434ec45dcb9528499b540e12f7547dacd83ba35e633c9acfbeb"
+    },
+    {
+      "id": "urn:agp:schema:v1:core:common:direction",
+      "owner": "@agp/core",
+      "path": "common/direction.schema.json",
+      "kind": "scalar",
+      "typescript": "Direction",
+      "sha256": "b9ef619ac5e9fb09bf82902db54af0152a527fb9d729b11503e9d2c18fbbe455"
+    },
+    {
+      "id": "urn:agp:schema:v1:core:common:duration-ms",
+      "owner": "@agp/core",
+      "path": "common/duration-ms.schema.json",
+      "kind": "scalar",
+      "typescript": "DurationMs",
+      "sha256": "f8e92a758c745d1821130726a9e5bb7418b3361a3de3a69e087081f407111ad0"
+    },
+    {
+      "id": "urn:agp:schema:v1:core:common:event-sequence",
+      "owner": "@agp/core",
+      "path": "common/event-sequence.schema.json",
+      "kind": "scalar",
+      "typescript": "EventSequence",
+      "sha256": "62f836690b8b04d7139014ad9da0242ab169ca74409ad5a31213d6f7f0b2dff8"
+    },
+    {
+      "id": "urn:agp:schema:v1:core:common:instance-id",
+      "owner": "@agp/core",
+      "path": "common/instance-id.schema.json",
+      "kind": "scalar",
+      "typescript": "InstanceId",
+      "sha256": "945d46cd45340aaa8ea8d00fd7312758d0cbaf264576cf21170b4ddb4d84b52e"
+    },
+    {
+      "id": "urn:agp:schema:v1:core:common:operations-revision",
+      "owner": "@agp/core",
+      "path": "common/operations-revision.schema.json",
+      "kind": "scalar",
+      "typescript": "OperationsRevision",
+      "sha256": "8bf8a7778780846ea3f9c239a6a2b91f50346961a145d824c669ff966b1e66ed"
+    },
+    {
+      "id": "urn:agp:schema:v1:core:common:route-id",
+      "owner": "@agp/core",
+      "path": "common/route-id.schema.json",
+      "kind": "scalar",
+      "typescript": "RouteId",
+      "sha256": "f97ac05f9e699bc3319eaa920fd5aa4f5376a828c86da040c5f7922ea92b2e93"
+    },
+    {
+      "id": "urn:agp:schema:v1:core:common:timestamp",
+      "owner": "@agp/core",
+      "path": "common/timestamp.schema.json",
+      "kind": "scalar",
+      "typescript": "Timestamp",
+      "sha256": "22704c6d0d7e44a81f269e9daecaa98989188aeaa8ccde8f716dad2686a6e7d4"
+    },
+    {
+      "id": "urn:agp:schema:v1:core:configuration:capacity",
+      "owner": "@agp/core",
+      "path": "configuration/capacity.schema.json",
+      "kind": "configuration",
+      "typescript": "Capacity",
+      "sha256": "f03b211e937bc6ac1133f4ab78bd54439048bd5f906f6aea3f16e5d969378cee"
+    },
+    {
+      "id": "urn:agp:schema:v1:core:configuration:identity-admission-policy",
+      "owner": "@agp/core",
+      "path": "configuration/identity-admission-policy.schema.json",
+      "kind": "configuration",
+      "typescript": "IdentityAdmissionPolicy",
+      "sha256": "4a3e530a96c33a614376db0ef71734d2e5822d54067675bafb80792bc2b52463"
+    },
+    {
+      "id": "urn:agp:schema:v1:core:configuration:limits",
+      "owner": "@agp/core",
+      "path": "configuration/limits.schema.json",
+      "kind": "configuration",
+      "typescript": "Limits",
+      "sha256": "e3761777c251daa0db257461dbed828484022a90cd8d51fe20c9f09c883f6f52"
+    },
+    {
+      "id": "urn:agp:schema:v1:core:configuration:listener-config",
+      "owner": "@agp/core",
+      "path": "configuration/listener-config.schema.json",
+      "kind": "configuration",
+      "typescript": "ListenerConfig",
+      "sha256": "ab141c0eb7409180518c1938b9efa4d436704e691a2e1111a6e4f5dd4ff60de6"
+    },
+    {
+      "id": "urn:agp:schema:v1:core:configuration:node-config",
+      "owner": "@agp/core",
+      "path": "configuration/node-config.schema.json",
+      "kind": "configuration",
+      "typescript": "NodeConfig",
+      "sha256": "7a767ffafac2e35cf90a40234f25d77928cbccdce66c5bafcdb8377b4578c9d9"
+    },
+    {
+      "id": "urn:agp:schema:v1:core:configuration:peer-config",
+      "owner": "@agp/core",
+      "path": "configuration/peer-config.schema.json",
+      "kind": "configuration",
+      "typescript": "PeerConfig",
+      "sha256": "22e06e2ca48158c9b732f3978b23c4b04d77dbc840a5c31976cd5c78804eb205"
+    },
+    {
+      "id": "urn:agp:schema:v1:core:configuration:reconnect-policy",
+      "owner": "@agp/core",
+      "path": "configuration/reconnect-policy.schema.json",
+      "kind": "configuration",
+      "typescript": "ReconnectPolicy",
+      "sha256": "0e25f43827dfe28b3166d3078d140ab3af9d687efe102963544609f4792d1b2c"
+    },
+    {
+      "id": "urn:agp:schema:v1:core:configuration:route-admission-policy",
+      "owner": "@agp/core",
+      "path": "configuration/route-admission-policy.schema.json",
+      "kind": "configuration",
+      "typescript": "RouteAdmissionPolicy",
+      "sha256": "1f5bc8633a98fef43d06ca8deec79c6db6279d7305ab0a776c9b4d171769ab95"
+    },
+    {
+      "id": "urn:agp:schema:v1:core:configuration:route-rejection-retry",
+      "owner": "@agp/core",
+      "path": "configuration/route-rejection-retry.schema.json",
+      "kind": "configuration",
+      "typescript": "RouteRejectionRetryPolicy",
+      "sha256": "6243efd229551ab36c55dcaefb9f0ebae1879df82cefd1a2654bef66dd92297b"
+    },
+    {
+      "id": "urn:agp:schema:v1:core:configuration:timers",
+      "owner": "@agp/core",
+      "path": "configuration/timers.schema.json",
+      "kind": "configuration",
+      "typescript": "Timers",
+      "sha256": "7c0b82b87da361f31345477dac19c301b40c15d64cd4d0d15f64286fcf5ba17a"
+    },
+    {
+      "id": "urn:agp:schema:v1:core:configuration:transit-config",
+      "owner": "@agp/core",
+      "path": "configuration/transit-config.schema.json",
+      "kind": "configuration",
+      "typescript": "TransitConfig",
+      "sha256": "f83c559362125f1944cc6456f2bc55ca4ac91f6502b7e093619fb97eadf6486d"
+    },
+    {
+      "id": "urn:agp:schema:v1:core:event:connection-preidentity-closed",
+      "owner": "@agp/core",
+      "path": "events/connection-preidentity-closed.schema.json",
+      "kind": "event",
+      "typescript": "ConnectionPreidentityClosed",
+      "sha256": "73d99f9c2a43c39b611fe3e5004d2a0d159618e0bc7c4dc0a6a080732075ee7c"
+    },
+    {
+      "id": "urn:agp:schema:v1:core:event:connection-preidentity-closed-data",
+      "owner": "@agp/core",
+      "path": "events/data/connection-preidentity-closed-data.schema.json",
+      "kind": "event-data",
+      "typescript": "ConnectionPreidentityClosedData",
+      "sha256": "f7ee4e599b18866784dbd9df69a042ea2a70fd9c22f69627529cecbb3ee5b71a"
+    },
+    {
+      "id": "urn:agp:schema:v1:core:event:endpoint-closed-data",
+      "owner": "@agp/core",
+      "path": "events/data/endpoint-closed-data.schema.json",
+      "kind": "event-data",
+      "typescript": "EndpointClosedData",
+      "sha256": "da7f464c09c56a1318360fed97018bc491128318fb7f8e33e17cbbaa181c8264"
+    },
+    {
+      "id": "urn:agp:schema:v1:core:event:endpoint-exposed-data",
+      "owner": "@agp/core",
+      "path": "events/data/endpoint-exposed-data.schema.json",
+      "kind": "event-data",
+      "typescript": "EndpointExposedData",
+      "sha256": "7aabc81028e34a851dff6fcd1d974c925a5cbaed1809a0a67c4834409c25136b"
+    },
+    {
+      "id": "urn:agp:schema:v1:core:event:handler-completed-data",
+      "owner": "@agp/core",
+      "path": "events/data/handler-completed-data.schema.json",
+      "kind": "event-data",
+      "typescript": "HandlerCompletedData",
+      "sha256": "ba53462605eea533824aade479f3869a1d4949198eb2eb45c7d4f351c3ab8161"
+    },
+    {
+      "id": "urn:agp:schema:v1:core:event:handler-failed-data",
+      "owner": "@agp/core",
+      "path": "events/data/handler-failed-data.schema.json",
+      "kind": "event-data",
+      "typescript": "HandlerFailedData",
+      "sha256": "11c5bb748808b5a57ab667e2902400fa967a831155376a5be38d37b719bc92d4"
+    },
+    {
+      "id": "urn:agp:schema:v1:core:event:lifecycle-running-data",
+      "owner": "@agp/core",
+      "path": "events/data/lifecycle-running-data.schema.json",
+      "kind": "event-data",
+      "typescript": "LifecycleRunningData",
+      "sha256": "fab65f079ea12d24d094a683f530fb24eb7a364fc8f748666557c992770cbc71"
+    },
+    {
+      "id": "urn:agp:schema:v1:core:event:lifecycle-starting-data",
+      "owner": "@agp/core",
+      "path": "events/data/lifecycle-starting-data.schema.json",
+      "kind": "event-data",
+      "typescript": "LifecycleStartingData",
+      "sha256": "7837cfa30020274715607850d563015430b07a3b719f3ccee69a756407bedc2d"
+    },
+    {
+      "id": "urn:agp:schema:v1:core:event:lifecycle-stopped-data",
+      "owner": "@agp/core",
+      "path": "events/data/lifecycle-stopped-data.schema.json",
+      "kind": "event-data",
+      "typescript": "LifecycleStoppedData",
+      "sha256": "7df396a1ffd5e67d81dbeef50cf1942ddc8d68c46f1cda6586ce1e8c6f72e14e"
+    },
+    {
+      "id": "urn:agp:schema:v1:core:event:message-accepted-data",
+      "owner": "@agp/core",
+      "path": "events/data/message-accepted-data.schema.json",
+      "kind": "event-data",
+      "typescript": "MessageAcceptedData",
+      "sha256": "192b25217d5c118fd9f867b6a7190f9a0ac6ef4093111516a8fe705a29ef386d"
+    },
+    {
+      "id": "urn:agp:schema:v1:core:event:message-failed-data",
+      "owner": "@agp/core",
+      "path": "events/data/message-failed-data.schema.json",
+      "kind": "event-data",
+      "typescript": "MessageFailedData",
+      "sha256": "cd1580e45a1d770ae68f68534ea703e6396d7c5043541dd0a0d5851387f8d362"
+    },
+    {
+      "id": "urn:agp:schema:v1:core:event:message-forwarded-data",
+      "owner": "@agp/core",
+      "path": "events/data/message-forwarded-data.schema.json",
+      "kind": "event-data",
+      "typescript": "MessageForwardedData",
+      "sha256": "2514012b53e28a56b8067c8fe7863781423bd5e40ba91f75c1f788171c3a8a58"
+    },
+    {
+      "id": "urn:agp:schema:v1:core:event:message-received-data",
+      "owner": "@agp/core",
+      "path": "events/data/message-received-data.schema.json",
+      "kind": "event-data",
+      "typescript": "MessageReceivedData",
+      "sha256": "eab3e66917f23b625757e72e672d85e72b9826ae4341ab140ce9cf80f7c0b548"
+    },
+    {
+      "id": "urn:agp:schema:v1:core:event:observer-gap-data",
+      "owner": "@agp/core",
+      "path": "events/data/observer-gap-data.schema.json",
+      "kind": "event-data",
+      "typescript": "ObserverGapData",
+      "sha256": "d9345057d53f7c5d025d5cb3ace2049e81470a22a6b9af853905f89f3b69c3ae"
+    },
+    {
+      "id": "urn:agp:schema:v1:core:event:route-export-acked-data",
+      "owner": "@agp/core",
+      "path": "events/data/route-export-acked-data.schema.json",
+      "kind": "event-data",
+      "typescript": "RouteExportAckedData",
+      "sha256": "9046888cbc45bbb268bbb8ae2cb2d625fc5f0126e9af2f551339a52006a6b811"
+    },
+    {
+      "id": "urn:agp:schema:v1:core:event:route-imported-data",
+      "owner": "@agp/core",
+      "path": "events/data/route-imported-data.schema.json",
+      "kind": "event-data",
+      "typescript": "RouteImportedData",
+      "sha256": "ac082e09546a899d944de72ea0c318f94b35b10224814a3ba1ef4ebd2bd08bda"
+    },
+    {
+      "id": "urn:agp:schema:v1:core:event:session-closed-data",
+      "owner": "@agp/core",
+      "path": "events/data/session-closed-data.schema.json",
+      "kind": "event-data",
+      "typescript": "SessionClosedData",
+      "sha256": "cab18f50fa2826373cf14b4b0cc0aa1b69a2ccdd14093459d222448f58bc78b9"
+    },
+    {
+      "id": "urn:agp:schema:v1:core:event:session-established-data",
+      "owner": "@agp/core",
+      "path": "events/data/session-established-data.schema.json",
+      "kind": "event-data",
+      "typescript": "SessionEstablishedData",
+      "sha256": "2a9009e33c8a7c499c29ecd5059f6934e12c79d7ec6abc07e0c96cf50599ef0b"
+    },
+    {
+      "id": "urn:agp:schema:v1:core:event:session-routes-purged-data",
+      "owner": "@agp/core",
+      "path": "events/data/session-routes-purged-data.schema.json",
+      "kind": "event-data",
+      "typescript": "SessionRoutesPurgedData",
+      "sha256": "61e6273c0384dd0292ca02a7be2742bfd7ee77d49df902e216b33d7ceb542e4f"
+    },
+    {
+      "id": "urn:agp:schema:v1:core:event:session-transition-data",
+      "owner": "@agp/core",
+      "path": "events/data/session-transition-data.schema.json",
+      "kind": "event-data",
+      "typescript": "SessionTransitionData",
+      "sha256": "b71979f44f23a0d7fed513f66ab87ed345e01c409361e52c22a15d40605b112a"
+    },
+    {
+      "id": "urn:agp:schema:v1:core:event:endpoint-closed",
+      "owner": "@agp/core",
+      "path": "events/endpoint-closed.schema.json",
+      "kind": "event",
+      "typescript": "EndpointClosed",
+      "sha256": "e7fd9da2f6cbd7f7212810ea08bc77de297f0ca42d8dc4a938a34b0e9ef3b2c4"
+    },
+    {
+      "id": "urn:agp:schema:v1:core:event:endpoint-exposed",
+      "owner": "@agp/core",
+      "path": "events/endpoint-exposed.schema.json",
+      "kind": "event",
+      "typescript": "EndpointExposed",
+      "sha256": "34ad39169d78e2e6e0b8a375e49ee218c9b9092d2647a0e7463dda32f4f80eb1"
+    },
+    {
+      "id": "urn:agp:schema:v1:core:event:handler-completed",
+      "owner": "@agp/core",
+      "path": "events/handler-completed.schema.json",
+      "kind": "event",
+      "typescript": "HandlerCompleted",
+      "sha256": "5dff41a2fb89180f7a70161e1cef308c440bdca1bd15ef21c522e781f769af26"
+    },
+    {
+      "id": "urn:agp:schema:v1:core:event:handler-failed",
+      "owner": "@agp/core",
+      "path": "events/handler-failed.schema.json",
+      "kind": "event",
+      "typescript": "HandlerFailed",
+      "sha256": "0d891c03730ceb42c4b6543ce2d825aeaef6323e7d70ea6536f130e8585bc702"
+    },
+    {
+      "id": "urn:agp:schema:v1:core:event:lifecycle-running",
+      "owner": "@agp/core",
+      "path": "events/lifecycle-running.schema.json",
+      "kind": "event",
+      "typescript": "LifecycleRunning",
+      "sha256": "9de11b246379536477767ba1592b4d6972dae54290a60695de038106bd6e2fe0"
+    },
+    {
+      "id": "urn:agp:schema:v1:core:event:lifecycle-starting",
+      "owner": "@agp/core",
+      "path": "events/lifecycle-starting.schema.json",
+      "kind": "event",
+      "typescript": "LifecycleStarting",
+      "sha256": "9e99e8125e5509fcde98282a04d5094f9bb1828b9eadd3b2fa1235064d352d1a"
+    },
+    {
+      "id": "urn:agp:schema:v1:core:event:lifecycle-stopped",
+      "owner": "@agp/core",
+      "path": "events/lifecycle-stopped.schema.json",
+      "kind": "event",
+      "typescript": "LifecycleStopped",
+      "sha256": "8a9e53fa7cf36c1bf881393f035ab3b3477a09ed6b891d58b19c81a4f9ee90b7"
+    },
+    {
+      "id": "urn:agp:schema:v1:core:event:message-accepted",
+      "owner": "@agp/core",
+      "path": "events/message-accepted.schema.json",
+      "kind": "event",
+      "typescript": "MessageAccepted",
+      "sha256": "112802deda10e61bdaf1ee924ef20f5469ef3da01a4bdb236da792c09ea70233"
+    },
+    {
+      "id": "urn:agp:schema:v1:core:event:message-failed",
+      "owner": "@agp/core",
+      "path": "events/message-failed.schema.json",
+      "kind": "event",
+      "typescript": "MessageFailed",
+      "sha256": "739619763b8f9dd3b9e702d5e3cc85746da314277ec5056f90cbeb85d4609996"
+    },
+    {
+      "id": "urn:agp:schema:v1:core:event:message-forwarded",
+      "owner": "@agp/core",
+      "path": "events/message-forwarded.schema.json",
+      "kind": "event",
+      "typescript": "MessageForwarded",
+      "sha256": "4a9df40ad446ebcd4250509562e598f05dc6ba83e01ee4c5366246e629a957be"
+    },
+    {
+      "id": "urn:agp:schema:v1:core:event:message-received",
+      "owner": "@agp/core",
+      "path": "events/message-received.schema.json",
+      "kind": "event",
+      "typescript": "MessageReceived",
+      "sha256": "54ca6c66844300e16c3a8ccb2acd2c2921ca3a02d504f6e88333f02e8cf21510"
+    },
+    {
+      "id": "urn:agp:schema:v1:core:event:observer-gap",
+      "owner": "@agp/core",
+      "path": "events/observer-gap.schema.json",
+      "kind": "event",
+      "typescript": "ObserverGap",
+      "sha256": "de4296ed7ebfb1c7ce98206f2743fabe15d5445c103c72fbc3e0423c767aee32"
+    },
+    {
+      "id": "urn:agp:schema:v1:core:event:operational-event",
+      "owner": "@agp/core",
+      "path": "events/operational-event.schema.json",
+      "kind": "union",
+      "typescript": "OperationalEvent",
+      "sha256": "281f56bf3d92716601a529c4068b410f5cfdf8acecd5883d9a360bd5fcdc8eed"
+    },
+    {
+      "id": "urn:agp:schema:v1:core:event:route-export-acked",
+      "owner": "@agp/core",
+      "path": "events/route-export-acked.schema.json",
+      "kind": "event",
+      "typescript": "RouteExportAcked",
+      "sha256": "79d35aebedb88f95fabb95831afdd3d5fa51770855fa998967802cbf88141067"
+    },
+    {
+      "id": "urn:agp:schema:v1:core:event:route-imported",
+      "owner": "@agp/core",
+      "path": "events/route-imported.schema.json",
+      "kind": "event",
+      "typescript": "RouteImported",
+      "sha256": "9260b7d4572192733a0f20197f6da31cf75049eab650268f241168f916c23e6a"
+    },
+    {
+      "id": "urn:agp:schema:v1:core:event:session-closed",
+      "owner": "@agp/core",
+      "path": "events/session-closed.schema.json",
+      "kind": "event",
+      "typescript": "SessionClosed",
+      "sha256": "cc2d5dadca1d4eb423db86ec768ab48adca961a6bcda00789d3ae78d59f1d863"
+    },
+    {
+      "id": "urn:agp:schema:v1:core:event:session-established",
+      "owner": "@agp/core",
+      "path": "events/session-established.schema.json",
+      "kind": "event",
+      "typescript": "SessionEstablished",
+      "sha256": "9f190875f32c7e3cd13dde76320ee22ec2202576a36c911120713826bf1f5c54"
+    },
+    {
+      "id": "urn:agp:schema:v1:core:event:session-routes-purged",
+      "owner": "@agp/core",
+      "path": "events/session-routes-purged.schema.json",
+      "kind": "event",
+      "typescript": "SessionRoutesPurged",
+      "sha256": "2133dc6894faa4b5d298551aebee635797a7c5b8f539d28ef3beb500534fe9da"
+    },
+    {
+      "id": "urn:agp:schema:v1:core:event:session-transition",
+      "owner": "@agp/core",
+      "path": "events/session-transition.schema.json",
+      "kind": "event",
+      "typescript": "SessionTransition",
+      "sha256": "f9f63a6cc522ad98cbf2099dd871f52cda12ea1f9461bb8f14bed55265ea65f2"
+    },
+    {
+      "id": "urn:agp:schema:v1:core:operations:adj-rib-out-list-snapshot",
+      "owner": "@agp/core",
+      "path": "operations/adj-rib-out-list-snapshot.schema.json",
+      "kind": "list",
+      "typescript": "AdjRibOutListSnapshot",
+      "sha256": "3e526ab0d3914d07a380d918e74a76b556528cb996085daf57a05fae68730890"
+    },
+    {
+      "id": "urn:agp:schema:v1:core:operations:adj-rib-out-route-snapshot",
+      "owner": "@agp/core",
+      "path": "operations/adj-rib-out-route-snapshot.schema.json",
+      "kind": "operations",
+      "typescript": "AdjRibOutRouteSnapshot",
+      "sha256": "e9709588deb07a997e7a5a62d7b9fafee2fd68bf80412b1bc6af9b76925c8eb5"
+    },
+    {
+      "id": "urn:agp:schema:v1:core:operations:adjacency-list-snapshot",
+      "owner": "@agp/core",
+      "path": "operations/adjacency-list-snapshot.schema.json",
+      "kind": "list",
+      "typescript": "AdjacencyListSnapshot",
+      "sha256": "c77f188ecb3e2f7d180723d41433e37c65d73711b341686512d6148714e29b9c"
+    },
+    {
+      "id": "urn:agp:schema:v1:core:operations:adjacency-snapshot",
+      "owner": "@agp/core",
+      "path": "operations/adjacency-snapshot.schema.json",
+      "kind": "operations",
+      "typescript": "AdjacencySnapshot",
+      "sha256": "8b90deab1777703b39b3676da7d34f349e8b1e8b85b358e70789f4ed696c71b9"
+    },
+    {
+      "id": "urn:agp:schema:v1:core:operations:advertisement-list-snapshot",
+      "owner": "@agp/core",
+      "path": "operations/advertisement-list-snapshot.schema.json",
+      "kind": "list",
+      "typescript": "AdvertisementListSnapshot",
+      "sha256": "cddcb6416e9e6235f827107e8ce12cc4a14bae7fe0b9518b4a230f36767f520d"
+    },
+    {
+      "id": "urn:agp:schema:v1:core:operations:advertisement-snapshot",
+      "owner": "@agp/core",
+      "path": "operations/advertisement-snapshot.schema.json",
+      "kind": "operations",
+      "typescript": "AdvertisementSnapshot",
+      "sha256": "e555f10516a41bb76eb5799546df586d0d0a077aa01b422ecfa9636e0f79088f"
+    },
+    {
+      "id": "urn:agp:schema:v1:core:operations:bounded-queue-snapshot",
+      "owner": "@agp/core",
+      "path": "operations/bounded-queue-snapshot.schema.json",
+      "kind": "operations",
+      "typescript": "BoundedQueueSnapshot",
+      "sha256": "7bfd820a05b897114d65701fd7ae06ca647703255d8645bb75436c5b931cf5eb"
+    },
+    {
+      "id": "urn:agp:schema:v1:core:operations:candidate-route-snapshot",
+      "owner": "@agp/core",
+      "path": "operations/candidate-route-snapshot.schema.json",
+      "kind": "operations",
+      "typescript": "CandidateRouteSnapshot",
+      "sha256": "e6e32b97c8280786a79392aa04059b465ec8856f045707fabdbd552e30902270"
+    },
+    {
+      "id": "urn:agp:schema:v1:core:operations:configuration-snapshot",
+      "owner": "@agp/core",
+      "path": "operations/configuration-snapshot.schema.json",
+      "kind": "operations",
+      "typescript": "ConfigurationSnapshot",
+      "sha256": "8c3648537085b7235595e0d15252ec2b65e6ae6fe861971d7e147e464d9d125c"
+    },
+    {
+      "id": "urn:agp:schema:v1:core:operations:connection-list-snapshot",
+      "owner": "@agp/core",
+      "path": "operations/connection-list-snapshot.schema.json",
+      "kind": "list",
+      "typescript": "ConnectionListSnapshot",
+      "sha256": "a117f82d94c0a0b1a9528c2bc0db6f228a272b1988cad2929cc7f7514559b965"
+    },
+    {
+      "id": "urn:agp:schema:v1:core:operations:connection-snapshot",
+      "owner": "@agp/core",
+      "path": "operations/connection-snapshot.schema.json",
+      "kind": "operations",
+      "typescript": "ConnectionSnapshot",
+      "sha256": "3ae5f01cf91e8534776f6008686254e55db19bb593bc08e1b923a95e23a3767f"
+    },
+    {
+      "id": "urn:agp:schema:v1:core:operations:counters-snapshot",
+      "owner": "@agp/core",
+      "path": "operations/counters-snapshot.schema.json",
+      "kind": "operations",
+      "typescript": "CountersSnapshot",
+      "sha256": "5c6f995f79a23bdc0e5ed0c967d89912fd94ee5a54ae861ce2b3eec700b8b8d4"
+    },
+    {
+      "id": "urn:agp:schema:v1:core:operations:export-snapshot",
+      "owner": "@agp/core",
+      "path": "operations/export-snapshot.schema.json",
+      "kind": "operations",
+      "typescript": "ExportSnapshot",
+      "sha256": "4bd17679fa610b54bf2be1c1ceea8a0bce1e68fa60169ea8cf0dab6dc5b44068"
+    },
+    {
+      "id": "urn:agp:schema:v1:core:operations:forwarding-entry-snapshot",
+      "owner": "@agp/core",
+      "path": "operations/forwarding-entry-snapshot.schema.json",
+      "kind": "operations",
+      "typescript": "ForwardingEntrySnapshot",
+      "sha256": "43d650537499e996de677ff6c4cd7bf8f5f80053b386ea9f8da96642dbb4c817"
+    },
+    {
+      "id": "urn:agp:schema:v1:core:operations:forwarding-list-snapshot",
+      "owner": "@agp/core",
+      "path": "operations/forwarding-list-snapshot.schema.json",
+      "kind": "list",
+      "typescript": "ForwardingListSnapshot",
+      "sha256": "f4af140d5b894cfa7074894cd81963e08bdb2af69d5894d55c8350fd1f877bc1"
+    },
+    {
+      "id": "urn:agp:schema:v1:core:operations:host-failure-snapshot",
+      "owner": "@agp/core",
+      "path": "operations/host-failure-snapshot.schema.json",
+      "kind": "operations",
+      "typescript": "HostFailureSnapshot",
+      "sha256": "7fcaa67a36f219d7b8d7a6b6fe692059292cb57e4ea2ed152f4d6cee07c710fa"
+    },
+    {
+      "id": "urn:agp:schema:v1:core:operations:lifecycle-snapshot",
+      "owner": "@agp/core",
+      "path": "operations/lifecycle-snapshot.schema.json",
+      "kind": "operations",
+      "typescript": "LifecycleSnapshot",
+      "sha256": "9410b43244bb743c90ce733a010308666dcedf2d78095ca4fd08ce3eeb2e5beb"
+    },
+    {
+      "id": "urn:agp:schema:v1:core:operations:listener-snapshot",
+      "owner": "@agp/core",
+      "path": "operations/listener-snapshot.schema.json",
+      "kind": "operations",
+      "typescript": "ListenerSnapshot",
+      "sha256": "1831e2ce88c2bcfacc6b8e82a184d4fbe6917b1b4021285453c0367bab84a4cf"
+    },
+    {
+      "id": "urn:agp:schema:v1:core:operations:local-endpoint-list-snapshot",
+      "owner": "@agp/core",
+      "path": "operations/local-endpoint-list-snapshot.schema.json",
+      "kind": "list",
+      "typescript": "LocalEndpointListSnapshot",
+      "sha256": "616cb768a7fbe9ff703a44c570244eb3fb8d85d5cc16f970d50c1281de303ed1"
+    },
+    {
+      "id": "urn:agp:schema:v1:core:operations:local-endpoint-snapshot",
+      "owner": "@agp/core",
+      "path": "operations/local-endpoint-snapshot.schema.json",
+      "kind": "operations",
+      "typescript": "LocalEndpointSnapshot",
+      "sha256": "3ac8d8de3b12d2390ea7b88e1c341e5b7aeedf43ab1eb7e65e80a7bd0db904b4"
+    },
+    {
+      "id": "urn:agp:schema:v1:core:operations:negotiated-capabilities-snapshot",
+      "owner": "@agp/core",
+      "path": "operations/negotiated-capabilities-snapshot.schema.json",
+      "kind": "operations",
+      "typescript": "NegotiatedCapabilitiesSnapshot",
+      "sha256": "4209bb1649ba8ce2a9577890429ffa2e7ab92d0facd56e54d796a7efdd3cf4ac"
+    },
+    {
+      "id": "urn:agp:schema:v1:core:operations:next-hop",
+      "owner": "@agp/core",
+      "path": "operations/next-hop.schema.json",
+      "kind": "operations",
+      "typescript": "NextHop",
+      "sha256": "b1c4edb7fc3ab29c0ca24886dda234c2c9df05f9f9dc09e47719887c63ca0ba7"
+    },
+    {
+      "id": "urn:agp:schema:v1:core:operations:operations-snapshot",
+      "owner": "@agp/core",
+      "path": "operations/operations-snapshot.schema.json",
+      "kind": "aggregate",
+      "typescript": "OperationsSnapshot",
+      "sha256": "455fc3267fa56be51e9556aa7a4df61e667f1fd63804b9b5becb87ec7672a85e"
+    },
+    {
+      "id": "urn:agp:schema:v1:core:operations:pre-identity-controller-snapshot",
+      "owner": "@agp/core",
+      "path": "operations/pre-identity-controller-snapshot.schema.json",
+      "kind": "operations",
+      "typescript": "PreIdentityControllerSnapshot",
+      "sha256": "3c8dfadf964fbed992969f5bfd2cc326165c979c1763c05a5ed13914fb7b7051"
+    },
+    {
+      "id": "urn:agp:schema:v1:core:operations:resource-gauge",
+      "owner": "@agp/core",
+      "path": "operations/resource-gauge.schema.json",
+      "kind": "operations",
+      "typescript": "ResourceGauge",
+      "sha256": "055938540797163b7802b90d38a70eca9d6c878d914a7952ed87f7e573baa4a5"
+    },
+    {
+      "id": "urn:agp:schema:v1:core:operations:resources-snapshot",
+      "owner": "@agp/core",
+      "path": "operations/resources-snapshot.schema.json",
+      "kind": "operations",
+      "typescript": "ResourcesSnapshot",
+      "sha256": "8cfbd35eb73ff815b47d417f70799136a3fd0a58e7d3304e3cc683356250c5de"
+    },
+    {
+      "id": "urn:agp:schema:v1:core:operations:return-token-allocator-snapshot",
+      "owner": "@agp/core",
+      "path": "operations/return-token-allocator-snapshot.schema.json",
+      "kind": "operations",
+      "typescript": "ReturnTokenAllocatorSnapshot",
+      "sha256": "7b42012f9422475aea6e697283e1013bae797a3bf3ade8b71c394a6f4b4d4a2d"
+    },
+    {
+      "id": "urn:agp:schema:v1:core:operations:reverse-correlation-list-snapshot",
+      "owner": "@agp/core",
+      "path": "operations/reverse-correlation-list-snapshot.schema.json",
+      "kind": "list",
+      "typescript": "ReverseCorrelationListSnapshot",
+      "sha256": "f6e13ef7cd94766945b437dac58841c213e08519cc8f949f0dfefdf79cb34355"
+    },
+    {
+      "id": "urn:agp:schema:v1:core:operations:reverse-correlation-snapshot",
+      "owner": "@agp/core",
+      "path": "operations/reverse-correlation-snapshot.schema.json",
+      "kind": "operations",
+      "typescript": "ReverseCorrelationSnapshot",
+      "sha256": "b83e00acaaee345af020a75b7d924740f66cbe1175c716b5b3956274901c98c3"
+    },
+    {
+      "id": "urn:agp:schema:v1:core:operations:route-export-state",
+      "owner": "@agp/core",
+      "path": "operations/route-export-state.schema.json",
+      "kind": "operations",
+      "typescript": "RouteExportState",
+      "sha256": "ee1c2396faf9b796e44a6f304b5ec3ecf8f8eb1ca3205d7377e78cdc15f3db10"
+    },
+    {
+      "id": "urn:agp:schema:v1:core:operations:route-import-state",
+      "owner": "@agp/core",
+      "path": "operations/route-import-state.schema.json",
+      "kind": "operations",
+      "typescript": "RouteImportState",
+      "sha256": "1a7e93b237c167af40123c35819a38db81158434331f00dd4093a52de57170da"
+    },
+    {
+      "id": "urn:agp:schema:v1:core:operations:route-table-snapshot",
+      "owner": "@agp/core",
+      "path": "operations/route-table-snapshot.schema.json",
+      "kind": "operations",
+      "typescript": "RouteTableSnapshot",
+      "sha256": "3ca2d60a53197d3421129f13f1a8bce022433823694b7d612bc5aad069c11b27"
+    },
+    {
+      "id": "urn:agp:schema:v1:core:operations:selected-route-snapshot",
+      "owner": "@agp/core",
+      "path": "operations/selected-route-snapshot.schema.json",
+      "kind": "operations",
+      "typescript": "SelectedRouteSnapshot",
+      "sha256": "6ff3ea1166078d1bbd1c5e05129fd11bcf6d55cb7078e596da90bf391b6f8227"
+    },
+    {
+      "id": "urn:agp:schema:v1:core:operations:session-queues-snapshot",
+      "owner": "@agp/core",
+      "path": "operations/session-queues-snapshot.schema.json",
+      "kind": "operations",
+      "typescript": "SessionQueuesSnapshot",
+      "sha256": "cbdebabc877538c38bad2aaddb8750a6e91c01259448cef3a45cb51f8f450de4"
+    },
+    {
+      "id": "urn:agp:schema:v1:core:operations:session-snapshot",
+      "owner": "@agp/core",
+      "path": "operations/session-snapshot.schema.json",
+      "kind": "operations",
+      "typescript": "SessionSnapshot",
+      "sha256": "19ed047803f36ce6963b4f9f32c94d4d02e542c4bc61970c0b33a7319d15c391"
+    },
+    {
+      "id": "urn:agp:schema:v1:core:operations:session-transition-snapshot",
+      "owner": "@agp/core",
+      "path": "operations/session-transition-snapshot.schema.json",
+      "kind": "operations",
+      "typescript": "SessionTransitionSnapshot",
+      "sha256": "bc33d4faa81aaf2690bad6e996d3ddb22c671b9b7e6e5ce3d8b2b2dcf12bf568"
+    },
+    {
+      "id": "urn:agp:schema:v1:core:operations:snapshot-meta",
+      "owner": "@agp/core",
+      "path": "operations/snapshot-meta.schema.json",
+      "kind": "operations",
+      "typescript": "SnapshotMeta",
+      "sha256": "d1d6e30d3042d55dffabc4fd6cdd2e422491d5b948d93392eff64252231cb8ff"
+    },
+    {
+      "id": "urn:agp:schema:v1:core:operations:timer-snapshot",
+      "owner": "@agp/core",
+      "path": "operations/timer-snapshot.schema.json",
+      "kind": "operations",
+      "typescript": "TimerSnapshot",
+      "sha256": "9008d968089de2e32469b5e373b5c600b329fcb26c9f0a8459370dd0bf3bf387"
+    },
+    {
+      "id": "urn:agp:schema:v1:core:sdk:diagnostic-record",
+      "owner": "@agp/core",
+      "path": "sdk/diagnostic-record.schema.json",
+      "kind": "sdk",
+      "typescript": "DiagnosticRecord",
+      "sha256": "feaa9a348a160422a33e58d0dd1a834aaaa374f31a5f02019b15a180553b8db6"
+    },
+    {
+      "id": "urn:agp:schema:v1:core:sdk:endpoint-binding-info",
+      "owner": "@agp/core",
+      "path": "sdk/endpoint-binding-info.schema.json",
+      "kind": "sdk",
+      "typescript": "EndpointBindingInfo",
+      "sha256": "f86e863e142aefd2d705ff34b8698d7f95e5668ee352e91e453f704c8ccfd88d"
+    },
+    {
+      "id": "urn:agp:schema:v1:core:sdk:endpoint-delivery-context",
+      "owner": "@agp/core",
+      "path": "sdk/endpoint-delivery-context.schema.json",
+      "kind": "sdk",
+      "typescript": "EndpointDeliveryContext",
+      "sha256": "21336e0f9a4a93d3a2d58ace8b765185c956478a44b548842c26b62a66113fbb"
+    },
+    {
+      "id": "urn:agp:schema:v1:core:sdk:error-record",
+      "owner": "@agp/core",
+      "path": "sdk/error-record.schema.json",
+      "kind": "sdk",
+      "typescript": "ErrorRecord",
+      "sha256": "5a633bce846359b0f757a968f682127c74fbf3dc06ca22917b23e226fbfddf6b"
+    },
+    {
+      "id": "urn:agp:schema:v1:core:sdk:event-subscription-policy",
+      "owner": "@agp/core",
+      "path": "sdk/event-subscription-policy.schema.json",
+      "kind": "sdk",
+      "typescript": "EventSubscriptionPolicy",
+      "sha256": "c0895153aa26d6809e65e01dc7244e866bad2263cc51322902db41928adb170b"
+    },
+    {
+      "id": "urn:agp:schema:v1:core:sdk:identity-admission-request",
+      "owner": "@agp/core",
+      "path": "sdk/identity-admission-request.schema.json",
+      "kind": "sdk",
+      "typescript": "IdentityAdmissionRequest",
+      "sha256": "20dc54bdd4d000fbef453ea842e0faa7c978677de07df09024b96a84744567e6"
+    },
+    {
+      "id": "urn:agp:schema:v1:core:sdk:identity-admission-result",
+      "owner": "@agp/core",
+      "path": "sdk/identity-admission-result.schema.json",
+      "kind": "sdk",
+      "typescript": "IdentityAdmissionResult",
+      "sha256": "a81671e6a81f45cc7feb1e4e226933eedc67bcd73412dbb0a5b664be2dd53986"
+    },
+    {
+      "id": "urn:agp:schema:v1:core:sdk:route-admission-decision",
+      "owner": "@agp/core",
+      "path": "sdk/route-admission-decision.schema.json",
+      "kind": "sdk",
+      "typescript": "RouteAdmissionDecision",
+      "sha256": "8d0ff713e286ddf5f4caa7daa7d086b6e25335358fe92b1cbca029bf8d0f6270"
+    },
+    {
+      "id": "urn:agp:schema:v1:core:sdk:route-admission-request",
+      "owner": "@agp/core",
+      "path": "sdk/route-admission-request.schema.json",
+      "kind": "sdk",
+      "typescript": "RouteAdmissionRequest",
+      "sha256": "bf38d1f507577fcecc936db0c66af7041c812b28a9fea7028298c79adabb31f0"
+    },
+    {
+      "id": "urn:agp:schema:v1:core:sdk:route-admission-result",
+      "owner": "@agp/core",
+      "path": "sdk/route-admission-result.schema.json",
+      "kind": "sdk",
+      "typescript": "RouteAdmissionResult",
+      "sha256": "70a121806bca3ddfdeee59920159923d3af143bf65dbc787511ed1fc4eb9bf48"
+    },
+    {
+      "id": "urn:agp:schema:v1:core:sdk:send-policy",
+      "owner": "@agp/core",
+      "path": "sdk/send-policy.schema.json",
+      "kind": "sdk",
+      "typescript": "SendPolicy",
+      "sha256": "89b86e34e814c3e1e1ede4dabbb35da784b22fb2367a673c0b2faef8dcf9cafa"
+    },
+    {
+      "id": "urn:agp:schema:v1:core:sdk:send-receipt",
+      "owner": "@agp/core",
+      "path": "sdk/send-receipt.schema.json",
+      "kind": "sdk",
+      "typescript": "SendReceipt",
+      "sha256": "fab3b731849733df0d1a52b5d335b2c13d45b858b7d35fdb42d3bd0a064d2372"
+    },
+    {
+      "id": "urn:agp:schema:v1:core:sdk:started-node",
+      "owner": "@agp/core",
+      "path": "sdk/started-node.schema.json",
+      "kind": "sdk",
+      "typescript": "StartedNode",
+      "sha256": "4cb98d9e18ccaa61dff6275667eb0d9a410c3f7ad6fb86aff0edcfa9c7d56bcb"
+    },
+    {
+      "id": "urn:agp:schema:v1:core:sdk:stop-policy",
+      "owner": "@agp/core",
+      "path": "sdk/stop-policy.schema.json",
+      "kind": "sdk",
+      "typescript": "StopPolicy",
+      "sha256": "e112dcefbdcefc0557969c7e82fdc7cdd6b24dc836bf592049618c5a4e0ed444"
+    },
+    {
+      "id": "urn:agp:schema:v1:core:sdk:stop-report",
+      "owner": "@agp/core",
+      "path": "sdk/stop-report.schema.json",
+      "kind": "sdk",
+      "typescript": "StopReport",
+      "sha256": "d7290f0f5c4329aa01986fc0bdc4f0fe349436099263fcff1b778d8171ccf399"
+    }
+  ]
+}

@@ -1,0 +1,43 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:agp:schema:v1:core:sdk:send-receipt",
+  "title": "AGP core send-receipt",
+  "x-agp": {
+    "owner": "@agp/core",
+    "typescript": "SendReceipt",
+    "kind": "sdk",
+    "mechanics": "Sovereign send-receipt data contract owned by @agp/core.",
+    "rationale": "One schema gives runtime validators and consumers one stable reasoning boundary.",
+    "consequence": "Accepting another shape would make canonical state or SDK interpretation ambiguous.",
+    "semanticRules": []
+  },
+  "type": "object",
+  "properties": {
+    "messageId": {
+      "$ref": "urn:agp:schema:v1:protocol:common:message-id"
+    },
+    "correlationId": {
+      "$ref": "urn:agp:schema:v1:protocol:common:correlation-id"
+    },
+    "acceptedAt": {
+      "$ref": "urn:agp:schema:v1:core:common:timestamp"
+    },
+    "operationsRevision": {
+      "$ref": "urn:agp:schema:v1:core:common:operations-revision"
+    },
+    "selectedRouteId": {
+      "$ref": "urn:agp:schema:v1:core:common:route-id"
+    },
+    "nextHop": {
+      "$ref": "urn:agp:schema:v1:core:operations:next-hop"
+    }
+  },
+  "required": [
+    "messageId",
+    "acceptedAt",
+    "operationsRevision",
+    "selectedRouteId",
+    "nextHop"
+  ],
+  "additionalProperties": false
+}

@@ -1,0 +1,21 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:agp:schema:v1:transport:codes:transport-terminal-origin",
+  "title": "TransportTerminalOrigin",
+  "description": "Closed transport-terminal-origin code domain.",
+  "x-agp": {
+    "owner": "@agp/transport",
+    "typescript": "TransportTerminalOrigin",
+    "kind": "code",
+    "mechanics": "Defines the bounded transport-terminal-origin value crossing the neutral transport boundary.",
+    "rationale": "One schema and generated type prevent adapter-specific reinterpretation.",
+    "consequence": "A divergent shape makes transport implementations observably incompatible.",
+    "semanticRules": []
+  },
+  "type": "string",
+  "enum": [
+    "local",
+    "remote",
+    "carrier"
+  ]
+}

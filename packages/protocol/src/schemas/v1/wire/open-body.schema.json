@@ -1,0 +1,81 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:agp:schema:v1:protocol:wire:open-body",
+  "title": "OpenBody",
+  "description": "Symmetric identity, liveness, receive, route, path, hop, and transit offer.",
+  "x-agp": {
+    "owner": "@agp/protocol",
+    "typescript": "OpenBody",
+    "kind": "wire-body",
+    "mechanics": "Symmetric identity, liveness, receive, route, path, hop, and transit offer.",
+    "rationale": "A sovereign contract gives validators and consumers one stable reasoning boundary.",
+    "consequence": "Accepting another shape would make peer interpretation or ownership ambiguous.",
+    "semanticRules": [
+      "SESSION-PAIR-SCOPE-1",
+      "SESSION-CROSS-DIAL-1"
+    ]
+  },
+  "type": "object",
+  "required": [
+    "nodeId",
+    "sessionId",
+    "holdTimeMs",
+    "receiveLimitBytes",
+    "maxRoutesPerSnapshot",
+    "maxPathLength",
+    "maxDataHopLimit",
+    "transit"
+  ],
+  "properties": {
+    "nodeId": {
+      "$ref": "urn:agp:schema:v1:protocol:common:node-id",
+      "description": "Identity claimed by the sending node."
+    },
+    "sessionId": {
+      "$ref": "urn:agp:schema:v1:protocol:common:session-id",
+      "description": "Pair-scoped identifier issued by this controller."
+    },
+    "holdTimeMs": {
+      "oneOf": [
+        {
+          "const": 0
+        },
+        {
+          "type": "integer",
+          "minimum": 3000,
+          "maximum": 300000
+        }
+      ],
+      "description": "Offered hold timer in milliseconds; zero disables protocol hold expiry."
+    },
+    "receiveLimitBytes": {
+      "type": "integer",
+      "minimum": 131072,
+      "maximum": 16777216,
+      "description": "Maximum UTF-8 bytes accepted in one AGP packet."
+    },
+    "maxRoutesPerSnapshot": {
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 256,
+      "description": "Maximum route records accepted in one full snapshot."
+    },
+    "maxPathLength": {
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 64,
+      "description": "Maximum complete path length after this receiver appends itself."
+    },
+    "maxDataHopLimit": {
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 255,
+      "description": "Maximum data hop-limit value accepted from this peer."
+    },
+    "transit": {
+      "type": "boolean",
+      "description": "Whether this node may export learned routes and forward nonlocal data."
+    }
+  },
+  "additionalProperties": false
+}

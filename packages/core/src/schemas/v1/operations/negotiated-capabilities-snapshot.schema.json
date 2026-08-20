@@ -1,0 +1,52 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:agp:schema:v1:core:operations:negotiated-capabilities-snapshot",
+  "title": "AGP core negotiated-capabilities-snapshot",
+  "x-agp": {
+    "owner": "@agp/core",
+    "typescript": "NegotiatedCapabilitiesSnapshot",
+    "kind": "operations",
+    "mechanics": "Sovereign negotiated-capabilities-snapshot data contract owned by @agp/core.",
+    "rationale": "One schema gives runtime validators and consumers one stable reasoning boundary.",
+    "consequence": "Accepting another shape would make canonical state or SDK interpretation ambiguous.",
+    "semanticRules": []
+  },
+  "type": "object",
+  "properties": {
+    "holdTimeMs": {
+      "$ref": "urn:agp:schema:v1:core:common:duration-ms"
+    },
+    "keepaliveTimeMs": {
+      "$ref": "urn:agp:schema:v1:core:common:duration-ms"
+    },
+    "peerReceiveLimitBytes": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "maxRoutesPerSnapshot": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "maxPathLength": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "maxHopCount": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "transit": {
+      "type": "boolean"
+    }
+  },
+  "required": [
+    "holdTimeMs",
+    "keepaliveTimeMs",
+    "peerReceiveLimitBytes",
+    "maxRoutesPerSnapshot",
+    "maxPathLength",
+    "maxHopCount",
+    "transit"
+  ],
+  "additionalProperties": false
+}

@@ -1,0 +1,25 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:agp:schema:v1:core:codes:host-state",
+  "title": "AGP core host-state",
+  "x-agp": {
+    "owner": "@agp/core",
+    "typescript": "HostState",
+    "kind": "code",
+    "mechanics": "Sovereign host-state data contract owned by @agp/core.",
+    "rationale": "One schema gives runtime validators and consumers one stable reasoning boundary.",
+    "consequence": "Accepting another shape would make canonical state or SDK interpretation ambiguous.",
+    "semanticRules": [
+      "NODE-ONE-SHOT-LIFECYCLE-1"
+    ]
+  },
+  "type": "string",
+  "enum": [
+    "Created",
+    "Starting",
+    "Running",
+    "Stopping",
+    "Stopped",
+    "Failed"
+  ]
+}

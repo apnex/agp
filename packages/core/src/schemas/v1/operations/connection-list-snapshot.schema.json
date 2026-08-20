@@ -1,0 +1,47 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:agp:schema:v1:core:operations:connection-list-snapshot",
+  "title": "AGP core connection-list-snapshot",
+  "x-agp": {
+    "owner": "@agp/core",
+    "typescript": "ConnectionListSnapshot",
+    "kind": "list",
+    "mechanics": "Sovereign connection-list-snapshot data contract owned by @agp/core.",
+    "rationale": "One schema gives runtime validators and consumers one stable reasoning boundary.",
+    "consequence": "Accepting another shape would make canonical state or SDK interpretation ambiguous.",
+    "semanticRules": []
+  },
+  "type": "object",
+  "properties": {
+    "schemaVersion": {
+      "const": "agp.operations/v1"
+    },
+    "nodeId": {
+      "$ref": "urn:agp:schema:v1:protocol:common:node-id"
+    },
+    "instanceId": {
+      "$ref": "urn:agp:schema:v1:core:common:instance-id"
+    },
+    "capturedAt": {
+      "$ref": "urn:agp:schema:v1:core:common:timestamp"
+    },
+    "revision": {
+      "$ref": "urn:agp:schema:v1:core:common:operations-revision"
+    },
+    "items": {
+      "type": "array",
+      "items": {
+        "$ref": "urn:agp:schema:v1:core:operations:connection-snapshot"
+      }
+    }
+  },
+  "required": [
+    "schemaVersion",
+    "nodeId",
+    "instanceId",
+    "capturedAt",
+    "revision",
+    "items"
+  ],
+  "additionalProperties": false
+}

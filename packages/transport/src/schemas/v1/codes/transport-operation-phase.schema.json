@@ -1,0 +1,26 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:agp:schema:v1:transport:codes:transport-operation-phase",
+  "title": "TransportOperationPhase",
+  "description": "Closed transport-operation-phase code domain.",
+  "x-agp": {
+    "owner": "@agp/transport",
+    "typescript": "TransportOperationPhase",
+    "kind": "code",
+    "mechanics": "Defines the bounded transport-operation-phase value crossing the neutral transport boundary.",
+    "rationale": "One schema and generated type prevent adapter-specific reinterpretation.",
+    "consequence": "A divergent shape makes transport implementations observably incompatible.",
+    "semanticRules": []
+  },
+  "type": "string",
+  "enum": [
+    "resolve-listener",
+    "resolve-target",
+    "listen",
+    "connect",
+    "send",
+    "read",
+    "close",
+    "wait-terminal"
+  ]
+}

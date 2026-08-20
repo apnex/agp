@@ -1,0 +1,52 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:agp:schema:v1:core:sdk:identity-admission-request",
+  "title": "AGP core identity-admission-request",
+  "x-agp": {
+    "owner": "@agp/core",
+    "typescript": "IdentityAdmissionRequest",
+    "kind": "sdk",
+    "mechanics": "Sovereign identity-admission-request data contract owned by @agp/core.",
+    "rationale": "One schema gives runtime validators and consumers one stable reasoning boundary.",
+    "consequence": "Accepting another shape would make canonical state or SDK interpretation ambiguous.",
+    "semanticRules": [
+      "TRANSPORT-PEER-EVIDENCE-1"
+    ]
+  },
+  "type": "object",
+  "properties": {
+    "localNodeId": {
+      "$ref": "urn:agp:schema:v1:protocol:common:node-id"
+    },
+    "remoteNodeId": {
+      "$ref": "urn:agp:schema:v1:protocol:common:node-id"
+    },
+    "localSessionId": {
+      "$ref": "urn:agp:schema:v1:protocol:common:session-id"
+    },
+    "remoteSessionId": {
+      "$ref": "urn:agp:schema:v1:protocol:common:session-id"
+    },
+    "direction": {
+      "$ref": "urn:agp:schema:v1:core:common:direction"
+    },
+    "adjacencyId": {
+      "$ref": "urn:agp:schema:v1:core:common:adjacency-id"
+    },
+    "expectedRemoteNodeId": {
+      "$ref": "urn:agp:schema:v1:protocol:common:node-id"
+    },
+    "peerEvidence": {
+      "$ref": "urn:agp:schema:v1:transport:contracts:transport-peer-evidence"
+    }
+  },
+  "required": [
+    "localNodeId",
+    "remoteNodeId",
+    "localSessionId",
+    "remoteSessionId",
+    "direction",
+    "peerEvidence"
+  ],
+  "additionalProperties": false
+}

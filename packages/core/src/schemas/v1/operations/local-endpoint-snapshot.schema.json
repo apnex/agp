@@ -1,0 +1,36 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:agp:schema:v1:core:operations:local-endpoint-snapshot",
+  "title": "AGP core local-endpoint-snapshot",
+  "x-agp": {
+    "owner": "@agp/core",
+    "typescript": "LocalEndpointSnapshot",
+    "kind": "operations",
+    "mechanics": "Sovereign local-endpoint-snapshot data contract owned by @agp/core.",
+    "rationale": "One schema gives runtime validators and consumers one stable reasoning boundary.",
+    "consequence": "Accepting another shape would make canonical state or SDK interpretation ambiguous.",
+    "semanticRules": []
+  },
+  "type": "object",
+  "properties": {
+    "endpoint": {
+      "$ref": "urn:agp:schema:v1:protocol:common:endpoint-name"
+    },
+    "bindingId": {
+      "$ref": "urn:agp:schema:v1:core:common:binding-id"
+    },
+    "registeredAt": {
+      "$ref": "urn:agp:schema:v1:core:common:timestamp"
+    },
+    "active": {
+      "type": "boolean"
+    }
+  },
+  "required": [
+    "endpoint",
+    "bindingId",
+    "registeredAt",
+    "active"
+  ],
+  "additionalProperties": false
+}

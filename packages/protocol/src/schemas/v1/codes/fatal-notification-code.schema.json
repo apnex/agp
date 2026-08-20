@@ -1,0 +1,27 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:agp:schema:v1:protocol:codes:fatal-notification-code",
+  "title": "FatalNotificationCode",
+  "description": "Closed fatal AGP v1 notification code domain.",
+  "x-agp": {
+    "owner": "@agp/protocol",
+    "typescript": "FatalNotificationCode",
+    "kind": "code",
+    "mechanics": "Closed fatal AGP v1 notification code domain.",
+    "rationale": "A sovereign contract gives validators and consumers one stable reasoning boundary.",
+    "consequence": "Accepting another shape would make peer interpretation or ownership ambiguous.",
+    "semanticRules": []
+  },
+  "type": "string",
+  "enum": [
+    "CEASE",
+    "UNSUPPORTED_VERSION",
+    "INVALID_MESSAGE",
+    "UNEXPECTED_MESSAGE",
+    "IDENTITY_REJECTED",
+    "ADJACENCY_COLLISION",
+    "HOLD_TIMEOUT",
+    "ROUTE_REVISION_ERROR",
+    "INTERNAL_ERROR"
+  ]
+}

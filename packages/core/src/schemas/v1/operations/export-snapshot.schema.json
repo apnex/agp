@@ -1,0 +1,37 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:agp:schema:v1:core:operations:export-snapshot",
+  "title": "AGP core export-snapshot",
+  "x-agp": {
+    "owner": "@agp/core",
+    "typescript": "ExportSnapshot",
+    "kind": "operations",
+    "mechanics": "Sovereign export-snapshot data contract owned by @agp/core.",
+    "rationale": "One schema gives runtime validators and consumers one stable reasoning boundary.",
+    "consequence": "Accepting another shape would make canonical state or SDK interpretation ambiguous.",
+    "semanticRules": [
+      "ROUTE-WRITE-ORDER-1"
+    ]
+  },
+  "type": "object",
+  "properties": {
+    "id": {
+      "$ref": "urn:agp:schema:v1:protocol:common:message-id"
+    },
+    "revision": {
+      "$ref": "urn:agp:schema:v1:protocol:common:wire-revision"
+    },
+    "routes": {
+      "type": "array",
+      "items": {
+        "$ref": "urn:agp:schema:v1:protocol:routing:route-advertisement"
+      }
+    }
+  },
+  "required": [
+    "id",
+    "revision",
+    "routes"
+  ],
+  "additionalProperties": false
+}

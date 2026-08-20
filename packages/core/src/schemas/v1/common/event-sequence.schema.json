@@ -1,0 +1,18 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:agp:schema:v1:core:common:event-sequence",
+  "title": "AGP core event-sequence",
+  "x-agp": {
+    "owner": "@agp/core",
+    "typescript": "EventSequence",
+    "kind": "scalar",
+    "mechanics": "Sovereign event-sequence data contract owned by @agp/core.",
+    "rationale": "One schema gives runtime validators and consumers one stable reasoning boundary.",
+    "consequence": "Accepting another shape would make canonical state or SDK interpretation ambiguous.",
+    "semanticRules": [
+      "CORE-MONOTONIC-EXHAUSTION-1"
+    ]
+  },
+  "type": "string",
+  "pattern": "^(0|[1-9][0-9]{0,19})$"
+}

@@ -1,0 +1,40 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:agp:schema:v1:protocol:wire:message",
+  "title": "AgpMessage",
+  "description": "Closed external-reference union of the seven AGP v1 messages.",
+  "x-agp": {
+    "owner": "@agp/protocol",
+    "typescript": "AgpMessage",
+    "kind": "wire-union",
+    "mechanics": "Closed external-reference union of the seven AGP v1 messages.",
+    "rationale": "A sovereign contract gives validators and consumers one stable reasoning boundary.",
+    "consequence": "Accepting another shape would make peer interpretation or ownership ambiguous.",
+    "semanticRules": [
+      "FSM-ESTABLISHED-MATRIX-1"
+    ]
+  },
+  "oneOf": [
+    {
+      "$ref": "urn:agp:schema:v1:protocol:wire:open-message"
+    },
+    {
+      "$ref": "urn:agp:schema:v1:protocol:wire:keepalive-message"
+    },
+    {
+      "$ref": "urn:agp:schema:v1:protocol:wire:route-update-message"
+    },
+    {
+      "$ref": "urn:agp:schema:v1:protocol:wire:route-ack-message"
+    },
+    {
+      "$ref": "urn:agp:schema:v1:protocol:wire:notification-message"
+    },
+    {
+      "$ref": "urn:agp:schema:v1:protocol:wire:error-message"
+    },
+    {
+      "$ref": "urn:agp:schema:v1:protocol:wire:data-message"
+    }
+  ]
+}

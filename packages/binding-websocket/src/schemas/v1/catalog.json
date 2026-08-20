@@ -1,0 +1,78 @@
+{
+  "schemaVersion": "agp.schema-catalog/v1",
+  "owner": "@agp/binding-websocket",
+  "schemas": [
+    {
+      "id": "urn:agp:schema:v1:binding-websocket:codes:binding-rejection-code",
+      "owner": "@agp/binding-websocket",
+      "path": "codes/binding-rejection-code.schema.json",
+      "kind": "code",
+      "typescript": "WebSocketBindingRejectionCode",
+      "sha256": "56bb3da8b79f8bb39674e4e42c272bac10d2019c4c1fe5df2caf31c68180b3a7"
+    },
+    {
+      "id": "urn:agp:schema:v1:binding-websocket:common:subprotocol-token",
+      "owner": "@agp/binding-websocket",
+      "path": "common/subprotocol-token.schema.json",
+      "kind": "scalar",
+      "typescript": "WebSocketSubprotocolToken",
+      "sha256": "715c08a2a7784edd253d05fa0d231c83a58eaf95eb72d5fb567f40c9309c35c8"
+    },
+    {
+      "id": "urn:agp:schema:v1:binding-websocket:configuration:compression",
+      "owner": "@agp/binding-websocket",
+      "path": "configuration/compression.schema.json",
+      "kind": "configuration",
+      "typescript": "WebSocketCompressionConfig",
+      "sha256": "ebc66693111c0aad7636c5f51af78dd436488e0d01fb6b014814ed3e93e69a88"
+    },
+    {
+      "id": "urn:agp:schema:v1:binding-websocket:configuration:listener",
+      "owner": "@agp/binding-websocket",
+      "path": "configuration/listener.schema.json",
+      "kind": "configuration",
+      "typescript": "WebSocketListenerConfigData",
+      "sha256": "37f7cb56cbf88f1c650acc97b5068b29b37df5cf36b79d997d30a6d50699efd1"
+    },
+    {
+      "id": "urn:agp:schema:v1:binding-websocket:configuration:liveness",
+      "owner": "@agp/binding-websocket",
+      "path": "configuration/liveness.schema.json",
+      "kind": "configuration",
+      "typescript": "WebSocketLivenessConfigData",
+      "sha256": "b2fdadea041cd80ee8cad26105a9c042a081ceb539814a0807fc70658c655d3b"
+    },
+    {
+      "id": "urn:agp:schema:v1:binding-websocket:configuration:security",
+      "owner": "@agp/binding-websocket",
+      "path": "configuration/security.schema.json",
+      "kind": "configuration",
+      "typescript": "WebSocketSecurityConfigData",
+      "sha256": "f3a3a9f546ad82e8223122d93697c7b5c28e953cc30b93435aba0e134c01804f"
+    },
+    {
+      "id": "urn:agp:schema:v1:binding-websocket:configuration:target",
+      "owner": "@agp/binding-websocket",
+      "path": "configuration/target.schema.json",
+      "kind": "configuration",
+      "typescript": "WebSocketTargetConfigData",
+      "sha256": "d84e2a056c7c0e1b56ff6f7934717c54040b9d2896ad2892e951bee74950e2a6"
+    },
+    {
+      "id": "urn:agp:schema:v1:binding-websocket:configuration:transport",
+      "owner": "@agp/binding-websocket",
+      "path": "configuration/transport.schema.json",
+      "kind": "configuration",
+      "typescript": "WebSocketTransportConfigData",
+      "sha256": "e8123a657862b207e169093f06c580d87b55c1cb5d7a2e0c73148211fcda8761"
+    },
+    {
+      "id": "urn:agp:schema:v1:binding-websocket:contracts:close-mapping",
+      "owner": "@agp/binding-websocket",
+      "path": "contracts/close-mapping.schema.json",
+      "kind": "contract",
+      "typescript": "WebSocketCloseMapping",
+      "sha256": "48cb277944b949320d3659774d5026d7ad9751202770f90c546d0f77eaa0840f"
+    }
+  ]
+}

@@ -1,0 +1,24 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:agp:schema:v1:core:configuration:listener-config",
+  "title": "AGP core listener-config",
+  "x-agp": {
+    "owner": "@agp/core",
+    "typescript": "ListenerConfig",
+    "kind": "configuration",
+    "mechanics": "Sovereign listener-config data contract owned by @agp/core.",
+    "rationale": "One schema gives runtime validators and consumers one stable reasoning boundary.",
+    "consequence": "Accepting another shape would make canonical state or SDK interpretation ambiguous.",
+    "semanticRules": []
+  },
+  "type": "object",
+  "properties": {
+    "transportRef": {
+      "$ref": "urn:agp:schema:v1:transport:common:transport-ref"
+    }
+  },
+  "required": [
+    "transportRef"
+  ],
+  "additionalProperties": false
+}

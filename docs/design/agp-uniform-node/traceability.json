@@ -1,0 +1,829 @@
+{
+  "schemaVersion": "agp.traceability/v1",
+  "sourceRevision": "ratified-uniform-transport-sovereign-v1-2026-07-30",
+  "records": [
+    {
+      "requirementId": "U1",
+      "ratificationStatus": "required",
+      "authorities": [
+        {
+          "kind": "survey",
+          "reference": "uniform-node survey Q1/Q3/Q6",
+          "ratification": "confirmed"
+        },
+        {
+          "kind": "axiom",
+          "reference": "A3",
+          "ratification": "applicable-mechanics"
+        }
+      ],
+      "designReferences": ["README.md#2-mandate", "decisions.md#d1--uniform-node"],
+      "schemaIds": ["urn:agp:schema:v1:core:configuration:node-config"],
+      "semanticRuleIds": [],
+      "owningGate": "AX5",
+      "owningTests": ["packages/node/test/contract/uniform-capabilities.test.js"],
+      "integrationWitnesses": ["test/conformance/public-node-consumer.test.js"]
+    },
+    {
+      "requirementId": "U2",
+      "ratificationStatus": "required",
+      "authorities": [
+        {
+          "kind": "survey",
+          "reference": "uniform-node confirmed aggregate",
+          "ratification": "confirmed"
+        },
+        {
+          "kind": "axiom",
+          "reference": "A3",
+          "ratification": "applicable-mechanics"
+        }
+      ],
+      "designReferences": ["README.md#5-topology-is-configuration", "sdk-operations.md#31-factory-and-composition"],
+      "schemaIds": ["urn:agp:schema:v1:core:configuration:node-config"],
+      "semanticRuleIds": ["PEER-ADJACENCY-UNIQUENESS-1"],
+      "owningGate": "AX5",
+      "owningTests": [
+        "packages/node/test/contract/uniform-capabilities.test.js",
+        "packages/node/test/contract/peer-adjacency-uniqueness.test.js"
+      ],
+      "integrationWitnesses": [
+        "test/topology/star-convergence.test.js",
+        "test/topology/line-transit.test.js",
+        "test/e2e/independent-star-hub-endpoint.test.js",
+        "test/e2e/independent-star-multi-endpoint.test.js",
+        "test/e2e/independent-line.test.js"
+      ]
+    },
+    {
+      "requirementId": "U3",
+      "ratificationStatus": "required",
+      "authorities": [
+        {
+          "kind": "survey",
+          "reference": "uniform-node survey Q4(a)",
+          "ratification": "confirmed"
+        }
+      ],
+      "designReferences": ["protocol.md#8-uniform-session-fsm", "fsm.md#66-established"],
+      "schemaIds": [
+        "urn:agp:schema:v1:protocol:wire:route-update-message",
+        "urn:agp:schema:v1:protocol:wire:route-ack-message"
+      ],
+      "semanticRuleIds": ["FSM-ESTABLISHED-MATRIX-1", "ROUTE-ACK-CORRELATION-1"],
+      "owningGate": "AX3",
+      "owningTests": ["packages/core/test/unit/peer-fsm-route-exchange.test.js"],
+      "integrationWitnesses": ["test/topology/star-convergence.test.js"]
+    },
+    {
+      "requirementId": "U4",
+      "ratificationStatus": "required",
+      "authorities": [
+        {
+          "kind": "survey",
+          "reference": "uniform-node survey Q4(b)",
+          "ratification": "confirmed"
+        }
+      ],
+      "designReferences": ["routing.md#7-selected-route-export"],
+      "schemaIds": ["urn:agp:schema:v1:core:operations:adj-rib-out-route-snapshot"],
+      "semanticRuleIds": ["RIB-SELECTED-EXPORT-1"],
+      "owningGate": "AX4",
+      "owningTests": ["packages/core/test/unit/route-export-eligibility.test.js"],
+      "integrationWitnesses": [
+        "test/topology/line-transit.test.js",
+        "test/e2e/independent-star-duplicate-route.test.js",
+        "test/e2e/independent-star-multi-endpoint.test.js",
+        "test/e2e/independent-line.test.js"
+      ]
+    },
+    {
+      "requirementId": "U5",
+      "ratificationStatus": "required",
+      "authorities": [
+        {
+          "kind": "survey",
+          "reference": "uniform-node survey Q4(c)",
+          "ratification": "confirmed"
+        }
+      ],
+      "designReferences": ["protocol.md#41-wire-route", "routing.md#52-route-validation-classes"],
+      "schemaIds": ["urn:agp:schema:v1:protocol:common:node-path"],
+      "semanticRuleIds": ["ROUTE-PATH-OWNERSHIP-1", "ROUTE-PATH-LIMIT-1", "ROUTE-RECEIVER-LOOP-1", "ROUTE-PEER-LOOP-1"],
+      "owningGate": "AX4",
+      "owningTests": [
+        "packages/core/test/unit/route-receiver-loop.test.js",
+        "packages/core/test/unit/route-peer-loop.test.js"
+      ],
+      "integrationWitnesses": ["test/topology/triangle-loop-prevention.test.js"]
+    },
+    {
+      "requirementId": "U6",
+      "ratificationStatus": "required",
+      "authorities": [
+        {
+          "kind": "survey",
+          "reference": "uniform-node survey Q1(b)",
+          "ratification": "confirmed"
+        }
+      ],
+      "designReferences": ["routing.md#9-uniform-data-forwarding", "sdk-operations.md#43-routed-send"],
+      "schemaIds": ["urn:agp:schema:v1:core:sdk:send-receipt"],
+      "semanticRuleIds": ["DATA-SELECTED-RIB-1"],
+      "owningGate": "AX5",
+      "owningTests": ["packages/node/test/contract/local-data-admission.test.js"],
+      "integrationWitnesses": [
+        "test/topology/star-convergence.test.js",
+        "test/topology/line-transit.test.js",
+        "test/e2e/independent-star-hub-endpoint.test.js",
+        "test/e2e/independent-star-multi-endpoint.test.js",
+        "test/e2e/independent-line.test.js"
+      ]
+    },
+    {
+      "requirementId": "U7",
+      "ratificationStatus": "required",
+      "authorities": [
+        {
+          "kind": "survey",
+          "reference": "uniform-node survey Q5(a)",
+          "ratification": "confirmed"
+        }
+      ],
+      "designReferences": [
+        "routing.md#96-route-miss-outcomes",
+        "sdk-operations.md#44-closed-sdk-failure-domain"
+      ],
+      "schemaIds": [
+        "urn:agp:schema:v1:core:codes:sdk-error-code",
+        "urn:agp:schema:v1:core:codes:sdk-operation",
+        "urn:agp:schema:v1:core:sdk:agp-error-data"
+      ],
+      "semanticRuleIds": ["DATA-LOCAL-NO-ROUTE-1"],
+      "owningGate": "AX5",
+      "owningTests": ["packages/node/test/contract/local-route-miss.test.js"],
+      "integrationWitnesses": []
+    },
+    {
+      "requirementId": "U8",
+      "ratificationStatus": "required",
+      "authorities": [
+        {
+          "kind": "survey",
+          "reference": "uniform-node survey Q5(b)",
+          "ratification": "confirmed"
+        }
+      ],
+      "designReferences": ["routing.md#96-route-miss-outcomes", "verification.md#exact-route-miss-oracle"],
+      "schemaIds": ["urn:agp:schema:v1:protocol:codes:delivery-error-code"],
+      "semanticRuleIds": ["DATA-TRANSIT-NO-ROUTE-1", "DATA-FAILURE-PRECEDENCE-1"],
+      "owningGate": "AX5",
+      "owningTests": ["packages/node/test/contract/transit-route-miss.test.js"],
+      "integrationWitnesses": []
+    },
+    {
+      "requirementId": "U9",
+      "ratificationStatus": "required",
+      "authorities": [
+        {
+          "kind": "survey",
+          "reference": "uniform-node survey Q5(c)",
+          "ratification": "confirmed"
+        }
+      ],
+      "designReferences": ["protocol.md#7-correlated-reverse-errors", "routing.md#10-reverse-delivery-errors"],
+      "schemaIds": [
+        "urn:agp:schema:v1:protocol:common:return-token",
+        "urn:agp:schema:v1:protocol:wire:delivery-error-body",
+        "urn:agp:schema:v1:core:operations:reverse-correlation-snapshot"
+      ],
+      "semanticRuleIds": ["ERROR-RETURN-TOKEN-1", "ERROR-NO-RIB-LOOKUP-1"],
+      "owningGate": "AX5",
+      "owningTests": [
+        "packages/node/test/contract/reverse-error-relay.test.js",
+        "packages/node/test/contract/reverse-error-no-rib.test.js"
+      ],
+      "integrationWitnesses": []
+    },
+    {
+      "requirementId": "U10",
+      "ratificationStatus": "required",
+      "authorities": [
+        {
+          "kind": "survey",
+          "reference": "uniform-node survey Q6(c)",
+          "ratification": "confirmed"
+        }
+      ],
+      "designReferences": ["sdk-operations.md#7-management-http", "sdk-operations.md#8-read-only-agpctl"],
+      "schemaIds": [
+        "urn:agp:schema:v1:management:connections-response",
+        "urn:agp:schema:v1:management:routes-response"
+      ],
+      "semanticRuleIds": [],
+      "owningGate": "AX6",
+      "owningTests": [
+        "packages/management-http/test/contract/operations-projection.test.js",
+        "cli/test/contract/read-only-drivers.test.js",
+        "cli/test/unit/connections-template.test.js",
+        "cli/test/unit/route-template.test.js"
+      ],
+      "integrationWitnesses": [
+        "test/e2e/operations-frozen-parity.test.js",
+        "test/e2e/operations-live-time-bounds.test.js"
+      ]
+    },
+    {
+      "requirementId": "U11",
+      "ratificationStatus": "required",
+      "authorities": [
+        {
+          "kind": "stakeholder",
+          "reference": "stakeholder direction: sovereign schemas, 2026-07-30",
+          "ratification": "explicitly-approved"
+        },
+        {
+          "kind": "decision",
+          "reference": "D3",
+          "ratification": "required"
+        },
+        {
+          "kind": "axiom",
+          "reference": "A3",
+          "ratification": "applicable-mechanics"
+        },
+        {
+          "kind": "axiom",
+          "reference": "A4",
+          "ratification": "applicable-mechanics"
+        }
+      ],
+      "designReferences": ["contracts.md#1-mandate"],
+      "schemaIds": [
+        "urn:agp:schema:v1:protocol:wire:message",
+        "urn:agp:schema:v1:transport:contracts:transport-peer-evidence",
+        "urn:agp:schema:v1:binding-websocket:configuration:listener",
+        "urn:agp:schema:v1:transport-loopback:operations:fabric-snapshot",
+        "urn:agp:schema:v1:core:operations:operations-snapshot",
+        "urn:agp:schema:v1:core:sdk:diagnostic-record",
+        "urn:agp:schema:v1:management:connections-response"
+      ],
+      "semanticRuleIds": [],
+      "owningGate": "AX1",
+      "owningTests": [
+        "test/conformance/schema-catalog-composition.test.js",
+        "test/conformance/schema-generation-isolation.test.js",
+        "test/conformance/event-schema-catalog.test.js",
+        "packages/core/test/unit/diagnostic-record-schema.test.js",
+        "packages/transport/test/contract/diagnostic-sink.test.js"
+      ],
+      "integrationWitnesses": []
+    },
+    {
+      "requirementId": "U12",
+      "ratificationStatus": "required",
+      "authorities": [
+        {
+          "kind": "stakeholder",
+          "reference": "transport-sovereignty-authority.md#2-explicit-survey-bypass",
+          "ratification": "explicitly-approved"
+        },
+        {
+          "kind": "axiom",
+          "reference": "A3",
+          "ratification": "applicable-mechanics"
+        }
+      ],
+      "designReferences": [
+        "README.md#2-mandate",
+        "transport-contract.md#3-package-sovereignty"
+      ],
+      "schemaIds": ["urn:agp:schema:v1:transport:common:transport-ref"],
+      "semanticRuleIds": [],
+      "owningGate": "AX1",
+      "owningTests": ["test/conformance/transport-sovereignty.test.js"],
+      "integrationWitnesses": ["test/conformance/public-node-consumer.test.js"]
+    },
+    {
+      "requirementId": "U13",
+      "ratificationStatus": "required",
+      "authorities": [
+        {
+          "kind": "stakeholder",
+          "reference": "transport-sovereignty-authority.md#2-explicit-survey-bypass",
+          "ratification": "explicitly-approved"
+        }
+      ],
+      "designReferences": [
+        "README.md#7-canonical-processing-paths",
+        "verification.md#transport-execution-matrix"
+      ],
+      "schemaIds": [],
+      "semanticRuleIds": [],
+      "owningGate": "AX7",
+      "owningTests": [
+        "test/e2e/transport-equivalence-star.test.js",
+        "test/e2e/transport-equivalence-line.test.js"
+      ],
+      "integrationWitnesses": [
+        "test/topology/star-convergence.test.js",
+        "test/e2e/independent-star-multi-endpoint.test.js"
+      ]
+    },
+    {
+      "requirementId": "U14",
+      "ratificationStatus": "required",
+      "authorities": [
+        {
+          "kind": "stakeholder",
+          "reference": "transport-sovereignty-authority.md#2-explicit-survey-bypass",
+          "ratification": "explicitly-approved"
+        },
+        {
+          "kind": "axiom",
+          "reference": "A3",
+          "ratification": "applicable-mechanics"
+        }
+      ],
+      "designReferences": [
+        "transports/loopback.md",
+        "decisions.md#d17--canonical-production-loopback"
+      ],
+      "schemaIds": [
+        "urn:agp:schema:v1:transport-loopback:configuration:fabric",
+        "urn:agp:schema:v1:transport-loopback:operations:fabric-snapshot"
+      ],
+      "semanticRuleIds": [
+        "LOOPBACK-EXPLICIT-FABRIC-1",
+        "LOOPBACK-SNAPSHOT-RETENTION-1"
+      ],
+      "owningGate": "AX1",
+      "owningTests": [
+        "packages/transport-loopback/test/contract/production-surface.test.js",
+        "packages/transport-loopback/test/conformance/packet-boundary.test.js"
+      ],
+      "integrationWitnesses": ["test/topology/star-convergence.test.js"]
+    },
+    {
+      "requirementId": "U15",
+      "ratificationStatus": "required",
+      "authorities": [
+        {
+          "kind": "stakeholder",
+          "reference": "transport-sovereignty-authority.md#2-explicit-survey-bypass",
+          "ratification": "explicitly-approved"
+        },
+        {
+          "kind": "axiom",
+          "reference": "A3",
+          "ratification": "applicable-mechanics"
+        }
+      ],
+      "designReferences": [
+        "bindings/websocket.md",
+        "decisions.md#d16--sovereign-websocket-binding"
+      ],
+      "schemaIds": [
+        "urn:agp:schema:v1:binding-websocket:configuration:listener",
+        "urn:agp:schema:v1:binding-websocket:contracts:close-mapping"
+      ],
+      "semanticRuleIds": [
+        "WEBSOCKET-PACKET-BINDING-1",
+        "WEBSOCKET-REFERENCE-UNIQUENESS-1"
+      ],
+      "owningGate": "AX1",
+      "owningTests": [
+        "packages/binding-websocket/test/contract/packet-mapping.test.js",
+        "packages/binding-websocket/test/contract/reference-uniqueness.test.js",
+        "packages/transport-node-ws/test/contract/trusted-development-profile.test.js",
+        "test/conformance/transport-sovereignty.test.js"
+      ],
+      "integrationWitnesses": ["test/e2e/independent-star-multi-endpoint.test.js"]
+    },
+    {
+      "requirementId": "D1",
+      "ratificationStatus": "required",
+      "authorities": [
+        {
+          "kind": "decision",
+          "reference": "D1",
+          "ratification": "required"
+        }
+      ],
+      "designReferences": ["decisions.md#d1--uniform-node"],
+      "schemaIds": ["urn:agp:schema:v1:core:configuration:node-config"],
+      "semanticRuleIds": [],
+      "owningGate": "AX5",
+      "owningTests": ["packages/node/test/contract/uniform-capabilities.test.js"],
+      "integrationWitnesses": []
+    },
+    {
+      "requirementId": "D2",
+      "ratificationStatus": "required",
+      "authorities": [
+        {
+          "kind": "decision",
+          "reference": "D2",
+          "ratification": "required"
+        }
+      ],
+      "designReferences": ["decisions.md#d2--in-place-v1-replacement"],
+      "schemaIds": ["urn:agp:schema:v1:protocol:wire:message"],
+      "semanticRuleIds": [],
+      "owningGate": "AX1",
+      "owningTests": ["test/conformance/no-legacy-surface.test.js"],
+      "integrationWitnesses": []
+    },
+    {
+      "requirementId": "D3",
+      "ratificationStatus": "required",
+      "authorities": [
+        {
+          "kind": "decision",
+          "reference": "D3",
+          "ratification": "required"
+        }
+      ],
+      "designReferences": ["decisions.md#d3--sovereign-contracts", "contracts.md"],
+      "schemaIds": [
+        "urn:agp:schema:v1:protocol:wire:message",
+        "urn:agp:schema:v1:transport:contracts:transport-peer-evidence",
+        "urn:agp:schema:v1:binding-websocket:configuration:listener",
+        "urn:agp:schema:v1:transport-loopback:operations:fabric-snapshot",
+        "urn:agp:schema:v1:core:operations:operations-snapshot",
+        "urn:agp:schema:v1:core:sdk:diagnostic-record",
+        "urn:agp:schema:v1:management:connections-response"
+      ],
+      "semanticRuleIds": [],
+      "owningGate": "AX1",
+      "owningTests": [
+        "test/conformance/schema-catalog-composition.test.js",
+        "test/conformance/schema-generation-isolation.test.js",
+        "packages/core/test/unit/diagnostic-record-schema.test.js",
+        "packages/transport/test/contract/diagnostic-sink.test.js"
+      ],
+      "integrationWitnesses": []
+    },
+    {
+      "requirementId": "D4",
+      "ratificationStatus": "ratified",
+      "authorities": [
+        {
+          "kind": "decision",
+          "reference": "D4",
+          "ratification": "ratified"
+        }
+      ],
+      "designReferences": ["decisions.md#d4--full-route-snapshots", "protocol.md#4-authoritative-route-snapshots"],
+      "schemaIds": ["urn:agp:schema:v1:protocol:wire:route-update-body"],
+      "semanticRuleIds": ["ROUTE-SNAPSHOT-REVISION-1", "ROUTE-SNAPSHOT-REPLACE-1", "ROUTE-REJECTION-MEMORY-1", "ROUTE-REJECTION-RETRY-1"],
+      "owningGate": "AX4",
+      "owningTests": [
+        "packages/core/test/unit/route-import.test.js",
+        "packages/core/test/unit/route-binding-withdrawal.test.js",
+        "packages/core/test/unit/route-session-withdrawal.test.js"
+      ],
+      "integrationWitnesses": [
+        "test/topology/withdrawal-binding-close.test.js",
+        "test/topology/withdrawal-snapshot-omission.test.js"
+      ]
+    },
+    {
+      "requirementId": "D5",
+      "ratificationStatus": "ratified",
+      "authorities": [
+        {
+          "kind": "decision",
+          "reference": "D5",
+          "ratification": "ratified"
+        }
+      ],
+      "designReferences": ["decisions.md#d5--route-provenance-and-identity-lifetime"],
+      "schemaIds": [
+        "urn:agp:schema:v1:protocol:common:session-id",
+        "urn:agp:schema:v1:protocol:common:node-path"
+      ],
+      "semanticRuleIds": ["OPEN-IDENTITY-1", "SESSION-PAIR-SCOPE-1", "ROUTE-PATH-OWNERSHIP-1"],
+      "owningGate": "AX2",
+      "owningTests": [
+        "packages/protocol/test/unit/open-identity.test.js",
+        "packages/core/test/unit/session-pair-scope.test.js"
+      ],
+      "integrationWitnesses": [
+        "packages/core/test/unit/session-terminal-retention.test.js",
+        "packages/core/test/unit/session-closed-event.test.js",
+        "packages/core/test/unit/connection-preidentity-closed-event.test.js"
+      ]
+    },
+    {
+      "requirementId": "D6",
+      "ratificationStatus": "ratified",
+      "authorities": [
+        {
+          "kind": "decision",
+          "reference": "D6",
+          "ratification": "ratified"
+        }
+      ],
+      "designReferences": ["decisions.md#d6--deterministic-single-path-selection", "routing.md#62-total-best-path-order"],
+      "schemaIds": ["urn:agp:schema:v1:core:codes:selected-reason"],
+      "semanticRuleIds": ["RIB-BEST-PATH-1"],
+      "owningGate": "AX4",
+      "owningTests": ["packages/core/test/unit/route-selection.test.js"],
+      "integrationWitnesses": ["test/topology/diamond-selection.test.js"]
+    },
+    {
+      "requirementId": "D7",
+      "ratificationStatus": "ratified",
+      "authorities": [
+        {
+          "kind": "decision",
+          "reference": "D7",
+          "ratification": "ratified"
+        }
+      ],
+      "designReferences": ["decisions.md#d7--feasible-path-source-authorization", "mechanisms.md"],
+      "schemaIds": ["urn:agp:schema:v1:protocol:routing:endpoint-source"],
+      "semanticRuleIds": ["DATA-FEASIBLE-SOURCE-1", "DATA-SOURCE-EXPORT-1", "ROUTE-WRITE-ORDER-1"],
+      "owningGate": "AX5",
+      "owningTests": [
+        "packages/node/test/contract/transit-feasible-source.test.js",
+        "packages/node/test/contract/source-export-barrier.test.js",
+        "packages/node/test/contract/withdrawal-writer-order.test.js"
+      ],
+      "integrationWitnesses": ["test/topology/line-transit.test.js"]
+    },
+    {
+      "requirementId": "D8",
+      "ratificationStatus": "ratified",
+      "authorities": [
+        {
+          "kind": "decision",
+          "reference": "D8",
+          "ratification": "ratified"
+        }
+      ],
+      "designReferences": ["decisions.md#d8--reverse-failures"],
+      "schemaIds": ["urn:agp:schema:v1:protocol:common:return-token"],
+      "semanticRuleIds": ["RETURN-TOKEN-NONREUSE-1", "ERROR-RETURN-TOKEN-1", "ERROR-CONSUME-ONCE-1"],
+      "owningGate": "AX5",
+      "owningTests": [
+        "packages/node/test/contract/reverse-error-relay.test.js",
+        "packages/node/test/contract/reverse-error-no-rib.test.js",
+        "packages/node/test/contract/reverse-error-consume-once.test.js",
+        "packages/node/test/unit/return-token-allocator.test.js"
+      ],
+      "integrationWitnesses": []
+    },
+    {
+      "requirementId": "D9",
+      "ratificationStatus": "ratified",
+      "authorities": [
+        {
+          "kind": "decision",
+          "reference": "D9",
+          "ratification": "ratified"
+        }
+      ],
+      "designReferences": ["decisions.md#d9--volatile-derived-runtime-state"],
+      "schemaIds": ["urn:agp:schema:v1:core:operations:operations-snapshot"],
+      "semanticRuleIds": ["RESTART-EMPTY-DERIVED-STATE-1"],
+      "owningGate": "AX7",
+      "owningTests": ["test/topology/restart-reconvergence.test.js"],
+      "integrationWitnesses": []
+    },
+    {
+      "requirementId": "D10",
+      "ratificationStatus": "ratified",
+      "authorities": [
+        {
+          "kind": "decision",
+          "reference": "D10",
+          "ratification": "ratified"
+        },
+        {
+          "kind": "axiom",
+          "reference": "A8",
+          "ratification": "applicable-mechanics"
+        }
+      ],
+      "designReferences": ["decisions.md#d10--atomic-canonical-state", "routing.md#11-atomic-state-and-revision-mechanics"],
+      "schemaIds": [
+        "urn:agp:schema:v1:core:common:operations-revision",
+        "urn:agp:schema:v1:core:common:event-sequence",
+        "urn:agp:schema:v1:core:common:counter-value",
+        "urn:agp:schema:v1:core:codes:counter-key",
+        "urn:agp:schema:v1:core:operations:host-failure-snapshot"
+      ],
+      "semanticRuleIds": [
+        "OPERATIONS-ATOMIC-REVISION-1",
+        "CORE-MONOTONIC-EXHAUSTION-1"
+      ],
+      "owningGate": "AX4",
+      "owningTests": [
+        "packages/core/test/unit/rib-atomic-revision.test.js",
+        "packages/core/test/unit/monotonic-domain-exhaustion.test.js"
+      ],
+      "integrationWitnesses": []
+    },
+    {
+      "requirementId": "D11",
+      "ratificationStatus": "ratified",
+      "authorities": [
+        {
+          "kind": "decision",
+          "reference": "D11",
+          "ratification": "ratified"
+        }
+      ],
+      "designReferences": ["decisions.md#d11--cross-dial-collision", "mechanisms.md"],
+      "schemaIds": ["urn:agp:schema:v1:protocol:common:session-id"],
+      "semanticRuleIds": ["SESSION-CROSS-DIAL-1"],
+      "owningGate": "AX3",
+      "owningTests": ["packages/core/test/unit/peer-fsm-cross-dial.test.js"],
+      "integrationWitnesses": ["test/resilience/cross-dial-race.test.js"]
+    },
+    {
+      "requirementId": "D12",
+      "ratificationStatus": "required",
+      "authorities": [
+        {
+          "kind": "decision",
+          "reference": "D12",
+          "ratification": "required"
+        }
+      ],
+      "designReferences": ["decisions.md#d12--operational-continuity", "sdk-operations.md#8-read-only-agpctl"],
+      "schemaIds": [
+        "urn:agp:schema:v1:management:connections-response",
+        "urn:agp:schema:v1:management:routes-response"
+      ],
+      "semanticRuleIds": [],
+      "owningGate": "AX6",
+      "owningTests": [
+        "cli/test/contract/read-only-drivers.test.js",
+        "cli/test/unit/connections-template.test.js",
+        "cli/test/unit/route-template.test.js"
+      ],
+      "integrationWitnesses": ["test/e2e/operations-frozen-parity.test.js"]
+    },
+    {
+      "requirementId": "D13",
+      "ratificationStatus": "ratified",
+      "authorities": [
+        {
+          "kind": "decision",
+          "reference": "D13",
+          "ratification": "ratified"
+        }
+      ],
+      "designReferences": ["decisions.md#d13--one-shot-runtime-instance", "sdk-operations.md#32-lifecycle"],
+      "schemaIds": [
+        "urn:agp:schema:v1:core:codes:host-state",
+        "urn:agp:schema:v1:core:operations:host-failure-snapshot",
+        "urn:agp:schema:v1:core:sdk:stop-report"
+      ],
+      "semanticRuleIds": ["NODE-ONE-SHOT-LIFECYCLE-1"],
+      "owningGate": "AX5",
+      "owningTests": ["packages/node/test/contract/lifecycle-one-shot.test.js"],
+      "integrationWitnesses": []
+    },
+    {
+      "requirementId": "D14",
+      "ratificationStatus": "ratified",
+      "authorities": [
+        {
+          "kind": "decision",
+          "reference": "D14",
+          "ratification": "ratified"
+        }
+      ],
+      "designReferences": [
+        "decisions.md#d14--reliable-ordered-packet-channel",
+        "transport-contract.md#61-listener-acquisition",
+        "verification.md#transport-acceptance-callback-fault-proof"
+      ],
+      "schemaIds": [
+        "urn:agp:schema:v1:transport:contracts:transport-channel-limits",
+        "urn:agp:schema:v1:transport:contracts:transport-terminal",
+        "urn:agp:schema:v1:transport:contracts:transport-listener-terminal"
+      ],
+      "semanticRuleIds": [
+        "TRANSPORT-CHANNEL-ORDER-1",
+        "TRANSPORT-TERMINAL-ONCE-1"
+      ],
+      "owningGate": "AX1",
+      "owningTests": [
+        "packages/transport/test/contract/conformance-case-coverage.test.js",
+        "packages/transport/test/contract/channel-order-rule.test.js",
+        "packages/transport/test/contract/terminal-once-rule.test.js",
+        "packages/transport/test/contract/acceptance-callback-fault.test.js",
+        "packages/transport-node-ws/test/conformance/packet-order.test.js",
+        "packages/transport-node-ws/test/conformance/send-dispatch-cancellation.test.js",
+        "packages/transport-node-ws/test/conformance/acceptance-callback-fault.test.js",
+        "packages/transport-loopback/test/conformance/packet-order.test.js",
+        "packages/transport-loopback/test/conformance/acceptance-callback-fault.test.js"
+      ],
+      "integrationWitnesses": [
+        "packages/node/test/contract/acceptance-callback-fault-lifecycle.test.js",
+        "packages/node/test/contract/transport-disposition-latch.test.js"
+      ]
+    },
+    {
+      "requirementId": "D15",
+      "ratificationStatus": "ratified",
+      "authorities": [
+        {
+          "kind": "decision",
+          "reference": "D15",
+          "ratification": "ratified"
+        }
+      ],
+      "designReferences": [
+        "decisions.md#d15--transport-references-and-observed-peer-evidence",
+        "transport-contract.md#4-logical-references-and-bound-acquisition-capabilities",
+        "transport-contract.md#12-peer-evidence-and-identity-admission"
+      ],
+      "schemaIds": [
+        "urn:agp:schema:v1:transport:common:transport-ref",
+        "urn:agp:schema:v1:transport:contracts:transport-peer-evidence"
+      ],
+      "semanticRuleIds": [
+        "TRANSPORT-REFERENCE-RESOLUTION-1",
+        "TRANSPORT-PEER-EVIDENCE-1"
+      ],
+      "owningGate": "AX5",
+      "owningTests": [
+        "packages/node/test/contract/transport-reference-composition.test.js",
+        "packages/node/test/contract/identity-peer-evidence.test.js"
+      ],
+      "integrationWitnesses": []
+    },
+    {
+      "requirementId": "D16",
+      "ratificationStatus": "ratified",
+      "authorities": [
+        {
+          "kind": "decision",
+          "reference": "D16",
+          "ratification": "ratified"
+        }
+      ],
+      "designReferences": [
+        "decisions.md#d16--sovereign-websocket-binding",
+        "bindings/websocket.md"
+      ],
+      "schemaIds": [
+        "urn:agp:schema:v1:binding-websocket:configuration:listener",
+        "urn:agp:schema:v1:binding-websocket:codes:binding-rejection-code"
+      ],
+      "semanticRuleIds": ["WEBSOCKET-PACKET-BINDING-1"],
+      "owningGate": "AX1",
+      "owningTests": [
+        "packages/binding-websocket/test/contract/packet-mapping.test.js",
+        "packages/binding-websocket/test/contract/terminal-mapping.test.js",
+        "packages/transport-node-ws/test/contract/trusted-development-profile.test.js",
+        "packages/transport-node-ws/test/conformance/send-dispatch-cancellation.test.js"
+      ],
+      "integrationWitnesses": ["test/e2e/independent-line.test.js"]
+    },
+    {
+      "requirementId": "D17",
+      "ratificationStatus": "ratified",
+      "authorities": [
+        {
+          "kind": "decision",
+          "reference": "D17",
+          "ratification": "ratified"
+        }
+      ],
+      "designReferences": [
+        "decisions.md#d17--canonical-production-loopback",
+        "transports/loopback.md"
+      ],
+      "schemaIds": [
+        "urn:agp:schema:v1:transport-loopback:configuration:fabric",
+        "urn:agp:schema:v1:transport-loopback:operations:channel-snapshot",
+        "urn:agp:schema:v1:transport-loopback:codes:counter-key",
+        "urn:agp:schema:v1:transport-loopback:operations:fabric-failure-snapshot"
+      ],
+      "semanticRuleIds": [
+        "LOOPBACK-EXPLICIT-FABRIC-1",
+        "LOOPBACK-ADAPTER-INVARIANT-FAILURE-1",
+        "LOOPBACK-SNAPSHOT-RETENTION-1",
+        "LOOPBACK-MONOTONIC-EXHAUSTION-1"
+      ],
+      "owningGate": "AX1",
+      "owningTests": [
+        "packages/transport-loopback/test/contract/production-surface.test.js",
+        "packages/transport-loopback/test/contract/operations-snapshot-retention.test.js",
+        "packages/transport-loopback/test/contract/operations-monotonic-exhaustion.test.js",
+        "packages/transport-loopback/test/conformance/terminal-race.test.js"
+      ],
+      "integrationWitnesses": [
+        "test/topology/star-convergence.test.js",
+        "test/topology/line-transit.test.js"
+      ]
+    }
+  ]
+}

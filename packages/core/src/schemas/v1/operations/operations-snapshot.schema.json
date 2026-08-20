@@ -1,0 +1,126 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:agp:schema:v1:core:operations:operations-snapshot",
+  "title": "AGP core operations-snapshot",
+  "x-agp": {
+    "owner": "@agp/core",
+    "typescript": "OperationsSnapshot",
+    "kind": "aggregate",
+    "mechanics": "Sovereign operations-snapshot data contract owned by @agp/core.",
+    "rationale": "One schema gives runtime validators and consumers one stable reasoning boundary.",
+    "consequence": "Accepting another shape would make canonical state or SDK interpretation ambiguous.",
+    "semanticRules": [
+      "OPERATIONS-ATOMIC-REVISION-1",
+      "RESTART-EMPTY-DERIVED-STATE-1"
+    ]
+  },
+  "type": "object",
+  "properties": {
+    "schemaVersion": {
+      "const": "agp.operations/v1"
+    },
+    "nodeId": {
+      "$ref": "urn:agp:schema:v1:protocol:common:node-id"
+    },
+    "instanceId": {
+      "$ref": "urn:agp:schema:v1:core:common:instance-id"
+    },
+    "capturedAt": {
+      "$ref": "urn:agp:schema:v1:core:common:timestamp"
+    },
+    "revision": {
+      "$ref": "urn:agp:schema:v1:core:common:operations-revision"
+    },
+    "configuration": {
+      "$ref": "urn:agp:schema:v1:core:operations:configuration-snapshot"
+    },
+    "lifecycle": {
+      "$ref": "urn:agp:schema:v1:core:operations:lifecycle-snapshot"
+    },
+    "listener": {
+      "$ref": "urn:agp:schema:v1:core:operations:listener-snapshot"
+    },
+    "adjacencies": {
+      "type": "array",
+      "items": {
+        "$ref": "urn:agp:schema:v1:core:operations:adjacency-snapshot"
+      }
+    },
+    "localEndpoints": {
+      "type": "array",
+      "items": {
+        "$ref": "urn:agp:schema:v1:core:operations:local-endpoint-snapshot"
+      }
+    },
+    "connections": {
+      "type": "array",
+      "items": {
+        "$ref": "urn:agp:schema:v1:core:operations:connection-snapshot"
+      }
+    },
+    "advertisements": {
+      "type": "array",
+      "items": {
+        "$ref": "urn:agp:schema:v1:core:operations:advertisement-snapshot"
+      }
+    },
+    "candidateRoutes": {
+      "type": "array",
+      "items": {
+        "$ref": "urn:agp:schema:v1:core:operations:candidate-route-snapshot"
+      }
+    },
+    "selectedRoutes": {
+      "type": "array",
+      "items": {
+        "$ref": "urn:agp:schema:v1:core:operations:selected-route-snapshot"
+      }
+    },
+    "forwarding": {
+      "type": "array",
+      "items": {
+        "$ref": "urn:agp:schema:v1:core:operations:forwarding-entry-snapshot"
+      }
+    },
+    "routeExports": {
+      "type": "array",
+      "items": {
+        "$ref": "urn:agp:schema:v1:core:operations:adj-rib-out-route-snapshot"
+      }
+    },
+    "reverseCorrelations": {
+      "type": "array",
+      "items": {
+        "$ref": "urn:agp:schema:v1:core:operations:reverse-correlation-snapshot"
+      }
+    },
+    "resources": {
+      "$ref": "urn:agp:schema:v1:core:operations:resources-snapshot"
+    },
+    "counters": {
+      "$ref": "urn:agp:schema:v1:core:operations:counters-snapshot"
+    }
+  },
+  "required": [
+    "schemaVersion",
+    "nodeId",
+    "instanceId",
+    "capturedAt",
+    "revision",
+    "configuration",
+    "lifecycle",
+    "listener",
+    "adjacencies",
+    "localEndpoints",
+    "connections",
+    "advertisements",
+    "candidateRoutes",
+    "selectedRoutes",
+    "forwarding",
+    "routeExports",
+    "reverseCorrelations",
+    "resources",
+    "counters"
+  ],
+  "additionalProperties": false
+}

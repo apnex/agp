@@ -1,0 +1,31 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:agp:schema:v1:core:configuration:route-rejection-retry",
+  "title": "AGP core route-rejection-retry",
+  "x-agp": {
+    "owner": "@agp/core",
+    "typescript": "RouteRejectionRetryPolicy",
+    "kind": "configuration",
+    "mechanics": "Sovereign route-rejection-retry data contract owned by @agp/core.",
+    "rationale": "One schema gives runtime validators and consumers one stable reasoning boundary.",
+    "consequence": "Accepting another shape would make canonical state or SDK interpretation ambiguous.",
+    "semanticRules": [
+      "ROUTE-REJECTION-RETRY-1"
+    ]
+  },
+  "type": "object",
+  "properties": {
+    "initialMs": {
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 9007199254740991
+    },
+    "maxMs": {
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 9007199254740991
+    }
+  },
+  "required": [],
+  "additionalProperties": false
+}

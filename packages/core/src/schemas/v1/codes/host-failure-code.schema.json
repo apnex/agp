@@ -1,0 +1,21 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:agp:schema:v1:core:codes:host-failure-code",
+  "title": "AGP core host-failure-code",
+  "x-agp": {
+    "owner": "@agp/core",
+    "typescript": "HostFailureCode",
+    "kind": "code",
+    "mechanics": "Sovereign host-failure-code data contract owned by @agp/core.",
+    "rationale": "One schema gives runtime validators and consumers one stable reasoning boundary.",
+    "consequence": "Accepting another shape would make canonical state or SDK interpretation ambiguous.",
+    "semanticRules": []
+  },
+  "type": "string",
+  "enum": [
+    "START_FAILED",
+    "LISTENER_TERMINAL",
+    "MONOTONIC_DOMAIN_EXHAUSTED",
+    "INTERNAL_INVARIANT"
+  ]
+}

@@ -1,0 +1,47 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:agp:schema:v1:transport-loopback:configuration:transport",
+  "title": "AGP Loopback transport",
+  "x-agp": {
+    "owner": "@agp/transport-loopback",
+    "typescript": "Transport",
+    "kind": "configuration",
+    "mechanics": "Sovereign transport data contract owned by @agp/transport-loopback.",
+    "rationale": "One closed record keeps production Loopback configuration and state independently inspectable.",
+    "consequence": "Accepting another shape would make fabric capacity, lifecycle, or terminal evidence ambiguous.",
+    "semanticRules": [
+      "LOOPBACK-EXPLICIT-FABRIC-1"
+    ]
+  },
+  "type": "object",
+  "properties": {
+    "transportName": {
+      "description": "Unique name reserved for this fabric lifetime.",
+      "$ref": "urn:agp:schema:v1:transport-loopback:common:transport-name"
+    },
+    "capabilities": {
+      "description": "Fixed acquisition kinds this scoped transport may bind.",
+      "type": "object",
+      "properties": {
+        "listen": {
+          "description": "Whether listener capabilities may be bound.",
+          "type": "boolean"
+        },
+        "connect": {
+          "description": "Whether target capabilities may be bound.",
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "listen",
+        "connect"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "required": [
+    "transportName",
+    "capabilities"
+  ],
+  "additionalProperties": false
+}

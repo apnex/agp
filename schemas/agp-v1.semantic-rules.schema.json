@@ -1,0 +1,100 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:agp:schema:v1:catalog:semantic-rules",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schemaVersion", "rules"],
+  "properties": {
+    "schemaVersion": {
+      "const": "agp.semantic-rules/v1"
+    },
+    "rules": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "$ref": "#/$defs/rule"
+      }
+    }
+  },
+  "$defs": {
+    "boundedString": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 512
+    },
+    "stringList": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/boundedString"
+      },
+      "uniqueItems": true
+    },
+    "rule": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "owner",
+        "phase",
+        "inputSchemaIds",
+        "resultCodes",
+        "designReferences",
+        "implementation",
+        "owningTest"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "^[A-Z][A-Z0-9]*(?:-[A-Z0-9]+)+-[1-9][0-9]*$"
+        },
+        "owner": {
+          "enum": [
+            "@agp/protocol",
+            "@agp/transport",
+            "@agp/binding-websocket",
+            "@agp/transport-loopback",
+            "@agp/core",
+            "@agp/node"
+          ]
+        },
+        "phase": {
+          "enum": [
+            "decode",
+            "configuration",
+            "construction",
+            "transport",
+            "binding",
+            "session",
+            "routing",
+            "data-admission",
+            "operations",
+            "fabric"
+          ]
+        },
+        "inputSchemaIds": {
+          "$ref": "#/$defs/stringList"
+        },
+        "resultCodes": {
+          "$ref": "#/$defs/stringList"
+        },
+        "designReferences": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/stringList"
+            },
+            {
+              "type": "array",
+              "minItems": 1
+            }
+          ]
+        },
+        "implementation": {
+          "$ref": "#/$defs/boundedString"
+        },
+        "owningTest": {
+          "$ref": "#/$defs/boundedString"
+        }
+      }
+    }
+  }
+}

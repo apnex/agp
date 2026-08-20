@@ -1,0 +1,22 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:agp:schema:v1:core:event:message-failed-data",
+  "title": "AGP core message-failed-data",
+  "x-agp": {
+    "owner": "@agp/core",
+    "typescript": "MessageFailedData",
+    "kind": "event-data",
+    "mechanics": "Sovereign message-failed-data data contract owned by @agp/core.",
+    "rationale": "One schema gives runtime validators and consumers one stable reasoning boundary.",
+    "consequence": "Accepting another shape would make canonical state or SDK interpretation ambiguous.",
+    "semanticRules": []
+  },
+  "type": "object",
+  "properties": {
+    "code": {
+      "$ref": "urn:agp:schema:v1:protocol:codes:delivery-error-code"
+    }
+  },
+  "required": [],
+  "additionalProperties": false
+}

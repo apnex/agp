@@ -1,0 +1,52 @@
+{
+  "profile": "hub",
+  "managementPort": 47201,
+  "endpoints": [
+    "hub/service"
+  ],
+  "nodeConfig": {
+    "nodeId": "hub",
+    "listen": {
+      "transportRef": "loopback.listen"
+    },
+    "transit": {
+      "enabled": true,
+      "defaultHopLimit": 16
+    },
+    "identityAdmission": {
+      "mode": "allow"
+    },
+    "routeAdmission": {
+      "mode": "allow"
+    },
+    "limits": {
+      "maxLocalEndpoints": 16,
+      "maxRoutesPerSnapshot": 256,
+      "maxPathLength": 64,
+      "maxHopCount": 16
+    },
+    "capacity": {
+      "maxSessions": 2,
+      "maxPendingHandshakes": 2
+    }
+  },
+  "transport": {
+    "config": {
+      "transportName": "hub",
+      "capabilities": {
+        "listen": true,
+        "connect": false
+      }
+    },
+    "listeners": [
+      {
+        "transportRef": "loopback.listen",
+        "binding": {
+          "fabricId": "agp-loopback-example",
+          "address": "hub"
+        }
+      }
+    ],
+    "targets": []
+  }
+}

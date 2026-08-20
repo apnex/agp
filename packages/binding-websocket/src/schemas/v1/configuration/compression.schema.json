@@ -1,0 +1,55 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:agp:schema:v1:binding-websocket:configuration:compression",
+  "title": "WebSocketCompressionConfig",
+  "x-agp": {
+    "owner": "@agp/binding-websocket",
+    "typescript": "WebSocketCompressionConfig",
+    "kind": "configuration",
+    "mechanics": "Defines the compression value owned by the WebSocket binding.",
+    "rationale": "Carrier-specific configuration and mapping remain outside the neutral kernel.",
+    "consequence": "Divergence makes WebSocket behavior ambiguous or leaks carrier authority.",
+    "semanticRules": []
+  },
+  "description": "Closed RFC 7692 compression configuration.",
+  "oneOf": [
+    {
+      "type": "object",
+      "properties": {
+        "mode": {
+          "const": "disabled",
+          "description": "No WebSocket data-message compression."
+        }
+      },
+      "required": [
+        "mode"
+      ],
+      "additionalProperties": false
+    },
+    {
+      "type": "object",
+      "properties": {
+        "mode": {
+          "const": "permessage-deflate",
+          "description": "Explicit bounded RFC 7692 compression."
+        },
+        "maxCompressedBytes": {
+          "type": "integer",
+          "description": "Maximum compressed carrier-message bytes.",
+          "minimum": 1,
+          "maximum": 9007199254740991
+        },
+        "noContextTakeover": {
+          "const": true,
+          "description": "Both directions disable context takeover."
+        }
+      },
+      "required": [
+        "mode",
+        "maxCompressedBytes",
+        "noContextTakeover"
+      ],
+      "additionalProperties": false
+    }
+  ]
+}

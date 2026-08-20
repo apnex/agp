@@ -1,0 +1,19 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:agp:schema:v1:protocol:common:json-object",
+  "title": "JsonObject",
+  "description": "An opaque application JSON object with arbitrary named values.",
+  "x-agp": {
+    "owner": "@agp/protocol",
+    "typescript": "JsonObject",
+    "kind": "json-object",
+    "mechanics": "An opaque application JSON object with arbitrary named values.",
+    "rationale": "A sovereign contract gives validators and consumers one stable reasoning boundary.",
+    "consequence": "Accepting another shape would make peer interpretation or ownership ambiguous.",
+    "semanticRules": []
+  },
+  "type": "object",
+  "additionalProperties": {
+    "$ref": "urn:agp:schema:v1:protocol:common:json-value"
+  }
+}

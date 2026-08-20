@@ -1,0 +1,44 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:agp:schema:v1:management:forwarding-response",
+  "title": "ManagementForwardingList",
+  "description": "ForwardingList management response preserving canonical SDK list order.",
+  "x-agp": {
+    "owner": "@agp/management-http",
+    "typescript": "ManagementForwardingList",
+    "kind": "management-response",
+    "mechanics": "ForwardingList management response preserving canonical SDK list order.",
+    "rationale": "A sovereign response preserves the canonical SDK projection without adapter-owned inference.",
+    "consequence": "A generic or duplicated shape could diverge from the node operations truth.",
+    "semanticRules": []
+  },
+  "type": "object",
+  "required": [
+    "apiVersion",
+    "kind",
+    "meta",
+    "items"
+  ],
+  "properties": {
+    "apiVersion": {
+      "const": "agp.management/v1",
+      "description": "Stable management response envelope version."
+    },
+    "kind": {
+      "const": "ForwardingList",
+      "description": "Exact response discriminator."
+    },
+    "meta": {
+      "$ref": "urn:agp:schema:v1:management:response-meta",
+      "description": "Metadata captured by the one canonical OperationsReader query."
+    },
+    "items": {
+      "type": "array",
+      "items": {
+        "$ref": "urn:agp:schema:v1:core:operations:forwarding-entry-snapshot"
+      },
+      "description": "Canonical immutable SDK items without reordering."
+    }
+  },
+  "additionalProperties": false
+}

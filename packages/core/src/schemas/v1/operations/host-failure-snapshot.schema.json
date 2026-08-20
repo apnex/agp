@@ -1,0 +1,96 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:agp:schema:v1:core:operations:host-failure-snapshot",
+  "title": "AGP core host-failure-snapshot",
+  "x-agp": {
+    "owner": "@agp/core",
+    "typescript": "HostFailureSnapshot",
+    "kind": "operations",
+    "mechanics": "Sovereign host-failure-snapshot data contract owned by @agp/core.",
+    "rationale": "One schema gives runtime validators and consumers one stable reasoning boundary.",
+    "consequence": "Accepting another shape would make canonical state or SDK interpretation ambiguous.",
+    "semanticRules": []
+  },
+  "oneOf": [
+    {
+      "type": "object",
+      "properties": {
+        "code": {
+          "const": "START_FAILED"
+        }
+      },
+      "required": [
+        "code"
+      ],
+      "additionalProperties": false
+    },
+    {
+      "type": "object",
+      "properties": {
+        "code": {
+          "const": "LISTENER_TERMINAL"
+        },
+        "terminal": {
+          "$ref": "urn:agp:schema:v1:transport:contracts:transport-listener-terminal"
+        }
+      },
+      "required": [
+        "code",
+        "terminal"
+      ],
+      "additionalProperties": false
+    },
+    {
+      "type": "object",
+      "properties": {
+        "code": {
+          "const": "MONOTONIC_DOMAIN_EXHAUSTED"
+        },
+        "domain": {
+          "type": "string",
+          "enum": [
+            "operations-revision",
+            "event-sequence"
+          ]
+        }
+      },
+      "required": [
+        "code",
+        "domain"
+      ],
+      "additionalProperties": false
+    },
+    {
+      "type": "object",
+      "properties": {
+        "code": {
+          "const": "MONOTONIC_DOMAIN_EXHAUSTED"
+        },
+        "domain": {
+          "const": "counter"
+        },
+        "counterKey": {
+          "$ref": "urn:agp:schema:v1:core:codes:counter-key"
+        }
+      },
+      "required": [
+        "code",
+        "domain",
+        "counterKey"
+      ],
+      "additionalProperties": false
+    },
+    {
+      "type": "object",
+      "properties": {
+        "code": {
+          "const": "INTERNAL_INVARIANT"
+        }
+      },
+      "required": [
+        "code"
+      ],
+      "additionalProperties": false
+    }
+  ]
+}

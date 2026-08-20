@@ -1,0 +1,70 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:agp:schema:v1:transport:contracts:transport-listener-terminal",
+  "title": "TransportListenerTerminal",
+  "description": "One immutable listener terminal with legal origin/kind products only.",
+  "x-agp": {
+    "owner": "@agp/transport",
+    "typescript": "TransportListenerTerminal",
+    "kind": "contract",
+    "mechanics": "Defines the bounded transport-listener-terminal value crossing the neutral transport boundary.",
+    "rationale": "One schema and generated type prevent adapter-specific reinterpretation.",
+    "consequence": "A divergent shape makes transport implementations observably incompatible.",
+    "semanticRules": []
+  },
+  "oneOf": [
+    {
+      "type": "object",
+      "properties": {
+        "origin": {
+          "const": "local",
+          "description": "Terminal authority origin."
+        },
+        "kind": {
+          "type": "string",
+          "enum": [
+            "graceful",
+            "aborted"
+          ],
+          "description": "Terminal classification."
+        },
+        "diagnostic": {
+          "$ref": "urn:agp:schema:v1:transport:contracts:transport-diagnostic",
+          "description": "Optional bounded diagnostic."
+        }
+      },
+      "required": [
+        "origin",
+        "kind"
+      ],
+      "additionalProperties": false
+    },
+    {
+      "type": "object",
+      "properties": {
+        "origin": {
+          "const": "carrier",
+          "description": "Terminal authority origin."
+        },
+        "kind": {
+          "type": "string",
+          "enum": [
+            "io-failure",
+            "resource-exhausted",
+            "adapter-fault"
+          ],
+          "description": "Terminal classification."
+        },
+        "diagnostic": {
+          "$ref": "urn:agp:schema:v1:transport:contracts:transport-diagnostic",
+          "description": "Optional bounded diagnostic."
+        }
+      },
+      "required": [
+        "origin",
+        "kind"
+      ],
+      "additionalProperties": false
+    }
+  ]
+}

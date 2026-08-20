@@ -1,0 +1,23 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:agp:schema:v1:binding-websocket:codes:binding-rejection-code",
+  "title": "WebSocketBindingRejectionCode",
+  "x-agp": {
+    "owner": "@agp/binding-websocket",
+    "typescript": "WebSocketBindingRejectionCode",
+    "kind": "code",
+    "mechanics": "Defines the binding-rejection-code value owned by the WebSocket binding.",
+    "rationale": "Carrier-specific configuration and mapping remain outside the neutral kernel.",
+    "consequence": "Divergence makes WebSocket behavior ambiguous or leaks carrier authority.",
+    "semanticRules": []
+  },
+  "description": "Closed private WebSocket rejection classification.",
+  "type": "string",
+  "enum": [
+    "TEXT_MESSAGE",
+    "INVALID_TEXT_UTF8",
+    "PACKET_TOO_LARGE",
+    "MALFORMED_FRAMING",
+    "RECEIVE_OVERFLOW"
+  ]
+}

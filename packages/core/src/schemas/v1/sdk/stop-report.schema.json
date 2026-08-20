@@ -1,0 +1,36 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:agp:schema:v1:core:sdk:stop-report",
+  "title": "AGP core stop-report",
+  "x-agp": {
+    "owner": "@agp/core",
+    "typescript": "StopReport",
+    "kind": "sdk",
+    "mechanics": "Sovereign stop-report data contract owned by @agp/core.",
+    "rationale": "One schema gives runtime validators and consumers one stable reasoning boundary.",
+    "consequence": "Accepting another shape would make canonical state or SDK interpretation ambiguous.",
+    "semanticRules": []
+  },
+  "type": "object",
+  "properties": {
+    "operationsRevision": {
+      "$ref": "urn:agp:schema:v1:core:common:operations-revision"
+    },
+    "stoppedAt": {
+      "$ref": "urn:agp:schema:v1:core:common:timestamp"
+    },
+    "drainedMessages": {
+      "$ref": "urn:agp:schema:v1:core:common:counter-value"
+    },
+    "discardedMessages": {
+      "$ref": "urn:agp:schema:v1:core:common:counter-value"
+    }
+  },
+  "required": [
+    "operationsRevision",
+    "stoppedAt",
+    "drainedMessages",
+    "discardedMessages"
+  ],
+  "additionalProperties": false
+}

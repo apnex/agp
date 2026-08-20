@@ -1,0 +1,26 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:agp:schema:v1:core:codes:ineligible-reason",
+  "title": "AGP core ineligible-reason",
+  "x-agp": {
+    "owner": "@agp/core",
+    "typescript": "IneligibleReason",
+    "kind": "code",
+    "mechanics": "Sovereign ineligible-reason data contract owned by @agp/core.",
+    "rationale": "One schema gives runtime validators and consumers one stable reasoning boundary.",
+    "consequence": "Accepting another shape would make canonical state or SDK interpretation ambiguous.",
+    "semanticRules": []
+  },
+  "type": "string",
+  "enum": [
+    "LOCAL_BINDING_INACTIVE",
+    "LOCAL_ENDPOINT_INDEX_MISMATCH",
+    "ADVERTISEMENT_INACTIVE",
+    "ADVERTISEMENT_MISMATCH",
+    "SESSION_CONTROLLER_STALE",
+    "SESSION_NOT_ESTABLISHED",
+    "SESSION_IDENTITY_MISMATCH",
+    "PATH_INVALID",
+    "NEXT_HOP_UNRESOLVED"
+  ]
+}

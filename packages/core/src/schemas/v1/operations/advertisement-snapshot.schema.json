@@ -1,0 +1,60 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:agp:schema:v1:core:operations:advertisement-snapshot",
+  "title": "AGP core advertisement-snapshot",
+  "x-agp": {
+    "owner": "@agp/core",
+    "typescript": "AdvertisementSnapshot",
+    "kind": "operations",
+    "mechanics": "Sovereign advertisement-snapshot data contract owned by @agp/core.",
+    "rationale": "One schema gives runtime validators and consumers one stable reasoning boundary.",
+    "consequence": "Accepting another shape would make canonical state or SDK interpretation ambiguous.",
+    "semanticRules": [
+      "ROUTE-RECEIVER-LOOP-1",
+      "ROUTE-SNAPSHOT-REPLACE-1"
+    ]
+  },
+  "type": "object",
+  "properties": {
+    "advertisementId": {
+      "type": "string",
+      "minLength": 1
+    },
+    "endpoint": {
+      "$ref": "urn:agp:schema:v1:protocol:common:endpoint-name"
+    },
+    "originNodeId": {
+      "$ref": "urn:agp:schema:v1:protocol:common:node-id"
+    },
+    "owningSessionId": {
+      "$ref": "urn:agp:schema:v1:protocol:common:session-id"
+    },
+    "advertisingNodeId": {
+      "$ref": "urn:agp:schema:v1:protocol:common:node-id"
+    },
+    "remoteSessionId": {
+      "$ref": "urn:agp:schema:v1:protocol:common:session-id"
+    },
+    "receivedPath": {
+      "$ref": "urn:agp:schema:v1:protocol:common:node-path"
+    },
+    "receivedRevision": {
+      "$ref": "urn:agp:schema:v1:protocol:common:wire-revision"
+    },
+    "receivedAt": {
+      "$ref": "urn:agp:schema:v1:core:common:timestamp"
+    }
+  },
+  "required": [
+    "advertisementId",
+    "endpoint",
+    "originNodeId",
+    "owningSessionId",
+    "advertisingNodeId",
+    "remoteSessionId",
+    "receivedPath",
+    "receivedRevision",
+    "receivedAt"
+  ],
+  "additionalProperties": false
+}

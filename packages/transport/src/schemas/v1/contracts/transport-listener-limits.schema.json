@@ -1,0 +1,40 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:agp:schema:v1:transport:contracts:transport-listener-limits",
+  "title": "TransportListenerLimits",
+  "description": "Exact acquisition and channel bounds for one listener.",
+  "x-agp": {
+    "owner": "@agp/transport",
+    "typescript": "TransportListenerLimits",
+    "kind": "contract",
+    "mechanics": "Defines the bounded transport-listener-limits value crossing the neutral transport boundary.",
+    "rationale": "One schema and generated type prevent adapter-specific reinterpretation.",
+    "consequence": "A divergent shape makes transport implementations observably incompatible.",
+    "semanticRules": []
+  },
+  "type": "object",
+  "properties": {
+    "maxPendingAcquisitions": {
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 9007199254740991,
+      "description": "Maximum carrier acquisitions awaiting disposition."
+    },
+    "maxActiveChannels": {
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 9007199254740991,
+      "description": "Maximum physically retained accepted channels."
+    },
+    "channel": {
+      "$ref": "urn:agp:schema:v1:transport:contracts:transport-channel-limits",
+      "description": "Limits applied to each accepted channel."
+    }
+  },
+  "required": [
+    "maxPendingAcquisitions",
+    "maxActiveChannels",
+    "channel"
+  ],
+  "additionalProperties": false
+}

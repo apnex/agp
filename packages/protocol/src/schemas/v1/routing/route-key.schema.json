@@ -1,0 +1,31 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:agp:schema:v1:protocol:routing:route-key",
+  "title": "RouteKey",
+  "description": "Stable logical route identity.",
+  "x-agp": {
+    "owner": "@agp/protocol",
+    "typescript": "RouteKey",
+    "kind": "routing-record",
+    "mechanics": "Stable logical route identity.",
+    "rationale": "A sovereign contract gives validators and consumers one stable reasoning boundary.",
+    "consequence": "Accepting another shape would make peer interpretation or ownership ambiguous.",
+    "semanticRules": []
+  },
+  "type": "object",
+  "required": [
+    "endpoint",
+    "originNodeId"
+  ],
+  "properties": {
+    "endpoint": {
+      "$ref": "urn:agp:schema:v1:protocol:common:endpoint-name",
+      "description": "Routable endpoint name."
+    },
+    "originNodeId": {
+      "$ref": "urn:agp:schema:v1:protocol:common:node-id",
+      "description": "Final node that originates the endpoint."
+    }
+  },
+  "additionalProperties": false
+}

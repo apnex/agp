@@ -1,0 +1,49 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:agp:schema:v1:management:error-response",
+  "title": "ManagementError",
+  "description": "Bounded stable management error that contains no SDK exception content.",
+  "x-agp": {
+    "owner": "@agp/management-http",
+    "typescript": "ManagementError",
+    "kind": "management-error",
+    "mechanics": "Bounded stable management error that contains no SDK exception content.",
+    "rationale": "A sovereign response preserves the canonical SDK projection without adapter-owned inference.",
+    "consequence": "A generic or duplicated shape could diverge from the node operations truth.",
+    "semanticRules": []
+  },
+  "type": "object",
+  "required": [
+    "apiVersion",
+    "kind",
+    "code",
+    "message"
+  ],
+  "properties": {
+    "apiVersion": {
+      "const": "agp.management/v1",
+      "description": "Stable management response envelope version."
+    },
+    "kind": {
+      "const": "Error",
+      "description": "Error response discriminator."
+    },
+    "code": {
+      "enum": [
+        "BAD_REQUEST",
+        "METHOD_NOT_ALLOWED",
+        "NOT_FOUND",
+        "RESPONSE_TOO_LARGE",
+        "INTERNAL"
+      ],
+      "description": "Closed management HTTP error domain."
+    },
+    "message": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 256,
+      "description": "Bounded redacted diagnostic."
+    }
+  },
+  "additionalProperties": false
+}

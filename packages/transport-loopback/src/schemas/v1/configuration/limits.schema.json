@@ -1,0 +1,92 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:agp:schema:v1:transport-loopback:configuration:limits",
+  "title": "AGP Loopback limits",
+  "x-agp": {
+    "owner": "@agp/transport-loopback",
+    "typescript": "Limits",
+    "kind": "configuration",
+    "mechanics": "Sovereign limits data contract owned by @agp/transport-loopback.",
+    "rationale": "One closed record keeps production Loopback configuration and state independently inspectable.",
+    "consequence": "Accepting another shape would make fabric capacity, lifecycle, or terminal evidence ambiguous.",
+    "semanticRules": [
+      "LOOPBACK-EXPLICIT-FABRIC-1"
+    ]
+  },
+  "type": "object",
+  "properties": {
+    "maxTransports": {
+      "description": "Hard fabric ceiling for maxTransports.",
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 9007199254740991
+    },
+    "maxListeners": {
+      "description": "Hard fabric ceiling for maxListeners.",
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 9007199254740991
+    },
+    "maxPendingAcquisitions": {
+      "description": "Hard fabric ceiling for maxPendingAcquisitions.",
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 9007199254740991
+    },
+    "maxActiveChannels": {
+      "description": "Hard fabric ceiling for maxActiveChannels.",
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 9007199254740991
+    },
+    "maxPacketBytes": {
+      "description": "Hard fabric ceiling for maxPacketBytes.",
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 9007199254740991
+    },
+    "maxBufferedPacketsPerChannel": {
+      "description": "Hard fabric ceiling for maxBufferedPacketsPerChannel.",
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 9007199254740991
+    },
+    "maxBufferedBytesPerChannel": {
+      "description": "Hard fabric ceiling for maxBufferedBytesPerChannel.",
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 9007199254740991
+    },
+    "maxQueuedPacketsTotal": {
+      "description": "Hard fabric ceiling for maxQueuedPacketsTotal.",
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 9007199254740991
+    },
+    "maxQueuedBytesTotal": {
+      "description": "Hard fabric ceiling for maxQueuedBytesTotal.",
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 9007199254740991
+    },
+    "maxPendingSendBytesTotal": {
+      "description": "Hard fabric ceiling for maxPendingSendBytesTotal.",
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 9007199254740991
+    }
+  },
+  "required": [
+    "maxTransports",
+    "maxListeners",
+    "maxPendingAcquisitions",
+    "maxActiveChannels",
+    "maxPacketBytes",
+    "maxBufferedPacketsPerChannel",
+    "maxBufferedBytesPerChannel",
+    "maxQueuedPacketsTotal",
+    "maxQueuedBytesTotal",
+    "maxPendingSendBytesTotal"
+  ],
+  "additionalProperties": false
+}

@@ -1,0 +1,55 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:agp:schema:v1:transport-loopback:operations:resources-snapshot",
+  "title": "AGP Loopback resources-snapshot",
+  "x-agp": {
+    "owner": "@agp/transport-loopback",
+    "typescript": "ResourcesSnapshot",
+    "kind": "operations",
+    "mechanics": "Sovereign resources-snapshot data contract owned by @agp/transport-loopback.",
+    "rationale": "One closed record keeps production Loopback configuration and state independently inspectable.",
+    "consequence": "Accepting another shape would make fabric capacity, lifecycle, or terminal evidence ambiguous.",
+    "semanticRules": []
+  },
+  "type": "object",
+  "properties": {
+    "pendingAcquisitions": {
+      "description": "Current uncommitted acquisitions.",
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 9007199254740991
+    },
+    "activeChannels": {
+      "description": "Current physically retained logical channels.",
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 9007199254740991
+    },
+    "pendingSendBytes": {
+      "description": "Copied bytes waiting for queue admission.",
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 9007199254740991
+    },
+    "queuedPackets": {
+      "description": "Packets accepted into all ingress queues.",
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 9007199254740991
+    },
+    "queuedBytes": {
+      "description": "Bytes accepted into all ingress queues.",
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 9007199254740991
+    }
+  },
+  "required": [
+    "pendingAcquisitions",
+    "activeChannels",
+    "pendingSendBytes",
+    "queuedPackets",
+    "queuedBytes"
+  ],
+  "additionalProperties": false
+}

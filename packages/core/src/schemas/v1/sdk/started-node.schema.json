@@ -1,0 +1,51 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:agp:schema:v1:core:sdk:started-node",
+  "title": "AGP core started-node",
+  "x-agp": {
+    "owner": "@agp/core",
+    "typescript": "StartedNode",
+    "kind": "sdk",
+    "mechanics": "Sovereign started-node data contract owned by @agp/core.",
+    "rationale": "One schema gives runtime validators and consumers one stable reasoning boundary.",
+    "consequence": "Accepting another shape would make canonical state or SDK interpretation ambiguous.",
+    "semanticRules": []
+  },
+  "type": "object",
+  "properties": {
+    "nodeId": {
+      "$ref": "urn:agp:schema:v1:protocol:common:node-id"
+    },
+    "instanceId": {
+      "$ref": "urn:agp:schema:v1:core:common:instance-id"
+    },
+    "startedAt": {
+      "$ref": "urn:agp:schema:v1:core:common:timestamp"
+    },
+    "listener": {
+      "type": "object",
+      "properties": {
+        "transportRef": {
+          "$ref": "urn:agp:schema:v1:transport:common:transport-ref"
+        },
+        "publication": {
+          "$ref": "urn:agp:schema:v1:transport:contracts:transport-listener-publication"
+        }
+      },
+      "required": [
+        "transportRef"
+      ],
+      "additionalProperties": false
+    },
+    "operationsRevision": {
+      "$ref": "urn:agp:schema:v1:core:common:operations-revision"
+    }
+  },
+  "required": [
+    "nodeId",
+    "instanceId",
+    "startedAt",
+    "operationsRevision"
+  ],
+  "additionalProperties": false
+}

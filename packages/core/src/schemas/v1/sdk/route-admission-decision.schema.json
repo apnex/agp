@@ -1,0 +1,70 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:agp:schema:v1:core:sdk:route-admission-decision",
+  "title": "AGP core route-admission-decision",
+  "x-agp": {
+    "owner": "@agp/core",
+    "typescript": "RouteAdmissionDecision",
+    "kind": "sdk",
+    "mechanics": "Sovereign route-admission-decision data contract owned by @agp/core.",
+    "rationale": "One schema gives runtime validators and consumers one stable reasoning boundary.",
+    "consequence": "Accepting another shape would make canonical state or SDK interpretation ambiguous.",
+    "semanticRules": []
+  },
+  "oneOf": [
+    {
+      "type": "object",
+      "properties": {
+        "endpoint": {
+          "$ref": "urn:agp:schema:v1:protocol:common:endpoint-name"
+        },
+        "originNodeId": {
+          "$ref": "urn:agp:schema:v1:protocol:common:node-id"
+        },
+        "path": {
+          "$ref": "urn:agp:schema:v1:protocol:common:node-path"
+        },
+        "decision": {
+          "const": "allow"
+        }
+      },
+      "required": [
+        "endpoint",
+        "originNodeId",
+        "path",
+        "decision"
+      ],
+      "additionalProperties": false
+    },
+    {
+      "type": "object",
+      "properties": {
+        "endpoint": {
+          "$ref": "urn:agp:schema:v1:protocol:common:endpoint-name"
+        },
+        "originNodeId": {
+          "$ref": "urn:agp:schema:v1:protocol:common:node-id"
+        },
+        "path": {
+          "$ref": "urn:agp:schema:v1:protocol:common:node-path"
+        },
+        "decision": {
+          "const": "deny"
+        },
+        "reason": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 512
+        }
+      },
+      "required": [
+        "endpoint",
+        "originNodeId",
+        "path",
+        "decision",
+        "reason"
+      ],
+      "additionalProperties": false
+    }
+  ]
+}

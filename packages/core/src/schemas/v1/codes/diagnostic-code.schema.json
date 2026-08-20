@@ -1,0 +1,16 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:agp:schema:v1:core:codes:diagnostic-code",
+  "title": "AGP core diagnostic-code",
+  "x-agp": {
+    "owner": "@agp/core",
+    "typescript": "DiagnosticCode",
+    "kind": "code",
+    "mechanics": "Sovereign diagnostic-code data contract owned by @agp/core.",
+    "rationale": "One schema gives runtime validators and consumers one stable reasoning boundary.",
+    "consequence": "Accepting another shape would make canonical state or SDK interpretation ambiguous.",
+    "semanticRules": []
+  },
+  "type": "string",
+  "pattern": "^[A-Z][A-Z0-9_]{0,63}$"
+}

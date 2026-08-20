@@ -1,0 +1,74 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:agp:schema:v1:core:operations:selected-route-snapshot",
+  "title": "AGP core selected-route-snapshot",
+  "x-agp": {
+    "owner": "@agp/core",
+    "typescript": "SelectedRouteSnapshot",
+    "kind": "operations",
+    "mechanics": "Sovereign selected-route-snapshot data contract owned by @agp/core.",
+    "rationale": "One schema gives runtime validators and consumers one stable reasoning boundary.",
+    "consequence": "Accepting another shape would make canonical state or SDK interpretation ambiguous.",
+    "semanticRules": [
+      "RIB-SELECTED-EXPORT-1",
+      "ROUTE-PEER-LOOP-1"
+    ]
+  },
+  "type": "object",
+  "properties": {
+    "endpoint": {
+      "$ref": "urn:agp:schema:v1:protocol:common:endpoint-name"
+    },
+    "routeId": {
+      "$ref": "urn:agp:schema:v1:core:common:route-id"
+    },
+    "originNodeId": {
+      "$ref": "urn:agp:schema:v1:protocol:common:node-id"
+    },
+    "routeClass": {
+      "type": "string",
+      "enum": [
+        "local",
+        "learned"
+      ]
+    },
+    "learnedKind": {
+      "type": "string",
+      "enum": [
+        "direct",
+        "transit"
+      ]
+    },
+    "sourceKind": {
+      "type": "string",
+      "enum": [
+        "local",
+        "session"
+      ]
+    },
+    "path": {
+      "$ref": "urn:agp:schema:v1:protocol:common:node-path"
+    },
+    "nextHop": {
+      "$ref": "urn:agp:schema:v1:core:operations:next-hop"
+    },
+    "selectionReason": {
+      "$ref": "urn:agp:schema:v1:core:codes:selected-reason"
+    },
+    "selectedAt": {
+      "$ref": "urn:agp:schema:v1:core:common:timestamp"
+    }
+  },
+  "required": [
+    "endpoint",
+    "routeId",
+    "originNodeId",
+    "routeClass",
+    "sourceKind",
+    "path",
+    "nextHop",
+    "selectionReason",
+    "selectedAt"
+  ],
+  "additionalProperties": false
+}

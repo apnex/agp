@@ -1,0 +1,28 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:agp:schema:v1:transport-loopback:codes:counter-key",
+  "title": "AGP Loopback counter-key",
+  "x-agp": {
+    "owner": "@agp/transport-loopback",
+    "typescript": "CounterKey",
+    "kind": "code",
+    "mechanics": "Sovereign counter-key data contract owned by @agp/transport-loopback.",
+    "rationale": "One closed record keeps production Loopback configuration and state independently inspectable.",
+    "consequence": "Accepting another shape would make fabric capacity, lifecycle, or terminal evidence ambiguous.",
+    "semanticRules": []
+  },
+  "description": "Closed Loopback counter catalog key.",
+  "type": "string",
+  "enum": [
+    "connectionsAccepted",
+    "connectionsRejected",
+    "packetsAcceptedLeftToRight",
+    "bytesAcceptedLeftToRight",
+    "packetsAcceptedRightToLeft",
+    "bytesAcceptedRightToLeft",
+    "backpressureActivations",
+    "gracefulChannelCloses",
+    "forcedChannelAborts",
+    "adapterInvariantFaults"
+  ]
+}

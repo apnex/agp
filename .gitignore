@@ -1,0 +1,9 @@
+/.agents/
+/.codex/
+.run/
+/node_modules/
+/tmp/
+/coverage/
+/packages/*/dist/
+*.log
+*.tsbuildinfo

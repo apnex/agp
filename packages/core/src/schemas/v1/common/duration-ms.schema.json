@@ -1,0 +1,17 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:agp:schema:v1:core:common:duration-ms",
+  "title": "AGP core duration-ms",
+  "x-agp": {
+    "owner": "@agp/core",
+    "typescript": "DurationMs",
+    "kind": "scalar",
+    "mechanics": "Sovereign duration-ms data contract owned by @agp/core.",
+    "rationale": "One schema gives runtime validators and consumers one stable reasoning boundary.",
+    "consequence": "Accepting another shape would make canonical state or SDK interpretation ambiguous.",
+    "semanticRules": []
+  },
+  "type": "integer",
+  "minimum": 0,
+  "maximum": 9007199254740991
+}

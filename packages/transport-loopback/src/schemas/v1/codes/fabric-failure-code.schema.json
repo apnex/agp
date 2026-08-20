@@ -1,0 +1,20 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:agp:schema:v1:transport-loopback:codes:fabric-failure-code",
+  "title": "AGP Loopback fabric-failure-code",
+  "x-agp": {
+    "owner": "@agp/transport-loopback",
+    "typescript": "FabricFailureCode",
+    "kind": "code",
+    "mechanics": "Sovereign fabric-failure-code data contract owned by @agp/transport-loopback.",
+    "rationale": "One closed record keeps production Loopback configuration and state independently inspectable.",
+    "consequence": "Accepting another shape would make fabric capacity, lifecycle, or terminal evidence ambiguous.",
+    "semanticRules": []
+  },
+  "description": "Closed terminal failure class for one fabric.",
+  "type": "string",
+  "enum": [
+    "MONOTONIC_DOMAIN_EXHAUSTED",
+    "ADAPTER_FAULT"
+  ]
+}

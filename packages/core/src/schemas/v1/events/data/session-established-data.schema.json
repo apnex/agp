@@ -1,0 +1,18 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:agp:schema:v1:core:event:session-established-data",
+  "title": "AGP core session-established-data",
+  "x-agp": {
+    "owner": "@agp/core",
+    "typescript": "SessionEstablishedData",
+    "kind": "event-data",
+    "mechanics": "Sovereign session-established-data data contract owned by @agp/core.",
+    "rationale": "One schema gives runtime validators and consumers one stable reasoning boundary.",
+    "consequence": "Accepting another shape would make canonical state or SDK interpretation ambiguous.",
+    "semanticRules": []
+  },
+  "type": "object",
+  "properties": {},
+  "required": [],
+  "additionalProperties": false
+}

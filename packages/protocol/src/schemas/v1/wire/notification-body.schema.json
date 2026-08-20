@@ -1,0 +1,33 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:agp:schema:v1:protocol:wire:notification-body",
+  "title": "NotificationBody",
+  "description": "Fatal protocol outcome terminating the exact session.",
+  "x-agp": {
+    "owner": "@agp/protocol",
+    "typescript": "NotificationBody",
+    "kind": "wire-body",
+    "mechanics": "Fatal protocol outcome terminating the exact session.",
+    "rationale": "A sovereign contract gives validators and consumers one stable reasoning boundary.",
+    "consequence": "Accepting another shape would make peer interpretation or ownership ambiguous.",
+    "semanticRules": []
+  },
+  "type": "object",
+  "required": [
+    "code",
+    "reason"
+  ],
+  "properties": {
+    "code": {
+      "$ref": "urn:agp:schema:v1:protocol:codes:fatal-notification-code",
+      "description": "Closed fatal notification classification."
+    },
+    "reason": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 256,
+      "description": "Bounded safe diagnostic without raw exception content."
+    }
+  },
+  "additionalProperties": false
+}

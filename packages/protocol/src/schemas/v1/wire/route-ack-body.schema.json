@@ -1,0 +1,44 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:agp:schema:v1:protocol:wire:route-ack-body",
+  "title": "RouteAckBody",
+  "description": "Exact acknowledgement and rejection complement for one outstanding snapshot.",
+  "x-agp": {
+    "owner": "@agp/protocol",
+    "typescript": "RouteAckBody",
+    "kind": "wire-body",
+    "mechanics": "Exact acknowledgement and rejection complement for one outstanding snapshot.",
+    "rationale": "A sovereign contract gives validators and consumers one stable reasoning boundary.",
+    "consequence": "Accepting another shape would make peer interpretation or ownership ambiguous.",
+    "semanticRules": [
+      "ROUTE-REJECTION-MEMORY-1",
+      "ROUTE-REJECTION-RETRY-1"
+    ]
+  },
+  "type": "object",
+  "required": [
+    "refId",
+    "revision",
+    "rejected"
+  ],
+  "properties": {
+    "refId": {
+      "$ref": "urn:agp:schema:v1:protocol:common:message-id",
+      "description": "Message ID of the acknowledged route update."
+    },
+    "revision": {
+      "$ref": "urn:agp:schema:v1:protocol:common:wire-revision",
+      "description": "Revision of the acknowledged route update."
+    },
+    "rejected": {
+      "type": "array",
+      "maxItems": 256,
+      "uniqueItems": true,
+      "items": {
+        "$ref": "urn:agp:schema:v1:protocol:routing:route-rejection"
+      },
+      "description": "Canonical unique routes rejected from the exact outstanding snapshot."
+    }
+  },
+  "additionalProperties": false
+}

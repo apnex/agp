@@ -1,0 +1,52 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:agp:schema:v1:core:operations:next-hop",
+  "title": "AGP core next-hop",
+  "x-agp": {
+    "owner": "@agp/core",
+    "typescript": "NextHop",
+    "kind": "operations",
+    "mechanics": "Sovereign next-hop data contract owned by @agp/core.",
+    "rationale": "One schema gives runtime validators and consumers one stable reasoning boundary.",
+    "consequence": "Accepting another shape would make canonical state or SDK interpretation ambiguous.",
+    "semanticRules": []
+  },
+  "oneOf": [
+    {
+      "type": "object",
+      "properties": {
+        "kind": {
+          "const": "local"
+        },
+        "bindingId": {
+          "$ref": "urn:agp:schema:v1:core:common:binding-id"
+        }
+      },
+      "required": [
+        "kind",
+        "bindingId"
+      ],
+      "additionalProperties": false
+    },
+    {
+      "type": "object",
+      "properties": {
+        "kind": {
+          "const": "session"
+        },
+        "nodeId": {
+          "$ref": "urn:agp:schema:v1:protocol:common:node-id"
+        },
+        "owningSessionId": {
+          "$ref": "urn:agp:schema:v1:protocol:common:session-id"
+        }
+      },
+      "required": [
+        "kind",
+        "nodeId",
+        "owningSessionId"
+      ],
+      "additionalProperties": false
+    }
+  ]
+}

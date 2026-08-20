@@ -1,0 +1,36 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:agp:schema:v1:protocol:routing:route-rejection",
+  "title": "RouteRejection",
+  "description": "Exact recoverable rejection of one route from an outstanding snapshot.",
+  "x-agp": {
+    "owner": "@agp/protocol",
+    "typescript": "RouteRejection",
+    "kind": "routing-record",
+    "mechanics": "Exact recoverable rejection of one route from an outstanding snapshot.",
+    "rationale": "A sovereign contract gives validators and consumers one stable reasoning boundary.",
+    "consequence": "Accepting another shape would make peer interpretation or ownership ambiguous.",
+    "semanticRules": []
+  },
+  "type": "object",
+  "required": [
+    "endpoint",
+    "originNodeId",
+    "reasonCode"
+  ],
+  "properties": {
+    "endpoint": {
+      "$ref": "urn:agp:schema:v1:protocol:common:endpoint-name",
+      "description": "Routable endpoint name."
+    },
+    "originNodeId": {
+      "$ref": "urn:agp:schema:v1:protocol:common:node-id",
+      "description": "Final node that originates the endpoint."
+    },
+    "reasonCode": {
+      "$ref": "urn:agp:schema:v1:protocol:codes:route-rejection-code",
+      "description": "Reason the receiving peer did not install this route."
+    }
+  },
+  "additionalProperties": false
+}

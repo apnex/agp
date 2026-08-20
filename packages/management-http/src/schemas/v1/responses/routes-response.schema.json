@@ -1,0 +1,52 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:agp:schema:v1:management:routes-response",
+  "title": "ManagementRouteTable",
+  "description": "Route table management response preserving candidate and selected SDK order.",
+  "x-agp": {
+    "owner": "@agp/management-http",
+    "typescript": "ManagementRouteTable",
+    "kind": "management-response",
+    "mechanics": "Route table management response preserving candidate and selected SDK order.",
+    "rationale": "A sovereign response preserves the canonical SDK projection without adapter-owned inference.",
+    "consequence": "A generic or duplicated shape could diverge from the node operations truth.",
+    "semanticRules": []
+  },
+  "type": "object",
+  "required": [
+    "apiVersion",
+    "kind",
+    "meta",
+    "candidates",
+    "selected"
+  ],
+  "properties": {
+    "apiVersion": {
+      "const": "agp.management/v1",
+      "description": "Stable management response envelope version."
+    },
+    "kind": {
+      "const": "RouteTable",
+      "description": "Exact response discriminator."
+    },
+    "meta": {
+      "$ref": "urn:agp:schema:v1:management:response-meta",
+      "description": "Metadata captured by the one canonical OperationsReader query."
+    },
+    "candidates": {
+      "type": "array",
+      "items": {
+        "$ref": "urn:agp:schema:v1:core:operations:candidate-route-snapshot"
+      },
+      "description": "Canonical candidate route rows."
+    },
+    "selected": {
+      "type": "array",
+      "items": {
+        "$ref": "urn:agp:schema:v1:core:operations:selected-route-snapshot"
+      },
+      "description": "Canonical selected route rows."
+    }
+  },
+  "additionalProperties": false
+}

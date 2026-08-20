@@ -1,0 +1,22 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:agp:schema:v1:protocol:common:node-path",
+  "title": "NodePath",
+  "description": "Nonempty ordered unique node path, bounded by the protocol maximum before negotiated limits apply.",
+  "x-agp": {
+    "owner": "@agp/protocol",
+    "typescript": "NodePath",
+    "kind": "array",
+    "mechanics": "Nonempty ordered unique node path, bounded by the protocol maximum before negotiated limits apply.",
+    "rationale": "A sovereign contract gives validators and consumers one stable reasoning boundary.",
+    "consequence": "Accepting another shape would make peer interpretation or ownership ambiguous.",
+    "semanticRules": []
+  },
+  "type": "array",
+  "minItems": 1,
+  "maxItems": 64,
+  "uniqueItems": true,
+  "items": {
+    "$ref": "urn:agp:schema:v1:protocol:common:node-id"
+  }
+}

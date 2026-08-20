@@ -1,0 +1,26 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:agp:schema:v1:protocol:codes:delivery-error-code",
+  "title": "DeliveryErrorCode",
+  "description": "Closed recoverable data-delivery failure code domain.",
+  "x-agp": {
+    "owner": "@agp/protocol",
+    "typescript": "DeliveryErrorCode",
+    "kind": "code",
+    "mechanics": "Closed recoverable data-delivery failure code domain.",
+    "rationale": "A sovereign contract gives validators and consumers one stable reasoning boundary.",
+    "consequence": "Accepting another shape would make peer interpretation or ownership ambiguous.",
+    "semanticRules": []
+  },
+  "type": "string",
+  "enum": [
+    "NO_ROUTE",
+    "HOP_LIMIT_EXCEEDED",
+    "SOURCE_NOT_AUTHORIZED",
+    "SOURCE_NOT_ADVERTISED",
+    "TRANSIT_DISABLED",
+    "NEXT_HOP_UNAVAILABLE",
+    "MESSAGE_TOO_LARGE",
+    "QUEUE_FULL"
+  ]
+}

@@ -1,0 +1,29 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:agp:schema:v1:core:codes:counter-key",
+  "title": "AGP core counter-key",
+  "x-agp": {
+    "owner": "@agp/core",
+    "typescript": "CounterKey",
+    "kind": "code",
+    "mechanics": "Sovereign counter-key data contract owned by @agp/core.",
+    "rationale": "One schema gives runtime validators and consumers one stable reasoning boundary.",
+    "consequence": "Accepting another shape would make canonical state or SDK interpretation ambiguous.",
+    "semanticRules": []
+  },
+  "type": "string",
+  "enum": [
+    "capacity.session_rejected",
+    "handler.completed",
+    "handler.failed",
+    "lifecycle.failed",
+    "lifecycle.started",
+    "lifecycle.stopped",
+    "message.accepted",
+    "message.forwarded",
+    "message.received",
+    "message.rejected_before_admission",
+    "transport.error",
+    "transport.listener_terminal"
+  ]
+}

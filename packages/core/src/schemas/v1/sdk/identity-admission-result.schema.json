@@ -1,0 +1,44 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:agp:schema:v1:core:sdk:identity-admission-result",
+  "title": "AGP core identity-admission-result",
+  "x-agp": {
+    "owner": "@agp/core",
+    "typescript": "IdentityAdmissionResult",
+    "kind": "sdk",
+    "mechanics": "Sovereign identity-admission-result data contract owned by @agp/core.",
+    "rationale": "One schema gives runtime validators and consumers one stable reasoning boundary.",
+    "consequence": "Accepting another shape would make canonical state or SDK interpretation ambiguous.",
+    "semanticRules": []
+  },
+  "oneOf": [
+    {
+      "type": "object",
+      "properties": {
+        "decision": {
+          "const": "allow"
+        }
+      },
+      "required": [
+        "decision"
+      ],
+      "additionalProperties": false
+    },
+    {
+      "type": "object",
+      "properties": {
+        "decision": {
+          "const": "deny"
+        },
+        "reasonCode": {
+          "$ref": "urn:agp:schema:v1:core:codes:identity-denial-code"
+        }
+      },
+      "required": [
+        "decision",
+        "reasonCode"
+      ],
+      "additionalProperties": false
+    }
+  ]
+}

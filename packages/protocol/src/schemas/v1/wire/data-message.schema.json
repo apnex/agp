@@ -1,0 +1,53 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:agp:schema:v1:protocol:wire:data-message",
+  "title": "DataMessage",
+  "description": "message data-plane AGP v1 envelope.",
+  "x-agp": {
+    "owner": "@agp/protocol",
+    "typescript": "DataMessage",
+    "kind": "wire-message",
+    "mechanics": "message data-plane AGP v1 envelope.",
+    "rationale": "A sovereign contract gives validators and consumers one stable reasoning boundary.",
+    "consequence": "Accepting another shape would make peer interpretation or ownership ambiguous.",
+    "semanticRules": [
+      "DATA-TRANSIT-NO-ROUTE-1",
+      "DATA-FAILURE-PRECEDENCE-1"
+    ]
+  },
+  "allOf": [
+    {
+      "$ref": "urn:agp:schema:v1:protocol:wire:envelope"
+    },
+    {
+      "type": "object",
+      "properties": {
+        "agp": {
+          "const": 1,
+          "description": "AGP wire major version."
+        },
+        "plane": {
+          "const": "data",
+          "description": "Exact message plane."
+        },
+        "type": {
+          "const": "message",
+          "description": "Exact message discriminator."
+        },
+        "id": {
+          "$ref": "urn:agp:schema:v1:protocol:common:message-id",
+          "description": "Envelope message identity."
+        },
+        "body": {
+          "$ref": "urn:agp:schema:v1:protocol:wire:data-body",
+          "description": "Sovereign type-specific message body."
+        },
+        "extensions": {
+          "$ref": "urn:agp:schema:v1:protocol:common:extensions",
+          "description": "Optional bounded message extensions."
+        }
+      }
+    }
+  ],
+  "unevaluatedProperties": false
+}

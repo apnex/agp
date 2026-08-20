@@ -1,0 +1,158 @@
+{
+  "schemaVersion": "agp.schema-catalog/v1",
+  "owner": "@agp/transport",
+  "schemas": [
+    {
+      "id": "urn:agp:schema:v1:transport:codes:transport-input-rejection-code",
+      "owner": "@agp/transport",
+      "path": "codes/transport-input-rejection-code.schema.json",
+      "kind": "code",
+      "typescript": "TransportInputRejectionCode",
+      "sha256": "b83d9cd444f7216d1152370c30f568a5314f8525961d10b015bdd4ffe03273f2"
+    },
+    {
+      "id": "urn:agp:schema:v1:transport:codes:transport-listener-terminal-kind",
+      "owner": "@agp/transport",
+      "path": "codes/transport-listener-terminal-kind.schema.json",
+      "kind": "code",
+      "typescript": "TransportListenerTerminalKind",
+      "sha256": "a122cca82c830e80a16a33680c0b98128bfad448d68f19f047e8a9b20057e36d"
+    },
+    {
+      "id": "urn:agp:schema:v1:transport:codes:transport-operation-error-code",
+      "owner": "@agp/transport",
+      "path": "codes/transport-operation-error-code.schema.json",
+      "kind": "code",
+      "typescript": "TransportOperationErrorCode",
+      "sha256": "6fa9a36cab1db3d643a59c5f8d6bcfbf8179f08b38c626693d311862ba452412"
+    },
+    {
+      "id": "urn:agp:schema:v1:transport:codes:transport-operation-phase",
+      "owner": "@agp/transport",
+      "path": "codes/transport-operation-phase.schema.json",
+      "kind": "code",
+      "typescript": "TransportOperationPhase",
+      "sha256": "2a2301caef41a2f27d3bc8eb574ec1629e52a63b920a18aabd66dcf8bdc52909"
+    },
+    {
+      "id": "urn:agp:schema:v1:transport:codes:transport-terminal-kind",
+      "owner": "@agp/transport",
+      "path": "codes/transport-terminal-kind.schema.json",
+      "kind": "code",
+      "typescript": "TransportTerminalKind",
+      "sha256": "1f7a685f6326979bba97aed2aa7110049f07e5f6d288099357c0f3521e7c1325"
+    },
+    {
+      "id": "urn:agp:schema:v1:transport:codes:transport-terminal-origin",
+      "owner": "@agp/transport",
+      "path": "codes/transport-terminal-origin.schema.json",
+      "kind": "code",
+      "typescript": "TransportTerminalOrigin",
+      "sha256": "81f8dfc4718f2dd490b2e673daf417267e987a2c09065fefc273a41a64af205b"
+    },
+    {
+      "id": "urn:agp:schema:v1:transport:common:transport-ref",
+      "owner": "@agp/transport",
+      "path": "common/transport-ref.schema.json",
+      "kind": "scalar",
+      "typescript": "TransportRef",
+      "sha256": "9632ce6fb81c1d1f88ea4914ab46e9892f870681279c101581a87642b21466f6"
+    },
+    {
+      "id": "urn:agp:schema:v1:transport:contracts:transport-abort-intent",
+      "owner": "@agp/transport",
+      "path": "contracts/transport-abort-intent.schema.json",
+      "kind": "contract",
+      "typescript": "TransportAbortIntent",
+      "sha256": "332ac8c50782835480259e51afb5aa08f2b297a882d5762c68de441a1c9f2dd0"
+    },
+    {
+      "id": "urn:agp:schema:v1:transport:contracts:transport-acquisition-options",
+      "owner": "@agp/transport",
+      "path": "contracts/transport-acquisition-options.schema.json",
+      "kind": "contract",
+      "typescript": "TransportAcquisitionOptions",
+      "sha256": "742464ac96c35f667696c1edcb5fcaa711166d60365a5e9c91cc2fb01c7e5a20"
+    },
+    {
+      "id": "urn:agp:schema:v1:transport:contracts:transport-channel-limits",
+      "owner": "@agp/transport",
+      "path": "contracts/transport-channel-limits.schema.json",
+      "kind": "contract",
+      "typescript": "TransportChannelLimits",
+      "sha256": "33226281a2a03bda9b5a5115f33be3ad037f2179d6d8a08b097454f9175c5493"
+    },
+    {
+      "id": "urn:agp:schema:v1:transport:contracts:transport-close-intent",
+      "owner": "@agp/transport",
+      "path": "contracts/transport-close-intent.schema.json",
+      "kind": "contract",
+      "typescript": "TransportCloseIntent",
+      "sha256": "0409abadfb571b885df1e1464c404709b8d28dfdae64e5d30199b261e76f5017"
+    },
+    {
+      "id": "urn:agp:schema:v1:transport:contracts:transport-diagnostic",
+      "owner": "@agp/transport",
+      "path": "contracts/transport-diagnostic.schema.json",
+      "kind": "contract",
+      "typescript": "TransportDiagnostic",
+      "sha256": "4128cd41a2c0e2a2c5eb12905ba045389f92604539f65830294e46da697876a5"
+    },
+    {
+      "id": "urn:agp:schema:v1:transport:contracts:transport-input-rejected",
+      "owner": "@agp/transport",
+      "path": "contracts/transport-input-rejected.schema.json",
+      "kind": "contract",
+      "typescript": "TransportInputRejected",
+      "sha256": "eee5920bbc7af53bcc77b52bd827c0ffa91f5070fcb1fb0fddb9e848fb88f2ea"
+    },
+    {
+      "id": "urn:agp:schema:v1:transport:contracts:transport-listen-options",
+      "owner": "@agp/transport",
+      "path": "contracts/transport-listen-options.schema.json",
+      "kind": "contract",
+      "typescript": "TransportListenOptions",
+      "sha256": "68f1bb3179a19e35144b76a012ac43bc26064601c1fa43c824ee9169ecf95864"
+    },
+    {
+      "id": "urn:agp:schema:v1:transport:contracts:transport-listener-limits",
+      "owner": "@agp/transport",
+      "path": "contracts/transport-listener-limits.schema.json",
+      "kind": "contract",
+      "typescript": "TransportListenerLimits",
+      "sha256": "f6f4a3ccfe33d186e4cba8f07c6b7b294a016e59f6941bc09d09766cae85e3b9"
+    },
+    {
+      "id": "urn:agp:schema:v1:transport:contracts:transport-listener-publication",
+      "owner": "@agp/transport",
+      "path": "contracts/transport-listener-publication.schema.json",
+      "kind": "contract",
+      "typescript": "TransportListenerPublication",
+      "sha256": "720d6df5888dc5c78be5c098fc7672f99ce9a15aea1b32f1ac16465463a83ebc"
+    },
+    {
+      "id": "urn:agp:schema:v1:transport:contracts:transport-listener-terminal",
+      "owner": "@agp/transport",
+      "path": "contracts/transport-listener-terminal.schema.json",
+      "kind": "contract",
+      "typescript": "TransportListenerTerminal",
+      "sha256": "406bea275ba6a4508599d132450cabae5e6241dcbdc2b69f9eac669ff267080b"
+    },
+    {
+      "id": "urn:agp:schema:v1:transport:contracts:transport-peer-evidence",
+      "owner": "@agp/transport",
+      "path": "contracts/transport-peer-evidence.schema.json",
+      "kind": "contract",
+      "typescript": "TransportPeerEvidence",
+      "sha256": "9927593a233dd711bba3aec6a00d74c982018b54abe8a566370933112cf1ad2a"
+    },
+    {
+      "id": "urn:agp:schema:v1:transport:contracts:transport-terminal",
+      "owner": "@agp/transport",
+      "path": "contracts/transport-terminal.schema.json",
+      "kind": "contract",
+      "typescript": "TransportTerminal",
+      "sha256": "864f2441b6d5e3aa3626ba58a92f21f8ed572a58f201dd105e38559a34854878"
+    }
+  ]
+}

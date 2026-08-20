@@ -1,0 +1,36 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:agp:schema:v1:core:operations:configuration-snapshot",
+  "title": "AGP core configuration-snapshot",
+  "x-agp": {
+    "owner": "@agp/core",
+    "typescript": "ConfigurationSnapshot",
+    "kind": "operations",
+    "mechanics": "Sovereign configuration-snapshot data contract owned by @agp/core.",
+    "rationale": "One schema gives runtime validators and consumers one stable reasoning boundary.",
+    "consequence": "Accepting another shape would make canonical state or SDK interpretation ambiguous.",
+    "semanticRules": []
+  },
+  "type": "object",
+  "properties": {
+    "raw": {
+      "$ref": "urn:agp:schema:v1:protocol:common:json-object"
+    },
+    "effective": {
+      "$ref": "urn:agp:schema:v1:protocol:common:json-object"
+    },
+    "redactedKeys": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {
+        "type": "string"
+      }
+    }
+  },
+  "required": [
+    "raw",
+    "effective",
+    "redactedKeys"
+  ],
+  "additionalProperties": false
+}

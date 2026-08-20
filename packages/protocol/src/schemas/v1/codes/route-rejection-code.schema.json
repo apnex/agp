@@ -1,0 +1,22 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:agp:schema:v1:protocol:codes:route-rejection-code",
+  "title": "RouteRejectionCode",
+  "description": "Closed per-route snapshot rejection code domain.",
+  "x-agp": {
+    "owner": "@agp/protocol",
+    "typescript": "RouteRejectionCode",
+    "kind": "code",
+    "mechanics": "Closed per-route snapshot rejection code domain.",
+    "rationale": "A sovereign contract gives validators and consumers one stable reasoning boundary.",
+    "consequence": "Accepting another shape would make peer interpretation or ownership ambiguous.",
+    "semanticRules": []
+  },
+  "type": "string",
+  "enum": [
+    "LOOP",
+    "PATH_TOO_LONG",
+    "POLICY",
+    "CAPACITY"
+  ]
+}

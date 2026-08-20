@@ -1,0 +1,37 @@
+{
+  "name": "agp-mvp",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "workspaces": [
+    "packages/protocol",
+    "packages/transport",
+    "packages/binding-websocket",
+    "packages/transport-loopback",
+    "packages/core",
+    "packages/transport-node-ws",
+    "packages/node",
+    "packages/management-http"
+  ],
+  "scripts": {
+    "build": "tsc -b",
+    "clean": "tsc -b --clean",
+    "schemas:generate": "node scripts/generate-schema-catalog.mjs",
+    "schemas:check": "node scripts/generate-schema-catalog.mjs --check",
+    "certify": "node scripts/certify.mjs",
+    "test": "npm run build && npm run test:architecture && npm run test:packages && npm run test:cli && npm run test:system",
+    "test:architecture": "node scripts/check-test-architecture.mjs",
+    "test:packages": "npm run test --workspaces --if-present",
+    "test:cli": "cli/test/run.sh",
+    "test:system": "node scripts/run-tests.mjs test",
+    "test:integration": "node scripts/run-tests.mjs test/integration",
+    "test:topology": "node scripts/run-tests.mjs test/topology",
+    "test:resilience": "node scripts/run-tests.mjs test/resilience",
+    "test:e2e": "node scripts/run-tests.mjs test/e2e"
+  },
+  "devDependencies": {
+    "@types/node": "^24.0.0",
+    "@types/ws": "^8.5.0",
+    "typescript": "^5.9.0"
+  }
+}

@@ -1,0 +1,71 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:agp:schema:v1:core:operations:lifecycle-snapshot",
+  "title": "AGP core lifecycle-snapshot",
+  "x-agp": {
+    "owner": "@agp/core",
+    "typescript": "LifecycleSnapshot",
+    "kind": "operations",
+    "mechanics": "Sovereign lifecycle-snapshot data contract owned by @agp/core.",
+    "rationale": "One schema gives runtime validators and consumers one stable reasoning boundary.",
+    "consequence": "Accepting another shape would make canonical state or SDK interpretation ambiguous.",
+    "semanticRules": []
+  },
+  "oneOf": [
+    {
+      "type": "object",
+      "properties": {
+        "state": {
+          "type": "string",
+          "enum": [
+            "Created",
+            "Starting",
+            "Running",
+            "Stopping",
+            "Stopped"
+          ]
+        },
+        "stateSince": {
+          "$ref": "urn:agp:schema:v1:core:common:timestamp"
+        },
+        "startedAt": {
+          "$ref": "urn:agp:schema:v1:core:common:timestamp"
+        },
+        "stoppedAt": {
+          "$ref": "urn:agp:schema:v1:core:common:timestamp"
+        }
+      },
+      "required": [
+        "state",
+        "stateSince"
+      ],
+      "additionalProperties": false
+    },
+    {
+      "type": "object",
+      "properties": {
+        "state": {
+          "const": "Failed"
+        },
+        "stateSince": {
+          "$ref": "urn:agp:schema:v1:core:common:timestamp"
+        },
+        "startedAt": {
+          "$ref": "urn:agp:schema:v1:core:common:timestamp"
+        },
+        "stoppedAt": {
+          "$ref": "urn:agp:schema:v1:core:common:timestamp"
+        },
+        "failure": {
+          "$ref": "urn:agp:schema:v1:core:operations:host-failure-snapshot"
+        }
+      },
+      "required": [
+        "state",
+        "stateSince",
+        "failure"
+      ],
+      "additionalProperties": false
+    }
+  ]
+}

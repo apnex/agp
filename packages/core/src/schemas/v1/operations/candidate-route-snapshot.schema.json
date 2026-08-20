@@ -1,0 +1,82 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:agp:schema:v1:core:operations:candidate-route-snapshot",
+  "title": "AGP core candidate-route-snapshot",
+  "x-agp": {
+    "owner": "@agp/core",
+    "typescript": "CandidateRouteSnapshot",
+    "kind": "operations",
+    "mechanics": "Sovereign candidate-route-snapshot data contract owned by @agp/core.",
+    "rationale": "One schema gives runtime validators and consumers one stable reasoning boundary.",
+    "consequence": "Accepting another shape would make canonical state or SDK interpretation ambiguous.",
+    "semanticRules": [
+      "RIB-BEST-PATH-1"
+    ]
+  },
+  "type": "object",
+  "properties": {
+    "routeId": {
+      "$ref": "urn:agp:schema:v1:core:common:route-id"
+    },
+    "endpoint": {
+      "$ref": "urn:agp:schema:v1:protocol:common:endpoint-name"
+    },
+    "originNodeId": {
+      "$ref": "urn:agp:schema:v1:protocol:common:node-id"
+    },
+    "routeClass": {
+      "type": "string",
+      "enum": [
+        "local",
+        "learned"
+      ]
+    },
+    "learnedKind": {
+      "type": "string",
+      "enum": [
+        "direct",
+        "transit"
+      ]
+    },
+    "source": {
+      "type": "object"
+    },
+    "path": {
+      "$ref": "urn:agp:schema:v1:protocol:common:node-path"
+    },
+    "nextHop": {
+      "$ref": "urn:agp:schema:v1:core:operations:next-hop"
+    },
+    "eligible": {
+      "type": "boolean"
+    },
+    "selectionStatus": {
+      "type": "string",
+      "enum": [
+        "selected",
+        "not-selected",
+        "ineligible"
+      ]
+    },
+    "selectionReason": {
+      "$ref": "urn:agp:schema:v1:core:codes:candidate-selection-reason"
+    },
+    "installedAt": {
+      "$ref": "urn:agp:schema:v1:core:common:timestamp"
+    }
+  },
+  "required": [
+    "routeId",
+    "endpoint",
+    "originNodeId",
+    "routeClass",
+    "source",
+    "path",
+    "nextHop",
+    "eligible",
+    "selectionStatus",
+    "selectionReason",
+    "installedAt"
+  ],
+  "additionalProperties": false
+}

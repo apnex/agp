@@ -1,0 +1,32 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:agp:schema:v1:core:operations:return-token-allocator-snapshot",
+  "title": "AGP core return-token-allocator-snapshot",
+  "x-agp": {
+    "owner": "@agp/core",
+    "typescript": "ReturnTokenAllocatorSnapshot",
+    "kind": "operations",
+    "mechanics": "Sovereign return-token-allocator-snapshot data contract owned by @agp/core.",
+    "rationale": "One schema gives runtime validators and consumers one stable reasoning boundary.",
+    "consequence": "Accepting another shape would make canonical state or SDK interpretation ambiguous.",
+    "semanticRules": []
+  },
+  "type": "object",
+  "properties": {
+    "allocated": {
+      "$ref": "urn:agp:schema:v1:core:common:counter-value"
+    },
+    "exhausted": {
+      "type": "boolean"
+    },
+    "maximum": {
+      "const": "18446744073709551615"
+    }
+  },
+  "required": [
+    "allocated",
+    "exhausted",
+    "maximum"
+  ],
+  "additionalProperties": false
+}

@@ -1,0 +1,29 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:agp:schema:v1:core:configuration:transit-config",
+  "title": "AGP core transit-config",
+  "x-agp": {
+    "owner": "@agp/core",
+    "typescript": "TransitConfig",
+    "kind": "configuration",
+    "mechanics": "Sovereign transit-config data contract owned by @agp/core.",
+    "rationale": "One schema gives runtime validators and consumers one stable reasoning boundary.",
+    "consequence": "Accepting another shape would make canonical state or SDK interpretation ambiguous.",
+    "semanticRules": []
+  },
+  "type": "object",
+  "properties": {
+    "enabled": {
+      "type": "boolean"
+    },
+    "defaultHopLimit": {
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 65535
+    }
+  },
+  "required": [
+    "enabled"
+  ],
+  "additionalProperties": false
+}

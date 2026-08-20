@@ -1,0 +1,26 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:agp:schema:v1:transport:contracts:transport-listen-options",
+  "title": "TransportListenOptions",
+  "description": "Neutral options supplied to one bound listen capability.",
+  "x-agp": {
+    "owner": "@agp/transport",
+    "typescript": "TransportListenOptions",
+    "kind": "contract",
+    "mechanics": "Defines the bounded transport-listen-options value crossing the neutral transport boundary.",
+    "rationale": "One schema and generated type prevent adapter-specific reinterpretation.",
+    "consequence": "A divergent shape makes transport implementations observably incompatible.",
+    "semanticRules": []
+  },
+  "type": "object",
+  "properties": {
+    "limits": {
+      "$ref": "urn:agp:schema:v1:transport:contracts:transport-listener-limits",
+      "description": "Authoritative listener limits."
+    }
+  },
+  "required": [
+    "limits"
+  ],
+  "additionalProperties": false
+}

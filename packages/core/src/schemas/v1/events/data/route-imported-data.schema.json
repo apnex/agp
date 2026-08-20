@@ -1,0 +1,18 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:agp:schema:v1:core:event:route-imported-data",
+  "title": "AGP core route-imported-data",
+  "x-agp": {
+    "owner": "@agp/core",
+    "typescript": "RouteImportedData",
+    "kind": "event-data",
+    "mechanics": "Sovereign route-imported-data data contract owned by @agp/core.",
+    "rationale": "One schema gives runtime validators and consumers one stable reasoning boundary.",
+    "consequence": "Accepting another shape would make canonical state or SDK interpretation ambiguous.",
+    "semanticRules": []
+  },
+  "type": "object",
+  "properties": {},
+  "required": [],
+  "additionalProperties": false
+}

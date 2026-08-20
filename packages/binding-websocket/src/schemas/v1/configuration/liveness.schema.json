@@ -1,0 +1,35 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:agp:schema:v1:binding-websocket:configuration:liveness",
+  "title": "WebSocketLivenessConfigData",
+  "x-agp": {
+    "owner": "@agp/binding-websocket",
+    "typescript": "WebSocketLivenessConfigData",
+    "kind": "configuration",
+    "mechanics": "Defines the liveness value owned by the WebSocket binding.",
+    "rationale": "Carrier-specific configuration and mapping remain outside the neutral kernel.",
+    "consequence": "Divergence makes WebSocket behavior ambiguous or leaks carrier authority.",
+    "semanticRules": []
+  },
+  "description": "Finite carrier-private Ping/Pong liveness settings.",
+  "type": "object",
+  "properties": {
+    "pingIntervalMs": {
+      "type": "integer",
+      "description": "Interval between adapter Ping probes.",
+      "minimum": 1,
+      "maximum": 9007199254740991
+    },
+    "pongTimeoutMs": {
+      "type": "integer",
+      "description": "Deadline for the matching Pong.",
+      "minimum": 1,
+      "maximum": 9007199254740991
+    }
+  },
+  "required": [
+    "pingIntervalMs",
+    "pongTimeoutMs"
+  ],
+  "additionalProperties": false
+}

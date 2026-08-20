@@ -1,0 +1,19 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:agp:schema:v1:protocol:common:endpoint-name",
+  "title": "EndpointName",
+  "description": "Canonical slash-separated name of one routable application endpoint.",
+  "x-agp": {
+    "owner": "@agp/protocol",
+    "typescript": "EndpointName",
+    "kind": "scalar",
+    "mechanics": "Canonical slash-separated name of one routable application endpoint.",
+    "rationale": "A sovereign contract gives validators and consumers one stable reasoning boundary.",
+    "consequence": "Accepting another shape would make peer interpretation or ownership ambiguous.",
+    "semanticRules": []
+  },
+  "type": "string",
+  "minLength": 1,
+  "maxLength": 253,
+  "pattern": "^[a-z0-9][a-z0-9._-]{0,62}(?:/[a-z0-9][a-z0-9._-]{0,62})*$"
+}

@@ -1,0 +1,15 @@
+{
+  "fabricId": "agp-loopback-example",
+  "limits": {
+    "maxTransports": 3,
+    "maxListeners": 1,
+    "maxPendingAcquisitions": 2,
+    "maxActiveChannels": 2,
+    "maxPacketBytes": 1048576,
+    "maxBufferedPacketsPerChannel": 64,
+    "maxBufferedBytesPerChannel": 4194304,
+    "maxQueuedPacketsTotal": 256,
+    "maxQueuedBytesTotal": 16777216,
+    "maxPendingSendBytesTotal": 8388608
+  }
+}

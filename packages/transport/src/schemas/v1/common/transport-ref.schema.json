@@ -1,0 +1,19 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:agp:schema:v1:transport:common:transport-ref",
+  "title": "TransportRef",
+  "description": "Application-local logical name resolving to one bound acquisition capability.",
+  "x-agp": {
+    "owner": "@agp/transport",
+    "typescript": "TransportRef",
+    "kind": "scalar",
+    "mechanics": "Defines the bounded transport-ref value crossing the neutral transport boundary.",
+    "rationale": "One schema and generated type prevent adapter-specific reinterpretation.",
+    "consequence": "A divergent shape makes transport implementations observably incompatible.",
+    "semanticRules": []
+  },
+  "type": "string",
+  "minLength": 1,
+  "maxLength": 64,
+  "pattern": "^[a-z][a-z0-9]*(?:[._-][a-z0-9]+)*$"
+}

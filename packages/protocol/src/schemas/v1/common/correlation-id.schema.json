@@ -1,0 +1,19 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:agp:schema:v1:protocol:common:correlation-id",
+  "title": "CorrelationId",
+  "description": "Optional application correlation identity carried unchanged end to end.",
+  "x-agp": {
+    "owner": "@agp/protocol",
+    "typescript": "CorrelationId",
+    "kind": "scalar",
+    "mechanics": "Optional application correlation identity carried unchanged end to end.",
+    "rationale": "A sovereign contract gives validators and consumers one stable reasoning boundary.",
+    "consequence": "Accepting another shape would make peer interpretation or ownership ambiguous.",
+    "semanticRules": []
+  },
+  "type": "string",
+  "minLength": 1,
+  "maxLength": 128,
+  "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]{0,127}$"
+}

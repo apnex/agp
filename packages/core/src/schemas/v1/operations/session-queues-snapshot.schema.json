@@ -1,0 +1,32 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:agp:schema:v1:core:operations:session-queues-snapshot",
+  "title": "AGP core session-queues-snapshot",
+  "x-agp": {
+    "owner": "@agp/core",
+    "typescript": "SessionQueuesSnapshot",
+    "kind": "operations",
+    "mechanics": "Sovereign session-queues-snapshot data contract owned by @agp/core.",
+    "rationale": "One schema gives runtime validators and consumers one stable reasoning boundary.",
+    "consequence": "Accepting another shape would make canonical state or SDK interpretation ambiguous.",
+    "semanticRules": []
+  },
+  "type": "object",
+  "properties": {
+    "control": {
+      "$ref": "urn:agp:schema:v1:core:operations:bounded-queue-snapshot"
+    },
+    "data": {
+      "$ref": "urn:agp:schema:v1:core:operations:bounded-queue-snapshot"
+    },
+    "continuation": {
+      "$ref": "urn:agp:schema:v1:core:operations:bounded-queue-snapshot"
+    }
+  },
+  "required": [
+    "control",
+    "data",
+    "continuation"
+  ],
+  "additionalProperties": false
+}

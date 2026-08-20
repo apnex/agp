@@ -1,0 +1,21 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:agp:schema:v1:core:codes:identity-denial-code",
+  "title": "AGP core identity-denial-code",
+  "x-agp": {
+    "owner": "@agp/core",
+    "typescript": "IdentityDenialCode",
+    "kind": "code",
+    "mechanics": "Sovereign identity-denial-code data contract owned by @agp/core.",
+    "rationale": "One schema gives runtime validators and consumers one stable reasoning boundary.",
+    "consequence": "Accepting another shape would make canonical state or SDK interpretation ambiguous.",
+    "semanticRules": []
+  },
+  "type": "string",
+  "enum": [
+    "POLICY",
+    "EXPECTED_NODE_MISMATCH",
+    "SECURITY_EVIDENCE",
+    "CAPACITY"
+  ]
+}

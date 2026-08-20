@@ -1,0 +1,1120 @@
+{
+  "schemaVersion": "agp.schema-catalog/v1",
+  "schemas": [
+    {
+      "id": "urn:agp:schema:v1:binding-websocket:codes:binding-rejection-code",
+      "path": "packages/binding-websocket/src/schemas/v1/codes/binding-rejection-code.schema.json",
+      "sha256": "56bb3da8b79f8bb39674e4e42c272bac10d2019c4c1fe5df2caf31c68180b3a7"
+    },
+    {
+      "id": "urn:agp:schema:v1:binding-websocket:common:subprotocol-token",
+      "path": "packages/binding-websocket/src/schemas/v1/common/subprotocol-token.schema.json",
+      "sha256": "715c08a2a7784edd253d05fa0d231c83a58eaf95eb72d5fb567f40c9309c35c8"
+    },
+    {
+      "id": "urn:agp:schema:v1:binding-websocket:configuration:compression",
+      "path": "packages/binding-websocket/src/schemas/v1/configuration/compression.schema.json",
+      "sha256": "ebc66693111c0aad7636c5f51af78dd436488e0d01fb6b014814ed3e93e69a88"
+    },
+    {
+      "id": "urn:agp:schema:v1:binding-websocket:configuration:listener",
+      "path": "packages/binding-websocket/src/schemas/v1/configuration/listener.schema.json",
+      "sha256": "37f7cb56cbf88f1c650acc97b5068b29b37df5cf36b79d997d30a6d50699efd1"
+    },
+    {
+      "id": "urn:agp:schema:v1:binding-websocket:configuration:liveness",
+      "path": "packages/binding-websocket/src/schemas/v1/configuration/liveness.schema.json",
+      "sha256": "b2fdadea041cd80ee8cad26105a9c042a081ceb539814a0807fc70658c655d3b"
+    },
+    {
+      "id": "urn:agp:schema:v1:binding-websocket:configuration:security",
+      "path": "packages/binding-websocket/src/schemas/v1/configuration/security.schema.json",
+      "sha256": "f3a3a9f546ad82e8223122d93697c7b5c28e953cc30b93435aba0e134c01804f"
+    },
+    {
+      "id": "urn:agp:schema:v1:binding-websocket:configuration:target",
+      "path": "packages/binding-websocket/src/schemas/v1/configuration/target.schema.json",
+      "sha256": "d84e2a056c7c0e1b56ff6f7934717c54040b9d2896ad2892e951bee74950e2a6"
+    },
+    {
+      "id": "urn:agp:schema:v1:binding-websocket:configuration:transport",
+      "path": "packages/binding-websocket/src/schemas/v1/configuration/transport.schema.json",
+      "sha256": "e8123a657862b207e169093f06c580d87b55c1cb5d7a2e0c73148211fcda8761"
+    },
+    {
+      "id": "urn:agp:schema:v1:binding-websocket:contracts:close-mapping",
+      "path": "packages/binding-websocket/src/schemas/v1/contracts/close-mapping.schema.json",
+      "sha256": "48cb277944b949320d3659774d5026d7ad9751202770f90c546d0f77eaa0840f"
+    },
+    {
+      "id": "urn:agp:schema:v1:core:codes:candidate-selection-reason",
+      "path": "packages/core/src/schemas/v1/codes/candidate-selection-reason.schema.json",
+      "sha256": "72cefcdf213b33faf4b25fa79486ccb4ca0c3d6471f57189164456ca5e5d685c"
+    },
+    {
+      "id": "urn:agp:schema:v1:core:codes:connection-state",
+      "path": "packages/core/src/schemas/v1/codes/connection-state.schema.json",
+      "sha256": "5db9e8bef9d95e952b642514808a8f2d5523320cfc8c3cb46b110682a298af07"
+    },
+    {
+      "id": "urn:agp:schema:v1:core:codes:counter-key",
+      "path": "packages/core/src/schemas/v1/codes/counter-key.schema.json",
+      "sha256": "2e112bb3a651df771b024ae070e9934d8716f1e952ab900e977d275ef34b23ac"
+    },
+    {
+      "id": "urn:agp:schema:v1:core:codes:diagnostic-code",
+      "path": "packages/core/src/schemas/v1/codes/diagnostic-code.schema.json",
+      "sha256": "85906ace2a4abd275122fd40d1e24a22e0a40a0a0144446a58770a5bb8c410e9"
+    },
+    {
+      "id": "urn:agp:schema:v1:core:codes:diagnostic-domain",
+      "path": "packages/core/src/schemas/v1/codes/diagnostic-domain.schema.json",
+      "sha256": "2ee69eb9a2de73ceccca6017a43ee3e1cdf4e0f1c16c392a184a5ed2e85ba29e"
+    },
+    {
+      "id": "urn:agp:schema:v1:core:codes:diagnostic-severity",
+      "path": "packages/core/src/schemas/v1/codes/diagnostic-severity.schema.json",
+      "sha256": "5cb39aedcc9ae8726a66d05c01f550c4ec3fa3be0e813fe3f5ca889c1a984290"
+    },
+    {
+      "id": "urn:agp:schema:v1:core:codes:host-failure-code",
+      "path": "packages/core/src/schemas/v1/codes/host-failure-code.schema.json",
+      "sha256": "1018a068fed668c014e713afac3800bae75caebcb151164b900aa2795b7a5f80"
+    },
+    {
+      "id": "urn:agp:schema:v1:core:codes:host-state",
+      "path": "packages/core/src/schemas/v1/codes/host-state.schema.json",
+      "sha256": "c0de830adf114042b54b46d317d327d742c92f6bf32f33eca622f37719d40d0f"
+    },
+    {
+      "id": "urn:agp:schema:v1:core:codes:identity-denial-code",
+      "path": "packages/core/src/schemas/v1/codes/identity-denial-code.schema.json",
+      "sha256": "6a89bf8c7b41e89ac0ee0c8c08c5cb788d50500f11bebdd419fb8cf1603c7275"
+    },
+    {
+      "id": "urn:agp:schema:v1:core:codes:ineligible-reason",
+      "path": "packages/core/src/schemas/v1/codes/ineligible-reason.schema.json",
+      "sha256": "b85308c595a5ddf7e27fa2758d276673d9506c763d2296761b17e2c61ff590cb"
+    },
+    {
+      "id": "urn:agp:schema:v1:core:codes:monotonic-domain",
+      "path": "packages/core/src/schemas/v1/codes/monotonic-domain.schema.json",
+      "sha256": "953bfd898eca16ced677af16d7053aa81215f2ea3a7abe2d8c04e6c4ac370799"
+    },
+    {
+      "id": "urn:agp:schema:v1:core:codes:resource-code",
+      "path": "packages/core/src/schemas/v1/codes/resource-code.schema.json",
+      "sha256": "684aa12dd87f6e0882f6a04a1cac200e5a7d71f3d0be9878529bdde714d18f64"
+    },
+    {
+      "id": "urn:agp:schema:v1:core:codes:route-reason-code",
+      "path": "packages/core/src/schemas/v1/codes/route-reason-code.schema.json",
+      "sha256": "75d0b06fc4be76fab08ba41fd8244787b5e64fac5910fd04dd31829cc3c9ab1a"
+    },
+    {
+      "id": "urn:agp:schema:v1:core:codes:sdk-error-code",
+      "path": "packages/core/src/schemas/v1/codes/sdk-error-code.schema.json",
+      "sha256": "0fefec159173f8b7f1552e9a5b600dd1ac273796b42bbfb7c587d7e7ff2d2cfa"
+    },
+    {
+      "id": "urn:agp:schema:v1:core:codes:selected-reason",
+      "path": "packages/core/src/schemas/v1/codes/selected-reason.schema.json",
+      "sha256": "455e7606a15a5810cd5318656796531b66cf12ad39d1656415b9c3b6e84c7d33"
+    },
+    {
+      "id": "urn:agp:schema:v1:core:codes:session-event-code",
+      "path": "packages/core/src/schemas/v1/codes/session-event-code.schema.json",
+      "sha256": "3bfd8f172bbef846aedef29cef9eb421bcb49001e569f80dcdd2606d83f333c7"
+    },
+    {
+      "id": "urn:agp:schema:v1:core:codes:session-reason-code",
+      "path": "packages/core/src/schemas/v1/codes/session-reason-code.schema.json",
+      "sha256": "4ee01031850c35158b9309eb243adb8706ff45e626c89ffabd532f36694cbba2"
+    },
+    {
+      "id": "urn:agp:schema:v1:core:common:adjacency-id",
+      "path": "packages/core/src/schemas/v1/common/adjacency-id.schema.json",
+      "sha256": "21e132b26b29675d74b926285f83bbbbb5bd1b3ec5f0661190ab8fcd80ecfe3c"
+    },
+    {
+      "id": "urn:agp:schema:v1:core:common:binding-id",
+      "path": "packages/core/src/schemas/v1/common/binding-id.schema.json",
+      "sha256": "3e498e2f4d5fa8842a45ccbce53892b59712f7e5303d2229b40d4446e2345f49"
+    },
+    {
+      "id": "urn:agp:schema:v1:core:common:counter-value",
+      "path": "packages/core/src/schemas/v1/common/counter-value.schema.json",
+      "sha256": "38b20780bd606434ec45dcb9528499b540e12f7547dacd83ba35e633c9acfbeb"
+    },
+    {
+      "id": "urn:agp:schema:v1:core:common:direction",
+      "path": "packages/core/src/schemas/v1/common/direction.schema.json",
+      "sha256": "b9ef619ac5e9fb09bf82902db54af0152a527fb9d729b11503e9d2c18fbbe455"
+    },
+    {
+      "id": "urn:agp:schema:v1:core:common:duration-ms",
+      "path": "packages/core/src/schemas/v1/common/duration-ms.schema.json",
+      "sha256": "f8e92a758c745d1821130726a9e5bb7418b3361a3de3a69e087081f407111ad0"
+    },
+    {
+      "id": "urn:agp:schema:v1:core:common:event-sequence",
+      "path": "packages/core/src/schemas/v1/common/event-sequence.schema.json",
+      "sha256": "62f836690b8b04d7139014ad9da0242ab169ca74409ad5a31213d6f7f0b2dff8"
+    },
+    {
+      "id": "urn:agp:schema:v1:core:common:instance-id",
+      "path": "packages/core/src/schemas/v1/common/instance-id.schema.json",
+      "sha256": "945d46cd45340aaa8ea8d00fd7312758d0cbaf264576cf21170b4ddb4d84b52e"
+    },
+    {
+      "id": "urn:agp:schema:v1:core:common:operations-revision",
+      "path": "packages/core/src/schemas/v1/common/operations-revision.schema.json",
+      "sha256": "8bf8a7778780846ea3f9c239a6a2b91f50346961a145d824c669ff966b1e66ed"
+    },
+    {
+      "id": "urn:agp:schema:v1:core:common:route-id",
+      "path": "packages/core/src/schemas/v1/common/route-id.schema.json",
+      "sha256": "f97ac05f9e699bc3319eaa920fd5aa4f5376a828c86da040c5f7922ea92b2e93"
+    },
+    {
+      "id": "urn:agp:schema:v1:core:common:timestamp",
+      "path": "packages/core/src/schemas/v1/common/timestamp.schema.json",
+      "sha256": "22704c6d0d7e44a81f269e9daecaa98989188aeaa8ccde8f716dad2686a6e7d4"
+    },
+    {
+      "id": "urn:agp:schema:v1:core:configuration:capacity",
+      "path": "packages/core/src/schemas/v1/configuration/capacity.schema.json",
+      "sha256": "f03b211e937bc6ac1133f4ab78bd54439048bd5f906f6aea3f16e5d969378cee"
+    },
+    {
+      "id": "urn:agp:schema:v1:core:configuration:identity-admission-policy",
+      "path": "packages/core/src/schemas/v1/configuration/identity-admission-policy.schema.json",
+      "sha256": "4a3e530a96c33a614376db0ef71734d2e5822d54067675bafb80792bc2b52463"
+    },
+    {
+      "id": "urn:agp:schema:v1:core:configuration:limits",
+      "path": "packages/core/src/schemas/v1/configuration/limits.schema.json",
+      "sha256": "e3761777c251daa0db257461dbed828484022a90cd8d51fe20c9f09c883f6f52"
+    },
+    {
+      "id": "urn:agp:schema:v1:core:configuration:listener-config",
+      "path": "packages/core/src/schemas/v1/configuration/listener-config.schema.json",
+      "sha256": "ab141c0eb7409180518c1938b9efa4d436704e691a2e1111a6e4f5dd4ff60de6"
+    },
+    {
+      "id": "urn:agp:schema:v1:core:configuration:node-config",
+      "path": "packages/core/src/schemas/v1/configuration/node-config.schema.json",
+      "sha256": "7a767ffafac2e35cf90a40234f25d77928cbccdce66c5bafcdb8377b4578c9d9"
+    },
+    {
+      "id": "urn:agp:schema:v1:core:configuration:peer-config",
+      "path": "packages/core/src/schemas/v1/configuration/peer-config.schema.json",
+      "sha256": "22e06e2ca48158c9b732f3978b23c4b04d77dbc840a5c31976cd5c78804eb205"
+    },
+    {
+      "id": "urn:agp:schema:v1:core:configuration:reconnect-policy",
+      "path": "packages/core/src/schemas/v1/configuration/reconnect-policy.schema.json",
+      "sha256": "0e25f43827dfe28b3166d3078d140ab3af9d687efe102963544609f4792d1b2c"
+    },
+    {
+      "id": "urn:agp:schema:v1:core:configuration:route-admission-policy",
+      "path": "packages/core/src/schemas/v1/configuration/route-admission-policy.schema.json",
+      "sha256": "1f5bc8633a98fef43d06ca8deec79c6db6279d7305ab0a776c9b4d171769ab95"
+    },
+    {
+      "id": "urn:agp:schema:v1:core:configuration:route-rejection-retry",
+      "path": "packages/core/src/schemas/v1/configuration/route-rejection-retry.schema.json",
+      "sha256": "6243efd229551ab36c55dcaefb9f0ebae1879df82cefd1a2654bef66dd92297b"
+    },
+    {
+      "id": "urn:agp:schema:v1:core:configuration:timers",
+      "path": "packages/core/src/schemas/v1/configuration/timers.schema.json",
+      "sha256": "7c0b82b87da361f31345477dac19c301b40c15d64cd4d0d15f64286fcf5ba17a"
+    },
+    {
+      "id": "urn:agp:schema:v1:core:configuration:transit-config",
+      "path": "packages/core/src/schemas/v1/configuration/transit-config.schema.json",
+      "sha256": "f83c559362125f1944cc6456f2bc55ca4ac91f6502b7e093619fb97eadf6486d"
+    },
+    {
+      "id": "urn:agp:schema:v1:core:event:connection-preidentity-closed",
+      "path": "packages/core/src/schemas/v1/events/connection-preidentity-closed.schema.json",
+      "sha256": "73d99f9c2a43c39b611fe3e5004d2a0d159618e0bc7c4dc0a6a080732075ee7c"
+    },
+    {
+      "id": "urn:agp:schema:v1:core:event:connection-preidentity-closed-data",
+      "path": "packages/core/src/schemas/v1/events/data/connection-preidentity-closed-data.schema.json",
+      "sha256": "f7ee4e599b18866784dbd9df69a042ea2a70fd9c22f69627529cecbb3ee5b71a"
+    },
+    {
+      "id": "urn:agp:schema:v1:core:event:endpoint-closed-data",
+      "path": "packages/core/src/schemas/v1/events/data/endpoint-closed-data.schema.json",
+      "sha256": "da7f464c09c56a1318360fed97018bc491128318fb7f8e33e17cbbaa181c8264"
+    },
+    {
+      "id": "urn:agp:schema:v1:core:event:endpoint-exposed-data",
+      "path": "packages/core/src/schemas/v1/events/data/endpoint-exposed-data.schema.json",
+      "sha256": "7aabc81028e34a851dff6fcd1d974c925a5cbaed1809a0a67c4834409c25136b"
+    },
+    {
+      "id": "urn:agp:schema:v1:core:event:handler-completed-data",
+      "path": "packages/core/src/schemas/v1/events/data/handler-completed-data.schema.json",
+      "sha256": "ba53462605eea533824aade479f3869a1d4949198eb2eb45c7d4f351c3ab8161"
+    },
+    {
+      "id": "urn:agp:schema:v1:core:event:handler-failed-data",
+      "path": "packages/core/src/schemas/v1/events/data/handler-failed-data.schema.json",
+      "sha256": "11c5bb748808b5a57ab667e2902400fa967a831155376a5be38d37b719bc92d4"
+    },
+    {
+      "id": "urn:agp:schema:v1:core:event:lifecycle-running-data",
+      "path": "packages/core/src/schemas/v1/events/data/lifecycle-running-data.schema.json",
+      "sha256": "fab65f079ea12d24d094a683f530fb24eb7a364fc8f748666557c992770cbc71"
+    },
+    {
+      "id": "urn:agp:schema:v1:core:event:lifecycle-starting-data",
+      "path": "packages/core/src/schemas/v1/events/data/lifecycle-starting-data.schema.json",
+      "sha256": "7837cfa30020274715607850d563015430b07a3b719f3ccee69a756407bedc2d"
+    },
+    {
+      "id": "urn:agp:schema:v1:core:event:lifecycle-stopped-data",
+      "path": "packages/core/src/schemas/v1/events/data/lifecycle-stopped-data.schema.json",
+      "sha256": "7df396a1ffd5e67d81dbeef50cf1942ddc8d68c46f1cda6586ce1e8c6f72e14e"
+    },
+    {
+      "id": "urn:agp:schema:v1:core:event:message-accepted-data",
+      "path": "packages/core/src/schemas/v1/events/data/message-accepted-data.schema.json",
+      "sha256": "192b25217d5c118fd9f867b6a7190f9a0ac6ef4093111516a8fe705a29ef386d"
+    },
+    {
+      "id": "urn:agp:schema:v1:core:event:message-failed-data",
+      "path": "packages/core/src/schemas/v1/events/data/message-failed-data.schema.json",
+      "sha256": "cd1580e45a1d770ae68f68534ea703e6396d7c5043541dd0a0d5851387f8d362"
+    },
+    {
+      "id": "urn:agp:schema:v1:core:event:message-forwarded-data",
+      "path": "packages/core/src/schemas/v1/events/data/message-forwarded-data.schema.json",
+      "sha256": "2514012b53e28a56b8067c8fe7863781423bd5e40ba91f75c1f788171c3a8a58"
+    },
+    {
+      "id": "urn:agp:schema:v1:core:event:message-received-data",
+      "path": "packages/core/src/schemas/v1/events/data/message-received-data.schema.json",
+      "sha256": "eab3e66917f23b625757e72e672d85e72b9826ae4341ab140ce9cf80f7c0b548"
+    },
+    {
+      "id": "urn:agp:schema:v1:core:event:observer-gap-data",
+      "path": "packages/core/src/schemas/v1/events/data/observer-gap-data.schema.json",
+      "sha256": "d9345057d53f7c5d025d5cb3ace2049e81470a22a6b9af853905f89f3b69c3ae"
+    },
+    {
+      "id": "urn:agp:schema:v1:core:event:route-export-acked-data",
+      "path": "packages/core/src/schemas/v1/events/data/route-export-acked-data.schema.json",
+      "sha256": "9046888cbc45bbb268bbb8ae2cb2d625fc5f0126e9af2f551339a52006a6b811"
+    },
+    {
+      "id": "urn:agp:schema:v1:core:event:route-imported-data",
+      "path": "packages/core/src/schemas/v1/events/data/route-imported-data.schema.json",
+      "sha256": "ac082e09546a899d944de72ea0c318f94b35b10224814a3ba1ef4ebd2bd08bda"
+    },
+    {
+      "id": "urn:agp:schema:v1:core:event:session-closed-data",
+      "path": "packages/core/src/schemas/v1/events/data/session-closed-data.schema.json",
+      "sha256": "cab18f50fa2826373cf14b4b0cc0aa1b69a2ccdd14093459d222448f58bc78b9"
+    },
+    {
+      "id": "urn:agp:schema:v1:core:event:session-established-data",
+      "path": "packages/core/src/schemas/v1/events/data/session-established-data.schema.json",
+      "sha256": "2a9009e33c8a7c499c29ecd5059f6934e12c79d7ec6abc07e0c96cf50599ef0b"
+    },
+    {
+      "id": "urn:agp:schema:v1:core:event:session-routes-purged-data",
+      "path": "packages/core/src/schemas/v1/events/data/session-routes-purged-data.schema.json",
+      "sha256": "61e6273c0384dd0292ca02a7be2742bfd7ee77d49df902e216b33d7ceb542e4f"
+    },
+    {
+      "id": "urn:agp:schema:v1:core:event:session-transition-data",
+      "path": "packages/core/src/schemas/v1/events/data/session-transition-data.schema.json",
+      "sha256": "b71979f44f23a0d7fed513f66ab87ed345e01c409361e52c22a15d40605b112a"
+    },
+    {
+      "id": "urn:agp:schema:v1:core:event:endpoint-closed",
+      "path": "packages/core/src/schemas/v1/events/endpoint-closed.schema.json",
+      "sha256": "e7fd9da2f6cbd7f7212810ea08bc77de297f0ca42d8dc4a938a34b0e9ef3b2c4"
+    },
+    {
+      "id": "urn:agp:schema:v1:core:event:endpoint-exposed",
+      "path": "packages/core/src/schemas/v1/events/endpoint-exposed.schema.json",
+      "sha256": "34ad39169d78e2e6e0b8a375e49ee218c9b9092d2647a0e7463dda32f4f80eb1"
+    },
+    {
+      "id": "urn:agp:schema:v1:core:event:handler-completed",
+      "path": "packages/core/src/schemas/v1/events/handler-completed.schema.json",
+      "sha256": "5dff41a2fb89180f7a70161e1cef308c440bdca1bd15ef21c522e781f769af26"
+    },
+    {
+      "id": "urn:agp:schema:v1:core:event:handler-failed",
+      "path": "packages/core/src/schemas/v1/events/handler-failed.schema.json",
+      "sha256": "0d891c03730ceb42c4b6543ce2d825aeaef6323e7d70ea6536f130e8585bc702"
+    },
+    {
+      "id": "urn:agp:schema:v1:core:event:lifecycle-running",
+      "path": "packages/core/src/schemas/v1/events/lifecycle-running.schema.json",
+      "sha256": "9de11b246379536477767ba1592b4d6972dae54290a60695de038106bd6e2fe0"
+    },
+    {
+      "id": "urn:agp:schema:v1:core:event:lifecycle-starting",
+      "path": "packages/core/src/schemas/v1/events/lifecycle-starting.schema.json",
+      "sha256": "9e99e8125e5509fcde98282a04d5094f9bb1828b9eadd3b2fa1235064d352d1a"
+    },
+    {
+      "id": "urn:agp:schema:v1:core:event:lifecycle-stopped",
+      "path": "packages/core/src/schemas/v1/events/lifecycle-stopped.schema.json",
+      "sha256": "8a9e53fa7cf36c1bf881393f035ab3b3477a09ed6b891d58b19c81a4f9ee90b7"
+    },
+    {
+      "id": "urn:agp:schema:v1:core:event:message-accepted",
+      "path": "packages/core/src/schemas/v1/events/message-accepted.schema.json",
+      "sha256": "112802deda10e61bdaf1ee924ef20f5469ef3da01a4bdb236da792c09ea70233"
+    },
+    {
+      "id": "urn:agp:schema:v1:core:event:message-failed",
+      "path": "packages/core/src/schemas/v1/events/message-failed.schema.json",
+      "sha256": "739619763b8f9dd3b9e702d5e3cc85746da314277ec5056f90cbeb85d4609996"
+    },
+    {
+      "id": "urn:agp:schema:v1:core:event:message-forwarded",
+      "path": "packages/core/src/schemas/v1/events/message-forwarded.schema.json",
+      "sha256": "4a9df40ad446ebcd4250509562e598f05dc6ba83e01ee4c5366246e629a957be"
+    },
+    {
+      "id": "urn:agp:schema:v1:core:event:message-received",
+      "path": "packages/core/src/schemas/v1/events/message-received.schema.json",
+      "sha256": "54ca6c66844300e16c3a8ccb2acd2c2921ca3a02d504f6e88333f02e8cf21510"
+    },
+    {
+      "id": "urn:agp:schema:v1:core:event:observer-gap",
+      "path": "packages/core/src/schemas/v1/events/observer-gap.schema.json",
+      "sha256": "de4296ed7ebfb1c7ce98206f2743fabe15d5445c103c72fbc3e0423c767aee32"
+    },
+    {
+      "id": "urn:agp:schema:v1:core:event:operational-event",
+      "path": "packages/core/src/schemas/v1/events/operational-event.schema.json",
+      "sha256": "281f56bf3d92716601a529c4068b410f5cfdf8acecd5883d9a360bd5fcdc8eed"
+    },
+    {
+      "id": "urn:agp:schema:v1:core:event:route-export-acked",
+      "path": "packages/core/src/schemas/v1/events/route-export-acked.schema.json",
+      "sha256": "79d35aebedb88f95fabb95831afdd3d5fa51770855fa998967802cbf88141067"
+    },
+    {
+      "id": "urn:agp:schema:v1:core:event:route-imported",
+      "path": "packages/core/src/schemas/v1/events/route-imported.schema.json",
+      "sha256": "9260b7d4572192733a0f20197f6da31cf75049eab650268f241168f916c23e6a"
+    },
+    {
+      "id": "urn:agp:schema:v1:core:event:session-closed",
+      "path": "packages/core/src/schemas/v1/events/session-closed.schema.json",
+      "sha256": "cc2d5dadca1d4eb423db86ec768ab48adca961a6bcda00789d3ae78d59f1d863"
+    },
+    {
+      "id": "urn:agp:schema:v1:core:event:session-established",
+      "path": "packages/core/src/schemas/v1/events/session-established.schema.json",
+      "sha256": "9f190875f32c7e3cd13dde76320ee22ec2202576a36c911120713826bf1f5c54"
+    },
+    {
+      "id": "urn:agp:schema:v1:core:event:session-routes-purged",
+      "path": "packages/core/src/schemas/v1/events/session-routes-purged.schema.json",
+      "sha256": "2133dc6894faa4b5d298551aebee635797a7c5b8f539d28ef3beb500534fe9da"
+    },
+    {
+      "id": "urn:agp:schema:v1:core:event:session-transition",
+      "path": "packages/core/src/schemas/v1/events/session-transition.schema.json",
+      "sha256": "f9f63a6cc522ad98cbf2099dd871f52cda12ea1f9461bb8f14bed55265ea65f2"
+    },
+    {
+      "id": "urn:agp:schema:v1:core:operations:adj-rib-out-list-snapshot",
+      "path": "packages/core/src/schemas/v1/operations/adj-rib-out-list-snapshot.schema.json",
+      "sha256": "3e526ab0d3914d07a380d918e74a76b556528cb996085daf57a05fae68730890"
+    },
+    {
+      "id": "urn:agp:schema:v1:core:operations:adj-rib-out-route-snapshot",
+      "path": "packages/core/src/schemas/v1/operations/adj-rib-out-route-snapshot.schema.json",
+      "sha256": "e9709588deb07a997e7a5a62d7b9fafee2fd68bf80412b1bc6af9b76925c8eb5"
+    },
+    {
+      "id": "urn:agp:schema:v1:core:operations:adjacency-list-snapshot",
+      "path": "packages/core/src/schemas/v1/operations/adjacency-list-snapshot.schema.json",
+      "sha256": "c77f188ecb3e2f7d180723d41433e37c65d73711b341686512d6148714e29b9c"
+    },
+    {
+      "id": "urn:agp:schema:v1:core:operations:adjacency-snapshot",
+      "path": "packages/core/src/schemas/v1/operations/adjacency-snapshot.schema.json",
+      "sha256": "8b90deab1777703b39b3676da7d34f349e8b1e8b85b358e70789f4ed696c71b9"
+    },
+    {
+      "id": "urn:agp:schema:v1:core:operations:advertisement-list-snapshot",
+      "path": "packages/core/src/schemas/v1/operations/advertisement-list-snapshot.schema.json",
+      "sha256": "cddcb6416e9e6235f827107e8ce12cc4a14bae7fe0b9518b4a230f36767f520d"
+    },
+    {
+      "id": "urn:agp:schema:v1:core:operations:advertisement-snapshot",
+      "path": "packages/core/src/schemas/v1/operations/advertisement-snapshot.schema.json",
+      "sha256": "e555f10516a41bb76eb5799546df586d0d0a077aa01b422ecfa9636e0f79088f"
+    },
+    {
+      "id": "urn:agp:schema:v1:core:operations:bounded-queue-snapshot",
+      "path": "packages/core/src/schemas/v1/operations/bounded-queue-snapshot.schema.json",
+      "sha256": "7bfd820a05b897114d65701fd7ae06ca647703255d8645bb75436c5b931cf5eb"
+    },
+    {
+      "id": "urn:agp:schema:v1:core:operations:candidate-route-snapshot",
+      "path": "packages/core/src/schemas/v1/operations/candidate-route-snapshot.schema.json",
+      "sha256": "e6e32b97c8280786a79392aa04059b465ec8856f045707fabdbd552e30902270"
+    },
+    {
+      "id": "urn:agp:schema:v1:core:operations:configuration-snapshot",
+      "path": "packages/core/src/schemas/v1/operations/configuration-snapshot.schema.json",
+      "sha256": "8c3648537085b7235595e0d15252ec2b65e6ae6fe861971d7e147e464d9d125c"
+    },
+    {
+      "id": "urn:agp:schema:v1:core:operations:connection-list-snapshot",
+      "path": "packages/core/src/schemas/v1/operations/connection-list-snapshot.schema.json",
+      "sha256": "a117f82d94c0a0b1a9528c2bc0db6f228a272b1988cad2929cc7f7514559b965"
+    },
+    {
+      "id": "urn:agp:schema:v1:core:operations:connection-snapshot",
+      "path": "packages/core/src/schemas/v1/operations/connection-snapshot.schema.json",
+      "sha256": "3ae5f01cf91e8534776f6008686254e55db19bb593bc08e1b923a95e23a3767f"
+    },
+    {
+      "id": "urn:agp:schema:v1:core:operations:counters-snapshot",
+      "path": "packages/core/src/schemas/v1/operations/counters-snapshot.schema.json",
+      "sha256": "5c6f995f79a23bdc0e5ed0c967d89912fd94ee5a54ae861ce2b3eec700b8b8d4"
+    },
+    {
+      "id": "urn:agp:schema:v1:core:operations:export-snapshot",
+      "path": "packages/core/src/schemas/v1/operations/export-snapshot.schema.json",
+      "sha256": "4bd17679fa610b54bf2be1c1ceea8a0bce1e68fa60169ea8cf0dab6dc5b44068"
+    },
+    {
+      "id": "urn:agp:schema:v1:core:operations:forwarding-entry-snapshot",
+      "path": "packages/core/src/schemas/v1/operations/forwarding-entry-snapshot.schema.json",
+      "sha256": "43d650537499e996de677ff6c4cd7bf8f5f80053b386ea9f8da96642dbb4c817"
+    },
+    {
+      "id": "urn:agp:schema:v1:core:operations:forwarding-list-snapshot",
+      "path": "packages/core/src/schemas/v1/operations/forwarding-list-snapshot.schema.json",
+      "sha256": "f4af140d5b894cfa7074894cd81963e08bdb2af69d5894d55c8350fd1f877bc1"
+    },
+    {
+      "id": "urn:agp:schema:v1:core:operations:host-failure-snapshot",
+      "path": "packages/core/src/schemas/v1/operations/host-failure-snapshot.schema.json",
+      "sha256": "7fcaa67a36f219d7b8d7a6b6fe692059292cb57e4ea2ed152f4d6cee07c710fa"
+    },
+    {
+      "id": "urn:agp:schema:v1:core:operations:lifecycle-snapshot",
+      "path": "packages/core/src/schemas/v1/operations/lifecycle-snapshot.schema.json",
+      "sha256": "9410b43244bb743c90ce733a010308666dcedf2d78095ca4fd08ce3eeb2e5beb"
+    },
+    {
+      "id": "urn:agp:schema:v1:core:operations:listener-snapshot",
+      "path": "packages/core/src/schemas/v1/operations/listener-snapshot.schema.json",
+      "sha256": "1831e2ce88c2bcfacc6b8e82a184d4fbe6917b1b4021285453c0367bab84a4cf"
+    },
+    {
+      "id": "urn:agp:schema:v1:core:operations:local-endpoint-list-snapshot",
+      "path": "packages/core/src/schemas/v1/operations/local-endpoint-list-snapshot.schema.json",
+      "sha256": "616cb768a7fbe9ff703a44c570244eb3fb8d85d5cc16f970d50c1281de303ed1"
+    },
+    {
+      "id": "urn:agp:schema:v1:core:operations:local-endpoint-snapshot",
+      "path": "packages/core/src/schemas/v1/operations/local-endpoint-snapshot.schema.json",
+      "sha256": "3ac8d8de3b12d2390ea7b88e1c341e5b7aeedf43ab1eb7e65e80a7bd0db904b4"
+    },
+    {
+      "id": "urn:agp:schema:v1:core:operations:negotiated-capabilities-snapshot",
+      "path": "packages/core/src/schemas/v1/operations/negotiated-capabilities-snapshot.schema.json",
+      "sha256": "4209bb1649ba8ce2a9577890429ffa2e7ab92d0facd56e54d796a7efdd3cf4ac"
+    },
+    {
+      "id": "urn:agp:schema:v1:core:operations:next-hop",
+      "path": "packages/core/src/schemas/v1/operations/next-hop.schema.json",
+      "sha256": "b1c4edb7fc3ab29c0ca24886dda234c2c9df05f9f9dc09e47719887c63ca0ba7"
+    },
+    {
+      "id": "urn:agp:schema:v1:core:operations:operations-snapshot",
+      "path": "packages/core/src/schemas/v1/operations/operations-snapshot.schema.json",
+      "sha256": "455fc3267fa56be51e9556aa7a4df61e667f1fd63804b9b5becb87ec7672a85e"
+    },
+    {
+      "id": "urn:agp:schema:v1:core:operations:pre-identity-controller-snapshot",
+      "path": "packages/core/src/schemas/v1/operations/pre-identity-controller-snapshot.schema.json",
+      "sha256": "3c8dfadf964fbed992969f5bfd2cc326165c979c1763c05a5ed13914fb7b7051"
+    },
+    {
+      "id": "urn:agp:schema:v1:core:operations:resource-gauge",
+      "path": "packages/core/src/schemas/v1/operations/resource-gauge.schema.json",
+      "sha256": "055938540797163b7802b90d38a70eca9d6c878d914a7952ed87f7e573baa4a5"
+    },
+    {
+      "id": "urn:agp:schema:v1:core:operations:resources-snapshot",
+      "path": "packages/core/src/schemas/v1/operations/resources-snapshot.schema.json",
+      "sha256": "8cfbd35eb73ff815b47d417f70799136a3fd0a58e7d3304e3cc683356250c5de"
+    },
+    {
+      "id": "urn:agp:schema:v1:core:operations:return-token-allocator-snapshot",
+      "path": "packages/core/src/schemas/v1/operations/return-token-allocator-snapshot.schema.json",
+      "sha256": "7b42012f9422475aea6e697283e1013bae797a3bf3ade8b71c394a6f4b4d4a2d"
+    },
+    {
+      "id": "urn:agp:schema:v1:core:operations:reverse-correlation-list-snapshot",
+      "path": "packages/core/src/schemas/v1/operations/reverse-correlation-list-snapshot.schema.json",
+      "sha256": "f6e13ef7cd94766945b437dac58841c213e08519cc8f949f0dfefdf79cb34355"
+    },
+    {
+      "id": "urn:agp:schema:v1:core:operations:reverse-correlation-snapshot",
+      "path": "packages/core/src/schemas/v1/operations/reverse-correlation-snapshot.schema.json",
+      "sha256": "b83e00acaaee345af020a75b7d924740f66cbe1175c716b5b3956274901c98c3"
+    },
+    {
+      "id": "urn:agp:schema:v1:core:operations:route-export-state",
+      "path": "packages/core/src/schemas/v1/operations/route-export-state.schema.json",
+      "sha256": "ee1c2396faf9b796e44a6f304b5ec3ecf8f8eb1ca3205d7377e78cdc15f3db10"
+    },
+    {
+      "id": "urn:agp:schema:v1:core:operations:route-import-state",
+      "path": "packages/core/src/schemas/v1/operations/route-import-state.schema.json",
+      "sha256": "1a7e93b237c167af40123c35819a38db81158434331f00dd4093a52de57170da"
+    },
+    {
+      "id": "urn:agp:schema:v1:core:operations:route-table-snapshot",
+      "path": "packages/core/src/schemas/v1/operations/route-table-snapshot.schema.json",
+      "sha256": "3ca2d60a53197d3421129f13f1a8bce022433823694b7d612bc5aad069c11b27"
+    },
+    {
+      "id": "urn:agp:schema:v1:core:operations:selected-route-snapshot",
+      "path": "packages/core/src/schemas/v1/operations/selected-route-snapshot.schema.json",
+      "sha256": "6ff3ea1166078d1bbd1c5e05129fd11bcf6d55cb7078e596da90bf391b6f8227"
+    },
+    {
+      "id": "urn:agp:schema:v1:core:operations:session-queues-snapshot",
+      "path": "packages/core/src/schemas/v1/operations/session-queues-snapshot.schema.json",
+      "sha256": "cbdebabc877538c38bad2aaddb8750a6e91c01259448cef3a45cb51f8f450de4"
+    },
+    {
+      "id": "urn:agp:schema:v1:core:operations:session-snapshot",
+      "path": "packages/core/src/schemas/v1/operations/session-snapshot.schema.json",
+      "sha256": "19ed047803f36ce6963b4f9f32c94d4d02e542c4bc61970c0b33a7319d15c391"
+    },
+    {
+      "id": "urn:agp:schema:v1:core:operations:session-transition-snapshot",
+      "path": "packages/core/src/schemas/v1/operations/session-transition-snapshot.schema.json",
+      "sha256": "bc33d4faa81aaf2690bad6e996d3ddb22c671b9b7e6e5ce3d8b2b2dcf12bf568"
+    },
+    {
+      "id": "urn:agp:schema:v1:core:operations:snapshot-meta",
+      "path": "packages/core/src/schemas/v1/operations/snapshot-meta.schema.json",
+      "sha256": "d1d6e30d3042d55dffabc4fd6cdd2e422491d5b948d93392eff64252231cb8ff"
+    },
+    {
+      "id": "urn:agp:schema:v1:core:operations:timer-snapshot",
+      "path": "packages/core/src/schemas/v1/operations/timer-snapshot.schema.json",
+      "sha256": "9008d968089de2e32469b5e373b5c600b329fcb26c9f0a8459370dd0bf3bf387"
+    },
+    {
+      "id": "urn:agp:schema:v1:core:sdk:diagnostic-record",
+      "path": "packages/core/src/schemas/v1/sdk/diagnostic-record.schema.json",
+      "sha256": "feaa9a348a160422a33e58d0dd1a834aaaa374f31a5f02019b15a180553b8db6"
+    },
+    {
+      "id": "urn:agp:schema:v1:core:sdk:endpoint-binding-info",
+      "path": "packages/core/src/schemas/v1/sdk/endpoint-binding-info.schema.json",
+      "sha256": "f86e863e142aefd2d705ff34b8698d7f95e5668ee352e91e453f704c8ccfd88d"
+    },
+    {
+      "id": "urn:agp:schema:v1:core:sdk:endpoint-delivery-context",
+      "path": "packages/core/src/schemas/v1/sdk/endpoint-delivery-context.schema.json",
+      "sha256": "21336e0f9a4a93d3a2d58ace8b765185c956478a44b548842c26b62a66113fbb"
+    },
+    {
+      "id": "urn:agp:schema:v1:core:sdk:error-record",
+      "path": "packages/core/src/schemas/v1/sdk/error-record.schema.json",
+      "sha256": "5a633bce846359b0f757a968f682127c74fbf3dc06ca22917b23e226fbfddf6b"
+    },
+    {
+      "id": "urn:agp:schema:v1:core:sdk:event-subscription-policy",
+      "path": "packages/core/src/schemas/v1/sdk/event-subscription-policy.schema.json",
+      "sha256": "c0895153aa26d6809e65e01dc7244e866bad2263cc51322902db41928adb170b"
+    },
+    {
+      "id": "urn:agp:schema:v1:core:sdk:identity-admission-request",
+      "path": "packages/core/src/schemas/v1/sdk/identity-admission-request.schema.json",
+      "sha256": "20dc54bdd4d000fbef453ea842e0faa7c978677de07df09024b96a84744567e6"
+    },
+    {
+      "id": "urn:agp:schema:v1:core:sdk:identity-admission-result",
+      "path": "packages/core/src/schemas/v1/sdk/identity-admission-result.schema.json",
+      "sha256": "a81671e6a81f45cc7feb1e4e226933eedc67bcd73412dbb0a5b664be2dd53986"
+    },
+    {
+      "id": "urn:agp:schema:v1:core:sdk:route-admission-decision",
+      "path": "packages/core/src/schemas/v1/sdk/route-admission-decision.schema.json",
+      "sha256": "8d0ff713e286ddf5f4caa7daa7d086b6e25335358fe92b1cbca029bf8d0f6270"
+    },
+    {
+      "id": "urn:agp:schema:v1:core:sdk:route-admission-request",
+      "path": "packages/core/src/schemas/v1/sdk/route-admission-request.schema.json",
+      "sha256": "bf38d1f507577fcecc936db0c66af7041c812b28a9fea7028298c79adabb31f0"
+    },
+    {
+      "id": "urn:agp:schema:v1:core:sdk:route-admission-result",
+      "path": "packages/core/src/schemas/v1/sdk/route-admission-result.schema.json",
+      "sha256": "70a121806bca3ddfdeee59920159923d3af143bf65dbc787511ed1fc4eb9bf48"
+    },
+    {
+      "id": "urn:agp:schema:v1:core:sdk:send-policy",
+      "path": "packages/core/src/schemas/v1/sdk/send-policy.schema.json",
+      "sha256": "89b86e34e814c3e1e1ede4dabbb35da784b22fb2367a673c0b2faef8dcf9cafa"
+    },
+    {
+      "id": "urn:agp:schema:v1:core:sdk:send-receipt",
+      "path": "packages/core/src/schemas/v1/sdk/send-receipt.schema.json",
+      "sha256": "fab3b731849733df0d1a52b5d335b2c13d45b858b7d35fdb42d3bd0a064d2372"
+    },
+    {
+      "id": "urn:agp:schema:v1:core:sdk:started-node",
+      "path": "packages/core/src/schemas/v1/sdk/started-node.schema.json",
+      "sha256": "4cb98d9e18ccaa61dff6275667eb0d9a410c3f7ad6fb86aff0edcfa9c7d56bcb"
+    },
+    {
+      "id": "urn:agp:schema:v1:core:sdk:stop-policy",
+      "path": "packages/core/src/schemas/v1/sdk/stop-policy.schema.json",
+      "sha256": "e112dcefbdcefc0557969c7e82fdc7cdd6b24dc836bf592049618c5a4e0ed444"
+    },
+    {
+      "id": "urn:agp:schema:v1:core:sdk:stop-report",
+      "path": "packages/core/src/schemas/v1/sdk/stop-report.schema.json",
+      "sha256": "d7290f0f5c4329aa01986fc0bdc4f0fe349436099263fcff1b778d8171ccf399"
+    },
+    {
+      "id": "urn:agp:schema:v1:management:error-response",
+      "path": "packages/management-http/src/schemas/v1/common/error-response.schema.json",
+      "sha256": "bd486b4bf8f3eb7716ebf42c50f99f33b2a8b3239978739f75fcbddec230eeaa"
+    },
+    {
+      "id": "urn:agp:schema:v1:management:response-meta",
+      "path": "packages/management-http/src/schemas/v1/common/response-meta.schema.json",
+      "sha256": "9233657d6098833adec460c21fa9be73711e7cfbd474ed410200e13df4e20c69"
+    },
+    {
+      "id": "urn:agp:schema:v1:management:advertisements-response",
+      "path": "packages/management-http/src/schemas/v1/responses/advertisements-response.schema.json",
+      "sha256": "c8f4aaf83c99c46464ad4212ec9eb951aa735dffd644f3df5c8572a684bf341d"
+    },
+    {
+      "id": "urn:agp:schema:v1:management:configuration-response",
+      "path": "packages/management-http/src/schemas/v1/responses/configuration-response.schema.json",
+      "sha256": "4883577d2f2a2b6da4485821260637700d81dd6a769c38010a3b830f3b754d2e"
+    },
+    {
+      "id": "urn:agp:schema:v1:management:connections-response",
+      "path": "packages/management-http/src/schemas/v1/responses/connections-response.schema.json",
+      "sha256": "9b46b98f3062e29ece8f51c2405893ac411c5b3e47fe6f208a8870522afafc58"
+    },
+    {
+      "id": "urn:agp:schema:v1:management:counters-response",
+      "path": "packages/management-http/src/schemas/v1/responses/counters-response.schema.json",
+      "sha256": "d151c08ef5197e7026caedd430c2cbff8205a41e856994219e24e5386290b3a2"
+    },
+    {
+      "id": "urn:agp:schema:v1:management:forwarding-response",
+      "path": "packages/management-http/src/schemas/v1/responses/forwarding-response.schema.json",
+      "sha256": "0348f361a915363a4ae4d7729eb6587c34db8f6f378b91561a6b3dd8d901deca"
+    },
+    {
+      "id": "urn:agp:schema:v1:management:health-response",
+      "path": "packages/management-http/src/schemas/v1/responses/health-response.schema.json",
+      "sha256": "091eb7d5677e976b5d8c6561448ed77fd46a08de9d85e90b037d94988870367e"
+    },
+    {
+      "id": "urn:agp:schema:v1:management:local-endpoints-response",
+      "path": "packages/management-http/src/schemas/v1/responses/local-endpoints-response.schema.json",
+      "sha256": "73b92a52a23a8c1410e65a4dd4d483166c988ca43fe42e1920092487e0fa5d9b"
+    },
+    {
+      "id": "urn:agp:schema:v1:management:operations-response",
+      "path": "packages/management-http/src/schemas/v1/responses/operations-response.schema.json",
+      "sha256": "0a70aa799900f6c519eb2f229047e4c261e9ec614dd898be85576f70a759dd10"
+    },
+    {
+      "id": "urn:agp:schema:v1:management:resources-response",
+      "path": "packages/management-http/src/schemas/v1/responses/resources-response.schema.json",
+      "sha256": "d3c33f5b7dfda92214de666f7a727a59470370783c4ba56f4a1e2f956f64922d"
+    },
+    {
+      "id": "urn:agp:schema:v1:management:routes-response",
+      "path": "packages/management-http/src/schemas/v1/responses/routes-response.schema.json",
+      "sha256": "db73bb05e16c14b51fd3fc92cbc4b498eb7b45088253ae50c8d5e9a92fd7b7b4"
+    },
+    {
+      "id": "urn:agp:schema:v1:protocol:codes:delivery-error-code",
+      "path": "packages/protocol/src/schemas/v1/codes/delivery-error-code.schema.json",
+      "sha256": "87fdc73abdfd4523bd309e1cf5f19c103906ff3feb0fdbf6cdf803ff5b8f1a9f"
+    },
+    {
+      "id": "urn:agp:schema:v1:protocol:codes:fatal-notification-code",
+      "path": "packages/protocol/src/schemas/v1/codes/fatal-notification-code.schema.json",
+      "sha256": "2f8998a2e9ec3dc13f76c0bb4e267027da64abf17c8c053e81b6ec32f45ae61f"
+    },
+    {
+      "id": "urn:agp:schema:v1:protocol:codes:route-rejection-code",
+      "path": "packages/protocol/src/schemas/v1/codes/route-rejection-code.schema.json",
+      "sha256": "9cb8b34f73fabd94853f827f03f43f2e24ad120e00d4b0b9468d812ea1dbda21"
+    },
+    {
+      "id": "urn:agp:schema:v1:protocol:common:correlation-id",
+      "path": "packages/protocol/src/schemas/v1/common/correlation-id.schema.json",
+      "sha256": "d8271c245465ae19358d832479215e280afe4b6c2af6f7b94b7be61ed60601f0"
+    },
+    {
+      "id": "urn:agp:schema:v1:protocol:common:endpoint-name",
+      "path": "packages/protocol/src/schemas/v1/common/endpoint-name.schema.json",
+      "sha256": "64cce8992bb38dc8672ba655df4194d2b712bac071ff4393b28dc0ce95e74cec"
+    },
+    {
+      "id": "urn:agp:schema:v1:protocol:common:extensions",
+      "path": "packages/protocol/src/schemas/v1/common/extensions.schema.json",
+      "sha256": "a3c324d50b44c76f6f36a267c26532b6cde626e7a8c4bf2a70b5efb0c779f04f"
+    },
+    {
+      "id": "urn:agp:schema:v1:protocol:common:json-object",
+      "path": "packages/protocol/src/schemas/v1/common/json-object.schema.json",
+      "sha256": "529fcf2561325e1b91652bedd465f111ae2dafba8f2ee5cafe408952c82d29cb"
+    },
+    {
+      "id": "urn:agp:schema:v1:protocol:common:json-value",
+      "path": "packages/protocol/src/schemas/v1/common/json-value.schema.json",
+      "sha256": "f35ec77529204ce889169ec4ab774f68c57ae0a02c25c2fb19b971c7b5a38c86"
+    },
+    {
+      "id": "urn:agp:schema:v1:protocol:common:message-id",
+      "path": "packages/protocol/src/schemas/v1/common/message-id.schema.json",
+      "sha256": "e265b2828f56919248642c94b5fd68b0fc77bf252c6774a1cecc329c7423c7b1"
+    },
+    {
+      "id": "urn:agp:schema:v1:protocol:common:node-id",
+      "path": "packages/protocol/src/schemas/v1/common/node-id.schema.json",
+      "sha256": "0cac5a43bf1c940828e70224fbfd20c08ad413eafb4139b9d9778ff368368942"
+    },
+    {
+      "id": "urn:agp:schema:v1:protocol:common:node-path",
+      "path": "packages/protocol/src/schemas/v1/common/node-path.schema.json",
+      "sha256": "62a92cdd4e4530dfd749422e40439b54757554ca13d96d89b522a3cadcca289d"
+    },
+    {
+      "id": "urn:agp:schema:v1:protocol:common:return-token",
+      "path": "packages/protocol/src/schemas/v1/common/return-token.schema.json",
+      "sha256": "7747860fd1e51ea5df4f1fce1ce743e8a5383fd5a5897491d60acec22fb2f3d1"
+    },
+    {
+      "id": "urn:agp:schema:v1:protocol:common:session-id",
+      "path": "packages/protocol/src/schemas/v1/common/session-id.schema.json",
+      "sha256": "5807b8a33aa952aa37c556f335f11de04f271d11e2183bc03c87c9caec7050f9"
+    },
+    {
+      "id": "urn:agp:schema:v1:protocol:common:wire-revision",
+      "path": "packages/protocol/src/schemas/v1/common/wire-revision.schema.json",
+      "sha256": "ff8e5d687ec3ce9f45b2c6f12f720632689d125212375c4cc15658c6c00ff4d8"
+    },
+    {
+      "id": "urn:agp:schema:v1:protocol:routing:endpoint-source",
+      "path": "packages/protocol/src/schemas/v1/routing/endpoint-source.schema.json",
+      "sha256": "ef8e4f39ba55da21ff53d724af253f90fb937c2692d130884cabfab7c1f3dbfe"
+    },
+    {
+      "id": "urn:agp:schema:v1:protocol:routing:route-advertisement",
+      "path": "packages/protocol/src/schemas/v1/routing/route-advertisement.schema.json",
+      "sha256": "46aa0925a4854f76002d1cc6904ab16d4ebbdd9014d6f9195dfb27c5fd46f460"
+    },
+    {
+      "id": "urn:agp:schema:v1:protocol:routing:route-key",
+      "path": "packages/protocol/src/schemas/v1/routing/route-key.schema.json",
+      "sha256": "5fd00438f1d11cdcb39bbcec33e1bbd5bcb6840d8aa7ed5441249e8a75022d9a"
+    },
+    {
+      "id": "urn:agp:schema:v1:protocol:routing:route-rejection",
+      "path": "packages/protocol/src/schemas/v1/routing/route-rejection.schema.json",
+      "sha256": "11e05890d773d6906ef82049a9736dd8031e83463996a17b09a86626e1212f21"
+    },
+    {
+      "id": "urn:agp:schema:v1:protocol:wire:data-body",
+      "path": "packages/protocol/src/schemas/v1/wire/data-body.schema.json",
+      "sha256": "b16be255c822073af94ee181a18f207dab836269c3e4c21e252518f650ba0a7c"
+    },
+    {
+      "id": "urn:agp:schema:v1:protocol:wire:data-message",
+      "path": "packages/protocol/src/schemas/v1/wire/data-message.schema.json",
+      "sha256": "1b136bfa0d67ea1f72eaa556c6e32f50103eb6b7b1522ba24a653b216a8ff086"
+    },
+    {
+      "id": "urn:agp:schema:v1:protocol:wire:delivery-error-body",
+      "path": "packages/protocol/src/schemas/v1/wire/delivery-error-body.schema.json",
+      "sha256": "dba00c012144b0ff79790b9257650fe6e2e421d1fb8bc469e0250cc7e9b46aa0"
+    },
+    {
+      "id": "urn:agp:schema:v1:protocol:wire:envelope",
+      "path": "packages/protocol/src/schemas/v1/wire/envelope.schema.json",
+      "sha256": "d736885c2f99e5041ab959fd6ae0e8a7affb32a028df002de9bf0606de3f8c87"
+    },
+    {
+      "id": "urn:agp:schema:v1:protocol:wire:error-message",
+      "path": "packages/protocol/src/schemas/v1/wire/error-message.schema.json",
+      "sha256": "cc8805c5ccfb6472c87f179aaea831ac192269284beb019aab2878e9eceff045"
+    },
+    {
+      "id": "urn:agp:schema:v1:protocol:wire:keepalive-body",
+      "path": "packages/protocol/src/schemas/v1/wire/keepalive-body.schema.json",
+      "sha256": "54b0b2956d9afb3cb7eb006d3bf201193010906095e3607ff877420b0a312252"
+    },
+    {
+      "id": "urn:agp:schema:v1:protocol:wire:keepalive-message",
+      "path": "packages/protocol/src/schemas/v1/wire/keepalive-message.schema.json",
+      "sha256": "092b578ed83cd916fbc221ac15f95f21ca371db242c5fe519ad6afad782d43cb"
+    },
+    {
+      "id": "urn:agp:schema:v1:protocol:wire:message",
+      "path": "packages/protocol/src/schemas/v1/wire/message.schema.json",
+      "sha256": "9e48c48624a16e1f042ef0702feb12f6d5e03e4fd825deeb76e2b7d3f56c8f80"
+    },
+    {
+      "id": "urn:agp:schema:v1:protocol:wire:notification-body",
+      "path": "packages/protocol/src/schemas/v1/wire/notification-body.schema.json",
+      "sha256": "a838d85e2deb12ccc45208ebbcfa0f971e2961d459ccb80ed60e7dfdcf23fffa"
+    },
+    {
+      "id": "urn:agp:schema:v1:protocol:wire:notification-message",
+      "path": "packages/protocol/src/schemas/v1/wire/notification-message.schema.json",
+      "sha256": "d26cf192e1cabfb7125ee0689112836d81575812f377de755e1807a76c69b55f"
+    },
+    {
+      "id": "urn:agp:schema:v1:protocol:wire:open-body",
+      "path": "packages/protocol/src/schemas/v1/wire/open-body.schema.json",
+      "sha256": "b630279d4d4ef6a465b78f00054f4a8625b7aff20f28917176d58b1b32150fab"
+    },
+    {
+      "id": "urn:agp:schema:v1:protocol:wire:open-message",
+      "path": "packages/protocol/src/schemas/v1/wire/open-message.schema.json",
+      "sha256": "8cb73c5224ee7390882b9a08418f246117b8767c5ec68df5d2dd5859d42d754c"
+    },
+    {
+      "id": "urn:agp:schema:v1:protocol:wire:route-ack-body",
+      "path": "packages/protocol/src/schemas/v1/wire/route-ack-body.schema.json",
+      "sha256": "e2776b8ba9100539b377c1631827b3dc350759c5e60ca67744b85781404c9537"
+    },
+    {
+      "id": "urn:agp:schema:v1:protocol:wire:route-ack-message",
+      "path": "packages/protocol/src/schemas/v1/wire/route-ack-message.schema.json",
+      "sha256": "d7d14a19c97ab6010f6702fb3d8a234d611ffd15bc5227d510c28195084e2c97"
+    },
+    {
+      "id": "urn:agp:schema:v1:protocol:wire:route-update-body",
+      "path": "packages/protocol/src/schemas/v1/wire/route-update-body.schema.json",
+      "sha256": "88c0f7fbaba799a78c9496fa858f2092e7484b867e8347086c79676a88c5ee31"
+    },
+    {
+      "id": "urn:agp:schema:v1:protocol:wire:route-update-message",
+      "path": "packages/protocol/src/schemas/v1/wire/route-update-message.schema.json",
+      "sha256": "fa325332ff18e5acef231c4c0213a9d29f54565d203520d10697e9570f6bc207"
+    },
+    {
+      "id": "urn:agp:schema:v1:transport-loopback:codes:counter-key",
+      "path": "packages/transport-loopback/src/schemas/v1/codes/counter-key.schema.json",
+      "sha256": "c399b281c306abdf2a3311ea6f0aaf500e51dbcc6da6bc6f8848de1b3cb103cf"
+    },
+    {
+      "id": "urn:agp:schema:v1:transport-loopback:codes:fabric-failure-code",
+      "path": "packages/transport-loopback/src/schemas/v1/codes/fabric-failure-code.schema.json",
+      "sha256": "b266efac76c22cfa4ff64909a2a91476fb95e3f167c528120c1f8afd27c22c03"
+    },
+    {
+      "id": "urn:agp:schema:v1:transport-loopback:codes:monotonic-domain",
+      "path": "packages/transport-loopback/src/schemas/v1/codes/monotonic-domain.schema.json",
+      "sha256": "ca96cc62b611990ea9ed27aa3268c68c7a3fb251259cb7f94d505a0cfc2b8f4a"
+    },
+    {
+      "id": "urn:agp:schema:v1:transport-loopback:common:counter-value",
+      "path": "packages/transport-loopback/src/schemas/v1/common/counter-value.schema.json",
+      "sha256": "ffe132a82672284fff820292de28136fc2acd2c6a0cb6d8a2e123a10df3adfdf"
+    },
+    {
+      "id": "urn:agp:schema:v1:transport-loopback:common:fabric-id",
+      "path": "packages/transport-loopback/src/schemas/v1/common/fabric-id.schema.json",
+      "sha256": "45aa2f34d1ae4fd79e0fbdeb4155221f23ce70ee1b2d4c5d2d6ab9d9b3d8b109"
+    },
+    {
+      "id": "urn:agp:schema:v1:transport-loopback:common:fabric-revision",
+      "path": "packages/transport-loopback/src/schemas/v1/common/fabric-revision.schema.json",
+      "sha256": "354c867b2fd4911b4beef325d6b5f0bea3cca93024c1834c1ed9363037a4e87a"
+    },
+    {
+      "id": "urn:agp:schema:v1:transport-loopback:common:loopback-address",
+      "path": "packages/transport-loopback/src/schemas/v1/common/loopback-address.schema.json",
+      "sha256": "fba5eddbe2e6b08a90e501a9a1da60500de62c92d21e8080ded6c610d0410eee"
+    },
+    {
+      "id": "urn:agp:schema:v1:transport-loopback:common:transport-name",
+      "path": "packages/transport-loopback/src/schemas/v1/common/transport-name.schema.json",
+      "sha256": "71b305e14b53cc79bc233a063d88ca80f91aab49595a6527383006cada38b539"
+    },
+    {
+      "id": "urn:agp:schema:v1:transport-loopback:configuration:fabric",
+      "path": "packages/transport-loopback/src/schemas/v1/configuration/fabric.schema.json",
+      "sha256": "1f342fd079c8885b40f34fb575363da5324e4ae29d291ab2202933b224b8361d"
+    },
+    {
+      "id": "urn:agp:schema:v1:transport-loopback:configuration:limits",
+      "path": "packages/transport-loopback/src/schemas/v1/configuration/limits.schema.json",
+      "sha256": "ef6c5c95df06c852ed23a2d57a7b843c83df5e44933d3807375b943e3531cd8f"
+    },
+    {
+      "id": "urn:agp:schema:v1:transport-loopback:configuration:listener",
+      "path": "packages/transport-loopback/src/schemas/v1/configuration/listener.schema.json",
+      "sha256": "80b01fcf85f287d282845a8d3c7b4360fbe3ee60409d32956881ca72b0e78b9b"
+    },
+    {
+      "id": "urn:agp:schema:v1:transport-loopback:configuration:target",
+      "path": "packages/transport-loopback/src/schemas/v1/configuration/target.schema.json",
+      "sha256": "d840640f6b359c64d3dd7a43c69d3d65ed39be787359950eedc3d2685a5856f4"
+    },
+    {
+      "id": "urn:agp:schema:v1:transport-loopback:configuration:transport",
+      "path": "packages/transport-loopback/src/schemas/v1/configuration/transport.schema.json",
+      "sha256": "f96dfce49b3322bad482764b1d944ba370154b2b4184106272a788c40a9557ec"
+    },
+    {
+      "id": "urn:agp:schema:v1:transport-loopback:operations:channel-snapshot",
+      "path": "packages/transport-loopback/src/schemas/v1/operations/channel-snapshot.schema.json",
+      "sha256": "deb9b3ad84e954c04b0e013b278abb4f7d9a546af692a3067a0ac533f917eaf8"
+    },
+    {
+      "id": "urn:agp:schema:v1:transport-loopback:operations:counters-snapshot",
+      "path": "packages/transport-loopback/src/schemas/v1/operations/counters-snapshot.schema.json",
+      "sha256": "da83d953cf28fe2e3160d3723c897045b5ceea826af096df948728cc133f8be1"
+    },
+    {
+      "id": "urn:agp:schema:v1:transport-loopback:operations:fabric-failure-snapshot",
+      "path": "packages/transport-loopback/src/schemas/v1/operations/fabric-failure-snapshot.schema.json",
+      "sha256": "fa03fb252e2ae8d9b198f1745d8dc00f3ba8e828e7c90f5ccda2e7407f77299d"
+    },
+    {
+      "id": "urn:agp:schema:v1:transport-loopback:operations:fabric-snapshot",
+      "path": "packages/transport-loopback/src/schemas/v1/operations/fabric-snapshot.schema.json",
+      "sha256": "fa0011d0cac42998137e13bbd0b7669ffdf98204a59dd17140d10750276173ba"
+    },
+    {
+      "id": "urn:agp:schema:v1:transport-loopback:operations:listener-snapshot",
+      "path": "packages/transport-loopback/src/schemas/v1/operations/listener-snapshot.schema.json",
+      "sha256": "28e72c0df6a6816a2f5e69ef0726bca6f54252f3996629f6d8b997c47d387e61"
+    },
+    {
+      "id": "urn:agp:schema:v1:transport-loopback:operations:resources-snapshot",
+      "path": "packages/transport-loopback/src/schemas/v1/operations/resources-snapshot.schema.json",
+      "sha256": "64da01880f44d95ff9b99425b268af895db59fa9bd83e3dfde4f1f4070f4d976"
+    },
+    {
+      "id": "urn:agp:schema:v1:transport:codes:transport-input-rejection-code",
+      "path": "packages/transport/src/schemas/v1/codes/transport-input-rejection-code.schema.json",
+      "sha256": "b83d9cd444f7216d1152370c30f568a5314f8525961d10b015bdd4ffe03273f2"
+    },
+    {
+      "id": "urn:agp:schema:v1:transport:codes:transport-listener-terminal-kind",
+      "path": "packages/transport/src/schemas/v1/codes/transport-listener-terminal-kind.schema.json",
+      "sha256": "a122cca82c830e80a16a33680c0b98128bfad448d68f19f047e8a9b20057e36d"
+    },
+    {
+      "id": "urn:agp:schema:v1:transport:codes:transport-operation-error-code",
+      "path": "packages/transport/src/schemas/v1/codes/transport-operation-error-code.schema.json",
+      "sha256": "6fa9a36cab1db3d643a59c5f8d6bcfbf8179f08b38c626693d311862ba452412"
+    },
+    {
+      "id": "urn:agp:schema:v1:transport:codes:transport-operation-phase",
+      "path": "packages/transport/src/schemas/v1/codes/transport-operation-phase.schema.json",
+      "sha256": "2a2301caef41a2f27d3bc8eb574ec1629e52a63b920a18aabd66dcf8bdc52909"
+    },
+    {
+      "id": "urn:agp:schema:v1:transport:codes:transport-terminal-kind",
+      "path": "packages/transport/src/schemas/v1/codes/transport-terminal-kind.schema.json",
+      "sha256": "1f7a685f6326979bba97aed2aa7110049f07e5f6d288099357c0f3521e7c1325"
+    },
+    {
+      "id": "urn:agp:schema:v1:transport:codes:transport-terminal-origin",
+      "path": "packages/transport/src/schemas/v1/codes/transport-terminal-origin.schema.json",
+      "sha256": "81f8dfc4718f2dd490b2e673daf417267e987a2c09065fefc273a41a64af205b"
+    },
+    {
+      "id": "urn:agp:schema:v1:transport:common:transport-ref",
+      "path": "packages/transport/src/schemas/v1/common/transport-ref.schema.json",
+      "sha256": "9632ce6fb81c1d1f88ea4914ab46e9892f870681279c101581a87642b21466f6"
+    },
+    {
+      "id": "urn:agp:schema:v1:transport:contracts:transport-abort-intent",
+      "path": "packages/transport/src/schemas/v1/contracts/transport-abort-intent.schema.json",
+      "sha256": "332ac8c50782835480259e51afb5aa08f2b297a882d5762c68de441a1c9f2dd0"
+    },
+    {
+      "id": "urn:agp:schema:v1:transport:contracts:transport-acquisition-options",
+      "path": "packages/transport/src/schemas/v1/contracts/transport-acquisition-options.schema.json",
+      "sha256": "742464ac96c35f667696c1edcb5fcaa711166d60365a5e9c91cc2fb01c7e5a20"
+    },
+    {
+      "id": "urn:agp:schema:v1:transport:contracts:transport-channel-limits",
+      "path": "packages/transport/src/schemas/v1/contracts/transport-channel-limits.schema.json",
+      "sha256": "33226281a2a03bda9b5a5115f33be3ad037f2179d6d8a08b097454f9175c5493"
+    },
+    {
+      "id": "urn:agp:schema:v1:transport:contracts:transport-close-intent",
+      "path": "packages/transport/src/schemas/v1/contracts/transport-close-intent.schema.json",
+      "sha256": "0409abadfb571b885df1e1464c404709b8d28dfdae64e5d30199b261e76f5017"
+    },
+    {
+      "id": "urn:agp:schema:v1:transport:contracts:transport-diagnostic",
+      "path": "packages/transport/src/schemas/v1/contracts/transport-diagnostic.schema.json",
+      "sha256": "4128cd41a2c0e2a2c5eb12905ba045389f92604539f65830294e46da697876a5"
+    },
+    {
+      "id": "urn:agp:schema:v1:transport:contracts:transport-input-rejected",
+      "path": "packages/transport/src/schemas/v1/contracts/transport-input-rejected.schema.json",
+      "sha256": "eee5920bbc7af53bcc77b52bd827c0ffa91f5070fcb1fb0fddb9e848fb88f2ea"
+    },
+    {
+      "id": "urn:agp:schema:v1:transport:contracts:transport-listen-options",
+      "path": "packages/transport/src/schemas/v1/contracts/transport-listen-options.schema.json",
+      "sha256": "68f1bb3179a19e35144b76a012ac43bc26064601c1fa43c824ee9169ecf95864"
+    },
+    {
+      "id": "urn:agp:schema:v1:transport:contracts:transport-listener-limits",
+      "path": "packages/transport/src/schemas/v1/contracts/transport-listener-limits.schema.json",
+      "sha256": "f6f4a3ccfe33d186e4cba8f07c6b7b294a016e59f6941bc09d09766cae85e3b9"
+    },
+    {
+      "id": "urn:agp:schema:v1:transport:contracts:transport-listener-publication",
+      "path": "packages/transport/src/schemas/v1/contracts/transport-listener-publication.schema.json",
+      "sha256": "720d6df5888dc5c78be5c098fc7672f99ce9a15aea1b32f1ac16465463a83ebc"
+    },
+    {
+      "id": "urn:agp:schema:v1:transport:contracts:transport-listener-terminal",
+      "path": "packages/transport/src/schemas/v1/contracts/transport-listener-terminal.schema.json",
+      "sha256": "406bea275ba6a4508599d132450cabae5e6241dcbdc2b69f9eac669ff267080b"
+    },
+    {
+      "id": "urn:agp:schema:v1:transport:contracts:transport-peer-evidence",
+      "path": "packages/transport/src/schemas/v1/contracts/transport-peer-evidence.schema.json",
+      "sha256": "9927593a233dd711bba3aec6a00d74c982018b54abe8a566370933112cf1ad2a"
+    },
+    {
+      "id": "urn:agp:schema:v1:transport:contracts:transport-terminal",
+      "path": "packages/transport/src/schemas/v1/contracts/transport-terminal.schema.json",
+      "sha256": "864f2441b6d5e3aa3626ba58a92f21f8ed572a58f201dd105e38559a34854878"
+    }
+  ]
+}

@@ -1,0 +1,32 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:agp:schema:v1:transport-loopback:configuration:listener",
+  "title": "AGP Loopback listener",
+  "x-agp": {
+    "owner": "@agp/transport-loopback",
+    "typescript": "Listener",
+    "kind": "configuration",
+    "mechanics": "Sovereign listener data contract owned by @agp/transport-loopback.",
+    "rationale": "One closed record keeps production Loopback configuration and state independently inspectable.",
+    "consequence": "Accepting another shape would make fabric capacity, lifecycle, or terminal evidence ambiguous.",
+    "semanticRules": [
+      "LOOPBACK-EXPLICIT-FABRIC-1"
+    ]
+  },
+  "type": "object",
+  "properties": {
+    "fabricId": {
+      "description": "Display identity that must equal the exact owning fabric.",
+      "$ref": "urn:agp:schema:v1:transport-loopback:common:fabric-id"
+    },
+    "address": {
+      "description": "Exact listener address inside the owning fabric.",
+      "$ref": "urn:agp:schema:v1:transport-loopback:common:loopback-address"
+    }
+  },
+  "required": [
+    "fabricId",
+    "address"
+  ],
+  "additionalProperties": false
+}
