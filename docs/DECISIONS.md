@@ -25,6 +25,7 @@ The stakeholder authorized autonomous implementation after design completion and
 | D16 | Make AGP v1 over WebSocket a sovereign binding outside the protocol kernel | Fixed transport intent + design | Ratified |
 | D17 | Make Loopback a canonical production transport for process-local AGP topologies | Explicit stakeholder approval 2026-07-30 | Ratified |
 | D18 | Provide confidentiality and peer authentication through a pre-shared-key transport profile, without certificate infrastructure | Explicit stakeholder direction | Ratified |
+| D19 | Govern per-hop admission with two-dimension credit the receiver grants and the sender may not exceed | Explicit stakeholder direction | Ratified |
 
 ---
 
@@ -456,6 +457,76 @@ Copying a configured `expectedNodeId` into evidence when no peer label was obser
 Enabling early data would let an attacker replay captured application data across connections that share a key.
 
 Placing key material in `NodeConfig`, canonical operations state, or a diagnostic would move a secret into a surface designed to be inspected and projected.
+
+---
+
+### D19 - Per-hop credit flow control
+
+**Mechanics.**\
+A receiver grants a peer credit, and that peer may not admit data beyond it.\
+Credit is granted per adjacency and per direction, so each hop governs its own ingress and no end-to-end state is implied.
+
+Credit has two dimensions, because a channel has two exhaustible resources:
+
+| Dimension | Governs | Mirrors |
+|---|---|---|
+| Bytes | Buffered memory | `maxBufferedBytes` |
+| Packets | Ring slots, and the per-message state each admitted message reserves | `maxBufferedPackets` |
+
+A sender may admit only while both dimensions permit.\
+Bytes alone is insufficient: a sender holding a large byte budget can exhaust a packet ring with small messages, and every admitted message additionally reserves a queue entry, a breadcrumb, and a return token.
+
+Credit is carried two ways, chosen so each mechanism serves the regime it already suits:
+
+| Condition | Carrier | Why |
+|---|---|---|
+| Traffic flowing | A field on every envelope | Free, and correlated exactly with the need |
+| Idle | `KEEPALIVE` | The only regime where no envelope flows, and where keepalive already fires |
+
+`OPEN` negotiates the initial grant.\
+A receiver never advertises credit exceeding the channel limits it supplied to its adapter, so the ring cannot be oversubscribed by construction.
+
+Exceeding granted credit is a protocol violation and is fatal, in the same class as a revision or identity error.\
+It is never a silent drop, because AGP does not retransmit and a dropped message would be lost permanently.
+
+**Rationale.**\
+Measurement established that AGP has no working ingress flow control over a real socket.\
+Delivered messages equalled the receive ring exactly at every bound from 16 to 128, and a burst larger than the ring terminated the session, purged its routes, and forced reconvergence, after every `send()` had already resolved successfully.
+
+The cause is a scale mismatch rather than a coding error.\
+A local kernel send buffer, a TCP window, and a peer kernel receive buffer together hold megabytes, while the AGP ring holds tens of packets.\
+AGP placed a small bottleneck inside a pipeline that was already flow controlled, so the carrier's own backpressure can never engage before the AGP bound is exceeded.\
+Enlarging the ring only moves the cliff: a burst larger than the ring always fails, and a ring larger than the burst always passes.
+
+Credit is the mechanism the transport corpus converged on for exactly this shape.\
+TCP advertises a receive window in every segment rather than on a dedicated message, which is why credit belongs on the envelope.\
+PCIe maintains separate header and data credit pools because a descriptor ring and a byte budget are different resources, which is why credit has two dimensions.\
+Message-oriented protocols agree: AMQP 1.0 and MQTT 5 both credit in messages alongside a size bound.
+
+Folding credit into `KEEPALIVE` alone was rejected on function rather than taste.\
+`M07` suppresses keepalive whenever an envelope has recently been sent, so under load, precisely when credit matters, the carrier of that credit falls silent.\
+Removing the suppression would add control traffic to a saturated link and destroy the property that makes keepalive cheap.
+
+AGP gains one simplification TCP cannot.\
+The channel is reliable and ordered while live under `D14`, so a credit update cannot be lost.\
+There is no zero-window deadlock, no persist timer, and no window probe.
+
+Credit is the peer-facing half of a concern AGP already owns.\
+`capacity-ledger` governs what this node may consume of itself; credit governs what a peer may consume of this node.\
+It is one concern with two faces, not a new subsystem.
+
+**Consequence.**\
+Granting credit above the supplied channel limits reintroduces the overrun with extra steps, because the ring would again be smaller than what the peer is permitted to send.
+
+Carrying credit only on a dedicated control message would either add traffic to a saturated link or, if suppressed like keepalive, fall silent exactly when it is needed.
+
+Crediting in bytes alone leaves the packet ring unguarded, so a sender using small messages exhausts the receiver while remaining inside its byte budget.
+
+Treating an exceeded grant as a drop rather than a violation would lose a message permanently, because nothing in AGP retransmits.
+
+Deriving credit from anything other than observed drain progress would advertise capacity the receiver does not have, which is the same fault as static configuration masquerading as observation.
+
+Leaving `RECEIVE_OVERFLOW` reachable between conforming peers would keep a routine burst able to reset a healthy session and withdraw its routes.
 
 ---
 

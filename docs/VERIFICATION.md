@@ -307,9 +307,9 @@ A finding stays here until it is closed by a design decision or a regression tes
 
 | ID | Finding | Status |
 |---|---|---|
-| `MX1` | A sender that offers messages back to back over WebSocket overruns the receiver, which commits `RECEIVE_OVERFLOW`, closes the session, purges its routes, and reconnects. Delivered messages equal `maxBufferedPackets` exactly, at every bound tested from 16 to 128. Every `send()` resolved successfully first. | Open, undecided |
+| `MX1` | A sender that offers messages back to back over WebSocket overruns the receiver, which commits `RECEIVE_OVERFLOW`, closes the session, purges its routes, and reconnects. Delivered messages equal `maxBufferedPackets` exactly, at every bound tested from 16 to 128. Every `send()` resolved successfully first. | Decided, awaiting implementation of `D19` |
 
-`MX1` is reproducible and understood.\
+`MX1` is reproducible and understood, and `D19` ratifies the mechanism that closes it.\
 `ws` emits every frame parsed from one TCP segment in a single turn, so a burst of small messages arrives faster than `pause()` can take effect and the configured bound is exceeded within one tick.\
 Loopback is unaffected because it applies backpressure synchronously, and the pre-shared-key profile only survives longer because TLS adds enough latency per message to stay ahead.
 
