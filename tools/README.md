@@ -13,7 +13,7 @@ Each tool owns exactly one rule; `check-docs.sh` only sequences them.
 | `s10-section-rules.sh` | S10 horizontal rule between top-level sections | yes |
 | `s12-code-block-introducer.sh` | S12 code-block introducer is its own paragraph | yes |
 | `s13-plain-ascii.sh` | S13 plain ASCII only | yes |
-| `check-docs.sh` | orchestrator over every tracked markdown file | delegates |
+| `check-docs.sh` | orchestrator over every markdown file git would keep | delegates |
 | `format-markdown.sh` | applies every available fix mode | n/a |
 | `lib/style-common.sh` | shared exemption handling and finding format | n/a |
 
@@ -21,7 +21,7 @@ Each tool owns exactly one rule; `check-docs.sh` only sequences them.
 
 ## Usage
 
-Check every tracked markdown file:
+Check every markdown file, tracked or not:
 ```bash
 npm run docs:check
 ```
@@ -37,6 +37,9 @@ tools/check-docs.sh README.md docs/TESTING.md
 ```
 
 Every checker runs even when an earlier one fails, so one invocation reports everything rather than the first thing.
+
+The default file set is tracked *and* untracked files, honouring `.gitignore`.\
+Checking only tracked files reported clean over documents it had never opened, so a new file passed locally and failed in continuous integration the moment it was added.
 
 ---
 

@@ -31,7 +31,18 @@ while [ $# -gt 0 ]; do
 done
 
 if [ ${#args[@]} -eq 0 ]; then
-	mapfile -t files < <(git ls-files '*.md')
+	# Tracked and untracked files both, honouring .gitignore. Listing only
+	# tracked files made this gate report clean over markdown it had never
+	# opened, so a new document passed locally and failed in CI on first add.
+	# A file staged for deletion is still in the index, so drop anything that
+	# is no longer on disk.
+	mapfile -t files < <(
+		git ls-files --cached --others --exclude-standard '*.md' \
+			| sort -u \
+			| while IFS= read -r candidate; do
+				[ -f "$candidate" ] && printf '%s\n' "$candidate"
+			done
+	)
 else
 	files=("${args[@]}")
 fi
