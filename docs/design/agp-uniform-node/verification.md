@@ -64,6 +64,23 @@ There is no partial, waived, flaky, or "expected failure" certification.\
 6. A gate runs from a clean process with deterministic fixtures, explicit
    resource bounds, and verified teardown.
 
+Rule 6 is mechanical: each workspace suite runs in its own test process, so one suite cannot cancel or contaminate another.
+
+Rule 2 has two execution modes, and the difference is reporting rather than authority:
+```bash
+npm run test:system   # run every suite, report each
+npm run test:gated    # stop at the first failing suite
+```
+
+`test:system` is the default and what continuous integration runs.\
+It reports every suite so one invocation shows the whole picture, and its summary still names the lowest failing suite.
+
+`test:gated` reads rule 2 literally: suites below an unsealed predecessor are not run and are reported `SKIP` rather than counted as passing.\
+Use it to isolate the owning layer.
+
+Neither mode changes what certification means.\
+A suite that did not run is never evidence, in either mode.
+
 ### 2.2 Proof-layer separation
 
 | Layer | What it proves | What it must not claim |

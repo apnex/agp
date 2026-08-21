@@ -44,6 +44,7 @@
     "test:packages": "npm run test --workspaces --if-present",
     "test:cli": "cli/test/run.sh",
     "test:system": "node scripts/run-tests.mjs test",
+    "test:gated": "node scripts/run-tests.mjs --fail-fast test",
     "test:integration": "node scripts/run-tests.mjs test/integration",
     "test:topology": "node scripts/run-tests.mjs test/topology",
     "test:resilience": "node scripts/run-tests.mjs test/resilience",

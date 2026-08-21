@@ -35,6 +35,12 @@ npm run test:resilience
 npm run test:e2e
 ```
 
+Each workspace suite runs in its own test process.\
+When a change breaks several suites at once and you want the lowest broken layer rather than the full picture, stop at the first failing gate:
+```bash
+npm run test:gated
+```
+
 ---
 
 ## What a change must carry

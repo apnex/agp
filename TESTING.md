@@ -72,6 +72,9 @@ This map is reviewed whenever a public contract changes.
 
 ## Anti-rot checks
 
+Each workspace suite runs in its own test process, so a failure is isolated to the suite that owns it and cannot cancel the suites after it.\
+`npm run test:system` runs them all and reports each; `npm run test:gated` stops at the first failing suite.
+
 `npm run test:architecture` rejects:
 
 - package test suites without an ownership README or package-local test script;
