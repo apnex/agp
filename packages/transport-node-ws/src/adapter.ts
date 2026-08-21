@@ -12,6 +12,7 @@ import {
 } from "@agp/transport";
 import type {
   PeerTransportPort,
+  PresharedKeyPort,
   TransportAcquisitionOptions,
   TransportAcceptCallbacks,
   TransportChannelLimits,
@@ -25,11 +26,23 @@ import type {
 import WebSocket from "ws";
 
 import { NodeWsChannel } from "./channel.js";
+import {
+  assertPresharedKeyPort,
+  isSecure,
+  presharedKeyEvidence,
+  targetSecureOptions,
+} from "./security.js";
 import { NodeWsConfigurationError, operationError } from "./errors.js";
 import { acquireNodeWsListener } from "./listener.js";
 
 export interface WebSocketTransportCapabilities {
   readonly diagnostics?: TransportDiagnosticSinkPort;
+  /**
+   * Required when any listener or target declares the preshared-key profile.
+   * Secrets arrive here rather than through configuration so they never reach a
+   * schema-backed record that operations may project.
+   */
+  readonly presharedKeys?: PresharedKeyPort;
 }
 
 export function createNodeWsTransport(
@@ -47,18 +60,31 @@ export function createNodeWsTransport(
     }
   }
 
+  const secure = [...config.listeners, ...config.targets].some(isSecure);
+  if (secure) {
+    assertPresharedKeyPort(config, capabilities.presharedKeys);
+  }
+
   const listeners = new Map<TransportRef, TransportListenCapability>();
   const targets = new Map<TransportRef, TransportConnectCapability>();
   for (const listener of config.listeners) {
     listeners.set(
       listener.transportRef,
-      createListenerCapability(listener, capabilities.diagnostics),
+      createListenerCapability(
+        listener,
+        capabilities.diagnostics,
+        capabilities.presharedKeys,
+      ),
     );
   }
   for (const target of config.targets) {
     targets.set(
       target.transportRef,
-      createTargetCapability(target, capabilities.diagnostics),
+      createTargetCapability(
+        target,
+        capabilities.diagnostics,
+        capabilities.presharedKeys,
+      ),
     );
   }
 
@@ -77,6 +103,7 @@ export function createNodeWsTransport(
 function createListenerCapability(
   config: WebSocketListenerConfigData,
   diagnostics: TransportDiagnosticSinkPort | undefined,
+  presharedKeys: PresharedKeyPort | undefined,
 ): TransportListenCapability {
   const capability: TransportListenCapability = {
     listen(
@@ -90,6 +117,7 @@ function createListenerCapability(
         callbacks,
         signal,
         diagnostics,
+        presharedKeys,
       );
     },
   };
@@ -99,13 +127,20 @@ function createListenerCapability(
 function createTargetCapability(
   config: WebSocketTargetConfigData,
   diagnostics: TransportDiagnosticSinkPort | undefined,
+  presharedKeys: PresharedKeyPort | undefined,
 ): TransportConnectCapability {
   const capability: TransportConnectCapability = {
     connect(
       options: TransportAcquisitionOptions,
       signal: AbortSignal,
     ) {
-      return acquireNodeWsChannel(config, options, signal, diagnostics);
+      return acquireNodeWsChannel(
+        config,
+        options,
+        signal,
+        diagnostics,
+        presharedKeys,
+      );
     },
   };
   return Object.freeze(capability);
@@ -116,6 +151,7 @@ function acquireNodeWsChannel(
   options: TransportAcquisitionOptions,
   signal: AbortSignal,
   diagnostics?: TransportDiagnosticSinkPort,
+  presharedKeys?: PresharedKeyPort,
 ): Promise<TransportChannelPort> {
   assertChannelLimits(options.channel);
   if (signal.aborted) {
@@ -126,11 +162,16 @@ function acquireNodeWsChannel(
     ));
   }
 
+  const secureOptions = config.security.mode === "preshared-key"
+      && presharedKeys !== undefined
+    ? targetSecureOptions(presharedKeys)
+    : undefined;
   let socket: WebSocket;
   try {
     socket = new WebSocket(config.url, AGP_WEBSOCKET_SUBPROTOCOL, {
       maxPayload: options.channel.maxPacketBytes,
       perMessageDeflate: false,
+      ...(secureOptions ?? {}),
     });
   } catch (cause) {
     return Promise.reject(operationError(
@@ -145,6 +186,7 @@ function acquireNodeWsChannel(
     limits: options.channel,
     ...(diagnostics === undefined ? {} : { diagnostics }),
     ...(config.liveness === undefined ? {} : { liveness: config.liveness }),
+    peerEvidence: presharedKeyEvidence(config.security, undefined),
   });
 
   return new Promise<TransportChannelPort>((resolve, reject) => {
@@ -247,10 +289,21 @@ function assertCapabilities(
     value === null
     || typeof value !== "object"
     || Array.isArray(value)
-    || Object.keys(value).some((key) => key !== "diagnostics")
+    || Object.keys(value).some((key) =>
+      key !== "diagnostics" && key !== "presharedKeys"
+    )
     || (
       value.diagnostics !== undefined
       && typeof value.diagnostics.emit !== "function"
+    )
+    || (
+      value.presharedKeys !== undefined
+      && (
+        typeof value.presharedKeys.own !== "function"
+        || typeof value.presharedKeys.resolve !== "function"
+        || typeof value.presharedKeys.localIdentity !== "string"
+        || value.presharedKeys.localIdentity.length === 0
+      )
     )
   ) {
     throw new NodeWsConfigurationError(

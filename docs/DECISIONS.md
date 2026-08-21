@@ -410,10 +410,15 @@ Observed evidence is truthful about which of the two was configured:
 | `keying` | `protection` | `authentication` | Proves |
 |---|---|---|---|
 | `network` | `confidentiality-and-integrity` | `{ kind: "none" }` | Membership of the keyed group |
-| `node` | `confidentiality-and-integrity` | `{ kind: "verified", principal, method }` | Possession of the key registered for that identity |
+| `node`, accepted | `confidentiality-and-integrity` | `{ kind: "verified", principal, method }` | Possession of the key registered for the presented identity |
+| `node`, dialed | `confidentiality-and-integrity` | `{ kind: "none" }` | Possession of the dialer's own key, with no observable peer label |
 
 The binding never binds a transport principal to an AGP `nodeId`.\
 It reports evidence, and `IdentityAdmissionPort` applies deployment policy.
+
+Identity flows one way.\
+TLS 1.3 removed the pre-shared-key identity hint, so only a listener observes a peer label and only a listener can report a verified principal.\
+A dialer reports protection without a principal rather than restating configured intent as observation.
 
 A key failure is retryable under the existing bounded dial backoff, because a mismatch during rotation resolves itself when the capability returns the new value.
 

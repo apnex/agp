@@ -10,6 +10,7 @@
 | `contract/input-rejection.test.js` | Ordered text and over-limit rejection before one binding terminal | AGP parse failures |
 | `contract/listener-lifecycle.test.js` | Stable listener terminal independent of transferred channel lifetime | Node lifecycle policy |
 | `contract/listener-publication.test.js` | Ephemeral bind publishes its sanitized actual bound URL | Connect authority distribution |
-| `contract/trusted-development-profile.test.js` | Exact ws-only profile, resolver behavior, and network/none/unauthenticated evidence | TLS and authentication |
+| `contract/trusted-development-profile.test.js` | Exact ws-only profile, resolver behavior, and network/none/unauthenticated evidence | The pre-shared-key profile |
+| `contract/preshared-key-profile.test.js` | TLS pre-shared-key handshake over a real socket: keying-dependent evidence, refusal without the secret, and secret redaction | Certificate profiles and mesh keying |
 
 Run with `npm test --workspace @agp/transport-node-ws`.

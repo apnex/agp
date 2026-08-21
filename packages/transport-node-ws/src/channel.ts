@@ -15,6 +15,7 @@ import type {
   TransportCloseIntent,
   TransportDiagnosticSinkPort,
   TransportInputRejected,
+  TransportPeerEvidence,
   TransportPacket,
   TransportRead,
   TransportTerminal,
@@ -77,7 +78,7 @@ export class NodeWsChannel implements TransportChannelPort {
   #pingInterval: ReturnType<typeof setInterval> | undefined;
   #pongDeadline: ReturnType<typeof setTimeout> | undefined;
 
-  readonly peerEvidence = TRUSTED_DEVELOPMENT_PEER_EVIDENCE;
+  readonly peerEvidence: TransportPeerEvidence;
 
   constructor(input: {
     readonly socket: WebSocket;
@@ -88,7 +89,9 @@ export class NodeWsChannel implements TransportChannelPort {
       readonly pongTimeoutMs: number;
     };
     readonly onPhysicalClose?: () => void;
+    readonly peerEvidence?: TransportPeerEvidence;
   }) {
+    this.peerEvidence = input.peerEvidence ?? TRUSTED_DEVELOPMENT_PEER_EVIDENCE;
     this.#socket = input.socket;
     this.#limits = input.limits;
     this.#diagnostics = input.diagnostics;

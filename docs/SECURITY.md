@@ -5,26 +5,50 @@
 AGP is a routing library, not a hardened network service.\
 Read this before exposing it to anything you do not control.
 
-The certified WebSocket security mode is `trusted-development` and nothing else.\
-Concretely, that means:
+The WebSocket binding offers two profiles, and which one you configure decides what you get.
 
-- OPEN identity is **self-asserted**. A peer claims its node ID and the transport
-  does not authenticate that claim. `expectedNodeId` states what you intend to
-  reach; it does not prove what you reached.
-- The `ws:` transport provides **no confidentiality and no peer
-  authentication**. Traffic is readable and forgeable by anything on the path.
-- `wss:`, TLS, client certificates, and HTTP Upgrade authentication are
-  **deliberately not implemented**. They are deferred under F07 in
-  [`mechanisms.md`](./design/mechanisms.md), and the
-  adapter rejects that configuration before it constructs a resolver rather than
-  silently downgrading.
+### `preshared-key`
 
-Use it only on a trusted development network, or embed it behind a transport you have separately reviewed.
+TLS 1.3 with pre-shared keys.\
+No certificate authority, no issuance, no expiry, no revocation.\
+Confidentiality and integrity on every channel.
 
-A production integration owns the secure transport binding, authenticated identity admission through `IdentityAdmissionPort`, and deployment-specific policy.\
-AGP does not claim those on a consumer's behalf.
+`keying` is required, and it decides what a completed handshake proves:
 
-The process-local Loopback transport carries no network exposure, so it is the safer default for component-to-component routing inside one process.
+| `keying` | Protects traffic | Identifies the peer |
+|---|---|---|
+| `network` | Yes | No. One secret covers the topology, so any holder can present any identity |
+| `node` | Yes | Yes, to a listener. Each node has its own secret, so a presented identity is proven |
+
+`network` is the simpler starting point.\
+`node` is what makes a claimed AGP `nodeId` worth anything, because without it every insider can impersonate every other.
+
+Two limits to understand before relying on this:
+
+- **The transport reports; it does not enforce.** A listener passes the observed
+  principal to `IdentityAdmissionPort`, and your policy decides whether that
+  principal may claim that `nodeId`.
+- **Declaring `node` keying while wiring one secret for every identity produces
+  `verified` evidence that is false.** The binding cannot detect this, so the
+  declaration is a deployment responsibility.
+
+Specified for star and line topologies.\
+In a full mesh every node would hold every other node's secret, so one compromise forges every identity; that case needs a per-pair model and is not supported.
+
+Forward secrecy has not yet been verified for this profile.\
+Treat a compromised secret as exposing past captured traffic until it is.
+
+### `trusted-development`
+
+Cleartext `ws:`.\
+OPEN identity is self-asserted, and the transport provides no confidentiality and no peer authentication.\
+Traffic is readable and forgeable by anything on the path.\
+Use it only on a network you already trust.
+
+Certificate-based profiles and HTTP Upgrade authentication remain unimplemented.\
+The adapter rejects that configuration before constructing a resolver rather than silently downgrading.
+
+The process-local Loopback transport carries no network exposure, so it remains the safest option for component-to-component routing inside one process.
 
 ---
 

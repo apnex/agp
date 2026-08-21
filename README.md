@@ -5,7 +5,7 @@ Every vertex runs the same `createNode()` implementation; topology position is c
 
 **Status:** ratified v1, feature complete, and fully tested.\
 Requires Node.js 24.\
-The certified WebSocket security mode is `trusted-development` only, so it is not ready for untrusted networks; see [Security posture](#security-posture).
+The WebSocket transport can encrypt and mutually authenticate its channels with pre-shared keys, so no certificate infrastructure is required; see [Security posture](#security-posture).
 
 ---
 
@@ -290,10 +290,17 @@ export AGP_MANAGEMENT_URL=http://127.0.0.1:47111
 
 ## Security posture
 
-The WebSocket adapter can bind a LAN interface and dial `ws:` peers, so the protocol functions across a reachable LAN.\
-Its certified security mode is explicitly `trusted-development`: OPEN identity is self-asserted and the transport does not provide confidentiality or peer authentication.\
-Use it only on a trusted development network.\
-A production integration must provide a separately reviewed secure transport binding, authenticated identity admission, and deployment-specific policy.
+The WebSocket binding offers two profiles.
+
+`preshared-key` uses TLS 1.3 with pre-shared keys: confidentiality and integrity on every channel, with no certificate authority, expiry, or revocation to operate.\
+`keying: "network"` shares one secret across the topology and protects traffic without identifying peers.\
+`keying: "node"` gives each node its own secret, so a listener can prove which peer connected and pass that principal to `IdentityAdmissionPort`.
+
+`trusted-development` is cleartext `ws:` with self-asserted identity, for a network you already trust.
+
+The transport reports evidence; it does not decide whether a principal may claim a `nodeId`.\
+That is deployment policy.\
+Read [docs/SECURITY.md](./docs/SECURITY.md) before exposing a node, including the stated limits on mesh topologies and forward secrecy.
 
 The management server remains literal-loopback-only by design.\
 `agpctl` is an inspection surface, not a remote administration API.

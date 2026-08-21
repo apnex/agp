@@ -6,6 +6,7 @@ import {
 import { validateWebSocketBindingSchema } from "./schema.js";
 import type {
   WebSocketListenerConfigData,
+  WebSocketSecurityConfigData,
   WebSocketTargetConfigData,
   WebSocketTransportConfigData,
 } from "./types.generated.js";
@@ -88,15 +89,27 @@ export function assertWebSocketTransportConfig(
   }
   for (const listener of result.value.listeners) {
     assertReferenceAndProfile(listener);
-    validateTrustedDevelopmentWebSocketUrl(listener.url);
+    validateWebSocketUrl(listener.url, listener.security.mode);
   }
   for (const target of result.value.targets) {
     assertReferenceAndProfile(target);
-    validateTrustedDevelopmentWebSocketUrl(target.url);
+    validateWebSocketUrl(target.url, target.security.mode);
   }
 }
 
 export function validateTrustedDevelopmentWebSocketUrl(value: string): URL {
+  return validateWebSocketUrl(value, "trusted-development");
+}
+
+/**
+ * Profile and scheme are bound. A cleartext locator under the secure profile,
+ * or a TLS locator under the development profile, is a configuration error
+ * rather than a silently weaker or stronger channel.
+ */
+export function validateWebSocketUrl(
+  value: string,
+  mode: WebSocketSecurityConfigData["mode"],
+): URL {
   if (
     value.length < 1
     || [...value].length > 2048
@@ -116,16 +129,22 @@ export function validateTrustedDevelopmentWebSocketUrl(value: string): URL {
       "WebSocket URL is not an absolute WHATWG URL",
     );
   }
+  const expected = mode === "preshared-key" ? "wss:" : "ws:";
   if (
-    url.protocol !== "ws:"
+    url.protocol !== expected
     || url.hostname.length === 0
     || url.username.length > 0
     || url.password.length > 0
     || url.hash.length > 0
   ) {
     throw new WebSocketBindingConfigurationError(
-      url.protocol === "wss:" ? "PROFILE_UNSUPPORTED" : "URL_INVALID",
-      "trusted-development WebSocket configuration requires credential-free ws:",
+      // A wrong-but-valid scheme is a profile mismatch. Anything else, including
+      // an embedded credential under the right scheme, is an invalid locator.
+      url.protocol !== expected
+        && (url.protocol === "ws:" || url.protocol === "wss:")
+        ? "PROFILE_UNSUPPORTED"
+        : "URL_INVALID",
+      `${mode} WebSocket configuration requires a credential-free ${expected} locator`,
     );
   }
   return url;
@@ -140,10 +159,21 @@ function assertReferenceAndProfile(
       value.transportRef,
     );
   }
-  if (value.security.mode !== "trusted-development") {
+  const mode = value.security.mode;
+  if (mode !== "trusted-development" && mode !== "preshared-key") {
     throw new WebSocketBindingConfigurationError(
       "PROFILE_UNSUPPORTED",
-      "only trusted-development WebSockets are certified",
+      "security mode is outside the closed WebSocket profile set",
+    );
+  }
+  if (
+    value.security.mode === "preshared-key"
+    && value.security.keying !== "network"
+    && value.security.keying !== "node"
+  ) {
+    throw new WebSocketBindingConfigurationError(
+      "PROFILE_UNSUPPORTED",
+      "preshared-key configuration requires network or node keying",
     );
   }
 }

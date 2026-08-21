@@ -462,7 +462,89 @@ Adding a public adapter-operations surface would require sovereign schemas and s
 
 ---
 
-## 10. Responsibility matrix
+## 10. Secure profile
+
+The binding realises the neutral `preshared-key` profile from [`transport-contract.md` section 16](transport-contract.md#16-channel-security) as TLS 1.3 with pre-shared keys.\
+It adds no security concept of its own; it maps one that already exists onto RFC 6455 over TLS.
+
+### 10.1 Profile and scheme
+
+`security.mode` and the URL scheme are bound, and a mismatch fails factory construction before any resolver port exists:
+
+| `mode` | Required scheme | Rejected |
+|---|---|---|
+| `trusted-development` | `ws:` | `wss:`, and every other scheme |
+| `preshared-key` | `wss:` | `ws:`, credential-bearing locators |
+
+A `preshared-key` listener or target without an injected `PresharedKeyPort` fails construction.\
+Configuration declares which profile applies; it never carries a secret.
+
+### 10.2 Handshake
+
+TLS 1.3 only, pre-shared-key cipher suites only, no certificate, no certificate authority, and no client-certificate request.
+
+Early data is disabled on both sides.\
+A handshake that negotiated early data is a binding violation, because replaying captured early data across connections that share a secret is possible and the neutral contract promises no such replay.
+
+A negotiated version below TLS 1.3 is a binding violation.
+
+The dialer presents `PresharedKeyPort.localIdentity`.\
+The listener answers with `PresharedKeyPort.resolve(identity)` and refuses by returning `undefined`.
+
+Identity flows one way.\
+TLS 1.3 removed `psk_identity_hint`, which existed only in TLS 1.2 and earlier, so a listener cannot advertise a label and a dialer observes none.\
+The dialer therefore has no principal to report.\
+What it does know is that its peer possessed the secret registered for the dialer's own identity, which `protection` records.\
+Substituting the configured `expectedNodeId` would restate desired identity as observation, and downgrading to TLS 1.2 to recover a label would trade real security for reportable detail.
+
+### 10.3 Authentication is not certificate verification
+
+`socket.authorized` reports certificate-chain verification, which a pre-shared-key handshake never performs.\
+It is `false` for every correctly authenticated peer.
+
+No implementation may read `authorized`, `authorizationError`, or `getPeerCertificate()` to decide whether a peer is authenticated.\
+Authentication is proven by the handshake completing at all, because it cannot complete without the secret.
+
+### 10.4 Evidence
+
+| Profile | `protection` | `authentication` |
+|---|---|---|
+| `trusted-development` | `none` | `{ kind: "none" }` |
+| `preshared-key`, `network` keying | `confidentiality-and-integrity` | `{ kind: "none" }` |
+| `preshared-key`, `node` keying, accept | `confidentiality-and-integrity` | `{ kind: "verified", principal: <observed identity>, method: "tls-psk" }` |
+| `preshared-key`, `node` keying, connect | `confidentiality-and-integrity` | `{ kind: "none" }` |
+
+`locality` is `network` throughout.
+
+Under `network` keying every holder can present any identity, so the presented label proves nothing about which peer connected and never enters evidence.
+
+Only a listener reports a verified principal, because only a listener observes one.
+
+### 10.5 Failure mapping
+
+A peer that fails the handshake never becomes a channel, so no terminal record reaches the node and the outcome is visible only as a bounded adapter diagnostic.\
+On the dialing side the acquisition rejects:
+
+| Cause | Adapter result | Redial |
+|---|---|---|
+| Unknown identity, `resolve` returned `undefined` | `CONNECT_FAILED` | Yes, bounded backoff |
+| Wrong secret | `CONNECT_FAILED` | Yes, bounded backoff |
+| No shared cipher suite | `CONNECT_FAILED` or `LISTEN_FAILED` | Yes, bounded backoff |
+| Negotiated version below TLS 1.3 | `CONNECT_FAILED` | Yes, bounded backoff |
+| Early data negotiated | `CONNECT_FAILED` | Yes, bounded backoff |
+
+Every secure-profile failure is retryable under the node's existing bounded dial backoff, and none introduces a session FSM event.\
+A secret mismatch resolves itself when the deployment rotates and the port returns the new value, so making it terminal would turn a routine rotation into an outage requiring node replacement.
+
+### 10.6 Redaction
+
+Key bytes never enter a diagnostic, an evidence record, canonical operational state, a terminal record, or an error message.\
+A `TransportDiagnostic` may carry a closed failure code and, under `node` keying, the identity; it never carries the secret.\
+Native TLS error objects remain process-local raw causes under the existing diagnostic rule.
+
+---
+
+## 11. Responsibility matrix
 
 | Concern | WebSocket adapter | AGP kernel |
 |---|---:|---:|
@@ -481,7 +563,7 @@ Adding a public adapter-operations surface would require sovereign schemas and s
 
 ---
 
-## 11. Binding conformance
+## 12. Binding conformance
 
 A conforming WebSocket adapter passes common invariants T01-T21 and is tested with actual RFC 6455 peers to prove:
 
@@ -521,7 +603,7 @@ A conforming WebSocket adapter passes common invariants T01-T21 and is tested wi
 
 ---
 
-## 12. Mechanics, rationale, and consequence
+## 13. Mechanics, rationale, and consequence
 
 ### Mechanics
 

@@ -29,6 +29,7 @@ export function operationError(
 export class NodeWsConfigurationError extends TypeError {
   readonly code:
     | "CAPABILITIES_INVALID"
+    | "PROFILE_UNSUPPORTED"
     | "COMPRESSION_UNSUPPORTED"
     | "LIMITS_INVALID";
 

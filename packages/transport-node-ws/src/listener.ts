@@ -1,6 +1,8 @@
+import https from "node:https";
 import http, {
   type IncomingMessage,
   type Server as HttpServer,
+  type ServerResponse,
 } from "node:http";
 import type { AddressInfo } from "node:net";
 import type { Duplex } from "node:stream";
@@ -10,6 +12,12 @@ import {
 import type {
   WebSocketListenerConfigData,
 } from "@agp/binding-websocket";
+import {
+  listenerSecureOptions,
+  presharedKeyEvidence,
+  PSK_IDENTITY,
+} from "./security.js";
+import type { PresharedKeyPort } from "@agp/transport";
 import {
   emitTransportDiagnostic,
 } from "@agp/transport";
@@ -37,6 +45,7 @@ export async function acquireNodeWsListener(
   callbacks: TransportAcceptCallbacks,
   signal: AbortSignal,
   diagnostics?: TransportDiagnosticSinkPort,
+  presharedKeys?: PresharedKeyPort,
 ): Promise<TransportListenerPort> {
   assertListenerLimits(options);
   if (signal.aborted) {
@@ -47,13 +56,18 @@ export async function acquireNodeWsListener(
     );
   }
   const url = new URL(config.url);
-  const server = http.createServer((_request, response) => {
+  const notFound = (_request: unknown, response: ServerResponse): void => {
     response.writeHead(404, {
       "cache-control": "no-store",
       "content-length": "0",
     });
     response.end();
-  });
+  };
+  const secure = config.security.mode === "preshared-key"
+    && presharedKeys !== undefined;
+  const server = secure
+    ? https.createServer(listenerSecureOptions(presharedKeys), notFound)
+    : http.createServer(notFound);
   const webSockets = new WebSocketServer({
     noServer: true,
     clientTracking: false,
@@ -397,9 +411,20 @@ class NodeWsListener implements TransportListenerPort {
       return;
     }
     this.#active += 1;
+    // Under node keying the identity a peer presented is authoritative: the
+    // handshake could not have completed without the secret registered for it.
+    // Under network keying presharedKeyEvidence discards it, because every
+    // holder can present any label.
+    const socket = webSocket as unknown as {
+      readonly _socket?: { readonly [PSK_IDENTITY]?: string };
+    };
     const channel = new NodeWsChannel({
       socket: webSocket,
       limits: this.#options.limits.channel,
+      peerEvidence: presharedKeyEvidence(
+        this.#config.security,
+        socket._socket?.[PSK_IDENTITY],
+      ),
       ...(this.#diagnostics === undefined
         ? {}
         : { diagnostics: this.#diagnostics }),
