@@ -1,7 +1,26 @@
 {
-  "name": "agp-mvp",
+  "name": "agp",
   "version": "0.1.0",
   "private": true,
+  "description": "Agent Gateway Protocol: an embeddable control plane and JSON data plane for routing messages between named application endpoints.",
+  "license": "MIT",
+  "author": "apnex",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/apnex/agp.git"
+  },
+  "homepage": "https://github.com/apnex/agp#readme",
+  "bugs": "https://github.com/apnex/agp/issues",
+  "keywords": [
+    "agp",
+    "routing",
+    "path-vector",
+    "message-routing",
+    "protocol"
+  ],
+  "engines": {
+    "node": ">=24"
+  },
   "type": "module",
   "workspaces": [
     "packages/protocol",
@@ -18,8 +37,9 @@
     "clean": "tsc -b --clean",
     "schemas:generate": "node scripts/generate-schema-catalog.mjs",
     "schemas:check": "node scripts/generate-schema-catalog.mjs --check",
-    "certify": "node scripts/certify.mjs",
-    "test": "npm run build && npm run test:architecture && npm run test:packages && npm run test:cli && npm run test:system",
+    "docs:check": "tools/check-docs.sh",
+    "docs:fix": "tools/check-docs.sh --fix",
+    "test": "npm run build && npm run docs:check && npm run test:architecture && npm run test:packages && npm run test:cli && npm run test:system",
     "test:architecture": "node scripts/check-test-architecture.mjs",
     "test:packages": "npm run test --workspaces --if-present",
     "test:cli": "cli/test/run.sh",
@@ -32,6 +52,7 @@
   "devDependencies": {
     "@types/node": "^24.0.0",
     "@types/ws": "^8.5.0",
+    "ajv": "^8.17.1",
     "typescript": "^5.9.0"
   }
 }

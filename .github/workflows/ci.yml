@@ -1,0 +1,55 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  verify:
+    name: Build, docs, and gates
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: .nvmrc
+          cache: npm
+
+      # A clean install from the lockfile, so an undeclared dependency that only
+      # resolves through a developer's hoisted tree fails here rather than later.
+      - name: Install
+        run: npm ci
+
+      - name: Build
+        run: npm run build
+
+      - name: Schema catalog is regenerated and committed
+        run: npm run schemas:check
+
+      - name: Documentation style
+        run: npm run docs:check
+
+      - name: Test architecture
+        run: npm run test:architecture
+
+      - name: Package suites
+        run: npm run test:packages
+
+      - name: CLI suites
+        run: npm run test:cli
+
+      # The system suites bind ephemeral loopback ports and start child
+      # processes, so they run last and own their own cleanup assertions.
+      - name: System suites
+        run: npm run test:system

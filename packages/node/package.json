@@ -2,6 +2,26 @@
   "name": "@agp/node",
   "version": "0.1.0",
   "private": true,
+  "description": "AGP uniform node: lifecycle, endpoints, sessions, routing composition, data admission, and reverse errors.",
+  "license": "MIT",
+  "author": "apnex",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/apnex/agp.git",
+    "directory": "packages/node"
+  },
+  "homepage": "https://github.com/apnex/agp#readme",
+  "bugs": "https://github.com/apnex/agp/issues",
+  "keywords": [
+    "agp",
+    "routing",
+    "path-vector",
+    "message-routing",
+    "protocol"
+  ],
+  "engines": {
+    "node": ">=24"
+  },
   "type": "module",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",

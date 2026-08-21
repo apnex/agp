@@ -2,6 +2,26 @@
   "name": "@agp/management-http",
   "version": "0.1.0",
   "private": true,
+  "description": "Optional loopback-only read projection over an AGP `OperationsReader`.",
+  "license": "MIT",
+  "author": "apnex",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/apnex/agp.git",
+    "directory": "packages/management-http"
+  },
+  "homepage": "https://github.com/apnex/agp#readme",
+  "bugs": "https://github.com/apnex/agp/issues",
+  "keywords": [
+    "agp",
+    "routing",
+    "path-vector",
+    "message-routing",
+    "protocol"
+  ],
+  "engines": {
+    "node": ">=24"
+  },
   "type": "module",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
