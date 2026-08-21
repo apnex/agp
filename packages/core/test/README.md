@@ -1,7 +1,7 @@
 # Core semantic test ownership
 
-These tests use the public `@agp/core` package with injected clocks and
-identifiers. Shared fixtures arrange state only; they contain no assertions.
+These tests use the public `@agp/core` package with injected clocks and identifiers.\
+Shared fixtures arrange state only; they contain no assertions.
 
 | Test file | Primary contract | Explicit non-goal |
 |---|---|---|
@@ -22,6 +22,7 @@ identifiers. Shared fixtures arrange state only; they contain no assertions.
 | `unit/peer-fsm-route-admission.test.js` | Current, stale, expired, and faulted admission continuations have exact dispositions | Route-policy meaning and transport I/O |
 | `unit/peer-fsm-route-exchange.test.js` | Both acquisition directions schedule initial export and consume an exact ACK | Encoding, writer behavior, and propagation |
 | `unit/peer-fsm-teardown.test.js` | Fatal input gates forwarding before purge and release | Adapter close behavior and reconnect |
+| `unit/transport-loss-disposition.test.js` | Every transport loss cause resolves to one closed teardown and retry decision | Which carrier produced the loss |
 | `unit/peer-fsm-timers.test.js` | Each protocol timer produces its exact self-transition or teardown action | Wall-clock implementation |
 | `unit/rib-atomic-revision.test.js` | One route transaction exposes only a complete before/after revision | Operations transport surfaces |
 | `unit/rib-remote-rejection-memory.test.js` | An unchanged nonretryable rejected tuple remains filtered without resend | Retry timer behavior |

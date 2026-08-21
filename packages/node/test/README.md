@@ -1,8 +1,8 @@
 # `@agp/node` test ownership
 
-Contract tests exercise public runtime capabilities or exact-controller
-boundaries. The unit test owns one sovereign allocator. Fixtures provide
-deterministic identities, clocks, and write ledgers only.
+Contract tests exercise public runtime capabilities or exact-controller boundaries.\
+The unit test owns one sovereign allocator.\
+Fixtures provide deterministic identities, clocks, and write ledgers only.
 
 | Test file | Primary contract | Explicit non-goal |
 |---|---|---|
@@ -32,10 +32,12 @@ deterministic identities, clocks, and write ledgers only.
 | `contract/transit-feasible-source.test.js` | Exact-ingress source feasibility authorizes asymmetric reverse selection | Strict selected-route RPF |
 | `contract/transit-route-miss.test.js` | Feasible transit with no destination returns one direct `NO_ROUTE` | Local route miss |
 | `contract/transport-disposition-latch.test.js` | Competing terminal causes release once, while accepted packets drain after protocol revocation | Carrier buffering implementation |
+| `contract/diagnostic-sink.test.js` | Diagnostics are frozen closed captures with the raw cause kept separate, and a hostile sink cannot alter canonical state | Adapter-owned diagnostic content |
+| `contract/listener-terminal-lifecycle.test.js` | Unexpected listener loss reaches node lifecycle exactly once and never leaves a listening node behind a dead listener | Carrier reason for the terminal |
 | `contract/transport-reference-composition.test.js` | Opaque listener and target references resolve once by kind without leaking capability authority into kernel state | Binding-specific address syntax |
 | `contract/uniform-capabilities.test.js` | The same `NodeImpl` composes listener, dialer, routing, and delivery capabilities | Multi-hop geometry |
 | `contract/withdrawal-writer-order.test.js` | Admitted epoch data writes before the snapshot that withdraws that epoch | Remote convergence |
 | `unit/return-token-allocator.test.js` | Unsigned-64 tokens remain fixed-width and unique until terminal exhaustion | Breadcrumb storage and session replacement |
 
-Tests use positive executor/write/capacity barriers rather than sleep-based
-negative evidence. Run with `npm test --workspace @agp/node`.
+Tests use positive executor/write/capacity barriers rather than sleep-based negative evidence.\
+Run with `npm test --workspace @agp/node`.

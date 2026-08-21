@@ -901,13 +901,24 @@ export class NodeImpl implements AgpNode, SessionHost {
             }
           },
         );
-        await Promise.resolve();
-        if (this.#listenerTerminal !== undefined) {
-          throw new Error("listener terminalized during start");
-        }
       }
       for (const peer of this.#config.peers) void this.#dial(peer);
       return await this.executor.run(() => {
+        // The listener may terminalize while start is still in flight. Both
+        // that observation and this commit run inside the serialized executor,
+        // so whichever lands first is authoritative. Committing Running over an
+        // already-failed host would publish a listening node with a dead
+        // listener and silently discard its failure counters.
+        if (
+          this.#hostState === "Failed"
+          || this.#listenerTerminal !== undefined
+        ) {
+          throw new AgpError(
+            "TRANSPORT_FAILURE",
+            "node.start",
+            "listener terminalized during start",
+          );
+        }
         const startedAt = this.clock.wallTime();
         this.#hostState = "Running";
         const snapshot = this.#operations.commit({
