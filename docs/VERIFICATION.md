@@ -214,46 +214,72 @@ A0 has no row because it is not selectively certified.\
 
 ---
 
-## 4. Coverage permutation register
+## 4. Coverage register
 
-Live behavior is proved across three independent axes.\
-This register is the authoritative statement of which combinations are covered, which are deliberately excluded, and what would bring an excluded one back.\
-Absence from a test suite is not evidence of a decision; absence from this register is a defect.
+Live behavior varies along independent dimensions.\
+This section states three separate things, and conflating them is how a gap becomes invisible:
 
-The per-geometry and per-transport proof detail lives with the gate that owns it, in [`GATES.md` section 9](GATES.md#9-gate-ax7---live-topology-convergence).
+1. the **dimensions** a test harness can express;
+2. the **default suite**, a deliberately sparse orthogonal subset of them; and
+3. the **deepening** runs available on demand along one dimension at a time.
 
-### 4.1 Geometry axis
+A dimension may be declared before a harness can express it.\
+Where that is true it is marked, so a declared value is never mistaken for a covered one.
 
-| ID | Geometry | Transit depth | Covered by |
-|---|---|---|---|
-| `G-STAR` | Centre with two leaves | 1 | `test/topology/star-convergence.test.js` |
-| `G-LINE` | `A-B-C` | 1 | `test/topology/line-transit.test.js` |
-| `G-TRI` | Three mutual adjacencies | 1 | `test/topology/triangle-loop-prevention.test.js` |
-| `G-DIAMOND` | Two parallel single-transit paths | 1 | `test/topology/diamond-selection.test.js` |
+### 4.1 Dimensions
 
-Every covered geometry has a transit depth of one.\
-No current test places two transit nodes in series, so transit-to-transit ingress authorisation, a four-entry path vector, a hop limit decremented twice, and a reverse error relayed across two breadcrumbs are all unproved in a live topology.
-
-### 4.2 Traffic axis
-
-| ID | Profile | Definition | Proves |
-|---|---|---|---|
-| `T-SINGLE` | Single | One message per direction | Path correctness and payload preservation |
-| `T-STREAM` | Stream | Many ordered messages across one path | Ordering under sustained admission, and that bounded resources return to baseline |
-| `T-BURST` | Burst | Concurrent admissions against a bound | Backpressure and rejection through the full stack rather than at the channel |
-
-Every live geometry test currently uses `T-SINGLE`.\
-The transport conformance kit exercises multi-packet ordering below the AGP boundary, which does not prove the same property through codec, session, RIB, and breadcrumb accounting.
-
-### 4.3 Transport axis
-
-| ID | Transport | Role |
+| Dim | Values | Harness support |
 |---|---|---|
-| `X-LOOP` | Production Loopback | Deterministic full-kernel composition without sockets |
-| `X-WS` | Node.js WebSocket, `trusted-development` | Real carrier, independent processes, operating-system isolation |
-| `X-WSS` | Node.js WebSocket, `preshared-key` | Encrypted and peer-authenticated carrier |
+| `D-GEO` geometry | `star`, `line`, `triangle`, `diamond`, `chain(n)` | Fixed shapes supported; `chain(n)` is declared only |
+| `D-TRAFFIC` message volume | `single`, `stream(n)`, `burst(n)` | `single` supported; `stream` and `burst` are declared only |
+| `D-ROUTE` endpoint and route volume | `minimal`, `moderate(n)`, `near-bound(n)` | `minimal` supported; parameterised counts are declared only |
+| `D-TRANSPORT` carrier | `loopback`, `websocket`, `websocket-psk` | All supported |
 
-### 4.4 Excluded combinations
+`D-TRAFFIC` and `D-ROUTE` are both volumetric but stress different machinery.\
+Message volume exercises ordering, breadcrumb churn, return-token cycling, and egress backpressure along one path.\
+Route volume exercises Adj-RIB-In and candidate size, selection cost, export recomputation across every peer, and the encoded size of an authoritative snapshot.
+
+Route volume is the dimension that probes `D4`.\
+Because a route update carries the complete selected set rather than a delta, the cost of every convergence event scales with route count, and a large enough set makes an update approach the negotiated receive bound.\
+`route-capacity.test.js` proves the candidate count bound; the byte interaction between a full snapshot and `receiveLimitBytes` is unproved.
+
+### 4.2 Default suite
+
+What runs on every invocation.\
+Every cell is `single` traffic and `minimal` routes; the busiest live topology carries nine routes and four endpoints per node.
+
+| Geometry | `loopback` | `websocket` | `websocket-psk` |
+|---|---|---|---|
+| `star` | `test/topology/star-convergence.test.js` | `test/e2e/independent-star-multi-endpoint.test.js` | `test/integration/secure-websocket-star.test.js` |
+| `line` | `test/topology/line-transit.test.js` | `test/e2e/independent-line.test.js` | - |
+| `triangle` | `test/topology/triangle-loop-prevention.test.js` | - | - |
+| `diamond` | `test/topology/diamond-selection.test.js` | - | - |
+
+### 4.3 Selection rule
+
+The dimensions describe a combinatorial space.\
+The default suite is sparse on purpose, and a cell earns a place in it under one rule:
+
+> A combination earns a default test only when it proves something no dimension
+> proves alone.
+
+Ordering under sustained traffic is a property of a transit hop, so it earns one cell on `line` and nothing on `triangle` or `diamond`.\
+Channel protection is carrier-level and geometry-independent, so it earns one cell and no more.\
+Loopback and WebSocket equivalence is already proved by the normalized equivalence witnesses rather than by repeating every geometry on both.
+
+This is also why the suite is not a parameterised aggregate.\
+A failing `star x stream x psk` cell reports that a combination broke, not which layer owns it, and section 2.1 requires a failure to identify its owning layer.\
+Composition therefore happens along one axis at a time, in independently named files, as the transport conformance kit and the equivalence harness already do.
+
+### 4.4 Deepening
+
+A dimension can be pushed further than the default suite on demand, one dimension at a time, holding the others at their default.\
+A deepening run is a diagnostic instrument rather than a gate: it does not certify, and a defect it finds is owned by the layer that produced it.
+
+No parameterised entry point exists yet.\
+Until one does, `chain(n)`, `stream(n)`, `burst(n)`, `moderate(n)`, and `near-bound(n)` remain declared capability rather than available capability, and section 4.1 says so.
+
+### 4.5 Excluded combinations
 
 Each exclusion is a decision with a re-entry condition, in the same form as the deferred mechanisms in [`design/mechanisms.md`](design/mechanisms.md).
 
@@ -261,14 +287,15 @@ Each exclusion is a decision with a re-entry condition, in the same form as the 
 |---|---|---|---|
 | `X1` | Full mesh geometry | Per-pair keying is unsolved, and one key per node would let a single compromise forge every identity | A mesh key model under `F07` |
 | `X2` | Partition and heal | Injected adversity is owned by `AX8`; `AX7` proves healthy composition only | None; already covered at its own gate |
-| `X3` | `T-BURST` over `X-WS` | Concurrency against a real socket makes the oracle timing-dependent, and the same bound is proved deterministically over `X-LOOP` | A defect that only reproduces over a real carrier |
-| `X4` | `X-WSS` for every geometry | The profile is carrier-level and geometry-independent, so proving it once under transit is sufficient | A geometry whose behavior depends on the security profile |
+| `X3` | `burst` over a real socket | Concurrency against a real carrier makes the oracle timing-dependent, and the same bound is proved deterministically over Loopback | A defect that reproduces only over a real carrier |
+| `X4` | Channel protection per geometry | The profile is carrier-level and geometry-independent, so one witness under transit is sufficient | A geometry whose behavior depends on the security profile |
+| `X5` | Traffic or route volume on every geometry | Volume stresses a transit hop and a RIB, neither of which varies with shape once one transit exists | A geometry whose volumetric behavior differs from `line` |
 
 ---
 
 ## 5. Modular test architecture
 
-### 4.1 Ownership layout
+### 5.1 Ownership layout
 
 ```text
 packages/protocol/test/
@@ -349,7 +376,7 @@ Each adapter's own self-descriptive test file states and asserts the exact oracl
 A coverage manifest proves both adapter suites own every common obligation.\
 This gives WebSocket and Loopback identical requirements without hiding failures behind one aggregate "transport conformance" test.
 
-### 4.2 Self-description and orthogonality
+### 5.2 Self-description and orthogonality
 
 Every test:
 
@@ -378,7 +405,7 @@ then it emits one correlated ingress error and no onward data packet
 Table-driven cases share a file only when their arrangement, stimulus, and oracle are identical and only an enumerated input value changes.\
 Schema keyword cases may share a table; route miss, loop rejection, and queue saturation may not.
 
-### 4.3 Fixtures and timing
+### 5.3 Fixtures and timing
 
 - A fixture contains immutable input and expected public output only.
 - Valid fixtures never double as negative fixtures with fields mutated in
