@@ -80,9 +80,15 @@ test("Given normative Markdown and trace references, when AX0 resolves local tar
   for (const record of trace.records) {
     for (const reference of record.designReferences) {
       const [relative, anchor] = reference.split("#");
-      const target = path.join(designRoot, relative);
+      // A trace record may cite a project-level document above the design set,
+      // so normalise rather than assuming the target sits inside it.
+      const target = path.normalize(path.join(designRoot, relative));
       assert.equal(existsSync(target), true, `${record.requirementId}:${reference}`);
       if (anchor) {
+        if (!documents.has(target)) {
+          const source = await readFile(target, "utf8");
+          documents.set(target, { source, anchors: anchors(source) });
+        }
         assert.equal(
           documents.get(target)?.anchors.has(anchor),
           true,

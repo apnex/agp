@@ -4,7 +4,7 @@
 
 | Field | Value |
 |---|---|
-| Status | Ratified. This is the current implementation design; gate definitions live in `verification.md` |
+| Status | Ratified. This is the current implementation design; gate definitions live in `VERIFICATION.md` |
 | Intent authority | [`DECISIONS.md` section 2](../DECISIONS.md#2-confirmed-intent) |
 | Transport intent | [`transport-sovereignty-authority.md`](transport-sovereignty-authority.md), explicit fixed-intent survey bypass approved 2026-07-30 |
 | Axiom map | [`axioms.md`](axioms.md) |
@@ -493,5 +493,3 @@ A transport-neutral packet boundary makes that same statement true beneath the s
   forwarding
 - [`sdk.md`](sdk.md) - public API and lifecycle
 - [`operations.md`](operations.md) - canonical operational state, HTTP, and CLI
-- [`verification.md`](verification.md) - certification model, traceability, and test architecture
-- [`gates.md`](gates.md) - `AX0`-`AX8` definitions and the test-file ownership map

@@ -59,7 +59,7 @@ Add the file to its suite `README.md` ownership table in the same change.\
 [`testing.md`](./TESTING.md) states the rules and `npm run test:architecture` enforces them.
 
 **Gate evidence stays truthful.**\
-If a change adds or moves a test that section 14 of [`verification.md`](./design/verification.md) names, update that map.\
+If a change adds or moves a test that section 14 of [`VERIFICATION.md`](./VERIFICATION.md) names, update that map.\
 `test/conformance/verification-ownership-map.test.js` fails when the map and the tree disagree.
 
 **Design records are layered.**\

@@ -1,7 +1,7 @@
 # AGP uniform node - connection FSM
 
 > **Status:** Ratified. Current session-FSM contract.\
-> Gate definitions are in [`verification.md`](verification.md).
+> Gate definitions are in [`VERIFICATION.md`](../VERIFICATION.md).
 
 ## 1. Model
 

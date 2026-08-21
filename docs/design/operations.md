@@ -1,7 +1,7 @@
 # AGP uniform node - canonical operations design
 
 > **Status:** Ratified. Current operational-state contract.\
-> The runtime surface that produces this state is in [`sdk.md`](sdk.md); gate definitions are in [`verification.md`](verification.md).
+> The runtime surface that produces this state is in [`sdk.md`](sdk.md); gate definitions are in [`VERIFICATION.md`](../VERIFICATION.md).
 
 ## 1. Mandate
 

@@ -13,6 +13,8 @@ const designRoot = path.join(root, "docs/design");
 const normativeElsewhere = [
   "docs/TESTING.md",
   "docs/DECISIONS.md",
+  "docs/VERIFICATION.md",
+  "docs/GATES.md",
 ];
 
 const normativeArtifacts = [
@@ -29,8 +31,6 @@ const normativeArtifacts = [
   "transport-contract.md",
   "transport-sovereignty-authority.md",
   "transport-loopback.md",
-  "verification.md",
-  "gates.md",
 ];
 
 function triadCount(source, heading) {

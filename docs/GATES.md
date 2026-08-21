@@ -1,7 +1,7 @@
 # AGP uniform node - gate definitions
 
 > **Status:** Ratified. Current gate contract.\
-> The certification model these gates obey is in [`verification.md`](verification.md).
+> The certification model these gates obey is in [`VERIFICATION.md`](verification.md).
 
 ## 1. Purpose
 
@@ -9,7 +9,7 @@ One section per gate, in ascension order, each naming what it proves and the exa
 Section 11 maps every required test file to the gate that owns it.
 
 A gate proves its own layer only.\
-The proof-layer separation table in [`verification.md`](verification.md#22-proof-layer-separation) states what each layer may not claim, and the ordering rules in [section 2.1](verification.md#21-binary-gated-ascension) state when a gate may be certified at all.
+The proof-layer separation table in [`VERIFICATION.md`](verification.md#22-proof-layer-separation) states what each layer may not claim, and the ordering rules in [section 2.1](verification.md#21-binary-gated-ascension) state when a gate may be certified at all.
 
 ---
 
@@ -802,6 +802,7 @@ Other file names may be refined before implementation, but every primary contrac
 | Gate | Proposed file | One primary contract |
 |---|---|---|
 | AX0 | `test/conformance/traceability-graph.test.js` | Trace schema/data validate; every U/D requirement has ratified authority, one owner, and resolvable references |
+| AX0 | `test/conformance/coverage-register.test.js` | The coverage permutation register names only runnable tests, keeps every axis populated, and states a re-entry condition for each exclusion |
 | AX0 | `test/conformance/verification-ownership-map.test.js` | Every gate-named test file in section 14 exists, no gate repeats one oracle, and each named file also carries suite ownership |
 | AX0 | `test/conformance/design-mrc.test.js` | Every exact normative design artifact carries one mechanics/rationale/consequence triad |
 | AX0 | `test/conformance/design-link-integrity.test.js` | Every local Markdown and trace design reference resolves to its exact file and anchor |
@@ -942,7 +943,7 @@ Adding a new file requires assigning it a previously unowned axis or splitting a
 ### Mechanics
 
 Each gate names one proof layer, the evidence that seals it, and an exit condition.\
-Gates ascend in the order declared by [`verification.md`](verification.md#21-binary-gated-ascension), and section 11 binds every required test file to the gate that owns it, so a gate's claim is resolvable to executable evidence rather than to prose.
+Gates ascend in the order declared by [`VERIFICATION.md`](verification.md#21-binary-gated-ascension), and section 11 binds every required test file to the gate that owns it, so a gate's claim is resolvable to executable evidence rather than to prose.
 
 ### Rationale
 

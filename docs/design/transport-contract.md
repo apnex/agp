@@ -1,7 +1,7 @@
 # AGP uniform node - carrier-neutral packet transport contract
 
 > **Status:** Ratified. Current carrier-neutral transport contract.\
-> Gate definitions are in [`verification.md`](verification.md).
+> Gate definitions are in [`VERIFICATION.md`](../VERIFICATION.md).
 
 ## 1. Mandate and authority
 

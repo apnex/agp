@@ -1,7 +1,7 @@
 # AGP uniform node - routing and forwarding design
 
 > **Status:** Ratified. Current RIB, selection, and forwarding contract.\
-> Gate definitions are in [`verification.md`](verification.md).
+> Gate definitions are in [`VERIFICATION.md`](../VERIFICATION.md).
 
 ## 1. Status, authority, and boundary
 

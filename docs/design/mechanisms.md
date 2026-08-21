@@ -1,7 +1,7 @@
 # AGP uniform node - mechanism and feature index
 
 > **Status:** Ratified. Current mechanism index.\
-> Classifications describe the authoritative AGP v1 target; gate definitions are in [`verification.md`](verification.md).
+> Classifications describe the authoritative AGP v1 target; gate definitions are in [`VERIFICATION.md`](../VERIFICATION.md).
 
 ## 1. Purpose
 

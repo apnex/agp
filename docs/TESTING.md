@@ -95,7 +95,7 @@ Passing the architecture check is necessary but not sufficient: reviewers still 
 Tests are owned at the boundary they verify.\
 A package's behavior is tested beside that package; the workspace suites test only composition across packages.\
 Each suite declares its files in an ownership README naming the contract protected, the primary axis varied, and the oracle observed.\
-Each suite runs in its own process, in the gate order declared by [`verification.md`](./design/verification.md).\
+Each suite runs in its own process, in the gate order declared by [`VERIFICATION.md`](./VERIFICATION.md).\
 `npm run test:architecture` mechanically rejects the rot patterns listed above.
 
 ---

@@ -22,7 +22,7 @@
 | SDK | [`sdk.md`](sdk.md) |
 | Operations | [`operations.md`](operations.md) |
 | Certification sequence | `AX0 -> AX1 -> AX2 -> AX3 -> AX4 -> AX5 -> AX6 -> AX7 -> AX8` |
-| Gate definitions | [`gates.md`](gates.md) |
+| Gate definitions | [`GATES.md`](GATES.md) |
 
 This document defines the binary evidence required to certify the uniform-node replacement.\
 A passing result for the current MVP is not inherited: the AGP v1 wire language, runtime factory, session symmetry, routing behavior, transport SPI, WebSocket binding, and Loopback production transport all change, so every affected gate must be resealed.
@@ -214,7 +214,59 @@ A0 has no row because it is not selectively certified.\
 
 ---
 
-## 4. Modular test architecture
+## 4. Coverage permutation register
+
+Live behavior is proved across three independent axes.\
+This register is the authoritative statement of which combinations are covered, which are deliberately excluded, and what would bring an excluded one back.\
+Absence from a test suite is not evidence of a decision; absence from this register is a defect.
+
+The per-geometry and per-transport proof detail lives with the gate that owns it, in [`GATES.md` section 9](GATES.md#9-gate-ax7---live-topology-convergence).
+
+### 4.1 Geometry axis
+
+| ID | Geometry | Transit depth | Covered by |
+|---|---|---|---|
+| `G-STAR` | Centre with two leaves | 1 | `test/topology/star-convergence.test.js` |
+| `G-LINE` | `A-B-C` | 1 | `test/topology/line-transit.test.js` |
+| `G-TRI` | Three mutual adjacencies | 1 | `test/topology/triangle-loop-prevention.test.js` |
+| `G-DIAMOND` | Two parallel single-transit paths | 1 | `test/topology/diamond-selection.test.js` |
+
+Every covered geometry has a transit depth of one.\
+No current test places two transit nodes in series, so transit-to-transit ingress authorisation, a four-entry path vector, a hop limit decremented twice, and a reverse error relayed across two breadcrumbs are all unproved in a live topology.
+
+### 4.2 Traffic axis
+
+| ID | Profile | Definition | Proves |
+|---|---|---|---|
+| `T-SINGLE` | Single | One message per direction | Path correctness and payload preservation |
+| `T-STREAM` | Stream | Many ordered messages across one path | Ordering under sustained admission, and that bounded resources return to baseline |
+| `T-BURST` | Burst | Concurrent admissions against a bound | Backpressure and rejection through the full stack rather than at the channel |
+
+Every live geometry test currently uses `T-SINGLE`.\
+The transport conformance kit exercises multi-packet ordering below the AGP boundary, which does not prove the same property through codec, session, RIB, and breadcrumb accounting.
+
+### 4.3 Transport axis
+
+| ID | Transport | Role |
+|---|---|---|
+| `X-LOOP` | Production Loopback | Deterministic full-kernel composition without sockets |
+| `X-WS` | Node.js WebSocket, `trusted-development` | Real carrier, independent processes, operating-system isolation |
+| `X-WSS` | Node.js WebSocket, `preshared-key` | Encrypted and peer-authenticated carrier |
+
+### 4.4 Excluded combinations
+
+Each exclusion is a decision with a re-entry condition, in the same form as the deferred mechanisms in [`design/mechanisms.md`](design/mechanisms.md).
+
+| ID | Excluded | Why | Re-entry condition |
+|---|---|---|---|
+| `X1` | Full mesh geometry | Per-pair keying is unsolved, and one key per node would let a single compromise forge every identity | A mesh key model under `F07` |
+| `X2` | Partition and heal | Injected adversity is owned by `AX8`; `AX7` proves healthy composition only | None; already covered at its own gate |
+| `X3` | `T-BURST` over `X-WS` | Concurrency against a real socket makes the oracle timing-dependent, and the same bound is proved deterministically over `X-LOOP` | A defect that only reproduces over a real carrier |
+| `X4` | `X-WSS` for every geometry | The profile is carrier-level and geometry-independent, so proving it once under transit is sufficient | A geometry whose behavior depends on the security profile |
+
+---
+
+## 5. Modular test architecture
 
 ### 4.1 Ownership layout
 
@@ -342,7 +394,7 @@ Schema keyword cases may share a table; route miss, loop rejection, and queue sa
 
 ---
 
-## 5. Mechanics, rationale, and consequence
+## 6. Mechanics, rationale, and consequence
 
 ### Mechanics
 

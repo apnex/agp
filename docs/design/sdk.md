@@ -1,7 +1,7 @@
 # AGP uniform node - SDK design
 
 > **Status:** Ratified. Current public API contract.\
-> Canonical operational state is in [`operations.md`](operations.md); gate definitions are in [`verification.md`](verification.md).
+> Canonical operational state is in [`operations.md`](operations.md); gate definitions are in [`VERIFICATION.md`](../VERIFICATION.md).
 
 ## 1. Mandate
 

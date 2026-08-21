@@ -1,7 +1,7 @@
 # AGP uniform node - symmetric protocol and session design
 
 > **Status:** Ratified. Current packet and adjacency contract.\
-> Gate definitions are in [`verification.md`](verification.md).
+> Gate definitions are in [`VERIFICATION.md`](../VERIFICATION.md).
 
 ## 1. Mandate
 
