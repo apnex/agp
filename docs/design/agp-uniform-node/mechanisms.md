@@ -1,8 +1,7 @@
 # AGP uniform node - mechanism and feature index
 
-> **Status:** Ratified implementation design (2026-07-30). Classifications
-> describe the authoritative AGP v1 target; release certification remains
-> governed by `verification.md`.
+> **Status:** Ratified. Current mechanism index.\
+> Classifications describe the authoritative AGP v1 target; gate definitions are in [`verification.md`](verification.md).
 
 ## 1. Purpose
 

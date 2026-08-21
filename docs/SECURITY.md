@@ -15,7 +15,7 @@ Concretely, that means:
   authentication**. Traffic is readable and forgeable by anything on the path.
 - `wss:`, TLS, client certificates, and HTTP Upgrade authentication are
   **deliberately not implemented**. They are deferred under F07 in
-  [`mechanisms.md`](./docs/design/agp-uniform-node/mechanisms.md), and the
+  [`mechanisms.md`](./design/agp-uniform-node/mechanisms.md), and the
   adapter rejects that configuration before it constructs a resolver rather than
   silently downgrading.
 

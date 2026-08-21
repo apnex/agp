@@ -1,7 +1,7 @@
 # AGP uniform node - routing and forwarding design
 
-> **Status:** Ratified implementation design (2026-07-30). Release
-> certification remains governed by `verification.md`.
+> **Status:** Ratified. Current RIB, selection, and forwarding contract.\
+> Gate definitions are in [`verification.md`](verification.md).
 
 ## 1. Status, authority, and boundary
 

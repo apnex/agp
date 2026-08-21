@@ -7,7 +7,7 @@ import path from "node:path";
 // Sharing one runner across every suite made an unrelated destabilisation
 // cancel every file after it, and the cancellation point moved between runs
 // because it depended on load rather than on any one test. The suites are
-// already declared orthogonal in TESTING.md, so giving each one its own
+// already declared orthogonal in docs/testing.md, so giving each one its own
 // process turns a cascade into an isolated, attributable failure.
 //
 // Suites run in the gate order declared by verification.md section 2.1, which

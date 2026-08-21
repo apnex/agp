@@ -1,8 +1,7 @@
 # AGP uniform node - sovereign contract schemas
 
-> **Status:** Ratified implementation design with transport-sovereignty
-> amendment (2026-07-30). Concrete schema
-> files are the first gated build artifact.
+> **Status:** Ratified. Current schema-ownership contract.\
+> Concrete schema files are the first gated build artifact.
 
 ## 1. Mandate
 

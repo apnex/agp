@@ -316,5 +316,5 @@ npm run schemas:check
 ```
 
 Tests are package-owned, self-descriptive, and orthogonal.\
-The ownership model and anti-rot checks are documented in [TESTING.md](./TESTING.md).\
+The ownership model and anti-rot checks are documented in [docs/testing.md](./docs/testing.md).\
 The layered gate definitions, and which gate owns which proof, are in [verification.md](./docs/design/agp-uniform-node/verification.md).

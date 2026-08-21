@@ -6,6 +6,14 @@ import { fileURLToPath } from "node:url";
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "../..");
 const designRoot = path.join(root, "docs/design/agp-uniform-node");
+
+// Repository-relative artifacts that are normative but live outside the design
+// set. A document that states rules a script enforces owes the same
+// mechanics/rationale/consequence triad as a protocol contract.
+const normativeElsewhere = [
+  "docs/testing.md",
+];
+
 const normativeArtifacts = [
   "README.md",
   "axioms.md",
@@ -24,6 +32,17 @@ const normativeArtifacts = [
   "verification.md",
 ];
 
+function triadCount(source, heading) {
+  return (source.match(
+    new RegExp(
+      heading === "Consequence"
+        ? "^#{2,6} Consequence(?: of violation)?$"
+        : `^#{2,6} ${heading}$`,
+      "gmu",
+    ),
+  ) ?? []).length;
+}
+
 test("Given the normative design allowlist, when AX0 inspects knowledge structure, then every artifact has one mechanics rationale and consequence section", async () => {
   for (const relative of normativeArtifacts) {
     const source = await readFile(path.join(designRoot, relative), "utf8");
@@ -37,6 +56,15 @@ test("Given the normative design allowlist, when AX0 inspects knowledge structur
         ),
       ) ?? [];
       assert.equal(matches.length, 1, `${relative}: ${heading}`);
+    }
+  }
+});
+
+test("Given normative documents outside the design set, when AX0 inspects knowledge structure, then each one carries the same mechanics rationale and consequence triad", async () => {
+  for (const relative of normativeElsewhere) {
+    const source = await readFile(path.join(root, relative), "utf8");
+    for (const heading of ["Mechanics", "Rationale", "Consequence"]) {
+      assert.equal(triadCount(source, heading), 1, `${relative}: ${heading}`);
     }
   }
 });

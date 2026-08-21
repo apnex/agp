@@ -3,7 +3,7 @@
 ## Prerequisites
 
 Node.js 24 and npm.\
-The repository pins the major in [`.nvmrc`](./.nvmrc) and in each manifest's `engines` field.
+The repository pins the major in [`.nvmrc`](../.nvmrc) and in each manifest's `engines` field.
 
 Confirm the toolchain before starting:
 ```bash
@@ -56,10 +56,10 @@ npm run schemas:check
 **Tests are owned where the code is owned.**\
 A package's behavior is tested beside that package; the workspace suites test composition only.\
 Add the file to its suite `README.md` ownership table in the same change.\
-[`TESTING.md`](./TESTING.md) states the rules and `npm run test:architecture` enforces them.
+[`testing.md`](./testing.md) states the rules and `npm run test:architecture` enforces them.
 
 **Gate evidence stays truthful.**\
-If a change adds or moves a test that section 14 of [`verification.md`](./docs/design/agp-uniform-node/verification.md) names, update that map.\
+If a change adds or moves a test that section 14 of [`verification.md`](./design/agp-uniform-node/verification.md) names, update that map.\
 `test/conformance/verification-ownership-map.test.js` fails when the map and the tree disagree.
 
 **Design records are layered.**\
@@ -71,7 +71,7 @@ Frozen records - surveys, the decision register, and the transport sovereignty r
 ## Documentation style
 
 Markdown follows the style rules published in [apnex/mission-kit](https://github.com/apnex/mission-kit/tree/main/style).\
-The per-rule checkers are vendored into [`tools/`](./tools/README.md) so a clone can verify itself.
+The per-rule checkers are vendored into [`tools/`](../tools/README.md) so a clone can verify itself.
 
 Apply the mechanical fixes, then check:
 ```bash

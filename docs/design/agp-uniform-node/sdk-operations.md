@@ -1,8 +1,7 @@
 # AGP uniform node - SDK and canonical operations design
 
-> **Status:** Ratified implementation design with transport-sovereignty
-> amendment (2026-07-30). Release certification remains governed by
-> `verification.md`.
+> **Status:** Ratified. Current public API and operational-state contract.\
+> Gate definitions are in [`verification.md`](verification.md).
 
 ## 1. Mandate
 

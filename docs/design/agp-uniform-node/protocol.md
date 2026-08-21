@@ -1,8 +1,7 @@
 # AGP uniform node - symmetric protocol and session design
 
-> **Status:** Ratified implementation design with transport-sovereignty
-> amendment (2026-07-30). Release
-> certification remains governed by `verification.md`.
+> **Status:** Ratified. Current packet and adjacency contract.\
+> Gate definitions are in [`verification.md`](verification.md).
 
 ## 1. Mandate
 

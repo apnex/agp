@@ -87,3 +87,38 @@ Each workspace suite runs in its own test process, so a failure is isolated to t
 - non-descriptive test titles that omit given/when/then.
 
 Passing the architecture check is necessary but not sufficient: reviewers still confirm that suites remain orthogonal and that helpers do not hide their oracles.
+
+---
+
+## Mechanics
+
+Tests are owned at the boundary they verify.\
+A package's behavior is tested beside that package; the workspace suites test only composition across packages.\
+Each suite declares its files in an ownership README naming the contract protected, the primary axis varied, and the oracle observed.\
+Each suite runs in its own process, in the gate order declared by [`verification.md`](./design/agp-uniform-node/verification.md).\
+`npm run test:architecture` mechanically rejects the rot patterns listed above.
+
+---
+
+## Rationale
+
+An unowned test is an unmaintained test.\
+When a suite cannot name its owner, stimulus, and oracle, a later reader cannot tell whether a failure means the contract broke or the test drifted, so the usual resolution is to weaken the assertion.\
+Placing the test beside the contract it protects makes that question answerable from the file alone, and the ownership README makes the answer reviewable without reading implementation internals.
+
+Orthogonality is what makes the layered gates meaningful.\
+If two suites prove the same fact, a failure no longer identifies a layer, and the gate ordering degrades into a slower way to run everything.
+
+---
+
+## Consequence of violation
+
+- Duplicated oracles across suites make a failure unattributable, so the
+  lowest broken layer is patched at the surface instead of at its owner.
+- Tests that import another package's `src/` freeze that package's internals
+  into the public contract, and the boundary stops being substitutable.
+- Titles without given/when/then force a reader into the body to learn what
+  broke, which is the cost the ownership model exists to remove.
+- Suites sharing one process let an unrelated failure cancel later suites,
+  which once hid a whole tail of this repository's coverage behind a single
+  destabilisation.

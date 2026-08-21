@@ -5,8 +5,6 @@
 > remains in the fixed-intent record and D14-D17; unresolved implementation
 > findings below are release-certification blockers.
 >
-> **Review date:** 2026-07-30
->
 > **Scope:** Split the transport-independent AGP JSON packet protocol and kernel
 > from its first concrete WebSocket binding and Node.js adapter. Preserve AGP v1
 > JSON packet meaning while applying the ratified in-place transport-surface
@@ -836,7 +834,7 @@ The tests must prove that a package catalog owns each entry, every referenced im
     a kernel test fake.
   - Move security limitations under the Node WebSocket adapter.
 
-- **`TESTING.md` and package test READMEs**
+- **`docs/testing.md` and package test READMEs**
   - Add the shared adapter conformance category and binding-versus-adapter test
     ownership.
 
