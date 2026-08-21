@@ -5,7 +5,7 @@
 | Field | Value |
 |---|---|
 | Status | Ratified. Current axiom applicability map |
-| Intent authority | [`uniform-agp-node-routing-survey.md`](../surveys/uniform-agp-node-routing-survey.md) |
+| Intent authority | [`DECISIONS.md` section 2](../DECISIONS.md#2-confirmed-intent) |
 | Transport intent authority | [`transport-sovereignty-authority.md`](transport-sovereignty-authority.md) |
 | Axiom source | [Mission Kit axioms](https://github.com/apnex/mission-kit/tree/5026604d3ef695651c21b24bd78410c7fec04b58/axioms) |
 | Pinned commit | `5026604d3ef695651c21b24bd78410c7fec04b58` |

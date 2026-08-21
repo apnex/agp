@@ -5,7 +5,7 @@
 | Field | Value |
 |---|---|
 | Status | Ratified. Current verification plan; a gate is certified only while every required test in section 14 passes |
-| Intent authority | [`uniform-agp-node-routing-survey.md`](../surveys/uniform-agp-node-routing-survey.md) |
+| Intent authority | [`DECISIONS.md` section 2](../DECISIONS.md#2-confirmed-intent) |
 | Transport intent authority | [`transport-sovereignty-authority.md`](transport-sovereignty-authority.md) |
 | Architecture | [`README.md`](README.md) |
 | Axiom applicability | [`axioms.md`](axioms.md) |
@@ -1077,7 +1077,7 @@ A workaround does not close a finding, and incomplete knowledge does not delay c
 An open finding invalidates the gate that references it.\
 Recurrence of a fixed finding fails `AX8` independently.
 
-The durable record is the regression test plus the finding row in [`transport-sovereignty-review.md`](transport-sovereignty-review.md) section 4.\
+The durable record is the regression test plus the fault named in the consequence section of the contract that owns it.\
 This is the AGP finding-lifecycle subset only; it does not claim the full A14 attention-ledger, tangent-discipline, or measured-payback mechanics.
 
 ---

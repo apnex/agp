@@ -27,7 +27,6 @@ const normativeArtifacts = [
   "sdk-operations.md",
   "transport-contract.md",
   "transport-sovereignty-authority.md",
-  "transport-sovereignty-review.md",
   "transport-loopback.md",
   "verification.md",
 ];

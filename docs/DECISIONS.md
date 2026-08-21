@@ -27,7 +27,71 @@ The stakeholder authorized autonomous implementation after design completion and
 
 ---
 
-## 2. Decision records
+## 2. Confirmed intent
+
+Every decision below realizes intent that was confirmed by the project owner before design began.\
+That intent is recorded here rather than in a separate survey artifact, so a reader reaches the authority from the decision it authorizes.
+
+### 2.1 Composite intent envelope
+
+Replace AGP's behaviorally separate hub router and spoke client with one `AgpNode` runtime created through `createNode()`.\
+Configuration may make a node listen, dial configured adjacencies, expose endpoints, and permit or deny transit, but these are capabilities of the same implementation rather than protocol roles backed by different code.\
+Topologies are assembled by composing identical node instances; terms such as hub, spoke, edge, or transit describe a node's configured placement and adjacencies only.
+
+The control plane is symmetric.\
+Nodes exchange endpoint routes in both directions and export their selected routes, including selected learned routes needed for transit.\
+Each route retains final origin separately from its immediate next-hop session and carries an ordered node path sufficient to reject control-plane loops.
+
+Every locally originated or received data message consults the same local selected RIB.\
+A local route miss rejects before wire admission; a transit route miss produces no onward data packet and returns a correlated nonfatal error toward the source.
+
+This is a coordinated replacement, not a compatibility-facade migration.\
+AGP v1 is rewritten in place to the symmetric target state, and interoperability with the old v1 language is explicitly not required.
+
+### 2.2 Confirmed intent by question
+
+The confirmed answers below are the authority cited by `authorities[].kind` of `survey` in [`design/traceability.json`](design/traceability.json).
+
+| Ref | Confirmed intent |
+|---|---|
+| `Q1(b)` | Every data path is gated by the local selected RIB |
+| `Q1/Q3/Q6` | One uniform node runtime, created through a single `createNode()` factory, with a stable operational surface |
+| `Q4(a)` | Either side of an adjacency may exchange endpoint routes |
+| `Q4(b)` | A selected learned route may be exported to other peers for multi-hop transit |
+| `Q4(c)` | Ordered path provenance rejects control-plane loops |
+| `Q5(a)` | A local route miss rejects before wire admission |
+| `Q5(b)` | A transit route miss emits no onward data packet |
+| `Q5(c)` | A correlated nonfatal failure travels back toward the source |
+| `Q6(c)` | Management HTTP and `agpctl` remain stable where their semantics remain true |
+| Aggregate | Listener, dialer, local delivery, and transit behavior compose inside the same implementation |
+
+### 2.3 Governing principles
+
+Three principles anchor the design and outrank convenience:
+
+- **One node abstraction.** Topology differences arise from configuration, never
+  from a second implementation.
+- **No selected route means no forwarding.** Every forwarding outcome is
+  justified by local canonical route state.
+- **Loop-safe selected-route propagation.** Operational views expose that same
+  state rather than reconstructing it independently.
+
+### 2.4 Confirmed anti-goals
+
+These were excluded at intent capture, not discovered later.\
+Their re-entry conditions are held in [`design/mechanisms.md`](design/mechanisms.md) as `F01` through `F07`.
+
+| Excluded | Reason |
+|---|---|
+| Multiple eligible-path export, metrics, and policy-based selection | Deferred to a future routing-policy phase |
+| A uniform runtime that still uses an implicit default route to one central node | Superseded by symmetric route exchange; it would be a cosmetic unification |
+| Long-lived `createRouter()` or `createSpoke()` compatibility facades | Authority explicitly removed compatibility as a constraint |
+| Redesigning management HTTP or `agpctl` merely because the runtime changed | Operators are protected consumers; change only on proven semantic mismatch |
+| Compatibility negotiation with the old AGP v1 wire behavior | v1 is replaced in place by authority |
+
+---
+
+## 3. Decision records
 
 ### D1 - Uniform node
 
@@ -304,7 +368,7 @@ A failed fabric remains inspectable, cannot be restarted, and must be replaced.
 
 ---
 
-## 3. Mechanics, rationale, and consequence
+## 4. Mechanics, rationale, and consequence
 
 ### Mechanics
 

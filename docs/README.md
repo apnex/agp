@@ -15,7 +15,7 @@ Project-generalised documents are `UPPERCASE.md`; domain design contracts are `l
 | Know whether it is safe to expose | [`SECURITY.md`](SECURITY.md) |
 | Change the code | [`CONTRIBUTING.md`](CONTRIBUTING.md) |
 | Write or move a test | [`TESTING.md`](TESTING.md) |
-| Know why a design choice was made | [`DECISIONS.md`](DECISIONS.md) |
+| Know why a design choice was made, or what was confirmed as intent | [`DECISIONS.md`](DECISIONS.md) |
 | Understand a protocol behavior | [`design/`](design/README.md) |
 | Know what proves a behavior correct | [`design/verification.md`](design/verification.md) |
 
@@ -25,7 +25,7 @@ Project-generalised documents are `UPPERCASE.md`; domain design contracts are `l
 
 | Document | Owns |
 |---|---|
-| [`DECISIONS.md`](DECISIONS.md) | The `D1`-`D17` decision register: what was chosen, why, and what a reversal would cost |
+| [`DECISIONS.md`](DECISIONS.md) | Confirmed intent, and the `D1`-`D17` decision register: what was chosen, why, and what a reversal would cost |
 | [`TESTING.md`](TESTING.md) | Test ownership, suite structure, and the anti-rot checks |
 | [`CONTRIBUTING.md`](CONTRIBUTING.md) | How to build, verify, and land a change |
 | [`SECURITY.md`](SECURITY.md) | Supported security posture and how to report a vulnerability |
@@ -51,19 +51,7 @@ The architecture entry point is [`design/README.md`](design/README.md), which li
 | Surface | [`sdk-operations.md`](design/sdk-operations.md) | Public API and canonical operational state |
 | Verification | [`verification.md`](design/verification.md) | The `AX0`-`AX8` gates and the test-file ownership map |
 | Verification | [`traceability.json`](design/traceability.json) | Machine-checked requirement, authority, and gate ownership |
-
----
-
-## Intent records
-
-These capture confirmed intent rather than current state.\
-The design set implements them; they are cited as authority by [`design/axioms.md`](design/axioms.md) and [`design/traceability.json`](design/traceability.json).
-
-| Document | Holds |
-|---|---|
-| [`surveys/uniform-agp-node-routing-survey.md`](surveys/uniform-agp-node-routing-survey.md) | The confirmed intent behind the uniform-node design |
-| [`design/transport-sovereignty-authority.md`](design/transport-sovereignty-authority.md) | Fixed transport intent and its explicit survey bypass |
-| [`design/transport-sovereignty-review.md`](design/transport-sovereignty-review.md) | The sovereignty audit that produced the transport contract |
+| Authority | [`transport-sovereignty-authority.md`](design/transport-sovereignty-authority.md) | Fixed transport intent and its explicit survey bypass |
 
 ---
 

@@ -21,7 +21,6 @@ const SINGLE_FAULT_ARTIFACTS = new Set([
   "axioms.md",
   "mechanisms.md",
   "transport-sovereignty-authority.md",
-  "transport-sovereignty-review.md",
 ]);
 
 async function designDocuments(directory = designRoot, found = []) {

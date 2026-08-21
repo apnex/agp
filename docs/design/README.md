@@ -5,7 +5,7 @@
 | Field | Value |
 |---|---|
 | Status | Ratified. This is the current implementation design; gate definitions live in `verification.md` |
-| Intent input | [`uniform-agp-node-routing-survey.md`](../surveys/uniform-agp-node-routing-survey.md) |
+| Intent authority | [`DECISIONS.md` section 2](../DECISIONS.md#2-confirmed-intent) |
 | Transport intent | [`transport-sovereignty-authority.md`](transport-sovereignty-authority.md), explicit fixed-intent survey bypass approved 2026-07-30 |
 | Axiom map | [`axioms.md`](axioms.md) |
 | Mechanism index | [`mechanisms.md`](mechanisms.md) |
@@ -494,5 +494,3 @@ A transport-neutral packet boundary makes that same statement true beneath the s
   forwarding
 - [`sdk-operations.md`](sdk-operations.md) - public API and canonical state
 - [`verification.md`](verification.md) - layered and chaos certification
-- [`transport-sovereignty-review.md`](transport-sovereignty-review.md) -
-  independent leakage audit, resolved findings, and implementation checklist

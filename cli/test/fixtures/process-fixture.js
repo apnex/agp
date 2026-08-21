@@ -35,6 +35,12 @@ export function runProcess(executable, args = [], options = {}) {
         stderr: Buffer.concat(stderr).toString("utf8"),
       });
     });
+    // A renderer may reject its arguments and exit before reading stdin. That
+    // is a valid outcome the exit code already proves, so a broken pipe here is
+    // the child winning the race rather than a fixture failure.
+    child.stdin.on("error", (error) => {
+      if (error?.code !== "EPIPE") reject(error);
+    });
     child.stdin.end(options.input);
   });
 }

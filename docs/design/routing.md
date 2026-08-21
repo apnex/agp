@@ -8,7 +8,7 @@
 | Field | Value |
 |---|---|
 | Status | Ratified. Current routing contract |
-| Intent authority | [`uniform-agp-node-routing-survey.md`](../surveys/uniform-agp-node-routing-survey.md) |
+| Intent authority | [`DECISIONS.md` section 2](../DECISIONS.md#2-confirmed-intent) |
 | Architecture | [`README.md`](README.md) |
 | Wire/session contract | [`protocol.md`](protocol.md) |
 | Schema ownership | [`contracts.md`](contracts.md) |
