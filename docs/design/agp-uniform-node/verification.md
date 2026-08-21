@@ -391,10 +391,11 @@ Seal the authority and reasoning record before executable contracts bear weight.
     `dial|accept`, `TransportChannelPort`, listener-only publication,
     pair-scoped sessions, packet rather than carrier frame, and claimed versus
     admitted identity.
-12. `review-finding-closure.test.js` compares the exact finding-ID set in the
-    findings table and closure ledger, rejects duplicate or missing rows, and
-    requires every design-resolved finding to name one owner and at least one
-    downstream file/test obligation. No unresolved blocker may pass.
+12. `consequence-of-violation.test.js` requires every design contract to state
+    the faults it averts, as enumerated entries rather than a restatement of
+    the rule. A review finding is a point-in-time belief; the durable form of
+    that knowledge is the consequence section of the contract the finding
+    produced, which a later reader reaches from the contract itself.
 
 ### Exit
 
@@ -1130,7 +1131,7 @@ Other file names may be refined before implementation, but every primary contrac
 | AX0 | `test/conformance/design-mrc.test.js` | Every exact normative design artifact carries one mechanics/rationale/consequence triad |
 | AX0 | `test/conformance/design-link-integrity.test.js` | Every local Markdown and trace design reference resolves to its exact file and anchor |
 | AX0 | `test/conformance/design-vocabulary.test.js` | Canonical cross-document terms are present and forbidden stale API/schema vocabulary is absent |
-| AX0 | `test/conformance/review-finding-closure.test.js` | Findings and closure-ledger IDs match exactly; each resolved finding has one owner and downstream evidence, with no unresolved blocker |
+| AX0 | `test/conformance/consequence-of-violation.test.js` | Every design contract enumerates the concrete faults it averts, so a shortcut cannot be adopted without meeting the fault it recreates |
 | AX1 | `test/conformance/schema-catalog-composition.test.js` | Root catalog contains every package entry and no copied named DTO |
 | AX1 | `test/conformance/schema-generation-isolation.test.js` | Every package-owned catalog and generated DTO set regenerates and typechecks in an isolated consumer without ambient undeclared dependencies |
 | AX1 | `test/conformance/event-schema-catalog.test.js` | Every concrete event/data schema has one exact URN/type/discriminator and root-union reference |

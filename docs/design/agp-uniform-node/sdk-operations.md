@@ -937,43 +937,7 @@ Applications requiring durable audit or message recovery must provide that facil
 
 ---
 
-## 10. AGP v1 migration
-
-This is an authorized coordinated replacement of v1, not a compatibility layer.
-
-| Previous v1 surface | Uniform v1 surface |
-|---|---|
-| `createRouter()` / `createSpoke()` | `createNode()` only |
-| `AgpRouter` / `AgpSpoke` and `role` | `AgpNode`; capabilities are configuration and state |
-| `RouterConfig` / `SpokeConfig` | One sovereign `NodeConfig` |
-| Hub/spoke or WebSocket-shaped transport ports | One carrier-neutral `PeerTransportPort` resolving logical names to already-bound listen/connect capabilities |
-| URL/host/port/path fields in core topology configuration | Logical `transportRef`; concrete addresses belong to the adapter configuration |
-| Static configured transport-security assertions | Immutable `TransportPeerEvidence` observed during channel acquisition |
-| `sendText()` / text callback transport SPI | Bounded `Uint8Array` packet `send()` / pull `read()` channel |
-| WebSocket subprotocol and native close details in common code | Sovereign `@agp/binding-websocket` mapping |
-| Test-only in-memory fake transport | Production `@agp/transport-loopback` adapter plus shared conformance tests |
-| Claimed local or remote protocol role | Node identity plus symmetric protocol bounds |
-| `endpoint.update` / `endpoint.ack` | `route.update` / `route.ack` |
-| Hub-received versus spoke-export session state | Both `routeImport` and `routeExport` on every session |
-| Origin session as route provenance | Origin node plus ordered path; local owning session remains next-hop evidence |
-| Management `meta.role` | Removed; no synthetic replacement |
-| Role-specific SDK errors, counters, and events | Uniform route/session names |
-| Implicit spoke upstream send | Selected RIB lookup on every node |
-
-The wire envelope still says `agp: 1`, and the operations, event, and management schema versions remain their `/v1` identities, but their old accepted shapes are replaced consistently.\
-Mixed legacy and uniform v1 peers are unsupported.\
-Applications compiled against the old factories or DTOs must migrate in the same cutover; no long-lived facade preserves the old semantics.
-
-Management paths and the two initial CLI command names remain stable where their meanings remain true.\
-JSON consumers must nevertheless regenerate or update against the new sovereign schemas because obsolete role, endpoint-state, and origin-session fields are deliberately removed.
-
-Examples and local topology tests instantiate the same executable with different `NodeConfig` documents and injected resolver ports.\
-A central listener with two dialing leaves is still a supported geometry, but none of those processes has a protocol or SDK role.\
-The same topology must be constructible over WebSocket or a shared process-local Loopback fabric without changing endpoint, FSM, route, forwarding, or management assertions.
-
----
-
-## 11. Invariants
+## 10. Invariants
 
 1. `createNode()` is the only public runtime factory.
 2. Configuration can alter topology and transit capability but cannot select a
@@ -1003,7 +967,7 @@ The same topology must be constructible over WebSocket or a shared process-local
 
 ---
 
-## 12. Mechanics, rationale, and consequence
+## 11. Mechanics, rationale, and consequence
 
 ### Mechanics
 

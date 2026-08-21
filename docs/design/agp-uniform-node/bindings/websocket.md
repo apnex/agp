@@ -536,4 +536,23 @@ Deferring TLS/authentication rather than inventing incomplete live capabilities 
 
 ### Consequence of violation
 
-If WebSocket facts enter core configuration, protocol parsing, FSM decisions, RIB state, or SDK records, replacing the carrier requires a kernel rewrite and Loopback can no longer prove transport-equivalent behavior.
+- WebSocket facts entering core configuration, protocol parsing, FSM
+  decisions, RIB state, or SDK records make carrier replacement a kernel
+  rewrite, and Loopback can no longer prove transport-equivalent behavior.
+- A text-message mapping cannot carry the neutral channel's arbitrary-byte
+  `send` domain. Reintroducing one silently narrows the packet contract to
+  whatever survives UTF-8, and the narrowing is invisible until a payload
+  fails.
+- Reusing the `agp.v1` token proves only that both ends selected the named
+  binding. Treating successful negotiation as proof that a peer implements
+  this binary mapping admits a legacy text peer into a session that cannot
+  decode it.
+- Truncating a native close reason by code unit rather than UTF-8 byte splits
+  a multi-byte character and emits a malformed carrier frame. Binding-initiated
+  reasons are empty precisely so no truncation path exists.
+- Cancelling a send after carrier dispatch but before its callback cannot
+  honestly claim non-acceptance. Reporting it as not accepted invents a
+  guarantee the carrier never made.
+- Naming a TLS or authentication capability without defining its authority,
+  results, evidence derivation, and failure mapping produces a security claim
+  with no mechanism behind it, which is worse than the documented absence.

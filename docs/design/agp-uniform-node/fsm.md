@@ -366,3 +366,11 @@ Serial state changes and finite deadlines keep distributed failures observable a
 - Purging routes after transport release exposes stale forwarding.
 - Letting callbacks mutate directly makes snapshots timing-dependent.
 - Allowing error replies to generate errors creates recursive failure traffic.
+- A teardown matrix that omits graceful remote closure or transport input
+  rejection leaves those causes with no defined retry decision, so a controller
+  either redials into the same rejection or silently stops reconnecting.
+- Without one disposition latch per controller incarnation, racing terminal
+  observations each dispatch teardown, and one session is purged, released, or
+  retried more than once.
+- Duplicate `adjacencyId` values alias two desired relationships onto one
+  reconnect supervisor, so one adjacency's retry state silently governs both.

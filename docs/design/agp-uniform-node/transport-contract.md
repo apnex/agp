@@ -1188,5 +1188,18 @@ Explicit commit points make backpressure, cancellation, and terminal races indep
   teardown race unpredictably.
 - Native liveness substituted for AGP keepalive can preserve a carrier while
   protocol state is dead.
+- A send that snapshots the caller's bytes after its first asynchronous yield
+  transmits whatever the caller mutated in between, so an unchanged-looking
+  program emits packets it never composed.
+- Close cancellation with no defined race outcome leaves a half-owned channel,
+  or lets two joined waiters observe different terminals for one resource.
+- An error-code union without legal phase pairings lets an adapter report
+  outcomes that cannot occur, such as a connect failure raised from a read, and
+  a consumer cannot tell a real state from an impossible one.
+- A detachable capability map lets a reference resolve against the wrong
+  adapter, so a node dials a target its composition root never authorised.
+- Mixing adapters behind one composite resolver, or falling back between
+  carriers, makes topology behavior depend on which carrier answered rather
+  than on configuration.
 - Transport retry or persistence would silently change AGP's local-admission,
   ordering, and non-durable delivery contract.

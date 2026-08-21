@@ -810,4 +810,16 @@ A production contract makes that use case reusable and inspectable without turni
 
 ### Consequence of violation
 
-A global registry, synchronous direct dispatch, mutable caller bytes, unbounded queues, wrapped revisions, or Loopback-specific kernel behavior would make local topologies prove a different system from deployed AGP and would invalidate transport-equivalence evidence.
+- A global registry, synchronous direct dispatch, mutable caller bytes,
+  unbounded queues, wrapped revisions, or Loopback-specific kernel behavior
+  makes a local topology prove a different system from deployed AGP and
+  invalidates transport-equivalence evidence.
+- Letting listener or fabric close reach an already-transferred channel steals
+  authority from the session that owns it, so a node observes a terminal it
+  did not cause and cannot attribute.
+- Retaining terminal rows for released resources turns an operations snapshot
+  into an unbounded tombstone log. Only a failed fabric freezes its
+  capacity-bounded terminal set, and it holds zero logical resources.
+- A listener acceptance callback that throws must not leave the fabric
+  crediting a channel nobody owns. Deferring the paired connect commit until
+  `accept` returns is what keeps the accounting exact under fault.
