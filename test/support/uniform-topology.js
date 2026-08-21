@@ -35,6 +35,7 @@ export function uniformConfig({
   maxActiveHandlers = 32,
   dataQueueMessages = 256,
   maxReverseCorrelations = 1024,
+  transportReceivePackets,
 }) {
   return {
     nodeId,
@@ -59,6 +60,7 @@ export function uniformConfig({
     capacity: {
       maxSessions: 16,
       maxPendingHandshakes: 16,
+      ...(transportReceivePackets === undefined ? {} : { transportReceivePackets }),
       controlQueueMessages: 256,
       dataQueueMessages,
       dataQueueBytes: 1_048_576,

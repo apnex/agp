@@ -48,6 +48,8 @@
     "test:integration": "node scripts/run-tests.mjs test/integration",
     "test:topology": "node scripts/run-tests.mjs test/topology",
     "test:deepen": "node scripts/run-tests.mjs test/topology",
+    "test:matrix": "node scripts/run-matrix.mjs",
+    "test:matrix:all": "node scripts/run-matrix.mjs --transport=all",
     "test:resilience": "node scripts/run-tests.mjs test/resilience",
     "test:e2e": "node scripts/run-tests.mjs test/e2e"
   },

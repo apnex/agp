@@ -300,6 +300,26 @@ AGP_DEEPEN_BURST=800 npm run test:topology
 
 Every declared dimension value now has an entry point.
 
+### 4.6 Matrix execution
+
+The geometries, transports, and traffic drivers are declarative, so any combination can be executed rather than only the cells the default suite names:
+```bash
+npm run test:matrix          # every legal loopback cell
+npm run test:matrix:all      # every carrier
+node scripts/run-matrix.mjs --deep --geometry=chain
+```
+
+A sweep is a diagnostic instrument and deliberately not part of `npm test`.\
+A failing cell reports that a combination broke, not which layer owns it, and section 2.1 requires a failure to name its owning layer.\
+Use a sweep to find where to look, then reproduce what it found in a named file with a specific oracle.
+
+A cell asserts only what every geometry must satisfy: it converges, it delivers, nothing is duplicated, and reachability survives the traffic.\
+Shape-specific properties stay in named tests, because only a triangle test can assert that no exported path repeats a node and only a diamond test can assert an alternate candidate stays observable.
+
+Measured cost: 30 loopback cells in about 4 seconds, 70 cells across all carriers in about 9 seconds, and roughly two minutes deepened.
+
+---
+
 ### 4.6 Excluded combinations
 
 Each exclusion is a decision with a re-entry condition, in the same form as the deferred mechanisms in [`design/mechanisms.md`](design/mechanisms.md).
