@@ -977,7 +977,7 @@ Later transport failure may produce a lost-after-admission outcome, but it canno
 
 Comparing values across domains has no meaning.\
 A route ACK changes canonical export state at an operations revision but refers to its separate wire revision.\
-Operations revisions, event sequences, and operation counters use the exact unsigned 64-bit decimal domains and the preflighted terminal barrier defined by `CORE-MONOTONIC-EXHAUSTION-1` in `sdk-operations.md` section 5.2.\
+Operations revisions, event sequences, and operation counters use the exact unsigned 64-bit decimal domains and the preflighted terminal barrier defined by `CORE-MONOTONIC-EXHAUSTION-1` in `sdk.md` section 5.2.\
 Therefore no route or data transaction can commit a wrapped, imprecise, or silently saturated canonical revision.
 
 ---

@@ -15,7 +15,7 @@ test("Given the frozen cross-document vocabulary, when AX0 scans its sovereign o
   const transport = await design("transport-contract.md");
   const fsm = await design("fsm.md");
   const contracts = await design("contracts.md");
-  const operations = await design("sdk-operations.md");
+  const operations = await design("operations.md");
   const binding = await design("binding-websocket.md");
 
   assert.match(transport, /interface TransportChannelPort/u);

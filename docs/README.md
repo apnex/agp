@@ -17,7 +17,7 @@ Project-generalised documents are `UPPERCASE.md`; domain design contracts are `l
 | Write or move a test | [`TESTING.md`](TESTING.md) |
 | Know why a design choice was made, or what was confirmed as intent | [`DECISIONS.md`](DECISIONS.md) |
 | Understand a protocol behavior | [`design/`](design/README.md) |
-| Know what proves a behavior correct | [`design/verification.md`](design/verification.md) |
+| Know what proves a behavior correct | [`design/gates.md`](design/gates.md) |
 
 ---
 
@@ -48,8 +48,10 @@ The architecture entry point is [`design/README.md`](design/README.md), which li
 | Transport | [`transport-contract.md`](design/transport-contract.md) | The carrier-neutral packet-channel contract |
 | Transport | [`binding-websocket.md`](design/binding-websocket.md) | The AGP v1 over WebSocket binding |
 | Transport | [`transport-loopback.md`](design/transport-loopback.md) | The process-local production transport |
-| Surface | [`sdk-operations.md`](design/sdk-operations.md) | Public API and canonical operational state |
-| Verification | [`verification.md`](design/verification.md) | The `AX0`-`AX8` gates and the test-file ownership map |
+| Surface | [`sdk.md`](design/sdk.md) | Public API, lifecycle, endpoint binding, and messaging |
+| Surface | [`operations.md`](design/operations.md) | Canonical operational state, management HTTP, and `agpctl` |
+| Verification | [`verification.md`](design/verification.md) | The certification model, traceability, and test architecture |
+| Verification | [`gates.md`](design/gates.md) | The `AX0`-`AX8` gate definitions and the test-file ownership map |
 | Verification | [`traceability.json`](design/traceability.json) | Machine-checked requirement, authority, and gate ownership |
 | Authority | [`transport-sovereignty-authority.md`](design/transport-sovereignty-authority.md) | Fixed transport intent and its explicit survey bypass |
 

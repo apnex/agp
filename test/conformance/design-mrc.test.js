@@ -24,11 +24,13 @@ const normativeArtifacts = [
   "mechanisms.md",
   "protocol.md",
   "routing.md",
-  "sdk-operations.md",
+  "sdk.md",
+  "operations.md",
   "transport-contract.md",
   "transport-sovereignty-authority.md",
   "transport-loopback.md",
   "verification.md",
+  "gates.md",
 ];
 
 function triadCount(source, heading) {

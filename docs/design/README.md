@@ -492,5 +492,7 @@ A transport-neutral packet boundary makes that same statement true beneath the s
 - [`fsm.md`](fsm.md) - exact connection states, timers, events, and teardown
 - [`routing.md`](routing.md) - RIB model, selection, propagation, and data
   forwarding
-- [`sdk-operations.md`](sdk-operations.md) - public API and canonical state
-- [`verification.md`](verification.md) - layered and chaos certification
+- [`sdk.md`](sdk.md) - public API and lifecycle
+- [`operations.md`](operations.md) - canonical operational state, HTTP, and CLI
+- [`verification.md`](verification.md) - certification model, traceability, and test architecture
+- [`gates.md`](gates.md) - `AX0`-`AX8` definitions and the test-file ownership map

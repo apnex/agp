@@ -50,7 +50,7 @@
       ],
       "designReferences": [
         "README.md#5-topology-is-configuration",
-        "sdk-operations.md#31-factory-and-composition"
+        "sdk.md#41-factory-and-composition"
       ],
       "schemaIds": [
         "urn:agp:schema:v1:core:configuration:node-config"
@@ -175,7 +175,7 @@
       ],
       "designReferences": [
         "routing.md#9-uniform-data-forwarding",
-        "sdk-operations.md#43-routed-send"
+        "sdk.md#53-routed-send"
       ],
       "schemaIds": [
         "urn:agp:schema:v1:core:sdk:send-receipt"
@@ -207,7 +207,7 @@
       ],
       "designReferences": [
         "routing.md#96-route-miss-outcomes",
-        "sdk-operations.md#44-closed-sdk-failure-domain"
+        "sdk.md#54-closed-sdk-failure-domain"
       ],
       "schemaIds": [
         "urn:agp:schema:v1:core:codes:sdk-error-code",
@@ -235,7 +235,7 @@
       ],
       "designReferences": [
         "routing.md#96-route-miss-outcomes",
-        "verification.md#exact-route-miss-oracle"
+        "gates.md#exact-route-miss-oracle"
       ],
       "schemaIds": [
         "urn:agp:schema:v1:protocol:codes:delivery-error-code"
@@ -291,8 +291,8 @@
         }
       ],
       "designReferences": [
-        "sdk-operations.md#7-management-http",
-        "sdk-operations.md#8-read-only-agpctl"
+        "operations.md#5-management-http",
+        "operations.md#6-read-only-agpctl"
       ],
       "schemaIds": [
         "urn:agp:schema:v1:management:connections-response",
@@ -402,7 +402,7 @@
       ],
       "designReferences": [
         "README.md#7-canonical-processing-paths",
-        "verification.md#transport-execution-matrix"
+        "gates.md#transport-execution-matrix"
       ],
       "schemaIds": [],
       "semanticRuleIds": [],
@@ -828,7 +828,7 @@
       ],
       "designReferences": [
         "../DECISIONS.md#d12---operational-continuity",
-        "sdk-operations.md#8-read-only-agpctl"
+        "operations.md#6-read-only-agpctl"
       ],
       "schemaIds": [
         "urn:agp:schema:v1:management:connections-response",
@@ -857,7 +857,7 @@
       ],
       "designReferences": [
         "../DECISIONS.md#d13---one-shot-runtime-instance",
-        "sdk-operations.md#32-lifecycle"
+        "sdk.md#42-lifecycle"
       ],
       "schemaIds": [
         "urn:agp:schema:v1:core:codes:host-state",
@@ -886,7 +886,7 @@
       "designReferences": [
         "../DECISIONS.md#d14---reliable-ordered-packet-channel",
         "transport-contract.md#61-listener-acquisition",
-        "verification.md#transport-acceptance-callback-fault-proof"
+        "gates.md#transport-acceptance-callback-fault-proof"
       ],
       "schemaIds": [
         "urn:agp:schema:v1:transport:contracts:transport-channel-limits",

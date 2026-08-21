@@ -253,7 +253,7 @@
         "MONOTONIC_DOMAIN_EXHAUSTED"
       ],
       "designReferences": [
-        "docs/design/sdk-operations.md#52-snapshot-metadata-and-revisions"
+        "docs/design/operations.md#32-snapshot-metadata-and-revisions"
       ],
       "implementation": "packages/core/src/operations.ts#preflightMonotonicDomain",
       "owningTest": "packages/core/test/unit/monotonic-domain-exhaustion.test.js"

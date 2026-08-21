@@ -6,7 +6,7 @@ import test from "node:test";
 import { fileURLToPath } from "node:url";
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "../..");
-const mapPath = "docs/design/verification.md";
+const mapPath = "docs/design/gates.md";
 
 // Rows may name a family with a wildcard or an axis placeholder instead of one
 // literal file. Those are covered by their package ownership README instead.
