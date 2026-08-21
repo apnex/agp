@@ -28,6 +28,10 @@ export function uniformConfig({
   receiveLimitBytes = 262_144,
   maxPathLength = 16,
   routeAdmissionMode = "allow",
+  // Volumetric tests raise these; the default suite leaves them alone.
+  maxLocalEndpoints = 64,
+  maxRoutesPerSnapshot = 256,
+  maxCandidateRoutes = 1024,
 }) {
   return {
     nodeId,
@@ -43,11 +47,11 @@ export function uniformConfig({
     },
     limits: {
       receiveLimitBytes,
-      maxRoutesPerSnapshot: 256,
+      maxRoutesPerSnapshot,
       maxPathLength,
       maxHopCount: 16,
-      maxLocalEndpoints: 64,
-      maxCandidateRoutes: 1024,
+      maxLocalEndpoints,
+      maxCandidateRoutes,
     },
     capacity: {
       maxSessions: 16,

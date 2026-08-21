@@ -230,9 +230,9 @@ Where that is true it is marked, so a declared value is never mistaken for a cov
 
 | Dim | Values | Harness support |
 |---|---|---|
-| `D-GEO` geometry | `star`, `line`, `triangle`, `diamond`, `chain(n)` | Fixed shapes supported; `chain(n)` is declared only |
-| `D-TRAFFIC` message volume | `single`, `stream(n)`, `burst(n)` | `single` supported; `stream` and `burst` are declared only |
-| `D-ROUTE` endpoint and route volume | `minimal`, `moderate(n)`, `near-bound(n)` | `minimal` supported; parameterised counts are declared only |
+| `D-GEO` geometry | `star`, `line`, `triangle`, `diamond`, `chain(n)` | Supported; `chain(n)` via `AGP_DEEPEN_CHAIN` |
+| `D-TRAFFIC` message volume | `single`, `stream(n)`, `burst(n)` | `single` and `stream(n)` supported via `AGP_DEEPEN_STREAM`; `burst(n)` is declared only |
+| `D-ROUTE` endpoint and route volume | `minimal`, `moderate(n)`, `near-bound(n)` | Supported via `AGP_DEEPEN_ROUTES`, bounded at 256 total routes |
 | `D-TRANSPORT` carrier | `loopback`, `websocket`, `websocket-psk` | All supported |
 
 `D-TRAFFIC` and `D-ROUTE` are both volumetric but stress different machinery.\
@@ -243,7 +243,7 @@ Route volume is the dimension that probes `D4`.\
 Because a route update carries the complete selected set rather than a delta, the cost of every convergence event scales with route count, and a large enough set makes an update approach the negotiated receive bound.\
 `route-capacity.test.js` proves the candidate count bound; the byte interaction between a full snapshot and `receiveLimitBytes` is unproved.
 
-### 4.2 Default suite
+### 4.2 Default geometry cells
 
 What runs on every invocation.\
 Every cell is `single` traffic and `minimal` routes; the busiest live topology carries nine routes and four endpoints per node.
@@ -254,8 +254,18 @@ Every cell is `single` traffic and `minimal` routes; the busiest live topology c
 | `line` | `test/topology/line-transit.test.js` | `test/e2e/independent-line.test.js` | - |
 | `triangle` | `test/topology/triangle-loop-prevention.test.js` | - | - |
 | `diamond` | `test/topology/diamond-selection.test.js` | - | - |
+| `chain(4)` | `test/topology/chain-transit-depth.test.js` | - | - |
 
-### 4.3 Selection rule
+### 4.3 Default volumetric cells
+
+Volumetric cells hold geometry at its smallest useful shape and vary one dimension.
+
+| Dimension | Default value | Covered by |
+|---|---|---|
+| `D-TRAFFIC` `stream(n)` | 60 messages over `line` | `test/topology/stream-ordering.test.js` |
+| `D-ROUTE` `moderate(n)` | 8 endpoints per node over `line` | `test/topology/route-volume.test.js` |
+
+### 4.4 Selection rule
 
 The dimensions describe a combinatorial space.\
 The default suite is sparse on purpose, and a cell earns a place in it under one rule:
@@ -271,15 +281,21 @@ This is also why the suite is not a parameterised aggregate.\
 A failing `star x stream x psk` cell reports that a combination broke, not which layer owns it, and section 2.1 requires a failure to identify its owning layer.\
 Composition therefore happens along one axis at a time, in independently named files, as the transport conformance kit and the equivalence harness already do.
 
-### 4.4 Deepening
+### 4.5 Deepening
 
 A dimension can be pushed further than the default suite on demand, one dimension at a time, holding the others at their default.\
 A deepening run is a diagnostic instrument rather than a gate: it does not certify, and a defect it finds is owned by the layer that produced it.
 
-No parameterised entry point exists yet.\
-Until one does, `chain(n)`, `stream(n)`, `burst(n)`, `moderate(n)`, and `near-bound(n)` remain declared capability rather than available capability, and section 4.1 says so.
+`test/support/topology-builders.js` provides the entry points, and each reads one environment variable so a run varies exactly one dimension:
+```bash
+AGP_DEEPEN_CHAIN=7 npm run test:topology
+AGP_DEEPEN_STREAM=500 npm run test:topology
+AGP_DEEPEN_ROUTES=80 npm run test:topology
+```
 
-### 4.5 Excluded combinations
+`burst(n)` has no entry point yet and remains declared capability.
+
+### 4.6 Excluded combinations
 
 Each exclusion is a decision with a re-entry condition, in the same form as the deferred mechanisms in [`design/mechanisms.md`](design/mechanisms.md).
 

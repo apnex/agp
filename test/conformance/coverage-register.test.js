@@ -38,7 +38,7 @@ async function register() {
 }
 
 test("Given the default suite, when every named cell is resolved, then each test file it claims exists", async () => {
-  const suite = rows(await register(), "4.2 Default suite");
+  const suite = rows(await register(), "4.2 Default geometry cells");
   assert.notEqual(suite, undefined, "default suite is missing");
   assert.ok(suite.length >= 4, "default suite lost rows");
 
@@ -110,7 +110,7 @@ test("Given the register, when it is read, then the rule that keeps the default 
 });
 
 test("Given the exclusion register, when each row is read, then it states both a reason and a re-entry condition", async () => {
-  const excluded = rows(await register(), "4.5 Excluded combinations");
+  const excluded = rows(await register(), "4.6 Excluded combinations");
   assert.notEqual(excluded, undefined, "exclusion register is missing");
   assert.ok(excluded.length >= 1, "an empty exclusion register asserts total coverage");
 
@@ -125,7 +125,7 @@ test("Given the exclusion register, when each row is read, then it states both a
 });
 
 test("Given every live geometry test on disk, when the default suite is scanned, then none is absent from the register", async () => {
-  const suite = rows(await register(), "4.2 Default suite");
+  const suite = rows(await register(), "4.2 Default geometry cells");
   const claimed = new Set(
     suite.flatMap((cells) =>
       cells.slice(1).flatMap((cell) => {

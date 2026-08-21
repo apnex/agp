@@ -143,12 +143,18 @@ test("given a three-node star whose channels are protected by per-node pre-share
       .filter(({ state }) => state === "Established").length === 2,
     "both leaves established over TLS",
   );
-  // Transit forwarding needs the centre's export of the source identity ACKed
-  // at the egress peer, so both directions must converge before data is sent.
+  // D7 admits transit data only once the centre's export of the source
+  // identity is acknowledged by the egress peer. A selected route at the leaf
+  // says the update arrived, not that the acknowledgement was processed back at
+  // the centre, so wait on the export state that actually gates the write.
   await until(
     () => selected(alpha, "beta/pong") !== undefined
-      && selected(beta, "alpha/ping") !== undefined,
-    "both leaves learned the transit route to each other",
+      && hub.operations.snapshot().routeExports.some((entry) =>
+        entry.endpoint === "alpha/ping"
+        && entry.remoteNodeId === "leaf.beta"
+        && entry.state === "acked"
+      ),
+    "the centre acknowledged its export of the source identity to the far leaf",
   );
 
   // Every admission saw a verified principal matching the claimed node.

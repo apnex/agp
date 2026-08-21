@@ -910,6 +910,9 @@ Other file names may be refined before implementation, but every primary contrac
 | AX6 | `test/e2e/operations-frozen-parity.test.js` | Frozen-reader SDK, HTTP, CLI JSON, and tables agree exactly |
 | AX6 | `test/e2e/operations-live-time-bounds.test.js` | Same-revision live state agrees while separately sampled durations satisfy capture-window bounds |
 | AX7 | `test/topology/star-convergence.test.js` | Production Loopback star populates every RIB and routes one named leaf flow through neutral packet channels |
+| AX7 | `test/topology/chain-transit-depth.test.js` | A chain deeper than one transit node forwards through every interior node, and a forwarder authorises ingress learned from another forwarder |
+| AX7 | `test/topology/stream-ordering.test.js` | Sustained and bidirectional traffic across a transit hop preserves per-direction order and leaves bounded resources at their limit |
+| AX7 | `test/topology/route-volume.test.js` | Many endpoints converge on every node and every export stays inside the negotiated snapshot bound |
 | AX7 | `test/topology/line-transit.test.js` | Production Loopback selected learned routes support symmetric two-hop data |
 | AX7 | `test/topology/triangle-loop-prevention.test.js` | Production Loopback propagation cannot install/export a repeated-node loop |
 | AX7 | `test/topology/diamond-selection.test.js` | Production Loopback diamond exposes both candidates and forwards on exactly one selected branch |

@@ -47,6 +47,7 @@
     "test:gated": "node scripts/run-tests.mjs --fail-fast test",
     "test:integration": "node scripts/run-tests.mjs test/integration",
     "test:topology": "node scripts/run-tests.mjs test/topology",
+    "test:deepen": "node scripts/run-tests.mjs test/topology",
     "test:resilience": "node scripts/run-tests.mjs test/resilience",
     "test:e2e": "node scripts/run-tests.mjs test/e2e"
   },
