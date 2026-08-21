@@ -52,6 +52,7 @@ export async function buildChain({
   endpointsPerNode = 1,
   deliveries = [],
   context,
+  capacity = {},
 }) {
   if (length < 2) throw new Error("a chain needs at least two nodes");
   const nodes = [];
@@ -77,6 +78,7 @@ export async function buildChain({
     maxLocalEndpoints: Math.max(64, endpointsPerNode * 2),
     maxRoutesPerSnapshot: PROTOCOL_MAX_ROUTES_PER_SNAPSHOT,
     maxCandidateRoutes: Math.max(1024, totalEndpoints * 4),
+    ...capacity,
   };
 
   for (let index = 0; index < length; index += 1) {
@@ -128,6 +130,45 @@ export async function awaitFullConvergence(chain, timeoutMs = 30_000) {
     timeoutMs,
   );
   return expected;
+}
+
+/**
+ * Fire `count` sends concurrently and settle every one of them.
+ *
+ * Unlike a stream, no send waits for its predecessor, so admissions compete for
+ * the same bounded capacity. The property under test is that each send reaches
+ * a definite outcome: a receipt, or a typed rejection. A send that hangs, or a
+ * message that is silently dropped after admission, is the failure this looks
+ * for.
+ */
+export async function burstMessages({
+  from,
+  source,
+  destination,
+  count,
+  deliveries,
+  timeoutMs = 30_000,
+}) {
+  const at = () => deliveries.filter((entry) => entry.endpoint === destination);
+  const before = at().length;
+  const settled = await Promise.allSettled(
+    Array.from(
+      { length: count },
+      (_, ordinal) => from.send(source, destination, { ordinal }),
+    ),
+  );
+  const admitted = settled.filter(({ status }) => status === "fulfilled");
+  const rejected = settled.filter(({ status }) => status === "rejected");
+  await eventually(
+    () => at().length - before >= admitted.length,
+    `${admitted.length} admitted deliveries at ${destination}`,
+    timeoutMs,
+  );
+  return {
+    admitted: admitted.map(({ value }) => value),
+    rejected: rejected.map(({ reason }) => reason),
+    arrived: at().slice(before).map((entry) => entry.payload.ordinal),
+  };
 }
 
 /**

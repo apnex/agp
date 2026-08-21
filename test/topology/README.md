@@ -6,6 +6,7 @@ Raw peers appear only where the primary contract is an exact authoritative snaps
 | File | Sole primary axis | Explicit non-goal |
 |---|---|---|
 | `chain-transit-depth.test.js` | Two transit nodes in series: transit-to-transit ingress, a path naming every node, and both directions | Volume and injected faults |
+| `burst-admission.test.js` | Concurrent sends each settle definitely, excess rejects QUEUE_FULL, and routing survives data saturation | Sequential ordering |
 | `stream-ordering.test.js` | Sustained traffic across one transit hop preserves order and returns handler capacity | Geometry beyond a line |
 | `route-volume.test.js` | Many endpoints converge, export within the negotiated snapshot bound, and stay individually resolvable | Message volume |
 | `star-convergence.test.js` | Multi-endpoint leaf reachability through one center | Alternative-path policy |

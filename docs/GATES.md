@@ -911,6 +911,7 @@ Other file names may be refined before implementation, but every primary contrac
 | AX6 | `test/e2e/operations-live-time-bounds.test.js` | Same-revision live state agrees while separately sampled durations satisfy capture-window bounds |
 | AX7 | `test/topology/star-convergence.test.js` | Production Loopback star populates every RIB and routes one named leaf flow through neutral packet channels |
 | AX7 | `test/topology/chain-transit-depth.test.js` | A chain deeper than one transit node forwards through every interior node, and a forwarder authorises ingress learned from another forwarder |
+| AX7 | `test/topology/burst-admission.test.js` | Concurrent admission settles every send, rejects past a bound with a typed retryable capacity failure, and leaves the control plane converging |
 | AX7 | `test/topology/stream-ordering.test.js` | Sustained and bidirectional traffic across a transit hop preserves per-direction order and leaves bounded resources at their limit |
 | AX7 | `test/topology/route-volume.test.js` | Many endpoints converge on every node and every export stays inside the negotiated snapshot bound |
 | AX7 | `test/topology/line-transit.test.js` | Production Loopback selected learned routes support symmetric two-hop data |

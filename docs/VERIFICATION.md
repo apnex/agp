@@ -231,13 +231,16 @@ Where that is true it is marked, so a declared value is never mistaken for a cov
 | Dim | Values | Harness support |
 |---|---|---|
 | `D-GEO` geometry | `star`, `line`, `triangle`, `diamond`, `chain(n)` | Supported; `chain(n)` via `AGP_DEEPEN_CHAIN` |
-| `D-TRAFFIC` message volume | `single`, `stream(n)`, `burst(n)` | `single` and `stream(n)` supported via `AGP_DEEPEN_STREAM`; `burst(n)` is declared only |
+| `D-TRAFFIC` message volume | `single`, `stream(n)`, `burst(n)` | Supported via `AGP_DEEPEN_STREAM` and `AGP_DEEPEN_BURST` |
 | `D-ROUTE` endpoint and route volume | `minimal`, `moderate(n)`, `near-bound(n)` | Supported via `AGP_DEEPEN_ROUTES`, bounded at 256 total routes |
 | `D-TRANSPORT` carrier | `loopback`, `websocket`, `websocket-psk` | All supported |
 
 `D-TRAFFIC` and `D-ROUTE` are both volumetric but stress different machinery.\
 Message volume exercises ordering, breadcrumb churn, return-token cycling, and egress backpressure along one path.\
 Route volume exercises Adj-RIB-In and candidate size, selection cost, export recomputation across every peer, and the encoded size of an authoritative snapshot.
+
+Concurrency reaches a bound that sequential traffic never contends for.\
+The bound a burst actually meets is the breadcrumb reservation rather than an egress queue, because a breadcrumb is expiring rather than delivery-consumed: a successful send leaves one behind, so a burst accumulates them while a queue drains between admissions.
 
 Route volume is the dimension that probes `D4`.\
 Because a route update carries the complete selected set rather than a delta, the cost of every convergence event scales with route count, and a large enough set makes an update approach the negotiated receive bound.\
@@ -264,6 +267,7 @@ Volumetric cells hold geometry at its smallest useful shape and vary one dimensi
 |---|---|---|
 | `D-TRAFFIC` `stream(n)` | 60 messages over `line` | `test/topology/stream-ordering.test.js` |
 | `D-ROUTE` `moderate(n)` | 8 endpoints per node over `line` | `test/topology/route-volume.test.js` |
+| `D-TRAFFIC` `burst(n)` | 40 concurrent sends over `line` | `test/topology/burst-admission.test.js` |
 
 ### 4.4 Selection rule
 
@@ -291,9 +295,10 @@ A deepening run is a diagnostic instrument rather than a gate: it does not certi
 AGP_DEEPEN_CHAIN=7 npm run test:topology
 AGP_DEEPEN_STREAM=500 npm run test:topology
 AGP_DEEPEN_ROUTES=80 npm run test:topology
+AGP_DEEPEN_BURST=800 npm run test:topology
 ```
 
-`burst(n)` has no entry point yet and remains declared capability.
+Every declared dimension value now has an entry point.
 
 ### 4.6 Excluded combinations
 
