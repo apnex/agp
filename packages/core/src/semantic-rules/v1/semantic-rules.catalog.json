@@ -14,7 +14,7 @@
         "UNEXPECTED_MESSAGE"
       ],
       "designReferences": [
-        "docs/design/agp-uniform-node/fsm.md#66-established"
+        "docs/design/fsm.md#66-established"
       ],
       "implementation": "packages/core/src/fsm.ts#reducePeerSession",
       "owningTest": "packages/core/test/unit/peer-fsm-established-matrix.test.js"
@@ -31,7 +31,7 @@
         "ADJACENCY_COLLISION"
       ],
       "designReferences": [
-        "docs/design/agp-uniform-node/decisions.md#d5--route-provenance-and-identity-lifetime"
+        "docs/DECISIONS.md#d5--route-provenance-and-identity-lifetime"
       ],
       "implementation": "packages/core/src/fsm.ts#sessionPublicKey",
       "owningTest": "packages/core/test/unit/session-pair-scope.test.js"
@@ -48,7 +48,7 @@
         "ADJACENCY_COLLISION"
       ],
       "designReferences": [
-        "docs/design/agp-uniform-node/decisions.md#d11--cross-dial-collision"
+        "docs/DECISIONS.md#d11--cross-dial-collision"
       ],
       "implementation": "packages/core/src/fsm.ts#compareConnectionCandidates",
       "owningTest": "packages/core/test/unit/peer-fsm-cross-dial.test.js"
@@ -65,7 +65,7 @@
         "ROUTE_REVISION_ERROR"
       ],
       "designReferences": [
-        "docs/design/agp-uniform-node/protocol.md#42-update"
+        "docs/design/protocol.md#42-update"
       ],
       "implementation": "packages/core/src/fsm.ts#validateInboundRouteRevision",
       "owningTest": "packages/core/test/unit/peer-fsm-revisions.test.js"
@@ -82,7 +82,7 @@
         "INVALID_MESSAGE"
       ],
       "designReferences": [
-        "docs/design/agp-uniform-node/protocol.md#43-acknowledgement"
+        "docs/design/protocol.md#43-acknowledgement"
       ],
       "implementation": "packages/core/src/fsm.ts#validateRouteAck",
       "owningTest": "packages/core/test/unit/peer-fsm-route-ack.test.js"
@@ -99,7 +99,7 @@
         "LOOP"
       ],
       "designReferences": [
-        "docs/design/agp-uniform-node/routing.md#52-route-validation-classes"
+        "docs/design/routing.md#52-route-validation-classes"
       ],
       "implementation": "packages/core/src/routing.ts#classifyImportedRoute",
       "owningTest": "packages/core/test/unit/route-receiver-loop.test.js"
@@ -116,7 +116,7 @@
         "PEER_IN_PATH"
       ],
       "designReferences": [
-        "docs/design/agp-uniform-node/routing.md#71-desired-adj-rib-out"
+        "docs/design/routing.md#71-desired-adj-rib-out"
       ],
       "implementation": "packages/core/src/routing.ts#derivePeerExport",
       "owningTest": "packages/core/test/unit/route-peer-loop.test.js"
@@ -132,7 +132,7 @@
         "COMMITTED"
       ],
       "designReferences": [
-        "docs/design/agp-uniform-node/routing.md#54-atomic-replacement-algorithm"
+        "docs/design/routing.md#54-atomic-replacement-algorithm"
       ],
       "implementation": "packages/core/src/routing.ts#replaceAdjRibIn",
       "owningTest": "packages/core/test/unit/route-import.test.js"
@@ -149,7 +149,7 @@
         "DESIRED"
       ],
       "designReferences": [
-        "docs/design/agp-uniform-node/routing.md#72-snapshot-state-machine"
+        "docs/design/routing.md#72-snapshot-state-machine"
       ],
       "implementation": "packages/core/src/routing.ts#applyRouteAck",
       "owningTest": "packages/core/test/unit/rib-remote-rejection-memory.test.js"
@@ -168,7 +168,7 @@
         "CANCELLED"
       ],
       "designReferences": [
-        "docs/design/agp-uniform-node/routing.md#36-per-peer-adj-rib-out"
+        "docs/design/routing.md#36-per-peer-adj-rib-out"
       ],
       "implementation": "packages/core/src/routing.ts#advanceRemoteRejectionRetry",
       "owningTest": "packages/core/test/unit/route-remote-rejection-retry.test.js"
@@ -186,7 +186,7 @@
         "INELIGIBLE"
       ],
       "designReferences": [
-        "docs/design/agp-uniform-node/routing.md#62-total-best-path-order"
+        "docs/design/routing.md#62-total-best-path-order"
       ],
       "implementation": "packages/core/src/routing.ts#compareCandidates",
       "owningTest": "packages/core/test/unit/route-selection.test.js"
@@ -203,7 +203,7 @@
         "SUPPRESSED"
       ],
       "designReferences": [
-        "docs/design/agp-uniform-node/routing.md#7-selected-route-export"
+        "docs/design/routing.md#7-selected-route-export"
       ],
       "implementation": "packages/core/src/routing.ts#derivePeerExport",
       "owningTest": "packages/core/test/unit/route-export-eligibility.test.js"
@@ -220,7 +220,7 @@
         "SOURCE_NOT_ADVERTISED"
       ],
       "designReferences": [
-        "docs/design/agp-uniform-node/routing.md#74-withdrawal-ordering-barrier"
+        "docs/design/routing.md#74-withdrawal-ordering-barrier"
       ],
       "implementation": "packages/core/src/routing.ts#sourceExportEpoch",
       "owningTest": "packages/core/test/unit/export-epoch-closure.test.js"
@@ -236,7 +236,7 @@
         "COMMITTED"
       ],
       "designReferences": [
-        "docs/design/agp-uniform-node/routing.md#11-atomic-state-and-revision-mechanics"
+        "docs/design/routing.md#11-atomic-state-and-revision-mechanics"
       ],
       "implementation": "packages/core/src/operations.ts#commit",
       "owningTest": "packages/core/test/unit/rib-atomic-revision.test.js"
@@ -253,7 +253,7 @@
         "MONOTONIC_DOMAIN_EXHAUSTED"
       ],
       "designReferences": [
-        "docs/design/agp-uniform-node/sdk-operations.md#52-snapshot-metadata-and-revisions"
+        "docs/design/sdk-operations.md#52-snapshot-metadata-and-revisions"
       ],
       "implementation": "packages/core/src/operations.ts#preflightMonotonicDomain",
       "owningTest": "packages/core/test/unit/monotonic-domain-exhaustion.test.js"

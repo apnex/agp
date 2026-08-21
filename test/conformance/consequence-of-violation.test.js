@@ -5,7 +5,7 @@ import test from "node:test";
 import { fileURLToPath } from "node:url";
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "../..");
-const designRoot = path.join(root, "docs/design/agp-uniform-node");
+const designRoot = path.join(root, "docs/design");
 
 // A contract states what must be true. Its consequence section states the fault
 // that becomes possible when it is not, which is the part a later reader needs
@@ -19,7 +19,6 @@ const MINIMUM_WORDS = 20;
 // the honest count rather than a padded list.
 const SINGLE_FAULT_ARTIFACTS = new Set([
   "axioms.md",
-  "decisions.md",
   "mechanisms.md",
   "transport-sovereignty-authority.md",
   "transport-sovereignty-review.md",

@@ -13,7 +13,7 @@
         "IDENTITY_REJECTED"
       ],
       "designReferences": [
-        "docs/design/agp-uniform-node/protocol.md#3-open"
+        "docs/design/protocol.md#3-open"
       ],
       "implementation": "packages/protocol/src/semantic.ts#validateOpenIdentity",
       "owningTest": "packages/protocol/test/unit/open-identity.test.js"
@@ -30,7 +30,7 @@
         "INVALID_MESSAGE"
       ],
       "designReferences": [
-        "docs/design/agp-uniform-node/protocol.md#41-wire-route"
+        "docs/design/protocol.md#41-wire-route"
       ],
       "implementation": "packages/protocol/src/semantic.ts#validateRoutePathOwnership",
       "owningTest": "packages/protocol/test/unit/route-path-semantics.test.js"
@@ -47,7 +47,7 @@
         "PATH_TOO_LONG"
       ],
       "designReferences": [
-        "docs/design/agp-uniform-node/routing.md#52-route-validation-classes"
+        "docs/design/routing.md#52-route-validation-classes"
       ],
       "implementation": "packages/protocol/src/semantic.ts#validateImportedPathLength",
       "owningTest": "packages/protocol/test/unit/route-path-limit.test.js"
@@ -64,7 +64,7 @@
         "UNEXPECTED_MESSAGE"
       ],
       "designReferences": [
-        "docs/design/agp-uniform-node/fsm.md#66-established"
+        "docs/design/fsm.md#66-established"
       ],
       "implementation": "packages/core/src/fsm.ts#reducePeerSession",
       "owningTest": "packages/core/test/unit/peer-fsm-established-matrix.test.js"
@@ -81,7 +81,7 @@
         "ADJACENCY_COLLISION"
       ],
       "designReferences": [
-        "docs/design/agp-uniform-node/decisions.md#d5--route-provenance-and-identity-lifetime"
+        "docs/DECISIONS.md#d5--route-provenance-and-identity-lifetime"
       ],
       "implementation": "packages/core/src/fsm.ts#sessionPublicKey",
       "owningTest": "packages/core/test/unit/session-pair-scope.test.js"
@@ -98,7 +98,7 @@
         "ADJACENCY_COLLISION"
       ],
       "designReferences": [
-        "docs/design/agp-uniform-node/decisions.md#d11--cross-dial-collision"
+        "docs/DECISIONS.md#d11--cross-dial-collision"
       ],
       "implementation": "packages/core/src/fsm.ts#compareConnectionCandidates",
       "owningTest": "packages/core/test/unit/peer-fsm-cross-dial.test.js"
@@ -115,7 +115,7 @@
         "ROUTE_REVISION_ERROR"
       ],
       "designReferences": [
-        "docs/design/agp-uniform-node/protocol.md#42-update"
+        "docs/design/protocol.md#42-update"
       ],
       "implementation": "packages/core/src/fsm.ts#validateInboundRouteRevision",
       "owningTest": "packages/core/test/unit/peer-fsm-revisions.test.js"
@@ -132,7 +132,7 @@
         "INVALID_MESSAGE"
       ],
       "designReferences": [
-        "docs/design/agp-uniform-node/protocol.md#43-acknowledgement"
+        "docs/design/protocol.md#43-acknowledgement"
       ],
       "implementation": "packages/core/src/fsm.ts#validateRouteAck",
       "owningTest": "packages/core/test/unit/peer-fsm-route-ack.test.js"
@@ -149,7 +149,7 @@
         "LOOP"
       ],
       "designReferences": [
-        "docs/design/agp-uniform-node/routing.md#52-route-validation-classes"
+        "docs/design/routing.md#52-route-validation-classes"
       ],
       "implementation": "packages/core/src/routing.ts#classifyImportedRoute",
       "owningTest": "packages/core/test/unit/route-receiver-loop.test.js"
@@ -166,7 +166,7 @@
         "PEER_IN_PATH"
       ],
       "designReferences": [
-        "docs/design/agp-uniform-node/routing.md#71-desired-adj-rib-out"
+        "docs/design/routing.md#71-desired-adj-rib-out"
       ],
       "implementation": "packages/core/src/routing.ts#derivePeerExport",
       "owningTest": "packages/core/test/unit/route-peer-loop.test.js"
@@ -182,7 +182,7 @@
         "COMMITTED"
       ],
       "designReferences": [
-        "docs/design/agp-uniform-node/routing.md#54-atomic-replacement-algorithm"
+        "docs/design/routing.md#54-atomic-replacement-algorithm"
       ],
       "implementation": "packages/core/src/routing.ts#replaceAdjRibIn",
       "owningTest": "packages/core/test/unit/route-import.test.js"
@@ -199,7 +199,7 @@
         "DESIRED"
       ],
       "designReferences": [
-        "docs/design/agp-uniform-node/routing.md#72-snapshot-state-machine"
+        "docs/design/routing.md#72-snapshot-state-machine"
       ],
       "implementation": "packages/core/src/routing.ts#applyRouteAck",
       "owningTest": "packages/core/test/unit/rib-remote-rejection-memory.test.js"
@@ -218,7 +218,7 @@
         "CANCELLED"
       ],
       "designReferences": [
-        "docs/design/agp-uniform-node/routing.md#36-per-peer-adj-rib-out"
+        "docs/design/routing.md#36-per-peer-adj-rib-out"
       ],
       "implementation": "packages/core/src/routing.ts#advanceRemoteRejectionRetry",
       "owningTest": "packages/core/test/unit/route-remote-rejection-retry.test.js"
@@ -236,7 +236,7 @@
         "INELIGIBLE"
       ],
       "designReferences": [
-        "docs/design/agp-uniform-node/routing.md#62-total-best-path-order"
+        "docs/design/routing.md#62-total-best-path-order"
       ],
       "implementation": "packages/core/src/routing.ts#compareCandidates",
       "owningTest": "packages/core/test/unit/route-selection.test.js"
@@ -253,7 +253,7 @@
         "SUPPRESSED"
       ],
       "designReferences": [
-        "docs/design/agp-uniform-node/routing.md#7-selected-route-export"
+        "docs/design/routing.md#7-selected-route-export"
       ],
       "implementation": "packages/core/src/routing.ts#derivePeerExport",
       "owningTest": "packages/core/test/unit/route-export-eligibility.test.js"
@@ -270,7 +270,7 @@
         "SOURCE_NOT_ADVERTISED"
       ],
       "designReferences": [
-        "docs/design/agp-uniform-node/routing.md#74-withdrawal-ordering-barrier"
+        "docs/design/routing.md#74-withdrawal-ordering-barrier"
       ],
       "implementation": "packages/core/src/routing.ts#sourceExportEpoch",
       "owningTest": "packages/core/test/unit/export-epoch-closure.test.js"
@@ -286,7 +286,7 @@
         "COMMITTED"
       ],
       "designReferences": [
-        "docs/design/agp-uniform-node/routing.md#11-atomic-state-and-revision-mechanics"
+        "docs/design/routing.md#11-atomic-state-and-revision-mechanics"
       ],
       "implementation": "packages/core/src/operations.ts#commit",
       "owningTest": "packages/core/test/unit/rib-atomic-revision.test.js"
@@ -303,7 +303,7 @@
         "MONOTONIC_DOMAIN_EXHAUSTED"
       ],
       "designReferences": [
-        "docs/design/agp-uniform-node/sdk-operations.md#52-snapshot-metadata-and-revisions"
+        "docs/design/sdk-operations.md#52-snapshot-metadata-and-revisions"
       ],
       "implementation": "packages/core/src/operations.ts#preflightMonotonicDomain",
       "owningTest": "packages/core/test/unit/monotonic-domain-exhaustion.test.js"
@@ -320,7 +320,7 @@
         "NO_ROUTE"
       ],
       "designReferences": [
-        "docs/design/agp-uniform-node/routing.md#9-uniform-data-forwarding"
+        "docs/design/routing.md#9-uniform-data-forwarding"
       ],
       "implementation": "packages/node/src/node.ts#admitData",
       "owningTest": "packages/node/test/contract/local-data-admission.test.js"
@@ -336,7 +336,7 @@
         "NO_ROUTE"
       ],
       "designReferences": [
-        "docs/design/agp-uniform-node/routing.md#96-route-miss-outcomes"
+        "docs/design/routing.md#96-route-miss-outcomes"
       ],
       "implementation": "packages/node/src/node.ts#send",
       "owningTest": "packages/node/test/contract/local-route-miss.test.js"
@@ -352,7 +352,7 @@
         "NO_ROUTE"
       ],
       "designReferences": [
-        "docs/design/agp-uniform-node/routing.md#96-route-miss-outcomes"
+        "docs/design/routing.md#96-route-miss-outcomes"
       ],
       "implementation": "packages/node/src/node.ts#admitTransit",
       "owningTest": "packages/node/test/contract/transit-route-miss.test.js"
@@ -369,7 +369,7 @@
         "SOURCE_NOT_AUTHORIZED"
       ],
       "designReferences": [
-        "docs/design/agp-uniform-node/routing.md#82-peer-ingress-source"
+        "docs/design/routing.md#82-peer-ingress-source"
       ],
       "implementation": "packages/node/src/node.ts#authorizeIngressSource",
       "owningTest": "packages/node/test/contract/transit-feasible-source.test.js"
@@ -386,7 +386,7 @@
         "SOURCE_NOT_ADVERTISED"
       ],
       "designReferences": [
-        "docs/design/agp-uniform-node/routing.md#73-source-export-barrier"
+        "docs/design/routing.md#73-source-export-barrier"
       ],
       "implementation": "packages/node/src/node.ts#requireSourceExport",
       "owningTest": "packages/node/test/contract/source-export-barrier.test.js"
@@ -409,7 +409,7 @@
         "SOURCE_NOT_ADVERTISED"
       ],
       "designReferences": [
-        "docs/design/agp-uniform-node/routing.md#94-failure-precedence"
+        "docs/design/routing.md#94-failure-precedence"
       ],
       "implementation": "packages/node/src/node.ts#admitTransit",
       "owningTest": "packages/node/test/contract/data-failure-precedence.test.js"
@@ -426,7 +426,7 @@
         "NEXT_HOP_UNAVAILABLE"
       ],
       "designReferences": [
-        "docs/design/agp-uniform-node/routing.md#102-breadcrumb-admission"
+        "docs/design/routing.md#102-breadcrumb-admission"
       ],
       "implementation": "packages/node/src/return-token.ts#ReturnTokenAllocator",
       "owningTest": "packages/node/test/unit/return-token-allocator.test.js"
@@ -444,7 +444,7 @@
         "UNRETURNABLE"
       ],
       "designReferences": [
-        "docs/design/agp-uniform-node/routing.md#103-downstream-error-handling"
+        "docs/design/routing.md#103-downstream-error-handling"
       ],
       "implementation": "packages/node/src/node.ts#receiveDeliveryError",
       "owningTest": "packages/node/test/contract/reverse-error-relay.test.js"
@@ -462,7 +462,7 @@
         "UNRETURNABLE"
       ],
       "designReferences": [
-        "docs/design/agp-uniform-node/routing.md#10-reverse-delivery-errors"
+        "docs/design/routing.md#10-reverse-delivery-errors"
       ],
       "implementation": "packages/node/src/node.ts#receiveDeliveryError",
       "owningTest": "packages/node/test/contract/reverse-error-no-rib.test.js"
@@ -479,7 +479,7 @@
         "UNRETURNABLE"
       ],
       "designReferences": [
-        "docs/design/agp-uniform-node/routing.md#103-downstream-error-handling"
+        "docs/design/routing.md#103-downstream-error-handling"
       ],
       "implementation": "packages/node/src/node.ts#consumeBreadcrumb",
       "owningTest": "packages/node/test/contract/reverse-error-consume-once.test.js"
@@ -496,7 +496,7 @@
         "RECONVERGED"
       ],
       "designReferences": [
-        "docs/design/agp-uniform-node/decisions.md#d9--volatile-derived-runtime-state"
+        "docs/DECISIONS.md#d9--volatile-derived-runtime-state"
       ],
       "implementation": "packages/node/src/node.ts#createNode",
       "owningTest": "test/topology/restart-reconvergence.test.js"
@@ -514,7 +514,7 @@
         "FAILED"
       ],
       "designReferences": [
-        "docs/design/agp-uniform-node/decisions.md#d13--one-shot-runtime-instance"
+        "docs/DECISIONS.md#d13--one-shot-runtime-instance"
       ],
       "implementation": "packages/node/src/node.ts#NodeImpl",
       "owningTest": "packages/node/test/contract/lifecycle-one-shot.test.js"
@@ -531,7 +531,7 @@
         "CONFIG_INVALID"
       ],
       "designReferences": [
-        "docs/design/agp-uniform-node/README.md#canonical-peer-declaration"
+        "docs/design/README.md#canonical-peer-declaration"
       ],
       "implementation": "packages/node/src/node.ts#validatePeerAdjacencyUniqueness",
       "owningTest": "packages/node/test/contract/peer-adjacency-uniqueness.test.js"
@@ -548,7 +548,7 @@
         "CONFIG_INVALID"
       ],
       "designReferences": [
-        "docs/design/agp-uniform-node/transport-contract.md#4-logical-references-and-bound-acquisition-capabilities"
+        "docs/design/transport-contract.md#4-logical-references-and-bound-acquisition-capabilities"
       ],
       "implementation": "packages/node/src/node.ts#resolveTransportCapabilities",
       "owningTest": "packages/node/test/contract/transport-reference-composition.test.js"
@@ -565,7 +565,7 @@
         "INTERNAL"
       ],
       "designReferences": [
-        "docs/design/agp-uniform-node/transport-contract.md#12-peer-evidence-and-identity-admission"
+        "docs/design/transport-contract.md#12-peer-evidence-and-identity-admission"
       ],
       "implementation": "packages/node/src/session-controller.ts#evaluateIdentityAdmission",
       "owningTest": "packages/node/test/contract/identity-peer-evidence.test.js"
@@ -582,7 +582,7 @@
         "TERMINAL"
       ],
       "designReferences": [
-        "docs/design/agp-uniform-node/transport-contract.md#7-packet-contract"
+        "docs/design/transport-contract.md#7-packet-contract"
       ],
       "implementation": "packages/transport/src/conformance/packet-order.ts#runPacketOrderCase",
       "owningTest": "packages/transport/test/contract/channel-order-rule.test.js"
@@ -598,7 +598,7 @@
         "TERMINAL"
       ],
       "designReferences": [
-        "docs/design/agp-uniform-node/transport-contract.md#104-terminal-linearization"
+        "docs/design/transport-contract.md#104-terminal-linearization"
       ],
       "implementation": "packages/transport/src/conformance/terminal-once.ts#runTerminalOnceCase",
       "owningTest": "packages/transport/test/contract/terminal-once-rule.test.js"
@@ -616,7 +616,7 @@
         "TERMINAL"
       ],
       "designReferences": [
-        "docs/design/agp-uniform-node/bindings/websocket.md#3-packet-mapping"
+        "docs/design/binding-websocket.md#3-packet-mapping"
       ],
       "implementation": "packages/binding-websocket/src/mapping.ts#classifyWebSocketMessage",
       "owningTest": "packages/binding-websocket/test/contract/packet-mapping.test.js"
@@ -633,7 +633,7 @@
         "REFERENCE_DUPLICATE"
       ],
       "designReferences": [
-        "docs/design/agp-uniform-node/bindings/websocket.md#92-data-and-live-capabilities"
+        "docs/design/binding-websocket.md#92-data-and-live-capabilities"
       ],
       "implementation": "packages/binding-websocket/src/configuration.ts#validateWebSocketReferenceUniqueness",
       "owningTest": "packages/binding-websocket/test/contract/reference-uniqueness.test.js"
@@ -653,8 +653,8 @@
         "REJECTED"
       ],
       "designReferences": [
-        "docs/design/agp-uniform-node/transports/loopback.md#2-explicit-fabric",
-        "docs/design/agp-uniform-node/transports/loopback.md#4-production-api-sketch"
+        "docs/design/transport-loopback.md#2-explicit-fabric",
+        "docs/design/transport-loopback.md#4-production-api-sketch"
       ],
       "implementation": "packages/transport-loopback/src/fabric.ts#createLoopbackFabric",
       "owningTest": "packages/transport-loopback/test/contract/production-surface.test.js"
@@ -671,7 +671,7 @@
         "ADAPTER_FAULT"
       ],
       "designReferences": [
-        "docs/design/agp-uniform-node/transports/loopback.md#11-invariants"
+        "docs/design/transport-loopback.md#11-invariants"
       ],
       "implementation": "packages/transport-loopback/src/fabric.ts#failAdapterInvariant",
       "owningTest": "packages/transport-loopback/test/contract/operations-adapter-invariant-failure.test.js"
@@ -689,7 +689,7 @@
         "MONOTONIC_DOMAIN_EXHAUSTED"
       ],
       "designReferences": [
-        "docs/design/agp-uniform-node/transports/loopback.md#81-finite-monotonic-domains"
+        "docs/design/transport-loopback.md#81-finite-monotonic-domains"
       ],
       "implementation": "packages/transport-loopback/src/operations.ts#preflightMonotonicDomain",
       "owningTest": "packages/transport-loopback/test/contract/operations-monotonic-exhaustion.test.js"
@@ -708,7 +708,7 @@
         "FAILED_FROZEN"
       ],
       "designReferences": [
-        "docs/design/agp-uniform-node/transports/loopback.md#102-snapshot-records"
+        "docs/design/transport-loopback.md#102-snapshot-records"
       ],
       "implementation": "packages/transport-loopback/src/operations.ts#snapshot",
       "owningTest": "packages/transport-loopback/test/contract/operations-snapshot-retention.test.js"

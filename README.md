@@ -38,7 +38,7 @@ For three independently managed processes with multiple endpoints per leaf, use 
 | Embed AGP in an application | [WebSocket composition](#websocket-composition) or [Loopback composition](#loopback-composition) |
 | Inspect a running node | [Operations and CLI](#operations-and-cli) |
 | Build and test the workspace | [Development and verification](#development-and-verification) |
-| Understand the protocol | [Design set](./docs/design/agp-uniform-node/README.md) and [mechanisms.md](./docs/design/agp-uniform-node/mechanisms.md) |
+| Understand the protocol | [Design set](./docs/design/README.md) and [mechanisms.md](./docs/design/mechanisms.md) |
 
 ---
 
@@ -73,7 +73,7 @@ Its load- bearing boundaries are:
 - shared adapter conformance plus independent Loopback/WebSocket topology
   equivalence gates.
 
-The normative specifications are [transport-contract.md](./docs/design/agp-uniform-node/transport-contract.md), [bindings/websocket.md](./docs/design/agp-uniform-node/bindings/websocket.md), and [transports/loopback.md](./docs/design/agp-uniform-node/transports/loopback.md).
+The normative specifications are [transport-contract.md](./docs/design/transport-contract.md), [binding-websocket.md](./docs/design/binding-websocket.md), and [transport-loopback.md](./docs/design/transport-loopback.md).
 
 Under that target, a peer declares only logical adjacency intent:
 ```json
@@ -316,5 +316,5 @@ npm run schemas:check
 ```
 
 Tests are package-owned, self-descriptive, and orthogonal.\
-The ownership model and anti-rot checks are documented in [docs/testing.md](./docs/testing.md).\
-The layered gate definitions, and which gate owns which proof, are in [verification.md](./docs/design/agp-uniform-node/verification.md).
+The ownership model and anti-rot checks are documented in [docs/TESTING.md](./docs/TESTING.md).\
+The layered gate definitions, and which gate owns which proof, are in [verification.md](./docs/design/verification.md).

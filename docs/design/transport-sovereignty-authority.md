@@ -10,7 +10,7 @@
 | Lifecycle handoff | Fixed intent -> ratified design |
 | Compatibility | Replace the current AGP v1 transport surface in place; no compatibility facade |
 
-This authority supplements the confirmed [`uniform-agp-node-routing-survey.md`](../../surveys/uniform-agp-node-routing-survey.md).\
+This authority supplements the confirmed [`uniform-agp-node-routing-survey.md`](../surveys/uniform-agp-node-routing-survey.md).\
 It narrows a lower-layer composition boundary without changing the survey's uniform-node, symmetric-session, RIB, forwarding, or operational outcomes.
 
 ---

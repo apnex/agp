@@ -33,7 +33,7 @@ npm run docs:fix
 
 Check named files only:
 ```bash
-tools/check-docs.sh README.md docs/testing.md
+tools/check-docs.sh README.md docs/TESTING.md
 ```
 
 Every checker runs even when an earlier one fails, so one invocation reports everything rather than the first thing.

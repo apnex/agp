@@ -569,11 +569,11 @@ The tests must prove that a package catalog owns each entry, every referenced im
   - Define AGP packets and the required M30 ordered packet-channel contract.
   - Replace WebSocket ordering claims with common-channel ordering claims.
   - Remove subprotocol, binary-message, close-code, Ping/Pong, fragmentation,
-    and compression rules; link them to `bindings/websocket.md`.
+    and compression rules; link them to `binding-websocket.md`.
   - Preserve all JSON schemas, OPEN negotiation, routing, data, error, and
     notification semantics.
 
-- **`bindings/websocket.md`** (new normative binding document)
+- **`binding-websocket.md`** (new normative binding document)
   - Import and use the exact `TransportChannelPort`, `TransportPacket`,
     `TransportRead`, listener terminal/port, resolver/bound-acquisition,
     listener-publication, peer-evidence, and common error names from
@@ -598,7 +598,7 @@ The tests must prove that a package catalog owns each entry, every referenced im
     connect/listen reference creation and distribution remain composition-owned.
   - State that adapter success returns an already binding-qualified channel.
 
-- **`transports/loopback.md`** (new production-adapter document)
+- **`transport-loopback.md`** (new production-adapter document)
   - Define a deterministic process-local production implementation that
     exercises only public transport ports and the complete AGP codec/session
     path.
@@ -661,7 +661,7 @@ The tests must prove that a package catalog owns each entry, every referenced im
   - Keep `NextHopRef` and all routing state free of channel handles, acquisition
     capabilities, resolver state, and display addresses.
 
-- **`decisions.md`**
+- **`DECISIONS.md`**
   - Retain D14-D17 as the four non-overlapping transport decisions and cite the
     fixed-intent/survey-bypass authority.
   - Keep D2 explicit that the old text-message peer binding, old SDK, and old
@@ -749,7 +749,7 @@ The tests must prove that a package catalog owns each entry, every referenced im
     a kernel test fake.
   - Move security limitations under the Node WebSocket adapter.
 
-- **`docs/testing.md` and package test READMEs**
+- **`docs/TESTING.md` and package test READMEs**
   - Add the shared adapter conformance category and binding-versus-adapter test
     ownership.
 
@@ -889,7 +889,7 @@ Passing only WebSockets does not prove kernel transport sovereignty or Loopback'
 ### Stage 1 - split normative specifications
 
 - Define packet language and ordered packet-channel profile.
-- Add `bindings/websocket.md`, `transports/loopback.md`, and M30-M33 ownership
+- Add `binding-websocket.md`, `transport-loopback.md`, and M30-M33 ownership
   rows.
 - Move no runtime behavior yet.
 

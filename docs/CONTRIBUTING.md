@@ -56,14 +56,14 @@ npm run schemas:check
 **Tests are owned where the code is owned.**\
 A package's behavior is tested beside that package; the workspace suites test composition only.\
 Add the file to its suite `README.md` ownership table in the same change.\
-[`testing.md`](./testing.md) states the rules and `npm run test:architecture` enforces them.
+[`testing.md`](./TESTING.md) states the rules and `npm run test:architecture` enforces them.
 
 **Gate evidence stays truthful.**\
-If a change adds or moves a test that section 14 of [`verification.md`](./design/agp-uniform-node/verification.md) names, update that map.\
+If a change adds or moves a test that section 14 of [`verification.md`](./design/verification.md) names, update that map.\
 `test/conformance/verification-ownership-map.test.js` fails when the map and the tree disagree.
 
 **Design records are layered.**\
-Current-state contracts under `docs/design/agp-uniform-node/` are edited in place.\
+Current-state contracts under `docs/design/` are edited in place.\
 Frozen records - surveys, the decision register, and the transport sovereignty review - are not rewritten when policy later changes; they take a status banner and a cross-link instead.
 
 ---

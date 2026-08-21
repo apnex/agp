@@ -5,21 +5,21 @@ import test from "node:test";
 import { fileURLToPath } from "node:url";
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "../..");
-const designRoot = path.join(root, "docs/design/agp-uniform-node");
+const designRoot = path.join(root, "docs/design");
 
 // Repository-relative artifacts that are normative but live outside the design
 // set. A document that states rules a script enforces owes the same
 // mechanics/rationale/consequence triad as a protocol contract.
 const normativeElsewhere = [
-  "docs/testing.md",
+  "docs/TESTING.md",
+  "docs/DECISIONS.md",
 ];
 
 const normativeArtifacts = [
   "README.md",
   "axioms.md",
-  "bindings/websocket.md",
+  "binding-websocket.md",
   "contracts.md",
-  "decisions.md",
   "fsm.md",
   "mechanisms.md",
   "protocol.md",
@@ -28,7 +28,7 @@ const normativeArtifacts = [
   "transport-contract.md",
   "transport-sovereignty-authority.md",
   "transport-sovereignty-review.md",
-  "transports/loopback.md",
+  "transport-loopback.md",
   "verification.md",
 ];
 

@@ -411,8 +411,8 @@ const semanticRules = {
       ],
       resultCodes: ["BOUND", "REJECTED"],
       designReferences: [
-        "docs/design/agp-uniform-node/transports/loopback.md#2-explicit-fabric",
-        "docs/design/agp-uniform-node/transports/loopback.md#4-production-api-sketch",
+        "docs/design/transport-loopback.md#2-explicit-fabric",
+        "docs/design/transport-loopback.md#4-production-api-sketch",
       ],
       implementation:
         "packages/transport-loopback/src/fabric.ts#createLoopbackFabric",
@@ -428,7 +428,7 @@ const semanticRules = {
       ],
       resultCodes: ["ADAPTER_FAULT"],
       designReferences: [
-        "docs/design/agp-uniform-node/transports/loopback.md#11-invariants",
+        "docs/design/transport-loopback.md#11-invariants",
       ],
       implementation:
         "packages/transport-loopback/src/fabric.ts#failAdapterInvariant",
@@ -444,7 +444,7 @@ const semanticRules = {
       ],
       resultCodes: ["COMMITTED", "MONOTONIC_DOMAIN_EXHAUSTED"],
       designReferences: [
-        "docs/design/agp-uniform-node/transports/loopback.md#81-finite-monotonic-domains",
+        "docs/design/transport-loopback.md#81-finite-monotonic-domains",
       ],
       implementation:
         "packages/transport-loopback/src/operations.ts#preflightMonotonicDomain",
@@ -460,7 +460,7 @@ const semanticRules = {
       ],
       resultCodes: ["LIVE_ROW", "RELEASED", "FAILED_FROZEN"],
       designReferences: [
-        "docs/design/agp-uniform-node/transports/loopback.md#102-snapshot-records",
+        "docs/design/transport-loopback.md#102-snapshot-records",
       ],
       implementation:
         "packages/transport-loopback/src/operations.ts#snapshot",

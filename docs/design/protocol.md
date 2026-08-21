@@ -11,7 +11,7 @@ The internal acquisition record (`kind: dial | accept`) controls only which loca
 Public operations derive `direction: outbound | inbound` from that record by the fixed mapping `dial -> outbound`, `accept -> inbound`; the projection is evidence, never an input to protocol behavior.
 
 This document never defines carrier framing, negotiation, addresses, compression, security acquisition, or native termination.\
-WebSocket maps this protocol through [`bindings/websocket.md`](bindings/websocket.md); Loopback maps it through [`transports/loopback.md`](transports/loopback.md).\
+WebSocket maps this protocol through [`binding-websocket.md`](binding-websocket.md); Loopback maps it through [`transport-loopback.md`](transport-loopback.md).\
 Neither mapping changes a legal AGP packet or session transition.
 
 The replacement keeps the BGP-inspired connection states:

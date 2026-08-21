@@ -2,7 +2,7 @@
 
 > **Status:** Normative production-adapter design.
 >
-> **Common contract:** [`transport-contract.md`](../transport-contract.md)
+> **Common contract:** [`transport-contract.md`](transport-contract.md)
 >
 > **Target package:** `@agp/transport-loopback`
 

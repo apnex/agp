@@ -5,7 +5,7 @@
 | Field | Value |
 |---|---|
 | Status | Ratified. This is the current implementation design; gate definitions live in `verification.md` |
-| Intent input | [`uniform-agp-node-routing-survey.md`](../../surveys/uniform-agp-node-routing-survey.md) |
+| Intent input | [`uniform-agp-node-routing-survey.md`](../surveys/uniform-agp-node-routing-survey.md) |
 | Transport intent | [`transport-sovereignty-authority.md`](transport-sovereignty-authority.md), explicit fixed-intent survey bypass approved 2026-07-30 |
 | Axiom map | [`axioms.md`](axioms.md) |
 | Mechanism index | [`mechanisms.md`](mechanisms.md) |
@@ -476,7 +476,7 @@ A transport-neutral packet boundary makes that same statement true beneath the s
 - [`axioms.md`](axioms.md) - strict applicability and conformance gates
 - [`mechanisms.md`](mechanisms.md) - feature index, RFC alignment, deliberate
   departures, and deferred mechanisms
-- [`decisions.md`](decisions.md) - required and ratified decision register
+- [`DECISIONS.md`](../DECISIONS.md) - required and ratified decision register
 - [`transport-sovereignty-authority.md`](transport-sovereignty-authority.md) -
   fixed intent and explicit survey bypass
 - [`traceability.json`](traceability.json) - machine-checkable intent,
@@ -486,8 +486,8 @@ A transport-neutral packet boundary makes that same statement true beneath the s
   symmetric adjacency behavior
 - [`transport-contract.md`](transport-contract.md) - neutral acquisition,
   packet-channel, bounds, evidence, and terminal contract
-- [`bindings/websocket.md`](bindings/websocket.md) - AGP v1 WebSocket binding
-- [`transports/loopback.md`](transports/loopback.md) - canonical production
+- [`binding-websocket.md`](binding-websocket.md) - AGP v1 WebSocket binding
+- [`transport-loopback.md`](transport-loopback.md) - canonical production
   process-local transport
 - [`fsm.md`](fsm.md) - exact connection states, timers, events, and teardown
 - [`routing.md`](routing.md) - RIB model, selection, propagation, and data

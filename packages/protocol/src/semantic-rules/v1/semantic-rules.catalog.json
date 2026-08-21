@@ -14,7 +14,7 @@
         "IDENTITY_REJECTED"
       ],
       "designReferences": [
-        "docs/design/agp-uniform-node/protocol.md#3-open"
+        "docs/design/protocol.md#3-open"
       ],
       "implementation": "packages/protocol/src/semantic.ts#validateOpenIdentity",
       "owningTest": "packages/protocol/test/unit/open-identity.test.js"
@@ -31,7 +31,7 @@
         "INVALID_MESSAGE"
       ],
       "designReferences": [
-        "docs/design/agp-uniform-node/protocol.md#41-wire-route"
+        "docs/design/protocol.md#41-wire-route"
       ],
       "implementation": "packages/protocol/src/semantic.ts#validateRoutePathOwnership",
       "owningTest": "packages/protocol/test/unit/route-path-semantics.test.js"
@@ -48,7 +48,7 @@
         "PATH_TOO_LONG"
       ],
       "designReferences": [
-        "docs/design/agp-uniform-node/routing.md#52-route-validation-classes"
+        "docs/design/routing.md#52-route-validation-classes"
       ],
       "implementation": "packages/protocol/src/semantic.ts#validateImportedPathLength",
       "owningTest": "packages/protocol/test/unit/route-path-limit.test.js"

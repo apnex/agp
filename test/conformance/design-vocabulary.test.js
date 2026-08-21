@@ -5,7 +5,7 @@ import test from "node:test";
 import { fileURLToPath } from "node:url";
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "../..");
-const designRoot = path.join(root, "docs/design/agp-uniform-node");
+const designRoot = path.join(root, "docs/design");
 
 async function design(relative) {
   return readFile(path.join(designRoot, relative), "utf8");
@@ -16,7 +16,7 @@ test("Given the frozen cross-document vocabulary, when AX0 scans its sovereign o
   const fsm = await design("fsm.md");
   const contracts = await design("contracts.md");
   const operations = await design("sdk-operations.md");
-  const binding = await design("bindings/websocket.md");
+  const binding = await design("binding-websocket.md");
 
   assert.match(transport, /interface TransportChannelPort/u);
   assert.match(transport, /kind: "dial"/u);

@@ -5,18 +5,18 @@
 | Field | Value |
 |---|---|
 | Status | Ratified. Current verification plan; a gate is certified only while every required test in section 14 passes |
-| Intent authority | [`uniform-agp-node-routing-survey.md`](../../surveys/uniform-agp-node-routing-survey.md) |
+| Intent authority | [`uniform-agp-node-routing-survey.md`](../surveys/uniform-agp-node-routing-survey.md) |
 | Transport intent authority | [`transport-sovereignty-authority.md`](transport-sovereignty-authority.md) |
 | Architecture | [`README.md`](README.md) |
 | Axiom applicability | [`axioms.md`](axioms.md) |
-| Decision register | [`decisions.md`](decisions.md) |
+| Decision register | [`DECISIONS.md`](../DECISIONS.md) |
 | Contract ownership | [`contracts.md`](contracts.md) |
 | Protocol | [`protocol.md`](protocol.md) |
 | Session FSM | [`fsm.md`](fsm.md) |
 | Routing | [`routing.md`](routing.md) |
 | Neutral transport contract | [`transport-contract.md`](transport-contract.md) |
-| WebSocket binding | [`bindings/websocket.md`](bindings/websocket.md) |
-| Loopback transport | [`transports/loopback.md`](transports/loopback.md) |
+| WebSocket binding | [`binding-websocket.md`](binding-websocket.md) |
+| Loopback transport | [`transport-loopback.md`](transport-loopback.md) |
 | SDK and operations | [`sdk-operations.md`](sdk-operations.md) |
 | Certification sequence | `AX0 -> AX1 -> AX2 -> AX3 -> AX4 -> AX5 -> AX6 -> AX7 -> AX8` |
 
@@ -161,8 +161,8 @@ interface RequirementTraceDocument {
 
 The normative targets are:
 ```text
-docs/design/agp-uniform-node/traceability.schema.json
-docs/design/agp-uniform-node/traceability.json
+docs/design/traceability.schema.json
+docs/design/traceability.json
 ```
 
 Every survey outcome `U1..U11`, every fixed transport-intent requirement `U12..U15`, and every normative requirement introduced by `D1..D17` has exactly one record.\

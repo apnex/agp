@@ -7,7 +7,7 @@ import { fileURLToPath } from "node:url";
 import Ajv2020 from "ajv/dist/2020.js";
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "../..");
-const designRoot = path.join(root, "docs/design/agp-uniform-node");
+const designRoot = path.join(root, "docs/design");
 
 function headingSlug(value) {
   return value

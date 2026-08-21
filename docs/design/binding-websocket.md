@@ -2,7 +2,7 @@
 
 > **Status:** Normative binding design.
 >
-> **Common contract:** [`transport-contract.md`](../transport-contract.md)
+> **Common contract:** [`transport-contract.md`](transport-contract.md)
 >
 > **Binding standard:** [RFC 6455](https://www.rfc-editor.org/rfc/rfc6455)
 >

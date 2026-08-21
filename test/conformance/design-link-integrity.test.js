@@ -6,7 +6,7 @@ import test from "node:test";
 import { fileURLToPath } from "node:url";
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "../..");
-const designRoot = path.join(root, "docs/design/agp-uniform-node");
+const designRoot = path.join(root, "docs/design");
 
 function slug(value) {
   return value
@@ -58,7 +58,13 @@ test("Given normative Markdown and trace references, when AX0 resolves local tar
       const [relative, anchor] = reference.split("#");
       const target = path.normalize(path.join(path.dirname(file), relative));
       assert.equal(existsSync(target), true, `${file}: ${reference}`);
+      // A design document may cite a project-level document outside the design
+      // set, so resolve those on demand rather than only from the preloaded map.
       if (anchor && target.endsWith(".md")) {
+        if (!documents.has(target)) {
+          const source = await readFile(target, "utf8");
+          documents.set(target, { source, anchors: anchors(source) });
+        }
         assert.equal(
           documents.get(target)?.anchors.has(anchor),
           true,

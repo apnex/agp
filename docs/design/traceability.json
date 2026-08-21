@@ -19,7 +19,7 @@
       ],
       "designReferences": [
         "README.md#2-mandate",
-        "decisions.md#d1---uniform-node"
+        "../DECISIONS.md#d1---uniform-node"
       ],
       "schemaIds": [
         "urn:agp:schema:v1:core:configuration:node-config"
@@ -432,8 +432,8 @@
         }
       ],
       "designReferences": [
-        "transports/loopback.md",
-        "decisions.md#d17---canonical-production-loopback"
+        "transport-loopback.md",
+        "../DECISIONS.md#d17---canonical-production-loopback"
       ],
       "schemaIds": [
         "urn:agp:schema:v1:transport-loopback:configuration:fabric",
@@ -468,8 +468,8 @@
         }
       ],
       "designReferences": [
-        "bindings/websocket.md",
-        "decisions.md#d16---sovereign-websocket-binding"
+        "binding-websocket.md",
+        "../DECISIONS.md#d16---sovereign-websocket-binding"
       ],
       "schemaIds": [
         "urn:agp:schema:v1:binding-websocket:configuration:listener",
@@ -501,7 +501,7 @@
         }
       ],
       "designReferences": [
-        "decisions.md#d1---uniform-node"
+        "../DECISIONS.md#d1---uniform-node"
       ],
       "schemaIds": [
         "urn:agp:schema:v1:core:configuration:node-config"
@@ -524,7 +524,7 @@
         }
       ],
       "designReferences": [
-        "decisions.md#d2---in-place-v1-replacement"
+        "../DECISIONS.md#d2---in-place-v1-replacement"
       ],
       "schemaIds": [
         "urn:agp:schema:v1:protocol:wire:message"
@@ -547,7 +547,7 @@
         }
       ],
       "designReferences": [
-        "decisions.md#d3---sovereign-contracts",
+        "../DECISIONS.md#d3---sovereign-contracts",
         "contracts.md"
       ],
       "schemaIds": [
@@ -580,7 +580,7 @@
         }
       ],
       "designReferences": [
-        "decisions.md#d4---full-route-snapshots",
+        "../DECISIONS.md#d4---full-route-snapshots",
         "protocol.md#4-authoritative-route-snapshots"
       ],
       "schemaIds": [
@@ -614,7 +614,7 @@
         }
       ],
       "designReferences": [
-        "decisions.md#d5---route-provenance-and-identity-lifetime"
+        "../DECISIONS.md#d5---route-provenance-and-identity-lifetime"
       ],
       "schemaIds": [
         "urn:agp:schema:v1:protocol:common:session-id",
@@ -647,7 +647,7 @@
         }
       ],
       "designReferences": [
-        "decisions.md#d6---deterministic-single-path-selection",
+        "../DECISIONS.md#d6---deterministic-single-path-selection",
         "routing.md#62-total-best-path-order"
       ],
       "schemaIds": [
@@ -675,7 +675,7 @@
         }
       ],
       "designReferences": [
-        "decisions.md#d7---feasible-path-source-authorization",
+        "../DECISIONS.md#d7---feasible-path-source-authorization",
         "mechanisms.md"
       ],
       "schemaIds": [
@@ -707,7 +707,7 @@
         }
       ],
       "designReferences": [
-        "decisions.md#d8---reverse-failures"
+        "../DECISIONS.md#d8---reverse-failures"
       ],
       "schemaIds": [
         "urn:agp:schema:v1:protocol:common:return-token"
@@ -737,7 +737,7 @@
         }
       ],
       "designReferences": [
-        "decisions.md#d9---volatile-derived-runtime-state"
+        "../DECISIONS.md#d9---volatile-derived-runtime-state"
       ],
       "schemaIds": [
         "urn:agp:schema:v1:core:operations:operations-snapshot"
@@ -767,7 +767,7 @@
         }
       ],
       "designReferences": [
-        "decisions.md#d10---atomic-canonical-state",
+        "../DECISIONS.md#d10---atomic-canonical-state",
         "routing.md#11-atomic-state-and-revision-mechanics"
       ],
       "schemaIds": [
@@ -799,7 +799,7 @@
         }
       ],
       "designReferences": [
-        "decisions.md#d11---cross-dial-collision",
+        "../DECISIONS.md#d11---cross-dial-collision",
         "mechanisms.md"
       ],
       "schemaIds": [
@@ -827,7 +827,7 @@
         }
       ],
       "designReferences": [
-        "decisions.md#d12---operational-continuity",
+        "../DECISIONS.md#d12---operational-continuity",
         "sdk-operations.md#8-read-only-agpctl"
       ],
       "schemaIds": [
@@ -856,7 +856,7 @@
         }
       ],
       "designReferences": [
-        "decisions.md#d13---one-shot-runtime-instance",
+        "../DECISIONS.md#d13---one-shot-runtime-instance",
         "sdk-operations.md#32-lifecycle"
       ],
       "schemaIds": [
@@ -884,7 +884,7 @@
         }
       ],
       "designReferences": [
-        "decisions.md#d14---reliable-ordered-packet-channel",
+        "../DECISIONS.md#d14---reliable-ordered-packet-channel",
         "transport-contract.md#61-listener-acquisition",
         "verification.md#transport-acceptance-callback-fault-proof"
       ],
@@ -925,7 +925,7 @@
         }
       ],
       "designReferences": [
-        "decisions.md#d15---transport-references-and-observed-peer-evidence",
+        "../DECISIONS.md#d15---transport-references-and-observed-peer-evidence",
         "transport-contract.md#4-logical-references-and-bound-acquisition-capabilities",
         "transport-contract.md#12-peer-evidence-and-identity-admission"
       ],
@@ -955,8 +955,8 @@
         }
       ],
       "designReferences": [
-        "decisions.md#d16---sovereign-websocket-binding",
-        "bindings/websocket.md"
+        "../DECISIONS.md#d16---sovereign-websocket-binding",
+        "binding-websocket.md"
       ],
       "schemaIds": [
         "urn:agp:schema:v1:binding-websocket:configuration:listener",
@@ -987,8 +987,8 @@
         }
       ],
       "designReferences": [
-        "decisions.md#d17---canonical-production-loopback",
-        "transports/loopback.md"
+        "../DECISIONS.md#d17---canonical-production-loopback",
+        "transport-loopback.md"
       ],
       "schemaIds": [
         "urn:agp:schema:v1:transport-loopback:configuration:fabric",
