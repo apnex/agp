@@ -924,6 +924,7 @@ Other file names may be refined before implementation, but every primary contrac
 | AX7 | `test/e2e/independent-star-hub-endpoint.test.js` | Both independently started spokes learn the hub-local endpoint and deliver distinct JSON messages to its handler |
 | AX7 | `test/e2e/independent-star-duplicate-route.test.js` | Two spoke origins for one endpoint remain eligible while the hub selects one deterministic winner |
 | AX7 | `test/e2e/independent-star-cli-inspection.test.js` | Separate asynchronous CLI invocations inspect every live star management URL and expected endpoint |
+| AX7 | `test/integration/secure-websocket-star.test.js` | A pre-shared-key star converges and transits JSON, and a peer holding a valid secret but claiming another node is denied on security evidence |
 | AX7 | `test/e2e/independent-line.test.js` | Independently started line processes prove symmetric multi-hop routing |
 | AX7 | `test/e2e/independent-restart-reconvergence.test.js` | A replaced WebSocket process rebuilds equivalent reachability with fresh adapter/session authority |
 | AX7 | `test/e2e/process-cleanup.test.js` | Explicit stop leaves no child process or listening socket |

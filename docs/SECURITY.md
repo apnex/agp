@@ -35,8 +35,8 @@ Two limits to understand before relying on this:
 Specified for star and line topologies.\
 In a full mesh every node would hold every other node's secret, so one compromise forges every identity; that case needs a per-pair model and is not supported.
 
-Forward secrecy has not yet been verified for this profile.\
-Treat a compromised secret as exposing past captured traffic until it is.
+Forward secrecy is provided.\
+The handshake negotiates `psk_dhe_ke` with an ephemeral X25519 key share, verified against a live socket, so a secret disclosed later does not decrypt traffic captured earlier.
 
 ### `trusted-development`
 

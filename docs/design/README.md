@@ -186,7 +186,7 @@ const transport = createNodeWsTransport({
 const node = createNode(nodeConfig, { transport });
 ```
 
-The factory call is composition pseudocode for the certified trusted-development profile; secure WebSocket capability is deferred under F07.\
+The factory call is composition pseudocode for the trusted-development profile; the pre-shared-key profile binds a `wss:` locator and an injected key port instead.\
 A Loopback composition can bind the same `peer.hub.primary` reference to `{ fabricId: "app", address: "hub" }` without changing `NodeConfig`.
 
 `peers[]` is not an inbound allowlist.\
@@ -435,9 +435,8 @@ Deferred:
 - legacy AGP v1 or old-factory compatibility;
 - additional network transports, raw datagram semantics, carrier selection, or
   on-wire transport negotiation;
-- secure WebSocket deployment (`wss:`, TLS, client certificates, and HTTP
-  upgrade authentication) until sovereign security configuration, capability,
-  peer-evidence, and conformance contracts are separately authorized;
+- certificate-based and HTTP-authenticated WebSocket profiles, and full-mesh
+  pre-shared keying, beyond the pre-shared-key profile in `M36`;
 - production identity and authorization mechanisms beyond the existing
   injected admission ports;
 - mutating CLI administration.

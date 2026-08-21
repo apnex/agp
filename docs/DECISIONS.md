@@ -420,6 +420,8 @@ Identity flows one way.\
 TLS 1.3 removed the pre-shared-key identity hint, so only a listener observes a peer label and only a listener can report a verified principal.\
 A dialer reports protection without a principal rather than restating configured intent as observation.
 
+The handshake negotiates an ephemeral key share alongside the secret, so a secret disclosed later does not decrypt traffic captured earlier.
+
 A key failure is retryable under the existing bounded dial backoff, because a mismatch during rotation resolves itself when the capability returns the new value.
 
 The profile is specified for star and line topologies.\

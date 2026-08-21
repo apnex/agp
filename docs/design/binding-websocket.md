@@ -536,7 +536,17 @@ On the dialing side the acquisition rejects:
 Every secure-profile failure is retryable under the node's existing bounded dial backoff, and none introduces a session FSM event.\
 A secret mismatch resolves itself when the deployment rotates and the port returns the new value, so making it terminal would turn a routine rotation into an outage requiring node replacement.
 
-### 10.6 Redaction
+### 10.6 Forward secrecy
+
+The handshake negotiates `psk_dhe_ke`: an ephemeral X25519 key share accompanies the pre-shared secret, so session keys are not derivable from the secret alone.\
+A secret disclosed later does not decrypt traffic captured earlier.
+
+This is a property of the negotiated mode rather than of pre-shared keys in general.\
+`psk_ke` would omit the key share and lose it, so a binding must not configure a profile that permits `psk_ke`.
+
+---
+
+### 10.7 Redaction
 
 Key bytes never enter a diagnostic, an evidence record, canonical operational state, a terminal record, or an error message.\
 A `TransportDiagnostic` may carry a closed failure code and, under `node` keying, the identity; it never carries the secret.\
