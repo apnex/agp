@@ -1,8 +1,7 @@
 # Management HTTP test ownership
 
-Tests exercise the public adapter with a deterministic, topology-neutral
-`OperationsReader`. The shared fixture arranges immutable data and contains no
-assertions.
+Tests exercise the public adapter with a deterministic, topology-neutral `OperationsReader`.\
+The shared fixture arranges immutable data and contains no assertions.
 
 | Test file | Primary contract | Explicit non-goal |
 |---|---|---|

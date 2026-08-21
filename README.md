@@ -1,30 +1,63 @@
 # Agent Gateway Protocol
 
-AGP is an embeddable control plane and JSON data plane for routing messages
-between named application endpoints. Every vertex uses the same `createNode()`
-implementation. Configuration determines whether a node listens, dials peers,
-exposes endpoints, forwards in transit, or combines those capabilities; there
-are no hub/spoke runtime roles. The AGP kernel is carrier-neutral. Production
-WebSocket and process-local Loopback transports implement the same reliable,
-ordered, bounded byte-packet contract without changing protocol behavior.
+AGP is an embeddable control plane and JSON data plane that routes messages between named application endpoints.\
+Every vertex runs the same `createNode()` implementation; topology position is configuration, not a protocol role.
 
-AGP is BGP-inspired, not BGP wire-compatible. Sessions follow the familiar
-`Idle`, `Connect`, `Active`, `OpenSent`, `OpenConfirm`, and `Established`
-lifecycle. Nodes exchange authoritative route snapshots, maintain Adj-RIB-In,
-a deterministic selected Loc-RIB/FIB, and Adj-RIB-Out, carry an ordered node
-path, suppress loops, and withdraw session-owned state. The NLRI equivalent is
-a named endpoint and the data plane is a closed, versioned JSON envelope.
+**Status:** ratified v1, feature complete, and fully tested.\
+Requires Node.js 24.\
+The certified WebSocket security mode is `trusted-development` only, so it is not ready for untrusted networks; see [Security posture](#security-posture).
 
-The ratified design, including strict alignments and deliberate departures from
-related RFC mechanisms, starts at
-[docs/design/agp-uniform-node/README.md](./docs/design/agp-uniform-node/README.md).
-The concise feature/mechanism cross-reference is
-[mechanisms.md](./docs/design/agp-uniform-node/mechanisms.md).
+---
+
+## Quick start
+
+```bash
+npm install
+npm run build
+node examples/websocket-star.mjs
+```
+
+That example builds a three-node star from three instances of the same node implementation.\
+It exercises the WebSocket adapter over ephemeral literal-loopback TCP addresses, so it is distinct from the process-local Loopback transport.\
+Pass `--persist` to keep it available for asynchronous inspection.
+
+Run the production Loopback star and delivery walkthrough with:
+```bash
+node examples/loopback-star/example.mjs
+```
+
+Pass `--persist` to keep its three separately managed node projections available at ports `47201`, `47211`, and `47212`.\
+Those nodes intentionally share one composition-root process because the owned Loopback fabric is process-local.\
+Configuration, inspection commands, and lifecycle details are in [examples/loopback-star/](./examples/loopback-star/README.md).
+
+For three independently managed processes with multiple endpoints per leaf, use [examples/independent-star/](./examples/independent-star/README.md).
+
+| I want to | Go to |
+|---|---|
+| Run more topologies | [Examples](./examples/README.md) |
+| Embed AGP in an application | [WebSocket composition](#websocket-composition) or [Loopback composition](#loopback-composition) |
+| Inspect a running node | [Operations and CLI](#operations-and-cli) |
+| Build and test the workspace | [Development and verification](#development-and-verification) |
+| Understand the protocol | [Design set](./docs/design/agp-uniform-node/README.md) and [mechanisms.md](./docs/design/agp-uniform-node/mechanisms.md) |
+
+---
+
+## Overview
+
+AGP is BGP-inspired, not BGP wire-compatible.\
+Sessions follow the familiar `Idle`, `Connect`, `Active`, `OpenSent`, `OpenConfirm`, and `Established` lifecycle.\
+Nodes exchange authoritative route snapshots, maintain Adj-RIB-In, a deterministic selected Loc-RIB/FIB, and Adj-RIB-Out, carry an ordered node path, suppress loops, and withdraw session-owned state.\
+The NLRI equivalent is a named endpoint and the data plane is a closed, versioned JSON envelope.
+
+Configuration determines whether a node listens, dials peers, exposes endpoints, forwards in transit, or combines those capabilities.\
+The AGP kernel is carrier-neutral: production WebSocket and process-local Loopback transports implement the same reliable, ordered, bounded byte-packet contract without changing protocol behavior.
+
+---
 
 ## Transport-sovereign v1
 
-The approved design was implemented as an atomic v1 replacement. Its load-
-bearing boundaries are:
+The approved design was implemented as an atomic v1 replacement.\
+Its load- bearing boundaries are:
 
 - one reliable, ordered, bounded, message-preserving byte-channel contract;
 - logical `transportRef` topology names resolved once to adapter-bound
@@ -40,14 +73,9 @@ bearing boundaries are:
 - shared adapter conformance plus independent Loopback/WebSocket topology
   equivalence gates.
 
-The normative specifications are
-[transport-contract.md](./docs/design/agp-uniform-node/transport-contract.md),
-[bindings/websocket.md](./docs/design/agp-uniform-node/bindings/websocket.md),
-and
-[transports/loopback.md](./docs/design/agp-uniform-node/transports/loopback.md).
+The normative specifications are [transport-contract.md](./docs/design/agp-uniform-node/transport-contract.md), [bindings/websocket.md](./docs/design/agp-uniform-node/bindings/websocket.md), and [transports/loopback.md](./docs/design/agp-uniform-node/transports/loopback.md).
 
 Under that target, a peer declares only logical adjacency intent:
-
 ```json
 {
   "adjacencyId": "hub-primary",
@@ -56,8 +84,9 @@ Under that target, a peer declares only logical adjacency intent:
 }
 ```
 
-The WebSocket URL or Loopback address is bound to `peer.hub.primary` in the
-injected transport configuration, not stored in `NodeConfig`.
+The WebSocket URL or Loopback address is bound to `peer.hub.primary` in the injected transport configuration, not stored in `NodeConfig`.
+
+---
 
 ## Implemented scope
 
@@ -83,6 +112,8 @@ injected transport configuration, not stored in `NodeConfig`.
 - independently runnable star nodes plus live star, line, triangle, and diamond
   verification geometries.
 
+---
+
 ## Packages
 
 | Boundary | Responsibility |
@@ -97,8 +128,10 @@ injected transport configuration, not stored in `NodeConfig`.
 | `@agp/management-http` | Optional loopback-only read projection over an `OperationsReader` |
 | `cli/` | Read-only HTTP drivers, decoupled `jq` projections, and deterministic table rendering |
 
-Applications import package roots only. `@agp/router` and `@agp/spoke` are not
-part of AGP v1.
+Applications import package roots only.\
+`@agp/router` and `@agp/spoke` are not part of AGP v1.
+
+---
 
 ## WebSocket composition
 
@@ -133,7 +166,7 @@ const transport = createNodeWsTransport({
   }],
   targets: [{
     transportRef: "ws.upstream",
-    url: "ws://192.168.1.20:47100/agp",
+    url: "ws://192.0.2.20:47100/agp",
     compression: { mode: "disabled" },
     security: { mode: "trusted-development" },
   }],
@@ -153,16 +186,15 @@ const receipt = await node.send(
 );
 ```
 
-Only the composition root sees WebSocket configuration. The node resolves
-`ws.listen` and `ws.upstream` to already-bound neutral capabilities and never
-receives a URL, socket, WebSocket close code, or subprotocol.
+Only the composition root sees WebSocket configuration.\
+The node resolves `ws.listen` and `ws.upstream` to already-bound neutral capabilities and never receives a URL, socket, WebSocket close code, or subprotocol.
+
+---
 
 ## Loopback composition
 
-Loopback uses the same `createNode()` call and logical references. The
-composition root owns an explicit bounded fabric and gives each node only its
-scoped neutral port:
-
+Loopback uses the same `createNode()` call and logical references.\
+The composition root owns an explicit bounded fabric and gives each node only its scoped neutral port:
 ```js
 import { createNode } from "@agp/node";
 import { createLoopbackFabric } from "@agp/transport-loopback";
@@ -216,63 +248,29 @@ const client = createNode({
 }, { transport: clientTransport });
 ```
 
-The fabric is an owned production resource, not a global registry or test
-mock. Stop its node owners before closing it. Its immutable bounded operations
-state is available through `fabric.snapshot()`.
+The fabric is an owned production resource, not a global registry or test mock.\
+Stop its node owners before closing it.\
+Its immutable bounded operations state is available through `fabric.snapshot()`.
 
-`send()` consults the local selected RIB. A missing or unusable route rejects
-with a typed error before any onward data write. A successful receipt records
-the selected route and operations revision used for admission; it does not
-claim end-to-end application handling.
+`send()` consults the local selected RIB.\
+A missing or unusable route rejects with a typed error before any onward data write.\
+A successful receipt records the selected route and operations revision used for admission; it does not claim end-to-end application handling.
 
-## Quick start
-
-The workspace targets Node.js 24.
-
-```bash
-npm install
-npm run build
-node examples/hub-two-spokes.mjs
-```
-
-Despite the historical filename, the example creates three instances of the
-same node implementation. It deliberately exercises the WebSocket adapter over
-ephemeral literal-loopback TCP addresses; it is distinct from the process-local
-Loopback transport. Pass `--persist` to keep it available for asynchronous
-inspection.
-
-Run the sovereign production Loopback star and delivery walkthrough with:
-
-```bash
-node examples/loopback-hub-spokes/example.mjs
-```
-
-Pass `--persist` to keep its three separately managed node projections
-available at ports `47201`, `47211`, and `47212`. The nodes intentionally share
-one composition-root process because the owned Loopback fabric is
-process-local. Configuration, inspection commands, and lifecycle details are
-in
-[examples/loopback-hub-spokes/](./examples/loopback-hub-spokes/README.md).
-
-For three independently managed processes with multiple endpoints per leaf, use
-[examples/independent-hub-spokes/](./examples/independent-hub-spokes/README.md).
+---
 
 ## Operations and CLI
 
 Every node exposes the same canonical reader:
-
 ```js
 const connections = node.operations.connections();
 const routes = node.operations.routes();
 const snapshot = node.operations.snapshot();
 ```
 
-Connection snapshots materialize monotonic `establishedDurationMs` and hold
-timer `remainingMs` at query time without changing the state revision. The CLI
-renders those fields as unbounded-hour `UPTIME` and whole-second `TTL`.
+Connection snapshots materialize monotonic `establishedDurationMs` and hold timer `remainingMs` at query time without changing the state revision.\
+The CLI renders those fields as unbounded-hour `UPTIME` and whole-second `TTL`.
 
 An application may expose the reader locally:
-
 ```js
 import { createManagementHttpServer } from "@agp/management-http";
 
@@ -281,7 +279,6 @@ await management.start();
 ```
 
 The Bash/`curl`/`jq` CLI is read-only:
-
 ```bash
 export AGP_MANAGEMENT_URL=http://127.0.0.1:47111
 ./cli/agpctl connections.list
@@ -289,18 +286,19 @@ export AGP_MANAGEMENT_URL=http://127.0.0.1:47111
 ./cli/agpctl routes.list --json
 ```
 
-## LAN and security posture
+---
 
-The WebSocket adapter can bind a LAN interface and dial `ws:` peers, so the
-protocol functions across a reachable LAN. Its certified security mode is
-explicitly `trusted-development`: OPEN identity is self-asserted and the
-transport does not provide confidentiality or peer authentication. Use it only
-on a trusted development network. A production integration must provide a
-separately reviewed secure transport binding, authenticated identity admission,
-and deployment-specific policy.
+## Security posture
 
-The management server remains literal-loopback-only by design. `agpctl` is an
-inspection surface, not a remote administration API.
+The WebSocket adapter can bind a LAN interface and dial `ws:` peers, so the protocol functions across a reachable LAN.\
+Its certified security mode is explicitly `trusted-development`: OPEN identity is self-asserted and the transport does not provide confidentiality or peer authentication.\
+Use it only on a trusted development network.\
+A production integration must provide a separately reviewed secure transport binding, authenticated identity admission, and deployment-specific policy.
+
+The management server remains literal-loopback-only by design.\
+`agpctl` is an inspection surface, not a remote administration API.
+
+---
 
 ## Development and verification
 
@@ -315,13 +313,8 @@ npm run test:topology
 npm run test:resilience
 npm run test:e2e
 npm run schemas:check
-npm run certify
 ```
 
-Tests are package-owned, self-descriptive, and orthogonal. The ownership model
-and anti-rot checks are documented in [TESTING.md](./TESTING.md). The release
-gate definitions are in
-[verification.md](./docs/design/agp-uniform-node/verification.md).
-`npm run certify` executes the binary `AX0 → AX8` chain and publishes a
-digest-linked sandbox artifact certificate only after every gate and cleanup
-check passes.
+Tests are package-owned, self-descriptive, and orthogonal.\
+The ownership model and anti-rot checks are documented in [TESTING.md](./TESTING.md).\
+The layered gate definitions, and which gate owns which proof, are in [verification.md](./docs/design/agp-uniform-node/verification.md).

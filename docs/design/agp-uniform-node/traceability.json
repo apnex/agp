@@ -17,12 +17,21 @@
           "ratification": "applicable-mechanics"
         }
       ],
-      "designReferences": ["README.md#2-mandate", "decisions.md#d1--uniform-node"],
-      "schemaIds": ["urn:agp:schema:v1:core:configuration:node-config"],
+      "designReferences": [
+        "README.md#2-mandate",
+        "decisions.md#d1---uniform-node"
+      ],
+      "schemaIds": [
+        "urn:agp:schema:v1:core:configuration:node-config"
+      ],
       "semanticRuleIds": [],
       "owningGate": "AX5",
-      "owningTests": ["packages/node/test/contract/uniform-capabilities.test.js"],
-      "integrationWitnesses": ["test/conformance/public-node-consumer.test.js"]
+      "owningTests": [
+        "packages/node/test/contract/uniform-capabilities.test.js"
+      ],
+      "integrationWitnesses": [
+        "test/conformance/public-node-consumer.test.js"
+      ]
     },
     {
       "requirementId": "U2",
@@ -39,9 +48,16 @@
           "ratification": "applicable-mechanics"
         }
       ],
-      "designReferences": ["README.md#5-topology-is-configuration", "sdk-operations.md#31-factory-and-composition"],
-      "schemaIds": ["urn:agp:schema:v1:core:configuration:node-config"],
-      "semanticRuleIds": ["PEER-ADJACENCY-UNIQUENESS-1"],
+      "designReferences": [
+        "README.md#5-topology-is-configuration",
+        "sdk-operations.md#31-factory-and-composition"
+      ],
+      "schemaIds": [
+        "urn:agp:schema:v1:core:configuration:node-config"
+      ],
+      "semanticRuleIds": [
+        "PEER-ADJACENCY-UNIQUENESS-1"
+      ],
       "owningGate": "AX5",
       "owningTests": [
         "packages/node/test/contract/uniform-capabilities.test.js",
@@ -65,15 +81,25 @@
           "ratification": "confirmed"
         }
       ],
-      "designReferences": ["protocol.md#8-uniform-session-fsm", "fsm.md#66-established"],
+      "designReferences": [
+        "protocol.md#8-uniform-session-fsm",
+        "fsm.md#66-established"
+      ],
       "schemaIds": [
         "urn:agp:schema:v1:protocol:wire:route-update-message",
         "urn:agp:schema:v1:protocol:wire:route-ack-message"
       ],
-      "semanticRuleIds": ["FSM-ESTABLISHED-MATRIX-1", "ROUTE-ACK-CORRELATION-1"],
+      "semanticRuleIds": [
+        "FSM-ESTABLISHED-MATRIX-1",
+        "ROUTE-ACK-CORRELATION-1"
+      ],
       "owningGate": "AX3",
-      "owningTests": ["packages/core/test/unit/peer-fsm-route-exchange.test.js"],
-      "integrationWitnesses": ["test/topology/star-convergence.test.js"]
+      "owningTests": [
+        "packages/core/test/unit/peer-fsm-route-exchange.test.js"
+      ],
+      "integrationWitnesses": [
+        "test/topology/star-convergence.test.js"
+      ]
     },
     {
       "requirementId": "U4",
@@ -85,11 +111,19 @@
           "ratification": "confirmed"
         }
       ],
-      "designReferences": ["routing.md#7-selected-route-export"],
-      "schemaIds": ["urn:agp:schema:v1:core:operations:adj-rib-out-route-snapshot"],
-      "semanticRuleIds": ["RIB-SELECTED-EXPORT-1"],
+      "designReferences": [
+        "routing.md#7-selected-route-export"
+      ],
+      "schemaIds": [
+        "urn:agp:schema:v1:core:operations:adj-rib-out-route-snapshot"
+      ],
+      "semanticRuleIds": [
+        "RIB-SELECTED-EXPORT-1"
+      ],
       "owningGate": "AX4",
-      "owningTests": ["packages/core/test/unit/route-export-eligibility.test.js"],
+      "owningTests": [
+        "packages/core/test/unit/route-export-eligibility.test.js"
+      ],
       "integrationWitnesses": [
         "test/topology/line-transit.test.js",
         "test/e2e/independent-star-duplicate-route.test.js",
@@ -107,15 +141,27 @@
           "ratification": "confirmed"
         }
       ],
-      "designReferences": ["protocol.md#41-wire-route", "routing.md#52-route-validation-classes"],
-      "schemaIds": ["urn:agp:schema:v1:protocol:common:node-path"],
-      "semanticRuleIds": ["ROUTE-PATH-OWNERSHIP-1", "ROUTE-PATH-LIMIT-1", "ROUTE-RECEIVER-LOOP-1", "ROUTE-PEER-LOOP-1"],
+      "designReferences": [
+        "protocol.md#41-wire-route",
+        "routing.md#52-route-validation-classes"
+      ],
+      "schemaIds": [
+        "urn:agp:schema:v1:protocol:common:node-path"
+      ],
+      "semanticRuleIds": [
+        "ROUTE-PATH-OWNERSHIP-1",
+        "ROUTE-PATH-LIMIT-1",
+        "ROUTE-RECEIVER-LOOP-1",
+        "ROUTE-PEER-LOOP-1"
+      ],
       "owningGate": "AX4",
       "owningTests": [
         "packages/core/test/unit/route-receiver-loop.test.js",
         "packages/core/test/unit/route-peer-loop.test.js"
       ],
-      "integrationWitnesses": ["test/topology/triangle-loop-prevention.test.js"]
+      "integrationWitnesses": [
+        "test/topology/triangle-loop-prevention.test.js"
+      ]
     },
     {
       "requirementId": "U6",
@@ -127,11 +173,20 @@
           "ratification": "confirmed"
         }
       ],
-      "designReferences": ["routing.md#9-uniform-data-forwarding", "sdk-operations.md#43-routed-send"],
-      "schemaIds": ["urn:agp:schema:v1:core:sdk:send-receipt"],
-      "semanticRuleIds": ["DATA-SELECTED-RIB-1"],
+      "designReferences": [
+        "routing.md#9-uniform-data-forwarding",
+        "sdk-operations.md#43-routed-send"
+      ],
+      "schemaIds": [
+        "urn:agp:schema:v1:core:sdk:send-receipt"
+      ],
+      "semanticRuleIds": [
+        "DATA-SELECTED-RIB-1"
+      ],
       "owningGate": "AX5",
-      "owningTests": ["packages/node/test/contract/local-data-admission.test.js"],
+      "owningTests": [
+        "packages/node/test/contract/local-data-admission.test.js"
+      ],
       "integrationWitnesses": [
         "test/topology/star-convergence.test.js",
         "test/topology/line-transit.test.js",
@@ -159,9 +214,13 @@
         "urn:agp:schema:v1:core:codes:sdk-operation",
         "urn:agp:schema:v1:core:sdk:agp-error-data"
       ],
-      "semanticRuleIds": ["DATA-LOCAL-NO-ROUTE-1"],
+      "semanticRuleIds": [
+        "DATA-LOCAL-NO-ROUTE-1"
+      ],
       "owningGate": "AX5",
-      "owningTests": ["packages/node/test/contract/local-route-miss.test.js"],
+      "owningTests": [
+        "packages/node/test/contract/local-route-miss.test.js"
+      ],
       "integrationWitnesses": []
     },
     {
@@ -174,11 +233,21 @@
           "ratification": "confirmed"
         }
       ],
-      "designReferences": ["routing.md#96-route-miss-outcomes", "verification.md#exact-route-miss-oracle"],
-      "schemaIds": ["urn:agp:schema:v1:protocol:codes:delivery-error-code"],
-      "semanticRuleIds": ["DATA-TRANSIT-NO-ROUTE-1", "DATA-FAILURE-PRECEDENCE-1"],
+      "designReferences": [
+        "routing.md#96-route-miss-outcomes",
+        "verification.md#exact-route-miss-oracle"
+      ],
+      "schemaIds": [
+        "urn:agp:schema:v1:protocol:codes:delivery-error-code"
+      ],
+      "semanticRuleIds": [
+        "DATA-TRANSIT-NO-ROUTE-1",
+        "DATA-FAILURE-PRECEDENCE-1"
+      ],
       "owningGate": "AX5",
-      "owningTests": ["packages/node/test/contract/transit-route-miss.test.js"],
+      "owningTests": [
+        "packages/node/test/contract/transit-route-miss.test.js"
+      ],
       "integrationWitnesses": []
     },
     {
@@ -191,13 +260,19 @@
           "ratification": "confirmed"
         }
       ],
-      "designReferences": ["protocol.md#7-correlated-reverse-errors", "routing.md#10-reverse-delivery-errors"],
+      "designReferences": [
+        "protocol.md#7-correlated-reverse-errors",
+        "routing.md#10-reverse-delivery-errors"
+      ],
       "schemaIds": [
         "urn:agp:schema:v1:protocol:common:return-token",
         "urn:agp:schema:v1:protocol:wire:delivery-error-body",
         "urn:agp:schema:v1:core:operations:reverse-correlation-snapshot"
       ],
-      "semanticRuleIds": ["ERROR-RETURN-TOKEN-1", "ERROR-NO-RIB-LOOKUP-1"],
+      "semanticRuleIds": [
+        "ERROR-RETURN-TOKEN-1",
+        "ERROR-NO-RIB-LOOKUP-1"
+      ],
       "owningGate": "AX5",
       "owningTests": [
         "packages/node/test/contract/reverse-error-relay.test.js",
@@ -215,7 +290,10 @@
           "ratification": "confirmed"
         }
       ],
-      "designReferences": ["sdk-operations.md#7-management-http", "sdk-operations.md#8-read-only-agpctl"],
+      "designReferences": [
+        "sdk-operations.md#7-management-http",
+        "sdk-operations.md#8-read-only-agpctl"
+      ],
       "schemaIds": [
         "urn:agp:schema:v1:management:connections-response",
         "urn:agp:schema:v1:management:routes-response"
@@ -258,7 +336,9 @@
           "ratification": "applicable-mechanics"
         }
       ],
-      "designReferences": ["contracts.md#1-mandate"],
+      "designReferences": [
+        "contracts.md#1-mandate"
+      ],
       "schemaIds": [
         "urn:agp:schema:v1:protocol:wire:message",
         "urn:agp:schema:v1:transport:contracts:transport-peer-evidence",
@@ -298,11 +378,17 @@
         "README.md#2-mandate",
         "transport-contract.md#3-package-sovereignty"
       ],
-      "schemaIds": ["urn:agp:schema:v1:transport:common:transport-ref"],
+      "schemaIds": [
+        "urn:agp:schema:v1:transport:common:transport-ref"
+      ],
       "semanticRuleIds": [],
       "owningGate": "AX1",
-      "owningTests": ["test/conformance/transport-sovereignty.test.js"],
-      "integrationWitnesses": ["test/conformance/public-node-consumer.test.js"]
+      "owningTests": [
+        "test/conformance/transport-sovereignty.test.js"
+      ],
+      "integrationWitnesses": [
+        "test/conformance/public-node-consumer.test.js"
+      ]
     },
     {
       "requirementId": "U13",
@@ -347,7 +433,7 @@
       ],
       "designReferences": [
         "transports/loopback.md",
-        "decisions.md#d17--canonical-production-loopback"
+        "decisions.md#d17---canonical-production-loopback"
       ],
       "schemaIds": [
         "urn:agp:schema:v1:transport-loopback:configuration:fabric",
@@ -362,7 +448,9 @@
         "packages/transport-loopback/test/contract/production-surface.test.js",
         "packages/transport-loopback/test/conformance/packet-boundary.test.js"
       ],
-      "integrationWitnesses": ["test/topology/star-convergence.test.js"]
+      "integrationWitnesses": [
+        "test/topology/star-convergence.test.js"
+      ]
     },
     {
       "requirementId": "U15",
@@ -381,7 +469,7 @@
       ],
       "designReferences": [
         "bindings/websocket.md",
-        "decisions.md#d16--sovereign-websocket-binding"
+        "decisions.md#d16---sovereign-websocket-binding"
       ],
       "schemaIds": [
         "urn:agp:schema:v1:binding-websocket:configuration:listener",
@@ -398,7 +486,9 @@
         "packages/transport-node-ws/test/contract/trusted-development-profile.test.js",
         "test/conformance/transport-sovereignty.test.js"
       ],
-      "integrationWitnesses": ["test/e2e/independent-star-multi-endpoint.test.js"]
+      "integrationWitnesses": [
+        "test/e2e/independent-star-multi-endpoint.test.js"
+      ]
     },
     {
       "requirementId": "D1",
@@ -410,11 +500,17 @@
           "ratification": "required"
         }
       ],
-      "designReferences": ["decisions.md#d1--uniform-node"],
-      "schemaIds": ["urn:agp:schema:v1:core:configuration:node-config"],
+      "designReferences": [
+        "decisions.md#d1---uniform-node"
+      ],
+      "schemaIds": [
+        "urn:agp:schema:v1:core:configuration:node-config"
+      ],
       "semanticRuleIds": [],
       "owningGate": "AX5",
-      "owningTests": ["packages/node/test/contract/uniform-capabilities.test.js"],
+      "owningTests": [
+        "packages/node/test/contract/uniform-capabilities.test.js"
+      ],
       "integrationWitnesses": []
     },
     {
@@ -427,11 +523,17 @@
           "ratification": "required"
         }
       ],
-      "designReferences": ["decisions.md#d2--in-place-v1-replacement"],
-      "schemaIds": ["urn:agp:schema:v1:protocol:wire:message"],
+      "designReferences": [
+        "decisions.md#d2---in-place-v1-replacement"
+      ],
+      "schemaIds": [
+        "urn:agp:schema:v1:protocol:wire:message"
+      ],
       "semanticRuleIds": [],
       "owningGate": "AX1",
-      "owningTests": ["test/conformance/no-legacy-surface.test.js"],
+      "owningTests": [
+        "test/conformance/no-legacy-surface.test.js"
+      ],
       "integrationWitnesses": []
     },
     {
@@ -444,7 +546,10 @@
           "ratification": "required"
         }
       ],
-      "designReferences": ["decisions.md#d3--sovereign-contracts", "contracts.md"],
+      "designReferences": [
+        "decisions.md#d3---sovereign-contracts",
+        "contracts.md"
+      ],
       "schemaIds": [
         "urn:agp:schema:v1:protocol:wire:message",
         "urn:agp:schema:v1:transport:contracts:transport-peer-evidence",
@@ -474,9 +579,19 @@
           "ratification": "ratified"
         }
       ],
-      "designReferences": ["decisions.md#d4--full-route-snapshots", "protocol.md#4-authoritative-route-snapshots"],
-      "schemaIds": ["urn:agp:schema:v1:protocol:wire:route-update-body"],
-      "semanticRuleIds": ["ROUTE-SNAPSHOT-REVISION-1", "ROUTE-SNAPSHOT-REPLACE-1", "ROUTE-REJECTION-MEMORY-1", "ROUTE-REJECTION-RETRY-1"],
+      "designReferences": [
+        "decisions.md#d4---full-route-snapshots",
+        "protocol.md#4-authoritative-route-snapshots"
+      ],
+      "schemaIds": [
+        "urn:agp:schema:v1:protocol:wire:route-update-body"
+      ],
+      "semanticRuleIds": [
+        "ROUTE-SNAPSHOT-REVISION-1",
+        "ROUTE-SNAPSHOT-REPLACE-1",
+        "ROUTE-REJECTION-MEMORY-1",
+        "ROUTE-REJECTION-RETRY-1"
+      ],
       "owningGate": "AX4",
       "owningTests": [
         "packages/core/test/unit/route-import.test.js",
@@ -498,12 +613,18 @@
           "ratification": "ratified"
         }
       ],
-      "designReferences": ["decisions.md#d5--route-provenance-and-identity-lifetime"],
+      "designReferences": [
+        "decisions.md#d5---route-provenance-and-identity-lifetime"
+      ],
       "schemaIds": [
         "urn:agp:schema:v1:protocol:common:session-id",
         "urn:agp:schema:v1:protocol:common:node-path"
       ],
-      "semanticRuleIds": ["OPEN-IDENTITY-1", "SESSION-PAIR-SCOPE-1", "ROUTE-PATH-OWNERSHIP-1"],
+      "semanticRuleIds": [
+        "OPEN-IDENTITY-1",
+        "SESSION-PAIR-SCOPE-1",
+        "ROUTE-PATH-OWNERSHIP-1"
+      ],
       "owningGate": "AX2",
       "owningTests": [
         "packages/protocol/test/unit/open-identity.test.js",
@@ -525,12 +646,23 @@
           "ratification": "ratified"
         }
       ],
-      "designReferences": ["decisions.md#d6--deterministic-single-path-selection", "routing.md#62-total-best-path-order"],
-      "schemaIds": ["urn:agp:schema:v1:core:codes:selected-reason"],
-      "semanticRuleIds": ["RIB-BEST-PATH-1"],
+      "designReferences": [
+        "decisions.md#d6---deterministic-single-path-selection",
+        "routing.md#62-total-best-path-order"
+      ],
+      "schemaIds": [
+        "urn:agp:schema:v1:core:codes:selected-reason"
+      ],
+      "semanticRuleIds": [
+        "RIB-BEST-PATH-1"
+      ],
       "owningGate": "AX4",
-      "owningTests": ["packages/core/test/unit/route-selection.test.js"],
-      "integrationWitnesses": ["test/topology/diamond-selection.test.js"]
+      "owningTests": [
+        "packages/core/test/unit/route-selection.test.js"
+      ],
+      "integrationWitnesses": [
+        "test/topology/diamond-selection.test.js"
+      ]
     },
     {
       "requirementId": "D7",
@@ -542,16 +674,27 @@
           "ratification": "ratified"
         }
       ],
-      "designReferences": ["decisions.md#d7--feasible-path-source-authorization", "mechanisms.md"],
-      "schemaIds": ["urn:agp:schema:v1:protocol:routing:endpoint-source"],
-      "semanticRuleIds": ["DATA-FEASIBLE-SOURCE-1", "DATA-SOURCE-EXPORT-1", "ROUTE-WRITE-ORDER-1"],
+      "designReferences": [
+        "decisions.md#d7---feasible-path-source-authorization",
+        "mechanisms.md"
+      ],
+      "schemaIds": [
+        "urn:agp:schema:v1:protocol:routing:endpoint-source"
+      ],
+      "semanticRuleIds": [
+        "DATA-FEASIBLE-SOURCE-1",
+        "DATA-SOURCE-EXPORT-1",
+        "ROUTE-WRITE-ORDER-1"
+      ],
       "owningGate": "AX5",
       "owningTests": [
         "packages/node/test/contract/transit-feasible-source.test.js",
         "packages/node/test/contract/source-export-barrier.test.js",
         "packages/node/test/contract/withdrawal-writer-order.test.js"
       ],
-      "integrationWitnesses": ["test/topology/line-transit.test.js"]
+      "integrationWitnesses": [
+        "test/topology/line-transit.test.js"
+      ]
     },
     {
       "requirementId": "D8",
@@ -563,9 +706,17 @@
           "ratification": "ratified"
         }
       ],
-      "designReferences": ["decisions.md#d8--reverse-failures"],
-      "schemaIds": ["urn:agp:schema:v1:protocol:common:return-token"],
-      "semanticRuleIds": ["RETURN-TOKEN-NONREUSE-1", "ERROR-RETURN-TOKEN-1", "ERROR-CONSUME-ONCE-1"],
+      "designReferences": [
+        "decisions.md#d8---reverse-failures"
+      ],
+      "schemaIds": [
+        "urn:agp:schema:v1:protocol:common:return-token"
+      ],
+      "semanticRuleIds": [
+        "RETURN-TOKEN-NONREUSE-1",
+        "ERROR-RETURN-TOKEN-1",
+        "ERROR-CONSUME-ONCE-1"
+      ],
       "owningGate": "AX5",
       "owningTests": [
         "packages/node/test/contract/reverse-error-relay.test.js",
@@ -585,11 +736,19 @@
           "ratification": "ratified"
         }
       ],
-      "designReferences": ["decisions.md#d9--volatile-derived-runtime-state"],
-      "schemaIds": ["urn:agp:schema:v1:core:operations:operations-snapshot"],
-      "semanticRuleIds": ["RESTART-EMPTY-DERIVED-STATE-1"],
+      "designReferences": [
+        "decisions.md#d9---volatile-derived-runtime-state"
+      ],
+      "schemaIds": [
+        "urn:agp:schema:v1:core:operations:operations-snapshot"
+      ],
+      "semanticRuleIds": [
+        "RESTART-EMPTY-DERIVED-STATE-1"
+      ],
       "owningGate": "AX7",
-      "owningTests": ["test/topology/restart-reconvergence.test.js"],
+      "owningTests": [
+        "test/topology/restart-reconvergence.test.js"
+      ],
       "integrationWitnesses": []
     },
     {
@@ -607,7 +766,10 @@
           "ratification": "applicable-mechanics"
         }
       ],
-      "designReferences": ["decisions.md#d10--atomic-canonical-state", "routing.md#11-atomic-state-and-revision-mechanics"],
+      "designReferences": [
+        "decisions.md#d10---atomic-canonical-state",
+        "routing.md#11-atomic-state-and-revision-mechanics"
+      ],
       "schemaIds": [
         "urn:agp:schema:v1:core:common:operations-revision",
         "urn:agp:schema:v1:core:common:event-sequence",
@@ -636,12 +798,23 @@
           "ratification": "ratified"
         }
       ],
-      "designReferences": ["decisions.md#d11--cross-dial-collision", "mechanisms.md"],
-      "schemaIds": ["urn:agp:schema:v1:protocol:common:session-id"],
-      "semanticRuleIds": ["SESSION-CROSS-DIAL-1"],
+      "designReferences": [
+        "decisions.md#d11---cross-dial-collision",
+        "mechanisms.md"
+      ],
+      "schemaIds": [
+        "urn:agp:schema:v1:protocol:common:session-id"
+      ],
+      "semanticRuleIds": [
+        "SESSION-CROSS-DIAL-1"
+      ],
       "owningGate": "AX3",
-      "owningTests": ["packages/core/test/unit/peer-fsm-cross-dial.test.js"],
-      "integrationWitnesses": ["test/resilience/cross-dial-race.test.js"]
+      "owningTests": [
+        "packages/core/test/unit/peer-fsm-cross-dial.test.js"
+      ],
+      "integrationWitnesses": [
+        "test/resilience/cross-dial-race.test.js"
+      ]
     },
     {
       "requirementId": "D12",
@@ -653,7 +826,10 @@
           "ratification": "required"
         }
       ],
-      "designReferences": ["decisions.md#d12--operational-continuity", "sdk-operations.md#8-read-only-agpctl"],
+      "designReferences": [
+        "decisions.md#d12---operational-continuity",
+        "sdk-operations.md#8-read-only-agpctl"
+      ],
       "schemaIds": [
         "urn:agp:schema:v1:management:connections-response",
         "urn:agp:schema:v1:management:routes-response"
@@ -665,7 +841,9 @@
         "cli/test/unit/connections-template.test.js",
         "cli/test/unit/route-template.test.js"
       ],
-      "integrationWitnesses": ["test/e2e/operations-frozen-parity.test.js"]
+      "integrationWitnesses": [
+        "test/e2e/operations-frozen-parity.test.js"
+      ]
     },
     {
       "requirementId": "D13",
@@ -677,15 +855,22 @@
           "ratification": "ratified"
         }
       ],
-      "designReferences": ["decisions.md#d13--one-shot-runtime-instance", "sdk-operations.md#32-lifecycle"],
+      "designReferences": [
+        "decisions.md#d13---one-shot-runtime-instance",
+        "sdk-operations.md#32-lifecycle"
+      ],
       "schemaIds": [
         "urn:agp:schema:v1:core:codes:host-state",
         "urn:agp:schema:v1:core:operations:host-failure-snapshot",
         "urn:agp:schema:v1:core:sdk:stop-report"
       ],
-      "semanticRuleIds": ["NODE-ONE-SHOT-LIFECYCLE-1"],
+      "semanticRuleIds": [
+        "NODE-ONE-SHOT-LIFECYCLE-1"
+      ],
       "owningGate": "AX5",
-      "owningTests": ["packages/node/test/contract/lifecycle-one-shot.test.js"],
+      "owningTests": [
+        "packages/node/test/contract/lifecycle-one-shot.test.js"
+      ],
       "integrationWitnesses": []
     },
     {
@@ -699,7 +884,7 @@
         }
       ],
       "designReferences": [
-        "decisions.md#d14--reliable-ordered-packet-channel",
+        "decisions.md#d14---reliable-ordered-packet-channel",
         "transport-contract.md#61-listener-acquisition",
         "verification.md#transport-acceptance-callback-fault-proof"
       ],
@@ -740,7 +925,7 @@
         }
       ],
       "designReferences": [
-        "decisions.md#d15--transport-references-and-observed-peer-evidence",
+        "decisions.md#d15---transport-references-and-observed-peer-evidence",
         "transport-contract.md#4-logical-references-and-bound-acquisition-capabilities",
         "transport-contract.md#12-peer-evidence-and-identity-admission"
       ],
@@ -770,14 +955,16 @@
         }
       ],
       "designReferences": [
-        "decisions.md#d16--sovereign-websocket-binding",
+        "decisions.md#d16---sovereign-websocket-binding",
         "bindings/websocket.md"
       ],
       "schemaIds": [
         "urn:agp:schema:v1:binding-websocket:configuration:listener",
         "urn:agp:schema:v1:binding-websocket:codes:binding-rejection-code"
       ],
-      "semanticRuleIds": ["WEBSOCKET-PACKET-BINDING-1"],
+      "semanticRuleIds": [
+        "WEBSOCKET-PACKET-BINDING-1"
+      ],
       "owningGate": "AX1",
       "owningTests": [
         "packages/binding-websocket/test/contract/packet-mapping.test.js",
@@ -785,7 +972,9 @@
         "packages/transport-node-ws/test/contract/trusted-development-profile.test.js",
         "packages/transport-node-ws/test/conformance/send-dispatch-cancellation.test.js"
       ],
-      "integrationWitnesses": ["test/e2e/independent-line.test.js"]
+      "integrationWitnesses": [
+        "test/e2e/independent-line.test.js"
+      ]
     },
     {
       "requirementId": "D17",
@@ -798,7 +987,7 @@
         }
       ],
       "designReferences": [
-        "decisions.md#d17--canonical-production-loopback",
+        "decisions.md#d17---canonical-production-loopback",
         "transports/loopback.md"
       ],
       "schemaIds": [

@@ -1,4 +1,4 @@
-# AGP uniform node — connection FSM
+# AGP uniform node - connection FSM
 
 > **Status:** Ratified implementation design with transport-sovereignty
 > amendment (2026-07-30). Release
@@ -7,14 +7,12 @@
 ## 1. Model
 
 AGP retains the BGP-inspired states:
-
 ```text
-Idle → Connect / Active → OpenSent → OpenConfirm → Established
+Idle -> Connect / Active -> OpenSent -> OpenConfirm -> Established
 ```
 
-They describe one local session controller, not a node role. A controller
-records how its transport was acquired:
-
+They describe one local session controller, not a node role.\
+A controller records how its transport was acquired:
 ```ts
 type Acquisition =
   | { kind: "dial"; adjacencyId: string }
@@ -23,17 +21,14 @@ type Acquisition =
 type Direction = "outbound" | "inbound";
 ```
 
-That distinction controls retry ownership only. Once `OpenSent` is reached,
-both acquisitions use the same FSM rows, protocol language, route import and
-export machinery, data path, timers, and teardown.
+That distinction controls retry ownership only.\
+Once `OpenSent` is reached, both acquisitions use the same FSM rows, protocol language, route import and export machinery, data path, timers, and teardown.
 
-`Acquisition` is internal controller authority. The public schema-generated
-`Direction` is a read-only projection with one fixed mapping:
-`dial → outbound` and `accept → inbound`. No public `direction` value is read
-back to select retry, message legality, or any other FSM action.
+`Acquisition` is internal controller authority.\
+The public schema-generated `Direction` is a read-only projection with one fixed mapping: `dial -> outbound` and `accept -> inbound`.\
+No public `direction` value is read back to select retry, message legality, or any other FSM action.
 
-The node listener and configured `AdjacencySupervisor` are outside the session
-FSM:
+The node listener and configured `AdjacencySupervisor` are outside the session FSM:
 
 - the listener turns an accepted conforming packet channel into `StartAccept`
   followed by `TransportAccepted`;
@@ -41,6 +36,8 @@ FSM:
   reconnect policy, and suppresses dialing while another winning session
   satisfies the remote-node adjacency;
 - the node's session directory performs post-OPEN collision resolution.
+
+---
 
 ## 2. State meanings
 
@@ -54,6 +51,8 @@ FSM:
 | `Established` | Symmetric route exchange and JSON data are legal | open | all v1 types except another `open` |
 
 A transport reporting a channel acquired never implies `Established`.
+
+---
 
 ## 3. Controller state and invariants
 
@@ -70,10 +69,8 @@ One controller owns:
 - timers, bounded queues, counters, and the last transition;
 - tokened asynchronous identity/route-admission continuations.
 
-`lastTransition` means the most recently committed semantic FSM event,
-including a self-transition such as `Established → Established` on
-`KeepaliveReceived`. It is therefore the canonical source for CLI
-`LAST_EVENT`, not merely the last event that changed the state name.
+`lastTransition` means the most recently committed semantic FSM event, including a self-transition such as `Established -> Established` on `KeepaliveReceived`.\
+It is therefore the canonical source for CLI `LAST_EVENT`, not merely the last event that changed the state name.
 
 Global FSM invariants:
 
@@ -85,7 +82,7 @@ Global FSM invariants:
    `(remoteNodeId, localSessionId)` and private authority uses exact controller
    identity.
 3. Remote identity and negotiated values become authoritative together on
-   `OpenSent → OpenConfirm`; that transaction atomically replaces the
+   `OpenSent -> OpenConfirm`; that transaction atomically replaces the
    pre-identity projection with an admitted `SessionSnapshot`.
 4. Only `Established` accepts route updates, route acknowledgements, data, or
    recoverable errors.
@@ -111,6 +108,8 @@ Global FSM invariants:
     at the causal transition, otherwise pair-scoped `session.closed`. Claimed
     or configured identity is never substituted for an authoritative
     `remoteNodeId`.
+
+---
 
 ## 4. Semantic events
 
@@ -148,13 +147,12 @@ Global FSM invariants:
 | `RouteRevisionRollover` | route export | A changed snapshot would exceed the safe wire revision |
 | `ControlQueueOverflow` | writer | Mandatory notification/ACK/error cannot reserve bounded control capacity |
 
-Carrier-private liveness may terminate an unusable channel but cannot emit an
-AGP keepalive event or refresh an AGP protocol timer.
+Carrier-private liveness may terminate an unusable channel but cannot emit an AGP keepalive event or refresh an AGP protocol timer.
 
 ### 4.1 Closed reconnect disposition
 
-Only a configured dial adjacency can schedule another attempt. Its terminal
-cause has one closed disposition:
+Only a configured dial adjacency can schedule another attempt.\
+Its terminal cause has one closed disposition:
 
 | Cause | Supervisor disposition |
 |---|---|
@@ -164,9 +162,10 @@ cause has one closed disposition:
 | `CEASE`, `UNSUPPORTED_VERSION`, `INVALID_MESSAGE`, `UNEXPECTED_MESSAGE`, or `IDENTITY_REJECTED` | Terminal; no automatic retry for that configured adjacency |
 | Local node `Stop` | Terminal; disable retry |
 
-An accepted controller always terminates without dialing. “Retry outcome” in
-the transition tables means exactly this table; an implementation cannot
-invent a different code set.
+An accepted controller always terminates without dialing.\
+"Retry outcome" in the transition tables means exactly this table; an implementation cannot invent a different code set.
+
+---
 
 ## 5. Timers
 
@@ -183,32 +182,23 @@ invent a different code set.
 | Transport write | each packet-channel send | ordered acceptance, rejection, or forced abort |
 | Transport close | graceful close begins | close completion or forced abort |
 
-The hold negotiation and keepalive interval retain the existing contract:
-either zero offer disables both protocol timers; otherwise hold is the lower
-offer and keepalive is `floor(hold / 3)`.
+The hold negotiation and keepalive interval retain the existing contract: either zero offer disables both protocol timers; otherwise hold is the lower offer and keepalive is `floor(hold / 3)`.
 
-`connections.list` TTL is the remaining monotonic duration on the active hold
-timer, rendered at whole-second granularity. Canonical state stores the timer;
-each operations query materializes `remainingMs` from the monotonic clock at
-its single capture instant. It does not create a revision every second merely
-for presentation.
+`connections.list` TTL is the remaining monotonic duration on the active hold timer, rendered at whole-second granularity.\
+Canonical state stores the timer; each operations query materializes `remainingMs` from the monotonic clock at its single capture instant.\
+It does not create a revision every second merely for presentation.
+
+---
 
 ## 6. Transition tables
 
-All omitted wire inputs are `UnexpectedMessage`: if a safe notification can be
-written, send `UNEXPECTED_MESSAGE`, then perform fatal teardown.
+All omitted wire inputs are `UnexpectedMessage`: if a safe notification can be written, send `UNEXPECTED_MESSAGE`, then perform fatal teardown.
 
-`InvalidMessage` in any channel-owning state sends `INVALID_MESSAGE` when that
-packet was safe enough to answer, invalidates any continuation, purges any
-session-owned routes, releases the channel, and follows the ordinary retry
-outcome or `Idle`. Before `Established`, the route purge is an empty operation.
+`InvalidMessage` in any channel-owning state sends `INVALID_MESSAGE` when that packet was safe enough to answer, invalidates any continuation, purges any session-owned routes, releases the channel, and follows the ordinary retry outcome or `Idle`.\
+Before `Established`, the route purge is an empty operation.
 
-In the tables below, **transport termination** is the exact event set
-`TransportFailed | TransportClosed | TransportInputRejected`.
-`TransportInputRejected` is non-graceful and uses the same supervisor retry
-disposition as `TransportFailed`; its mandatory following channel terminal is
-mechanical evidence suppressed by the already-claimed transport-disposition
-latch.
+In the tables below, **transport termination** is the exact event set `TransportFailed | TransportClosed | TransportInputRejected`.\
+`TransportInputRejected` is non-graceful and uses the same supervisor retry disposition as `TransportFailed`; its mandatory following channel terminal is mechanical evidence suppressed by the already-claimed transport-disposition latch.
 
 ### 6.1 `Idle`
 
@@ -248,12 +238,11 @@ latch.
 | admission fault | send `INTERNAL_ERROR`; release | `Idle` |
 | admission/open expiry | invalidate token; release | retry outcome / `Idle` |
 | transport termination | invalidate token; release | retry outcome / `Idle` |
-| `NotificationReceived` | record; release | retry only when §4.1 classifies its code `Retry`; otherwise `Idle` |
+| `NotificationReceived` | record; release | retry only when section 4.1 classifies its code `Retry`; otherwise `Idle` |
 | `Stop` | send `CEASE` if safe; release | `Idle` |
 
-Later OPENs and all non-handshake messages are fatal. Identity admission holds
-only that session's later wire commands behind a bounded continuation barrier;
-timer, transport, and stop commands remain runnable.
+Later OPENs and all non-handshake messages are fatal.\
+Identity admission holds only that session's later wire commands behind a bounded continuation barrier; timer, transport, and stop commands remain runnable.
 
 ### 6.5 `OpenConfirm`
 
@@ -263,11 +252,10 @@ timer, transport, and stop commands remain runnable.
 | `KeepaliveExpired` | send KEEPALIVE | `OpenConfirm` |
 | hold/open expiry | send `HOLD_TIMEOUT` if safe; release | retry outcome / `Idle` |
 | transport termination | release | retry outcome / `Idle` |
-| `NotificationReceived` | record; release | retry only when §4.1 classifies its code `Retry`; otherwise `Idle` |
+| `NotificationReceived` | record; release | retry only when section 4.1 classifies its code `Retry`; otherwise `Idle` |
 | `Stop` | send `CEASE` if safe; release | `Idle` |
 
-Sending the local KEEPALIVE is insufficient; only receiving the peer's
-confirmation establishes the session.
+Sending the local KEEPALIVE is insufficient; only receiving the peer's confirmation establishes the session.
 
 ### 6.6 `Established`
 
@@ -295,42 +283,34 @@ confirmation establishes the session.
 | `RouteRevisionRollover` / no update outstanding | send `CEASE`; purge; release so a fresh session restarts at revision `1` | retry outcome / `Idle` |
 | `ControlQueueOverflow` | purge; force-abort; record typed outcome | retry outcome / `Idle` |
 | transport termination | purge; release | retry outcome / `Idle` |
-| `NotificationReceived` | purge; record; release | retry only when §4.1 classifies its code `Retry`; otherwise `Idle` |
+| `NotificationReceived` | purge; record; release | retry only when section 4.1 classifies its code `Retry`; otherwise `Idle` |
 | `Stop` | send `CEASE` if safe; purge; release | `Idle` |
 
-Admission of a route snapshot may pause only that session's subsequent wire
-commands. It never blocks other sessions, state queries, timers, or node
-commands. The consumed route revision and ACK are committed only after the
-admission result remains current.
+Admission of a route snapshot may pause only that session's subsequent wire commands.\
+It never blocks other sessions, state queries, timers, or node commands.\
+The consumed route revision and ACK are committed only after the admission result remains current.
 
 ### 6.7 Route-admission continuation
 
-Route admission is one batch decision for one prevalidated snapshot. The
-retained proposal contains the exact envelope ID, expected wire revision,
-canonical route list, static per-route rejections, controller identity, and a
-fresh continuation token.
+Route admission is one batch decision for one prevalidated snapshot.\
+The retained proposal contains the exact envelope ID, expected wire revision, canonical route list, static per-route rejections, controller identity, and a fresh continuation token.
 
-The external port receives only immutable schema-backed route inputs. Its
-result must contain exactly one `allow` or `deny` decision for every route not
-already statically rejected, keyed by the complete
-`(endpoint, originNodeId, path)` tuple. Missing, duplicate, unknown, malformed,
-thrown, or late current results are admission faults; an explicit denial
-becomes that route's nonfatal `POLICY` rejection. Capacity admission then runs
-in canonical order over allowed routes before the one atomic replacement.
+The external port receives only immutable schema-backed route inputs.\
+Its result must contain exactly one `allow` or `deny` decision for every route not already statically rejected, keyed by the complete `(endpoint, originNodeId, path)` tuple.\
+Missing, duplicate, unknown, malformed, thrown, or late current results are admission faults; an explicit denial becomes that route's nonfatal `POLICY` rejection.\
+Capacity admission then runs in canonical order over allowed routes before the one atomic replacement.
 
-The route revision is not consumed and no ACK or RIB mutation occurs while the
-continuation is pending. Later wire commands from that exact session remain in
-its bounded ordered continuation queue. Timer, transport, notification, and
-stop commands bypass the barrier; any terminal command invalidates the token.
-Overflow of the bounded continuation queue is fatal because dropping a command
-would destroy the packet-channel FIFO contract.
+The route revision is not consumed and no ACK or RIB mutation occurs while the continuation is pending.\
+Later wire commands from that exact session remain in its bounded ordered continuation queue.\
+Timer, transport, notification, and stop commands bypass the barrier; any terminal command invalidates the token.\
+Overflow of the bounded continuation queue is fatal because dropping a command would destroy the packet-channel FIFO contract.
 
-The node executor—not a peer-session FSM—owns local SDK `send()`. It resolves
-local or peer next hop against canonical routing state. For peer egress it
-atomically revalidates the exact `Established` controller, allocates the
-hop-scoped return token, and reserves that controller's queue/breadcrumb before
-enqueuing a peer write. An application-local node therefore sends to a local
-endpoint without fabricating an `Established` session.
+The node executor-not a peer-session FSM-owns local SDK `send()`.\
+It resolves local or peer next hop against canonical routing state.\
+For peer egress it atomically revalidates the exact `Established` controller, allocates the hop-scoped return token, and reserves that controller's queue/breadcrumb before enqueuing a peer write.\
+An application-local node therefore sends to a local endpoint without fabricating an `Established` session.
+
+---
 
 ## 7. Teardown order
 
@@ -360,27 +340,23 @@ Every terminal path uses the same idempotent order:
 
 No data admission can interleave between steps 2 and 4.
 
-A retained dial controller keeps the projection appropriate to its last ended
-attempt until retry begins. If that attempt had admitted identity, the
-pair-scoped `SessionSnapshot` and its last terminal remain queryable in
-`Active`; `RetryExpired` then clears that authority and replaces it with a new
-`PreIdentityControllerSnapshot` before dialing. An unadmitted attempt remains a
-pre-identity projection. Neither form is an unbounded history row.
+A retained dial controller keeps the projection appropriate to its last ended attempt until retry begins.\
+If that attempt had admitted identity, the pair-scoped `SessionSnapshot` and its last terminal remain queryable in `Active`; `RetryExpired` then clears that authority and replaces it with a new `PreIdentityControllerSnapshot` before dialing.\
+An unadmitted attempt remains a pre-identity projection.\
+Neither form is an unbounded history row.
+
+---
 
 ## 8. Mechanics, rationale, and consequence
 
 ### Mechanics
 
-One acquisition-neutral controller implements the six states, a symmetric
-Established matrix, finite protocol/control timers, tokened external
-continuations, and ordered teardown.
+One acquisition-neutral controller implements the six states, a symmetric Established matrix, finite protocol/control timers, tokened external continuations, and ordered teardown.
 
 ### Rationale
 
-Keeping connection mechanics independent from topology preserves the useful
-BGP lifecycle model while allowing any node to listen, dial, or do both.
-Serial state changes and finite deadlines keep distributed failures
-observable and bounded.
+Keeping connection mechanics independent from topology preserves the useful BGP lifecycle model while allowing any node to listen, dial, or do both.\
+Serial state changes and finite deadlines keep distributed failures observable and bounded.
 
 ### Consequence of violation
 

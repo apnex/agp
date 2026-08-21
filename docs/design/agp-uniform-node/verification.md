@@ -1,10 +1,10 @@
-# AGP uniform node — verification and release certification
+# AGP uniform node - verification and release certification
 
 ## 1. Status and authority
 
 | Field | Value |
 |---|---|
-| Status | Ratified verification plan with transport-sovereignty amendment; implementation is not certified until every required gate passes |
+| Status | Ratified. Current verification plan; a gate is certified only while every required test in section 14 passes |
 | Intent authority | [`uniform-agp-node-routing-survey.md`](../../surveys/uniform-agp-node-routing-survey.md) |
 | Transport intent authority | [`transport-sovereignty-authority.md`](transport-sovereignty-authority.md) |
 | Architecture | [`README.md`](README.md) |
@@ -18,48 +18,39 @@
 | WebSocket binding | [`bindings/websocket.md`](bindings/websocket.md) |
 | Loopback transport | [`transports/loopback.md`](transports/loopback.md) |
 | SDK and operations | [`sdk-operations.md`](sdk-operations.md) |
-| Certification sequence | `AX0 → AX1 → AX2 → AX3 → AX4 → AX5 → AX6 → AX7 → AX8` |
+| Certification sequence | `AX0 -> AX1 -> AX2 -> AX3 -> AX4 -> AX5 -> AX6 -> AX7 -> AX8` |
 
-This document defines the binary evidence required to certify the uniform-node
-replacement. A passing result for the current MVP is not inherited: the AGP v1
-wire language, runtime factory, session symmetry, routing behavior, transport
-SPI, WebSocket binding, and Loopback production transport all change, so every
-affected gate must be resealed.
+This document defines the binary evidence required to certify the uniform-node replacement.\
+A passing result for the current MVP is not inherited: the AGP v1 wire language, runtime factory, session symmetry, routing behavior, transport SPI, WebSocket binding, and Loopback production transport all change, so every affected gate must be resealed.
 
-The following applicable axioms contribute only the AGP-scoped mechanics
-declared in [`axioms.md`](axioms.md):
+The following applicable axioms contribute only the AGP-scoped mechanics declared in [`axioms.md`](axioms.md):
 
-- A3 — Sovereign Composition;
-- A4 — Zero-Loss Knowledge;
-- A8 — Gated Recursive Integrity;
-- A9 — Chaos-Validated Deployment; and
-- A14 — Compounding Learning.
+- A3 - Sovereign Composition;
+- A4 - Zero-Loss Knowledge;
+- A8 - Gated Recursive Integrity;
+- A9 - Chaos-Validated Deployment; and
+- A14 - Compounding Learning.
 
-A0 is retained only as lineage context. Its umbrella claim presupposes the full
-constituent stack, so neither `AX0` nor this artifact claims selective A0
-conformance. A gate PASS certifies its exact AGP contract: A9 evidence is
-sandbox-derived and A14 evidence covers the finding-lifecycle subset unless a
-deployment owner supplies the remaining source-axiom evidence.
+A0 is retained only as lineage context.\
+Its umbrella claim presupposes the full constituent stack, so neither `AX0` nor this artifact claims selective A0 conformance.\
+A gate PASS certifies its exact AGP contract: A9 evidence is sandbox-derived and A14 evidence covers the finding-lifecycle subset unless a deployment owner supplies the remaining source-axiom evidence.
 
-No gate imports persistence, autonomous-agent, LLM, or delivery-workflow
-requirements from a non-applicable axiom. Queryable ephemeral state, typed
-route failures, deterministic retries, and stable operational projections are
-instead grounded in the confirmed survey and the AGP contracts that implement
-it.
+No gate imports persistence, autonomous-agent, LLM, or delivery-workflow requirements from a non-applicable axiom.\
+Queryable ephemeral state, typed route failures, deterministic retries, and stable operational projections are instead grounded in the confirmed survey and the AGP contracts that implement it.
+
+---
 
 ## 2. Certification model
 
 ### 2.1 Binary gated ascension
 
 Each gate has exactly two certification states:
-
 ```text
 PASS | FAIL
 ```
 
-There is no partial, waived, flaky, or “expected failure” certification.
-“Partial” in an axiom-evidence scope describes the limited external claim, not
-the gate result: every AGP gate itself still passes or fails atomically.
+There is no partial, waived, flaky, or "expected failure" certification.\
+"Partial" in an axiom-evidence scope describes the limited external claim, not the gate result: every AGP gate itself still passes or fails atomically.
 
 1. `AX0` has no predecessor.
 2. `AXn` may run diagnostically at any time, but may be certified only when
@@ -88,84 +79,26 @@ the gate result: every AGP gate itself still passes or fails atomically.
 | Topology | Correct composition across real nodes over Loopback and WebSocket | Exhaustive injected adversity |
 | Chaos | Preservation of all sealed invariants under standardized faults | Undocumented production-fidelity claims |
 
-The same semantic fact has one owning gate. A later gate may witness that fact
-while proving composition, but it does not duplicate the lower-layer oracle.
-For example, `AX5` owns “local `NO_ROUTE` writes no data packet”; `AX7` may use a
-route miss in a live line topology only to prove that the surrounding nodes
-remain converged.
+The same semantic fact has one owning gate.\
+A later gate may witness that fact while proving composition, but it does not duplicate the lower-layer oracle.\
+For example, `AX5` owns "local `NO_ROUTE` writes no data packet"; `AX7` may use a route miss in a live line topology only to prove that the surrounding nodes remain converged.
 
-### 2.3 Evidence manifest
+### 2.3 Gate evidence
 
-Every gate emits one immutable evidence manifest:
+A gate's evidence is its named test files and the commands that run them, both recorded in section 14.\
+There is no separate manifest artifact, digest chain, or issued certificate: the test files are the durable evidence, version control is the source-revision authority, and continuous integration is the execution record.
 
-```ts
-interface GateEvidence {
-  schemaVersion: "agp.verification/v1";
-  gate: "AX0" | "AX1" | "AX2" | "AX3" | "AX4"
-    | "AX5" | "AX6" | "AX7" | "AX8";
-  status: "PASS" | "FAIL";
-  claimScope: "agp-artifact";
-  axiomEvidence: readonly {
-    reference: "A3" | "A4" | "A8" | "A9" | "A14";
-    scope:
-      | "agp-scoped-mechanics"
-      | "sandbox-derived-partial"
-      | "agp-subset-partial";
-  }[];
-  sourceRevision: string;
-  lowerGateDigests: readonly string[];
-  schemaCatalogDigest: string;
-  commands: readonly string[];
-  testFiles: readonly {
-    path: string;
-    sha256: string;
-    cases: number;
-  }[];
-  deterministicSeeds: readonly string[];
-  environment: {
-    node: string;
-    platform: string;
-    architecture: string;
-  };
-  startedAt: string;
-  completedAt: string;
-  cleanup: "PASS" | "FAIL";
-  findings: readonly string[];
-  subgates: readonly {
-    id: "AX1-P" | "AX1-T" | "AX1-B" | "AX1-L" | "AX1-D";
-    status: "PASS" | "FAIL";
-  }[]; // exactly all five for AX1; empty for every other gate
-}
-```
+An earlier revision of this plan emitted signed per-gate manifests and a sandbox artifact certificate.\
+That machinery was removed because nothing consumed it.\
+The gate ordering rules in section 2.1 remain in force and are the load-bearing part of the model: they decide which layer owns a failure, not which document gets stamped.
 
-Evidence is stored under:
-
-```text
-artifacts/verification/<source-revision>/AXn.json
-```
-
-The closed machine contracts for those manifests and the final sandbox
-certificate are:
-
-```text
-docs/design/agp-uniform-node/verification-evidence.schema.json
-docs/design/agp-uniform-node/artifact-certificate.schema.json
-```
-
-The manifest records commands and digests, not copied console prose. A `PASS`
-manifest with a failed cleanup, an unresolved referenced finding, a different
-source revision, or a missing lower-gate digest is invalid.
-The manifest validator also compares `testFiles[].path` as an exact key set:
-the same path may appear only once, irrespective of digest or case-count
-differences. Whole-object `uniqueItems` is retained as defense in depth but is
-not treated as key uniqueness.
+---
 
 ## 3. Traceability
 
 ### 3.1 Trace record
 
 `AX0` owns one machine-checkable trace record per requirement:
-
 ```ts
 type TraceAuthority =
   | {
@@ -196,7 +129,8 @@ interface RequirementTrace {
   designReferences: readonly string[];
   schemaIds: readonly string[];
   semanticRuleIds: readonly string[];
-  owningGate: GateEvidence["gate"];
+  owningGate: "AX0" | "AX1" | "AX2" | "AX3" | "AX4"
+    | "AX5" | "AX6" | "AX7" | "AX8";
   owningTests: readonly string[];
   integrationWitnesses: readonly string[];
 }
@@ -209,49 +143,40 @@ interface RequirementTraceDocument {
 ```
 
 The normative targets are:
-
 ```text
 docs/design/agp-uniform-node/traceability.schema.json
 docs/design/agp-uniform-node/traceability.json
 ```
 
-Every survey outcome `U1..U11`, every fixed transport-intent requirement
-`U12..U15`, and every normative requirement introduced by `D1..D17` has
-exactly one record. The executable AX0 oracle compares the record ID multiset
-to the exact closed set `U1..U15 ∪ D1..D17`; it fails on an omission,
-duplicate, unexpected ID, or cardinality mismatch rather than relying on
-schema cardinality alone. `U12..U15` cite the explicit stakeholder authority in
-`transport-sovereignty-authority.md`; they do not retroactively claim a survey
-that was deliberately unnecessary after direction was fixed. A non-applicable
-axiom and A0 cannot appear in `authorities`. Multiple authorities are retained
-when intent, a ratified design decision, and an applicable axiom mechanic
-jointly constrain the result. A Proposed decision may be traced for review but
-cannot authorize implementation or a gate PASS. An integration witness may
-remain empty until its later gate, but the owning test must exist before its
-gate can pass.
+Every survey outcome `U1..U11`, every fixed transport-intent requirement `U12..U15`, and every normative requirement introduced by `D1..D17` has exactly one record.\
+The executable AX0 oracle compares the record ID multiset to the exact closed set `U1..U15` plus `D1..D17`; it fails on an omission, duplicate, unexpected ID, or cardinality mismatch rather than relying on schema cardinality alone.\
+`U12..U15` cite the explicit stakeholder authority in `transport-sovereignty-authority.md`; they do not retroactively claim a survey that was deliberately unnecessary after direction was fixed.\
+A non-applicable axiom and A0 cannot appear in `authorities`.\
+Multiple authorities are retained when intent, a ratified design decision, and an applicable axiom mechanic jointly constrain the result.\
+A Proposed decision may be traced for review but cannot authorize implementation or a gate PASS.\
+An integration witness may remain empty until its later gate, but the owning test must exist before its gate can pass.
 
 ### 3.2 Survey ownership
 
 | Survey invariant | Owning gate | Primary executable oracle |
 |---|---|---|
-| U1 — sole `createNode()` runtime factory | AX5 | Public package exports contain the uniform factory and no role-specific runtime factory |
-| U2 — one implementation composes listener, dialer, local delivery, and transit | AX5 | Identical node instances activate each capability from configuration |
-| U3 — symmetric route exchange | AX3 | Dialed and accepted sessions both originate the initial and changed authoritative route snapshots, accept the same route/ACK matrix, and consume exact acknowledgements |
-| U4 — selected learned-route export | AX4 | Adj-RIB-Out contains the selected learned path only when transit and peer-loop rules permit it |
-| U5 — ordered-path loop prevention | AX4 | Import/export excludes a repeated/local/peer-containing path without installing it |
-| U6 — every data path uses the local selected RIB | AX5 | Every admitted local or transit write records the selected route and admission revision |
-| U7 — local route miss rejects before wire admission | AX5 | Typed `NO_ROUTE`, no data-queue reservation, and exactly zero data writes |
-| U8 — transit route miss emits no onward packet | AX5 | Correlated error on ingress and exactly zero onward data writes |
-| U9 — correlated failure returns toward the source | AX5 | The failing node returns directly to the current ingress; each prior forwarder follows its recorded breadcrumb; no hop performs a RIB lookup |
-| U10 — truthful stable management HTTP and `agpctl` | AX6 | Frozen projection inputs agree exactly; live same-instance/revision non-time state agrees and time-derived fields satisfy measured capture-window bounds |
-| U11 — sovereign schemas for named DTOs | AX1 | Catalog completeness, one `$id`/owner/file/type mapping, and generated-output equality |
-| U12 — no concrete transport semantics in the kernel | AX1 | Dependency/vocabulary gates and a package-root consumer prove the kernel imports only `@agp/transport` |
-| U13 — protocol behavior is invariant across conforming transports | AX7 | Independently owned Loopback and WebSocket topology witnesses normalize to the same protocol/RIB/data outcomes |
-| U14 — Loopback is a production transport | AX1 | Public package exports, schemas, lifecycle/state contracts, and the full neutral conformance kit exist without a test-only bypass |
-| U15 — WebSocket binding and implementation are sovereign | AX1 | Binding schemas/mappings and Node.js adapter tests own every WebSocket-specific concept outside common packages |
+| U1 - sole `createNode()` runtime factory | AX5 | Public package exports contain the uniform factory and no role-specific runtime factory |
+| U2 - one implementation composes listener, dialer, local delivery, and transit | AX5 | Identical node instances activate each capability from configuration |
+| U3 - symmetric route exchange | AX3 | Dialed and accepted sessions both originate the initial and changed authoritative route snapshots, accept the same route/ACK matrix, and consume exact acknowledgements |
+| U4 - selected learned-route export | AX4 | Adj-RIB-Out contains the selected learned path only when transit and peer-loop rules permit it |
+| U5 - ordered-path loop prevention | AX4 | Import/export excludes a repeated/local/peer-containing path without installing it |
+| U6 - every data path uses the local selected RIB | AX5 | Every admitted local or transit write records the selected route and admission revision |
+| U7 - local route miss rejects before wire admission | AX5 | Typed `NO_ROUTE`, no data-queue reservation, and exactly zero data writes |
+| U8 - transit route miss emits no onward packet | AX5 | Correlated error on ingress and exactly zero onward data writes |
+| U9 - correlated failure returns toward the source | AX5 | The failing node returns directly to the current ingress; each prior forwarder follows its recorded breadcrumb; no hop performs a RIB lookup |
+| U10 - truthful stable management HTTP and `agpctl` | AX6 | Frozen projection inputs agree exactly; live same-instance/revision non-time state agrees and time-derived fields satisfy measured capture-window bounds |
+| U11 - sovereign schemas for named DTOs | AX1 | Catalog completeness, one `$id`/owner/file/type mapping, and generated-output equality |
+| U12 - no concrete transport semantics in the kernel | AX1 | Dependency/vocabulary gates and a package-root consumer prove the kernel imports only `@agp/transport` |
+| U13 - protocol behavior is invariant across conforming transports | AX7 | Independently owned Loopback and WebSocket topology witnesses normalize to the same protocol/RIB/data outcomes |
+| U14 - Loopback is a production transport | AX1 | Public package exports, schemas, lifecycle/state contracts, and the full neutral conformance kit exist without a test-only bypass |
+| U15 - WebSocket binding and implementation are sovereign | AX1 | Binding schemas/mappings and Node.js adapter tests own every WebSocket-specific concept outside common packages |
 
-`AX7` supplies live composition witnesses for these invariants but cannot
-replace their owning package tests.
+`AX7` supplies live composition witnesses for these invariants but cannot replace their owning package tests.
 
 ### 3.3 Axiom-mechanics ownership
 
@@ -263,8 +188,10 @@ replace their owning package tests.
 | A9 | `AX8` executes the deterministic entropy battery | Sandbox-derived partial evidence, not deployment conformance |
 | A14 | `AX0` captures review findings and `AX8` enforces owning-layer resolution plus recurrence evidence | Finding-lifecycle subset only |
 
-A0 has no row because it is not selectively certified. `AX0` proves AGP
-lineage completeness; the similar identifier does not denote A0 conformance.
+A0 has no row because it is not selectively certified.\
+`AX0` proves AGP lineage completeness; the similar identifier does not denote A0 conformance.
+
+---
 
 ## 4. Modular test architecture
 
@@ -339,22 +266,15 @@ test/
   support/        topology/process mechanics with no assertions
 ```
 
-Neutral transport behavior remains in `@agp/transport`; WebSocket mapping
-remains in `@agp/binding-websocket`; each concrete adapter owns its execution
-of the shared conformance cases. Protocol behavior remains in `@agp/protocol`;
-pure routing remains in `@agp/core`; orchestration remains in `@agp/node`. A
-workspace test is permitted only when its primary contract crosses two or more
-public package or process boundaries.
+Neutral transport behavior remains in `@agp/transport`; WebSocket mapping remains in `@agp/binding-websocket`; each concrete adapter owns its execution of the shared conformance cases.\
+Protocol behavior remains in `@agp/protocol`; pure routing remains in `@agp/core`; orchestration remains in `@agp/node`.\
+A workspace test is permitted only when its primary contract crosses two or more public package or process boundaries.
 
-The neutral package publishes conformance scenario contracts as public test
-support, grouped one behavioral axis per module. A scenario arranges/stimulates
-only the neutral port and returns a normalized public transcript; it never
-constructs a particular adapter or hide assertions. Each adapter's own
-self-descriptive test file states and asserts the exact oracle, then may add
-carrier-specific integration proofs. A coverage manifest proves both adapter
-suites own every common obligation. This gives WebSocket and Loopback identical
-requirements without hiding failures behind one aggregate “transport
-conformance” test.
+The neutral package publishes conformance scenario contracts as public test support, grouped one behavioral axis per module.\
+A scenario arranges/stimulates only the neutral port and returns a normalized public transcript; it never constructs a particular adapter or hide assertions.\
+Each adapter's own self-descriptive test file states and asserts the exact oracle, then may add carrier-specific integration proofs.\
+A coverage manifest proves both adapter suites own every common obligation.\
+This gives WebSocket and Loopback identical requirements without hiding failures behind one aggregate "transport conformance" test.
 
 ### 4.2 Self-description and orthogonality
 
@@ -376,17 +296,14 @@ Every test:
     oracle, and explicit non-overlap.
 
 An acceptable title is:
-
 ```text
 Given a transit packet with no selected destination route,
 when the uniform node evaluates forwarding,
 then it emits one correlated ingress error and no onward data packet
 ```
 
-Table-driven cases share a file only when their arrangement, stimulus, and
-oracle are identical and only an enumerated input value changes. Schema
-keyword cases may share a table; route miss, loop rejection, and queue
-saturation may not.
+Table-driven cases share a file only when their arrangement, stimulus, and oracle are identical and only an enumerated input value changes.\
+Schema keyword cases may share a table; route miss, loop rejection, and queue saturation may not.
 
 ### 4.3 Fixtures and timing
 
@@ -402,12 +319,13 @@ saturation may not.
 - System tests run in isolated clean processes. They do not share ports,
   mutable nodes, route state, or ordering assumptions.
 
-## 5. Gate AX0 — intent, applicability, and knowledge
+---
+
+## 5. Gate AX0 - intent, applicability, and knowledge
 
 ### Purpose
 
-Seal the authority and reasoning record before executable contracts bear
-weight.
+Seal the authority and reasoning record before executable contracts bear weight.
 
 ### Required evidence
 
@@ -463,20 +381,20 @@ weight.
 
 ### Exit
 
-`AX0` passes only when the trace graph is complete, acyclic, and contains no
-unresolved design-blocking finding.
+`AX0` passes only when the trace graph is complete, acyclic, and contains no unresolved design-blocking finding.
 
-## 6. Gate AX1 — sovereign schemas and boundaries
+---
+
+## 6. Gate AX1 - sovereign schemas and boundaries
 
 ### Purpose
 
-Seal public shape and concern ownership before contextual or temporal behavior
-is implemented.
+Seal public shape and concern ownership before contextual or temporal behavior is implemented.
 
 ### Mandatory AX1 subgates
 
-`AX1` remains one binary release gate. Its manifest contains five independently
-reported subgate results, and `AX1` is `PASS` only when all five pass:
+`AX1` remains one binary release gate.\
+Its manifest contains five independently reported subgate results, and `AX1` is `PASS` only when all five pass:
 
 | Subgate | Sole concern |
 |---|---|
@@ -486,8 +404,7 @@ reported subgate results, and `AX1` is `PASS` only when all five pass:
 | `AX1-L` | Production Loopback package schemas, public fabric lifecycle/state, and absence of a privileged kernel/test bypass |
 | `AX1-D` | Whole-workspace dependency direction, vocabulary policy, package-root consumer, and catalog composition |
 
-These labels are evidence sections, not additional ascension levels; later
-gates still depend on the one complete `AX1` digest.
+These labels are evidence sections, not additional ascension levels; later gates still depend on the one complete `AX1` digest.
 
 ### Schema proofs
 
@@ -497,8 +414,8 @@ gates still depend on the one complete `AX1` digest.
 2. Every schema has a minimal valid fixture and every applicable valid boundary
    fixture. It has one orthogonal invalid fixture for each validation keyword
    or referenced constraint it actually declares or inherits. A machine-readable
-   coverage matrix marks inapplicable categories—required fields,
-   discriminator, bounds, unknown properties, nested references—as `N/A` with
+   coverage matrix marks inapplicable categories-required fields,
+   discriminator, bounds, unknown properties, nested references-as `N/A` with
    the schema reason; scalar schemas are not forced to invent object failures.
 3. Invalid fixtures assert the exact instance pointer, schema pointer, and
    failed keyword.
@@ -523,14 +440,12 @@ gates still depend on the one complete `AX1` digest.
     cause, context, details, or extension dictionary.
 
 The semantic-rule registry targets are:
-
 ```text
 schemas/agp-v1.semantic-rules.schema.json
 schemas/agp-v1.semantic-rules.json
 ```
 
 Each entry is exact and machine-checkable:
-
 ```ts
 interface SemanticRuleCatalogEntry {
   id: string;
@@ -566,18 +481,14 @@ interface SemanticRuleCatalogEntry {
 }
 ```
 
-Every `x-agp.semanticRules` value resolves to exactly one entry; every entry is
-referenced by at least one schema and names one primary owning test containing
-its positive and negative cases. `owningGate`, phase, schema inputs,
-result-code set, normative design references, and implementation path make the
-evaluator context and precedence auditable without deriving either from a test
-title. The registry gate must equal the owning trace record.
+Every `x-agp.semanticRules` value resolves to exactly one entry; every entry is referenced by at least one schema and names one primary owning test containing its positive and negative cases.\
+`owningGate`, phase, schema inputs, result-code set, normative design references, and implementation path make the evaluator context and precedence auditable without deriving either from a test title.\
+The registry gate must equal the owning trace record.
 
 ### Transport acceptance-callback fault proof
 
-One reusable neutral conformance case is invoked unchanged by the Node.js
-WebSocket and production Loopback adapters. It independently injects both an
-`Error` and a non-`Error` throw from each of:
+One reusable neutral conformance case is invoked unchanged by the Node.js WebSocket and production Loopback adapters.\
+It independently injects both an `Error` and a non-`Error` throw from each of:
 
 - `accept`;
 - `capacityRejected("pending-acquisition")`; and
@@ -650,15 +561,15 @@ For every variant it proves:
 
 ### Exit
 
-`AX1` passes when every catalog/type/fixture/boundary check succeeds and there
-is no schema-owned rule asserted only in prose.
+`AX1` passes when every catalog/type/fixture/boundary check succeeds and there is no schema-owned rule asserted only in prose.
 
-## 7. Gate AX2 — contextual protocol semantics
+---
+
+## 7. Gate AX2 - contextual protocol semantics
 
 ### Purpose
 
-Prove the meaning of one already schema-valid value without clocks, FSM state,
-network I/O, or RIB mutation.
+Prove the meaning of one already schema-valid value without clocks, FSM state, network I/O, or RIB mutation.
 
 ### Required semantic-rule families
 
@@ -675,31 +586,25 @@ network I/O, or RIB mutation.
 | Negotiation | Receive, route, path, hop, and timer values resolve to the lower safe bound |
 | Numeric/JSON profile | Safe integers, finite numbers, depth, UTF-8, duplicate-member, and byte rules retain exact precedence |
 
-Every invalid semantic case returns one exact typed result. A malformed path
-must not be ambiguously classified as both a loop and a forged sender. Error
-precedence is part of the contract.
+Every invalid semantic case returns one exact typed result.\
+A malformed path must not be ambiguously classified as both a loop and a forged sender.\
+Error precedence is part of the contract.
 
-`AX2` loads `schemas/agp-v1.semantic-rules.json` rather than discovering rules
-from test names, and executes exactly entries whose declared `owningGate` is
-`AX2`. For each such entry it resolves the declared schema inputs,
-implementation, design references, and owning test, then asserts the closed
-result-code set and normative precedence through that test's positive and
-negative cases. AX0 validates every registry entry and its trace/gate match;
-AX1 and AX3–AX8 execute their own entries rather than making AX2 claim
-transport, FSM, routing, lifecycle, or operations behavior.
+`AX2` loads `schemas/agp-v1.semantic-rules.json` rather than discovering rules from test names, and executes exactly entries whose declared `owningGate` is `AX2`.\
+For each such entry it resolves the declared schema inputs, implementation, design references, and owning test, then asserts the closed result-code set and normative precedence through that test's positive and negative cases.\
+AX0 validates every registry entry and its trace/gate match; AX1 and AX3-AX8 execute their own entries rather than making AX2 claim transport, FSM, routing, lifecycle, or operations behavior.
 
 ### Exit
 
-`AX2` passes when every AX2-owned semantic rule referenced from the schema
-catalog has one owner and both positive and negative executable evidence, and
-no rule assigned to another gate is executed or claimed by AX2.
+`AX2` passes when every AX2-owned semantic rule referenced from the schema catalog has one owner and both positive and negative executable evidence, and no rule assigned to another gate is executed or claimed by AX2.
 
-## 8. Gate AX3 — symmetric FSM and session control
+---
+
+## 8. Gate AX3 - symmetric FSM and session control
 
 ### Purpose
 
-Seal temporal protocol behavior independently from best-path selection and
-application forwarding.
+Seal temporal protocol behavior independently from best-path selection and application forwarding.
 
 ### Required proofs
 
@@ -712,7 +617,7 @@ application forwarding.
    change, accept the same route-update/ACK matrix, and consume only an exact
    matching ACK.
 4. Internal `Acquisition.kind` alone owns reconnect behavior; public
-   `direction` is its fixed read-only `dial → outbound`, `accept → inbound`
+   `direction` is its fixed read-only `dial -> outbound`, `accept -> inbound`
    projection and is never read back as authority.
 5. OPEN and KEEPALIVE cannot be skipped, duplicated, or replaced by any
    carrier-native liveness signal; WebSocket Ping/Pong and Loopback activity
@@ -750,15 +655,16 @@ application forwarding.
     retaining one replaceable `lastTransportTerminal`; accepted and
     non-retrying controllers are removed in the same transaction.
 
-FSM tests assert state, emitted actions, timer set, and reason code. They do not
-inspect a concrete transport implementation or assert route selection.
+FSM tests assert state, emitted actions, timer set, and reason code.\
+They do not inspect a concrete transport implementation or assert route selection.
 
 ### Exit
 
-`AX3` passes when every legal transition and every illegal state/message family
-has deterministic evidence for both transport directions.
+`AX3` passes when every legal transition and every illegal state/message family has deterministic evidence for both transport directions.
 
-## 9. Gate AX4 — core RIB, forwarding, and export
+---
+
+## 9. Gate AX4 - core RIB, forwarding, and export
 
 ### Purpose
 
@@ -786,28 +692,24 @@ Seal deterministic routing truth with no node lifecycle or network dependency.
 | Capacity | Reservations are bounded and each transaction is atomic; a canonical admissible prefix is accepted and the deterministic remainder is rejected or suppressed with `CAPACITY` |
 | Remote rejection recovery | `LOOP`/`PATH_TOO_LONG` wait for tuple/session change; unchanged `POLICY`/`CAPACITY` arm one deterministic saturated exponential retry and never tight-loop from ACK handling |
 
-Pure core tests use deterministic IDs and clocks. Mutation-order permutations
-must converge to the same normalized selected state. No core test creates a
-socket, node listener, management server, or shell process.
+Pure core tests use deterministic IDs and clocks.\
+Mutation-order permutations must converge to the same normalized selected state.\
+No core test creates a socket, node listener, management server, or shell process.
 
-The monotonic-domain test seam is internal to the operations store and is not
-a public runtime option. Its three orthogonal cases prove no partial
-originating mutation, one successor revision, `Failed` with exact
-domain/counter evidence, zero wrap or saturation, completion of subscribers
-without a synthetic event, purged logical authority/resources, immutable final
-queries, and ignored stale callbacks.
+The monotonic-domain test seam is internal to the operations store and is not a public runtime option.\
+Its three orthogonal cases prove no partial originating mutation, one successor revision, `Failed` with exact domain/counter evidence, zero wrap or saturation, completion of subscribers without a synthetic event, purged logical authority/resources, immutable final queries, and ignored stale callbacks.
 
 ### Exit
 
-`AX4` passes when every routing transaction is deterministic, atomic, bounded,
-and independently reproducible from its input state.
+`AX4` passes when every routing transaction is deterministic, atomic, bounded, and independently reproducible from its input state.
 
-## 10. Gate AX5 — uniform node and data behavior
+---
+
+## 10. Gate AX5 - uniform node and data behavior
 
 ### Purpose
 
-Prove the sole public runtime composes the sealed FSM and RIB into one local and
-transit data path.
+Prove the sole public runtime composes the sealed FSM and RIB into one local and transit data path.
 
 ### Uniform runtime proofs
 
@@ -828,8 +730,8 @@ transit data path.
 9. Nonlocal forwarding requires `transit: true` and positive remaining hop
    budget.
 10. Schema-valid multi-failure packets produce the one exact result from the
-    normative source → route → local/transit → hop → egress → size → export →
-    correlation → capacity precedence.
+    normative source -> route -> local/transit -> hop -> egress -> size -> export ->
+    correlation -> capacity precedence.
 11. The injected writer ledger proves every data packet admitted under an ACKed
     source-export epoch is written before the full snapshot that withdraws that
     source; newly submitted data cannot enter the closed epoch.
@@ -849,9 +751,8 @@ transit data path.
 
 ### Exact route-miss oracle
 
-The injected public transport probe records every call to its data and control
-write ports and exposes independent queue reservations. Tests take a marker
-immediately before the stimulus.
+The injected public transport probe records every call to its data and control write ports and exposes independent queue reservations.\
+Tests take a marker immediately before the stimulus.
 
 For a local route miss:
 
@@ -870,14 +771,12 @@ For a transit route miss:
    ingress; and
 5. no RIB lookup is performed for the error return.
 
-“No packet observed before a timeout” is insufficient. The positive oracle is
-completion of the rejection/error action on a deterministic executor, followed
-by inspection of the transport-port call ledger and data-queue reservations.
+"No packet observed before a timeout" is insufficient.\
+The positive oracle is completion of the rejection/error action on a deterministic executor, followed by inspection of the transport-port call ledger and data-queue reservations.\
 A control error is permitted; an onward data packet is not.
 
-The survey does not require a dedicated route-miss event or counter. The
-generic `message-failed` event and existing rejected/lost counter families have
-their own contracts, but route-miss acceptance never depends on a new metric.
+The survey does not require a dedicated route-miss event or counter.\
+The generic `message-failed` event and existing rejected/lost counter families have their own contracts, but route-miss acceptance never depends on a new metric.
 
 ### Reverse-error proofs
 
@@ -898,16 +797,15 @@ their own contracts, but route-miss acceptance never depends on a new metric.
 
 ### Exit
 
-`AX5` passes when every capability is exercised through the same public node
-and every successful or failed data outcome has exactly one bounded admission
-path.
+`AX5` passes when every capability is exercised through the same public node and every successful or failed data outcome has exactly one bounded admission path.
 
-## 11. Gate AX6 — SDK, HTTP, and CLI parity
+---
+
+## 11. Gate AX6 - SDK, HTTP, and CLI parity
 
 ### Purpose
 
-Prove one canonical operational truth on every node and preserve truthful
-operator surfaces.
+Prove one canonical operational truth on every node and preserve truthful operator surfaces.
 
 ### SDK proofs
 
@@ -923,22 +821,15 @@ Every node exposes immutable, revision-consistent queries for:
 - bounded reverse correlations;
 - queues, capacities, timers, resources, and closed counter catalog.
 
-Snapshots use deterministic ordering and contain no channel, opaque capability,
-socket, private queue, native address object, or library-private error.
-Listener/adjacency state exposes only logical `transportRef` values and the
-adapter's bounded sanitized listener publication. Consumer mutation cannot
-affect later state. A session/RIB snapshot is ephemeral: restart evidence
-belongs to `AX7` and expects reconstruction, not identity preservation.
-Session inspection additionally proves there is no terminal-history table:
-one retrying dial controller retains at most one last terminal. Each ended
-attempt emits exactly one remote-free pre-identity or pair-scoped admitted
-closure event, and neither event retains controller authority.
+Snapshots use deterministic ordering and contain no channel, opaque capability, socket, private queue, native address object, or library-private error.\
+Listener/adjacency state exposes only logical `transportRef` values and the adapter's bounded sanitized listener publication.\
+Consumer mutation cannot affect later state.\
+A session/RIB snapshot is ephemeral: restart evidence belongs to `AX7` and expects reconstruction, not identity preservation.\
+Session inspection additionally proves there is no terminal-history table: one retrying dial controller retains at most one last terminal.\
+Each ended attempt emits exactly one remote-free pre-identity or pair-scoped admitted closure event, and neither event retains controller authority.
 
-AX6 projects the terminal result already sealed by
-`CORE-MONOTONIC-EXHAUSTION-1`: its exact sovereign failure evidence, last
-valid counters, final successor revision, zero logical resources, completed
-subscription, and immutable later queries. It cannot reconstruct or soften
-that result in HTTP or CLI.
+AX6 projects the terminal result already sealed by `CORE-MONOTONIC-EXHAUSTION-1`: its exact sovereign failure evidence, last valid counters, final successor revision, zero logical resources, completed subscription, and immutable later queries.\
+It cannot reconstruct or soften that result in HTTP or CLI.
 
 ### HTTP proofs
 
@@ -970,13 +861,11 @@ that result in HTTP or CLI.
 
 ### Cross-surface quiescence
 
-Projection contracts inject one immutable `OperationsReader` fixture and freeze
-the manual clock at one capture instant. SDK data, aggregate/resource HTTP, CLI
-JSON, and CLI tables must then agree exactly, including
-`establishedDurationMs`, timer `remainingMs`, and their whole-second rendering.
+Projection contracts inject one immutable `OperationsReader` fixture and freeze the manual clock at one capture instant.\
+SDK data, aggregate/resource HTTP, CLI JSON, and CLI tables must then agree exactly, including `establishedDurationMs`, timer `remainingMs`, and their whole-second rendering.
 
-Live end-to-end tests cannot assume separately sampled time-derived fields are
-byte-equal merely because the operations revision is unchanged. They:
+Live end-to-end tests cannot assume separately sampled time-derived fields are byte-equal merely because the operations revision is unchanged.\
+They:
 
 1. wait for a known quiescent `instanceId` and operations revision;
 2. compare canonical non-time state only across separately sampled SDK and HTTP
@@ -987,25 +876,23 @@ byte-equal merely because the operations revision is unchanged. They:
    that CLI invocation; and
 5. use only the aggregate snapshot for cross-entity comparison during churn.
 
-Revision equality proves state equality, not capture-time equality. The frozen
-projection test owns exact presentation parity; the live test owns bounded
-sampling behavior.
+Revision equality proves state equality, not capture-time equality.\
+The frozen projection test owns exact presentation parity; the live test owns bounded sampling behavior.
 
 ### Exit
 
-`AX6` passes when every node placement exposes the same truthful operational
-model and all presentation remains a projection rather than a second source of
-state.
+`AX6` passes when every node placement exposes the same truthful operational model and all presentation remains a projection rather than a second source of state.
 
-## 12. Gate AX7 — live topology convergence
+---
+
+## 12. Gate AX7 - live topology convergence
 
 ### Purpose
 
-Prove healthy composition over both canonical production transports and
-independent node lifecycles before adversity is injected.
+Prove healthy composition over both canonical production transports and independent node lifecycles before adversity is injected.
 
-Every geometry uses the same executable and `createNode()` package. Terms such
-as center, leaf, edge, or transit describe configuration only.
+Every geometry uses the same executable and `createNode()` package.\
+Terms such as center, leaf, edge, or transit describe configuration only.
 
 ### Transport execution matrix
 
@@ -1015,32 +902,26 @@ as center, leaf, edge, or transit describe configuration only.
 | Node.js WebSocket | Independent-process star and line, independent process replacement, CLI inspection, and real carrier teardown | Sovereign RFC 6455 binding, operating-system/network isolation, separately startable nodes, and asynchronous operations |
 | Behavioral equivalence | Separately owned star and line comparison tests using a shared normalized outcome schema | Same endpoints, session states, selected origins/paths, forwarding outcomes, payloads, withdrawals, and AGP timer behavior after removing permitted ephemeral IDs/timestamps/publications |
 
-Equivalence never compares native addresses, carrier timing, instance IDs, or
-session IDs. It does compare every protocol-visible outcome. Loopback is not a
-mock and WebSocket is not the reference semantics: both must first pass the
-same neutral conformance obligations, then the node-level witnesses above.
-Failures remain in independently named test files rather than one
-transport-parameterized aggregate.
+Equivalence never compares native addresses, carrier timing, instance IDs, or session IDs.\
+It does compare every protocol-visible outcome.\
+Loopback is not a mock and WebSocket is not the reference semantics: both must first pass the same neutral conformance obligations, then the node-level witnesses above.\
+Failures remain in independently named test files rather than one transport-parameterized aggregate.
 
-Each certified node in this matrix uses one concrete adapter composition.
-A resolver mixing WebSocket and Loopback capabilities inside one node is
-outside v1 certification under F06, even though the neutral interface does not
-encode a carrier kind.
+Each certified node in this matrix uses one concrete adapter composition.\
+A resolver mixing WebSocket and Loopback capabilities inside one node is outside v1 certification under F06, even though the neutral interface does not encode a carrier kind.
 
 ### Geometry matrix
 
 | Geometry | Configuration | Convergence proof | Data/control proof |
 |---|---|---|---|
 | Star | Center listens/transits and exposes one local endpoint; two leaves dial and expose distinct plus deliberately duplicated endpoints | All three nodes have populated selected RIB/FIB; center learns both direct paths and retains its local route; each leaf learns the center and the other leaf through selected export | Bidirectional leaf-to-leaf JSON follows selected routes; each leaf also delivers JSON to the center-local endpoint; duplicate advertisements retain one deterministic winner and one observable alternate at the center |
-| Line `A—B—C` | A and C are edges; B listens/dials as required and permits transit | A imports C as `[C,B]` and selects `[C,B,A]`; C imports A as `[A,B]` and selects `[A,B,C]`; B holds direct selected paths | A↔C succeeds in two data hops; hop limit decrements once at B; source feasible-path validation accepts each direction |
+| Line `A-B-C` | A and C are edges; B listens/dials as required and permits transit | A imports C as `[C,B]` and selects `[C,B,A]`; C imports A as `[A,B]` and selects `[A,B,C]`; B holds direct selected paths | A<->C succeeds in two data hops; hop limit decrements once at B; source feasible-path validation accepts each direction |
 | Triangle | A, B, and C form three adjacencies and permit transit | Each endpoint has one deterministic selected path; no installed/exported path repeats a node; split-path exports do not feed back to a path member | Duplicate arrival order does not change normalized selection; no packet traverses a stable control-plane loop |
 | Diamond | Source edge connects to left/right transit nodes, both connect to destination edge | Both candidates are visible; exactly one deterministic candidate is selected and forwarded | Healthy traffic uses only the selected branch; the alternate remains observable but receives no duplicate data |
 
-Each Loopback geometry is one test file with one primary healthy-topology
-oracle.
-Payload preservation and route convergence are separated when they would
-otherwise create multiple primary axes. Selected-branch loss and promotion are
-owned by the `AX8` fault battery; `AX7` does not inject that adversity.
+Each Loopback geometry is one test file with one primary healthy-topology oracle.\
+Payload preservation and route convergence are separated when they would otherwise create multiple primary axes.\
+Selected-branch loss and promotion are owned by the `AX8` fault battery; `AX7` does not inject that adversity.
 
 ### Withdrawal proofs
 
@@ -1052,47 +933,38 @@ Dedicated tests vary one withdrawal source:
 4. live session loss; and
 5. node stop.
 
-For each, affected state disappears hop-by-hop through committed full
-snapshots; unrelated routes remain; later data never uses a withdrawn next hop.
-Session-loss cascading may produce several node revisions, but each individual
-node revision is internally atomic.
+For each, affected state disappears hop-by-hop through committed full snapshots; unrelated routes remain; later data never uses a withdrawn next hop.\
+Session-loss cascading may produce several node revisions, but each individual node revision is internally atomic.
 
 ### Restart proof
 
-A line node is stopped and replaced by a new node instance on the same
-application-owned Loopback fabric. A separately owned WebSocket test stops and
-replaces one operating-system process using freshly constructed adapter
-capabilities and the same persisted configuration intent:
-
+A line node is stopped and replaced by a new node instance on the same application-owned Loopback fabric.\
+A separately owned WebSocket test stops and replaces one operating-system process using freshly constructed adapter capabilities and the same persisted configuration intent:
 ```text
 empty runtime state
-→ endpoint intent re-registered
-→ adjacencies re-established
-→ authoritative snapshots exchanged
-→ equivalent reachability reconstructed
+-> endpoint intent re-registered
+-> adjacencies re-established
+-> authoritative snapshots exchanged
+-> equivalent reachability reconstructed
 ```
 
-The oracle compares endpoint reachability, selected origin/path, and
-forwarding usability. It explicitly does not require the old session IDs,
-route IDs, wire revisions, timestamps, counters, or transition history to
-survive. Before reconvergence, the replacement node exposes no phantom
-Established session or usable learned route.
+The oracle compares endpoint reachability, selected origin/path, and forwarding usability.\
+It explicitly does not require the old session IDs, route IDs, wire revisions, timestamps, counters, or transition history to survive.\
+Before reconvergence, the replacement node exposes no phantom Established session or usable learned route.
 
 ### Independent-process WebSocket proof
 
-The star and line geometries launch each node as a separately startable
-operating-system process with its own configuration and management endpoint.
-Each process composes its own Node.js WebSocket adapter before `createNode()`.
-Readiness records expose node ID, logical transport references, sanitized
-listener publication, management URL, and process identity.
+The star and line geometries launch each node as a separately startable operating-system process with its own configuration and management endpoint.\
+Each process composes its own Node.js WebSocket adapter before `createNode()`.\
+Readiness records expose node ID, logical transport references, sanitized listener publication, management URL, and process identity.
 
-The independent-process star exposes one named endpoint on the center and at
-least two distinct named endpoints on each leaf. After convergence:
+The independent-process star exposes one named endpoint on the center and at least two distinct named endpoints on each leaf.\
+After convergence:
 
 1. the center and opposite leaf expose all remote endpoint names in their
    canonical route views;
 2. every named endpoint is exercised in both request directions without
-   collapsing the assertions into one aggregate “some route worked” oracle;
+   collapsing the assertions into one aggregate "some route worked" oracle;
 3. each leaf resolves and delivers independently sourced JSON to the
    center-local endpoint;
 4. a deliberately duplicate leaf endpoint leaves both eligible candidates
@@ -1103,28 +975,22 @@ least two distinct named endpoints on each leaf. After convergence:
    verifies the established adjacencies, every expected endpoint, selected
    marker, path, and six-hex local session display.
 
-No example process depends on being spawned in one parent shell to discover its
-peers; each is independently startable from its declared configuration.
-Teardown remains a separate bounded oracle and leaves no child or listening
-socket.
+No example process depends on being spawned in one parent shell to discover its peers; each is independently startable from its declared configuration.\
+Teardown remains a separate bounded oracle and leaves no child or listening socket.
 
 ### Exit
 
-`AX7` passes when every geometry converges without arbitrary sleeps, every
-withdrawal converges without stale forwarding, and restart reconstructs
-reachability from empty runtime state. Both adapters pass their common
-conformance suites; Loopback uses no privileged kernel path; and normalized
-star/line outcomes are equivalent. The independently started WebSocket star
-must also retain at least two named endpoints per leaf, advertise and terminate
-its center-local endpoint, retain both candidates for its duplicate leaf
-endpoint, and remain inspectable through separately invoked CLI processes.
+`AX7` passes when every geometry converges without arbitrary sleeps, every withdrawal converges without stale forwarding, and restart reconstructs reachability from empty runtime state.\
+Both adapters pass their common conformance suites; Loopback uses no privileged kernel path; and normalized star/line outcomes are equivalent.\
+The independently started WebSocket star must also retain at least two named endpoints per leaf, advertise and terminate its center-local endpoint, retain both candidates for its duplicate leaf endpoint, and remain inspectable through separately invoked CLI processes.
 
-## 13. Gate AX8 — chaos, learning, and release
+---
+
+## 13. Gate AX8 - chaos, learning, and release
 
 ### Purpose
 
-Prove the sealed graph under deterministic adversity, capture every discovery,
-and issue the only release certificate.
+Prove the sealed graph under deterministic adversity, capture every discovery, and issue the only release certificate.
 
 ### 13.1 Standard entropy battery
 
@@ -1156,19 +1022,16 @@ The standardized battery has fixed profiles:
 | `C1` | One fault at one named linearization barrier | Every fault-family row executes against its smallest relevant geometry |
 | `C2` | Two documented overlapping faults | Mandatory pairs: selected-branch death + outstanding export; reconnect + cross-dial; saturation + withdrawal |
 
-Seeds, barriers, and fault schedules are committed fixtures. Randomly generated
-fuzz cases may supplement the battery but cannot replace the deterministic
-profiles. Failure causes the owning lower gate to reopen.
+Seeds, barriers, and fault schedules are committed fixtures.\
+Randomly generated fuzz cases may supplement the battery but cannot replace the deterministic profiles.\
+Failure causes the owning lower gate to reopen.
 
-These profiles certify the declared AGP sandbox envelope only. Running each
-fault against its smallest relevant geometry is A9-derived partial evidence; it
-does not claim the full A9 obligation to exercise every documented consumer
-workflow and production graph.
+These profiles certify the declared AGP sandbox envelope only.\
+Running each fault against its smallest relevant geometry is A9-derived partial evidence; it does not claim the full A9 obligation to exercise every documented consumer workflow and production graph.
 
 ### 13.3 No-onward-packet under chaos
 
-Route miss, hop exhaustion, transit disabled, ingress-equals-egress, source
-unauthorized, and next-hop loss all use the `AX5` transport-call-ledger oracle:
+Route miss, hop exhaustion, transit disabled, ingress-equals-egress, source unauthorized, and next-hop loss all use the `AX5` transport-call-ledger oracle:
 
 - take a data-write marker;
 - inject one admitted stimulus;
@@ -1181,82 +1044,45 @@ This is exercised at `C1` and in the selected-branch-loss `C2` profile.
 
 ### 13.4 Learning record
 
-Every unexpected failure creates a durable finding:
+Every unexpected failure is captured as a finding at discovery, before its root cause is known.\
+A finding names the gate that surfaced it, the observed fault, the layer that owns it, and its status.
 
-```ts
-interface VerificationFinding {
-  id: string;
-  capturedAt: string;
-  discoveredAtGate: GateEvidence["gate"];
-  sourceRevision: string;
-  observedFault: string;
-  triageOwner: string;
-  owningLayer?: string;
-  status: "open" | "investigating" | "fixed" | "explicitly-deferred";
-  rootCause?: string;
-  designInvariant?: string;
-  regressionTest?: string;
-  deferralReason?: string;
-  deferralAuthority?: string;
-  recurrenceOf?: string;
-  measuredPayback?: string;
-}
-```
+A finding closes in exactly one of two ways:
 
-A finding is created as `open` at discovery; incomplete root-cause knowledge
-cannot delay capture. `investigating` records active ownership. A workaround
-cannot close a finding. Conditional validation is:
+- **fixed** requires a root cause, the design invariant that was violated, an
+  orthogonal regression test, and a traceability update at the owning layer; or
+- **explicitly-deferred** requires a root cause, a deferral reason, a named
+  authority, and an explanation of why the current release envelope is not
+  violated.
 
-- `fixed` requires `owningLayer`, `rootCause`, `designInvariant`,
-  `regressionTest`, and a traceability update at that layer;
-- `explicitly-deferred` requires `owningLayer`, `rootCause`, `deferralReason`,
-  and `deferralAuthority`, and must explain why the current AGP release envelope
-  is not violated; and
-- `open` or `investigating` invalidates PASS for any gate referencing the
-  finding.
+A workaround does not close a finding, and incomplete knowledge does not delay capture.\
+An open finding invalidates the gate that references it.\
+Recurrence of a fixed finding fails `AX8` independently.
 
-Recurrence of a fixed finding fails `AX8` independently. `measuredPayback` is
-recorded only when a measurement exists; this record does not by itself claim
-the full A14 attention-ledger, tangent-discipline, or payback mechanics.
+The durable record is the regression test plus the finding row in [`transport-sovereignty-review.md`](transport-sovereignty-review.md) section 4.\
+This is the AGP finding-lifecycle subset only; it does not claim the full A14 attention-ledger, tangent-discipline, or measured-payback mechanics.
 
-### 13.5 Certificate scope
+---
 
-The repository can issue:
+### 13.5 Scope of claim
 
-```text
-AGP ARTIFACT — SANDBOX VERIFIED
-```
-
-only after `AX0..AX8` pass against one source revision.
-
-The certificate states:
-
+A complete `AX0..AX8` pass certifies the AGP artifact within a sandbox envelope:
 ```text
 scope: AGP artifact sandbox
-A9: sandbox-derived partial evidence
+A9:  sandbox-derived partial evidence
 A14: finding-lifecycle subset evidence
-A0: lineage context only; not certified
+A0:  lineage context only; not certified
 ```
 
-A production deployment may claim:
-
-```text
-AGP DEPLOYMENT — CHAOS CERTIFIED
-```
-
-only with an additional deployment-owned record containing:
+A production deployment claiming chaos certification needs an additional deployment-owned record containing:
 
 - observed production fault distributions;
 - the defined simulation-to-production fidelity metric and threshold;
 - evidence that the entropy fixtures reflect those observations; and
 - a feedback cadence that updates the battery when the threshold is exceeded.
 
-The library cannot manufacture production telemetry and does not claim
-deployment certification on a consumer's behalf. Even that record is necessary
-but not sufficient for a Mission Kit A9 claim: the deployment owner must also
-prove its standardized battery covers every documented workflow and production
-graph, runs as a deterministic trunk/release gate, and maintains the required
-production-feedback/fidelity loop.
+The library cannot manufacture production telemetry and does not claim deployment certification on a consumer's behalf.\
+Even that record is necessary but not sufficient for a Mission Kit A9 claim: the deployment owner must also prove its standardized battery covers every documented workflow and production graph, runs as a deterministic trunk/release gate, and maintains the required production-feedback/fidelity loop.
 
 ### Exit
 
@@ -1273,16 +1099,17 @@ production-feedback/fidelity loop.
 8. the artifact certificate states its sandbox/partial-axiom scope without
    implying A0, full A9/A14, or production telemetry conformance.
 
+---
+
 ## 14. Required test-file ownership map
 
-Paths selected as `owningTest` by the semantic-rule registry are normative and
-exact. Other file names may be refined before implementation, but every
-primary contract remains singular and non-overlapping.
+Paths selected as `owningTest` by the semantic-rule registry are normative and exact.\
+Other file names may be refined before implementation, but every primary contract remains singular and non-overlapping.
 
 | Gate | Proposed file | One primary contract |
 |---|---|---|
 | AX0 | `test/conformance/traceability-graph.test.js` | Trace schema/data validate; every U/D requirement has ratified authority, one owner, and resolvable references |
-| AX0 | `test/conformance/verification-evidence-contract.test.js` | Evidence schemas compile strictly; AX1 subgate IDs and test-file paths are exact unique key sets, and aggregate PASS cannot contain a failed subgate |
+| AX0 | `test/conformance/verification-ownership-map.test.js` | Every gate-named test file in section 14 exists, no gate repeats one oracle, and each named file also carries suite ownership |
 | AX0 | `test/conformance/design-mrc.test.js` | Every exact normative design artifact carries one mechanics/rationale/consequence triad |
 | AX0 | `test/conformance/design-link-integrity.test.js` | Every local Markdown and trace design reference resolves to its exact file and anchor |
 | AX0 | `test/conformance/design-vocabulary.test.js` | Canonical cross-document terms are present and forbidden stale API/schema vocabulary is absent |
@@ -1293,11 +1120,11 @@ primary contract remains singular and non-overlapping.
 | AX1 | `packages/core/test/unit/operational-event-schema.test.js` | The generated event vocabulary and kind/data union accept every exact runtime variant while rejecting legacy, unknown, and malformed variants |
 | AX1 | `packages/core/test/unit/session-transition-schema.test.js` | Optional transition reason data may be absent without a schema/runtime projection mismatch |
 | AX1 | `packages/core/test/unit/diagnostic-record-schema.test.js` | The sole core diagnostic record accepts every closed domain/severity boundary while rejecting extensions, unbounded text, and any serialized cause/context/details |
-| AX1 | `packages/*/test/contract/schema-fixtures/*.test.js` | One file per schema or identical keyword family proves its keyword-applicable coverage row |
+| AX1 | `packages/*/test/contract/schema-catalog.test.js` | Each owning package proves its whole catalog: exact identities, paths, digests, resolved references, and generated-type correspondence |
 | AX1 | `test/conformance/public-node-consumer.test.js` | A consumer compiles using `createNode()` and package-root exports only |
 | AX1-T | `packages/transport/test/contract/public-capabilities.test.js` | Neutral handwritten capabilities compose only sovereign records and expose the exact acquisition/channel signatures |
 | AX1-T | `packages/transport/test/contract/diagnostic-sink.test.js` | The neutral transport sink accepts only generated `TransportDiagnostic`; raw cause stays a separate process-local argument and absent/throwing sinks are semantically inert |
-| AX1-T | `packages/transport/test/contract/conformance-case-coverage.test.js` | Every T01–T21 invariant and §18 obligation maps to one independently named reusable case and adapter-owned invocation |
+| AX1-T | `packages/transport/test/contract/conformance-case-coverage.test.js` | Every T01-T21 invariant and section 18 obligation maps to one independently named reusable case and adapter-owned invocation |
 | AX1-T | `packages/transport/test/contract/channel-order-rule.test.js` | The neutral reusable case preserves packet bytes, boundaries, duplicate-free FIFO order, and terminal cut-off |
 | AX1-T | `packages/transport/test/contract/terminal-once-rule.test.js` | The neutral reusable case linearizes competing native outcomes to one immutable terminal and stable later reads |
 | AX1-T | `packages/transport/test/contract/acceptance-callback-fault.test.js` | The reusable `accept`/capacity callback-fault case fixes cleanup order, private diagnostics, first-terminal-wins, and transferred-channel survival |
@@ -1344,6 +1171,7 @@ primary contract remains singular and non-overlapping.
 | AX4 | `packages/core/test/unit/route-alternative-promotion.test.js` | Pure candidate loss atomically promotes the deterministic alternative |
 | AX4 | `packages/core/test/unit/route-session-withdrawal.test.js` | Session loss removes all and only session-owned routing state in one revision |
 | AX4 | `packages/core/test/unit/route-binding-withdrawal.test.js` | Binding close removes its local candidate/FIB/exports in one revision |
+| AX4 | `packages/core/test/unit/bounded-capacity.test.js` | Bounded count, byte, and work reservations release exactly once and refuse admission past their limit |
 | AX4 | `packages/core/test/unit/route-capacity.test.js` | Each bounded routing reservation is all-or-nothing with canonical overflow outcomes |
 | AX4 | `packages/core/test/unit/rib-remote-rejection-memory.test.js` | An exact rejected export tuple remains filtered with its code/revision until tuple change or session replacement, without exercising retry scheduling |
 | AX4 | `packages/core/test/unit/route-remote-rejection-retry.test.js` | Rejection-code recovery, saturated backoff, cancellation, and absence of immediate resend are exact |
@@ -1409,31 +1237,24 @@ primary contract remains singular and non-overlapping.
 | AX8 | `test/resilience/<fault-family>.test.js` | One file per remaining AX8 entropy-family row and exactly one injected variable |
 | AX8 | `test/resilience/<mandatory-pair>.test.js` | One file per named C2 pair; overlap schedule is its sole primary chaos axis |
 
-Each owning README records what the file explicitly does not test. Adding a
-new file requires assigning it a previously unowned axis or splitting an
-over-broad existing owner.
+Each owning README records what the file explicitly does not test.\
+Adding a new file requires assigning it a previously unowned axis or splitting an over-broad existing owner.
+
+---
 
 ## 15. Mechanics, rationale, and consequence
 
 ### Mechanics
 
-Verification ascends from authority and sovereign schemas through pure
-semantics, FSM, RIB, uniform runtime, operational projections, live
-topologies, and finally deterministic chaos. Each requirement has one owning
-gate and test, while higher layers provide composition witnesses. Immutable
-evidence manifests bind every pass to source, schema digests, commands, seeds,
-cleanup, and lower-gate certificates.
+Verification ascends from authority and sovereign schemas through pure semantics, FSM, RIB, uniform runtime, operational projections, live topologies, and finally deterministic chaos.\
+Each requirement has one owning gate and test, while higher layers provide composition witnesses.\
+Immutable evidence manifests bind every pass to source, schema digests, commands, seeds, cleanup, and lower-gate certificates.
 
 ### Rationale
 
-Uniform routing combines several failure domains that can appear correct in a
-single demo: a permissive schema can hide an invalid path, a correct reducer
-can be wired through role-specific branches, a populated RIB can still be
-bypassed by data, and a table can reconstruct state the node never used.
-Separating proof layers makes each defect local and prevents topology success
-from certifying an unproven foundation. Star, line, triangle, and diamond
-geometries then prove progressively stronger composition, while the entropy
-battery proves the sealed graph survives real distributed failure modes.
+Uniform routing combines several failure domains that can appear correct in a single demo: a permissive schema can hide an invalid path, a correct reducer can be wired through role-specific branches, a populated RIB can still be bypassed by data, and a table can reconstruct state the node never used.\
+Separating proof layers makes each defect local and prevents topology success from certifying an unproven foundation.\
+Star, line, triangle, and diamond geometries then prove progressively stronger composition, while the entropy battery proves the sealed graph survives real distributed failure modes.
 
 ### Consequence of violation
 

@@ -1,10 +1,10 @@
-# AGP uniform node — axiom applicability and conformance map
+# AGP uniform node - axiom applicability and conformance map
 
 ## 1. Status and authority
 
 | Field | Value |
 |---|---|
-| Status | Ratified applicability map with transport-sovereignty amendment; implementation conformance not yet certified |
+| Status | Ratified. Current axiom applicability map |
 | Intent authority | [`uniform-agp-node-routing-survey.md`](../../surveys/uniform-agp-node-routing-survey.md) |
 | Transport intent authority | [`transport-sovereignty-authority.md`](transport-sovereignty-authority.md) |
 | Axiom source | [Mission Kit axioms](https://github.com/apnex/mission-kit/tree/5026604d3ef695651c21b24bd78410c7fec04b58/axioms) |
@@ -13,54 +13,54 @@
 | Applicable product axioms | A3, A4, A8, A9, A14 |
 | Lineage context | A0 umbrella; retained for intent lineage, not claimed as selective AGP conformance |
 
-The Mission Kit applicability matrix is authoritative for this mapping. AGP is
-a deterministic messaging library and runtime. It is not itself a persistent
-state backplane, runtime-generated declarative system, autonomous cognitive
-actor network, or LLM workload. The product therefore applies A3, A4, A8, A9,
-and A14 only at the explicit AGP evidence boundaries below.
+The Mission Kit applicability matrix is authoritative for this mapping.\
+AGP is a deterministic messaging library and runtime.\
+It is not itself a persistent state backplane, runtime-generated declarative system, autonomous cognitive actor network, or LLM workload.\
+The product therefore applies A3, A4, A8, A9, and A14 only at the explicit AGP evidence boundaries below.
 
-No requirement may be imported from a non-applicable axiom. A product behavior
-that happens to resemble one of its mechanics remains grounded in the survey
-or an applicable axiom; resemblance is not a conformance claim.
+No requirement may be imported from a non-applicable axiom.\
+A product behavior that happens to resemble one of its mechanics remains grounded in the survey or an applicable axiom; resemblance is not a conformance claim.
 
-A0 remains delivery-lineage context because it explains the
-intent → decision → contract → test chain. Its umbrella claim presupposes the
-full constituent stack, so AGP does not claim A0 conformance by selecting only
-the constituents relevant to this product. `AX0` is an AGP-local gate name, not
-an A0 certificate.
+A0 remains delivery-lineage context because it explains the intent -> decision -> contract -> test chain.\
+Its umbrella claim presupposes the full constituent stack, so AGP does not claim A0 conformance by selecting only the constituents relevant to this product.\
+`AX0` is an AGP-local gate name, not an A0 certificate.
+
+---
 
 ## 2. Applicable product mechanics and evidence scope
 
 | Axiom | Mechanics applied to AGP | AGP evidence gate | Claim boundary |
 |---|---|---|---|
-| A3 — Sovereign Composition | Every package/module owns one concern and interacts through exact public contracts. Neutral packet transport, WebSocket binding, Node.js carrier implementation, production Loopback, protocol, routing, operations, and management remain separated; dependencies point inward and package-private imports are forbidden. | `AX1` (`AX1-P/T/B/L/D`) | AGP package/module composition only |
-| A4 — Zero-Loss Knowledge | Design records preserve mechanics, rationale, and consequence; public DTOs are independently inspectable; operational state is structured rather than reconstructed in adapters. | `AX0`, `AX1`, `AX6` | AGP design, contract, and operations artifacts only |
-| A8 — Gated Recursive Integrity | Binary evidence ascends through authority → schemas → semantics → FSM → RIB → node → operations → topology → chaos. A higher gate cannot certify over an unsealed predecessor. | `AX0` through `AX8` | AGP verification graph only |
-| A9 — Chaos-Validated Deployment | Deterministic injected adversity exercises the sealed AGP graph with committed seeds, barriers, cleanup, and recurrence evidence. | `AX8` | Sandbox-derived partial evidence; not full A9 deployment conformance |
-| A14 — Compounding Learning | Findings are captured at discovery, assigned to an owning layer, resolved by root cause rather than workaround, and closed only with an orthogonal recurrence test or explicit authorized deferral. | `AX0`, `AX8` | AGP finding-lifecycle subset; no claim for unproved attention-ledger, tangent, or measured-payback obligations |
+| A3 - Sovereign Composition | Every package/module owns one concern and interacts through exact public contracts. Neutral packet transport, WebSocket binding, Node.js carrier implementation, production Loopback, protocol, routing, operations, and management remain separated; dependencies point inward and package-private imports are forbidden. | `AX1` (`AX1-P/T/B/L/D`) | AGP package/module composition only |
+| A4 - Zero-Loss Knowledge | Design records preserve mechanics, rationale, and consequence; public DTOs are independently inspectable; operational state is structured rather than reconstructed in adapters. | `AX0`, `AX1`, `AX6` | AGP design, contract, and operations artifacts only |
+| A8 - Gated Recursive Integrity | Binary evidence ascends through authority -> schemas -> semantics -> FSM -> RIB -> node -> operations -> topology -> chaos. A higher gate cannot certify over an unsealed predecessor. | `AX0` through `AX8` | AGP verification graph only |
+| A9 - Chaos-Validated Deployment | Deterministic injected adversity exercises the sealed AGP graph with committed seeds, barriers, cleanup, and recurrence evidence. | `AX8` | Sandbox-derived partial evidence; not full A9 deployment conformance |
+| A14 - Compounding Learning | Findings are captured at discovery, assigned to an owning layer, resolved by root cause rather than workaround, and closed only with an orthogonal recurrence test or explicit authorized deferral. | `AX0`, `AX8` | AGP finding-lifecycle subset; no claim for unproved attention-ledger, tangent, or measured-payback obligations |
 
-These are target mechanics, not claims of current conformance. A gate PASS
-certifies only the stated AGP evidence boundary. In particular, an AGP artifact
-cannot claim full A9 without deployment-owned production feedback and fidelity
-evidence, and it cannot claim full A14 from the finding subset alone.
+These are target mechanics, not claims of current conformance.\
+A gate PASS certifies only the stated AGP evidence boundary.\
+In particular, an AGP artifact cannot claim full A9 without deployment-owned production feedback and fidelity evidence, and it cannot claim full A14 from the finding subset alone.
+
+---
 
 ## 3. Non-applicable axioms
 
 | Axiom | Why its declared domain is absent from the AGP product boundary |
 |---|---|
-| A1 — Sovereign State Transparency | AGP owns no persistent entity or durable state backplane. Sessions, timers, queues, imported routes, the selected RIB, and forwarding state are deliberately ephemeral or derived. |
-| A2 — Isomorphic Specification | AGP validates schemas and consumes configuration, but no sovereign manifest generates and reconciles the runtime FSM. Contract sovereignty alone does not activate this axiom. |
-| A5 — Perceptual Parity | AGP is not an LLM-in-the-loop or multi-agent cognitive system. SDK/HTTP/CLI consistency is a survey requirement, not an A5 claim. |
-| A6 — Frictionless Agentic Collaboration | Agent coordination workflow is outside the shipped runtime. |
-| A7 — Resilient Agentic Operations | AGP nodes reconnect and return typed errors, but the product does not claim the axiom's autonomous-agent, durable-audit, or persisted-backlog contract. |
-| A10 — Autopoietic Evolution | Self-proposed architectural remediation is a delivery-system concern, not an AGP runtime behavior. |
-| A11 — Cognitive Minimalism | No LLM is on the AGP data or control path. |
-| A12 — Precision Context Engineering | Prompt budgets and token telemetry are outside the AGP runtime. |
-| A13 — Director Intent Amplification | The survey process is evidence for the delivery workflow; it is not a runtime capability. |
+| A1 - Sovereign State Transparency | AGP owns no persistent entity or durable state backplane. Sessions, timers, queues, imported routes, the selected RIB, and forwarding state are deliberately ephemeral or derived. |
+| A2 - Isomorphic Specification | AGP validates schemas and consumes configuration, but no sovereign manifest generates and reconciles the runtime FSM. Contract sovereignty alone does not activate this axiom. |
+| A5 - Perceptual Parity | AGP is not an LLM-in-the-loop or multi-agent cognitive system. SDK/HTTP/CLI consistency is a survey requirement, not an A5 claim. |
+| A6 - Frictionless Agentic Collaboration | Agent coordination workflow is outside the shipped runtime. |
+| A7 - Resilient Agentic Operations | AGP nodes reconnect and return typed errors, but the product does not claim the axiom's autonomous-agent, durable-audit, or persisted-backlog contract. |
+| A10 - Autopoietic Evolution | Self-proposed architectural remediation is a delivery-system concern, not an AGP runtime behavior. |
+| A11 - Cognitive Minimalism | No LLM is on the AGP data or control path. |
+| A12 - Precision Context Engineering | Prompt budgets and token telemetry are outside the AGP runtime. |
+| A13 - Director Intent Amplification | The survey process is evidence for the delivery workflow; it is not a runtime capability. |
 
-A consumer may activate additional axioms at its own system boundary—for
-example, by placing AGP inside a persistent or LLM-driven application. AGP must
-not claim that conformance on the consumer's behalf.
+A consumer may activate additional axioms at its own system boundary-for example, by placing AGP inside a persistent or LLM-driven application.\
+AGP must not claim that conformance on the consumer's behalf.
+
+---
 
 ## 4. State-lifetime boundary
 
@@ -76,20 +76,19 @@ not claim that conformance on the consumer's behalf.
 | Durable audit or message backlog | No AGP owner | Out of scope |
 
 The restart invariant is:
-
 ```text
 empty runtime state
-→ reconstruct adapter resolver and bound acquisition capabilities
-→ restore application configuration and endpoint intent
-→ reacquire neutral channels and reconnect adjacencies
-→ exchange authoritative route snapshots
-→ deterministically reconstruct equivalent reachability
+-> reconstruct adapter resolver and bound acquisition capabilities
+-> restore application configuration and endpoint intent
+-> reacquire neutral channels and reconnect adjacencies
+-> exchange authoritative route snapshots
+-> deterministically reconstruct equivalent reachability
 ```
 
-Persisting an `Established` session or learned route as live truth would create
-a phantom transport or stale next hop. Sovereign state schemas make current
-truth explicit and queryable; they do not convert derived state into durable
-authority.
+Persisting an `Established` session or learned route as live truth would create a phantom transport or stale next hop.\
+Sovereign state schemas make current truth explicit and queryable; they do not convert derived state into durable authority.
+
+---
 
 ## 5. Mechanics, rationale, and consequence
 
@@ -108,11 +107,9 @@ authority.
 
 ### Rationale
 
-Selective applicability preserves the constitutional force of an axiom.
-Claiming all axioms because some wording is attractive would simultaneously
-over-scope AGP and weaken the meaning of conformance. The pinned map lets a cold
-reader distinguish product obligations, delivery-process practices, and
-consumer responsibilities.
+Selective applicability preserves the constitutional force of an axiom.\
+Claiming all axioms because some wording is attractive would simultaneously over-scope AGP and weaken the meaning of conformance.\
+The pinned map lets a cold reader distinguish product obligations, delivery-process practices, and consumer responsibilities.
 
 ### Consequence of violation
 

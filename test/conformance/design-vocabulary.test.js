@@ -24,8 +24,8 @@ test("Given the frozen cross-document vocabulary, when AX0 scans its sovereign o
   assert.doesNotMatch(transport, /\bTransportConnectionPort\b/u);
   assert.doesNotMatch(transport, /\bsendText\s*\(/u);
 
-  assert.match(fsm, /dial → outbound/u);
-  assert.match(fsm, /accept → inbound/u);
+  assert.match(fsm, /dial -> outbound/u);
+  assert.match(fsm, /accept -> inbound/u);
   assert.match(contracts, /\bPreIdentityControllerSnapshot\b/u);
   assert.match(contracts, /\bConnectionSnapshot\b/u);
   assert.match(operations, /\bconnection\.preidentity-closed\b/u);

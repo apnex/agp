@@ -1,15 +1,13 @@
 # Protocol test ownership
 
-This directory is the sovereign executable contract for `@agp/protocol`.
+This directory is the sovereign executable contract for `@agp/protocol`.\
 Run it from the workspace root with:
-
 ```bash
 npm test --workspace @agp/protocol
 ```
 
-Every test title states its Given/When/Then arrangement. Each file owns one
-primary axis, creates no shared mutable state, and imports only the public
-package root.
+Every test title states its Given/When/Then arrangement.\
+Each file owns one primary axis, creates no shared mutable state, and imports only the public package root.
 
 ## Invariant map
 
@@ -26,9 +24,10 @@ package root.
 | `unit/return-token-shape.test.js` | Fixed 16-hex `ReturnToken` shape and separation from six-hex/message textual domains | Inline boundary strings | Stateful allocation, exhaustion, breadcrumb lifetime |
 | `unit/preflight-safety.test.js` | Duplicate/raw grammar, numeric/runtime graphs, UTF-8, and packet-byte precedence before schema interpretation | Values are constructed because token/byte identity is the stimulus | Binding close mapping, protocol path semantics, FSM legality |
 
+---
+
 ## Non-overlap rule
 
-A test may reuse a valid fixture only as arrangement. The assertion remains in
-the owning file and changes one stimulus dimension. Schema tests do not infer
-temporal rules; semantic tests do not mutate a session or RIB; and absence of a
-wire packet is proved later by the owning node test rather than by timeout here.
+A test may reuse a valid fixture only as arrangement.\
+The assertion remains in the owning file and changes one stimulus dimension.\
+Schema tests do not infer temporal rules; semantic tests do not mutate a session or RIB; and absence of a wire packet is proved later by the owning node test rather than by timeout here.

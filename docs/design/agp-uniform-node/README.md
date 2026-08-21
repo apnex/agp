@@ -1,10 +1,10 @@
-# AGP uniform node — architecture design
+# AGP uniform node - architecture design
 
 ## 1. Status and authority
 
 | Field | Value |
 |---|---|
-| Status | Ratified implementation design with transport-sovereignty amendment (2026-07-30); implementation certification remains gated by `verification.md` |
+| Status | Ratified. This is the current implementation design; gate definitions live in `verification.md` |
 | Intent input | [`uniform-agp-node-routing-survey.md`](../../surveys/uniform-agp-node-routing-survey.md) |
 | Transport intent | [`transport-sovereignty-authority.md`](transport-sovereignty-authority.md), explicit fixed-intent survey bypass approved 2026-07-30 |
 | Axiom map | [`axioms.md`](axioms.md) |
@@ -12,26 +12,21 @@
 | Protocol target | AGP v1 replaced in place; legacy compatibility is not required |
 | Runtime target | One transport-neutral `createNode()` kernel with canonical production WebSocket and Loopback transports |
 
-This design supersedes the MVP's hub/spoke runtime split and its explicit
-exclusion of route propagation. Existing AGP v1 peers, `createRouter()`, and
-`createSpoke()` are not compatibility constraints. The mechanism index records
-strict conceptual alignment, adaptations, deliberate departures, and deferred
-familiar mechanisms; AGP does not claim BGP wire compatibility.
+This design supersedes the MVP's hub/spoke runtime split and its explicit exclusion of route propagation.\
+Existing AGP v1 peers, `createRouter()`, and `createSpoke()` are not compatibility constraints.\
+The mechanism index records strict conceptual alignment, adaptations, deliberate departures, and deferred familiar mechanisms; AGP does not claim BGP wire compatibility.
+
+---
 
 ## 2. Mandate
 
-AGP topology is assembled from identical `AgpNode` instances. A node may accept
-or initiate packet channels through an injected transport, expose local
-endpoints, import routes, export selected routes, deliver locally, and forward
-in transit. Configuration determines which capabilities are active; no
-protocol role, transport kind, or separate implementation makes a node a hub
-or spoke.
+AGP topology is assembled from identical `AgpNode` instances.\
+A node may accept or initiate packet channels through an injected transport, expose local endpoints, import routes, export selected routes, deliver locally, and forward in transit.\
+Configuration determines which capabilities are active; no protocol role, transport kind, or separate implementation makes a node a hub or spoke.
 
-The AGP kernel consumes only a reliable, ordered, duplicate-free, bounded,
-full-duplex packet-channel contract. It never observes carrier framing,
-addresses, compression, negotiation, security configuration, or native close
-codes. WebSocket and Loopback are equally canonical production transports and
-must drive the same protocol, FSM, session, routing, and operations behavior.
+The AGP kernel consumes only a reliable, ordered, duplicate-free, bounded, full-duplex packet-channel contract.\
+It never observes carrier framing, addresses, compression, negotiation, security configuration, or native close codes.\
+WebSocket and Loopback are equally canonical production transports and must drive the same protocol, FSM, session, routing, and operations behavior.
 
 Every node owns:
 
@@ -43,8 +38,10 @@ Every node owns:
 6. a uniform session directory for inbound and outbound transports;
 7. one canonical, revisioned operational state store.
 
-Every locally originated or received data message consults the same selected
-RIB. No selected usable route means no onward data packet.
+Every locally originated or received data message consults the same selected RIB.\
+No selected usable route means no onward data packet.
+
+---
 
 ## 3. Non-negotiable outcomes
 
@@ -60,11 +57,13 @@ RIB. No selected usable route means no onward data packet.
 | U8 | A transit route miss emits no onward data packet. | Survey Q5(b) |
 | U9 | A correlated nonfatal failure travels back toward the source. | Survey Q5(c) |
 | U10 | Management HTTP and `agpctl` remain stable where their semantics remain true. | Survey Q6(c) |
-| U11 | Every named public data-only DTO—wire, configuration, SDK, operational state, event, and management—has a sovereign, separately inspectable JSON Schema. | Stakeholder direction, 2026-07-30 |
+| U11 | Every named public data-only DTO-wire, configuration, SDK, operational state, event, and management-has a sovereign, separately inspectable JSON Schema. | Stakeholder direction, 2026-07-30 |
 | U12 | Protocol, core, node, routing, and canonical operations contain no concrete-transport semantics or branching. | Transport fixed intent, 2026-07-30 |
 | U13 | Every conforming transport drives identical AGP packet, FSM, session, advertisement, RIB, forwarding, and teardown semantics. | Transport fixed intent, 2026-07-30 |
 | U14 | Loopback is a canonical production transport for process-local AGP topologies and traverses the complete AGP protocol stack. | Stakeholder approval, 2026-07-30 |
 | U15 | WebSocket binding rules and its Node.js implementation are sovereign owners outside the AGP kernel. | Transport fixed intent, 2026-07-30 |
+
+---
 
 ## 4. Logical architecture
 
@@ -102,14 +101,14 @@ flowchart LR
     HTTP --> CLI[agpctl]
 ```
 
-No arrow permits an adapter to reconstruct canonical state or a session to
-inspect carrier identity. HTTP and CLI are projections of SDK snapshots
-committed by the node.
+No arrow permits an adapter to reconstruct canonical state or a session to inspect carrier identity.\
+HTTP and CLI are projections of SDK snapshots committed by the node.
+
+---
 
 ## 5. Topology is configuration
 
 The minimal public configuration shape is:
-
 ```ts
 interface NodeConfig {
   nodeId: string;
@@ -143,26 +142,16 @@ interface NodeConfig {
 }
 ```
 
-The node derives the neutral channel limit triple from effective configuration
-exactly as `maxPacketBytes = receiveLimitBytes`,
-`maxBufferedPackets = transportReceivePackets ?? 64`, and
-`maxBufferedBytes = transportReceiveBytes
-?? max(receiveLimitBytes, 4_194_304)`. An explicit byte capacity below the
-single-packet limit is synchronously `CONFIG_INVALID`; adapter or native
-defaults never alter the triple.
+The node derives the neutral channel limit triple from effective configuration exactly as `maxPacketBytes = receiveLimitBytes`, `maxBufferedPackets = transportReceivePackets ?? 64`, and `maxBufferedBytes = transportReceiveBytes ?? max(receiveLimitBytes, 4_194_304)`.\
+An explicit byte capacity below the single-packet limit is synchronously `CONFIG_INVALID`; adapter or native defaults never alter the triple.
 
-Concrete transport configuration is supplied when constructing the injected
-transport. For example, a WebSocket adapter resolves `transportRef` values to
-capabilities bound to host/port/path or URL records, while a Loopback adapter
-resolves them to capabilities bound to addresses inside one explicit
-process-local fabric. `@agp/core` validates logical reference shape and
-`createNode()` resolves each reference once; neither parses or stores either
-adapter's configuration.
+Concrete transport configuration is supplied when constructing the injected transport.\
+For example, a WebSocket adapter resolves `transportRef` values to capabilities bound to host/port/path or URL records, while a Loopback adapter resolves them to capabilities bound to addresses inside one explicit process-local fabric.\
+`@agp/core` validates logical reference shape and `createNode()` resolves each reference once; neither parses or stores either adapter's configuration.
 
 ### Canonical peer declaration
 
 One `peers[]` entry declares desired outbound AGP adjacency intent:
-
 ```json
 {
   "adjacencyId": "hub-primary",
@@ -179,13 +168,10 @@ One `peers[]` entry declares desired outbound AGP adjacency intent:
   SHOULD describe intent, such as `peer.hub.primary`, rather than embed
   `websocket`, a scheme, address, or credential.
 
-Every `adjacencyId` is unique across this node's `peers[]` by exact string
-equality. A duplicate violates `PEER-ADJACENCY-UNIQUENESS-1` and makes
-`createNode()` fail synchronously with `CONFIG_INVALID` before resolving any
-transport reference or constructing a partial node.
+Every `adjacencyId` is unique across this node's `peers[]` by exact string equality.\
+A duplicate violates `PEER-ADJACENCY-UNIQUENESS-1` and makes `createNode()` fail synchronously with `CONFIG_INVALID` before resolving any transport reference or constructing a partial node.
 
 The embedding application separately supplies the concrete target binding:
-
 ```ts
 const transport = createNodeWsTransport({
   listeners: [],
@@ -200,16 +186,12 @@ const transport = createNodeWsTransport({
 const node = createNode(nodeConfig, { transport });
 ```
 
-The factory call is composition pseudocode for the certified trusted-development
-profile; secure WebSocket capability is deferred under F07. A Loopback
-composition can bind the same `peer.hub.primary` reference to
-`{ fabricId: "app", address: "hub" }` without changing `NodeConfig`.
+The factory call is composition pseudocode for the certified trusted-development profile; secure WebSocket capability is deferred under F07.\
+A Loopback composition can bind the same `peer.hub.primary` reference to `{ fabricId: "app", address: "hub" }` without changing `NodeConfig`.
 
-`peers[]` is not an inbound allowlist. Inbound authority comes from
-`listen.transportRef`, the acquired channel's observed peer evidence, remote
-`OPEN`, and `IdentityAdmissionPort`. Keeping those concerns separate prevents
-a dial target, claimed protocol identity, and admission policy from becoming
-one overloaded peer object.
+`peers[]` is not an inbound allowlist.\
+Inbound authority comes from `listen.transportRef`, the acquired channel's observed peer evidence, remote `OPEN`, and `IdentityAdmissionPort`.\
+Keeping those concerns separate prevents a dial target, claimed protocol identity, and admission policy from becoming one overloaded peer object.
 
 `listen` and `peers` are independent:
 
@@ -219,38 +201,34 @@ one overloaded peer object.
 - a mesh node may listen and dial several peers;
 - an application-local node may expose endpoints without accepting transit.
 
-These are topology descriptions, not roles. The controller's internal
-acquisition record is exactly `kind: dial | accept`; it alone owns reconnect
-behavior. Public `direction: outbound | inbound` is derived exactly as
-`dial → outbound`, `accept → inbound` and remains read-only connection
-evidence. It never controls which protocol messages a peer may send.
+These are topology descriptions, not roles.\
+The controller's internal acquisition record is exactly `kind: dial | accept`; it alone owns reconnect behavior.\
+Public `direction: outbound | inbound` is derived exactly as `dial -> outbound`, `accept -> inbound` and remains read-only connection evidence.\
+It never controls which protocol messages a peer may send.
 
-Before OPEN identity admission, `connections()` exposes a sovereign
-pre-identity controller record keyed by its temporarily node-wide local
-session ID. It has no `remoteNodeId`; configured or claimed identity is never
-presented as admitted fact. Successful admission atomically replaces that row
-with the ordinary pair-scoped session. Pre-admission teardown emits
-`connection.preidentity-closed`; only identity-admitted teardown emits
-pair-scoped `session.closed`.
+Before OPEN identity admission, `connections()` exposes a sovereign pre-identity controller record keyed by its temporarily node-wide local session ID.\
+It has no `remoteNodeId`; configured or claimed identity is never presented as admitted fact.\
+Successful admission atomically replaces that row with the ordinary pair-scoped session.\
+Pre-admission teardown emits `connection.preidentity-closed`; only identity-admitted teardown emits pair-scoped `session.closed`.
 
 ### Required example geometries
 
 | Geometry | Purpose |
 |---|---|
 | Star | Preserve the familiar two-leaf/one-central layout using identical node code and populated RIBs on all nodes |
-| Line `A—B—C` | Prove learned-route re-advertisement and two-hop delivery |
+| Line `A-B-C` | Prove learned-route re-advertisement and two-hop delivery |
 | Triangle | Prove path-loop rejection and deterministic single-path selection |
 | Diamond | Prove alternate-candidate promotion after selected-path loss without multipath forwarding |
 | Process-local Loopback star and line | Prove canonical production composition without sockets while exercising the complete packet codec and node kernel |
 
-Every independent-process example runs the same executable with a different
-configuration document. Loopback examples compose multiple ordinary
-`AgpNode` instances in one process; they do not use a separate node path.
+Every independent-process example runs the same executable with a different configuration document.\
+Loopback examples compose multiple ordinary `AgpNode` instances in one process; they do not use a separate node path.
+
+---
 
 ## 6. Package and module composition
 
-Packages are distribution boundaries, not declarations that all code inside a
-package is one A3 module.
+Packages are distribution boundaries, not declarations that all code inside a package is one A3 module.
 
 | Package | Distribution responsibility | Demonstrated consumers |
 |---|---|---|
@@ -288,39 +266,37 @@ The implementation must preserve these sovereign internal modules:
 | `agpctl/http-driver` | Perform bounded read-only management requests |
 | `agpctl/templates` | Render validated response documents without routing logic |
 
-Internal module boundaries are not automatically public exports. A stable
-surface is exported only where the consumer column demonstrates a consumer;
-tests import public contracts or same-module test seams, never another
-module's private implementation.
+Internal module boundaries are not automatically public exports.\
+A stable surface is exported only where the consumer column demonstrates a consumer; tests import public contracts or same-module test seams, never another module's private implementation.
 
-A root AGP v1 schema catalog composes the package-owned catalogs. It is an
-assembly manifest, not an alternate owner or a source of copied definitions.
+A root AGP v1 schema catalog composes the package-owned catalogs.\
+It is an assembly manifest, not an alternate owner or a source of copied definitions.
 
-`@agp/router` and `@agp/spoke` retire. Code that is useful to the uniform node
-is moved once to its one-concern owner; the new node must not wrap both old
-implementations.
+`@agp/router` and `@agp/spoke` retire.\
+Code that is useful to the uniform node is moved once to its one-concern owner; the new node must not wrap both old implementations.
 
 Dependency direction is:
-
 ```text
-@agp/core ───────────────→ @agp/protocol
-    └────────────────────→ @agp/transport
+@agp/core ───────────────-> @agp/protocol
+    └────────────────────-> @agp/transport
 
-@agp/node ───────────────→ @agp/core
-    ├────────────────────→ @agp/protocol
-    └────────────────────→ @agp/transport
+@agp/node ───────────────-> @agp/core
+    ├────────────────────-> @agp/protocol
+    └────────────────────-> @agp/transport
 
-@agp/binding-websocket ──→ @agp/transport
-@agp/transport-node-ws ──→ @agp/binding-websocket + @agp/transport + ws
-@agp/transport-loopback ─→ @agp/transport
-@agp/management-http ────→ @agp/core (OperationsReader + state DTOs)
-agpctl ───── read-only HTTP ─────→ @agp/management-http
+@agp/binding-websocket ──-> @agp/transport
+@agp/transport-node-ws ──-> @agp/binding-websocket + @agp/transport + ws
+@agp/transport-loopback ─-> @agp/transport
+@agp/management-http ────-> @agp/core (OperationsReader + state DTOs)
+agpctl ───── read-only HTTP ─────-> @agp/management-http
 ```
 
-An arrow means “consumes.” The management adapter does not depend on node
-internals: an application supplies the public `OperationsReader`.
-Adapters depend on public contracts only. No package imports another package's
-`src/` or private symbol.
+An arrow means "consumes."\
+The management adapter does not depend on node internals: an application supplies the public `OperationsReader`.\
+Adapters depend on public contracts only.\
+No package imports another package's `src/` or private symbol.
+
+---
 
 ## 7. Canonical processing paths
 
@@ -334,8 +310,7 @@ Adapters depend on public contracts only. No package imports another package's
 5. Endpoint, RIB, forwarding, and export state commit at one operations
    revision.
 
-Closing the binding performs the inverse transaction before later data is
-admitted.
+Closing the binding performs the inverse transaction before later data is admitted.
 
 ### 7.2 Adjacency establishment
 
@@ -351,10 +326,9 @@ admitted.
 6. Each accepted snapshot replaces only the importing session's Adj-RIB-In.
 7. Selection, forwarding, and downstream exports converge.
 
-Internal acquisition kind affects reconnect ownership only. A `dial`
-acquisition for a configured adjacency is supervised and retried; an `accept`
-acquisition is not redialed by its session controller. Public direction is only
-the fixed read-only projection described in §5.
+Internal acquisition kind affects reconnect ownership only.\
+A `dial` acquisition for a configured adjacency is supervised and retried; an `accept` acquisition is not redialed by its session controller.\
+Public direction is only the fixed read-only projection described in section 5.
 
 ### 7.3 Local send
 
@@ -403,6 +377,8 @@ There is no broadcast, flood, or implicit default next hop.
 4. Publish the one revision before admitting later affected data.
 5. The configured adjacency supervisor, if any, schedules a fresh session.
 
+---
+
 ## 8. Global invariants
 
 1. There is one node implementation and one peer-session implementation.
@@ -428,6 +404,8 @@ There is no broadcast, flood, or implicit default next hop.
     forwarding path as a WebSocket packet.
 15. Every accepted packet channel satisfies the one neutral transport profile
     before the node can adopt it.
+
+---
 
 ## 9. Scope boundary
 
@@ -464,25 +442,20 @@ Deferred:
   injected admission ports;
 - mutating CLI administration.
 
+---
+
 ## 10. Mechanics, rationale, and consequence
 
 ### Mechanics
 
-The design replaces role branches with capability composition, inserts one
-sovereign packet-channel contract beneath every peer session, makes RIB
-resolution the only data path, uses full per-peer selected-route snapshots for
-control convergence, and commits all derived state through one revisioned
-operations store.
+The design replaces role branches with capability composition, inserts one sovereign packet-channel contract beneath every peer session, makes RIB resolution the only data path, uses full per-peer selected-route snapshots for control convergence, and commits all derived state through one revisioned operations store.
 
 ### Rationale
 
-A spoke with an implicit upstream does not know reachability; it delegates the
-decision. Giving every process a RIB while retaining that behavior would be a
-cosmetic unification. Symmetric selected-route exchange makes each node capable
-of local reasoning and lets arbitrary topologies emerge from configuration
-without another fundamental rewrite. A transport-neutral packet boundary makes
-that same statement true beneath the session: process-local and network
-composition differ only in the injected transport.
+A spoke with an implicit upstream does not know reachability; it delegates the decision.\
+Giving every process a RIB while retaining that behavior would be a cosmetic unification.\
+Symmetric selected-route exchange makes each node capable of local reasoning and lets arbitrary topologies emerge from configuration without another fundamental rewrite.\
+A transport-neutral packet boundary makes that same statement true beneath the session: process-local and network composition differ only in the injected transport.
 
 ### Consequence of violation
 
@@ -496,28 +469,30 @@ composition differ only in the injected transport.
 - Letting Loopback bypass packet encoding or session machinery creates a second
   protocol implementation disguised as an optimization.
 
+---
+
 ## 11. Design set
 
-- [`axioms.md`](axioms.md) — strict applicability and conformance gates
-- [`mechanisms.md`](mechanisms.md) — feature index, RFC alignment, deliberate
+- [`axioms.md`](axioms.md) - strict applicability and conformance gates
+- [`mechanisms.md`](mechanisms.md) - feature index, RFC alignment, deliberate
   departures, and deferred mechanisms
-- [`decisions.md`](decisions.md) — required and ratified decision register
-- [`transport-sovereignty-authority.md`](transport-sovereignty-authority.md) —
+- [`decisions.md`](decisions.md) - required and ratified decision register
+- [`transport-sovereignty-authority.md`](transport-sovereignty-authority.md) -
   fixed intent and explicit survey bypass
-- [`traceability.json`](traceability.json) — machine-checkable intent,
+- [`traceability.json`](traceability.json) - machine-checkable intent,
   decision, contract, rule, test, and gate ownership
-- [`contracts.md`](contracts.md) — sovereign schema ownership and catalog
-- [`protocol.md`](protocol.md) — carrier-independent packet language and
+- [`contracts.md`](contracts.md) - sovereign schema ownership and catalog
+- [`protocol.md`](protocol.md) - carrier-independent packet language and
   symmetric adjacency behavior
-- [`transport-contract.md`](transport-contract.md) — neutral acquisition,
+- [`transport-contract.md`](transport-contract.md) - neutral acquisition,
   packet-channel, bounds, evidence, and terminal contract
-- [`bindings/websocket.md`](bindings/websocket.md) — AGP v1 WebSocket binding
-- [`transports/loopback.md`](transports/loopback.md) — canonical production
+- [`bindings/websocket.md`](bindings/websocket.md) - AGP v1 WebSocket binding
+- [`transports/loopback.md`](transports/loopback.md) - canonical production
   process-local transport
-- [`fsm.md`](fsm.md) — exact connection states, timers, events, and teardown
-- [`routing.md`](routing.md) — RIB model, selection, propagation, and data
+- [`fsm.md`](fsm.md) - exact connection states, timers, events, and teardown
+- [`routing.md`](routing.md) - RIB model, selection, propagation, and data
   forwarding
-- [`sdk-operations.md`](sdk-operations.md) — public API and canonical state
-- [`verification.md`](verification.md) — layered and chaos certification
-- [`transport-sovereignty-review.md`](transport-sovereignty-review.md) —
+- [`sdk-operations.md`](sdk-operations.md) - public API and canonical state
+- [`verification.md`](verification.md) - layered and chaos certification
+- [`transport-sovereignty-review.md`](transport-sovereignty-review.md) -
   independent leakage audit, resolved findings, and implementation checklist

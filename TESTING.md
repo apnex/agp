@@ -1,9 +1,7 @@
 # AGP test architecture
 
-AGP tests are executable contracts, owned at the same boundary as the code
-they verify. A test suite is considered healthy only when a maintainer can
-identify its owner, stimulus, observable oracle, and non-overlapping purpose
-without reading implementation internals.
+AGP tests are executable contracts, owned at the same boundary as the code they verify.\
+A test suite is considered healthy only when a maintainer can identify its owner, stimulus, observable oracle, and non-overlapping purpose without reading implementation internals.
 
 ## Ownership structure
 
@@ -23,11 +21,11 @@ test/
   e2e/              public SDK/HTTP/CLI and independent-process WebSocket
 ```
 
-Package behavior is tested beside that package. The workspace-level suite may
-test only a real composition boundary; it must not duplicate package-unit
-coverage. Adapter conformance is package-owned; workspace equivalence tests run
-the same normalized star and line behaviors over production Loopback and
-independent-process WebSocket compositions.
+Package behavior is tested beside that package.\
+The workspace-level suite may test only a real composition boundary; it must not duplicate package-unit coverage.\
+Adapter conformance is package-owned; workspace equivalence tests run the same normalized star and line behaviors over production Loopback and independent-process WebSocket compositions.
+
+---
 
 ## Test form
 
@@ -41,12 +39,12 @@ Every test:
 6. uses deterministic clocks/IDs/barriers instead of arbitrary sleeps; and
 7. performs cleanup in `finally` or registered test teardown.
 
-Secondary assertions are allowed only when they prove that the primary
-operation did not violate a directly adjacent invariant—for example, rejecting
-an endpoint update and also proving the RIB did not mutate.
+Secondary assertions are allowed only when they prove that the primary operation did not violate a directly adjacent invariant-for example, rejecting an endpoint update and also proving the RIB did not mutate.
 
-Table-driven cases belong together only when they share the same stimulus and
-oracle. A broad table covering unrelated error families must be split.
+Table-driven cases belong together only when they share the same stimulus and oracle.\
+A broad table covering unrelated error families must be split.
+
+---
 
 ## Fixtures and helpers
 
@@ -58,18 +56,19 @@ oracle. A broad table covering unrelated error families must be split.
 - Tests do not import another package's `src/` tree or inspect private maps and
   sockets.
 
+---
+
 ## Required ownership README
 
-Each package test directory and each workspace suite
-(`conformance`, `integration`, `topology`, `resilience`, and `e2e`) contains an
-ownership table with:
+Each package test directory and each workspace suite (`conformance`, `integration`, `topology`, `resilience`, and `e2e`) contains an ownership table with:
 
 | File | Contract protected | Primary axis | Oracle |
 |---|---|---|---|
 
-It also lists deliberately deferred behavior and points cross-package behavior
-to the owning workspace suite. This map is reviewed whenever a public contract
-changes.
+It also lists deliberately deferred behavior and points cross-package behavior to the owning workspace suite.\
+This map is reviewed whenever a public contract changes.
+
+---
 
 ## Anti-rot checks
 
@@ -84,6 +83,4 @@ changes.
 - package tests importing another package's private `src/`; and
 - non-descriptive test titles that omit given/when/then.
 
-Passing the architecture check is necessary but not sufficient: reviewers
-still confirm that suites remain orthogonal and that helpers do not hide their
-oracles.
+Passing the architecture check is necessary but not sufficient: reviewers still confirm that suites remain orthogonal and that helpers do not hide their oracles.

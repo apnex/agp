@@ -1,4 +1,4 @@
-# AGP uniform node — carrier-neutral packet transport contract
+# AGP uniform node - carrier-neutral packet transport contract
 
 > **Status:** Ratified implementation design with transport-sovereignty
 > amendment (2026-07-30). Release
@@ -6,24 +6,20 @@
 
 ## 1. Mandate and authority
 
-This document defines the complete capability boundary between the AGP node
-runtime and an injected packet-transport adapter. It is normative for
-`@agp/transport`, every concrete transport adapter, and every node/session call
-site that consumes those ports.
+This document defines the complete capability boundary between the AGP node runtime and an injected packet-transport adapter.\
+It is normative for `@agp/transport`, every concrete transport adapter, and every node/session call site that consumes those ports.
 
-AGP requires one **reliable, ordered, message-bounded byte channel** per peer
-session. The adapter acquires that channel from a concrete carrier. The AGP
-protocol package owns UTF-8 decoding, JSON parsing, schema validation, and AGP
-message semantics above the channel. The adapter owns carrier acquisition,
-carrier framing, native flow control, native liveness, and native teardown below
-the channel.
+AGP requires one **reliable, ordered, message-bounded byte channel** per peer session.\
+The adapter acquires that channel from a concrete carrier.\
+The AGP protocol package owns UTF-8 decoding, JSON parsing, schema validation, and AGP message semantics above the channel.\
+The adapter owns carrier acquisition, carrier framing, native flow control, native liveness, and native teardown below the channel.
 
-Existing design prose that names one concrete carrier describes a binding of
-this contract. It does not grant that carrier's concepts ownership in
-`@agp/protocol`, `@agp/core`, `@agp/transport`, or `@agp/node`.
+Existing design prose that names one concrete carrier describes a binding of this contract.\
+It does not grant that carrier's concepts ownership in `@agp/protocol`, `@agp/core`, `@agp/transport`, or `@agp/node`.
 
-Normative terms `MUST`, `MUST NOT`, `SHOULD`, and `MAY` have their ordinary
-requirements meaning.
+Normative terms `MUST`, `MUST NOT`, `SHOULD`, and `MAY` have their ordinary requirements meaning.
+
+---
 
 ## 2. Boundary and terminology
 
@@ -42,58 +38,54 @@ requirements meaning.
 | Terminal commit | The one irreversible transition of a channel to one immutable `TransportTerminal` record |
 | Peer evidence | Bounded immutable security facts established by the adapter during acquisition |
 
-The word “packet” in this contract is an application-record boundary. It does
-not imply a network datagram, maximum transmission unit, routable network
-packet, or unreliable delivery.
+The word "packet" in this contract is an application-record boundary.\
+It does not imply a network datagram, maximum transmission unit, routable network packet, or unreliable delivery.
 
 The ownership split is:
-
 ```text
 embedding application
-  └─ configures transportRef → adapter-owned bound acquisition capabilities
+  └─ configures transportRef -> adapter-owned bound acquisition capabilities
        └─ AGP invokes one capability to acquire a packet channel
             └─ AGP session parses packet bytes as one AGP JSON document
                  └─ AGP protocol/FSM/routing/application semantics
 ```
 
+---
+
 ## 3. Package sovereignty
 
 The dependency direction remains:
-
 ```text
-@agp/core ───────────────→ @agp/protocol
-    └────────────────────→ @agp/transport
+@agp/core ───────────────-> @agp/protocol
+    └────────────────────-> @agp/transport
 
-@agp/node ───────────────→ @agp/core
-    ├────────────────────→ @agp/protocol
-    └────────────────────→ @agp/transport
+@agp/node ───────────────-> @agp/core
+    ├────────────────────-> @agp/protocol
+    └────────────────────-> @agp/transport
 
-@agp/binding-websocket ──────────────────→ @agp/transport
-@agp/transport-node-ws ──────────────────→ @agp/binding-websocket + @agp/transport + ws
-@agp/transport-loopback ─────────────────→ @agp/transport
-embedding application ────────────────────→ @agp/node + adapter
+@agp/binding-websocket ──────────────────-> @agp/transport
+@agp/transport-node-ws ──────────────────-> @agp/binding-websocket + @agp/transport + ws
+@agp/transport-loopback ─────────────────-> @agp/transport
+embedding application ────────────────────-> @agp/node + adapter
 ```
 
-`@agp/transport` owns the handwritten capability types and the sovereign
-JSON-compatible records named in this document. It has no dependency on AGP
-wire DTOs, node configuration DTOs, a carrier library, or a concrete adapter.
-A concrete adapter imports the public transport contract; the node never
-imports a concrete adapter.
+`@agp/transport` owns the handwritten capability types and the sovereign JSON-compatible records named in this document.\
+It has no dependency on AGP wire DTOs, node configuration DTOs, a carrier library, or a concrete adapter.\
+A concrete adapter imports the public transport contract; the node never imports a concrete adapter.
 
-`@agp/core` depends on `@agp/transport` only for schema-generated neutral data
-types used by configuration and operations. It does not import a concrete
-adapter or any capability implementation.
+`@agp/core` depends on `@agp/transport` only for schema-generated neutral data types used by configuration and operations.\
+It does not import a concrete adapter or any capability implementation.
 
-An adapter may expose its own strongly typed configuration and reference
-builders from its own package. Those types do not become part of the common
-transport contract merely because the embedding application composes them.
+An adapter may expose its own strongly typed configuration and reference builders from its own package.\
+Those types do not become part of the common transport contract merely because the embedding application composes them.
+
+---
 
 ## 4. Logical references and bound acquisition capabilities
 
 ### 4.1 Nominal shape
 
 The following pseudotypes describe process-local authority, not JSON records:
-
 ```ts
 interface TransportListenCapability {
   listen(
@@ -121,28 +113,20 @@ interface PeerTransportPort {
 }
 ```
 
-`TransportRef` is the schema-generated bounded string stored in `NodeConfig`.
-It is one to 64 lowercase ASCII characters and matches
-`^[a-z][a-z0-9]*(?:[._-][a-z0-9]+)*$`; schemes, slashes, colons, whitespace,
-and credentials cannot fit. It is an application-local composition name, not a
-globally meaningful address.
+`TransportRef` is the schema-generated bounded string stored in `NodeConfig`.\
+It is one to 64 lowercase ASCII characters and matches `^[a-z][a-z0-9]*(?:[._-][a-z0-9]+)*$`; schemes, slashes, colons, whitespace, and credentials cannot fit.\
+It is an application-local composition name, not a globally meaningful address.
 
-The embedding application supplies one `PeerTransportPort`. `createNode()`
-resolves every configured reference synchronously, captures the exact returned
-capability, and fails `CONFIG_INVALID` for a missing or wrong-kind reference.
-It resolves each configured reference once and never rereads adapter state
-during start or reconnect.
+The embedding application supplies one `PeerTransportPort`.\
+`createNode()` resolves every configured reference synchronously, captures the exact returned capability, and fails `CONFIG_INVALID` for a missing or wrong-kind reference.\
+It resolves each configured reference once and never rereads adapter state during start or reconnect.
 
-For this v1 certification target, every capability resolved for one node comes
-from one concrete adapter composition. The generic resolver shape does not
-authorize a composite port that mixes WebSocket and Loopback capabilities
-inside one node. Mixed-adapter lifecycle, failure, operations, and selection
-semantics remain F06 work requiring fresh intent; applications may still run
-different ordinary nodes over different canonical transports.
+For this v1 certification target, every capability resolved for one node comes from one concrete adapter composition.\
+The generic resolver shape does not authorize a composite port that mixes WebSocket and Loopback capabilities inside one node.\
+Mixed-adapter lifecycle, failure, operations, and selection semantics remain F06 work requiring fresh intent; applications may still run different ordinary nodes over different canonical transports.
 
-The returned capability is already bound to its concrete adapter and
-authority; there is no separately supplied port with which it can be
-mismatched. AGP may invoke and retain that capability but MUST NOT:
+The returned capability is already bound to its concrete adapter and authority; there is no separately supplied port with which it can be mismatched.\
+AGP may invoke and retain that capability but MUST NOT:
 
 - parse its fields;
 - compare it to infer peer or listener identity;
@@ -151,44 +135,36 @@ mismatched. AGP may invoke and retain that capability but MUST NOT:
 - log it without an adapter-provided safe projection; or
 - assume that it is a URL, address tuple, path, service name, or JSON value.
 
-Logical references name composition slots, and resolved capabilities carry
-acquisition authority; neither is stable peer identity. `adjacencyId`,
-`nodeId`, `sessionId`, controller identity, and route next-hop identity remain
-owned by their existing AGP layers.
+Logical references name composition slots, and resolved capabilities carry acquisition authority; neither is stable peer identity.\
+`adjacencyId`, `nodeId`, `sessionId`, controller identity, and route next-hop identity remain owned by their existing AGP layers.
 
 ### 4.2 Reference creation and validation
 
-Port and capability construction is adapter-specific and occurs at the
-embedding composition boundary. An adapter factory validates all concrete
-configuration before returning its port. Resolver methods are synchronous,
-side-effect-free, and deterministic for the lifetime of that port. An invalid
-logical reference supplied directly to a resolver fails with
-`REFERENCE_INVALID`; a valid but unmapped or wrong-kind reference returns
-`undefined`, which `createNode()` normalizes to `CONFIG_INVALID`.
+Port and capability construction is adapter-specific and occurs at the embedding composition boundary.\
+An adapter factory validates all concrete configuration before returning its port.\
+Resolver methods are synchronous, side-effect-free, and deterministic for the lifetime of that port.\
+An invalid logical reference supplied directly to a resolver fails with `REFERENCE_INVALID`; a valid but unmapped or wrong-kind reference returns `undefined`, which `createNode()` normalizes to `CONFIG_INVALID`.
 
-Configuration systems store the core `transportRef` separately from
-adapter-owned configuration. The adapter factory validates its own
-configuration, compiles it into bound capabilities, and returns the resolver
-port before `createNode()`. No unchecked adapter object is embedded in core
-configuration.
+Configuration systems store the core `transportRef` separately from adapter-owned configuration.\
+The adapter factory validates its own configuration, compiles it into bound capabilities, and returns the resolver port before `createNode()`.\
+No unchecked adapter object is embedded in core configuration.
 
 ### 4.3 Bound listener publication
 
 A successful listen operation returns a sanitized data-only publication:
-
 ```ts
 interface TransportListenerPublication {
   readonly displayAddress?: string;
 }
 ```
 
-`displayAddress` is bounded, sanitized operator evidence only. It is not
-connect authority, need not be dialable, and cannot influence kernel behavior.
-When present it contains one to 256 Unicode code points and no C0 or DEL
-control character.
-The adapter-specific composition API owns creation and distribution of target
-configuration. AGP does not advertise transport references through route
-exchange.
+`displayAddress` is bounded, sanitized operator evidence only.\
+It is not connect authority, need not be dialable, and cannot influence kernel behavior.\
+When present it contains one to 256 Unicode code points and no C0 or DEL control character.\
+The adapter-specific composition API owns creation and distribution of target configuration.\
+AGP does not advertise transport references through route exchange.
+
+---
 
 ## 5. Common pseudotypes
 
@@ -216,17 +192,15 @@ interface TransportAcquisitionOptions {
 }
 ```
 
-The injected implementation is an AGP transport, not a generic runtime
-protocol multiplexer. It MUST complete its configured AGP binding before
-channel commit. The neutral port exposes no selected protocol, binding token,
-or runtime capability negotiation. A concrete binding may require a fixed
-carrier token; another transport may require none. Neither fact enters this
-interface.
+The injected implementation is an AGP transport, not a generic runtime protocol multiplexer.\
+It MUST complete its configured AGP binding before channel commit.\
+The neutral port exposes no selected protocol, binding token, or runtime capability negotiation.\
+A concrete binding may require a fixed carrier token; another transport may require none.\
+Neither fact enters this interface.
 
-Every numeric limit MUST be a positive safe integer.
-`maxBufferedBytes` MUST be at least `maxPacketBytes`, so one maximum-size packet
-can be admitted. These are decoded packet-channel limits; native encoded,
-compressed, framed, or handshake limits are additional adapter-owned bounds.
+Every numeric limit MUST be a positive safe integer.\
+`maxBufferedBytes` MUST be at least `maxPacketBytes`, so one maximum-size packet can be admitted.\
+These are decoded packet-channel limits; native encoded, compressed, framed, or handshake limits are additional adapter-owned bounds.
 
 ### 5.2 Packets and reads
 
@@ -292,37 +266,27 @@ type TransportRead =
   | { readonly kind: "terminal"; readonly terminal: TransportTerminal };
 ```
 
-Packet bytes are opaque to the transport. Every byte value, including a
-zero-length sequence, is valid at this layer if it is within the configured
-limit. The AGP codec, not the adapter, decides whether those bytes form valid
-UTF-8, JSON, or an AGP message.
+Packet bytes are opaque to the transport.\
+Every byte value, including a zero-length sequence, is valid at this layer if it is within the configured limit.\
+The AGP codec, not the adapter, decides whether those bytes form valid UTF-8, JSON, or an AGP message.
 
-`MALFORMED_CARRIER_INPUT` means the remote carrier participant violated the
-adapter's ability to materialize one packet boundary. It MUST NOT be used for an
-AGP JSON, schema, version, or semantic failure.
+`MALFORMED_CARRIER_INPUT` means the remote carrier participant violated the adapter's ability to materialize one packet boundary.\
+It MUST NOT be used for an AGP JSON, schema, version, or semantic failure.
 
-`TransportDiagnostic.code` is one to 64 uppercase ASCII letters, digits, and
-underscores, beginning with a letter. `message`, when present, is at most 256
-Unicode code points after sanitization. Neither value may contain a credential,
-native error dump, stack, or unbounded remote text. The terminal schemas encode
-the discriminated unions above, so invalid origin/kind cross-products are
-rejected structurally.
+`TransportDiagnostic.code` is one to 64 uppercase ASCII letters, digits, and underscores, beginning with a letter.\
+`message`, when present, is at most 256 Unicode code points after sanitization.\
+Neither value may contain a credential, native error dump, stack, or unbounded remote text.\
+The terminal schemas encode the discriminated unions above, so invalid origin/kind cross-products are rejected structurally.
 
-`TransportDiagnosticSinkPort` is the exact optional adapter-observation
-capability exported by `@agp/transport`. It accepts only the sovereign
-`TransportDiagnostic` record. Its optional `cause` argument is process-local
-raw material, is not part of that record, and MUST NOT be serialized into a
-terminal, operation error, operations snapshot, management response, protocol
-packet, or another sink call. A production adapter construction API may accept
-this capability as a dependency; it is not a channel/listener method and does
-not grant the kernel access to native carrier state.
+`TransportDiagnosticSinkPort` is the exact optional adapter-observation capability exported by `@agp/transport`.\
+It accepts only the sovereign `TransportDiagnostic` record.\
+Its optional `cause` argument is process-local raw material, is not part of that record, and MUST NOT be serialized into a terminal, operation error, operations snapshot, management response, protocol packet, or another sink call.\
+A production adapter construction API may accept this capability as a dependency; it is not a channel/listener method and does not grant the kernel access to native carrier state.
 
-Emission occurs only after the adapter's owning disposition or terminal commit
-is stable. Absence is an exact no-op. If the sink throws, the adapter catches
-and suppresses the value, does not recursively emit, and preserves the original
-operation result, terminal, resource accounting, and callback order. Adapters
-MUST NOT use sink presence, return, failure, or side effects as protocol,
-acquisition, liveness, retry, or resource-policy input.
+Emission occurs only after the adapter's owning disposition or terminal commit is stable.\
+Absence is an exact no-op.\
+If the sink throws, the adapter catches and suppresses the value, does not recursively emit, and preserves the original operation result, terminal, resource accounting, and callback order.\
+Adapters MUST NOT use sink presence, return, failure, or side effects as protocol, acquisition, liveness, retry, or resource-policy input.
 
 ### 5.3 Peer evidence
 
@@ -343,12 +307,11 @@ interface TransportPeerEvidence {
 }
 ```
 
-This is a closed sovereign record, not an extension dictionary. A later
-evidence field or variant requires an explicit schema revision and admission
-review. A verified `principal` is one to 256 Unicode code points with no C0/DEL
-control, and `method` matches `^[a-z][a-z0-9._-]{0,63}$`. The canonical JSON
-encoding of the complete evidence record is at most 1,024 UTF-8 bytes. The
-semantic restrictions in §12 are mandatory.
+This is a closed sovereign record, not an extension dictionary.\
+A later evidence field or variant requires an explicit schema revision and admission review.\
+A verified `principal` is one to 256 Unicode code points with no C0/DEL control, and `method` matches `^[a-z][a-z0-9._-]{0,63}$`.\
+The canonical JSON encoding of the complete evidence record is at most 1,024 UTF-8 bytes.\
+The semantic restrictions in section 12 are mandatory.
 
 ### 5.4 Close and abort intents
 
@@ -364,9 +327,9 @@ interface TransportAbortIntent {
 }
 ```
 
-`code` follows the same 64-character pattern as
-`TransportDiagnostic.code`. It is bounded local diagnostic evidence. It is not
-a carrier-native code and is never interpreted as an AGP wire notification.
+`code` follows the same 64-character pattern as `TransportDiagnostic.code`.\
+It is bounded local diagnostic evidence.\
+It is not a carrier-native code and is never interpreted as an AGP wire notification.\
 The adapter owns any mapping to native termination.
 
 ### 5.5 Channel and listener capabilities
@@ -410,17 +373,17 @@ interface TransportListenerPort {
 
 ```
 
-These interfaces plus the resolver and bound acquisition capabilities in §4
-are process-local capabilities. They are not JSON DTOs and do not acquire JSON
-Schema documents. `TransportDiagnosticSinkPort` is likewise handwritten, but
-every data value it accepts is the generated `TransportDiagnostic`.
+These interfaces plus the resolver and bound acquisition capabilities in section 4 are process-local capabilities.\
+They are not JSON DTOs and do not acquire JSON Schema documents.\
+`TransportDiagnosticSinkPort` is likewise handwritten, but every data value it accepts is the generated `TransportDiagnostic`.
+
+---
 
 ## 6. Acquisition semantics
 
 ### 6.1 Listener acquisition
 
-`listen()` has one commit point: successful creation of a listener capable of
-enforcing its configured AGP binding and the supplied capacity bounds.
+`listen()` has one commit point: successful creation of a listener capable of enforcing its configured AGP binding and the supplied capacity bounds.
 
 1. Before commit, cancellation rejects `listen()` with `OPERATION_ABORTED` and
    the adapter releases every partial resource.
@@ -441,34 +404,25 @@ enforcing its configured AGP binding and the supplied capacity bounds.
    under the callback-fault rule below. It MUST NOT invoke `accept` again for
    that channel.
 
-Callback entry, acquisition disposition, and listener close/abort/terminal
-commit are serialized by one per-listener gate. No second acquisition or
-callback disposition may linearize while an acceptance callback is in flight.
-The adapter MUST catch every callback throw at the invocation boundary; no
-callback exception may escape into a native carrier callback, become an
-unhandled promise rejection, or skip adapter cleanup.
+Callback entry, acquisition disposition, and listener close/abort/terminal commit are serialized by one per-listener gate.\
+No second acquisition or callback disposition may linearize while an acceptance callback is in flight.\
+The adapter MUST catch every callback throw at the invocation boundary; no callback exception may escape into a native carrier callback, become an unhandled promise rejection, or skip adapter cleanup.
 
-Pending acquisition capacity is counted from the first carrier resource
-reservation until rejection or channel commit. Active-channel capacity is
-counted from channel commit until the adapter has released the channel's
-physical resources after terminal commit. A capacity rejection:
+Pending acquisition capacity is counted from the first carrier resource reservation until rejection or channel commit.\
+Active-channel capacity is counted from channel commit until the adapter has released the channel's physical resources after terminal commit.\
+A capacity rejection:
 
 - creates no channel;
 - invokes `capacityRejected` exactly once;
 - reveals no raw peer input; and
 - when the callback returns normally, does not by itself fail the listener.
 
-Before invoking `capacityRejected`, the adapter commits rejection of the
-triggering acquisition, releases that attempt's common pending/active
-reservations, and irreversibly detaches any remaining native cleanup from
-acquisition authority. Detached cleanup is adapter-bounded, cannot produce a
-channel or another callback, and must eventually release the native handle;
-physical carrier closure need not complete before callback entry. Capacity
-decision plus callback invocation is one gated disposition, so a later
-rejection cannot commit while the callback is in flight.
+Before invoking `capacityRejected`, the adapter commits rejection of the triggering acquisition, releases that attempt's common pending/active reservations, and irreversibly detaches any remaining native cleanup from acquisition authority.\
+Detached cleanup is adapter-bounded, cannot produce a channel or another callback, and must eventually release the native handle; physical carrier closure need not complete before callback entry.\
+Capacity decision plus callback invocation is one gated disposition, so a later rejection cannot commit while the callback is in flight.
 
-Both acceptance callbacks have one closed callback-fault rule. If either
-throws, the adapter MUST:
+Both acceptance callbacks have one closed callback-fault rule.\
+If either throws, the adapter MUST:
 
 1. catch any thrown value synchronously and never retry or rethrow the callback;
 2. for `accept`, abort the not-successfully-transferred channel and release its
@@ -489,71 +443,54 @@ throws, the adapter MUST:
    thrownValue)` exactly once; when no sink was injected, perform the defined
    no-op instead.
 
-First-terminal-wins applies when the callback re-entrantly caused close, abort,
-or another terminal before throwing: the existing terminal remains immutable,
-the private callback diagnostic is still emitted once, and no replacement
-terminal is invented. If callback fault wins, no later close or carrier outcome
-can replace it. No callback message, stack, peer input, thrown object, or native
-object enters the stable terminal.
+First-terminal-wins applies when the callback re-entrantly caused close, abort, or another terminal before throwing: the existing terminal remains immutable, the private callback diagnostic is still emitted once, and no replacement terminal is invented.\
+If callback fault wins, no later close or carrier outcome can replace it.\
+No callback message, stack, peer input, thrown object, or native object enters the stable terminal.
 
-`waitTerminal()` exposes the winning terminal to node lifecycle control, so an
-acceptance callback fault while the node is `Running` fails the node rather than
-existing only in logs. Channels transferred before the callback fault remain
-owned by their session controllers and MUST NOT be closed by listener
-terminalization.
+`waitTerminal()` exposes the winning terminal to node lifecycle control, so an acceptance callback fault while the node is `Running` fails the node rather than existing only in logs.\
+Channels transferred before the callback fault remain owned by their session controllers and MUST NOT be closed by listener terminalization.
 
 ### 6.2 Outbound acquisition
 
-`connect()` has one commit point: transfer of a live channel that already
-satisfies its configured AGP binding, packet limits, and peer-evidence
-construction rules.
+`connect()` has one commit point: transfer of a live channel that already satisfies its configured AGP binding, packet limits, and peer-evidence construction rules.
 
 ```text
 bound capability invocation
-→ carrier acquisition
-→ configured AGP-binding compatibility
-→ immutable peer evidence
-→ bounded read admission active
-→ channel commit
-→ resolve connect()
+-> carrier acquisition
+-> configured AGP-binding compatibility
+-> immutable peer evidence
+-> bounded read admission active
+-> channel commit
+-> resolve connect()
 ```
 
-Before channel commit, cancellation or failure that wins the adapter's
-serialized acquisition-disposition race rejects `connect()` and no channel may
-later escape with live authority through a callback or promise. A cancellation
-notification does not win merely by occurring during a disposition callback
-that already holds that gate; the adapter linearizes the callback's normal
-return or throw before servicing the re-entrant notification. After channel
-commit, the promise resolves with the channel; later cancellation of the
-acquisition signal has no effect on that channel.
+Before channel commit, cancellation or failure that wins the adapter's serialized acquisition-disposition race rejects `connect()` and no channel may later escape with live authority through a callback or promise.\
+A cancellation notification does not win merely by occurring during a disposition callback that already holds that gate; the adapter linearizes the callback's normal return or throw before servicing the re-entrant notification.\
+After channel commit, the promise resolves with the channel; later cancellation of the acquisition signal has no effect on that channel.
 
-The adapter MUST NOT resolve early and ask the AGP node to inspect a
-carrier-negotiation result. Binding compatibility is an acquisition
-postcondition. `TransportOpened` and `TransportAccepted` therefore mean “a
-conforming channel was committed,” not merely “a native connection exists.”
-This postcondition covers every compatibility fact observable during
-acquisition; it cannot prove that a peer will obey the binding on future input.
-A later peer binding violation follows the ordered input-rejection and terminal
-path in §9.4 and never enables a fallback mode.
+The adapter MUST NOT resolve early and ask the AGP node to inspect a carrier-negotiation result.\
+Binding compatibility is an acquisition postcondition.\
+`TransportOpened` and `TransportAccepted` therefore mean "a conforming channel was committed," not merely "a native connection exists."\
+This postcondition covers every compatibility fact observable during acquisition; it cannot prove that a peer will obey the binding on future input.\
+A later peer binding violation follows the ordered input-rejection and terminal path in section 9.4 and never enables a fallback mode.
 
 ### 6.3 Acquisition provenance
 
 The node records acquisition separately:
-
 ```ts
 type Acquisition =
   | { readonly kind: "dial"; readonly adjacencyId: string }
   | { readonly kind: "accept"; readonly listenerId: string };
 ```
 
-The node maps a successful outbound `connect()` capability call to `dial`
-provenance. That record controls reconnect ownership only. The channel does
-not expose a direction property, and direction cannot grant protocol
-authority.
+The node maps a successful outbound `connect()` capability call to `dial` provenance.\
+That record controls reconnect ownership only.\
+The channel does not expose a direction property, and direction cannot grant protocol authority.
 
-The connect capability does not establish the remote AGP `nodeId`. Remote node
-identity remains self-declared by OPEN and accepted only through the identity
-admission contract using peer evidence.
+The connect capability does not establish the remote AGP `nodeId`.\
+Remote node identity remains self-declared by OPEN and accepted only through the identity admission contract using peer evidence.
+
+---
 
 ## 7. Packet contract
 
@@ -568,38 +505,37 @@ For each channel:
 5. packet order is identical to send-acceptance order; and
 6. the adapter never duplicates a packet.
 
-A byte-stream carrier must add and validate its own bounded record framing. A
-message-oriented carrier must map exactly one carrier record to one transport
-packet. Those mechanics remain private to the adapter.
+A byte-stream carrier must add and validate its own bounded record framing.\
+A message-oriented carrier must map exactly one carrier record to one transport packet.\
+Those mechanics remain private to the adapter.
 
-The adapter MUST provide the reader a stable byte snapshot. It may transfer an
-exclusive buffer or copy bytes, but it MUST NOT mutate, reuse, detach, or
-overwrite the buffer after returning it. The node treats received bytes as
-immutable.
+The adapter MUST provide the reader a stable byte snapshot.\
+It may transfer an exclusive buffer or copy bytes, but it MUST NOT mutate, reuse, detach, or overwrite the buffer after returning it.\
+The node treats received bytes as immutable.
 
 ### 7.2 AGP mapping
 
 The session layer applies this mapping:
-
 ```text
 one packet
-→ bounded UTF-8 decode
-→ one complete JSON document
-→ duplicate-member and structural preflight
-→ AGP schema and semantic validation
-→ one serialized FSM input
+-> bounded UTF-8 decode
+-> one complete JSON document
+-> duplicate-member and structural preflight
+-> AGP schema and semantic validation
+-> one serialized FSM input
 ```
 
 The reverse path is:
-
 ```text
 one validated AGP message
-→ canonical JSON serialization
-→ one UTF-8 byte sequence
-→ one send(packet)
+-> canonical JSON serialization
+-> one UTF-8 byte sequence
+-> one send(packet)
 ```
 
 No carrier adapter parses or constructs AGP envelopes.
+
+---
 
 ## 8. Send acceptance and outbound backpressure
 
@@ -614,7 +550,8 @@ No carrier adapter parses or constructs AGP envelopes.
    sequence; and
 4. a later send cannot overtake it.
 
-Resolution means **transport send acceptance only**. It does not mean:
+Resolution means **transport send acceptance only**.\
+It does not mean:
 
 - the remote adapter received the packet;
 - the remote AGP node read, parsed, admitted, routed, or handled it;
@@ -623,25 +560,19 @@ Resolution means **transport send acceptance only**. It does not mean:
 - the packet is durable; or
 - delivery remains possible after a later channel failure.
 
-AGP's public `send()` receipt retains its separate local-admission meaning. The
-session writer may admit work into its own bounded queue before the adapter
-accepts that packet.
+AGP's public `send()` receipt retains its separate local-admission meaning.\
+The session writer may admit work into its own bounded queue before the adapter accepts that packet.
 
 ### 8.2 Ordering and concurrency
 
-The AGP session writer owns outbound queueing and invokes at most one
-`send()` at a time per channel. An adapter MUST NOT require an unbounded
-secondary queue.
+The AGP session writer owns outbound queueing and invokes at most one `send()` at a time per channel.\
+An adapter MUST NOT require an unbounded secondary queue.
 
-Overlapping `send()` calls are port misuse and fail with
-`CONCURRENT_OPERATION`; an adapter need not invent an order from concurrent
-JavaScript invocation. A close call and a send call also MUST NOT be initiated
-concurrently by a conforming node.
+Overlapping `send()` calls are port misuse and fail with `CONCURRENT_OPERATION`; an adapter need not invent an order from concurrent JavaScript invocation.\
+A close call and a send call also MUST NOT be initiated concurrently by a conforming node.
 
-If `send(A)` and then `send(B)` resolve, and both packets reach the remote
-channel, the remote reads exactly `A` before `B`. A carrier may retransmit
-internally to provide reliability, but that MUST NOT produce duplicate packet
-records.
+If `send(A)` and then `send(B)` resolve, and both packets reach the remote channel, the remote reads exactly `A` before `B`.\
+A carrier may retransmit internally to provide reliability, but that MUST NOT produce duplicate packet records.
 
 ### 8.3 Cancellation race
 
@@ -653,29 +584,21 @@ Send cancellation has one linearized outcome:
 | Send acceptance before signal | Resolve | Packet remains accepted and cannot be retracted |
 | Carrier fails before acceptance is knowable | Reject terminal send failure, acceptance `unknown`; channel fails | Node MUST NOT retry on that channel |
 
-Some carrier libraries have a dispatch point after which bytes may become
-visible but before their completion callback proves common send acceptance.
-Cancellation before that dispatch may win as `OPERATION_ABORTED` with
-`not-accepted`. Cancellation after dispatch but before the completion callback
-MUST NOT claim non-acceptance: the adapter rejects `SEND_FAILED` with
-`acceptance: "unknown"`, commits exactly
-`{ origin: "carrier", kind: "io-failure",
-diagnostic: { code: "SEND_FAILED" } }`, and makes the channel unusable. A later
-native success, error, or close callback is cleanup evidence only and cannot
-replace that terminal. The WebSocket binding applies this rule specifically to
-the interval after `ws.send()` dispatch and before its callback.
+Some carrier libraries have a dispatch point after which bytes may become visible but before their completion callback proves common send acceptance.\
+Cancellation before that dispatch may win as `OPERATION_ABORTED` with `not-accepted`.\
+Cancellation after dispatch but before the completion callback MUST NOT claim non-acceptance: the adapter rejects `SEND_FAILED` with `acceptance: "unknown"`, commits exactly `{ origin: "carrier", kind: "io-failure", diagnostic: { code: "SEND_FAILED" } }`, and makes the channel unusable.\
+A later native success, error, or close callback is cleanup evidence only and cannot replace that terminal.\
+The WebSocket binding applies this rule specifically to the interval after `ws.send()` dispatch and before its callback.
 
-The caller retains ownership of its input buffer and may mutate or reuse it as
-soon as `send()` returns its promise. The adapter MUST therefore take its
-complete immutable snapshot before returning control and MUST NOT later read,
-retain, detach, or transfer the caller's buffer. A future explicit ownership
-transfer API would be a separate contract.
+The caller retains ownership of its input buffer and may mutate or reuse it as soon as `send()` returns its promise.\
+The adapter MUST therefore take its complete immutable snapshot before returning control and MUST NOT later read, retain, detach, or transfer the caller's buffer.\
+A future explicit ownership transfer API would be a separate contract.
 
 ### 8.4 Backpressure
 
-`send()` MAY remain pending while bounded native capacity is unavailable. That
-pending promise is the adapter's backpressure signal. The adapter MUST NOT
-convert pressure into:
+`send()` MAY remain pending while bounded native capacity is unavailable.\
+That pending promise is the adapter's backpressure signal.\
+The adapter MUST NOT convert pressure into:
 
 - an unbounded hidden queue;
 - packet loss;
@@ -683,28 +606,27 @@ convert pressure into:
 - a false successful acceptance; or
 - an automatic AGP-level retry.
 
-Every send is externally bounded by its signal. When the node's transport-write
-deadline expires, the node classifies the operation as a timeout, aborts the
-channel to eliminate an uncertain tail, and dispatches the existing
-`TransportFailed` FSM event.
+Every send is externally bounded by its signal.\
+When the node's transport-write deadline expires, the node classifies the operation as a timeout, aborts the channel to eliminate an uncertain tail, and dispatches the existing `TransportFailed` FSM event.
+
+---
 
 ## 9. Pull reads and inbound backpressure
 
 ### 9.1 Single-consumer pull
 
-`read(signal)` is a single-consumer pull operation. Exactly one read may be
-outstanding per channel. A second overlapping read fails with
-`CONCURRENT_OPERATION` and does not consume an item.
+`read(signal)` is a single-consumer pull operation.\
+Exactly one read may be outstanding per channel.\
+A second overlapping read fails with `CONCURRENT_OPERATION` and does not consume an item.
 
-A successful read returns exactly one item. The adapter does not call an
-unbounded push callback and does not run protocol code from a carrier callback.
-The node places each returned item into its serialized session executor before
-requesting or dispatching later semantic work.
+A successful read returns exactly one item.\
+The adapter does not call an unbounded push callback and does not run protocol code from a carrier callback.\
+The node places each returned item into its serialized session executor before requesting or dispatching later semantic work.
 
 ### 9.2 Buffering
 
-Carrier input may arrive while no read is pending. The adapter may buffer only
-within both `maxBufferedPackets` and `maxBufferedBytes`.
+Carrier input may arrive while no read is pending.\
+The adapter may buffer only within both `maxBufferedPackets` and `maxBufferedBytes`.
 
 The adapter MUST:
 
@@ -718,13 +640,12 @@ The adapter MUST:
    cannot prevent the next packet from exceeding a common limit; and
 6. never drop an admitted packet to make space for another packet.
 
-Bytes leave the ingress budget when ownership of the packet is committed to a
-successful read result. Protocol processing and handler budgets are separate
-AGP resources.
+Bytes leave the ingress budget when ownership of the packet is committed to a successful read result.\
+Protocol processing and handler budgets are separate AGP resources.
 
 ### 9.3 Read cancellation
 
-Read cancellation cancels only that wait; it does not terminate the channel.
+Read cancellation cancels only that wait; it does not terminate the channel.\
 The race is:
 
 | Race winner | Result |
@@ -732,48 +653,42 @@ The race is:
 | Signal before item commit | Reject `OPERATION_ABORTED`; the item remains available to the next read |
 | Item commit before signal | Resolve with that item; cancellation cannot put it back |
 
-The node may separately abort the channel during session teardown. A read
-unblocked by that abort returns the channel's terminal record rather than
-remaining pending.
+The node may separately abort the channel during session teardown.\
+A read unblocked by that abort returns the channel's terminal record rather than remaining pending.
 
 ### 9.4 Rejected input
 
-An `input-rejected` result is ordered evidence that the adapter could not admit
-one remote carrier record as a legal common packet. It is not terminal by
-itself, so the existing FSM can distinguish remote invalid input from an
-unprompted carrier failure. The adapter MUST nevertheless terminalize the
-channel immediately:
-
+An `input-rejected` result is ordered evidence that the adapter could not admit one remote carrier record as a legal common packet.\
+It is not terminal by itself, so the existing FSM can distinguish remote invalid input from an unprompted carrier failure.\
+The adapter MUST nevertheless terminalize the channel immediately:
 ```text
 all earlier admitted packets
-→ input-rejected
-→ `{ origin: "remote", kind: "binding-violation",
+-> input-rejected
+-> `{ origin: "remote", kind: "binding-violation",
      diagnostic: { code: inputRejection.code } }`
 ```
 
-No packet may be admitted after `input-rejected`. The adapter may perform any
-native rejection/teardown required by its binding, but native codes do not cross
-this interface.
+No packet may be admitted after `input-rejected`.\
+The adapter may perform any native rejection/teardown required by its binding, but native codes do not cross this interface.
+
+---
 
 ## 10. Lifecycle and terminal races
 
 ### 10.1 Listener lifecycle
 
 ```text
-acquiring → listening → closing → closed
-    └───────────────→ failed
+acquiring -> listening -> closing -> closed
+    └───────────────-> failed
 ```
 
-`TransportListenerPort.waitTerminal(signal)` waits for the one immutable
-listener-terminal record without owning the listener. Canceling that wait does
-not close or alter the listener. Repeated waits after terminal commit resolve
-with the same record. A terminal already committed before invocation wins over
-an already-aborted signal; otherwise signal-before-terminal rejects
-`OPERATION_ABORTED` and terminal-before-signal resolves.
+`TransportListenerPort.waitTerminal(signal)` waits for the one immutable listener-terminal record without owning the listener.\
+Canceling that wait does not close or alter the listener.\
+Repeated waits after terminal commit resolve with the same record.\
+A terminal already committed before invocation wins over an already-aborted signal; otherwise signal-before-terminal rejects `OPERATION_ABORTED` and terminal-before-signal resolves.
 
-`TransportListenerPort.close(signal)` first prevents new acquisition commits,
-then cancels or rejects pending acquisitions, then releases listener resources
-and resolves with the listener terminal. It is idempotent:
+`TransportListenerPort.close(signal)` first prevents new acquisition commits, then cancels or rejects pending acquisitions, then releases listener resources and resolves with the listener terminal.\
+It is idempotent:
 
 - closing an already terminal listener resolves with that same record;
 - concurrent closes join one close operation;
@@ -790,31 +705,25 @@ Listener close has an exact cancellation race:
 | Close initiation before signal | Signal forces local abort; resolve with the resulting `aborted` terminal |
 | Graceful or abnormal terminal before signal | Resolve with that terminal |
 
-Concurrent close calls join the same close process. Once any call commits close
-initiation, an abort from any joined call has listener-wide authority and every
-waiter resolves with the same terminal. Listener `abort(intent)` is also
-synchronous, idempotent, never throws, prevents later acquisition commits, and
-commits `{ origin: "local", kind: "aborted" }` when no terminal already exists.
-If an already-aborted signal wins before close initiation, the node immediately
-calls `abort({ kind: "deadline", ... })`. The adapter cannot leave an unowned
-half-closed listener.
+Concurrent close calls join the same close process.\
+Once any call commits close initiation, an abort from any joined call has listener-wide authority and every waiter resolves with the same terminal.\
+Listener `abort(intent)` is also synchronous, idempotent, never throws, prevents later acquisition commits, and commits `{ origin: "local", kind: "aborted" }` when no terminal already exists.\
+If an already-aborted signal wins before close initiation, the node immediately calls `abort({ kind: "deadline", ... })`.\
+The adapter cannot leave an unowned half-closed listener.
 
-An ordinary node-owned close commits
-`{ origin: "local", kind: "graceful" }`. An unexpected carrier loss commits
-the applicable non-graceful listener terminal and releases `waitTerminal()`.
-No listener terminal can be reported only to a log: the node lifecycle
-controller must observe it.
+An ordinary node-owned close commits `{ origin: "local", kind: "graceful" }`.\
+An unexpected carrier loss commits the applicable non-graceful listener terminal and releases `waitTerminal()`.\
+No listener terminal can be reported only to a log: the node lifecycle controller must observe it.
 
 ### 10.2 Channel lifecycle
 
 ```text
-open ───────────────→ closing ───────────────→ terminal
-  └──────────────────────────────────────────→ terminal
+open ───────────────-> closing ───────────────-> terminal
+  └──────────────────────────────────────────-> terminal
 ```
 
-Exactly one immutable `TransportTerminal` outcome commits. Its `kind` tells the
-session boundary whether completion was graceful or abnormal without exporting
-a carrier-native close taxonomy.
+Exactly one immutable `TransportTerminal` outcome commits.\
+Its `kind` tells the session boundary whether completion was graceful or abnormal without exporting a carrier-native close taxonomy.
 
 `close(intent, signal)` begins graceful local release:
 
@@ -823,13 +732,12 @@ a carrier-native close taxonomy.
 3. wait for the carrier's bounded close completion; and
 4. resolve with the one committed terminal record.
 
-`close()` is idempotent. Concurrent closes join the same operation. A graceful
-local close normally commits `{ origin: "local", kind: "graceful" }`. A
-graceful remote close racing local close may instead commit
-`{ origin: "remote", kind: "graceful" }`. If the adapter cannot prove graceful
-completion, it commits a non-graceful terminal kind. The first close intent
-that begins closing owns any native close mapping; later intents cannot replace
-it.
+`close()` is idempotent.\
+Concurrent closes join the same operation.\
+A graceful local close normally commits `{ origin: "local", kind: "graceful" }`.\
+A graceful remote close racing local close may instead commit `{ origin: "remote", kind: "graceful" }`.\
+If the adapter cannot prove graceful completion, it commits a non-graceful terminal kind.\
+The first close intent that begins closing owns any native close mapping; later intents cannot replace it.
 
 Channel close has the same exact waiter race:
 
@@ -840,21 +748,17 @@ Channel close has the same exact waiter race:
 | Close initiation before signal | Signal forces local abort; resolve with the resulting `aborted` terminal |
 | Graceful or abnormal terminal before signal | Resolve with that terminal |
 
-Concurrent close calls join the one close process. Any joined signal that
-aborts after close initiation has channel-wide abort authority; every waiter
-resolves with the same immutable terminal. Thus a node-owned close deadline
-produces an `aborted` terminal and `TransportFailed` without retaining the
-channel indefinitely. If an already-aborted signal wins before close
-initiation, the node immediately calls `abort({ kind: "deadline", ... })`.
+Concurrent close calls join the one close process.\
+Any joined signal that aborts after close initiation has channel-wide abort authority; every waiter resolves with the same immutable terminal.\
+Thus a node-owned close deadline produces an `aborted` terminal and `TransportFailed` without retaining the channel indefinitely.\
+If an already-aborted signal wins before close initiation, the node immediately calls `abort({ kind: "deadline", ... })`.
 
 ### 10.3 Abort
 
-`abort(intent)` is synchronous, idempotent local authority to make the channel
-unusable and begin immediate carrier release. The intent is bounded local
-diagnostic evidence, not a value placed on the AGP wire.
+`abort(intent)` is synchronous, idempotent local authority to make the channel unusable and begin immediate carrier release.\
+The intent is bounded local diagnostic evidence, not a value placed on the AGP wire.
 
 If no terminal outcome has committed, abort commits:
-
 ```ts
 {
   origin: "local",
@@ -871,17 +775,14 @@ It:
 - may discard native work not already accepted; and
 - starts immediate release without waiting for graceful peer coordination.
 
-If a terminal outcome already committed, abort has no semantic effect.
-`abort()` MUST NOT throw. If the adapter later discovers that native release
-failed after the `aborted` terminal committed, it reports a conformance fault
-to the diagnostic sink; first-terminal-wins forbids replacing the committed
-terminal with `adapter-fault`.
+If a terminal outcome already committed, abort has no semantic effect.\
+`abort()` MUST NOT throw.\
+If the adapter later discovers that native release failed after the `aborted` terminal committed, it reports a conformance fault to the diagnostic sink; first-terminal-wins forbids replacing the committed terminal with `adapter-fault`.
 
 ### 10.4 Terminal linearization
 
-Native carriers commonly report overlapping error, end, close, cancellation,
-and callback outcomes. The adapter MUST serialize them into one common terminal
-commit.
+Native carriers commonly report overlapping error, end, close, cancellation, and callback outcomes.\
+The adapter MUST serialize them into one common terminal commit.
 
 Rules:
 
@@ -901,9 +802,10 @@ Rules:
    terminal event.
 10. `send()` after terminal commit rejects `CHANNEL_TERMINAL`.
 
-The session controller consumes the first terminal result and stops reading.
-Stable repeated terminal reads exist to make the port total and race-safe, not
-to dispatch repeated FSM events.
+The session controller consumes the first terminal result and stops reading.\
+Stable repeated terminal reads exist to make the port total and race-safe, not to dispatch repeated FSM events.
+
+---
 
 ## 11. Limits and deadlines
 
@@ -921,10 +823,8 @@ to dispatch repeated FSM events.
 | Native encoded/framed input | Adapter | Apply a carrier-appropriate pre-materialization bound |
 | Peer evidence | Adapter and identity boundary | Project a bounded sanitized immutable record |
 
-An adapter MUST enforce common limits even when its carrier advertises a larger
-native maximum. A smaller carrier maximum makes capability acquisition
-incompatible and fails closed; the adapter cannot silently negotiate an AGP
-packet limit different from the value later offered in OPEN.
+An adapter MUST enforce common limits even when its carrier advertises a larger native maximum.\
+A smaller carrier maximum makes capability acquisition incompatible and fails closed; the adapter cannot silently negotiate an AGP packet limit different from the value later offered in OPEN.
 
 ### 11.2 Deadline ownership
 
@@ -940,22 +840,20 @@ Every potentially waiting capability call is externally cancellable:
 | Listener `close()` | Node stop lifecycle | Listener abort; stop records failure if cleanup cannot be proven |
 | Channel `close()` | Session teardown | Channel abort; `TransportFailed` |
 
-The node owns deadline values and supplies `AbortSignal`; the adapter does not
-invent hidden AGP retry or session timers. An adapter may maintain stricter
-native safety timers, but expiration maps to the same common failure taxonomy.
+The node owns deadline values and supplies `AbortSignal`; the adapter does not invent hidden AGP retry or session timers.\
+An adapter may maintain stricter native safety timers, but expiration maps to the same common failure taxonomy.
 
-Unless `close()` or `waitTerminal()` can return an already committed terminal,
-a signal already aborted at invocation rejects before side effects. For a
-later signal, the operation-specific commit-point tables decide whether
-acquisition, item/send acceptance, close initiation, terminal, or cancellation
-wins.
+Unless `close()` or `waitTerminal()` can return an already committed terminal, a signal already aborted at invocation rejects before side effects.\
+For a later signal, the operation-specific commit-point tables decide whether acquisition, item/send acceptance, close initiation, terminal, or cancellation wins.
 
-Native carrier liveness cannot refresh the AGP hold timer or satisfy an AGP
-keepalive obligation. It may only help the adapter detect a failed channel.
+Native carrier liveness cannot refresh the AGP hold timer or satisfy an AGP keepalive obligation.\
+It may only help the adapter detect a failed channel.
+
+---
 
 ## 12. Peer evidence and identity admission
 
-Peer evidence is the sole transport-to-identity-admission security projection.
+Peer evidence is the sole transport-to-identity-admission security projection.\
 It MUST be:
 
 - constructed before channel acquisition commit;
@@ -967,20 +865,15 @@ It MUST be:
 - truthfully projected by the concrete adapter; and
 - safe to pass to application-owned identity policy and sanitized diagnostics.
 
-`authentication.kind: "none"` supplies no authenticated peer fact.
-Process-local Loopback truthfully reports `locality: "process-local"` and
-`protection: "none"`. Its explicit fabric may report a verified bounded
-transport principal only when that principal is the name bound to a
-fabric-issued capability actually used for acquisition. Such evidence does not
-authenticate the remote OPEN `nodeId`, imply process isolation, or provide
-cryptographic protection.
-`authentication.kind: "verified"` is legal only when the adapter established
-the bounded principal by the named method. Untrusted peer assertions never
-enter the verified variant.
+`authentication.kind: "none"` supplies no authenticated peer fact.\
+Process-local Loopback truthfully reports `locality: "process-local"` and `protection: "none"`.\
+Its explicit fabric may report a verified bounded transport principal only when that principal is the name bound to a fabric-issued capability actually used for acquisition.\
+Such evidence does not authenticate the remote OPEN `nodeId`, imply process isolation, or provide cryptographic protection.\
+`authentication.kind: "verified"` is legal only when the adapter established the bounded principal by the named method.\
+Untrusted peer assertions never enter the verified variant.
 
-Peer evidence does not itself commit an AGP identity. Identity admission
-receives:
-
+Peer evidence does not itself commit an AGP identity.\
+Identity admission receives:
 ```text
 local node identity
 + remote OPEN node/session identity
@@ -989,11 +882,13 @@ local node identity
 + exact channel peer evidence
 ```
 
-The identity-admission port owns the allow/deny decision. Static node
-configuration MUST NOT replace, forge, or overwrite channel evidence.
+The identity-admission port owns the allow/deny decision.\
+Static node configuration MUST NOT replace, forge, or overwrite channel evidence.
 
-Native peer addresses are diagnostic hints at most. They are not AGP identity,
-session identity, adjacency identity, route identity, or authorization.
+Native peer addresses are diagnostic hints at most.\
+They are not AGP identity, session identity, adjacency identity, route identity, or authorization.
+
+---
 
 ## 13. Error taxonomy
 
@@ -1029,9 +924,8 @@ interface TransportOperationError extends Error {
 }
 ```
 
-`acceptance` is present only when a failed send needs to distinguish a packet
-known not to have entered the outbound sequence from an uncertain native
-failure. The closed phase/code matrix is:
+`acceptance` is present only when a failed send needs to distinguish a packet known not to have entered the outbound sequence from an uncertain native failure.\
+The closed phase/code matrix is:
 
 | Code | Permitted phase | Exact port-level consequence |
 |---|---|---|
@@ -1047,20 +941,17 @@ failure. The closed phase/code matrix is:
 | `SEND_FAILED` | send | Carries acceptance `not-accepted` or `unknown` and commits `{ origin: "carrier", kind: "io-failure", diagnostic: { code: "SEND_FAILED" } }` |
 | `ADAPTER_FAULT` | resolve-listener, resolve-target, listen, connect, send, read | No acquisition commit, or an acquired channel commits `carrier/adapter-fault` before rejection. In phase `send`, `acceptance` is required as `not-accepted` or `unknown`; every non-send phase omits it |
 
-No other phase/code pairing is legal. `close()` after close-initiation commit
-resolves with the terminal record even when native close fails; it does not
-reject an invented close-failure code. `waitTerminal()` rejects only when its
-signal wins. Resolver errors are synchronous; all other operation errors are
-promise rejections.
+No other phase/code pairing is legal.\
+`close()` after close-initiation commit resolves with the terminal record even when native close fails; it does not reject an invented close-failure code.\
+`waitTerminal()` rejects only when its signal wins.\
+Resolver errors are synchronous; all other operation errors are promise rejections.
 
-AGP does not retry any failed packet on the same channel. A `SEND_FAILED`
-terminalizes the channel whether acceptance is known false or unknown;
-`acceptance` exists to make the packet outcome truthful, not to authorize
-transport retry.
+AGP does not retry any failed packet on the same channel.\
+A `SEND_FAILED` terminalizes the channel whether acceptance is known false or unknown; `acceptance` exists to make the packet outcome truthful, not to authorize transport retry.
 
 ### 13.2 Stable terminal records
 
-`TransportTerminal` from §5.2 is the sole channel-terminal data record.
+`TransportTerminal` from section 5.2 is the sole channel-terminal data record.
 
 | Kind | Meaning |
 |---|---|
@@ -1071,30 +962,26 @@ transport retry.
 | `binding-violation` | Carrier input or binding behavior could not form a legal common packet channel |
 | `adapter-fault` | The adapter violated or could not continue its own invariant |
 
-`origin` records where the adapter observed terminal authority:
-`local`, `remote`, or `carrier`. It does not identify an AGP node and does not
-authorize reconnect or routing policy. `diagnostic.code` is bounded,
-adapter-projected evidence only; common protocol, FSM, and routing code MUST NOT
-branch on it.
+`origin` records where the adapter observed terminal authority: `local`, `remote`, or `carrier`.\
+It does not identify an AGP node and does not authorize reconnect or routing policy.\
+`diagnostic.code` is bounded, adapter-projected evidence only; common protocol, FSM, and routing code MUST NOT branch on it.
 
-Native library errors may be retained privately for local diagnostics, but
-their objects, classes, numeric codes, messages, or retry hints are not stable
-common semantics and never enter `TransportTerminal`. Public operations and
-logs MUST redact secrets and unbounded remote text. The process-local
-`TransportOperationError.cause` is diagnostic-sink material and MUST NOT be
-serialized into SDK, operations, management, or protocol records.
+Native library errors may be retained privately for local diagnostics, but their objects, classes, numeric codes, messages, or retry hints are not stable common semantics and never enter `TransportTerminal`.\
+Public operations and logs MUST redact secrets and unbounded remote text.\
+The process-local `TransportOperationError.cause` is diagnostic-sink material and MUST NOT be serialized into SDK, operations, management, or protocol records.
 
-Timeout classification belongs to the caller that armed the deadline. The
-adapter reports the aborted operation; the node records that its own deadline
-expired and maps the result into the existing transport failure/FSM path.
+Timeout classification belongs to the caller that armed the deadline.\
+The adapter reports the aborted operation; the node records that its own deadline expired and maps the result into the existing transport failure/FSM path.
 
-No adapter error decides AGP reconnect policy. The existing adjacency
-supervisor and FSM disposition table remain authoritative.
+No adapter error decides AGP reconnect policy.\
+The existing adjacency supervisor and FSM disposition table remain authoritative.
+
+---
 
 ## 14. Mapping into the session FSM
 
-The transport contract changes acquisition and I/O mechanics, not session
-meaning. Acquisition maps as follows:
+The transport contract changes acquisition and I/O mechanics, not session meaning.\
+Acquisition maps as follows:
 
 | Transport outcome | Existing semantic input |
 |---|---|
@@ -1130,34 +1017,25 @@ Channel output maps by exact result:
 | `OPERATION_ABORTED` because established teardown canceled the writer | Completion only; the existing teardown cause remains authoritative |
 | `PACKET_TOO_LARGE` or `CONCURRENT_OPERATION` | Node/adapter contract invariant failed; abort with `kind: "invariant"` and dispatch `TransportFailed` once |
 
-Each exact session-controller incarnation owns a one-shot
-**transport-disposition latch**. A retry allocates a fresh incarnation and
-latch. The
-first causal acquisition failure, input rejection, read terminal, terminalizing
-send outcome, transport-write deadline, or administrative release claims it
-before dispatching an FSM input or beginning `ReleaseTransport`. Every later
-read terminal, close result, send rejection, native callback, or abort
-completion may update bounded diagnostics/resource cleanup only; it cannot send
-a second notification, purge routes twice, schedule retry twice, or dispatch a
-second terminal FSM input.
+Each exact session-controller incarnation owns a one-shot **transport-disposition latch**.\
+A retry allocates a fresh incarnation and latch.\
+The first causal acquisition failure, input rejection, read terminal, terminalizing send outcome, transport-write deadline, or administrative release claims it before dispatching an FSM input or beginning `ReleaseTransport`.\
+Every later read terminal, close result, send rejection, native callback, or abort completion may update bounded diagnostics/resource cleanup only; it cannot send a second notification, purge routes twice, schedule retry twice, or dispatch a second terminal FSM input.
 
-`TransportInputRejected` claims the latch before it is dispatched and is fatal
-under the existing FSM. Its required following binding-violation terminal
-therefore completes channel mechanics without another semantic action. A
-node-owned `ReleaseTransport` similarly claims an administrative disposition
-before calling close/abort, so its local terminal never re-enters the FSM.
+`TransportInputRejected` claims the latch before it is dispatched and is fatal under the existing FSM.\
+Its required following binding-violation terminal therefore completes channel mechanics without another semantic action.\
+A node-owned `ReleaseTransport` similarly claims an administrative disposition before calling close/abort, so its local terminal never re-enters the FSM.
 
-FSM state names, OPEN exchange, negotiated protocol limits, collision
-resolution, route ownership, Adj-RIB lifecycle, keepalive/hold behavior,
-forwarding, reverse errors, and reconnect disposition do not change.
+FSM state names, OPEN exchange, negotiated protocol limits, collision resolution, route ownership, Adj-RIB lifecycle, keepalive/hold behavior, forwarding, reverse errors, and reconnect disposition do not change.
 
-One transport channel belongs to one exact session-controller incarnation.
-Replacing a failed channel requires a fresh controller attempt and fresh local
-session ID under the existing pair-scoped rules.
+One transport channel belongs to one exact session-controller incarnation.\
+Replacing a failed channel requires a fresh controller attempt and fresh local session ID under the existing pair-scoped rules.
+
+---
 
 ## 15. Forbidden carrier ownership
 
-Concrete adapter packages may implement and expose native carrier options.
+Concrete adapter packages may implement and expose native carrier options.\
 Common AGP packages MUST NOT expose, store as semantic state, or branch on:
 
 - native URL schemes or address syntax;
@@ -1172,10 +1050,10 @@ Common AGP packages MUST NOT expose, store as semantic state, or branch on:
 - carrier-specific retry, discovery, congestion, or flow-control knobs; or
 - a carrier's encoded/compressed byte count as the AGP decoded packet limit.
 
-An adapter maps those private mechanics into bound capabilities, packet bytes,
-peer evidence, capacity evidence, and the stable error taxonomy. Adding a new
-adapter MUST NOT require changes to the AGP protocol schemas, session FSM,
-routing engine, endpoint API, or common transport types.
+An adapter maps those private mechanics into bound capabilities, packet bytes, peer evidence, capacity evidence, and the stable error taxonomy.\
+Adding a new adapter MUST NOT require changes to the AGP protocol schemas, session FSM, routing engine, endpoint API, or common transport types.
+
+---
 
 ## 16. Invariants
 
@@ -1200,12 +1078,13 @@ routing engine, endpoint API, or common transport types.
 | T17 | Native liveness cannot substitute for AGP keepalive or hold semantics. |
 | T18 | A new reliable ordered carrier adapter composes without changing protocol, FSM, routing, or application messaging contracts. |
 | T19 | Resolver calls are synchronous, deterministic, side-effect-free, and return capabilities already bound to their owning adapter authority. |
-| T20 | Every committed listener has one observable terminal; an `accept` or `capacityRejected` callback throw is caught, cleaned up, and—unless an earlier terminal won—commits one observable `carrier/adapter-fault` terminal rather than escaping or existing only in a log. |
+| T20 | Every committed listener has one observable terminal; an `accept` or `capacityRejected` callback throw is caught, cleaned up, and-unless an earlier terminal won-commits one observable `carrier/adapter-fault` terminal rather than escaping or existing only in a log. |
 | T21 | One controller-incarnation disposition latch prevents duplicate FSM termination, purge, release, or retry from overlapping transport outcomes. |
 
-Violation of any invariant fails the transport conformance gate. A topology test
-cannot compensate for a transport adapter that loses, duplicates, reorders,
-leaks native semantics, or leaves a terminal race ambiguous.
+Violation of any invariant fails the transport conformance gate.\
+A topology test cannot compensate for a transport adapter that loses, duplicates, reorders, leaks native semantics, or leaves a terminal race ambiguous.
+
+---
 
 ## 17. Non-goals
 
@@ -1227,9 +1106,10 @@ This contract deliberately does not define:
 - carrier selection or negotiation among multiple injected adapters; or
 - public exposure of native carrier diagnostics.
 
-Higher-level structured JSON protocols—RPC, pub/sub, queues, workflows,
-persistence, or application acknowledgements—remain layered above AGP endpoint
-delivery. They do not enter this carrier boundary.
+Higher-level structured JSON protocols-RPC, pub/sub, queues, workflows, persistence, or application acknowledgements-remain layered above AGP endpoint delivery.\
+They do not enter this carrier boundary.
+
+---
 
 ## 18. Conformance obligations
 
@@ -1266,15 +1146,13 @@ A transport adapter is conforming only when executable tests prove at least:
 24. synchronous, deterministic, side-effect-free resolution to adapter-bound
     capabilities.
 
-The node integration additionally proves that configured references are
-resolved and captured once, listener terminals reach lifecycle control, exact
-peer evidence reaches identity admission unchanged, and the
-transport-disposition latch suppresses every duplicate send/read/close/abort
-terminal race.
+The node integration additionally proves that configured references are resolved and captured once, listener terminals reach lifecycle control, exact peer evidence reaches identity admission unchanged, and the transport-disposition latch suppresses every duplicate send/read/close/abort terminal race.
 
-Real-carrier integration proves the binding. Deterministic in-memory channels
-prove the common state/race contract. Both are required; one cannot substitute
-for the other.
+Real-carrier integration proves the binding.\
+Deterministic in-memory channels prove the common state/race contract.\
+Both are required; one cannot substitute for the other.
+
+---
 
 ## 19. Mechanics, rationale, and consequence
 
@@ -1294,12 +1172,9 @@ for the other.
 
 ### Rationale
 
-A library dependency hidden behind an interface is not sufficient decoupling
-when the interface still exposes that library's framing, addresses,
-negotiation, compression, or close language. Bound capabilities plus a byte
-packet channel define the smallest capability AGP actually requires. Explicit
-commit points make backpressure, cancellation, and terminal races independently
-testable across adapters.
+A library dependency hidden behind an interface is not sufficient decoupling when the interface still exposes that library's framing, addresses, negotiation, compression, or close language.\
+Bound capabilities plus a byte packet channel define the smallest capability AGP actually requires.\
+Explicit commit points make backpressure, cancellation, and terminal races independently testable across adapters.
 
 ### Consequence of violation
 

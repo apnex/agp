@@ -1,4 +1,4 @@
-# AGP uniform node — symmetric protocol and session design
+# AGP uniform node - symmetric protocol and session design
 
 > **Status:** Ratified implementation design with transport-sovereignty
 > amendment (2026-07-30). Release
@@ -6,34 +6,28 @@
 
 ## 1. Mandate
 
-AGP v1 is a symmetric peer protocol carried over the neutral packet-channel
-profile in [`transport-contract.md`](transport-contract.md). Either side of an
-established adjacency may send and receive route snapshots, acknowledgements,
-data, correlated errors, and keepalives. The internal acquisition record
-(`kind: dial | accept`) controls only which local supervisor owns reconnect; it
-grants no protocol authority. Public operations derive
-`direction: outbound | inbound` from that record by the fixed mapping
-`dial → outbound`, `accept → inbound`; the projection is evidence, never an
-input to protocol behavior.
+AGP v1 is a symmetric peer protocol carried over the neutral packet-channel profile in [`transport-contract.md`](transport-contract.md).\
+Either side of an established adjacency may send and receive route snapshots, acknowledgements, data, correlated errors, and keepalives.\
+The internal acquisition record (`kind: dial | accept`) controls only which local supervisor owns reconnect; it grants no protocol authority.\
+Public operations derive `direction: outbound | inbound` from that record by the fixed mapping `dial -> outbound`, `accept -> inbound`; the projection is evidence, never an input to protocol behavior.
 
-This document never defines carrier framing, negotiation, addresses,
-compression, security acquisition, or native termination. WebSocket maps this
-protocol through [`bindings/websocket.md`](bindings/websocket.md); Loopback
-maps it through [`transports/loopback.md`](transports/loopback.md). Neither
-mapping changes a legal AGP packet or session transition.
+This document never defines carrier framing, negotiation, addresses, compression, security acquisition, or native termination.\
+WebSocket maps this protocol through [`bindings/websocket.md`](bindings/websocket.md); Loopback maps it through [`transports/loopback.md`](transports/loopback.md).\
+Neither mapping changes a legal AGP packet or session transition.
 
 The replacement keeps the BGP-inspired connection states:
-
 ```text
-Idle → Connect / Active → OpenSent → OpenConfirm → Established
+Idle -> Connect / Active -> OpenSent -> OpenConfirm -> Established
 ```
 
 Role-specific actions and message legality are removed.
 
+---
+
 ## 2. Packet and envelope language
 
-One AGP packet is one complete bounded byte sequence containing exactly one
-UTF-8 JSON document. The protocol codec—not the transport—owns:
+One AGP packet is one complete bounded byte sequence containing exactly one UTF-8 JSON document.\
+The protocol codec-not the transport-owns:
 
 1. UTF-8 encoding and fatal decoding;
 2. encoded-byte limits before JSON allocation;
@@ -42,13 +36,11 @@ UTF-8 JSON document. The protocol codec—not the transport—owns:
 5. contextual semantic rules; and
 6. encoding one validated envelope into one immutable packet.
 
-The transport preserves packet bytes and boundaries without interpreting
-them. It may reject a record that cannot become a bounded packet, but native
-rejection codes remain binding-private. The same packet bytes are valid over
-WebSocket or Loopback.
+The transport preserves packet bytes and boundaries without interpreting them.\
+It may reject a record that cannot become a bounded packet, but native rejection codes remain binding-private.\
+The same packet bytes are valid over WebSocket or Loopback.
 
 Every packet document has this closed envelope:
-
 ```ts
 interface Envelope<TPlane, TType, TBody> {
   agp: 1;
@@ -60,11 +52,9 @@ interface Envelope<TPlane, TType, TBody> {
 }
 ```
 
-`ReturnToken` is a sovereign semantic scalar distinct from `MessageId`. Its
-wire representation is exactly 16 lowercase hexadecimal characters
-(`^[0-9a-f]{16}$`), representing one unsigned 64-bit value in fixed-width
-big-endian lexical form. It is a hop-scoped correlation handle, not message
-identity or an authenticator.
+`ReturnToken` is a sovereign semantic scalar distinct from `MessageId`.\
+Its wire representation is exactly 16 lowercase hexadecimal characters (`^[0-9a-f]{16}$`), representing one unsigned 64-bit value in fixed-width big-endian lexical form.\
+It is a hop-scoped correlation handle, not message identity or an authenticator.
 
 The complete v1 language is:
 
@@ -78,8 +68,9 @@ The complete v1 language is:
 | control | `error` | symmetric, nonfatal and correlated |
 | data | `message` | symmetric |
 
-`endpoint.update`, `endpoint.ack`, protocol `role`, and role-mismatch errors are
-removed.
+`endpoint.update`, `endpoint.ack`, protocol `role`, and role-mismatch errors are removed.
+
+---
 
 ## 3. OPEN
 
@@ -122,19 +113,15 @@ Rules:
    not forward a nonlocal destination.
 9. Same-node adjacency is invalid.
 
-All target v1 peers support symmetric selected-path-vector exchange, reverse
-errors, and data hop limits; these are not optional capability bits.
+All target v1 peers support symmetric selected-path-vector exchange, reverse errors, and data hop limits; these are not optional capability bits.
 
-Before the successful identity-admission commit, an observed or claimed OPEN
-`nodeId` is never projected as `remoteNodeId`. Canonical operations instead
-publish the sovereign `PreIdentityControllerSnapshot`, keyed only by its
-temporarily node-wide `localSessionId`. The admission commit atomically replaces
-that record with one admitted, pair-scoped `SessionSnapshot`. Teardown before
-that commit emits exactly one `connection.preidentity-closed` operational event
-and never `session.closed`; teardown after that commit emits exactly one
-pair-scoped `session.closed`. The pre-identity event may carry the local session
-ID, public direction, closed reason, and neutral transport terminal, but no
-claimed, expected, or invented remote identity.
+Before the successful identity-admission commit, an observed or claimed OPEN `nodeId` is never projected as `remoteNodeId`.\
+Canonical operations instead publish the sovereign `PreIdentityControllerSnapshot`, keyed only by its temporarily node-wide `localSessionId`.\
+The admission commit atomically replaces that record with one admitted, pair-scoped `SessionSnapshot`.\
+Teardown before that commit emits exactly one `connection.preidentity-closed` operational event and never `session.closed`; teardown after that commit emits exactly one pair-scoped `session.closed`.\
+The pre-identity event may carry the local session ID, public direction, closed reason, and neutral transport terminal, but no claimed, expected, or invented remote identity.
+
+---
 
 ## 4. Authoritative route snapshots
 
@@ -165,13 +152,11 @@ Semantic rules:
 5. routes are canonically sorted by endpoint, origin node, then path;
 6. at most one route for an endpoint appears in a snapshot.
 
-A malformed origin/sender relationship, repeated path element, or duplicate
-endpoint makes the snapshot ambiguous and is a fatal protocol violation. A
-structurally valid route containing `localNodeId` is instead rejected as
-`LOOP`. For negotiated `maxPathLength = M`, a route is rejected as
-`PATH_TOO_LONG` exactly when `path.length + 1 > M`; the `+ 1` reserves the
-receiver append. Equality is accepted, producing a complete candidate path of
-length `M`. Neither rejected route enters Adj-RIB-In.
+A malformed origin/sender relationship, repeated path element, or duplicate endpoint makes the snapshot ambiguous and is a fatal protocol violation.\
+A structurally valid route containing `localNodeId` is instead rejected as `LOOP`.\
+For negotiated `maxPathLength = M`, a route is rejected as `PATH_TOO_LONG` exactly when `path.length + 1 > M`; the `+ 1` reserves the receiver append.\
+Equality is accepted, producing a complete candidate path of length `M`.\
+Neither rejected route enters Adj-RIB-In.
 
 ### 4.2 Update
 
@@ -182,16 +167,15 @@ interface RouteUpdateBody {
 }
 ```
 
-Each session owns two independent revision streams: local outbound and remote
-inbound. The first revision is `1`; each later consumed revision is exactly one
-higher.
+Each session owns two independent revision streams: local outbound and remote inbound.\
+The first revision is `1`; each later consumed revision is exactly one higher.
 
-`WireRevision` has a schema-defined safe maximum. If another changed snapshot
-would require a value above it, the sender closes the session with `CEASE`;
-reconnection creates fresh revision streams and exchanges complete snapshots.
+`WireRevision` has a schema-defined safe maximum.\
+If another changed snapshot would require a value above it, the sender closes the session with `CEASE`; reconnection creates fresh revision streams and exchanges complete snapshots.\
 Revision values never wrap.
 
-An update is the sender's complete route set for that adjacency. Processing is:
+An update is the sender's complete route set for that adjacency.\
+Processing is:
 
 1. validate envelope/schema/negotiated bounds;
 2. validate revision sequence;
@@ -232,12 +216,13 @@ An ACK is valid only when:
    that exact snapshot;
 3. every non-rejected outstanding route is accepted; no result is omitted.
 
-The accepted set is derived as `outstanding.routes - rejected`; there is no
-redundant accepted count that can disagree. The revision is consumed even when
-every route is rejected. The sender tracks one outstanding snapshot and one
-coalesced desired successor. Invalid ACK correlation or contents are fatal.
-ACK timeout terminates the session rather than creating an ambiguous
-retransmission stream.
+The accepted set is derived as `outstanding.routes - rejected`; there is no redundant accepted count that can disagree.\
+The revision is consumed even when every route is rejected.\
+The sender tracks one outstanding snapshot and one coalesced desired successor.\
+Invalid ACK correlation or contents are fatal.\
+ACK timeout terminates the session rather than creating an ambiguous retransmission stream.
+
+---
 
 ## 5. Selected-route export
 
@@ -251,26 +236,19 @@ Adj-RIB-Out for peer `P` contains:
    `maxPathLength`; and
 6. no route whose source binding/session is no longer usable.
 
-An exported learned route uses the selected path through the exporting node.
-The exporter does not prepend policy attributes or advertise multiple
-candidates in v1.
+An exported learned route uses the selected path through the exporting node.\
+The exporter does not prepend policy attributes or advertise multiple candidates in v1.
 
-Export readiness is per peer. The operational projection distinguishes
-`desired`, `outstanding`, `acked`, `rejected`, and `suppressed`; there is no
-node-wide boolean that pretends all peers converged together.
+Export readiness is per peer.\
+The operational projection distinguishes `desired`, `outstanding`, `acked`, `rejected`, and `suppressed`; there is no node-wide boolean that pretends all peers converged together.
 
-`suppressed` is a local export decision, not a route in a wire snapshot. Its
-reason is exactly one of `TRANSIT_DISABLED`, `PEER_IN_PATH`, `PATH_TOO_LONG`, or
-`CAPACITY`. `rejected` means the peer rejected a route in an exact outstanding
-snapshot; it retains that peer's exact `LOOP`, `PATH_TOO_LONG`, `POLICY`, or
-`CAPACITY` rejection code and revision. Only `acked` satisfies data source
-readiness.
+`suppressed` is a local export decision, not a route in a wire snapshot.\
+Its reason is exactly one of `TRANSIT_DISABLED`, `PEER_IN_PATH`, `PATH_TOO_LONG`, or `CAPACITY`.\
+`rejected` means the peer rejected a route in an exact outstanding snapshot; it retains that peer's exact `LOOP`, `PATH_TOO_LONG`, `POLICY`, or `CAPACITY` rejection code and revision.\
+Only `acked` satisfies data source readiness.
 
-A peer rejection is remembered against the exact exported
-`(endpoint, originNodeId, path)` tuple on that exact session. While the current
-derivation is the same tuple, it remains operationally `rejected`, is omitted
-from unrelated desired wire snapshots, and is never reclassified as locally
-`suppressed`.
+A peer rejection is remembered against the exact exported `(endpoint, originNodeId, path)` tuple on that exact session.\
+While the current derivation is the same tuple, it remains operationally `rejected`, is omitted from unrelated desired wire snapshots, and is never reclassified as locally `suppressed`.
 
 Recovery is code-specific:
 
@@ -288,9 +266,8 @@ Recovery is code-specific:
   increments `r`. Acceptance, tuple removal/change, or exact session teardown
   cancels and clears the retry state.
 
-This is the only unchanged-tuple retry mechanism in v1. It prevents an
-ACK/recompute tight loop while allowing remote policy or capacity recovery to
-converge under an injected monotonic clock.
+This is the only unchanged-tuple retry mechanism in v1.\
+It prevents an ACK/recompute tight loop while allowing remote policy or capacity recovery to converge under an injected monotonic clock.
 
 ### 5.1 Route/data write ordering
 
@@ -307,9 +284,9 @@ Every peer has one serialized envelope writer with dependency barriers:
 4. failure or deadline expiry tears down the session and discards the bounded
    remainder rather than violating the ordering.
 
-The mandatory packet-channel FIFO guarantee then ensures that the receiver
-sees admitted data before the source withdrawal that would make it fail
-feasible-path authorization.
+The mandatory packet-channel FIFO guarantee then ensures that the receiver sees admitted data before the source withdrawal that would make it fail feasible-path authorization.
+
+---
 
 ## 6. Data message
 
@@ -329,38 +306,28 @@ interface DataBody {
 }
 ```
 
-The source node stamps its own node ID. This disambiguates identical endpoint
-names originated by different nodes and permits feasible-path source
-validation without requiring a globally meaningful origin session ID.
+The source node stamps its own node ID.\
+This disambiguates identical endpoint names originated by different nodes and permits feasible-path source validation without requiring a globally meaningful origin session ID.
 
-For a locally originated data message, the node creates a high-entropy envelope
-`MessageId` through its injected ID source. Forwarders preserve that end-to-end
-message identity.
+For a locally originated data message, the node creates a high-entropy envelope `MessageId` through its injected ID source.\
+Forwarders preserve that end-to-end message identity.
 
-Every exact peer controller owns a `ReturnTokenAllocator`. Production
-initialization sets its unsigned 64-bit `next` value to `0` and
-`exhausted = false`. Allocation returns `next` as 16-character lowercase hex.
-If that value is `ffffffffffffffff`, allocation sets `exhausted = true`;
-otherwise it increments `next` by one. Gaps are allowed but rollback or reuse
-is forbidden. A test may inject a smaller allocator implementing the same
-`token | exhausted` result contract so the terminal branch is executable.
+Every exact peer controller owns a `ReturnTokenAllocator`.\
+Production initialization sets its unsigned 64-bit `next` value to `0` and `exhausted = false`.\
+Allocation returns `next` as 16-character lowercase hex.\
+If that value is `ffffffffffffffff`, allocation sets `exhausted = true`; otherwise it increments `next` by one.\
+Gaps are allowed but rollback or reuse is forbidden.\
+A test may inject a smaller allocator implementing the same `token | exhausted` result contract so the terminal branch is executable.
 
-The token is opaque to the peer and MUST NOT repeat during the lifetime of the
-exact egress session controller. Because the field has fixed encoded width,
-packet size is known before its value is reserved. Allocation is the final
-infallible step after the serialized executor has checked
-`exhausted = false` and reserved all other capacity. This gives reverse
-correlation an ABA-safe identity without requiring envelope message IDs to be
-deployment-global.
+The token is opaque to the peer and MUST NOT repeat during the lifetime of the exact egress session controller.\
+Because the field has fixed encoded width, packet size is known before its value is reserved.\
+Allocation is the final infallible step after the serialized executor has checked `exhausted = false` and reserved all other capacity.\
+This gives reverse correlation an ABA-safe identity without requiring envelope message IDs to be deployment-global.
 
-An exact egress whose allocator cannot produce a fresh token is no longer
-usable: the controller is terminated and replacement is delegated to the
-adjacency supervisor. Admission therefore reports `NEXT_HOP_UNAVAILABLE`;
-token exhaustion is never reported as queue pressure.
+An exact egress whose allocator cannot produce a fresh token is no longer usable: the controller is terminated and replacement is delegated to the adjacency supervisor.\
+Admission therefore reports `NEXT_HOP_UNAVAILABLE`; token exhaustion is never reported as queue pressure.
 
-This check is feasible-path RPF: the source identity must be reachable through
-the actual ingress candidate, but that candidate need not be the selected
-reverse route.
+This check is feasible-path RPF: the source identity must be reachable through the actual ingress candidate, but that candidate need not be the selected reverse route.
 
 Origin admission:
 
@@ -375,9 +342,8 @@ Origin admission:
    `returnToken` is allocated as the final infallible reservation step before
    success.
 
-If the source export is not acknowledged, `send()` rejects
-`SOURCE_NOT_ADVERTISED` without a data write. AGP v1 does not hide route
-convergence behind an unbounded pending-send queue.
+If the source export is not acknowledged, `send()` rejects `SOURCE_NOT_ADVERTISED` without a data write.\
+AGP v1 does not hide route convergence behind an unbounded pending-send queue.
 
 Transit admission:
 
@@ -402,26 +368,25 @@ Transit admission:
    to the egress peer's lower negotiated maximum.
 
 That order is the failure precedence after schema/FSM admission:
-
 ```text
 SOURCE_NOT_AUTHORIZED
-→ NO_ROUTE
-→ local QUEUE_FULL, or:
+-> NO_ROUTE
+-> local QUEUE_FULL, or:
   TRANSIT_DISABLED
-  → HOP_LIMIT_EXCEEDED
-  → NEXT_HOP_UNAVAILABLE
-  → MESSAGE_TOO_LARGE
-  → SOURCE_NOT_ADVERTISED
-  → QUEUE_FULL
+  -> HOP_LIMIT_EXCEEDED
+  -> NEXT_HOP_UNAVAILABLE
+  -> MESSAGE_TOO_LARGE
+  -> SOURCE_NOT_ADVERTISED
+  -> QUEUE_FULL
 ```
 
-Exactly one outcome is committed for a packet; later checks do not overwrite an
-earlier failure.
+Exactly one outcome is committed for a packet; later checks do not overwrite an earlier failure.
 
-Local delivery does not consume another hop. Forwarding preserves the envelope
-`id`, `extensions`, source, destination, correlation, and payload. It replaces
-`returnToken` with the newly allocated hop token and changes only `hopLimit`
-otherwise.
+Local delivery does not consume another hop.\
+Forwarding preserves the envelope `id`, `extensions`, source, destination, correlation, and payload.\
+It replaces `returnToken` with the newly allocated hop token and changes only `hopLimit` otherwise.
+
+---
 
 ## 7. Correlated reverse errors
 
@@ -459,7 +424,6 @@ The canonical locally generated `reason` text is closed:
 Errors never perform a RIB lookup.
 
 Each admitted peer egress creates a bounded breadcrumb:
-
 ```ts
 interface ReverseCorrelation {
   messageId: MessageId;
@@ -478,15 +442,11 @@ interface ReverseCorrelation {
 }
 ```
 
-Private breadcrumb lookup is keyed by the exact egress controller object and
-`outboundReturnToken`, not by the pair-scoped six-hex session string or
-end-to-end message ID. Public egress identity is
-`(egressNodeId, egressSessionId)`. Because an exact controller never reuses a
-token, an expired or consumed breadcrumb cannot be confused with a later
-message (the ABA case).
+Private breadcrumb lookup is keyed by the exact egress controller object and `outboundReturnToken`, not by the pair-scoped six-hex session string or end-to-end message ID.\
+Public egress identity is `(egressNodeId, egressSessionId)`.\
+Because an exact controller never reuses a token, an expired or consumed breadcrumb cannot be confused with a later message (the ABA case).
 
-An immediate error generated for an admitted peer data packet is constructed
-exactly as follows:
+An immediate error generated for an admitted peer data packet is constructed exactly as follows:
 
 1. the error envelope receives a fresh hop-local envelope `id`;
 2. `refId` is the failing data envelope `id`;
@@ -496,31 +456,20 @@ exactly as follows:
 6. `reason` is a bounded canonical protocol reason, never a raw exception; and
 7. `extensions` is absent on a locally generated error.
 
-An error is accepted only when its `returnToken` resolves on the exact controller
-from which it arrived and `refId === breadcrumb.messageId`. An unknown or
-expired token is discarded as unreturnable. A token hit with a mismatched
-`refId` is fatal `INVALID_MESSAGE`; it does not consume the breadcrumb, and
-normal exact-session teardown resolves that state. After both fields validate,
-the breadcrumb is consumed atomically exactly once. A local ingress publishes
-the complete error body. A session ingress relays a new error envelope directly
-to the exact controller recorded by `(nodeId, owningSessionId)` plus private
-identity, preserving `code`, `refId`, `failedAtNodeId`, `reason`, and any
-validated received `extensions`, while replacing only `returnToken` with the
-breadcrumb's `upstreamReturnToken`. The relay envelope receives a fresh
-hop-local `id`.
+An error is accepted only when its `returnToken` resolves on the exact controller from which it arrived and `refId === breadcrumb.messageId`.\
+An unknown or expired token is discarded as unreturnable.\
+A token hit with a mismatched `refId` is fatal `INVALID_MESSAGE`; it does not consume the breadcrumb, and normal exact-session teardown resolves that state.\
+After both fields validate, the breadcrumb is consumed atomically exactly once.\
+A local ingress publishes the complete error body.\
+A session ingress relays a new error envelope directly to the exact controller recorded by `(nodeId, owningSessionId)` plus private identity, preserving `code`, `refId`, `failedAtNodeId`, `reason`, and any validated received `extensions`, while replacing only `returnToken` with the breadcrumb's `upstreamReturnToken`.\
+The relay envelope receives a fresh hop-local `id`.
 
-If a breadcrumb or ingress session has expired, the error is discarded as
-unreturnable and cannot recurse.
+If a breadcrumb or ingress session has expired, the error is discarded as unreturnable and cannot recurse.
 
-If the expected egress controller terminates, each affected breadcrumb is
-consumed exactly once. A still-live session ingress receives a locally
-generated `NEXT_HOP_UNAVAILABLE` with a fresh envelope `id`, original data
-envelope ID as `refId`, stored `upstreamReturnToken` as `returnToken`, local
-node as `failedAtNodeId`, the canonical reason above, and no `extensions`. A
-local ingress publishes the equivalent local failure using its
-`outboundReturnToken`; it does not emit another wire envelope. Failure to
-reserve bounded control capacity makes the result unreturnable rather than
-recursive.
+If the expected egress controller terminates, each affected breadcrumb is consumed exactly once.\
+A still-live session ingress receives a locally generated `NEXT_HOP_UNAVAILABLE` with a fresh envelope `id`, original data envelope ID as `refId`, stored `upstreamReturnToken` as `returnToken`, local node as `failedAtNodeId`, the canonical reason above, and no `extensions`.\
+A local ingress publishes the equivalent local failure using its `outboundReturnToken`; it does not emit another wire envelope.\
+Failure to reserve bounded control capacity makes the result unreturnable rather than recursive.
 
 Route-miss behavior is therefore:
 
@@ -529,6 +478,8 @@ Route-miss behavior is therefore:
 | Local SDK send | Reject typed `NO_ROUTE`; emit no data packet |
 | Received transit message | Emit no onward data packet; send `NO_ROUTE` directly to ingress |
 | Downstream returned error | Relay over reverse breadcrumb; never route |
+
+---
 
 ## 8. Uniform session FSM
 
@@ -542,8 +493,8 @@ Route-miss behavior is therefore:
 | Route import/export transaction | Node routing executor |
 | Packet capacity and ordered writes | Per-session queues plus the transport profile |
 
-Reconnect is not an FSM role branch. When an initiated channel terminates, its
-configured adjacency supervisor decides whether and when to connect again.
+Reconnect is not an FSM role branch.\
+When an initiated channel terminates, its configured adjacency supervisor decides whether and when to connect again.
 
 ### 8.2 Established message matrix
 
@@ -557,16 +508,14 @@ Both inbound and outbound sessions:
 - receive a fatal `notification` and terminate;
 - withdraw all locally owned imported state on termination.
 
-Each session snapshot carries independent `routeImport` and `routeExport`
-state. The old mutually exclusive hub/spoke endpoint-state union is removed.
+Each session snapshot carries independent `routeImport` and `routeExport` state.\
+The old mutually exclusive hub/spoke endpoint-state union is removed.
 
 ### 8.3 Cross-dial collision
 
 Exactly one live adjacency is retained per remote node.
 
-For each physical connection, both endpoints construct the same oriented
-collision tuple:
-
+For each physical connection, both endpoints construct the same oriented collision tuple:
 ```text
 (
   initiatorNodeId,
@@ -575,8 +524,8 @@ collision tuple:
 )
 ```
 
-Node and session strings are compared as unsigned UTF-8 bytes. Orientation is
-by node ID, never by the observer's local/remote perspective.
+Node and session strings are compared as unsigned UTF-8 bytes.\
+Orientation is by node ID, never by the observer's local/remote perspective.
 
 After admitted OPEN:
 
@@ -596,10 +545,11 @@ After admitted OPEN:
 
 The outcome is independent of connection arrival timing.
 
+---
+
 ## 9. Fatal versus recoverable failures
 
 The exact fatal notification codes are:
-
 ```text
 CEASE
 UNSUPPORTED_VERSION
@@ -626,14 +576,11 @@ Locally detected fatal conditions map exactly:
 | Inbound route-update revision is not exactly next, or inbound revision attempts rollover | `ROUTE_REVISION_ERROR` |
 | Local admission continuation fault or otherwise unclassified invariant failure | `INTERNAL_ERROR` |
 
-Detection uses the first applicable row after the minimum safe parse needed to
-classify it. `INTERNAL_ERROR` never substitutes for known peer input failure.
-If a valid notification cannot be safely encoded or admitted to bounded control
-capacity, the session closes without one.
+Detection uses the first applicable row after the minimum safe parse needed to classify it.\
+`INTERNAL_ERROR` never substitutes for known peer input failure.\
+If a valid notification cannot be safely encoded or admitted to bounded control capacity, the session closes without one.
 
-OpenSent admission/open expiry invalidates the unfinished admission and closes
-without a notification, matching the FSM; no admitted peer identity yet exists
-to receive a classified protocol fault.
+OpenSent admission/open expiry invalidates the unfinished admission and closes without a notification, matching the FSM; no admitted peer identity yet exists to receive a classified protocol fault.
 
 Recoverable data/control outcomes include:
 
@@ -646,26 +593,22 @@ Recoverable data/control outcomes include:
 - local application handler failure is operational evidence, not a wire
   delivery result after admission.
 
-Fatal teardown purges session-owned routes before later affected data is
-admitted.
+Fatal teardown purges session-owned routes before later affected data is admitted.
+
+---
 
 ## 10. Mechanics, rationale, and consequence
 
 ### Mechanics
 
-One carrier-independent symmetric FSM and message matrix replace role branches.
-Authoritative selected-route snapshots build per-peer RIB state; ordered paths
-prevent stable control-plane loops; hop limits bound transient data loops;
-reverse breadcrumbs return failures without depending on reachability. The
-protocol codec consumes and emits opaque packets through the one mandatory
-transport profile.
+One carrier-independent symmetric FSM and message matrix replace role branches.\
+Authoritative selected-route snapshots build per-peer RIB state; ordered paths prevent stable control-plane loops; hop limits bound transient data loops; reverse breadcrumbs return failures without depending on reachability.\
+The protocol codec consumes and emits opaque packets through the one mandatory transport profile.
 
 ### Rationale
 
-A node cannot consult a meaningful local RIB unless peers tell it what they can
-reach. Symmetric full snapshots are the smallest extension of the current
-whole-set revision model that enables multi-hop while retaining deterministic
-withdrawal and bounded state.
+A node cannot consult a meaningful local RIB unless peers tell it what they can reach.\
+Symmetric full snapshots are the smallest extension of the current whole-set revision model that enables multi-hop while retaining deterministic withdrawal and bounded state.
 
 ### Consequence of violation
 
