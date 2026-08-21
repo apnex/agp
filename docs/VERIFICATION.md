@@ -300,6 +300,28 @@ AGP_DEEPEN_BURST=800 npm run test:topology
 
 Every declared dimension value now has an entry point.
 
+### 4.6 Open findings from sweeps
+
+A sweep records what it found.\
+A finding stays here until it is closed by a design decision or a regression test, so a known limit is not rediscovered.
+
+| ID | Finding | Status |
+|---|---|---|
+| `MX1` | A sender that offers messages back to back over WebSocket overruns the receiver, which commits `RECEIVE_OVERFLOW`, closes the session, purges its routes, and reconnects. Delivered messages equal `maxBufferedPackets` exactly, at every bound tested from 16 to 128. Every `send()` resolved successfully first. | Open, undecided |
+
+`MX1` is reproducible and understood.\
+`ws` emits every frame parsed from one TCP segment in a single turn, so a burst of small messages arrives faster than `pause()` can take effect and the configured bound is exceeded within one tick.\
+Loopback is unaffected because it applies backpressure synchronously, and the pre-shared-key profile only survives longer because TLS adds enough latency per message to stay ahead.
+
+The adapter follows the letter of its contract: `binding-websocket.md` section 10 requires `RECEIVE_OVERFLOW` when backpressure cannot prevent the bound being exceeded, and `D14` states that a fulfilled `send()` does not prove peer receipt.\
+What the contract does not state is the consequence, which is that AGP v1 has no end-to-end flow control and a fast sender therefore resets a healthy session rather than being slowed.
+
+Two details make this a design question rather than a patch.\
+Pausing at a high -water mark below the bound was tried and does not fix it, because the frames are already parsed.\
+And `binding-websocket.md` says the adapter pauses *before* exhausting the bound while the implementation pauses *at* it, so the wording and the code disagree even though neither prevents the overrun.
+
+---
+
 ### 4.6 Matrix execution
 
 The geometries, transports, and traffic drivers are declarative, so any combination can be executed rather than only the cells the default suite names:
