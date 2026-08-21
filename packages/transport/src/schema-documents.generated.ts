@@ -2,6 +2,26 @@
 export const transportSchemaDocumentsV1 = Object.freeze([
   {
     "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "urn:agp:schema:v1:transport:codes:channel-security-keying",
+    "title": "ChannelSecurityKeying",
+    "description": "Closed channel-security-keying code domain.",
+    "x-agp": {
+      "owner": "@agp/transport",
+      "typescript": "ChannelSecurityKeying",
+      "kind": "code",
+      "mechanics": "Defines the bounded channel-security-keying value crossing the neutral transport boundary.",
+      "rationale": "One schema and generated type prevent adapter-specific reinterpretation.",
+      "consequence": "A divergent shape makes transport implementations observably incompatible.",
+      "semanticRules": []
+    },
+    "type": "string",
+    "enum": [
+      "network",
+      "node"
+    ]
+  },
+  {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
     "$id": "urn:agp:schema:v1:transport:codes:transport-input-rejection-code",
     "title": "TransportInputRejectionCode",
     "description": "Closed transport-input-rejection-code code domain.",
@@ -145,6 +165,25 @@ export const transportSchemaDocumentsV1 = Object.freeze([
   },
   {
     "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "urn:agp:schema:v1:transport:common:secret-identity",
+    "title": "SecretIdentity",
+    "description": "Label a peer presents to select which pre-shared secret authenticates it.",
+    "x-agp": {
+      "owner": "@agp/transport",
+      "typescript": "SecretIdentity",
+      "kind": "scalar",
+      "mechanics": "Defines the bounded secret-identity value crossing the neutral transport boundary.",
+      "rationale": "One schema and generated type prevent adapter-specific reinterpretation.",
+      "consequence": "A divergent shape makes transport implementations observably incompatible.",
+      "semanticRules": []
+    },
+    "type": "string",
+    "minLength": 1,
+    "maxLength": 256,
+    "pattern": "^[^\\u0000-\\u001F\\u007F]+$"
+  },
+  {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
     "$id": "urn:agp:schema:v1:transport:common:transport-ref",
     "title": "TransportRef",
     "description": "Application-local logical name resolving to one bound acquisition capability.",
@@ -161,6 +200,54 @@ export const transportSchemaDocumentsV1 = Object.freeze([
     "minLength": 1,
     "maxLength": 64,
     "pattern": "^[a-z][a-z0-9]*(?:[._-][a-z0-9]+)*$"
+  },
+  {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "urn:agp:schema:v1:transport:contracts:channel-security-profile",
+    "title": "ChannelSecurityProfile",
+    "description": "Declared channel protection, without any secret value.",
+    "x-agp": {
+      "owner": "@agp/transport",
+      "typescript": "ChannelSecurityProfile",
+      "kind": "contract",
+      "mechanics": "Defines the bounded channel-security-profile value crossing the neutral transport boundary.",
+      "rationale": "One schema and generated type prevent adapter-specific reinterpretation.",
+      "consequence": "A divergent shape makes transport implementations observably incompatible.",
+      "semanticRules": []
+    },
+    "oneOf": [
+      {
+        "type": "object",
+        "properties": {
+          "mode": {
+            "const": "unprotected",
+            "description": "No confidentiality or peer authentication."
+          }
+        },
+        "required": [
+          "mode"
+        ],
+        "additionalProperties": false
+      },
+      {
+        "type": "object",
+        "properties": {
+          "mode": {
+            "const": "preshared-key",
+            "description": "Pre-shared-secret discriminator."
+          },
+          "keying": {
+            "$ref": "urn:agp:schema:v1:transport:codes:channel-security-keying",
+            "description": "Whether one secret covers the topology or one covers each identity."
+          }
+        },
+        "required": [
+          "mode",
+          "keying"
+        ],
+        "additionalProperties": false
+      }
+    ]
   },
   {
     "$schema": "https://json-schema.org/draft/2020-12/schema",

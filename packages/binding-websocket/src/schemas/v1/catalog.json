@@ -48,7 +48,7 @@
       "path": "configuration/security.schema.json",
       "kind": "configuration",
       "typescript": "WebSocketSecurityConfigData",
-      "sha256": "f3a3a9f546ad82e8223122d93697c7b5c28e953cc30b93435aba0e134c01804f"
+      "sha256": "d94cf1207568669a7e500d9c250e514ecb047bc831371b3f3c7220e8c9d701dc"
     },
     {
       "id": "urn:agp:schema:v1:binding-websocket:configuration:target",

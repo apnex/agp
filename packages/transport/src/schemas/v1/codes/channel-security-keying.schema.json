@@ -1,0 +1,20 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:agp:schema:v1:transport:codes:channel-security-keying",
+  "title": "ChannelSecurityKeying",
+  "description": "Closed channel-security-keying code domain.",
+  "x-agp": {
+    "owner": "@agp/transport",
+    "typescript": "ChannelSecurityKeying",
+    "kind": "code",
+    "mechanics": "Defines the bounded channel-security-keying value crossing the neutral transport boundary.",
+    "rationale": "One schema and generated type prevent adapter-specific reinterpretation.",
+    "consequence": "A divergent shape makes transport implementations observably incompatible.",
+    "semanticRules": []
+  },
+  "type": "string",
+  "enum": [
+    "network",
+    "node"
+  ]
+}

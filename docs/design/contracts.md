@@ -184,7 +184,9 @@ Target location:
 packages/transport/src/schemas/v1/
   common/
     transport-ref.schema.json
+    secret-identity.schema.json
   codes/
+    channel-security-keying.schema.json
     transport-terminal-origin.schema.json
     transport-terminal-kind.schema.json
     transport-listener-terminal-kind.schema.json
@@ -192,6 +194,7 @@ packages/transport/src/schemas/v1/
     transport-operation-error-code.schema.json
     transport-operation-phase.schema.json
   contracts/
+    channel-security-profile.schema.json
     transport-channel-limits.schema.json
     transport-listener-limits.schema.json
     transport-listen-options.schema.json

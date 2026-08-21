@@ -10,7 +10,7 @@ const TERMINAL =
   "urn:agp:schema:v1:transport:contracts:transport-terminal";
 
 test("Given the neutral schema catalog, when generated documents are resolved and impossible terminal products are validated, then every catalog entry exists and closed products fail", () => {
-  assert.equal(AGP_TRANSPORT_V1_SCHEMA_IDS.length, 19);
+  assert.equal(AGP_TRANSPORT_V1_SCHEMA_IDS.length, 22);
   for (const id of AGP_TRANSPORT_V1_SCHEMA_IDS) {
     assert.equal(getTransportSchema(id)?.$id, id);
   }

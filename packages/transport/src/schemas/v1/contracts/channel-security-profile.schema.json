@@ -1,0 +1,48 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:agp:schema:v1:transport:contracts:channel-security-profile",
+  "title": "ChannelSecurityProfile",
+  "description": "Declared channel protection, without any secret value.",
+  "x-agp": {
+    "owner": "@agp/transport",
+    "typescript": "ChannelSecurityProfile",
+    "kind": "contract",
+    "mechanics": "Defines the bounded channel-security-profile value crossing the neutral transport boundary.",
+    "rationale": "One schema and generated type prevent adapter-specific reinterpretation.",
+    "consequence": "A divergent shape makes transport implementations observably incompatible.",
+    "semanticRules": []
+  },
+  "oneOf": [
+    {
+      "type": "object",
+      "properties": {
+        "mode": {
+          "const": "unprotected",
+          "description": "No confidentiality or peer authentication."
+        }
+      },
+      "required": [
+        "mode"
+      ],
+      "additionalProperties": false
+    },
+    {
+      "type": "object",
+      "properties": {
+        "mode": {
+          "const": "preshared-key",
+          "description": "Pre-shared-secret discriminator."
+        },
+        "keying": {
+          "$ref": "urn:agp:schema:v1:transport:codes:channel-security-keying",
+          "description": "Whether one secret covers the topology or one covers each identity."
+        }
+      },
+      "required": [
+        "mode",
+        "keying"
+      ],
+      "additionalProperties": false
+    }
+  ]
+}

@@ -1054,7 +1054,49 @@ Adding a new adapter MUST NOT require changes to the AGP protocol schemas, sessi
 
 ---
 
-## 16. Invariants
+## 16. Channel security
+
+A binding may protect its channels.\
+The neutral layer owns the concepts every protection mechanism shares and nothing about how any one of them works.
+
+```ts
+type ChannelSecurityKeying = "network" | "node";
+
+type ChannelSecurityProfile =
+  | { readonly mode: "unprotected" }
+  | { readonly mode: "preshared-key"; readonly keying: ChannelSecurityKeying };
+
+interface PresharedKeyPort {
+  readonly localIdentity: SecretIdentity;
+  own(): Readonly<Uint8Array>;
+  resolve(identity: SecretIdentity): Readonly<Uint8Array> | undefined;
+}
+```
+
+A pre-shared secret is selected by identity in TLS-PSK, SSH, and IPsec alike, so the model is named once here and mapped by each binding to its own handshake.\
+The neutral layer never learns the mechanism.
+
+`PresharedKeyPort` methods are synchronous because a handshake cannot await a key.\
+Rotation works by returning a different value on a later call.\
+Returning `undefined` from `resolve` is the only way to refuse a peer; the port never throws to deny one.
+
+Keying determines what a completed handshake proves, and evidence must say so truthfully:
+
+| `keying` | `protection` | `authentication` | Proves |
+|---|---|---|---|
+| `network` | `confidentiality-and-integrity` | `{ kind: "none" }` | Membership of the keyed group |
+| `node` | `confidentiality-and-integrity` | `{ kind: "verified", principal, method }` | Possession of the secret registered for that identity |
+
+Under `network` keying every holder can present any identity, so a presented label is not evidence and must not appear in `TransportPeerEvidence`.
+
+Key material never appears in configuration, canonical operations state, a diagnostic, or a terminal record.\
+A profile declares which protection applies; secrets reach an adapter only through the port.
+
+A binding that cannot honour a declared profile fails construction rather than weakening it.
+
+---
+
+## 17. Invariants
 
 | ID | Invariant |
 |---|---|
@@ -1085,7 +1127,7 @@ A topology test cannot compensate for a transport adapter that loses, duplicates
 
 ---
 
-## 17. Non-goals
+## 18. Non-goals
 
 This contract deliberately does not define:
 
@@ -1110,7 +1152,7 @@ They do not enter this carrier boundary.
 
 ---
 
-## 18. Conformance obligations
+## 19. Conformance obligations
 
 A transport adapter is conforming only when executable tests prove at least:
 
@@ -1153,7 +1195,7 @@ Both are required; one cannot substitute for the other.
 
 ---
 
-## 19. Mechanics, rationale, and consequence
+## 20. Mechanics, rationale, and consequence
 
 ### Mechanics
 

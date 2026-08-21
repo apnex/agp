@@ -197,18 +197,40 @@ export const webSocketBindingSchemaDocumentsV1 = Object.freeze([
       "consequence": "Divergence makes WebSocket behavior ambiguous or leaks carrier authority.",
       "semanticRules": []
     },
-    "description": "Certified trusted-development security declaration.",
-    "type": "object",
-    "properties": {
-      "mode": {
-        "const": "trusted-development",
-        "description": "Explicit unauthenticated cleartext development profile."
+    "description": "Declared WebSocket security profile, carrying no secret value.",
+    "oneOf": [
+      {
+        "type": "object",
+        "properties": {
+          "mode": {
+            "const": "trusted-development",
+            "description": "Explicit unauthenticated cleartext development profile."
+          }
+        },
+        "required": [
+          "mode"
+        ],
+        "additionalProperties": false
+      },
+      {
+        "type": "object",
+        "properties": {
+          "mode": {
+            "const": "preshared-key",
+            "description": "TLS 1.3 pre-shared-key profile; secrets arrive through PresharedKeyPort."
+          },
+          "keying": {
+            "$ref": "urn:agp:schema:v1:transport:codes:channel-security-keying",
+            "description": "Whether one secret covers the topology or one covers each identity."
+          }
+        },
+        "required": [
+          "mode",
+          "keying"
+        ],
+        "additionalProperties": false
       }
-    },
-    "required": [
-      "mode"
-    ],
-    "additionalProperties": false
+    ]
   },
   {
     "$schema": "https://json-schema.org/draft/2020-12/schema",

@@ -3,6 +3,14 @@
   "owner": "@agp/transport",
   "schemas": [
     {
+      "id": "urn:agp:schema:v1:transport:codes:channel-security-keying",
+      "owner": "@agp/transport",
+      "path": "codes/channel-security-keying.schema.json",
+      "kind": "code",
+      "typescript": "ChannelSecurityKeying",
+      "sha256": "bda855c38f9eac9fd9a288ca6258d32c18e2a93e5187a4d9a0637fdb394e6151"
+    },
+    {
       "id": "urn:agp:schema:v1:transport:codes:transport-input-rejection-code",
       "owner": "@agp/transport",
       "path": "codes/transport-input-rejection-code.schema.json",
@@ -51,12 +59,28 @@
       "sha256": "81f8dfc4718f2dd490b2e673daf417267e987a2c09065fefc273a41a64af205b"
     },
     {
+      "id": "urn:agp:schema:v1:transport:common:secret-identity",
+      "owner": "@agp/transport",
+      "path": "common/secret-identity.schema.json",
+      "kind": "scalar",
+      "typescript": "SecretIdentity",
+      "sha256": "973f486dedcf5104281f1fa88ccb7b7b1a4ff3b3f608c355b8221ad906bd4f8c"
+    },
+    {
       "id": "urn:agp:schema:v1:transport:common:transport-ref",
       "owner": "@agp/transport",
       "path": "common/transport-ref.schema.json",
       "kind": "scalar",
       "typescript": "TransportRef",
       "sha256": "9632ce6fb81c1d1f88ea4914ab46e9892f870681279c101581a87642b21466f6"
+    },
+    {
+      "id": "urn:agp:schema:v1:transport:contracts:channel-security-profile",
+      "owner": "@agp/transport",
+      "path": "contracts/channel-security-profile.schema.json",
+      "kind": "contract",
+      "typescript": "ChannelSecurityProfile",
+      "sha256": "fc70924bb60e695a19e949573dc561ede662c6a583216d9b8b3b77229c66faea"
     },
     {
       "id": "urn:agp:schema:v1:transport:contracts:transport-abort-intent",

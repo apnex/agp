@@ -29,7 +29,7 @@
     {
       "id": "urn:agp:schema:v1:binding-websocket:configuration:security",
       "path": "packages/binding-websocket/src/schemas/v1/configuration/security.schema.json",
-      "sha256": "f3a3a9f546ad82e8223122d93697c7b5c28e953cc30b93435aba0e134c01804f"
+      "sha256": "d94cf1207568669a7e500d9c250e514ecb047bc831371b3f3c7220e8c9d701dc"
     },
     {
       "id": "urn:agp:schema:v1:binding-websocket:configuration:target",
@@ -1022,6 +1022,11 @@
       "sha256": "64da01880f44d95ff9b99425b268af895db59fa9bd83e3dfde4f1f4070f4d976"
     },
     {
+      "id": "urn:agp:schema:v1:transport:codes:channel-security-keying",
+      "path": "packages/transport/src/schemas/v1/codes/channel-security-keying.schema.json",
+      "sha256": "bda855c38f9eac9fd9a288ca6258d32c18e2a93e5187a4d9a0637fdb394e6151"
+    },
+    {
       "id": "urn:agp:schema:v1:transport:codes:transport-input-rejection-code",
       "path": "packages/transport/src/schemas/v1/codes/transport-input-rejection-code.schema.json",
       "sha256": "b83d9cd444f7216d1152370c30f568a5314f8525961d10b015bdd4ffe03273f2"
@@ -1052,9 +1057,19 @@
       "sha256": "81f8dfc4718f2dd490b2e673daf417267e987a2c09065fefc273a41a64af205b"
     },
     {
+      "id": "urn:agp:schema:v1:transport:common:secret-identity",
+      "path": "packages/transport/src/schemas/v1/common/secret-identity.schema.json",
+      "sha256": "973f486dedcf5104281f1fa88ccb7b7b1a4ff3b3f608c355b8221ad906bd4f8c"
+    },
+    {
       "id": "urn:agp:schema:v1:transport:common:transport-ref",
       "path": "packages/transport/src/schemas/v1/common/transport-ref.schema.json",
       "sha256": "9632ce6fb81c1d1f88ea4914ab46e9892f870681279c101581a87642b21466f6"
+    },
+    {
+      "id": "urn:agp:schema:v1:transport:contracts:channel-security-profile",
+      "path": "packages/transport/src/schemas/v1/contracts/channel-security-profile.schema.json",
+      "sha256": "fc70924bb60e695a19e949573dc561ede662c6a583216d9b8b3b77229c66faea"
     },
     {
       "id": "urn:agp:schema:v1:transport:contracts:transport-abort-intent",

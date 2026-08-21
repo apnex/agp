@@ -24,6 +24,7 @@ The stakeholder authorized autonomous implementation after design completion and
 | D15 | Keep concrete transport configuration outside core and pass adapter-observed peer evidence into identity admission | Fixed transport intent + design | Ratified |
 | D16 | Make AGP v1 over WebSocket a sovereign binding outside the protocol kernel | Fixed transport intent + design | Ratified |
 | D17 | Make Loopback a canonical production transport for process-local AGP topologies | Explicit stakeholder approval 2026-07-30 | Ratified |
+| D18 | Provide confidentiality and peer authentication through a pre-shared-key transport profile, without certificate infrastructure | Explicit stakeholder direction | Ratified |
 
 ---
 
@@ -65,7 +66,20 @@ The confirmed answers below are the authority cited by `authorities[].kind` of `
 | `Q6(c)` | Management HTTP and `agpctl` remain stable where their semantics remain true |
 | Aggregate | Listener, dialer, local delivery, and transit behavior compose inside the same implementation |
 
-### 2.3 Governing principles
+### 2.3 Confirmed transport security intent
+
+AGP is expected to run over the public internet.\
+No other encryption layer may be assumed present, so the transport provides its own confidentiality rather than relying on a mesh, tunnel, or trusted network.
+
+Dedicated certificate infrastructure is explicitly excluded.\
+A deployment must be able to secure a topology with distributed key material alone, with no certificate authority, issuance, expiry, or revocation machinery.
+
+Encryption is a transport concern.\
+The AGP control plane has no knowledge of, and no responsibility for, how a channel is protected; it consumes only the observed evidence that a channel reports.
+
+The target scale is small and known: fewer than twenty nodes, in star and line topologies.
+
+### 2.4 Governing principles
 
 Three principles anchor the design and outrank convenience:
 
@@ -76,7 +90,7 @@ Three principles anchor the design and outrank convenience:
 - **Loop-safe selected-route propagation.** Operational views expose that same
   state rather than reconstructing it independently.
 
-### 2.4 Confirmed anti-goals
+### 2.5 Confirmed anti-goals
 
 These were excluded at intent capture, not discovered later.\
 Their re-entry conditions are held in [`design/mechanisms.md`](design/mechanisms.md) as `F01` through `F07`.
@@ -365,6 +379,76 @@ Treating Loopback as a mock would permit shortcuts, test-only semantics, global 
 There is no direct object-message or handler-call fast path, no global implicit fabric, no synchronous receiver re-entry, and no Loopback-specific kernel branch.\
 Loopback and WebSocket pass the same transport conformance kit and equivalent topology behavior gates.\
 A failed fabric remains inspectable, cannot be restarted, and must be replaced.
+
+---
+
+### D18 - Pre-shared-key transport security
+
+**Mechanics.**\
+`@agp/binding-websocket` gains a second security profile alongside `trusted-development`.\
+The secure profile is TLS 1.3 with pre-shared keys and no certificates: no certificate authority, no issuance, no expiry, no revocation.\
+Early data is disabled, and a handshake that negotiated it is a binding violation.
+
+Configuration declares the profile and the keying model, never a secret:
+```ts
+type WebSocketSecurityConfigData =
+  | { readonly mode: "trusted-development" }
+  | { readonly mode: "preshared-key"; readonly keying: "network" | "node" };
+```
+
+Ownership is split by concern.\
+`@agp/transport` owns the mechanism-free contract: the secret identity, the keying model, the declared profile, and the port that supplies key material.\
+`@agp/binding-websocket` owns only the TLS realisation: cipher suites, minimum version, handshake wiring, the prohibition on early data, and native alert mapping.
+
+`keying` is required.\
+`network` means one key for the whole topology; `node` means one key per node, keyed by the identity a peer presents.\
+Key material arrives through an injected synchronous capability, not configuration, so rotation does not require reconstructing a node.\
+The capability is synchronous because the underlying key callback must answer during the handshake.
+
+Observed evidence is truthful about which of the two was configured:
+
+| `keying` | `protection` | `authentication` | Proves |
+|---|---|---|---|
+| `network` | `confidentiality-and-integrity` | `{ kind: "none" }` | Membership of the keyed group |
+| `node` | `confidentiality-and-integrity` | `{ kind: "verified", principal, method }` | Possession of the key registered for that identity |
+
+The binding never binds a transport principal to an AGP `nodeId`.\
+It reports evidence, and `IdentityAdmissionPort` applies deployment policy.
+
+A key failure is retryable under the existing bounded dial backoff, because a mismatch during rotation resolves itself when the capability returns the new value.
+
+The profile is specified for star and line topologies.\
+In a full mesh every node would hold every other node's key, so one compromise forges every identity; a per-pair model and separate authority are required for that case.
+
+**Rationale.**\
+AGP is expected to cross the public internet with no assumed outer encryption, so the transport must protect its own traffic.\
+Certificate infrastructure is the usual answer and was explicitly excluded, which leaves pre-shared keys as the mechanism that provides confidentiality, integrity, and mutual authentication with nothing to issue, renew, or revoke.
+
+Two keying models exist because they answer different questions.\
+One network key is the smallest thing that stops an outsider reading traffic.\
+One key per node additionally distinguishes insiders from each other, which is what makes a claimed `nodeId` worth anything.\
+Making the choice explicit prevents a deployment from believing it has the second while running the first.
+
+The pre-shared-key concept is not specific to TLS; SSH and IPsec select a secret by identity in the same way.\
+`@agp/transport` therefore owns `SecretIdentity`, `ChannelSecurityKeying`, `ChannelSecurityProfile`, and `PresharedKeyPort`, and each binding maps them to its own handshake.\
+`@agp/binding-websocket` references the neutral keying code rather than restating it.
+
+A3 Earned Exposure argues against promoting a surface on anticipated reuse, and only one protected binding exists today.\
+The standing intent is that further transports will follow, and that the shape should be settled before a second implementation forces it.\
+Placing the contract now is a deliberate departure from Earned Exposure, taken on declared roadmap rather than on a second consumer.\
+If no second binding materialises the cost is one package boundary in the wrong place; if one does, the alternative cost is two divergent definitions of the same concept.
+
+**Consequence.**\
+Declaring `node` keying while supplying one key for every identity produces `verified` evidence that is false.\
+The binding cannot detect this, so the declaration is a deployment responsibility and must be documented as one.
+
+Reading `socket.authorized` to decide whether a peer is authenticated reports `false` for every correctly authenticated peer, because it describes certificate verification that a pre-shared-key handshake never performs.
+
+Copying a configured `expectedNodeId` into evidence when no peer label was observed would restate desired identity as observation, which is the fault D15 forbids.
+
+Enabling early data would let an attacker replay captured application data across connections that share a key.
+
+Placing key material in `NodeConfig`, canonical operations state, or a diagnostic would move a secret into a surface designed to be inspected and projected.
 
 ---
 
