@@ -6,7 +6,7 @@ const DELIVERY_TIMEOUT_MS = 5_000;
 const arguments_ = process.argv.slice(2);
 if (arguments_.some((argument) => argument !== "--persist")) {
   throw new Error(
-    "usage: node examples/loopback-hub-spokes/example.mjs [--persist]",
+    "usage: node examples/loopback-star/example.mjs [--persist]",
   );
 }
 const persistent = arguments_.includes("--persist");
@@ -68,7 +68,7 @@ try {
     waitForAckedExport(
       topology.nodes.hub.node.operations,
       "catalog/products.get",
-      "spoke.beta",
+      "leaf.beta",
     ),
     waitForAckedExport(
       topology.nodes.beta.node.operations,
@@ -78,7 +78,7 @@ try {
     waitForAckedExport(
       topology.nodes.hub.node.operations,
       "billing/charge",
-      "spoke.alpha",
+      "leaf.alpha",
     ),
   ]);
 

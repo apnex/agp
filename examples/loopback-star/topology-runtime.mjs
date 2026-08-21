@@ -137,7 +137,7 @@ function nodeReady(runtime) {
 
 function topologyReady(fabric, nodes) {
   return Object.freeze({
-    topology: "loopback-hub-spokes",
+    topology: "loopback-star",
     processId: process.pid,
     fabric: fabric.snapshot(),
     nodes: Object.freeze(

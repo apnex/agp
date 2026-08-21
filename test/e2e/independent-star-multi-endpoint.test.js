@@ -20,10 +20,10 @@ test("given three independently started uniform-node processes in a star when ev
       (snapshot) =>
         hasSelectedEndpoints(snapshot, STAR_ENDPOINTS.all)
         && STAR_ENDPOINTS.alphaExclusive.every((endpoint) =>
-          hasAckedExport(snapshot, endpoint, "spoke.beta")
+          hasAckedExport(snapshot, endpoint, "leaf.beta")
         )
         && STAR_ENDPOINTS.betaExclusive.every((endpoint) =>
-          hasAckedExport(snapshot, endpoint, "spoke.alpha")
+          hasAckedExport(snapshot, endpoint, "leaf.alpha")
         ),
       "hub selected RIB and opposite-leaf ACKed exports",
     ),
@@ -52,11 +52,11 @@ test("given three independently started uniform-node processes in a star when ev
   assert.deepEqual(selectedEndpoints(betaSnapshot), STAR_ENDPOINTS.all);
   assert.deepEqual(
     selected(alphaSnapshot, STAR_ENDPOINTS.beta[0]).path,
-    ["spoke.beta", "hub", "spoke.alpha"],
+    ["leaf.beta", "hub", "leaf.alpha"],
   );
   assert.deepEqual(
     selected(betaSnapshot, STAR_ENDPOINTS.alpha[0]).path,
-    ["spoke.alpha", "hub", "spoke.beta"],
+    ["leaf.alpha", "hub", "leaf.beta"],
   );
 
   const deliveries = [];

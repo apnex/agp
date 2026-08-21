@@ -10,7 +10,7 @@ The CLI suite treats each shell layer as a public process boundary.
 | `unit/connections-template.test.js` | Connection rows render optional fields, monotonic uptime, hold TTL, and hostile text safely | Session state computation |
 | `unit/route-template.test.js` | Route rows render winner markers, local/session next hops, paths, and version failures canonically | Route selection |
 
-Fixtures are bounded management documents, never runtime state files. Live
-SDK/HTTP/CLI agreement remains repository integration scope.
+Fixtures are bounded management documents, never runtime state files.\
+Live SDK/HTTP/CLI agreement remains repository integration scope.
 
 Run with `cli/test/run.sh`.

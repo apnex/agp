@@ -1,23 +1,38 @@
 {
   "profile": "alpha",
-  "managementPort": 47211,
+  "managementPort": 47111,
   "endpoints": [
     "catalog/products.get",
     "inventory/reserve",
     "orders/create",
     "shared/service"
   ],
-  "nodeConfig": {
-    "nodeId": "spoke.alpha",
+  "transport": {
+    "listeners": [],
+    "targets": [
+      {
+        "transportRef": "ws.hub",
+        "url": "ws://127.0.0.1:47100/agp",
+        "compression": {
+          "mode": "disabled"
+        },
+        "security": {
+          "mode": "trusted-development"
+        }
+      }
+    ]
+  },
+  "config": {
+    "nodeId": "leaf.alpha",
     "peers": [
       {
         "adjacencyId": "to-hub",
         "expectedNodeId": "hub",
-        "transportRef": "loopback.hub",
+        "transportRef": "ws.hub",
         "reconnect": {
           "enabled": true,
-          "initialDelayMs": 25,
-          "maximumDelayMs": 250,
+          "initialDelayMs": 250,
+          "maximumDelayMs": 2000,
           "multiplier": 2,
           "jitterRatio": 0
         }
@@ -39,24 +54,5 @@
       "maxPathLength": 64,
       "maxHopCount": 16
     }
-  },
-  "transport": {
-    "config": {
-      "transportName": "alpha",
-      "capabilities": {
-        "listen": false,
-        "connect": true
-      }
-    },
-    "listeners": [],
-    "targets": [
-      {
-        "transportRef": "loopback.hub",
-        "binding": {
-          "fabricId": "agp-loopback-example",
-          "address": "hub"
-        }
-      }
-    ]
   }
 }

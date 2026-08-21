@@ -10,7 +10,7 @@ import {
   startIndependentStar,
 } from "./support/independent-processes.js";
 
-test("given the independent hub advertises its own endpoint when both spokes converge then each spoke routes JSON to the hub-local handler", async (context) => {
+test("given the independent center advertises its own endpoint when both leaves converge then each leaf routes JSON to the center-local handler", async (context) => {
   const topology = await IndependentProcessTopology.create();
   context.after(() => topology.dispose());
   const star = await startIndependentStar(topology);
@@ -20,9 +20,9 @@ test("given the independent hub advertises its own endpoint when both spokes con
       star.hub,
       (snapshot) =>
         isSelectedHubRoute(snapshot, "local", ["hub"])
-        && hasAckedExport(snapshot, STAR_HUB_ENDPOINT, "spoke.alpha")
-        && hasAckedExport(snapshot, STAR_HUB_ENDPOINT, "spoke.beta"),
-      "hub-local route and both ACKed spoke exports",
+        && hasAckedExport(snapshot, STAR_HUB_ENDPOINT, "leaf.alpha")
+        && hasAckedExport(snapshot, STAR_HUB_ENDPOINT, "leaf.beta"),
+      "center-local route and both ACKed leaf exports",
     ),
     waitForSnapshot(
       star.alpha,
@@ -30,7 +30,7 @@ test("given the independent hub advertises its own endpoint when both spokes con
         isSelectedHubRoute(
           snapshot,
           "learned",
-          ["hub", "spoke.alpha"],
+          ["hub", "leaf.alpha"],
         )
         && hasAckedExport(
           snapshot,
@@ -45,7 +45,7 @@ test("given the independent hub advertises its own endpoint when both spokes con
         isSelectedHubRoute(
           snapshot,
           "learned",
-          ["hub", "spoke.beta"],
+          ["hub", "leaf.beta"],
         )
         && hasAckedExport(
           snapshot,
@@ -64,13 +64,13 @@ test("given the independent hub advertises its own endpoint when both spokes con
   assertHubSelection(alphaSnapshot, {
     routeClass: "learned",
     learnedKind: "direct",
-    path: ["hub", "spoke.alpha"],
+    path: ["hub", "leaf.alpha"],
     nextHopKind: "session",
   });
   assertHubSelection(betaSnapshot, {
     routeClass: "learned",
     learnedKind: "direct",
-    path: ["hub", "spoke.beta"],
+    path: ["hub", "leaf.beta"],
     nextHopKind: "session",
   });
 

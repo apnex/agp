@@ -7,7 +7,7 @@ import { fileURLToPath } from "node:url";
 import {
   PROFILE_DOCUMENTS,
   PROFILE_PRESETS,
-} from "../../../examples/independent-hub-spokes/profiles.mjs";
+} from "../../../examples/independent-star/profiles.mjs";
 
 const workspace = fileURLToPath(new URL("../../../", import.meta.url));
 const childProgram = fileURLToPath(

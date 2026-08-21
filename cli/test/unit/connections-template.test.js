@@ -31,7 +31,7 @@ test("Given admitted and hostile connection fields, when the static template pro
   assert.equal(rows.length, 2);
   assert.deepEqual(rows[0], {
     session_id: "75c4ae",
-    remote_node: "spoke.alpha",
+    remote_node: "leaf.alpha",
     direction: "inbound",
     state: "Established",
     uptime: "01:00:00",

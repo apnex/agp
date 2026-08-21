@@ -1,9 +1,7 @@
 # AX8 resilience suite map
 
-This directory owns deterministic adversity against the public uniform
-`@agp/node` runtime. Tests use named barriers and the local chaos transport's
-positive call ledger; a bounded poll only waits for a stated positive
-operations, delivery, or fault-injection fact.
+This directory owns deterministic adversity against the public uniform `@agp/node` runtime.\
+Tests use named barriers and the local chaos transport's positive call ledger; a bounded poll only waits for a stated positive operations, delivery, or fault-injection fact.
 
 | File | Owned injection and invariant | Explicit non-overlap |
 |---|---|---|
@@ -32,6 +30,5 @@ Support ownership:
 - `support/raw-peer.js` supplies a schema-valid protocol peer used only to
   inject input that a conforming uniform node would never originate.
 
-Run this gate with `npm run test:resilience`. The global architecture checker
-enforces one self-descriptive Given/When/Then title per test and the 300-line
-ceiling for every test file.
+Run this gate with `npm run test:resilience`.\
+The global architecture checker enforces one self-descriptive Given/When/Then title per test and the 300-line ceiling for every test file.

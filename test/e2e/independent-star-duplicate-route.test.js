@@ -9,7 +9,7 @@ import {
   startIndependentStar,
 } from "./support/independent-processes.js";
 
-test("given both independent spokes advertise one endpoint when the star converges then the hub retains both candidates and deterministically selects the Alpha origin", async (context) => {
+test("given both independent leaves advertise one endpoint when the star converges then the center retains both candidates and deterministically selects the Alpha origin", async (context) => {
   const topology = await IndependentProcessTopology.create();
   context.after(() => topology.dispose());
   const star = await startIndependentStar(topology);
@@ -21,7 +21,7 @@ test("given both independent spokes advertise one endpoint when the star converg
         const candidates = duplicateCandidates(snapshot);
         const selected = duplicateSelection(snapshot);
         return candidates.length === 2
-          && selected?.originNodeId === "spoke.alpha";
+          && selected?.originNodeId === "leaf.alpha";
       },
       "two hub candidates and the deterministic Alpha selection",
     ),
@@ -50,13 +50,13 @@ test("given both independent spokes advertise one endpoint when the star converg
   const hubCandidates = duplicateCandidates(hubSnapshot);
   assert.deepEqual(
     hubCandidates.map(({ originNodeId }) => originNodeId),
-    ["spoke.alpha", "spoke.beta"],
+    ["leaf.alpha", "leaf.beta"],
   );
   assert.deepEqual(
     hubCandidates.map(({ path }) => path),
     [
-      ["spoke.alpha", "hub"],
-      ["spoke.beta", "hub"],
+      ["leaf.alpha", "hub"],
+      ["leaf.beta", "hub"],
     ],
   );
   assert.equal(
@@ -74,16 +74,16 @@ test("given both independent spokes advertise one endpoint when the star converg
     ["selected", "not-selected"],
   );
   const hubSelection = duplicateSelection(hubSnapshot);
-  assert.equal(hubSelection.originNodeId, "spoke.alpha");
+  assert.equal(hubSelection.originNodeId, "leaf.alpha");
   assert.equal(hubSelection.routeClass, "learned");
   assert.equal(hubSelection.learnedKind, "direct");
   assert.equal(hubSelection.selectionReason, "LOWEST_ORIGIN_NODE_ID");
   assert.deepEqual(
     hubSelection.path,
-    ["spoke.alpha", "hub"],
+    ["leaf.alpha", "hub"],
   );
   assert.equal(hubSelection.nextHop.kind, "session");
-  assert.equal(hubSelection.nextHop.nodeId, "spoke.alpha");
+  assert.equal(hubSelection.nextHop.nodeId, "leaf.alpha");
 
   assert.deepEqual(
     duplicateCandidates(alphaSnapshot).map(
@@ -94,7 +94,7 @@ test("given both independent spokes advertise one endpoint when the star converg
       }),
     ),
     [{
-      originNodeId: "spoke.alpha",
+      originNodeId: "leaf.alpha",
       routeClass: "local",
       selectionStatus: "selected",
     }],
@@ -115,13 +115,13 @@ test("given both independent spokes advertise one endpoint when the star converg
     ),
     [
       {
-        originNodeId: "spoke.beta",
+        originNodeId: "leaf.beta",
         routeClass: "local",
         selectionReason: "PREFER_LOCAL",
         selectionStatus: "selected",
       },
       {
-        originNodeId: "spoke.alpha",
+        originNodeId: "leaf.alpha",
         routeClass: "learned",
         selectionReason: "PREFER_LOCAL",
         selectionStatus: "not-selected",

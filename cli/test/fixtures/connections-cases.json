@@ -11,7 +11,7 @@
     {
       "identityState": "admitted",
       "sessionId": "75c4ae",
-      "remoteNodeId": "spoke.alpha",
+      "remoteNodeId": "leaf.alpha",
       "remoteSessionId": "3fa0fa",
       "direction": "inbound",
       "state": "Established",

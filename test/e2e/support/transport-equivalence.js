@@ -31,7 +31,7 @@ export async function captureLoopbackStar() {
     const started = await hub.start();
     const address = started.listener.publication.displayAddress;
     alpha = createLoopbackNode({
-      nodeId: "spoke.alpha",
+      nodeId: "leaf.alpha",
       peers: [{
         ...memoryPeer("to-hub", "hub", 15101),
         url: address,
@@ -40,7 +40,7 @@ export async function captureLoopbackStar() {
       ...equivalenceProtocolLimits(),
     });
     beta = createLoopbackNode({
-      nodeId: "spoke.beta",
+      nodeId: "leaf.beta",
       peers: [{
         ...memoryPeer("to-hub", "hub", 15101),
         url: address,
@@ -57,7 +57,7 @@ export async function captureLoopbackStar() {
         hub,
         (snapshot) =>
           hasSelected(snapshot, STAR_ENDPOINTS.all)
-          && hasAcked(snapshot, STAR_ENDPOINTS.betaExclusive[0], "spoke.alpha")
+          && hasAcked(snapshot, STAR_ENDPOINTS.betaExclusive[0], "leaf.alpha")
           && exportsSettled(snapshot),
         "Loopback star hub convergence",
       ),
@@ -107,7 +107,7 @@ export async function captureWebSocketStar() {
         star.hub,
         (snapshot) =>
           hasSelected(snapshot, STAR_ENDPOINTS.all)
-          && hasAcked(snapshot, STAR_ENDPOINTS.betaExclusive[0], "spoke.alpha")
+          && hasAcked(snapshot, STAR_ENDPOINTS.betaExclusive[0], "leaf.alpha")
           && exportsSettled(snapshot),
         "WebSocket star hub convergence",
       ),

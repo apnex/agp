@@ -1,10 +1,10 @@
 {
-  "profile": "alpha",
-  "managementPort": 47111,
+  "profile": "beta",
+  "managementPort": 47112,
   "endpoints": [
-    "catalog/products.get",
-    "inventory/reserve",
-    "orders/create",
+    "billing/charge",
+    "notifications/send",
+    "shipping/quote",
     "shared/service"
   ],
   "transport": {
@@ -23,7 +23,7 @@
     ]
   },
   "config": {
-    "nodeId": "spoke.alpha",
+    "nodeId": "leaf.beta",
     "peers": [
       {
         "adjacencyId": "to-hub",

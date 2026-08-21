@@ -8,7 +8,7 @@
     "shared/service"
   ],
   "nodeConfig": {
-    "nodeId": "spoke.beta",
+    "nodeId": "leaf.beta",
     "peers": [
       {
         "adjacencyId": "to-hub",

@@ -3,7 +3,7 @@ import { fileURLToPath } from "node:url";
 
 const workspace = fileURLToPath(new URL("../../../", import.meta.url));
 const exampleProgram = fileURLToPath(
-  new URL("../../../examples/loopback-hub-spokes/example.mjs", import.meta.url),
+  new URL("../../../examples/loopback-star/example.mjs", import.meta.url),
 );
 const recordPrefixes = Object.freeze({
   ready: "AGP_LOOPBACK_TOPOLOGY_READY",

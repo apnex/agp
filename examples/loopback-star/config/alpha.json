@@ -1,0 +1,62 @@
+{
+  "profile": "alpha",
+  "managementPort": 47211,
+  "endpoints": [
+    "catalog/products.get",
+    "inventory/reserve",
+    "orders/create",
+    "shared/service"
+  ],
+  "nodeConfig": {
+    "nodeId": "leaf.alpha",
+    "peers": [
+      {
+        "adjacencyId": "to-hub",
+        "expectedNodeId": "hub",
+        "transportRef": "loopback.hub",
+        "reconnect": {
+          "enabled": true,
+          "initialDelayMs": 25,
+          "maximumDelayMs": 250,
+          "multiplier": 2,
+          "jitterRatio": 0
+        }
+      }
+    ],
+    "transit": {
+      "enabled": false,
+      "defaultHopLimit": 16
+    },
+    "identityAdmission": {
+      "mode": "allow"
+    },
+    "routeAdmission": {
+      "mode": "allow"
+    },
+    "limits": {
+      "maxLocalEndpoints": 16,
+      "maxRoutesPerSnapshot": 256,
+      "maxPathLength": 64,
+      "maxHopCount": 16
+    }
+  },
+  "transport": {
+    "config": {
+      "transportName": "alpha",
+      "capabilities": {
+        "listen": false,
+        "connect": true
+      }
+    },
+    "listeners": [],
+    "targets": [
+      {
+        "transportRef": "loopback.hub",
+        "binding": {
+          "fabricId": "agp-loopback-example",
+          "address": "hub"
+        }
+      }
+    ]
+  }
+}

@@ -31,7 +31,7 @@ test("given the sovereign persistent Loopback example when its three management 
 
   const ready = await example.start();
   const delivered = await example.waitForDelivery();
-  assert.equal(ready.topology, "loopback-hub-spokes");
+  assert.equal(ready.topology, "loopback-star");
   assert.equal(typeof delivered, "object");
   assert.notEqual(delivered, null);
   assert.equal(example.alive, true);

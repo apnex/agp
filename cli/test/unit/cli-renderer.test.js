@@ -49,7 +49,7 @@ test("given column is absent when rows are rendered then deterministic tab-separ
   const input = [
     {
       session_id: "75c4ae",
-      remote_node: "spoke.alpha",
+      remote_node: "leaf.alpha",
       direction: "inbound",
       state: "Established",
       uptime: "01:02:03",
@@ -65,7 +65,7 @@ test("given column is absent when rows are rendered then deterministic tab-separ
 
   assert.equal(result.code, 0, result.stderr);
   assert.match(result.stdout, /SESSION_ID\tREMOTE_NODE/);
-  assert.match(result.stdout, /75c4ae\tspoke\.alpha/);
+  assert.match(result.stdout, /75c4ae\tleaf\.alpha/);
   assert.doesNotMatch(result.stdout, /\u001b/u);
 });
 
@@ -77,8 +77,8 @@ test("given hostile remote fields when rendered then terminal controls and embed
       route_class: "learned",
       learned_kind: "direct",
       next_hop: "spoke\u202e.alpha@75c4ae",
-      origin_node: "spoke.alpha",
-      path: "spoke.alpha>hub.local",
+      origin_node: "leaf.alpha",
+      path: "leaf.alpha>hub.local",
       eligible: true,
       reason: "ONLY_ELIGIBLE\tfor-now",
     },

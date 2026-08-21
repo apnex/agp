@@ -33,8 +33,8 @@ test("Given local session selected and losing routes, when the static template p
   assert.equal(rows[0].next_hop, "local");
   assert.equal(rows[0].learned_kind, "");
   assert.equal(rows[1].selected, "");
-  assert.equal(rows[1].next_hop, "spoke.alpha@75c4ae");
-  assert.equal(rows[1].path, "spoke.alpha>hub.local");
+  assert.equal(rows[1].next_hop, "leaf.alpha@75c4ae");
+  assert.equal(rows[1].path, "leaf.alpha>hub.local");
   assert.doesNotMatch(rows[1].endpoint, /\u001b/u);
 });
 

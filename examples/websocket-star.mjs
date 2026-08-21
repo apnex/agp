@@ -1,18 +1,18 @@
 import {
   resolveProfile,
-} from "./independent-hub-spokes/profiles.mjs";
+} from "./independent-star/profiles.mjs";
 import {
   startProfileRuntime,
-} from "./independent-hub-spokes/node-runtime.mjs";
+} from "./independent-star/node-runtime.mjs";
 import {
   waitForShutdownSignal,
-} from "./independent-hub-spokes/runtime.mjs";
+} from "./independent-star/runtime.mjs";
 
 const CONVERGENCE_TIMEOUT_MS = 10_000;
 const DELIVERY_TIMEOUT_MS = 5_000;
 const arguments_ = process.argv.slice(2);
 if (arguments_.some((argument) => argument !== "--persist")) {
-  throw new Error("usage: node examples/hub-two-spokes.mjs [--persist]");
+  throw new Error("usage: node examples/websocket-star.mjs [--persist]");
 }
 const persistent = arguments_.includes("--persist");
 
@@ -88,7 +88,7 @@ try {
     waitForAckedExport(
       hub.node.operations,
       "catalog/products.get",
-      "spoke.beta",
+      "leaf.beta",
     ),
     waitForAckedExport(
       beta.node.operations,
@@ -98,7 +98,7 @@ try {
     waitForAckedExport(
       hub.node.operations,
       "billing/charge",
-      "spoke.alpha",
+      "leaf.alpha",
     ),
   ]);
 

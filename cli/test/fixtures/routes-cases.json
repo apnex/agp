@@ -27,17 +27,17 @@
       "endpoint": "orders\u001b[2J/submit",
       "routeClass": "learned",
       "learnedKind": "direct",
-      "originNodeId": "spoke.alpha",
-      "path": ["spoke.alpha", "hub.local"],
+      "originNodeId": "leaf.alpha",
+      "path": ["leaf.alpha", "hub.local"],
       "source": {
         "kind": "session",
         "owningSessionId": "75c4ae",
-        "advertisingNodeId": "spoke.alpha",
+        "advertisingNodeId": "leaf.alpha",
         "advertisementId": "advertisement-1"
       },
       "nextHop": {
         "kind": "session",
-        "nodeId": "spoke.alpha",
+        "nodeId": "leaf.alpha",
         "owningSessionId": "75c4ae"
       },
       "eligible": false,
