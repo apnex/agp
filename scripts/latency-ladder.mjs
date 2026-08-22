@@ -35,6 +35,10 @@ const flag = (name, fallback) => {
 };
 const COUNT = Number.parseInt(flag("count", "200"), 10);
 const ONLY = flag("rung", "all");
+// Repeated by default. A single stream run varies by a factor of two on an
+// otherwise idle machine, and acting on one sample is how a regression and an
+// outlier become indistinguishable.
+const REPEAT = Number.parseInt(flag("repeat", "3"), 10);
 const PAYLOAD = Buffer.alloc(258, 0x61);
 
 async function freePort() {
@@ -184,9 +188,15 @@ const RUNGS = {
 process.stdout.write(`latency ladder | ${COUNT} samples per rung\n\n`);
 for (const [id, rung] of Object.entries(RUNGS)) {
   if (ONLY !== "all" && ONLY !== id) continue;
-  const lag = sampleLoopLag();
-  const result = await rung.run();
-  const loop = lag.stop();
+  const attempts = [];
+  let loop;
+  let result;
+  for (let attempt = 0; attempt < (rung.kind === "rtt" ? 1 : REPEAT); attempt += 1) {
+    const lag = sampleLoopLag();
+    result = await rung.run();
+    loop = lag.stop();
+    if (rung.kind !== "rtt") attempts.push(result.drainUs);
+  }
   process.stdout.write(`${id}  ${rung.label}\n`);
   if (rung.kind === "rtt") {
     const stats = summarise(result);
@@ -194,6 +204,13 @@ for (const [id, rung] of Object.entries(RUNGS)) {
       `    rtt      p50 ${stats.p50Us}us  p99 ${stats.p99Us}us  max ${stats.maxUs}us\n`,
     );
   } else {
+    const spread = summarise(attempts);
+    process.stdout.write(
+      `    runs     ${attempts.length}`
+        + `  best ${Math.round(spread.minUs / COUNT)}us/msg`
+        + `  median ${Math.round(spread.p50Us / COUNT)}us/msg`
+        + `  worst ${Math.round(spread.maxUs / COUNT)}us/msg\n`,
+    );
     process.stdout.write(
       `    end-to-end ${Math.round(result.drainUs)}us total`
         + `  ${Math.round(result.drainUs / COUNT)}us per message\n`,

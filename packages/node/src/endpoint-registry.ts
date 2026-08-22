@@ -29,12 +29,18 @@ export class EndpointRegistry {
   readonly #maximum: number;
   readonly #byEndpoint = new Map<EndpointName, RegisteredEndpoint>();
   readonly #byBinding = new Map<string, RegisteredEndpoint>();
+  #version = 0;
 
   constructor(maximum: number) {
     if (!Number.isSafeInteger(maximum) || maximum < 1) {
       throw new RangeError("endpoint capacity must be a positive safe integer");
     }
     this.#maximum = maximum;
+  }
+
+  /** Membership generation. Changes exactly when the set of endpoints does. */
+  get version(): number {
+    return this.#version;
   }
 
   get size(): number {
@@ -75,6 +81,7 @@ export class EndpointRegistry {
     });
     this.#byEndpoint.set(input.endpoint, value);
     this.#byBinding.set(input.bindingId, value);
+    this.#version += 1;
     return value;
   }
 
@@ -83,6 +90,7 @@ export class EndpointRegistry {
     if (value === undefined) return undefined;
     this.#byBinding.delete(bindingId);
     this.#byEndpoint.delete(value.endpoint);
+    this.#version += 1;
     value.controller.abort();
     return value;
   }
@@ -95,6 +103,7 @@ export class EndpointRegistry {
     const values = [...this.#byBinding.values()];
     this.#byBinding.clear();
     this.#byEndpoint.clear();
+    this.#version += 1;
     for (const value of values) value.controller.abort();
     return Object.freeze(values);
   }

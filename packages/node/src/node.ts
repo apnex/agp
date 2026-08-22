@@ -215,6 +215,10 @@ export class NodeImpl implements AgpNode, SessionHost {
     readonly version: number;
     readonly value: readonly ReverseCorrelationSnapshot[];
   } | undefined;
+  #endpointListCache: {
+    readonly version: number;
+    readonly value: readonly LocalEndpointSnapshot[];
+  } | undefined;
   readonly #reverseErrors: ReverseErrorEngine;
   readonly #dataPlane: DataPlane;
   readonly #controllers = new Map<string, PeerController>();
@@ -790,14 +794,14 @@ export class NodeImpl implements AgpNode, SessionHost {
           : { reasonCode: current.lastReason }),
       },
     });
-    this.#commitCanonical({
+    this.#commitSessionState({
       kind: "session.transition",
       subjectId: controller.controllerId,
     });
   }
 
   sessionTimersChanged(_controller: PeerController): void {
-    this.#commitCanonical();
+    this.#commitSessionState();
   }
 
   dispatchData(controller: PeerController, message: DataMessage): void {
@@ -1284,6 +1288,25 @@ export class NodeImpl implements AgpNode, SessionHost {
     }
   }
 
+  /**
+   * Commits a change to session state alone.
+   *
+   * A session transition and a timer reset each land on every delivered
+   * message, and neither can alter routing, endpoints or adjacencies. A full
+   * canonical commit for them made a message pay twice over for four
+   * collections it never touched. Omitted collections are left as they stand,
+   * so this narrows what is written rather than what is held.
+   *
+   * Routing changes keep their own commit, so `D10` still gets one canonical
+   * revision per routing change; this adds none and removes none.
+   */
+  #commitSessionState(event?: OperationalEventInput): void {
+    this.#operations.commit({
+      connections: this.#connectionSnapshots(),
+      ...(event === undefined ? {} : { events: [event] }),
+    });
+  }
+
   #commitCanonical(event?: OperationalEventInput): void {
     this.#operations.commit({
       localEndpoints: this.#localEndpointSnapshots(),
@@ -1335,7 +1358,24 @@ export class NodeImpl implements AgpNode, SessionHost {
     }
   }
 
+  /**
+   * The local-endpoint projection, rebuilt only when the set changes.
+   *
+   * Two full canonical commits land per delivered message, and this changes
+   * on `expose` and `close` alone. Rebuilding it per commit made a message
+   * pay for a set it never touched. Same construction as routing and
+   * breadcrumbs: memoise against an exact change signal. See `D21`.
+   */
   #localEndpointSnapshots(): readonly LocalEndpointSnapshot[] {
+    const version = this.#endpoints.version;
+    const cached = this.#endpointListCache;
+    if (cached !== undefined && cached.version === version) return cached.value;
+    const value = this.#buildLocalEndpointSnapshots();
+    this.#endpointListCache = { version, value };
+    return value;
+  }
+
+  #buildLocalEndpointSnapshots(): readonly LocalEndpointSnapshot[] {
     return [...this.#endpoints.values()].map((binding) => ({
       endpoint: binding.endpoint,
       bindingId: binding.bindingId,

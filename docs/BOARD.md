@@ -116,7 +116,7 @@ Severity `I2`.
 
 | ID | Move | Note |
 |---|---|---|
-| `B18` | Explain the event-loop saturation that remains under a stream | Partly advanced, not closed. Two further projections are memoised against exact change signals rather than rebuilt per message, and the sweep fell from 58 seconds to 38. What remains is characterised rather than explained: the loop drains about twelve times over a two hundred message run, and the blocks between drains average twenty milliseconds. Confirmed intent sets no performance target, so cost alone would not justify continuing; a block that moves a deadline is a correctness fault, which is why this keeps its `I2` |
+| `B18` | Explain the event-loop saturation that remains under a stream | Advanced, not closed. Three projections are memoised against exact change signals, and a session transition and a timer reset now commit session state rather than every collection the node holds. A message costs about 525 microseconds end to end, down from roughly a millisecond, and the sweep runs in 40 seconds against 284 originally. The open question is narrower and better posed: six operations commits land per delivered message, and no record says why that number is what it is |
 
 ---
 

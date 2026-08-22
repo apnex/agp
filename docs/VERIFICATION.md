@@ -310,7 +310,7 @@ A finding stays here until it is closed by a design decision or a regression tes
 |---|---|---|
 | `MX1` | A sender that offers messages back to back over WebSocket overruns the receiver, which commits `RECEIVE_OVERFLOW`, closes the session, purges its routes, and reconnects. Delivered messages equal `maxBufferedPackets` exactly, at every bound tested from 16 to 128. Every `send()` resolved successfully first. | Closed by `D19`, gated by `test/topology/credit-flow-control.test.js` |
 | `MX2` | A four-node diamond carrying twenty-four endpoints per node fails a two-second `routeAckTimeoutMs` while a stream is in flight, on sessions that carry no data of their own. Raising only that deadline to twenty seconds passes the same cell with every message delivered. | Closed by `D21`, gated by `packages/core/test/unit/write-path-cost.test.js` |
-| `MX3` | A stream saturates the event loop. Over a two hundred message run a one-millisecond interval timer fires about twelve times, so the loop drains roughly that often and the synchronous blocks between drains average around twenty milliseconds and reach ninety. End to end a message costs roughly one millisecond through a node pair. A block of that size moves any deadline sharing the loop, which is the mechanism that tore down healthy sessions before `D21`. | Open, characterised, cause not yet named |
+| `MX3` | A stream saturates the event loop. A one-millisecond interval timer fires about twelve times across a whole run, so the loop drains roughly that often and the synchronous blocks between drains average around twenty milliseconds. A block of that size moves any deadline sharing the loop, which is the mechanism that tore down healthy sessions before `D21`. Six operations commits land per delivered message, two of them formerly against every collection the node holds. | Open, reduced, cause partly named |
 | `MX4` | A node hop costs far more than the carrier beneath it: a raw WebSocket round trip is about 75 microseconds against roughly half a millisecond per message through a node pair. Unexplained, and not a breach of anything. | Open, opportunistic |
 
 `MX1` was reproducible and understood, and `D19` ratifies the mechanism that closed it.\
@@ -352,6 +352,10 @@ The measures kept above are the ones that survived the correction: an end-to-end
 
 The credit replenishment figure is the one worth reading twice.\
 It was the number the whole investigation began from, it was assumed to be credit's, and credit never touched it.
+
+Three further projections were memoised against exact change signals after `D21`, and session transitions and timer resets were narrowed to commit session state alone.\
+A message costs about 525 microseconds end to end through a node pair, down from roughly one millisecond, and the deepened sweep runs in about 40 seconds against 284 before any of this began.\
+What is not yet explained is why six commits are needed per delivered message, and that is the next thread rather than a conclusion.
 
 `MX3` and `MX4` are separated because confirmed intent scores them differently.\
 There is no performance target, so a cost that is merely large is not a defect and `MX4` is an opportunity rather than an obligation.\
@@ -424,19 +428,22 @@ The order below is the one that worked, and it is ordered deliberately.
    Reaching for a trace instead means the plane is missing something, and that absence is filed as a finding rather than worked around.
 2. **Measure with a clock.**\
    Line numbers in a log are not time, and treating them as time is how a first pass concluded that packets were being dropped when they were being read late.
-3. **Climb the ladder, do not measure the whole.**\
+3. **Repeat before believing.**\
+   A single stream run varies by a factor of two on an idle machine, so the ladder repeats and reports best, median and worst.\
+   Acting on one sample is how a regression and an outlier become indistinguishable, and a reading of 979 microseconds per message was nearly acted on before three further runs put it at 525.
+4. **Climb the ladder, do not measure the whole.**\
    `scripts/latency-ladder.mjs` adds one layer per rung, so the rung where the milliseconds appear names the layer that owns them.\
    A single end-to-end number cannot do that, and chasing one produces hypotheses rather than causes.
-4. **Sample event-loop lag underneath every measurement.**\
+5. **Sample event-loop lag underneath every measurement.**\
    In a single-process topology a slow path and a starved one look identical.\
    `test/support/loop-lag.js` separates them, and in `MX2` the lag was the finding.
-5. **Profile before fixing.**\
+6. **Profile before fixing.**\
    A processor profile named the function in one run, after reasoning had failed twice.\
    `node --cpu-prof` against one ladder rung is enough.
-6. **Prove the cause before believing it.**\
+7. **Prove the cause before believing it.**\
    Disable the suspected path, measure again, and require the number to move.\
    Two suspects were eliminated this way before the third survived.
-7. **Fix the shape, not the constant.**\
+8. **Fix the shape, not the constant.**\
    A tenfold constant improvement on a quadratic is a longer fuse, not a fix, and it will read as success on every benchmark small enough to run in a test.
 
 Measured cost of the instruments: recording an observation is about three nanoseconds, and advancing a counter about two.\
