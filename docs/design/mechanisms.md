@@ -80,6 +80,9 @@ AGP's schemas and owning design sections remain normative: an RFC rule applies o
 | F06 | Additional carrier bindings or transport selection | WebSocket and Loopback are the only canonical production transports in this refinement. One node uses one concrete adapter composition; it neither mixes adapters behind a composite resolver nor negotiates/dynamically selects a carrier in AGP OPEN. | Transport extensibility patterns | Requires a demonstrated production carrier, its sovereign binding/configuration/evidence contracts, the shared conformance kit, and a surveyed selection objective for mixed, fallback, migration, or dynamic composition. |
 | F07 | Certificate-based and authenticated WebSocket profiles | Confidentiality and peer authentication ship as the pre-shared-key profile, `M36`. X.509 certificate chains, HTTP Upgrade authentication, bearer tokens, and proxy trust remain excluded, as does full-mesh keying. | TLS with X.509 ([RFC 8446](https://www.rfc-editor.org/rfc/rfc8446)), HTTP authentication | Requires fresh intent. A mesh profile additionally requires a per-pair key model, because one key per node would let a single compromise forge every identity. |
 | F08 | Cross-process Loopback | Loopback carries a topology inside one process, and its fabric is an in-process object. This is the current design rather than a property of the transport: a shared-memory or memory-mapped carrier could serve the same contract across processes. | Shared-memory transports; memory-mapped ring buffers | Requires a use for a process-local carrier that spans processes, most immediately a like-for-like baseline when other carriers are measured with each node isolated. The packet-channel contract it must satisfy is unchanged. |
+| F09 | Batched cumulative delivery acknowledgement | No positive acknowledgement exists. A reverse breadcrumb is released by a failure or by expiry, never by success. | TCP cumulative and delayed acknowledgement ([RFC 9293](https://www.rfc-editor.org/rfc/rfc9293)); DTN custody signals ([RFC 5050](https://www.rfc-editor.org/rfc/rfc5050)) | Requires `MX7` to bind on a real deployment, and a ruling on when a transit hop acknowledges upstream: on successful forward, which releases immediately but makes a failure beyond that hop unreturnable, or on its own downstream acknowledgement, which preserves reverse reach at end-to-end retention. |
+| F10 | Request and response, and tool calling | One-way delivery only. `correlationId` crosses the wire and pairing is an application concern. | RPC and message correlation patterns | Requires a real consumer. A single correlated reply needs no wire change and belongs above the node; multi-response or streaming does need a wire concept and is a separate decision, not an extension of this one. |
+| F11 | Store-and-forward relay | A node forwards or refuses and never accepts custody on behalf of a destination. | SMTP relay; DTN bundle custody | Requires a deployment that needs it, and `MX7` first, because a relay is the node most likely to sustain a high rate. It is an application addressed as a destination, not a routing-plane capability. |
 
 ---
 
@@ -96,6 +99,29 @@ Before a new mechanism enters implementation:
 7. update the decision register when the choice changes protocol behavior.
 
 If the implementation differs from this index, the design must be revised and ratified; implementation precedent does not silently redefine the mechanism.
+
+### 4.1 Which layer owns a deferred mechanism
+
+`A3` earns a boundary by having one concern, so a mechanism is placed by asking whose concern it is rather than where it would be convenient.\
+Three entries above were reasoned through together and are recorded with their placement, because the tempting placement is the wrong one in each case.
+
+`F09` belongs to the AGP session layer, beside credit.\
+A carrier cannot release a breadcrumb because it does not know one exists, and an application cannot release one because it does not own it.\
+It is the structural dual of credit: credit is a receiver saying what a sender may send, and this is a receiver saying what a sender may forget.\
+Both are hop-local, session-scoped and ride an envelope, which argues for one carriage rather than two.
+
+`F10` belongs above the node.\
+The wire already carries a correlation identifier, so the kernel needs nothing, and putting call pairing into it would make every node hold call state and make the routing plane answerable for call semantics.\
+That is the `and` that `A3` forbids: a node would route and also broker calls.
+
+`F11` belongs to an application deployed as a node.\
+A relay accepts custody on its own behalf, as a destination, which is why it does not contradict the rule that no node accepts custody on behalf of a destination.\
+The placement that must be refused is a relay advertising the endpoint its worker advertises: that is custody entering the routing plane through the back door, and under `D6` it would shadow the real worker by deterministic selection rather than by intent.
+
+One property is shared by all three and by what is already built.\
+Breadcrumbs, acknowledgement state and pending calls are each a bounded store keyed by correlation and cleared by expiry.\
+`MX7` established what happens when only failure releases such a store: it stops being a bound on outstanding work and becomes a cap on throughput.\
+A correlation store that success releases does not have that failure mode, and each of these must be designed so that success releases it.
 
 ---
 

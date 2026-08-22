@@ -313,7 +313,7 @@ A finding stays here until it is closed by a design decision or a regression tes
 | `MX3` | A stream saturates the event loop. A one-millisecond interval timer fires about twelve times across a whole run, so the loop drains roughly that often and the synchronous blocks between drains average around twenty milliseconds. A block of that size moves any deadline sharing the loop, which is the mechanism that tore down healthy sessions before `D21`, and it starves any event subscriber that touches the macrotask queue. Six operations commits land per delivered message. | Open, reduced, consequence demonstrated |
 | `MX5` | A node stopped sending permanently after `maxReverseCorrelations` originated messages, because the expiry sweep that releases a breadcrumb was called from nowhere. | Closed, gated by `packages/node/test/contract/breadcrumb-expiry.test.js` |
 | `MX6` | An unhandled rejection on the inbound data path, from `dispatchData` discarding the result of `admitData` with `void`, ended the process. Reproduced once `MX5` was fixed and the sender could reach the receiver's refusal path. | Closed, gated by `packages/node/test/contract/inbound-dispatch-failure.test.js` |
-| `MX7` | Sustained send rate is bounded by `maxReverseCorrelations` divided by the correlation lifetime, about 136 messages a second at defaults against a burst ceiling near 2850. The lifetime is `max(30000, holdTimeMs)` and cannot be configured below the hold time, so the only tuning available is capacity, and matching the burst rate would need roughly 85000 retained correlations. | Open, characterised |
+| `MX7` | Sustained send rate is bounded by `maxReverseCorrelations` divided by the correlation lifetime, about 136 messages a second at defaults against a burst ceiling near 2850. A breadcrumb is released by a failure or by expiry and never by success, so a flow that never fails still fills the store. The retention window is a bound on reverse-error reach rather than on correctness, and it is currently acting as a throughput cap. | Open, reframed |
 | `MX4` | A node hop costs far more than the carrier beneath it: a raw WebSocket round trip is about 75 microseconds against roughly half a millisecond per message through a node pair. Unexplained, and not a breach of anything. | Open, opportunistic |
 
 `MX1` was reproducible and understood, and `D19` ratifies the mechanism that closed it.\
@@ -466,6 +466,15 @@ These are burst figures, and the sustained ceiling is a different number entirel
 A breadcrumb is retained for every message a node originates, and AGP has no delivery acknowledgement, so nothing can release it early: it waits out the reverse-correlation window whether or not the message arrived.\
 The sustained rate is therefore capacity divided by lifetime, about 136 messages a second at defaults, against a burst ceiling near 2850.\
 It arrives in cycles rather than smoothly, because a burst of correlations created together expires together: measured over forty seconds, 4096 admitted immediately, nothing for the next twenty seconds, then 4096 more.
+
+A breadcrumb holds no payload and is not load-bearing for delivery.\
+It is the reverse path: `D8` returns an error through breadcrumbs rather than through the RIB, so each hop keeps a record of who to tell if a later hop complains.\
+A missing or expired one degrades to `unreturnable`, which is discarded rather than fatal, so the retention window bounds how long an error can find its way home and bounds nothing else.
+
+That is what makes the current behaviour an anomaly rather than a cost.\
+AGP has no positive acknowledgement, so a breadcrumb can only ever be consumed by a failure; on success nothing releases it and it waits out the window.\
+A node is therefore throughput-capped by state it retains exclusively for failures that did not happen, and a quality knob is serving as a hard bound.\
+`F09` records the acknowledgement that would let success release it, and `F11` records why a store-and-forward relay would meet this ceiling before anything else does.
 
 Two consequences are worth stating plainly.\
 Matching the burst rate would need roughly eighty-five thousand retained correlations, which is a deliberate memory decision rather than a default.\
