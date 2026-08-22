@@ -116,7 +116,7 @@ Severity `I2`.
 
 | ID | Move | Note |
 |---|---|---|
-| `B18` | Explain the event-loop saturation that remains under a stream | Advanced, and now at diminishing returns. Three projections are memoised, a session transition and a timer reset commit session state rather than everything held, and a fourth memoisation was tried and reverted for producing no measurable gain. A steady-state profile of the stream window alone shows the remaining cost is distributed rather than concentrated: schema validation on encode and parse, event materialisation, and the state and action clones the session machine makes per command. There is no next single fix, which is why this should be re-scoped before more is spent on it |
+| `B18` | Explain the event-loop saturation that remains under a stream | Advanced, with its consequence now demonstrated rather than argued: a subscriber that yields to the macrotask queue receives 15 of 1205 events during a stream, because saturation removes its opportunities to drain. That is an observability failure under ordinary traffic and it raises the case for continuing. Three projections are memoised, a session transition and a timer reset commit session state rather than everything held, and a fourth memoisation was tried and reverted for producing no measurable gain. A steady-state profile of the stream window alone shows the remaining cost is distributed rather than concentrated: schema validation on encode and parse, event materialisation, and the state and action clones the session machine makes per command. There is no next single fix, which is why this should be re-scoped before more is spent on it |
 
 ---
 
@@ -171,6 +171,7 @@ Scored on the same scale, so not choosing them is visible.
 
 | Question | Blocks |
 |---|---|
+| Whether the operational event stream is meant to carry one event per delivered message | `B18`. Three events per message is what makes a subscriber need a buffer sized to the whole burst rather than to its own latency. Reducing the rate and raising the default buffer are different answers with different costs, and neither is an optimisation decision |
 | Whether six operations commits per delivered message is the intended cost of the event model, or an artifact | `B18`. Three are the delivery events themselves and read as inherent. One is a session transition published for a state that did not change, one is a timer reset, and one re-commits a reverse set that a local delivery never altered. Reducing them is a change to what a canonical revision means, which is not an optimisation decision |
 | Whether a node should be able to decline to grant at all, and what a deployment that does so is choosing | `B15`. The wire field is optional and an absent grant is unlimited, so a peer that never negotiated credit is unaffected. What is not built is the switch `D19` says a deployment has, and the default was set to grant because leaving `RECEIVE_OVERFLOW` reachable is the fault `D19` exists to remove |
 | Whether a matrix sweep should run on a schedule, and if so at what depth | `B4`, and whether cost data is worth collecting at all |

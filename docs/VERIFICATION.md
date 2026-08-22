@@ -310,7 +310,7 @@ A finding stays here until it is closed by a design decision or a regression tes
 |---|---|---|
 | `MX1` | A sender that offers messages back to back over WebSocket overruns the receiver, which commits `RECEIVE_OVERFLOW`, closes the session, purges its routes, and reconnects. Delivered messages equal `maxBufferedPackets` exactly, at every bound tested from 16 to 128. Every `send()` resolved successfully first. | Closed by `D19`, gated by `test/topology/credit-flow-control.test.js` |
 | `MX2` | A four-node diamond carrying twenty-four endpoints per node fails a two-second `routeAckTimeoutMs` while a stream is in flight, on sessions that carry no data of their own. Raising only that deadline to twenty seconds passes the same cell with every message delivered. | Closed by `D21`, gated by `packages/core/test/unit/write-path-cost.test.js` |
-| `MX3` | A stream saturates the event loop. A one-millisecond interval timer fires about twelve times across a whole run, so the loop drains roughly that often and the synchronous blocks between drains average around twenty milliseconds. A block of that size moves any deadline sharing the loop, which is the mechanism that tore down healthy sessions before `D21`. Six operations commits land per delivered message, two of them formerly against every collection the node holds. | Open, reduced, cause partly named |
+| `MX3` | A stream saturates the event loop. A one-millisecond interval timer fires about twelve times across a whole run, so the loop drains roughly that often and the synchronous blocks between drains average around twenty milliseconds. A block of that size moves any deadline sharing the loop, which is the mechanism that tore down healthy sessions before `D21`, and it starves any event subscriber that touches the macrotask queue. Six operations commits land per delivered message. | Open, reduced, consequence demonstrated |
 | `MX4` | A node hop costs far more than the carrier beneath it: a raw WebSocket round trip is about 75 microseconds against roughly half a millisecond per message through a node pair. Unexplained, and not a breach of anything. | Open, opportunistic |
 
 `MX1` was reproducible and understood, and `D19` ratifies the mechanism that closed it.\
@@ -359,6 +359,31 @@ A fourth was tried and reverted, and the negative result is worth more than the 
 Per-session route import and export views sit inside the connection projection and are rebuilt twice per delivered message against routing that has not moved, which is the same fault as the three that paid off.\
 Memoising them against the routing revision produced no measurable improvement, on the ladder or on the deepened sweep, so the machinery was removed rather than kept on the strength of the argument for it.\
 Two caches and their invalidation are a standing liability; an unmeasurable gain does not buy one.
+
+#### What loop saturation does to an event subscriber
+
+`MX3` was scored a latent correctness fault on the argument that a stall moves deadlines.\
+It has a second consequence that can be demonstrated rather than argued, and it is the clearer reason to care.
+
+A delivered message produces about three operational events, so four hundred messages produce about twelve hundred.\
+A subscriber that stays on the microtask queue keeps up with all of them and loses nothing.\
+A subscriber that yields to the macrotask queue, which is what any subscriber doing real work does, is scheduled about as often as the loop drains, and under a stream that is roughly twelve times in total.
+
+| Subscriber, 400 messages | Buffer | Gaps | Events reaching it |
+|---|---|---|---|
+| Does nothing | 256 | 0 | 1205 |
+| Yields a microtask | 256 | 0 | 1205 |
+| Yields a macrotask | 256 | 260 | 15 |
+| Yields a macrotask | 2048 | 0 | 746 |
+
+The bound is not the subscriber's speed and not a defect in the subscriber queue, which behaves exactly as specified and reports every drop.\
+It is that the buffer must absorb the whole burst rather than bridge the subscriber's own latency, because saturation removes the subscriber's opportunities to drain.\
+The buffer a deployment needs is therefore set by how badly the node saturates its loop, which is `MX3`, rather than by anything the operator controls about their own consumer.\
+Twelve hundred events against a default of 1024 makes that default marginal for a burst of this size.
+
+An earlier reading here concluded that buffer size made no difference at all.\
+That was wrong: the harness ignored the parameter being varied, so three runs at three nominal sizes were three runs at 256.\
+The instrument is now parameterised, and the rule it cost is in the method below.
 
 Absolute figures drift between sessions on a shared machine, and this is where that was learned.\
 The same measurement read 525 microseconds per message one hour and 670 the next with no change in between, and the deepened sweep read 40 seconds and then 25.\
@@ -440,24 +465,27 @@ The order below is the one that worked, and it is ordered deliberately.
 3. **Repeat before believing.**\
    A single stream run varies by a factor of two on an idle machine, so the ladder repeats and reports best, median and worst.\
    Acting on one sample is how a regression and an outlier become indistinguishable, and a reading of 979 microseconds per message was nearly acted on before three further runs put it at 525.
-4. **Compare within one session, never across them.**\
+4. **Prove the knob moved before believing the result.**\
+   A control that varies nothing produces three identical readings and reads as a strong negative.\
+   A parameter was passed to a harness that did not accept it, and the conclusion drawn was the opposite of the truth.
+5. **Compare within one session, never across them.**\
    The same unchanged measurement read 525 microseconds per message and then 670 an hour later, and a sweep read 40 seconds and then 25.\
    An A and a B taken hours apart compare the machine, not the change.
-5. **Climb the ladder, do not measure the whole.**\
+6. **Climb the ladder, do not measure the whole.**\
    `scripts/latency-ladder.mjs` adds one layer per rung, so the rung where the milliseconds appear names the layer that owns them.\
    A single end-to-end number cannot do that, and chasing one produces hypotheses rather than causes.
-6. **Sample event-loop lag underneath every measurement.**\
+7. **Sample event-loop lag underneath every measurement.**\
    In a single-process topology a slow path and a starved one look identical.\
    `test/support/loop-lag.js` separates them, and in `MX2` the lag was the finding.
-7. **Profile before fixing.**\
+8. **Profile before fixing.**\
    A processor profile named the function in one run, after reasoning had failed twice.\
    `node --cpu-prof` against one ladder rung is enough.
-8. **Prove the cause before believing it.**\
+9. **Prove the cause before believing it.**\
    Disable the suspected path, measure again, and require the number to move.\
    Two suspects were eliminated this way before the third survived.
-9. **Fix the shape, not the constant.**\
+10. **Fix the shape, not the constant.**\
    A tenfold constant improvement on a quadratic is a longer fuse, not a fix, and it will read as success on every benchmark small enough to run in a test.
-10. **Revert what cannot be shown to help.**\
+11. **Revert what cannot be shown to help.**\
    A change that is principled, small and unmeasurable is still machinery somebody must maintain and can get wrong.\
    Record the negative result so the next reader does not spend the same afternoon proving it again.
 

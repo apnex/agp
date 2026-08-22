@@ -36,6 +36,7 @@ export function uniformConfig({
   dataQueueMessages = 256,
   maxReverseCorrelations = 1024,
   transportReceivePackets,
+  eventSubscriberBuffer = 256,
 }) {
   return {
     nodeId,
@@ -68,7 +69,7 @@ export function uniformConfig({
       maxActiveHandlerBytes: 1_048_576,
       maxReverseCorrelations,
       maxEventSubscribers: 16,
-      eventSubscriberBuffer: 256,
+      eventSubscriberBuffer,
     },
   };
 }
