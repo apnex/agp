@@ -1367,6 +1367,12 @@ export class NodeImpl implements AgpNode, SessionHost {
           ),
           continuation: queueSnapshot(0, 1, 0, 1),
         },
+        ...(controller.latencySnapshot === undefined
+          ? {}
+          : { latency: controller.latencySnapshot }),
+        ...(controller.creditSnapshot === undefined
+          ? {}
+          : { credit: controller.creditSnapshot }),
         ...(controller.lastTransportTerminal === undefined
           ? {}
           : { lastTransportTerminal: controller.lastTransportTerminal }),

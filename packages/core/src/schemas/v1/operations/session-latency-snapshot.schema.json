@@ -1,0 +1,25 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:agp:schema:v1:core:operations:session-latency-snapshot",
+  "title": "AGP core session-latency-snapshot",
+  "x-agp": {
+    "owner": "@agp/core",
+    "typescript": "SessionLatencySnapshot",
+    "kind": "operations",
+    "mechanics": "Sovereign session-latency-snapshot data contract owned by @agp/core.",
+    "rationale": "One schema gives runtime validators and consumers one stable reasoning boundary.",
+    "consequence": "Accepting another shape would make canonical state or SDK interpretation ambiguous.",
+    "semanticRules": []
+  },
+  "type": "object",
+  "properties": {
+    "routeAck": {
+      "$ref": "urn:agp:schema:v1:core:operations:latency-sample"
+    },
+    "creditReplenishment": {
+      "$ref": "urn:agp:schema:v1:core:operations:latency-sample"
+    }
+  },
+  "required": [],
+  "additionalProperties": false
+}

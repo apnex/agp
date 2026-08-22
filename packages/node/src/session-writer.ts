@@ -35,6 +35,10 @@ export interface WriterCreditPort {
   recordDataSent(encodedBytes: number): void;
   /** Resolves once the peer raises its ceiling, or once the signal aborts. */
   whenCreditAdvances(signal: AbortSignal): Promise<void>;
+  /** A paced sender and an idle one are indistinguishable unless the waiting
+   * is counted, so the writer reports both edges of every stall. */
+  noteStallBegan(): void;
+  noteStallEnded(): void;
 }
 
 export type DataAdmission =
@@ -349,10 +353,12 @@ export class SessionWriter {
     const stall = new AbortController();
     this.#stallAbort = stall;
     const signal = AbortSignal.any([this.#writeAbort.signal, stall.signal]);
+    credit.noteStallBegan();
     try {
       await credit.whenCreditAdvances(signal);
       return this.#accepting && !this.#writeAbort.signal.aborted;
     } finally {
+      credit.noteStallEnded();
       this.#stallAbort = undefined;
     }
   }

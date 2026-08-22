@@ -42,6 +42,12 @@
         "queues": {
           "$ref": "urn:agp:schema:v1:core:operations:session-queues-snapshot"
         },
+        "latency": {
+          "$ref": "urn:agp:schema:v1:core:operations:session-latency-snapshot"
+        },
+        "credit": {
+          "$ref": "urn:agp:schema:v1:core:operations:session-credit-snapshot"
+        },
         "lastTransportTerminal": {
           "$ref": "urn:agp:schema:v1:transport:contracts:transport-terminal"
         }
@@ -87,6 +93,12 @@
         },
         "queues": {
           "$ref": "urn:agp:schema:v1:core:operations:session-queues-snapshot"
+        },
+        "latency": {
+          "$ref": "urn:agp:schema:v1:core:operations:session-latency-snapshot"
+        },
+        "credit": {
+          "$ref": "urn:agp:schema:v1:core:operations:session-credit-snapshot"
         },
         "lastTransportTerminal": {
           "$ref": "urn:agp:schema:v1:transport:contracts:transport-terminal"

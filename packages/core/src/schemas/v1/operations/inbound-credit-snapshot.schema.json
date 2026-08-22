@@ -1,0 +1,36 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:agp:schema:v1:core:operations:inbound-credit-snapshot",
+  "title": "AGP core inbound-credit-snapshot",
+  "x-agp": {
+    "owner": "@agp/core",
+    "typescript": "InboundCreditSnapshot",
+    "kind": "operations",
+    "mechanics": "Sovereign inbound-credit-snapshot data contract owned by @agp/core.",
+    "rationale": "One schema gives runtime validators and consumers one stable reasoning boundary.",
+    "consequence": "Accepting another shape would make canonical state or SDK interpretation ambiguous.",
+    "semanticRules": []
+  },
+  "type": "object",
+  "properties": {
+    "capacity": {
+      "$ref": "urn:agp:schema:v1:core:operations:credit-dimensions"
+    },
+    "read": {
+      "$ref": "urn:agp:schema:v1:core:operations:credit-dimensions"
+    },
+    "advertised": {
+      "$ref": "urn:agp:schema:v1:core:operations:credit-dimensions"
+    },
+    "announcements": {
+      "$ref": "urn:agp:schema:v1:core:common:counter-value"
+    }
+  },
+  "required": [
+    "capacity",
+    "read",
+    "advertised",
+    "announcements"
+  ],
+  "additionalProperties": false
+}

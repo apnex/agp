@@ -335,6 +335,13 @@ That measurement was taken at one-second resolution and is therefore an upper bo
 
 A cause is recorded once it is ruled out, so the same candidate is not tested twice.
 
+The first measurement taken through the projection `D20` requires put a figure on it.\
+A sender paced by a fourteen-packet grant stalled eight times over ninety messages and waited between eleven and fifteen milliseconds for each replenishment, over loopback, with the process otherwise idle.\
+That is the number the investigation is chasing, and it is now a query rather than a reconstruction.
+
+The projection itself is not a plausible contributor.\
+Recording an observation costs about three nanoseconds and advancing the read counter about two, against a replenishment measured in milliseconds; only the snapshot allocates, and it runs once per query rather than once per packet.
+
 | Candidate | Why it is eliminated |
 |---|---|
 | Small-write batching by the carrier | `ws` calls `socket.setNoDelay()` inside `setSocket`, which both the client path and the server path reach, so the algorithm that would delay a small frame behind an outstanding acknowledgement is disabled at both ends |

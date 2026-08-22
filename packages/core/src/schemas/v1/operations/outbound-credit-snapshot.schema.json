@@ -1,0 +1,45 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:agp:schema:v1:core:operations:outbound-credit-snapshot",
+  "title": "AGP core outbound-credit-snapshot",
+  "x-agp": {
+    "owner": "@agp/core",
+    "typescript": "OutboundCreditSnapshot",
+    "kind": "operations",
+    "mechanics": "Sovereign outbound-credit-snapshot data contract owned by @agp/core.",
+    "rationale": "One schema gives runtime validators and consumers one stable reasoning boundary.",
+    "consequence": "Accepting another shape would make canonical state or SDK interpretation ambiguous.",
+    "semanticRules": []
+  },
+  "type": "object",
+  "properties": {
+    "unlimited": {
+      "type": "boolean"
+    },
+    "ceiling": {
+      "$ref": "urn:agp:schema:v1:core:operations:credit-dimensions"
+    },
+    "sent": {
+      "$ref": "urn:agp:schema:v1:core:operations:credit-dimensions"
+    },
+    "remaining": {
+      "$ref": "urn:agp:schema:v1:core:operations:credit-dimensions"
+    },
+    "stalls": {
+      "$ref": "urn:agp:schema:v1:core:common:counter-value"
+    },
+    "stalledUs": {
+      "$ref": "urn:agp:schema:v1:core:common:duration-us"
+    },
+    "stalledSince": {
+      "$ref": "urn:agp:schema:v1:core:common:timestamp"
+    }
+  },
+  "required": [
+    "unlimited",
+    "sent",
+    "stalls",
+    "stalledUs"
+  ],
+  "additionalProperties": false
+}

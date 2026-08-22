@@ -1,0 +1,32 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:agp:schema:v1:core:operations:latency-sample",
+  "title": "AGP core latency-sample",
+  "x-agp": {
+    "owner": "@agp/core",
+    "typescript": "LatencySample",
+    "kind": "operations",
+    "mechanics": "Sovereign latency-sample data contract owned by @agp/core.",
+    "rationale": "One schema gives runtime validators and consumers one stable reasoning boundary.",
+    "consequence": "Accepting another shape would make canonical state or SDK interpretation ambiguous.",
+    "semanticRules": []
+  },
+  "type": "object",
+  "properties": {
+    "count": {
+      "$ref": "urn:agp:schema:v1:core:common:counter-value"
+    },
+    "lastUs": {
+      "$ref": "urn:agp:schema:v1:core:common:duration-us"
+    },
+    "highWaterUs": {
+      "$ref": "urn:agp:schema:v1:core:common:duration-us"
+    }
+  },
+  "required": [
+    "count",
+    "lastUs",
+    "highWaterUs"
+  ],
+  "additionalProperties": false
+}

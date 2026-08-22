@@ -515,6 +515,23 @@ export const coreSchemaDocumentsV1 = Object.freeze([
   },
   {
     "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "urn:agp:schema:v1:core:common:duration-us",
+    "title": "AGP core duration-us",
+    "x-agp": {
+      "owner": "@agp/core",
+      "typescript": "DurationUs",
+      "kind": "scalar",
+      "mechanics": "Sovereign duration-us data contract owned by @agp/core.",
+      "rationale": "One schema gives runtime validators and consumers one stable reasoning boundary.",
+      "consequence": "Accepting another shape would make canonical state or SDK interpretation ambiguous.",
+      "semanticRules": []
+    },
+    "type": "integer",
+    "minimum": 0,
+    "maximum": 9007199254740991
+  },
+  {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
     "$id": "urn:agp:schema:v1:core:common:event-sequence",
     "title": "AGP core event-sequence",
     "x-agp": {
@@ -3234,6 +3251,34 @@ export const coreSchemaDocumentsV1 = Object.freeze([
   },
   {
     "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "urn:agp:schema:v1:core:operations:credit-dimensions",
+    "title": "AGP core credit-dimensions",
+    "x-agp": {
+      "owner": "@agp/core",
+      "typescript": "CreditDimensions",
+      "kind": "operations",
+      "mechanics": "Sovereign credit-dimensions data contract owned by @agp/core.",
+      "rationale": "One schema gives runtime validators and consumers one stable reasoning boundary.",
+      "consequence": "Accepting another shape would make canonical state or SDK interpretation ambiguous.",
+      "semanticRules": []
+    },
+    "type": "object",
+    "properties": {
+      "bytes": {
+        "$ref": "urn:agp:schema:v1:core:common:counter-value"
+      },
+      "packets": {
+        "$ref": "urn:agp:schema:v1:core:common:counter-value"
+      }
+    },
+    "required": [
+      "bytes",
+      "packets"
+    ],
+    "additionalProperties": false
+  },
+  {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
     "$id": "urn:agp:schema:v1:core:operations:export-snapshot",
     "title": "AGP core export-snapshot",
     "x-agp": {
@@ -3451,6 +3496,74 @@ export const coreSchemaDocumentsV1 = Object.freeze([
         "additionalProperties": false
       }
     ]
+  },
+  {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "urn:agp:schema:v1:core:operations:inbound-credit-snapshot",
+    "title": "AGP core inbound-credit-snapshot",
+    "x-agp": {
+      "owner": "@agp/core",
+      "typescript": "InboundCreditSnapshot",
+      "kind": "operations",
+      "mechanics": "Sovereign inbound-credit-snapshot data contract owned by @agp/core.",
+      "rationale": "One schema gives runtime validators and consumers one stable reasoning boundary.",
+      "consequence": "Accepting another shape would make canonical state or SDK interpretation ambiguous.",
+      "semanticRules": []
+    },
+    "type": "object",
+    "properties": {
+      "capacity": {
+        "$ref": "urn:agp:schema:v1:core:operations:credit-dimensions"
+      },
+      "read": {
+        "$ref": "urn:agp:schema:v1:core:operations:credit-dimensions"
+      },
+      "advertised": {
+        "$ref": "urn:agp:schema:v1:core:operations:credit-dimensions"
+      },
+      "announcements": {
+        "$ref": "urn:agp:schema:v1:core:common:counter-value"
+      }
+    },
+    "required": [
+      "capacity",
+      "read",
+      "advertised",
+      "announcements"
+    ],
+    "additionalProperties": false
+  },
+  {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "urn:agp:schema:v1:core:operations:latency-sample",
+    "title": "AGP core latency-sample",
+    "x-agp": {
+      "owner": "@agp/core",
+      "typescript": "LatencySample",
+      "kind": "operations",
+      "mechanics": "Sovereign latency-sample data contract owned by @agp/core.",
+      "rationale": "One schema gives runtime validators and consumers one stable reasoning boundary.",
+      "consequence": "Accepting another shape would make canonical state or SDK interpretation ambiguous.",
+      "semanticRules": []
+    },
+    "type": "object",
+    "properties": {
+      "count": {
+        "$ref": "urn:agp:schema:v1:core:common:counter-value"
+      },
+      "lastUs": {
+        "$ref": "urn:agp:schema:v1:core:common:duration-us"
+      },
+      "highWaterUs": {
+        "$ref": "urn:agp:schema:v1:core:common:duration-us"
+      }
+    },
+    "required": [
+      "count",
+      "lastUs",
+      "highWaterUs"
+    ],
+    "additionalProperties": false
   },
   {
     "$schema": "https://json-schema.org/draft/2020-12/schema",
@@ -3885,6 +3998,51 @@ export const coreSchemaDocumentsV1 = Object.freeze([
   },
   {
     "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "urn:agp:schema:v1:core:operations:outbound-credit-snapshot",
+    "title": "AGP core outbound-credit-snapshot",
+    "x-agp": {
+      "owner": "@agp/core",
+      "typescript": "OutboundCreditSnapshot",
+      "kind": "operations",
+      "mechanics": "Sovereign outbound-credit-snapshot data contract owned by @agp/core.",
+      "rationale": "One schema gives runtime validators and consumers one stable reasoning boundary.",
+      "consequence": "Accepting another shape would make canonical state or SDK interpretation ambiguous.",
+      "semanticRules": []
+    },
+    "type": "object",
+    "properties": {
+      "unlimited": {
+        "type": "boolean"
+      },
+      "ceiling": {
+        "$ref": "urn:agp:schema:v1:core:operations:credit-dimensions"
+      },
+      "sent": {
+        "$ref": "urn:agp:schema:v1:core:operations:credit-dimensions"
+      },
+      "remaining": {
+        "$ref": "urn:agp:schema:v1:core:operations:credit-dimensions"
+      },
+      "stalls": {
+        "$ref": "urn:agp:schema:v1:core:common:counter-value"
+      },
+      "stalledUs": {
+        "$ref": "urn:agp:schema:v1:core:common:duration-us"
+      },
+      "stalledSince": {
+        "$ref": "urn:agp:schema:v1:core:common:timestamp"
+      }
+    },
+    "required": [
+      "unlimited",
+      "sent",
+      "stalls",
+      "stalledUs"
+    ],
+    "additionalProperties": false
+  },
+  {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
     "$id": "urn:agp:schema:v1:core:operations:pre-identity-controller-snapshot",
     "title": "AGP core pre-identity-controller-snapshot",
     "x-agp": {
@@ -3926,6 +4084,12 @@ export const coreSchemaDocumentsV1 = Object.freeze([
           },
           "queues": {
             "$ref": "urn:agp:schema:v1:core:operations:session-queues-snapshot"
+          },
+          "latency": {
+            "$ref": "urn:agp:schema:v1:core:operations:session-latency-snapshot"
+          },
+          "credit": {
+            "$ref": "urn:agp:schema:v1:core:operations:session-credit-snapshot"
           },
           "lastTransportTerminal": {
             "$ref": "urn:agp:schema:v1:transport:contracts:transport-terminal"
@@ -3972,6 +4136,12 @@ export const coreSchemaDocumentsV1 = Object.freeze([
           },
           "queues": {
             "$ref": "urn:agp:schema:v1:core:operations:session-queues-snapshot"
+          },
+          "latency": {
+            "$ref": "urn:agp:schema:v1:core:operations:session-latency-snapshot"
+          },
+          "credit": {
+            "$ref": "urn:agp:schema:v1:core:operations:session-credit-snapshot"
           },
           "lastTransportTerminal": {
             "$ref": "urn:agp:schema:v1:transport:contracts:transport-terminal"
@@ -4397,6 +4567,58 @@ export const coreSchemaDocumentsV1 = Object.freeze([
   },
   {
     "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "urn:agp:schema:v1:core:operations:session-credit-snapshot",
+    "title": "AGP core session-credit-snapshot",
+    "x-agp": {
+      "owner": "@agp/core",
+      "typescript": "SessionCreditSnapshot",
+      "kind": "operations",
+      "mechanics": "Sovereign session-credit-snapshot data contract owned by @agp/core.",
+      "rationale": "One schema gives runtime validators and consumers one stable reasoning boundary.",
+      "consequence": "Accepting another shape would make canonical state or SDK interpretation ambiguous.",
+      "semanticRules": []
+    },
+    "type": "object",
+    "properties": {
+      "outbound": {
+        "$ref": "urn:agp:schema:v1:core:operations:outbound-credit-snapshot"
+      },
+      "inbound": {
+        "$ref": "urn:agp:schema:v1:core:operations:inbound-credit-snapshot"
+      }
+    },
+    "required": [
+      "outbound"
+    ],
+    "additionalProperties": false
+  },
+  {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "urn:agp:schema:v1:core:operations:session-latency-snapshot",
+    "title": "AGP core session-latency-snapshot",
+    "x-agp": {
+      "owner": "@agp/core",
+      "typescript": "SessionLatencySnapshot",
+      "kind": "operations",
+      "mechanics": "Sovereign session-latency-snapshot data contract owned by @agp/core.",
+      "rationale": "One schema gives runtime validators and consumers one stable reasoning boundary.",
+      "consequence": "Accepting another shape would make canonical state or SDK interpretation ambiguous.",
+      "semanticRules": []
+    },
+    "type": "object",
+    "properties": {
+      "routeAck": {
+        "$ref": "urn:agp:schema:v1:core:operations:latency-sample"
+      },
+      "creditReplenishment": {
+        "$ref": "urn:agp:schema:v1:core:operations:latency-sample"
+      }
+    },
+    "required": [],
+    "additionalProperties": false
+  },
+  {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
     "$id": "urn:agp:schema:v1:core:operations:session-queues-snapshot",
     "title": "AGP core session-queues-snapshot",
     "x-agp": {
@@ -4477,6 +4699,12 @@ export const coreSchemaDocumentsV1 = Object.freeze([
       },
       "queues": {
         "$ref": "urn:agp:schema:v1:core:operations:session-queues-snapshot"
+      },
+      "latency": {
+        "$ref": "urn:agp:schema:v1:core:operations:session-latency-snapshot"
+      },
+      "credit": {
+        "$ref": "urn:agp:schema:v1:core:operations:session-credit-snapshot"
       },
       "lastTransportTerminal": {
         "$ref": "urn:agp:schema:v1:transport:contracts:transport-terminal"

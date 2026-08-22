@@ -4,6 +4,7 @@ export * from "./deterministic.js";
 export * from "./errors.js";
 export * from "./fsm.js";
 export * from "./immutable.js";
+export * from "./latency.js";
 export * from "./operations.js";
 export * from "./routing.js";
 export * from "./schema.js";

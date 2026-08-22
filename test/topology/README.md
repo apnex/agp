@@ -9,6 +9,7 @@ Raw peers appear only where the primary contract is an exact authoritative snaps
 | `burst-admission.test.js` | Concurrent sends each settle definitely, excess rejects QUEUE_FULL, and routing survives data saturation | Sequential ordering |
 | `stream-ordering.test.js` | Sustained traffic across one transit hop preserves order and returns handler capacity | Geometry beyond a line |
 | `credit-flow-control.test.js` | Traffic offered past the peer's receive ring is paced by its grant rather than lost, and the session survives it | Local queue bounds and geometry |
+| `credit-observability.test.js` | A paced session is readable while it is paced: ceiling, spend, stalls, waiting time, and the acknowledgement round trip | Whether the pacing is correct |
 | `route-volume.test.js` | Many endpoints converge, export within the negotiated snapshot bound, and stay individually resolvable | Message volume |
 | `star-convergence.test.js` | Multi-endpoint leaf reachability through one center | Alternative-path policy |
 | `line-transit.test.js` | Symmetric two-hop JSON transit | Cyclic control plane |

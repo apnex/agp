@@ -90,6 +90,10 @@ add("common", "timestamp", string({
   pattern: "^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}\\.\\d{3}Z$",
 }));
 add("common", "duration-ms", integer({ minimum: 0, maximum: 9007199254740991 }));
+// Microseconds, because the durations D20 measures are routinely below one
+// millisecond and an integer millisecond would report them as zero. Keeping
+// the unit integral avoids a float-precision argument inside a contract.
+add("common", "duration-us", integer({ minimum: 0, maximum: 9007199254740991 }));
 const unsigned64Decimal = {
   pattern: "^(0|[1-9][0-9]{0,19})$",
   ...semantic("CORE-MONOTONIC-EXHAUSTION-1"),
@@ -493,6 +497,48 @@ add("operations", "session-queues-snapshot", closed({
   data: ref(core("operations", "bounded-queue-snapshot")),
   continuation: ref(core("operations", "bounded-queue-snapshot")),
 }));
+
+// One shape for every duration the node measures, so a timing added later
+// reuses a primitive rather than inventing a field pair. Count is carried
+// because a high-water mark drawn from three samples and one drawn from three
+// thousand are not the same claim. See DECISIONS.md D20.
+add("operations", "latency-sample", closed({
+  count: ref(core("common", "counter-value")),
+  lastUs: ref(core("common", "duration-us")),
+  highWaterUs: ref(core("common", "duration-us")),
+}));
+add("operations", "credit-dimensions", closed({
+  bytes: ref(core("common", "counter-value")),
+  packets: ref(core("common", "counter-value")),
+}));
+// A cumulative ceiling and a cumulative spend, reported as they are held
+// rather than reduced to a percentage. Remaining is the derived one and is
+// carried anyway, because the subtraction is the question every reader asks.
+add("operations", "outbound-credit-snapshot", closed({
+  unlimited: bool,
+  ceiling: ref(core("operations", "credit-dimensions")),
+  sent: ref(core("operations", "credit-dimensions")),
+  remaining: ref(core("operations", "credit-dimensions")),
+  stalls: ref(core("common", "counter-value")),
+  stalledUs: ref(core("common", "duration-us")),
+  stalledSince: ref(core("common", "timestamp")),
+}, ["unlimited", "sent", "stalls", "stalledUs"]));
+add("operations", "inbound-credit-snapshot", closed({
+  capacity: ref(core("operations", "credit-dimensions")),
+  read: ref(core("operations", "credit-dimensions")),
+  advertised: ref(core("operations", "credit-dimensions")),
+  announcements: ref(core("common", "counter-value")),
+}));
+add("operations", "session-credit-snapshot", closed({
+  outbound: ref(core("operations", "outbound-credit-snapshot")),
+  inbound: ref(core("operations", "inbound-credit-snapshot")),
+}, ["outbound"]));
+// Neither is required: a session that never measured one reports nothing
+// rather than a zero that reads as an observation.
+add("operations", "session-latency-snapshot", closed({
+  routeAck: ref(core("operations", "latency-sample")),
+  creditReplenishment: ref(core("operations", "latency-sample")),
+}, []));
 add("operations", "route-import-state", closed({
   consumedRevision: integer({ minimum: 0, maximum: 9007199254740991 }),
   routeCount: integer({ minimum: 0 }),
@@ -530,6 +576,8 @@ const connectionCommon = {
   lastTransition: ref(core("operations", "session-transition-snapshot")),
   timers: { type: "array", items: ref(core("operations", "timer-snapshot")) },
   queues: ref(core("operations", "session-queues-snapshot")),
+  latency: ref(core("operations", "session-latency-snapshot")),
+  credit: ref(core("operations", "session-credit-snapshot")),
   lastTransportTerminal: ref(transport("contracts", "transport-terminal")),
 };
 add("operations", "pre-identity-controller-snapshot", {

@@ -1067,6 +1067,33 @@
       "integrationWitnesses": [
         "test/topology/credit-flow-control.test.js"
       ]
+    },
+    {
+      "requirementId": "D20",
+      "ratificationStatus": "ratified",
+      "authorities": [
+        {
+          "kind": "decision",
+          "reference": "D20",
+          "ratification": "ratified"
+        }
+      ],
+      "designReferences": [
+        "../DECISIONS.md#d20---observability-of-bounded-resources-and-timing"
+      ],
+      "schemaIds": [
+        "urn:agp:schema:v1:core:operations:latency-sample",
+        "urn:agp:schema:v1:core:operations:session-credit-snapshot",
+        "urn:agp:schema:v1:core:operations:session-latency-snapshot"
+      ],
+      "semanticRuleIds": [],
+      "owningGate": "AX6",
+      "owningTests": [
+        "packages/core/test/unit/latency-recorder.test.js"
+      ],
+      "integrationWitnesses": [
+        "test/topology/credit-observability.test.js"
+      ]
     }
   ]
 }

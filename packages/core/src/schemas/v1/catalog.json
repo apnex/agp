@@ -179,6 +179,14 @@
       "sha256": "f8e92a758c745d1821130726a9e5bb7418b3361a3de3a69e087081f407111ad0"
     },
     {
+      "id": "urn:agp:schema:v1:core:common:duration-us",
+      "owner": "@agp/core",
+      "path": "common/duration-us.schema.json",
+      "kind": "scalar",
+      "typescript": "DurationUs",
+      "sha256": "09768e3561e8a132060ac966cf013f09683e2a54d1193ff061348e64cde2469c"
+    },
+    {
       "id": "urn:agp:schema:v1:core:common:event-sequence",
       "owner": "@agp/core",
       "path": "common/event-sequence.schema.json",
@@ -715,6 +723,14 @@
       "sha256": "5c6f995f79a23bdc0e5ed0c967d89912fd94ee5a54ae861ce2b3eec700b8b8d4"
     },
     {
+      "id": "urn:agp:schema:v1:core:operations:credit-dimensions",
+      "owner": "@agp/core",
+      "path": "operations/credit-dimensions.schema.json",
+      "kind": "operations",
+      "typescript": "CreditDimensions",
+      "sha256": "afd0694a4ea4258a05e53504ef76c8d79d9727e8046f973ccb605632889b98d5"
+    },
+    {
       "id": "urn:agp:schema:v1:core:operations:export-snapshot",
       "owner": "@agp/core",
       "path": "operations/export-snapshot.schema.json",
@@ -745,6 +761,22 @@
       "kind": "operations",
       "typescript": "HostFailureSnapshot",
       "sha256": "7fcaa67a36f219d7b8d7a6b6fe692059292cb57e4ea2ed152f4d6cee07c710fa"
+    },
+    {
+      "id": "urn:agp:schema:v1:core:operations:inbound-credit-snapshot",
+      "owner": "@agp/core",
+      "path": "operations/inbound-credit-snapshot.schema.json",
+      "kind": "operations",
+      "typescript": "InboundCreditSnapshot",
+      "sha256": "89487a909df83537a07bc14c207c73996b37d13dd06b4f198cd6c1d4710bda6f"
+    },
+    {
+      "id": "urn:agp:schema:v1:core:operations:latency-sample",
+      "owner": "@agp/core",
+      "path": "operations/latency-sample.schema.json",
+      "kind": "operations",
+      "typescript": "LatencySample",
+      "sha256": "e8a94359251e13222bc04529da587ee9aa85dcc66a5c300d619220c5146cec78"
     },
     {
       "id": "urn:agp:schema:v1:core:operations:lifecycle-snapshot",
@@ -803,12 +835,20 @@
       "sha256": "455fc3267fa56be51e9556aa7a4df61e667f1fd63804b9b5becb87ec7672a85e"
     },
     {
+      "id": "urn:agp:schema:v1:core:operations:outbound-credit-snapshot",
+      "owner": "@agp/core",
+      "path": "operations/outbound-credit-snapshot.schema.json",
+      "kind": "operations",
+      "typescript": "OutboundCreditSnapshot",
+      "sha256": "0db047028ac3f3ca0da661b8631ca804f6cf2cedea81610d603964042416a547"
+    },
+    {
       "id": "urn:agp:schema:v1:core:operations:pre-identity-controller-snapshot",
       "owner": "@agp/core",
       "path": "operations/pre-identity-controller-snapshot.schema.json",
       "kind": "operations",
       "typescript": "PreIdentityControllerSnapshot",
-      "sha256": "3c8dfadf964fbed992969f5bfd2cc326165c979c1763c05a5ed13914fb7b7051"
+      "sha256": "44bcce788ca44b57feb3ccb981335e098d4210af60ec370402ed8063cbd9c76f"
     },
     {
       "id": "urn:agp:schema:v1:core:operations:resource-gauge",
@@ -883,6 +923,22 @@
       "sha256": "6ff3ea1166078d1bbd1c5e05129fd11bcf6d55cb7078e596da90bf391b6f8227"
     },
     {
+      "id": "urn:agp:schema:v1:core:operations:session-credit-snapshot",
+      "owner": "@agp/core",
+      "path": "operations/session-credit-snapshot.schema.json",
+      "kind": "operations",
+      "typescript": "SessionCreditSnapshot",
+      "sha256": "5025e5daca88cc340e4db3eaedc64d2a64f8b9f0eefd3deb9d55ba9490714d07"
+    },
+    {
+      "id": "urn:agp:schema:v1:core:operations:session-latency-snapshot",
+      "owner": "@agp/core",
+      "path": "operations/session-latency-snapshot.schema.json",
+      "kind": "operations",
+      "typescript": "SessionLatencySnapshot",
+      "sha256": "279c3b8cf6a293cee05399b156c45ecf56ba9376d4bd38dd4cc8fc12d67e014e"
+    },
+    {
       "id": "urn:agp:schema:v1:core:operations:session-queues-snapshot",
       "owner": "@agp/core",
       "path": "operations/session-queues-snapshot.schema.json",
@@ -896,7 +952,7 @@
       "path": "operations/session-snapshot.schema.json",
       "kind": "operations",
       "typescript": "SessionSnapshot",
-      "sha256": "19ed047803f36ce6963b4f9f32c94d4d02e542c4bc61970c0b33a7319d15c391"
+      "sha256": "339e6d2a3ab3c4582409d89990972c968569222abe4f7ad71d7741fe29459b85"
     },
     {
       "id": "urn:agp:schema:v1:core:operations:session-transition-snapshot",

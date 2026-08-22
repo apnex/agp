@@ -498,6 +498,52 @@ export interface SessionQueuesSnapshot {
   readonly continuation: BoundedQueueSnapshot;
 }
 
+/**
+ * One shape for every duration the node measures.
+ *
+ * The count is carried because a high-water mark drawn from three samples and
+ * one drawn from three thousand are not the same claim. See `D20`.
+ */
+export interface LatencySample {
+  readonly count: CounterValue;
+  readonly lastUs: number;
+  readonly highWaterUs: number;
+}
+
+export interface CreditDimensions {
+  readonly bytes: CounterValue;
+  readonly packets: CounterValue;
+}
+
+/** What the peer permits this node to send, and what that permission cost. */
+export interface OutboundCreditSnapshot {
+  readonly unlimited: boolean;
+  readonly ceiling?: CreditDimensions;
+  readonly sent: CreditDimensions;
+  readonly remaining?: CreditDimensions;
+  readonly stalls: CounterValue;
+  readonly stalledUs: number;
+  readonly stalledSince?: Timestamp;
+}
+
+/** What this node permits its peer to send, and what it has drained. */
+export interface InboundCreditSnapshot {
+  readonly capacity: CreditDimensions;
+  readonly read: CreditDimensions;
+  readonly advertised: CreditDimensions;
+  readonly announcements: CounterValue;
+}
+
+export interface SessionCreditSnapshot {
+  readonly outbound: OutboundCreditSnapshot;
+  readonly inbound?: InboundCreditSnapshot;
+}
+
+export interface SessionLatencySnapshot {
+  readonly routeAck?: LatencySample;
+  readonly creditReplenishment?: LatencySample;
+}
+
 interface ConnectionSnapshotBase {
   readonly direction: Direction;
   readonly state: ConnectionState;
@@ -505,6 +551,8 @@ interface ConnectionSnapshotBase {
   readonly lastTransition: SessionTransitionSnapshot;
   readonly timers: readonly TimerSnapshot[];
   readonly queues: SessionQueuesSnapshot;
+  readonly latency?: SessionLatencySnapshot;
+  readonly credit?: SessionCreditSnapshot;
   readonly lastTransportTerminal?: TransportTerminal;
 }
 

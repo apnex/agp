@@ -22,6 +22,7 @@ import {
 import {
   CreditGrantor,
   CreditSpend,
+  LatencyRecorder,
   createPeerSessionState,
   reducePeerSession,
   type Acquisition,
@@ -37,6 +38,8 @@ import {
   type RouteAdmissionDecision,
   type RouteAdmissionPort,
   type RouteImportResult,
+  type SessionCreditSnapshot,
+  type SessionLatencySnapshot,
   type TimerRuntimeInput,
 } from "@agp/core";
 import type {
@@ -144,6 +147,10 @@ export class PeerController implements DataSessionController {
   // peer; the spend is what the peer will accept of this node.
   readonly #grantor: CreditGrantor | undefined;
   readonly #spend = new CreditSpend();
+  // A route acknowledgement is already timed by a deadline. Timing it as an
+  // observation as well is what turns an expiry from a verdict into evidence.
+  readonly #routeAckLatency = new LatencyRecorder();
+  #routeUpdateWrittenAtMs: number | undefined;
 
   constructor(input: {
     readonly host: SessionHost;
@@ -185,7 +192,43 @@ export class PeerController implements DataSessionController {
         this.#spend.admit(bytes);
       },
       whenCreditAdvances: (signal) => this.#spend.whenAdvanced(signal),
+      noteStallBegan: () => this.#spend.beginStall(this.#host.clock.monotonicMs()),
+      noteStallEnded: () => this.#spend.endStall(this.#host.clock.monotonicMs()),
     };
+  }
+
+  /**
+   * What this session is doing with credit, for the operations plane.
+   *
+   * Absent when this node grants nothing and the peer granted nothing, so an
+   * unpaced session reports no pacing rather than reporting zeroes that look
+   * like measurements.
+   */
+  get creditSnapshot(): SessionCreditSnapshot | undefined {
+    const grantor = this.#grantor;
+    if (grantor === undefined && this.#spend.unlimited) return undefined;
+    const stalledSinceMs = this.#spend.stalledSinceMs;
+    return Object.freeze({
+      outbound: this.#spend.snapshot(
+        stalledSinceMs === undefined
+          ? undefined
+          : this.#host.clock.wallTime(),
+      ),
+      ...(grantor === undefined ? {} : { inbound: grantor.snapshot() }),
+    });
+  }
+
+  /** Durations this session has observed, for the operations plane. */
+  get latencySnapshot(): SessionLatencySnapshot | undefined {
+    const routeAck = this.#routeAckLatency.sample;
+    const replenishment = this.#spend.replenishment.sample;
+    if (routeAck === undefined && replenishment === undefined) return undefined;
+    return Object.freeze({
+      ...(routeAck === undefined ? {} : { routeAck }),
+      ...(replenishment === undefined
+        ? {}
+        : { creditReplenishment: replenishment }),
+    });
   }
 
   /** The cumulative ceiling this node currently offers its peer. */
@@ -331,6 +374,7 @@ export class PeerController implements DataSessionController {
     void written.then(
       () => {
         void this.#host.executor.run(() => {
+          this.#routeUpdateWrittenAtMs = this.#host.clock.monotonicMs();
           this.#dispatch({ type: "RouteUpdateWritten" });
           this.#arm(
             "routeAck",
@@ -412,6 +456,23 @@ export class PeerController implements DataSessionController {
         }
       });
     }
+  }
+
+  /**
+   * How long the peer took to acknowledge the snapshot this node wrote.
+   *
+   * The deadline already knows this number and throws it away, reporting only
+   * that it was exceeded. Keeping it turns an expiry into a measurement, and a
+   * session that is merely slow becomes distinguishable from one that is
+   * stuck before the deadline decides.
+   */
+  #observeRouteAckLatency(): void {
+    const writtenAt = this.#routeUpdateWrittenAtMs;
+    if (writtenAt === undefined) return;
+    this.#routeUpdateWrittenAtMs = undefined;
+    this.#routeAckLatency.record(
+      (this.#host.clock.monotonicMs() - writtenAt) * 1000,
+    );
   }
 
   #observePeerCredit(message: AgpMessage): void {
@@ -704,6 +765,7 @@ export class PeerController implements DataSessionController {
         break;
       }
       case "AcceptRouteAck":
+        this.#observeRouteAckLatency();
         this.#cancel("routeAck");
         if (message?.type !== "route.ack" || !this.#host.acceptRouteAck(this, message)) {
           this.terminate("INVALID_MESSAGE");

@@ -1,0 +1,28 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:agp:schema:v1:core:operations:credit-dimensions",
+  "title": "AGP core credit-dimensions",
+  "x-agp": {
+    "owner": "@agp/core",
+    "typescript": "CreditDimensions",
+    "kind": "operations",
+    "mechanics": "Sovereign credit-dimensions data contract owned by @agp/core.",
+    "rationale": "One schema gives runtime validators and consumers one stable reasoning boundary.",
+    "consequence": "Accepting another shape would make canonical state or SDK interpretation ambiguous.",
+    "semanticRules": []
+  },
+  "type": "object",
+  "properties": {
+    "bytes": {
+      "$ref": "urn:agp:schema:v1:core:common:counter-value"
+    },
+    "packets": {
+      "$ref": "urn:agp:schema:v1:core:common:counter-value"
+    }
+  },
+  "required": [
+    "bytes",
+    "packets"
+  ],
+  "additionalProperties": false
+}

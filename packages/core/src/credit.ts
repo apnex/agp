@@ -1,6 +1,11 @@
 import type { CreditGrant } from "@agp/protocol";
 
 import { AgpError } from "./errors.js";
+import { LatencyRecorder } from "./latency.js";
+import type {
+  InboundCreditSnapshot,
+  OutboundCreditSnapshot,
+} from "./types.js";
 
 /**
  * Per-hop credit, the peer-facing half of resource governance.
@@ -40,6 +45,12 @@ export class CreditSpend {
   #sentBytes = 0;
   #sentPackets = 0;
   #waiters: Array<() => void> = [];
+  // Pacing is invisible from the outside: a paced sender and an idle one look
+  // identical unless the waiting is counted. `D20` requires it counted.
+  readonly #replenishment = new LatencyRecorder();
+  #stalls = 0;
+  #stalledUs = 0;
+  #stalledSinceMs: number | undefined;
 
   constructor(initial?: CreditGrant) {
     if (initial !== undefined && !isCreditGrant(initial)) {
@@ -127,6 +138,58 @@ export class CreditSpend {
     return remaining.packets >= 1 && remaining.bytes >= bytes;
   }
 
+  /**
+   * Records that the sender has stopped because the peer has no room.
+   *
+   * Time is passed in rather than read, so the recorder holds no clock and a
+   * test can state the duration it is asserting on.
+   */
+  beginStall(monotonicMs: number): void {
+    if (this.#stalledSinceMs !== undefined) return;
+    this.#stalledSinceMs = monotonicMs;
+    this.#stalls += 1;
+  }
+
+  /** Records that the peer made room, and how long that took. */
+  endStall(monotonicMs: number): void {
+    const since = this.#stalledSinceMs;
+    if (since === undefined) return;
+    this.#stalledSinceMs = undefined;
+    const waitedUs = Math.max(0, Math.round((monotonicMs - since) * 1000));
+    this.#stalledUs += waitedUs;
+    this.#replenishment.record(waitedUs);
+  }
+
+  /** How long this sender has waited for the peer to make room. */
+  get replenishment(): LatencyRecorder {
+    return this.#replenishment;
+  }
+
+  get stalledSinceMs(): number | undefined {
+    return this.#stalledSinceMs;
+  }
+
+  /**
+   * The projection `D20` requires, in the shape the operations plane fixes.
+   *
+   * `stalledUs` counts only completed waits. A stall still in progress is
+   * reported by `stalledSince` instead, because adding a partial wait to a
+   * total would make the same stall countable twice.
+   */
+  snapshot(stalledSince?: string): OutboundCreditSnapshot {
+    const ceiling = this.#ceiling;
+    const remaining = this.remaining;
+    return Object.freeze({
+      unlimited: ceiling === undefined,
+      ...(ceiling === undefined ? {} : { ceiling: dimensions(ceiling) }),
+      sent: dimensions({ bytes: this.#sentBytes, packets: this.#sentPackets }),
+      ...(remaining === undefined ? {} : { remaining: dimensions(remaining) }),
+      stalls: String(this.#stalls),
+      stalledUs: this.#stalledUs,
+      ...(stalledSince === undefined ? {} : { stalledSince }),
+    });
+  }
+
   admit(bytes: number): void {
     if (!this.canAdmit(bytes)) {
       throw new AgpError(
@@ -154,6 +217,8 @@ export class CreditGrantor {
   #readBytes = 0;
   #readPackets = 0;
   #advertisedPackets = 0;
+  #advertisedBytes = 0;
+  #announcements = 0;
 
   constructor(limits: { readonly bytes: number; readonly packets: number }) {
     if (
@@ -169,6 +234,23 @@ export class CreditGrantor {
     this.#capacityBytes = limits.bytes;
     this.#capacityPackets = limits.packets;
     this.#advertisedPackets = limits.packets;
+    this.#advertisedBytes = limits.bytes;
+  }
+
+  /** The projection `D20` requires, in the shape the operations plane fixes. */
+  snapshot(): InboundCreditSnapshot {
+    return Object.freeze({
+      capacity: dimensions({
+        bytes: this.#capacityBytes,
+        packets: this.#capacityPackets,
+      }),
+      read: dimensions({ bytes: this.#readBytes, packets: this.#readPackets }),
+      advertised: dimensions({
+        bytes: this.#advertisedBytes,
+        packets: this.#advertisedPackets,
+      }),
+      announcements: String(this.#announcements),
+    });
   }
 
   /** The cumulative ceiling to place on the next envelope. */
@@ -187,7 +269,10 @@ export class CreditGrantor {
 
   /** Records that the current ceiling has been put on the wire. */
   advertised(): void {
-    this.#advertisedPackets = this.grant.packets;
+    const grant = this.grant;
+    this.#advertisedPackets = grant.packets;
+    this.#advertisedBytes = grant.bytes;
+    this.#announcements += 1;
   }
 
   /**
@@ -204,4 +289,13 @@ export class CreditGrantor {
     return advanced >= Math.max(1, Math.floor(this.#capacityPackets / 2));
   }
 
+}
+
+function dimensions(
+  grant: { readonly bytes: number; readonly packets: number },
+): { readonly bytes: string; readonly packets: string } {
+  return Object.freeze({
+    bytes: String(grant.bytes),
+    packets: String(grant.packets),
+  });
 }

@@ -16,6 +16,7 @@ function creditedWriter({ packets }) {
   const transport = fakeConnection();
   let allowance = packets;
   let wake = () => {};
+  const stalls = { began: 0, ended: 0 };
   const writer = new SessionWriter(transport.connection, {
     maximumQueuedDataMessages: 64,
     maximumQueuedDataBytes: 1_048_576,
@@ -31,10 +32,17 @@ function creditedWriter({ packets }) {
         wake = resolve;
         signal.addEventListener("abort", () => resolve(), { once: true });
       }),
+    noteStallBegan: () => {
+      stalls.began += 1;
+    },
+    noteStallEnded: () => {
+      stalls.ended += 1;
+    },
   });
   return {
     writer,
     transport,
+    stalls,
     grant(more) {
       allowance += more;
       wake();
@@ -126,6 +134,21 @@ test("Given a queue stalled on credit, when a route snapshot sits behind the hel
     ["d1", "ack", "d2", "withdraw"],
     "the withdrawal lands after the data it withdraws",
   );
+});
+
+test("Given a stall that begins and ends, when the writer reports it, then both edges are announced so the waiting can be timed", async () => {
+  const { writer, stalls, grant } = creditedWriter({ packets: 1 });
+
+  admitData(writer, "d1");
+  admitData(writer, "d2");
+  await settle();
+  assert.deepEqual(stalls, { began: 1, ended: 0 }, "a stall in progress is open");
+
+  grant(4);
+  await settle();
+  // Unbalanced edges would leave a session permanently reporting that it is
+  // waiting, which is worse than reporting nothing.
+  assert.equal(stalls.began, stalls.ended, "every stall must be closed");
 });
 
 test("Given a writer stalled on credit, when it is stopped, then the stall releases and every held task settles", async () => {

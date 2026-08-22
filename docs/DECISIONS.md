@@ -26,6 +26,7 @@ The stakeholder authorized autonomous implementation after design completion and
 | D17 | Make Loopback a canonical production transport for process-local AGP topologies | Explicit stakeholder approval 2026-07-30 | Ratified |
 | D18 | Provide confidentiality and peer authentication through a pre-shared-key transport profile, without certificate infrastructure | Explicit stakeholder direction | Ratified |
 | D19 | Govern per-hop admission with two-dimension credit the receiver grants and the sender may not exceed | Explicit stakeholder direction | Ratified |
+| D20 | Project every bounded resource and every timing the node governs into the sovereign operations plane | `A1` + `A14` + explicit stakeholder direction | Ratified |
 
 ---
 
@@ -553,6 +554,52 @@ The same stall silences `route.ack`, and a peer timing an acknowledgement it wil
 Both were observed before the reserve and the overtake existed.
 
 Advertising the whole ring rather than the ring minus a reserve would remove the room an overtaking control message needs, which reintroduces the same deadlock through the other side.
+
+### D20 - Observability of bounded resources and timing
+
+**Mechanics.**\
+Every bounded resource the node governs is projected into the sovereign operations plane, in the shape the plane already uses: a current value, the maximum it is bounded by, and the high-water mark it has reached.
+
+Credit is such a resource, held per session and per direction, and it is projected like the rest.\
+The outbound direction reports the ceiling the peer granted, what this node has sent against it, what remains, how many times it stalled, and how long it has spent stalled.\
+The inbound direction reports the capacity offered, what has been read, and the ceiling last put on the wire.
+
+Timing the node governs is state, and is projected as state rather than emitted as a log.\
+One reusable sample carries a count, the last observed duration, and the highest observed duration, and any timing the node can measure uses it rather than inventing its own shape.\
+The two the node measures today are how long a sender waited for replenishment and how long a route acknowledgement took to return.
+
+The plane carries aggregates and last-observed samples, and does not carry per-event history.\
+A node that retained a timeline would make its own memory a function of its traffic, which is the bound problem again in a new place.\
+Per-event timelines belong to the harness, which is bounded by a test rather than by an uptime.
+
+An investigation reads the plane before it reaches for a trace.\
+Reaching for a trace instead is evidence that the plane is missing something, and that evidence is filed as a finding rather than absorbed as a workaround.
+
+**Rationale.**\
+`A1` requires that no functional unit hold private truth, and every bounded resource in AGP satisfied it except the one added most recently.\
+Queues report current, maximum and high water for messages and bytes; handlers and breadcrumbs report the same through a gauge; timers report their remaining time.\
+Credit shipped with none of it, and the cost arrived immediately rather than eventually.
+
+The first investigation into credit timing was conducted by patching console output into built artifacts.\
+The instrumentation was lost on every rebuild, applied twice on one occasion and corrupted its own counts, and line numbers were read as though they were a clock.\
+That is `A5`: an agent acting on state it derived rather than state it was given, at a cost that would have bought the projection several times over.
+
+Aggregates and high-water marks are constant-time and allocation-free, so an always-on projection does not change the timing it reports.\
+A per-event trace does change it, which is the substantive reason it stays outside the node rather than a matter of taste.
+
+A timing defect is a class, not an incident.\
+Building the projection once converts every future member of that class from an archaeology exercise into a query, which is the compounding that `A14` requires an investment to demonstrate.
+
+**Consequence.**\
+Shipping a bounded resource without its projection reintroduces exactly the fault this record exists to remove, and it stays invisible until someone has to diagnose it under pressure.
+
+Retaining per-event history inside the node makes memory a function of traffic, so the observability intended to guard a bound becomes an unbounded resource itself.
+
+Projecting a derived duration rather than an observed one would let the plane state a number that nothing measured, which is worse than stating nothing.
+
+Making the projection expensive enough to perturb the timing it reports turns the instrument into the defect, and every measurement taken through it becomes unfalsifiable.
+
+Emitting timing only as a log leaves it unqueryable and unretained, so two actors diagnosing the same node reason from different reconstructions of it.
 
 ---
 
