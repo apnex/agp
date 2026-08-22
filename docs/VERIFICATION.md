@@ -372,7 +372,7 @@ A message is one JSON envelope in one WebSocket frame, so this is the whole cost
 | Schema validations | 3.07 | 2.07 | One per encode, one per parse |
 | `parseAgpPacket` | 1.03 | 1.03 | |
 | Preflight scans | 1.03 | 1.03 | |
-| Operational events | 4.10 | 4.10 | Three delivery events and one self-transition |
+| Operational events | 4.10 | 3.07 | The self-transition is recorded, not announced |
 
 Measured against each other in one session, three runs each, the pair moved from about 768 to about 679 microseconds per message.
 
@@ -387,6 +387,10 @@ A revision denotes a change to canonical state; issuing one for a commit that wr
 
 The same fault remains on the transit path, where classification encodes a preview and forwarding encodes again.\
 It is left because the two happen in different functions and the restructuring is larger than the one above, not because it is different.
+
+The fourth event per message was a `session.transition` announcing that the session stayed `Established`.\
+`D22` records why it is now withheld for a delivery and kept for a keepalive, and the short of it is that the delivery already announced itself three times while the keepalive announces nothing else.\
+Three events per delivered message remain, and all three are earned.
 
 #### What loop saturation does to an event subscriber
 

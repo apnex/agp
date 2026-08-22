@@ -794,10 +794,23 @@ export class NodeImpl implements AgpNode, SessionHost {
           : { reasonCode: current.lastReason }),
       },
     });
-    this.#commitSessionState({
-      kind: "session.transition",
-      subjectId: controller.controllerId,
-    });
+    // The snapshot records every self-transition, because `LAST_EVENT` must
+    // show that a session is processing keepalives and data even while its
+    // state name does not move. The event stream does not.
+    //
+    // A delivered message already announces itself three times, so a fourth
+    // event saying the session stayed Established tells a subscriber nothing
+    // the other three did not, and it is the only one of the four whose rate
+    // is set by traffic rather than by anything happening. A self-transition
+    // driven by a keepalive is kept: it is the sole sign of life on an idle
+    // session, and the keepalive timer already bounds it to a few a minute.
+    const announced = current.state !== previous.state
+      || event !== "DataReceived";
+    this.#commitSessionState(
+      announced
+        ? { kind: "session.transition", subjectId: controller.controllerId }
+        : undefined,
+    );
   }
 
   sessionTimersChanged(_controller: PeerController): void {

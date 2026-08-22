@@ -28,6 +28,7 @@ The stakeholder authorized autonomous implementation after design completion and
 | D19 | Govern per-hop admission with two-dimension credit the receiver grants and the sender may not exceed | Explicit stakeholder direction | Ratified |
 | D20 | Project every bounded resource and every timing the node governs into the sovereign operations plane | `A1` + `A14` + explicit stakeholder direction | Ratified |
 | D21 | Make the cost of a write proportional to what changed, never to what is held | Measurement + `A1` + `A11` | Ratified |
+| D22 | Announce a self-transition only when nothing else already reports it | Measurement + explicit stakeholder direction | Ratified |
 
 ---
 
@@ -653,6 +654,44 @@ Rebuilding an immutable projection on every commit ties the cost of one message 
 Computing an ordering key inside a comparator multiplies that key by the logarithm of the set size, on the write path, where the set is largest.
 
 A write path that scales with held state makes every latency measurement in the system suspect, because the observer and the observed share one event loop.
+
+### D22 - Self-transitions are recorded, and announced only when unreported
+
+**Mechanics.**\
+A session that stays `Established` transitions to itself on everything it processes.\
+The snapshot records every one of them, because `LAST_EVENT` is how an operator sees that a session is working.
+
+The event stream announces a self-transition only when no other event already reports the same activity.\
+A delivered message announces itself as accepted, received and handled, so the transition that accompanied it is recorded and not announced.\
+A keepalive announces nothing else, so its self-transition is announced.
+
+Every change of state is announced, without exception.\
+The distinction is between a state change and a self-transition, and then between a self-transition that is already reported and one that is not.
+
+**Rationale.**\
+An event named `transition`, emitted when nothing transitioned, is at best imprecise.\
+What makes it worth correcting rather than tolerating is that its rate was set by traffic.
+
+A subscriber that yields to the macrotask queue, which is what any subscriber doing real work does, received fifteen of twelve hundred events during a stream.\
+It is scheduled about as often as the event loop drains, and under load that is rarely, so the buffer must absorb the whole burst rather than bridge the subscriber's own latency.\
+An event stream whose volume scales with traffic therefore displaces exactly the events an operator is watching for, and it does so hardest at the moment they most want to be watching.
+
+The keepalive case is kept for the opposite reason.\
+An idle session emits no delivery events at all, so a withheld self-transition would leave a healthy session silent, and the keepalive timer already bounds that announcement to a few a minute.\
+The rule is therefore about whether the activity is otherwise reported, not about whether the state changed.
+
+This does not touch liveness in either sense that matters to the protocol.\
+A received message still resets the hold timer, and the snapshot still shows the session working.\
+Only the duplicate announcement is withheld.
+
+**Consequence.**\
+Announcing every self-transition makes the event rate a function of traffic, so a subscriber loses the events it exists to see precisely when the node is busiest.
+
+Withholding the keepalive self-transition as well would leave an idle but healthy session with no sign of life in the stream at all.
+
+Withholding the snapshot's record along with the announcement would remove the column an operator reads to see that a session is processing anything, which section 6.1 of the operations design requires to count self-transitions.
+
+Suppressing an announcement for a real change of state would hide a session leaving `Established`, which is the one transition every consumer is watching for.
 
 ---
 

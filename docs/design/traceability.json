@@ -1119,6 +1119,32 @@
       "integrationWitnesses": [
         "test/topology/credit-observability.test.js"
       ]
+    },
+    {
+      "requirementId": "D22",
+      "ratificationStatus": "ratified",
+      "authorities": [
+        {
+          "kind": "decision",
+          "reference": "D22",
+          "ratification": "ratified"
+        }
+      ],
+      "designReferences": [
+        "../DECISIONS.md#d22---self-transitions-are-recorded-and-announced-only-when-unreported",
+        "operations.md"
+      ],
+      "schemaIds": [
+        "urn:agp:schema:v1:core:operations:session-transition-snapshot"
+      ],
+      "semanticRuleIds": [],
+      "owningGate": "AX6",
+      "owningTests": [
+        "packages/node/test/contract/session-transition-emission.test.js"
+      ],
+      "integrationWitnesses": [
+        "test/topology/credit-observability.test.js"
+      ]
     }
   ]
 }

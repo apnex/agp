@@ -451,7 +451,10 @@ SESSION_ID  REMOTE_NODE  DIRECTION  STATE  UPTIME  TTL  LAST_EVENT
   is active.
 - `LAST_EVENT` is `lastTransition.event`.
 - Self-transitions count, so keepalives and other processed Established events
-  remain visible even when the state name does not change.
+  remain visible even when the state name does not change. This is a property
+  of the snapshot. The event stream announces a self-transition only when no
+  other event already reports the same activity, so a delivery is recorded here
+  and not announced there, while a keepalive is both. See `D22`.
 - The reason code remains available in JSON; it is not mislabeled as an event.
 - One HTTP snapshot supplies every row, so time values do not drift while
   formatting.
