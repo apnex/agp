@@ -57,40 +57,58 @@ An item that is `I4`/`P1` belongs early even though nobody feels it today, becau
 | `B6` | Certificate and HTTP-authenticated WebSocket profiles | `I3` | `P3` | [`F07`](design/mechanisms.md) |
 | `B7` | Route volume beyond the 256 snapshot ceiling | `I3` | `P3` | [`D4`](DECISIONS.md#d4---full-route-snapshots) |
 | `B8` | Rewrite named geometry tests onto shared builders | `I4` | `P4` | [`VERIFICATION.md` section 4.7](VERIFICATION.md#47-matrix-execution) |
+| `B9` | State the plane, layer, and cross-cutting decomposition in the architecture | `I4` | `P3` | [`design/README.md` section 4](design/README.md#4-logical-architecture), [`D19`](DECISIONS.md#d19---per-hop-credit-flow-control) |
+| `B10` | Author an enduring intent statement for AGP | `I4` | `P3` | [`design/README.md` section 9](design/README.md#9-scope-boundary), [`DECISIONS.md` section 2](DECISIONS.md#2-confirmed-intent) |
 
 ---
 
 ## M1 - Close the open correctness finding
 
+Severity `I1`.\
 Status: **selected, not started.**
 
 | ID | Move | Why it is first |
 |---|---|---|
-| `B1` | Implement `D19`: envelope and `OPEN` credit fields, grant computation and enforcement beside `capacity-ledger`, and a regression test that currently fails | The only `I1` on the board. A sender silently loses messages after `send()` resolves, and the session resets. `D19` is ratified, so the mechanism is settled and only the build remains |
+| `B1` | Implement `D19`: envelope and `OPEN` credit fields, grant computation and enforcement beside `capacity-ledger`, and a regression test | The only `I1` on the board. A sender silently loses messages after `send()` resolves, and the session resets. `D19` is ratified, so only the build remains |
 
-`B1` has a ready oracle: `npm run test:matrix:all --deep` currently reports 59 of 70 cells and must reach 70.
+`B1` has a ready oracle: `npm run test:matrix:all --deep` reports 59 of 70 cells and must reach 70.
 
----
-
-## M2 - Make the record honest
-
-Status: legal now; `B2` is independent of `B1`.
-
-| ID | Move | Note |
-|---|---|---|
-| `B2` | Align the pause wording with the implementation, or the implementation with the wording | Neither prevents the overrun, so this is a truth defect rather than a behaviour defect. Best done with `B1`, which changes the same paragraph |
+It also has an internal order fixed by `D3`, which forbids runtime code before its contracts pass their gate.\
+Schemas and `OPEN` negotiation land first, then enforcement, then the regression.\
+The compatibility posture under `Decisions required` blocks the first of those three, not the whole move.
 
 ---
 
-## M3 - Make the harness reason about itself
+## M2 - Stop a contract claiming something untrue
 
-Status: legal now.\
-Depends on nothing.
+Severity `P2`.
 
 | ID | Move | Note |
 |---|---|---|
-| `B3` | Declare which mechanisms each matrix cell exercises, so a minimal covering subset is computable rather than editorial | The knowledge gap identified when the matrix was built. `traceability.json` already links requirements to tests; it does not link them to dimension values |
-| `B4` | Record cell timings as data | Cheap, and a prerequisite for cost-aware subset selection |
+| `B2` | Align the pause wording in `binding-websocket.md` with the implementation, or the implementation with the wording | Neither prevents the overrun, so this is a truth defect rather than a behaviour defect. Cheapest done inside `B1`, which edits the same paragraph |
+
+---
+
+## M3 - Record what the system already knows about itself
+
+Severity `P3`.\
+Grouped by severity rather than theme, so three unrelated subjects sit together because they cost the same to leave unwritten.
+
+| ID | Move | Note |
+|---|---|---|
+| `B9` | State the plane, layer, and cross-cutting decomposition | The organising axis exists in the module list but is never named, so a new concern has no stated test for where it belongs. Credit nearly landed in the wrong package for exactly this reason, and only an explicit altitude shift corrected it |
+| `B10` | Author an enduring intent statement | Scope and anti-goals are recorded, but the purpose they serve is not. A proposal is currently tested against an unwritten standard |
+| `B3` | Declare which mechanisms each matrix cell exercises | Makes a minimal covering subset computable rather than editorial. `traceability.json` links requirements to tests but not to dimension values |
+
+---
+
+## M4 - Instrumentation
+
+Severity `P4`.
+
+| ID | Move | Note |
+|---|---|---|
+| `B4` | Record matrix cell timings as data rather than run output | Prerequisite for cost-aware subset selection under `B3`. Worth nothing on its own |
 
 ---
 
