@@ -13,7 +13,7 @@ test("Given a current-node data failure, when it is returned, then one exact err
     breadcrumbs: new BreadcrumbStore({
       maximumEntries: 4,
       maximumBytes: 1_024,
-    }),
+    }, () => 0),
     monotonicNow: () => 1_000,
     nextMessageId: () => "error-1",
     encode: (message) =>

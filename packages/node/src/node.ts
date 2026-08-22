@@ -349,7 +349,7 @@ export class NodeImpl implements AgpNode, SessionHost {
     this.#breadcrumbs = new BreadcrumbStore({
       maximumEntries: this.#config.maxReverseCorrelations,
       maximumBytes: this.#config.maxReverseCorrelationBytes,
-    });
+    }, () => this.clock.monotonicMs());
     this.#reverseErrors = new ReverseErrorEngine({
       localNodeId: this.nodeId,
       breadcrumbs: this.#breadcrumbs,
@@ -818,11 +818,47 @@ export class NodeImpl implements AgpNode, SessionHost {
   }
 
   dispatchData(controller: PeerController, message: DataMessage): void {
-    void this.admitData(controller, message);
+    void this.#dispatchInbound(controller, this.admitData(controller, message));
   }
 
   dispatchError(controller: PeerController, message: ErrorMessage): void {
-    void this.receiveDeliveryError(controller, message);
+    void this.#dispatchInbound(
+      controller,
+      this.receiveDeliveryError(controller, message),
+    );
+  }
+
+  /**
+   * Carries an inbound dispatch to a disposition rather than discarding it.
+   *
+   * These were fired with `void`, so anything that rejected here rejected into
+   * nothing and ended the process. The reachable case is a reverse error that
+   * cannot be enqueued: a receiver refusing deliveries emits one control
+   * message per refusal, and a refusal burst fills the control queue.
+   *
+   * A session whose control writes are failing cannot carry the protocol, so
+   * it is terminated. That is the disposition every other failed control write
+   * already takes, and it bounds the fault to one session instead of the
+   * process. See `MX6`.
+   */
+  async #dispatchInbound(
+    controller: PeerController,
+    work: Promise<void>,
+  ): Promise<void> {
+    try {
+      await work;
+    } catch (cause) {
+      this.#emitDiagnostic(
+        this.#captureDiagnostic(
+          this.#operations.currentRevision,
+          "protocol",
+          "error",
+          "INBOUND_DISPATCH_FAILED",
+        ),
+        cause,
+      );
+      controller.terminate("TransportFailed");
+    }
   }
 
   /** Registry-owned ingress admission entry point. */

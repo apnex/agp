@@ -7,7 +7,7 @@ test("Given equal public session fields on distinct controllers, when reverse lo
   const store = new BreadcrumbStore({
     maximumEntries: 4,
     maximumBytes: 1_024,
-  });
+  }, () => 0);
   const entry = breadcrumb();
   store.add(entry, 100);
 

@@ -902,6 +902,8 @@ Other file names may be refined before implementation, but every primary contrac
 | AX5 | `packages/node/test/contract/reverse-error-refid.test.js` | A matching token with the wrong end-to-end `refId` is discarded without consuming the breadcrumb |
 | AX5 | `packages/node/test/unit/return-token-allocator.test.js` | Unsigned-64 allocation never repeats and terminal exhaustion replaces the controller before wrap |
 | AX5 | `packages/node/test/contract/withdrawal-writer-order.test.js` | Already-admitted epoch data writes precede its withdrawing snapshot |
+| AX5 | `packages/node/test/contract/breadcrumb-expiry.test.js` | Reverse-correlation capacity bounds what is outstanding rather than what a node may ever send, so a retryable refusal describes a condition that clears |
+| AX5 | `packages/node/test/contract/inbound-dispatch-failure.test.js` | A failing inbound dispatch is reported and bounded to its session, and never escapes as an unhandled rejection |
 | AX5 | `packages/node/test/contract/credit-writer-precedence.test.js` | A writer stops at the peer's grant, resumes in order, and lets only control overtake data the peer has no room for |
 | AX5 | `packages/node/test/contract/stop-drain.test.js` | Stop gates new work and releases handlers/reservations once within its deadline |
 | AX5 | `packages/node/test/contract/lifecycle-one-shot.test.js` | A runtime follows its closed lifecycle once; `Stopped` and `Failed` reject restart and stale-instance callbacks cannot regain authority |

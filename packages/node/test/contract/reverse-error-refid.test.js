@@ -7,7 +7,7 @@ test("Given a matching token with the wrong refId, when reverse lookup runs, the
   const store = new BreadcrumbStore({
     maximumEntries: 4,
     maximumBytes: 1_024,
-  });
+  }, () => 0);
   const entry = breadcrumb();
   store.add(entry, 100);
 

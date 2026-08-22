@@ -25,6 +25,8 @@ Fixtures provide deterministic identities, clocks, and write ledgers only.
 | `contract/reverse-error-relay.test.js` | Transit relay uses recorded ingress and translates only hop-local identity | Direct current-hop errors |
 | `contract/session-hold-ttl.test.js` | Public inbound hold TTL decreases with monotonic time without a revision | Outbound keepalive suppression |
 | `contract/session-id-pair-scope.test.js` | Equal six-hex IDs coexist for different peers, including accepted pre-identity controllers | Cross-dial winner selection |
+| `contract/breadcrumb-expiry.test.js` | Reverse-correlation capacity is a bound on what is outstanding, released by expiry, not a lifetime total | Reverse-error routing and relay |
+| `contract/inbound-dispatch-failure.test.js` | An inbound dispatch failure is diagnosed and terminates only its own session | Which failures reach the inbound path |
 | `contract/session-transition-emission.test.js` | The snapshot records every self-transition while the stream announces only those no other event reports | Keepalive suppression and hold timing |
 | `contract/session-keepalive-traffic.test.js` | Successful outbound traffic postpones keepalive emission while hold remains peer-driven | Hold-expiry teardown |
 | `contract/source-export-barrier.test.js` | Data fails closed until its exact source export is ACKed, with no hidden queue | Route-update exchange |

@@ -7,7 +7,7 @@ test("Given a valid exact-controller token and refId, when consumed twice, then 
   const store = new BreadcrumbStore({
     maximumEntries: 4,
     maximumBytes: 1_024,
-  });
+  }, () => 0);
   const entry = breadcrumb();
   assert.equal(store.add(entry, 100), true);
 

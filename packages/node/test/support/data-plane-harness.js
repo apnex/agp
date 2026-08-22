@@ -29,7 +29,7 @@ export function createDataPlaneHarness(overrides = {}) {
   const breadcrumbs = new BreadcrumbStore({
     maximumEntries: overrides.maximumBreadcrumbs ?? 8,
     maximumBytes: overrides.maximumBreadcrumbBytes ?? 64_000,
-  });
+  }, () => 0);
   const commits = [];
   const localErrors = [];
   let revision = 0;

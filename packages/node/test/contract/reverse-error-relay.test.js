@@ -21,7 +21,7 @@ test("Given a transit breadcrumb, when an error returns, then relay uses recorde
   const store = new BreadcrumbStore({
     maximumEntries: 4,
     maximumBytes: 1_024,
-  });
+  }, () => 0);
   store.add(breadcrumb({
     egress,
     messageId: "data-1",

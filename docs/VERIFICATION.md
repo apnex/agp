@@ -311,8 +311,9 @@ A finding stays here until it is closed by a design decision or a regression tes
 | `MX1` | A sender that offers messages back to back over WebSocket overruns the receiver, which commits `RECEIVE_OVERFLOW`, closes the session, purges its routes, and reconnects. Delivered messages equal `maxBufferedPackets` exactly, at every bound tested from 16 to 128. Every `send()` resolved successfully first. | Closed by `D19`, gated by `test/topology/credit-flow-control.test.js` |
 | `MX2` | A four-node diamond carrying twenty-four endpoints per node fails a two-second `routeAckTimeoutMs` while a stream is in flight, on sessions that carry no data of their own. Raising only that deadline to twenty seconds passes the same cell with every message delivered. | Closed by `D21`, gated by `packages/core/test/unit/write-path-cost.test.js` |
 | `MX3` | A stream saturates the event loop. A one-millisecond interval timer fires about twelve times across a whole run, so the loop drains roughly that often and the synchronous blocks between drains average around twenty milliseconds. A block of that size moves any deadline sharing the loop, which is the mechanism that tore down healthy sessions before `D21`, and it starves any event subscriber that touches the macrotask queue. Six operations commits land per delivered message. | Open, reduced, consequence demonstrated |
-| `MX5` | A node stops sending permanently after `maxReverseCorrelations` originated messages, 4096 by default. A breadcrumb is retained per sent message and released only by expiry, and `BreadcrumbStore.expire` is called from nowhere in the repository. Waiting past the 30 second lifetime recovers nothing. `send` then fails `QUEUE_FULL` forever, which is a retryable code, so a conforming caller retries a condition that cannot clear. | Open, reproduced, cause named |
-| `MX6` | An unhandled promise rejection was observed on the inbound data path, from `dispatchData` discarding the result of `admitData` with `void`. A reverse error that cannot be enqueued rejects into nothing and terminates the process. Seen once with a full stack; not yet reproduced deliberately. | Open, one observation |
+| `MX5` | A node stopped sending permanently after `maxReverseCorrelations` originated messages, because the expiry sweep that releases a breadcrumb was called from nowhere. | Closed, gated by `packages/node/test/contract/breadcrumb-expiry.test.js` |
+| `MX6` | An unhandled rejection on the inbound data path, from `dispatchData` discarding the result of `admitData` with `void`, ended the process. Reproduced once `MX5` was fixed and the sender could reach the receiver's refusal path. | Closed, gated by `packages/node/test/contract/inbound-dispatch-failure.test.js` |
+| `MX7` | Sustained send rate is bounded by `maxReverseCorrelations` divided by the correlation lifetime, about 136 messages a second at defaults against a burst ceiling near 2850. The lifetime is `max(30000, holdTimeMs)` and cannot be configured below the hold time, so the only tuning available is capacity, and matching the burst rate would need roughly 85000 retained correlations. | Open, characterised |
 | `MX4` | A node hop costs far more than the carrier beneath it: a raw WebSocket round trip is about 75 microseconds against roughly half a millisecond per message through a node pair. Unexplained, and not a breach of anything. | Open, opportunistic |
 
 `MX1` was reproducible and understood, and `D19` ratifies the mechanism that closed it.\
@@ -436,6 +437,10 @@ Measured one carrier per process, because measuring three in one gave the later 
 One thousand messages, three runs, median.\
 Compare the columns to each other and to nothing else.
 
+Both nodes of each pair still shared a process, so these figures carry cross-node contention that a deployment would not have.\
+The carrier comparison is sound because every carrier was measured the same way, but the absolute rate is a floor rather than a ceiling.\
+`B22` owns re-measuring against the independent-process harness the end-to-end suite already uses.
+
 | Carrier | One hop | Two hops | Against Loopback |
 |---|---|---|---|
 | Loopback | 2849 msg/s | 1221 msg/s | 100% |
@@ -446,8 +451,16 @@ The carrier is not the bottleneck at one hop.\
 An in-process fabric and a real TCP socket measure the same, because the node's own per-message cost dominates both, and that cost is the subject of `MX3`.\
 Pre-shared keys cost about a third, and a second hop costs slightly more than half, which is the transit node paying the same per-message cost again.
 
-These are burst figures, and they are the less important number.\
-`MX5` records the sustained ceiling, which is not a rate: a node accepts `maxReverseCorrelations` messages in total and then refuses every further one for the rest of its life.
+These are burst figures, and the sustained ceiling is a different number entirely.
+
+A breadcrumb is retained for every message a node originates, and AGP has no delivery acknowledgement, so nothing can release it early: it waits out the reverse-correlation window whether or not the message arrived.\
+The sustained rate is therefore capacity divided by lifetime, about 136 messages a second at defaults, against a burst ceiling near 2850.\
+It arrives in cycles rather than smoothly, because a burst of correlations created together expires together: measured over forty seconds, 4096 admitted immediately, nothing for the next twenty seconds, then 4096 more.
+
+Two consequences are worth stating plainly.\
+Matching the burst rate would need roughly eighty-five thousand retained correlations, which is a deliberate memory decision rather than a default.\
+And the lifetime is `max(30000, holdTimeMs)`, so a deployment cannot shorten the window without shortening its hold time, which leaves capacity as the only real knob.\
+This is `MX7`, and it is a property of the current design rather than a defect in it.
 
 #### Eliminated causes
 
@@ -518,27 +531,32 @@ The order below is the one that worked, and it is ordered deliberately.
 3. **Repeat before believing.**\
    A single stream run varies by a factor of two on an idle machine, so the ladder repeats and reports best, median and worst.\
    Acting on one sample is how a regression and an outlier become indistinguishable, and a reading of 979 microseconds per message was nearly acted on before three further runs put it at 525.
-4. **Prove the knob moved before believing the result.**\
+4. **Give each node its own process when the measurement compares.**\
+   Nodes sharing a process share an event loop, a heap and a compilation state, so they contend in ways a deployment would not and they warm each other up.\
+   Measuring three carriers in one process reported TLS as faster than an in-process fabric purely because it ran last.\
+   This binds on measurement, not on correctness: a functional test co-locates nodes deliberately and cheaply, and isolating it would cost minutes and prove nothing.\
+   A figure taken with nodes co-located is reported as such or it is not reported.
+5. **Prove the knob moved before believing the result.**\
    A control that varies nothing produces three identical readings and reads as a strong negative.\
    A parameter was passed to a harness that did not accept it, and the conclusion drawn was the opposite of the truth.
-5. **Compare within one session, never across them.**\
+6. **Compare within one session, never across them.**\
    The same unchanged measurement read 525 microseconds per message and then 670 an hour later, and a sweep read 40 seconds and then 25.\
    An A and a B taken hours apart compare the machine, not the change.
-6. **Climb the ladder, do not measure the whole.**\
+7. **Climb the ladder, do not measure the whole.**\
    `scripts/latency-ladder.mjs` adds one layer per rung, so the rung where the milliseconds appear names the layer that owns them.\
    A single end-to-end number cannot do that, and chasing one produces hypotheses rather than causes.
-7. **Sample event-loop lag underneath every measurement.**\
+8. **Sample event-loop lag underneath every measurement.**\
    In a single-process topology a slow path and a starved one look identical.\
    `test/support/loop-lag.js` separates them, and in `MX2` the lag was the finding.
-8. **Profile before fixing.**\
+9. **Profile before fixing.**\
    A processor profile named the function in one run, after reasoning had failed twice.\
    `node --cpu-prof` against one ladder rung is enough.
-9. **Prove the cause before believing it.**\
+10. **Prove the cause before believing it.**\
    Disable the suspected path, measure again, and require the number to move.\
    Two suspects were eliminated this way before the third survived.
-10. **Fix the shape, not the constant.**\
+11. **Fix the shape, not the constant.**\
    A tenfold constant improvement on a quadratic is a longer fuse, not a fix, and it will read as success on every benchmark small enough to run in a test.
-11. **Revert what cannot be shown to help.**\
+12. **Revert what cannot be shown to help.**\
    A change that is principled, small and unmeasurable is still machinery somebody must maintain and can get wrong.\
    Record the negative result so the next reader does not spend the same afternoon proving it again.
 

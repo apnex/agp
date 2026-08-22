@@ -49,8 +49,10 @@ An item that is `I4`/`P1` belongs early even though nobody feels it today, becau
 
 | ID | Candidate | Impact | Breach | Evidence | Status |
 |---|---|---|---|---|---|
-| `B20` | Release expired breadcrumbs, so a node can send more than 4096 messages in its life | `I1` | `P1` | [`MX5`](VERIFICATION.md#46-open-findings-from-sweeps) | open |
-| `B21` | Stop discarding a rejectable promise on the inbound data path | `I1` | `P2` | [`MX6`](VERIFICATION.md#46-open-findings-from-sweeps) | open |
+| `B20` | Release expired breadcrumbs, so a node can send more than 4096 messages in its life | `I1` | `P1` | [`MX5`](VERIFICATION.md#46-open-findings-from-sweeps) | landed |
+| `B21` | Stop discarding a rejectable promise on the inbound data path | `I1` | `P2` | [`MX6`](VERIFICATION.md#46-open-findings-from-sweeps) | landed |
+| `B22` | Measure throughput with each node in its own process | `I3` | `P3` | [`MX7`](VERIFICATION.md#46-open-findings-from-sweeps) | open |
+| `B23` | Decide whether the sustained send ceiling is the intended one | `I2` | `P3` | [`MX7`](VERIFICATION.md#46-open-findings-from-sweeps) | open |
 | `B1` | Implement `D19` credit flow control | `I1` | `P1` | [`MX1`](VERIFICATION.md#46-open-findings-from-sweeps), [`D19`](DECISIONS.md#d19---per-hop-credit-flow-control) | landed |
 | `B14` | Name a reproduction for the route-ack expiry a stream provokes | `I2` | `P2` | [`MX2`](VERIFICATION.md#46-open-findings-from-sweeps) | landed |
 | `B16` | Project credit and timing into the operations plane | `I2` | `P1` | [`D20`](DECISIONS.md#d20---observability-of-bounded-resources-and-timing) | landed |
@@ -74,12 +76,15 @@ An item that is `I4`/`P1` belongs early even though nobody feels it today, becau
 ## M0 - Stop the node dying
 
 Severity `I1`.\
-Status: **selected, not started.**
+Status: **both landed and gated.**
 
 | ID | Move | Why it is first |
 |---|---|---|
-| `B20` | Call the breadcrumb expiry sweep that already exists and is never invoked | A node accepts `maxReverseCorrelations` originated messages, 4096 by default, and then refuses every further one permanently. `send` returns `QUEUE_FULL`, which is documented as retryable, so a conforming caller retries a condition that can never clear. No test caught it because no test sends four thousand messages |
-| `B21` | Handle the inbound data promise instead of discarding it with `void` | A reverse error that cannot be enqueued rejects into nothing, and an unhandled rejection ends the process. Observed once with a full stack and not yet reproduced, which makes it urgent to bound rather than urgent to explain |
+| `B20` | Call the breadcrumb expiry sweep that already exists and is never invoked | Landed. The sweep runs under admission pressure and at most once a millisecond, so it costs nothing per message and is paid only at the bound. A gate lowers the capacity and moves a manual clock rather than sending four thousand messages, which is why no existing test found it |
+| `B21` | Handle the inbound data promise instead of discarding it with `void` | Landed. Fixing `B20` reproduced it within minutes: a sender that can now reach the receiver's refusal path fills the control queue with reverse errors, and the rejection ended the process. It is now diagnosed and bounded to its own session |
+
+Fixing the first unmasked the second, which is the argument for landing them together rather than in severity order.\
+`MX7` is what remains once neither kills the node: a sustained ceiling of about 136 messages a second against a burst ceiling near 2850, set by correlation capacity over a lifetime that cannot be shortened independently.
 
 `MX5` is the answer to the question that found it.\
 Asked for a sustained throughput ceiling, the honest figure is not a rate: it is four thousand and ninety-six messages, and then nothing, for the remaining life of the process.
@@ -134,6 +139,17 @@ Severity `I2`.
 | ID | Move | Note |
 |---|---|---|
 | `B18` | Explain the event-loop saturation that remains under a stream | Advanced, with its consequence now demonstrated rather than argued: a subscriber that yields to the macrotask queue receives 15 of 1205 events during a stream, because saturation removes its opportunities to drain. That is an observability failure under ordinary traffic and it raises the case for continuing. Three projections are memoised, a session transition and a timer reset commit session state rather than everything held, and a fourth memoisation was tried and reverted for producing no measurable gain. A steady-state profile of the stream window alone shows the remaining cost is distributed rather than concentrated: schema validation on encode and parse, event materialisation, and the state and action clones the session machine makes per command. There is no next single fix, which is why this should be re-scoped before more is spent on it |
+
+---
+
+## M3a - Measure what a deployment would see
+
+Severity `I2`.
+
+| ID | Move | Note |
+|---|---|---|
+| `B23` | Decide whether a sustained ceiling of roughly 136 messages a second is the intended one | `MX7`. It follows from retaining a correlation per originated message for at least thirty seconds with no delivery acknowledgement to release it early. Raising it means more retained state, a shorter reverse-error window, or releasing on evidence of delivery, and those are different designs rather than different numbers |
+| `B22` | Re-measure throughput with each node in its own process | Every figure so far had both nodes sharing an event loop, so they carry contention a deployment would not have. The carrier comparison is sound because all carriers were measured the same way; the absolute rate is a floor. The end-to-end suite already has the harness |
 
 ---
 

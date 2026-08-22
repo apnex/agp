@@ -35,6 +35,8 @@ interface StoredBreadcrumb {
  */
 export class BreadcrumbStore {
   readonly #capacity: BreadcrumbCapacity;
+  readonly #monotonicNow: () => number;
+  #lastSweepMs = Number.NEGATIVE_INFINITY;
   readonly #byController = new Map<object, Map<ReturnToken, StoredBreadcrumb>>();
   #entries = 0;
   // Increments on every membership change, so a consumer can memoise a
@@ -44,7 +46,8 @@ export class BreadcrumbStore {
   #highWaterEntries = 0;
   #highWaterBytes = 0;
 
-  constructor(capacity: BreadcrumbCapacity) {
+  constructor(capacity: BreadcrumbCapacity, monotonicNow: () => number) {
+    this.#monotonicNow = monotonicNow;
     if (
       !Number.isSafeInteger(capacity.maximumEntries)
       || capacity.maximumEntries < 1
@@ -57,10 +60,31 @@ export class BreadcrumbStore {
   }
 
   canReserve(retainedBytes: number): boolean {
-    return Number.isSafeInteger(retainedBytes)
-      && retainedBytes >= 0
-      && this.#entries + 1 <= this.#capacity.maximumEntries
+    if (!Number.isSafeInteger(retainedBytes) || retainedBytes < 0) return false;
+    if (this.#fits(retainedBytes)) return true;
+    // Only sweep when the answer would otherwise be no.
+    //
+    // A breadcrumb is released by expiry rather than by delivery, so without a
+    // sweep the store fills once and never empties: a node accepted exactly
+    // `maximumEntries` messages and refused every one after that for the rest
+    // of its life. Sweeping on every admission instead would make each message
+    // pay for every breadcrumb held, which is the shape `D21` exists to
+    // forbid, so the cost is paid only at the bound and at most once a
+    // millisecond. See `MX5`.
+    this.#sweep();
+    return this.#fits(retainedBytes);
+  }
+
+  #fits(retainedBytes: number): boolean {
+    return this.#entries + 1 <= this.#capacity.maximumEntries
       && this.#bytes + retainedBytes <= this.#capacity.maximumBytes;
+  }
+
+  #sweep(): void {
+    const now = this.#monotonicNow();
+    if (now - this.#lastSweepMs < 1) return;
+    this.#lastSweepMs = now;
+    this.expire(now);
   }
 
   add(input: BreadcrumbInput, retainedBytes: number): boolean {
