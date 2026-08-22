@@ -37,17 +37,14 @@ test("given a grant with room in packets but not bytes, when admission is tested
   assert.equal(spend.canAdmit(10), true, "one that fits exactly is admissible");
 });
 
-test("given spending against a grant, when the peer advertises again, then the grant is an absolute ceiling rather than an increment", () => {
+test("given spending against a ceiling, when the same ceiling is re-advertised, then it is not treated as fresh allowance", () => {
   const spend = new CreditSpend({ bytes: 100, packets: 4 });
   spend.admit(50);
   assert.deepEqual(spend.remaining, { bytes: 50, packets: 3 });
 
-  // Absolute, so a replayed or reordered advertisement cannot inflate a grant.
+  // Cumulative, so a repeated advertisement grants nothing new.
   spend.observeGrant({ bytes: 100, packets: 4 });
-  assert.deepEqual(spend.remaining, { bytes: 100, packets: 4 });
-
-  spend.observeGrant({ bytes: 8, packets: 1 });
-  assert.deepEqual(spend.remaining, { bytes: 8, packets: 1 }, "a grant may shrink");
+  assert.deepEqual(spend.remaining, { bytes: 50, packets: 3 });
 });
 
 test("given a malformed advertisement, when it is observed, then it is rejected rather than silently accepted", () => {
@@ -67,32 +64,62 @@ test("given a malformed advertisement, when it is observed, then it is rejected 
   assert.equal(spend.unlimited, true);
 });
 
-test("given a grantor at its channel limits, when packets arrive and drain, then the advertised grant tracks outstanding capacity", () => {
+test("given a receiver that has read nothing, when it advertises, then the ceiling is exactly its channel capacity", () => {
   const grantor = new CreditGrantor({ bytes: 1_000, packets: 4 });
   assert.deepEqual(grantor.grant, { bytes: 1_000, packets: 4 });
-
-  for (let index = 0; index < 4; index += 1) grantor.received(100);
-  assert.deepEqual(
-    grantor.grant,
-    { bytes: 600, packets: 0 },
-    "a grant never exceeds what the ring can still hold",
-  );
-
-  grantor.drained(100);
-  assert.deepEqual(grantor.grant, { bytes: 700, packets: 1 });
 });
 
-test("given a grantor whose capacity was exhausted, when a packet drains, then the reopening is observable so it can be advertised unsolicited", () => {
-  const grantor = new CreditGrantor({ bytes: 1_000, packets: 2 });
-  grantor.received(10);
-  grantor.received(10);
-  assert.equal(grantor.grant.packets, 0);
+test("given a receiver consuming packets, when it advertises, then the ceiling advances by what it read so in-flight stays bounded by capacity", () => {
+  const grantor = new CreditGrantor({ bytes: 1_000, packets: 4 });
+  const spend = new CreditSpend(grantor.grant);
 
-  grantor.drained(10);
-  // A sender that spent its grant stops sending, so no envelope carries the
-  // replenishment. This is the case that needs an unsolicited advertisement.
-  assert.equal(grantor.reopened, true);
-  assert.equal(grantor.grant.packets, 1);
+  // A sender fills the window and stops. In-flight is exactly capacity.
+  for (let index = 0; index < 4; index += 1) {
+    assert.equal(spend.canAdmit(10), true);
+    spend.admit(10);
+  }
+  assert.equal(spend.canAdmit(10), false, "the sender must stop at the ceiling");
+  assert.equal(spend.sent.packets - 0, 4, "in-flight equals capacity, never more");
+
+  // The receiver drains two, advancing the ceiling by two.
+  grantor.consumed(10);
+  grantor.consumed(10);
+  assert.deepEqual(grantor.grant, { bytes: 1_020, packets: 6 });
+
+  spend.observeGrant(grantor.grant);
+  assert.equal(spend.canAdmit(10), true);
+  spend.admit(10);
+  spend.admit(10);
+  assert.equal(spend.canAdmit(10), false, "the sender stops again at the new ceiling");
+  assert.equal(
+    spend.sent.packets - 2,
+    4,
+    "in-flight is sent minus read, still exactly capacity",
+  );
+});
+
+test("given a ceiling already observed, when a lower one arrives, then capacity already granted is not revoked", () => {
+  const spend = new CreditSpend({ bytes: 100, packets: 4 });
+  spend.observeGrant({ bytes: 50, packets: 2 });
+  assert.deepEqual(
+    spend.remaining,
+    { bytes: 100, packets: 4 },
+    "a ceiling only ever advances",
+  );
+});
+
+test("given a receiver draining, when the ceiling has advanced by half its capacity, then it becomes worth announcing unsolicited", () => {
+  const grantor = new CreditGrantor({ bytes: 1_000, packets: 4 });
+  assert.equal(grantor.shouldAdvertise, false, "nothing has been read yet");
+
+  grantor.consumed(10);
+  assert.equal(grantor.shouldAdvertise, false, "one of four is not worth a control message");
+  grantor.consumed(10);
+  // A sender at its ceiling sends nothing, so no envelope carries the update.
+  assert.equal(grantor.shouldAdvertise, true, "half the window has reopened");
+
+  grantor.advertised();
+  assert.equal(grantor.shouldAdvertise, false, "announcing resets the trigger");
 });
 
 test("given invalid construction, when a grantor or spend is created, then it fails rather than governing nothing", () => {

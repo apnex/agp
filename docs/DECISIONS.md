@@ -463,7 +463,12 @@ Placing key material in `NodeConfig`, canonical operations state, or a diagnosti
 ### D19 - Per-hop credit flow control
 
 **Mechanics.**\
-A receiver grants a peer credit, and that peer may not admit data beyond it.\
+A receiver advertises a cumulative ceiling, and a peer may not send beyond it.
+
+The ceiling is cumulative rather than a remaining allowance, and the distinction is load-bearing.\
+A receiver cannot observe its own channel ring: its read loop consumes each packet before reading the next, so arrival and consumption are indistinguishable from inside the node and a remaining-allowance model measures nothing.\
+What a receiver can count is what it has read, so it advertises read plus capacity and the sender sends while sent is below that.\
+In-flight is then sent minus read, which is exactly the ring occupancy, bounded by capacity without either side observing the ring.\
 Credit is granted per adjacency and per direction, so each hop governs its own ingress and no end-to-end state is implied.
 
 Credit has two dimensions, because a channel has two exhaustible resources:
