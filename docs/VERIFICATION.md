@@ -360,6 +360,34 @@ Per-session route import and export views sit inside the connection projection a
 Memoising them against the routing revision produced no measurable improvement, on the ladder or on the deepened sweep, so the machinery was removed rather than kept on the strength of the argument for it.\
 Two caches and their invalidation are a standing liability; an unmeasurable gain does not buy one.
 
+#### The per-message bill
+
+Counted rather than reasoned about, across a node pair, for one delivered message.\
+A message is one JSON envelope in one WebSocket frame, so this is the whole cost of moving 258 bytes between two nodes.
+
+| Work | Before | After | Note |
+|---|---|---|---|
+| Operations revisions | 6.07 | 5.07 | One commit wrote nothing and said so |
+| `encodeAgpPacket` | 2.04 | 1.03 | The sender serialised the same packet twice |
+| Schema validations | 3.07 | 2.07 | One per encode, one per parse |
+| `parseAgpPacket` | 1.03 | 1.03 | |
+| Preflight scans | 1.03 | 1.03 | |
+| Operational events | 4.10 | 4.10 | Three delivery events and one self-transition |
+
+Measured against each other in one session, three runs each, the pair moved from about 768 to about 679 microseconds per message.
+
+The double encode existed to size an admission before allocating a return token, then encoded again with the real token and asserted the sizes matched.\
+That assertion could not fail, because the token is fixed-width by contract and that is the only reason a preview was legal in the first place.\
+The second encode proved what the contract already guaranteed and charged a serialisation and a validation to do it.\
+Deciding everything that does not need the encoded size first leaves one encode.
+
+The reverse-correlation commit that follows every local delivery supplies a set the delivery never altered.\
+The projection is memoised, so an unchanged set arrives as the same reference and is recognised without inspection, and the commit now writes nothing and issues no revision.\
+A revision denotes a change to canonical state; issuing one for a commit that wrote nothing makes it useless as a change signal and forces every consumer polling on it to re-read.
+
+The same fault remains on the transit path, where classification encodes a preview and forwarding encodes again.\
+It is left because the two happen in different functions and the restructuring is larger than the one above, not because it is different.
+
 #### What loop saturation does to an event subscriber
 
 `MX3` was scored a latent correctness fault on the argument that a stall moves deadlines.\

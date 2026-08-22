@@ -166,6 +166,9 @@ export class OperationsStore implements OperationsReader {
   // committed message; sorting on the read path costs it once per query and
   // is reused until the set next changes. See `D21`.
   #reverseSource: readonly ReverseCorrelationSnapshot[] = Object.freeze([]);
+  // The exact array last accepted, kept so an unchanged set is recognised by
+  // identity rather than by comparison.
+  #reverseInput: readonly ReverseCorrelationSnapshot[] | undefined;
   #reverseOrdered: readonly ReverseCorrelationSnapshot[] | undefined =
     Object.freeze([]);
   #revision = 0n;
@@ -253,21 +256,29 @@ export class OperationsStore implements OperationsReader {
     if (preflight.exhausted !== undefined) {
       return this.#commitMonotonicExhaustion(preflight.exhausted, now);
     }
+    // A revision denotes a change to canonical state. Emitting one for a
+    // commit that wrote nothing makes the revision useless as a change
+    // signal, and forces every consumer polling on it to re-read. See `D21`.
+    let wrote = false;
     if (change.lifecycle !== undefined) {
       this.#lifecycleData = immutableClone(change.lifecycle);
+      wrote = true;
     }
     if (change.listener !== undefined) {
       this.#listenerData = immutableClone(change.listener);
+      wrote = true;
     }
     if (change.adjacencies !== undefined) {
       this.#adjacenciesData = immutableClone(
         [...change.adjacencies].sort(compareAdjacencies),
       );
+      wrote = true;
     }
     if (change.localEndpoints !== undefined) {
       this.#localEndpointsData = immutableClone(
         [...change.localEndpoints].sort(compareEndpoints),
       );
+      wrote = true;
     }
     if (change.connections !== undefined) {
       const replacement = new Map<ControllerId, ConnectionOperationalInput>();
@@ -283,6 +294,7 @@ export class OperationsStore implements OperationsReader {
       }
       this.#connections.clear();
       for (const [id, value] of replacement) this.#connections.set(id, value);
+      wrote = true;
     }
     if (change.routing !== undefined) {
       this.#advertisementsData = immutableClone(
@@ -304,25 +316,43 @@ export class OperationsStore implements OperationsReader {
       this.#routeExportsData = immutableClone(
         [...change.routing.routeExports].sort(compareRouteExportRows),
       );
+      wrote = true;
     }
     if (change.routeExports !== undefined) {
       this.#routeExportsData = immutableClone(
         [...change.routeExports].sort(compareRouteExportRows),
       );
+      wrote = true;
     }
     if (change.reverseCorrelations !== undefined) {
       // A shallow copy detaches the caller's array. Its elements are already
       // frozen canonical values, so nothing below the array is touched.
-      this.#reverseSource = Object.freeze([...change.reverseCorrelations]);
-      this.#reverseOrdered = undefined;
+      //
+      // The caller memoises this projection, so an unchanged set arrives as
+      // the same reference and is recognised without inspecting it. One
+      // commit per delivered message supplies a reverse set that a local
+      // delivery never altered, and that commit now writes nothing.
+      if (change.reverseCorrelations !== this.#reverseInput) {
+        this.#reverseInput = change.reverseCorrelations;
+        this.#reverseSource = Object.freeze([...change.reverseCorrelations]);
+        this.#reverseOrdered = undefined;
+        wrote = true;
+      }
     }
     if (change.resources !== undefined) {
       for (const [name, value] of Object.entries(change.resources)) {
         this.#resources.set(name, normalizeGauge(value, name));
       }
+      wrote = true;
     }
     for (const [key, delta] of preflight.increments) {
       this.#counters.set(key, (this.#counters.get(key) ?? 0n) + delta);
+      wrote = true;
+    }
+    // Nothing was written and nothing is announced, so there is nothing for a
+    // revision to denote. The caller still receives the current identity.
+    if (!wrote && (change.events ?? []).length === 0) {
+      return this.#capture().meta;
     }
 
     this.#revision += 1n;

@@ -74,6 +74,39 @@ test("Given a value already cloned and frozen, when it is cloned again, then the
   });
 });
 
+test("Given a commit that changes nothing, when it is applied, then no revision is issued for it", () => {
+  const store = operations();
+  const rows = correlations(4, "2026-01-01T00:00:00.000Z");
+  const first = store.commit({ reverseCorrelations: rows });
+
+  // The caller memoises this projection, so an unchanged set arrives as the
+  // same reference. One commit per delivered message supplies exactly that.
+  const second = store.commit({ reverseCorrelations: rows });
+
+  assert.equal(
+    second.revision,
+    first.revision,
+    "a revision must denote a change, not that somebody called commit",
+  );
+  assert.equal(store.snapshot().revision, first.revision);
+});
+
+test("Given a commit that changes nothing but announces something, when it is applied, then the event still earns a revision", () => {
+  const store = operations();
+  const rows = correlations(2, "2026-01-01T00:00:00.000Z");
+  const first = store.commit({ reverseCorrelations: rows });
+
+  const second = store.commit({
+    reverseCorrelations: rows,
+    events: [{ kind: "session.transition", subjectId: "controller-1" }],
+  });
+
+  // An event is a change to what the node has said, even when no collection
+  // moved, so suppressing its revision would lose the correlation between an
+  // event and the state it was emitted against.
+  assert.notEqual(second.revision, first.revision);
+});
+
 test("Given ten times as much held state, when the same write is repeated, then its cost does not grow in proportion", () => {
   const expiry = "2026-01-01T00:00:00.000Z";
   const measure = (held) => {

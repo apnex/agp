@@ -246,41 +246,24 @@ export class DataPlane {
       this.#options.defaultHopLimit,
       egress.maximumDataHopLimit,
     );
-    // Read the ceiling once. The preview sizes the admission and the exact
-    // encode must match it to the byte, so a grant that advanced between them
-    // would trip the fixed-width admission check.
+    // Read the ceiling once, so the encoded size cannot move under the
+    // admission checks that follow it.
     const grant = egress.creditGrant;
-    const preview = makeDataMessage(
-      messageId,
-      source,
-      destination,
-      payload,
-      "0000000000000000" as ReturnToken,
-      hopLimit,
-      grant,
-      correlationId,
-    );
-    const encoded = encodeAgpPacket(preview, egress.peerReceiveLimitBytes);
-    if (!encoded.ok) {
-      throw new DataPlaneFailure(
-        encoded.reasonCode === "MESSAGE_TOO_LARGE"
-          ? "MESSAGE_TOO_LARGE"
-          : "NEXT_HOP_UNAVAILABLE",
-      );
-    }
+
+    // Everything that does not need the encoded size is decided first, so the
+    // packet is built once. This used to encode a preview with a placeholder
+    // token to size the admission, then encode again with the real token and
+    // assert the two matched. The assertion could not fail: the token is
+    // fixed-width by contract, which is the whole reason a preview was legal.
+    // So the second encode proved what the contract already guaranteed, and
+    // charged a JSON serialisation and a schema validation per message to do
+    // it. See `MX3`.
     if (!this.#options.routing.hasAckedSource(egress.owner, source)) {
       throw new DataPlaneFailure("SOURCE_NOT_ADVERTISED");
     }
     const epoch = this.#options.routing.sourceExportEpoch(egress.owner, source);
     if (epoch === undefined) {
       throw new DataPlaneFailure("SOURCE_NOT_ADVERTISED");
-    }
-    const retainedBytes = reverseRetainedBytes(encoded.utf8Bytes);
-    if (
-      !this.#options.breadcrumbs.canReserve(retainedBytes)
-      || !egress.writer.canAdmitData(epoch, encoded.utf8Bytes)
-    ) {
-      throw new DataPlaneFailure("QUEUE_FULL");
     }
     const allocation = egress.returnTokens.allocate();
     if (allocation.kind === "exhausted") {
@@ -297,9 +280,20 @@ export class DataPlane {
       grant,
       correlationId,
     );
-    const exactEncoded = encodeAgpPacket(message, egress.peerReceiveLimitBytes);
-    if (!exactEncoded.ok || exactEncoded.utf8Bytes !== encoded.utf8Bytes) {
-      throw new Error("fixed-width return token changed encoded admission");
+    const encoded = encodeAgpPacket(message, egress.peerReceiveLimitBytes);
+    if (!encoded.ok) {
+      throw new DataPlaneFailure(
+        encoded.reasonCode === "MESSAGE_TOO_LARGE"
+          ? "MESSAGE_TOO_LARGE"
+          : "NEXT_HOP_UNAVAILABLE",
+      );
+    }
+    const retainedBytes = reverseRetainedBytes(encoded.utf8Bytes);
+    if (
+      !this.#options.breadcrumbs.canReserve(retainedBytes)
+      || !egress.writer.canAdmitData(epoch, encoded.utf8Bytes)
+    ) {
+      throw new DataPlaneFailure("QUEUE_FULL");
     }
     const revision = this.#options.commit.commit({
       kind: "message.accepted",
@@ -314,8 +308,8 @@ export class DataPlane {
       revision,
     });
     const admitted = egress.writer.admitData({
-      packet: exactEncoded.bytes,
-      encodedBytes: exactEncoded.utf8Bytes,
+      packet: encoded.bytes,
+      encodedBytes: encoded.utf8Bytes,
       epoch,
     });
     if (!admitted.accepted) {
