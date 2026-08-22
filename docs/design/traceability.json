@@ -18,7 +18,7 @@
         }
       ],
       "designReferences": [
-        "README.md#2-mandate",
+        "../ARCHITECTURE.md#2-mandate",
         "../DECISIONS.md#d1---uniform-node"
       ],
       "schemaIds": [
@@ -49,7 +49,7 @@
         }
       ],
       "designReferences": [
-        "README.md#5-topology-is-configuration",
+        "../ARCHITECTURE.md#6-topology-is-configuration",
         "sdk.md#41-factory-and-composition"
       ],
       "schemaIds": [
@@ -375,7 +375,7 @@
         }
       ],
       "designReferences": [
-        "README.md#2-mandate",
+        "../ARCHITECTURE.md#2-mandate",
         "transport-contract.md#3-package-sovereignty"
       ],
       "schemaIds": [
@@ -401,7 +401,7 @@
         }
       ],
       "designReferences": [
-        "README.md#7-canonical-processing-paths",
+        "../ARCHITECTURE.md#8-canonical-processing-paths",
         "../GATES.md#transport-execution-matrix"
       ],
       "schemaIds": [],

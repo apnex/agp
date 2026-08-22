@@ -52,18 +52,12 @@ The protocol is BGP-inspired and deliberately not BGP-compatible: the mechanisms
 
 ## What AGP is
 
-A protocol and an embeddable runtime, composed of separable concerns.
+A protocol and an embeddable runtime.
 
-| Concern | Owns |
-|---|---|
-| Control plane | Sessions, endpoint advertisement, route selection, propagation, withdrawal |
-| Data plane | Admission, forwarding, hop accounting, correlated reverse failure |
-| Management plane | Canonical state, events, counters, and the read-only projections over them |
-| Wire and transport | The packet language, and the carrier-neutral channel beneath it |
+Its control plane, data plane, management plane, and wire carriage are separable concerns rather than layers of one thing, so a carrier can be replaced without touching routing and a management surface can be added without the kernel knowing.
 
-Those are separable on purpose.\
-A carrier can be replaced without touching routing, and a management surface can be added without the kernel knowing.\
-Identity, resource governance, liveness, and observability cut across all four rather than belonging to any one of them.
+What each concern owns, and the interfaces between them, is architecture and is held by [`docs/ARCHITECTURE.md`](docs/ARCHITECTURE.md).\
+This document names no component and describes no duty, because a vision that has grown one is an architecture wearing the wrong title.
 
 AGP is a library first.\
 It is embedded by an application that owns its own lifecycle, configuration, and deployment, and it does not assume a process, a scheduler, or an operator.
@@ -149,7 +143,7 @@ This document states purpose, and purpose is not evidence.
 |---|---|
 | [`docs/DECISIONS.md`](docs/DECISIONS.md) | Confirmed intent and the ratified decision register |
 | [`docs/design/mechanisms.md`](docs/design/mechanisms.md) | Every mechanism, its analogue, and every deliberate departure and deferral |
-| [`docs/design/README.md`](docs/design/README.md) | The current architecture and its scope boundary |
+| [`docs/ARCHITECTURE.md`](docs/ARCHITECTURE.md) | The current architecture and its scope boundary |
 | [`docs/VERIFICATION.md`](docs/VERIFICATION.md) | What is proved, and what is knowingly unproved |
 | [`docs/BOARD.md`](docs/BOARD.md) | The live, triaged set of next moves |
 

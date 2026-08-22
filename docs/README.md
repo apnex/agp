@@ -18,7 +18,7 @@ Project-generalised documents are `UPPERCASE.md`; domain design contracts are `l
 | Write or move a test | [`TESTING.md`](TESTING.md) |
 | Know why a design choice was made, or what was confirmed as intent | [`DECISIONS.md`](DECISIONS.md) |
 | Decide what to work on next | [`BOARD.md`](BOARD.md) |
-| Understand a protocol behavior | [`design/`](design/README.md) |
+| Understand a protocol behavior | [`design/`](ARCHITECTURE.md) |
 | Know what proves a behavior correct | [`GATES.md`](GATES.md) |
 
 ---
@@ -39,11 +39,11 @@ Project-generalised documents are `UPPERCASE.md`; domain design contracts are `l
 
 ## Design set
 
-The architecture entry point is [`design/README.md`](design/README.md), which lists this set with its own commentary.
+The architecture entry point is [`design/README.md`](ARCHITECTURE.md), which lists this set with its own commentary.
 
 | Domain | Document | Owns |
 |---|---|---|
-| Architecture | [`README.md`](design/README.md) | Mandate, non-negotiable outcomes, package composition, processing paths |
+| Architecture | [`README.md`](ARCHITECTURE.md) | Mandate, non-negotiable outcomes, package composition, processing paths |
 | Authority | [`axioms.md`](design/axioms.md) | Which Mission Kit axioms apply, and at which evidence boundary |
 | Authority | [`mechanisms.md`](design/mechanisms.md) | `M01`-`M35` feature index, RFC alignment, and the `F01`-`F07` deferred set |
 | Contracts | [`contracts.md`](design/contracts.md) | Schema ownership and the catalog model |

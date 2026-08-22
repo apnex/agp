@@ -17,6 +17,9 @@ const MINIMUM_WORDS = 20;
 
 // Index and authority documents describe one concern, so one stated fault is
 // the honest count rather than a padded list.
+// The folder index points at contracts and states none of its own.
+const INDEX_ONLY = new Set(["README.md"]);
+
 const SINGLE_FAULT_ARTIFACTS = new Set([
   "axioms.md",
   "mechanisms.md",
@@ -55,6 +58,7 @@ test("Given every design contract, when AX0 reads its consequence section, then 
   const failures = [];
   for (const file of documents) {
     const relative = path.relative(designRoot, file);
+    if (INDEX_ONLY.has(relative)) continue;
     const body = consequenceSection(await readFile(file, "utf8"));
 
     if (body === undefined || body.length === 0) {

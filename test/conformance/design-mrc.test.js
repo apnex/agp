@@ -17,10 +17,10 @@ const normativeElsewhere = [
   "docs/GATES.md",
   "docs/BOARD.md",
   "VISION.md",
+  "docs/ARCHITECTURE.md",
 ];
 
 const normativeArtifacts = [
-  "README.md",
   "axioms.md",
   "binding-websocket.md",
   "contracts.md",

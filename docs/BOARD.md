@@ -57,8 +57,9 @@ An item that is `I4`/`P1` belongs early even though nobody feels it today, becau
 | `B6` | Certificate and HTTP-authenticated WebSocket profiles | `I3` | `P3` | [`F07`](design/mechanisms.md) |
 | `B7` | Route volume beyond the 256 snapshot ceiling | `I3` | `P3` | [`D4`](DECISIONS.md#d4---full-route-snapshots) |
 | `B8` | Rewrite named geometry tests onto shared builders | `I4` | `P4` | [`VERIFICATION.md` section 4.7](VERIFICATION.md#47-matrix-execution) |
-| `B9` | State the plane, layer, and cross-cutting decomposition in the architecture | `I4` | `P3` | [`design/README.md` section 4](design/README.md#4-logical-architecture), [`D19`](DECISIONS.md#d19---per-hop-credit-flow-control) |
-| `B10` | Author an enduring intent statement for AGP | `I4` | `P3` | [`design/README.md` section 9](design/README.md#9-scope-boundary), [`DECISIONS.md` section 2](DECISIONS.md#2-confirmed-intent) |
+| `B12` | Split current and target architecture instants | `I4` | `P2` | [`ARCHITECTURE.md` section 12](ARCHITECTURE.md#12-owed-and-open) |
+| `B13` | Generate the package and dependency tables from the manifests | `I4` | `P3` | [`ARCHITECTURE.md` section 12](ARCHITECTURE.md#12-owed-and-open) |
+| `B10` | Author an enduring intent statement for AGP | `I4` | `P3` | [`ARCHITECTURE.md` section 10](ARCHITECTURE.md#10-scope-boundary), [`DECISIONS.md` section 2](DECISIONS.md#2-confirmed-intent) |
 
 ---
 
@@ -86,6 +87,7 @@ Severity `P2`.
 | ID | Move | Note |
 |---|---|---|
 | `B2` | Align the pause wording in `binding-websocket.md` with the implementation, or the implementation with the wording | Neither prevents the overrun, so this is a truth defect rather than a behaviour defect. Cheapest done inside `B1`, which edits the same paragraph |
+| `B12` | Split the architecture into current and target instants | Not yet legal. `AR1` projects one architecture at two instants, and AGP has one because current and target converged. `D19` ratified but unbuilt is the trigger, so this becomes legal the moment `B1` starts |
 
 ---
 
@@ -96,9 +98,9 @@ Grouped by severity rather than theme, so three unrelated subjects sit together 
 
 | ID | Move | Note |
 |---|---|---|
-| `B9` | State the plane, layer, and cross-cutting decomposition | The organising axis exists in the module list but is never named, so a new concern has no stated test for where it belongs. Credit nearly landed in the wrong package for exactly this reason, and only an explicit altitude shift corrected it |
 | `B10` | Author an enduring intent statement | Scope and anti-goals are recorded, but the purpose they serve is not. A proposal is currently tested against an unwritten standard |
 | `B3` | Declare which mechanisms each matrix cell exercises | Makes a minimal covering subset computable rather than editorial. `traceability.json` links requirements to tests but not to dimension values |
+| `B13` | Generate the package and dependency tables from the manifests | Both are derivable and hand-maintained. `contracts.md` carried three stale paths for months, and section 10 is still forked with the `F` series, so the fault class is observed rather than theoretical |
 
 ---
 

@@ -7,27 +7,27 @@
 | Field | Value |
 |---|---|
 | Status | Ratified. Current verification plan; a gate is certified only while every required test in section 14 passes |
-| Intent authority | [`DECISIONS.md` section 2](../DECISIONS.md#2-confirmed-intent) |
-| Transport intent authority | [`transport-sovereignty-authority.md`](transport-sovereignty-authority.md) |
+| Intent authority | [`DECISIONS.md` section 2](DECISIONS.md#2-confirmed-intent) |
+| Transport intent authority | [`transport-sovereignty-authority.md`](design/transport-sovereignty-authority.md) |
 | Architecture | [`README.md`](README.md) |
-| Axiom applicability | [`axioms.md`](axioms.md) |
-| Decision register | [`DECISIONS.md`](../DECISIONS.md) |
-| Contract ownership | [`contracts.md`](contracts.md) |
-| Protocol | [`protocol.md`](protocol.md) |
-| Session FSM | [`fsm.md`](fsm.md) |
-| Routing | [`routing.md`](routing.md) |
-| Neutral transport contract | [`transport-contract.md`](transport-contract.md) |
-| WebSocket binding | [`binding-websocket.md`](binding-websocket.md) |
-| Loopback transport | [`transport-loopback.md`](transport-loopback.md) |
-| SDK | [`sdk.md`](sdk.md) |
-| Operations | [`operations.md`](operations.md) |
+| Axiom applicability | [`axioms.md`](design/axioms.md) |
+| Decision register | [`DECISIONS.md`](DECISIONS.md) |
+| Contract ownership | [`contracts.md`](design/contracts.md) |
+| Protocol | [`protocol.md`](design/protocol.md) |
+| Session FSM | [`fsm.md`](design/fsm.md) |
+| Routing | [`routing.md`](design/routing.md) |
+| Neutral transport contract | [`transport-contract.md`](design/transport-contract.md) |
+| WebSocket binding | [`binding-websocket.md`](design/binding-websocket.md) |
+| Loopback transport | [`transport-loopback.md`](design/transport-loopback.md) |
+| SDK | [`sdk.md`](design/sdk.md) |
+| Operations | [`operations.md`](design/operations.md) |
 | Certification sequence | `AX0 -> AX1 -> AX2 -> AX3 -> AX4 -> AX5 -> AX6 -> AX7 -> AX8` |
 | Gate definitions | [`GATES.md`](GATES.md) |
 
 This document defines the binary evidence required to certify the uniform-node replacement.\
 A passing result for the current MVP is not inherited: the AGP v1 wire language, runtime factory, session symmetry, routing behavior, transport SPI, WebSocket binding, and Loopback production transport all change, so every affected gate must be resealed.
 
-The following applicable axioms contribute only the AGP-scoped mechanics declared in [`axioms.md`](axioms.md):
+The following applicable axioms contribute only the AGP-scoped mechanics declared in [`axioms.md`](design/axioms.md):
 
 - A3 - Sovereign Composition;
 - A4 - Zero-Loss Knowledge;

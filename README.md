@@ -38,7 +38,7 @@ For three independently managed processes with multiple endpoints per leaf, use 
 | Embed AGP in an application | [WebSocket composition](#websocket-composition) or [Loopback composition](#loopback-composition) |
 | Inspect a running node | [Operations and CLI](#operations-and-cli) |
 | Build and test the workspace | [Development and verification](#development-and-verification) |
-| Understand the protocol | [Design set](./docs/design/README.md) and [mechanisms.md](./docs/design/mechanisms.md) |
+| Understand the protocol | [Design set](./docs/ARCHITECTURE.md) and [mechanisms.md](./docs/design/mechanisms.md) |
 | Know why AGP exists, and what it will never be | [VISION.md](./VISION.md) |
 
 ---

@@ -531,7 +531,7 @@
         "CONFIG_INVALID"
       ],
       "designReferences": [
-        "docs/design/README.md#canonical-peer-declaration"
+        "docs/ARCHITECTURE.md#canonical-peer-declaration"
       ],
       "implementation": "packages/node/src/node.ts#validatePeerAdjacencyUniqueness",
       "owningTest": "packages/node/test/contract/peer-adjacency-uniqueness.test.js"
