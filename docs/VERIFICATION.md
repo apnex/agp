@@ -353,7 +353,16 @@ The measures kept above are the ones that survived the correction: an end-to-end
 The credit replenishment figure is the one worth reading twice.\
 It was the number the whole investigation began from, it was assumed to be credit's, and credit never touched it.
 
-Three further projections were memoised against exact change signals after `D21`, and session transitions and timer resets were narrowed to commit session state alone.\
+Three further projections were memoised against exact change signals after `D21`, and session transitions and timer resets were narrowed to commit session state alone.
+
+A fourth was tried and reverted, and the negative result is worth more than the change would have been.\
+Per-session route import and export views sit inside the connection projection and are rebuilt twice per delivered message against routing that has not moved, which is the same fault as the three that paid off.\
+Memoising them against the routing revision produced no measurable improvement, on the ladder or on the deepened sweep, so the machinery was removed rather than kept on the strength of the argument for it.\
+Two caches and their invalidation are a standing liability; an unmeasurable gain does not buy one.
+
+Absolute figures drift between sessions on a shared machine, and this is where that was learned.\
+The same measurement read 525 microseconds per message one hour and 670 the next with no change in between, and the deepened sweep read 40 seconds and then 25.\
+Only measurements taken against each other within one session are comparable, and any figure quoted here without its counterpart is an observation rather than evidence.\
 A message costs about 525 microseconds end to end through a node pair, down from roughly one millisecond, and the deepened sweep runs in about 40 seconds against 284 before any of this began.\
 What is not yet explained is why six commits are needed per delivered message, and that is the next thread rather than a conclusion.
 
@@ -431,20 +440,26 @@ The order below is the one that worked, and it is ordered deliberately.
 3. **Repeat before believing.**\
    A single stream run varies by a factor of two on an idle machine, so the ladder repeats and reports best, median and worst.\
    Acting on one sample is how a regression and an outlier become indistinguishable, and a reading of 979 microseconds per message was nearly acted on before three further runs put it at 525.
-4. **Climb the ladder, do not measure the whole.**\
+4. **Compare within one session, never across them.**\
+   The same unchanged measurement read 525 microseconds per message and then 670 an hour later, and a sweep read 40 seconds and then 25.\
+   An A and a B taken hours apart compare the machine, not the change.
+5. **Climb the ladder, do not measure the whole.**\
    `scripts/latency-ladder.mjs` adds one layer per rung, so the rung where the milliseconds appear names the layer that owns them.\
    A single end-to-end number cannot do that, and chasing one produces hypotheses rather than causes.
-5. **Sample event-loop lag underneath every measurement.**\
+6. **Sample event-loop lag underneath every measurement.**\
    In a single-process topology a slow path and a starved one look identical.\
    `test/support/loop-lag.js` separates them, and in `MX2` the lag was the finding.
-6. **Profile before fixing.**\
+7. **Profile before fixing.**\
    A processor profile named the function in one run, after reasoning had failed twice.\
    `node --cpu-prof` against one ladder rung is enough.
-7. **Prove the cause before believing it.**\
+8. **Prove the cause before believing it.**\
    Disable the suspected path, measure again, and require the number to move.\
    Two suspects were eliminated this way before the third survived.
-8. **Fix the shape, not the constant.**\
+9. **Fix the shape, not the constant.**\
    A tenfold constant improvement on a quadratic is a longer fuse, not a fix, and it will read as success on every benchmark small enough to run in a test.
+10. **Revert what cannot be shown to help.**\
+   A change that is principled, small and unmeasurable is still machinery somebody must maintain and can get wrong.\
+   Record the negative result so the next reader does not spend the same afternoon proving it again.
 
 Measured cost of the instruments: recording an observation is about three nanoseconds, and advancing a counter about two.\
 An instrument that perturbs what it measures makes every number taken through it unfalsifiable, so this bound is a requirement rather than a boast.
