@@ -9,6 +9,7 @@
 | `semantic-rule-registry.test.js` | Every contextual rule resolves to one implementation and test | semantic ownership | schema annotation, source symbol, and test path |
 | `public-node-consumer.test.js` | Package-root exports compose for an application | public boundary | uniform factory, local RIB, and management response |
 | `design-mrc.test.js` | Every normative artifact preserves inspectable reasoning structure | knowledge completeness | exact mechanics/rationale/consequence allowlist |
+| `board-record.test.js` | Board items are scored on both dimensions, cite a resolvable record, and every held item carries a revival trigger | board-record invariant | score format, link resolution, trigger presence, and blocked-item naming |
 | `coverage-register.test.js` | The live coverage permutation register names runnable tests and records exclusions as decisions | permutation-register integrity | file existence, axis completeness, and re-entry conditions |
 | `verification-ownership-map.test.js` | Gate evidence named in the verification plan resolves to real, singly-owned test files | ownership-map integrity | exact file existence, gate/file uniqueness, and suite README ownership |
 | `design-link-integrity.test.js` | Local design and trace references cannot silently rot | reference integrity | exact file and heading-anchor resolution |

@@ -110,7 +110,7 @@ test("Given the register, when it is read, then the rule that keeps the default 
 });
 
 test("Given the exclusion register, when each row is read, then it states both a reason and a re-entry condition", async () => {
-  const excluded = rows(await register(), "4.6 Excluded combinations");
+  const excluded = rows(await register(), "4.8 Excluded combinations");
   assert.notEqual(excluded, undefined, "exclusion register is missing");
   assert.ok(excluded.length >= 1, "an empty exclusion register asserts total coverage");
 

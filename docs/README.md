@@ -16,6 +16,7 @@ Project-generalised documents are `UPPERCASE.md`; domain design contracts are `l
 | Change the code | [`CONTRIBUTING.md`](CONTRIBUTING.md) |
 | Write or move a test | [`TESTING.md`](TESTING.md) |
 | Know why a design choice was made, or what was confirmed as intent | [`DECISIONS.md`](DECISIONS.md) |
+| Decide what to work on next | [`BOARD.md`](BOARD.md) |
 | Understand a protocol behavior | [`design/`](design/README.md) |
 | Know what proves a behavior correct | [`GATES.md`](GATES.md) |
 
@@ -25,7 +26,8 @@ Project-generalised documents are `UPPERCASE.md`; domain design contracts are `l
 
 | Document | Owns |
 |---|---|
-| [`DECISIONS.md`](DECISIONS.md) | Confirmed intent, and the `D1`-`D17` decision register: what was chosen, why, and what a reversal would cost |
+| [`BOARD.md`](BOARD.md) | The triaged set of legal next moves, scored, with what is held and why |
+| [`DECISIONS.md`](DECISIONS.md) | Confirmed intent, and the decision register: what was chosen, why, and what a reversal would cost |
 | [`TESTING.md`](TESTING.md) | Test ownership, suite structure, and the anti-rot checks |
 | [`VERIFICATION.md`](VERIFICATION.md) | The certification model, traceability, and permutation matrices |
 | [`GATES.md`](GATES.md) | The `AX0`-`AX8` gate definitions and the test-file ownership map |

@@ -322,7 +322,7 @@ And `binding-websocket.md` says the adapter pauses *before* exhausting the bound
 
 ---
 
-### 4.6 Matrix execution
+### 4.7 Matrix execution
 
 The geometries, transports, and traffic drivers are declarative, so any combination can be executed rather than only the cells the default suite names:
 ```bash
@@ -342,7 +342,7 @@ Measured cost: 30 loopback cells in about 4 seconds, 70 cells across all carrier
 
 ---
 
-### 4.6 Excluded combinations
+### 4.8 Excluded combinations
 
 Each exclusion is a decision with a re-entry condition, in the same form as the deferred mechanisms in [`design/mechanisms.md`](design/mechanisms.md).
 
