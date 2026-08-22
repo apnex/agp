@@ -6,6 +6,7 @@ Shared fixtures arrange state only; they contain no assertions.
 | Test file | Primary contract | Explicit non-goal |
 |---|---|---|
 | `unit/adjacency-retry-suppression.test.js` | A satisfied adjacency suppresses dialing and loss resumes its bounded retry | Transport dialing and collision choice |
+| `unit/credit-grant.test.js` | Per-hop credit is two-dimensional, absolute rather than incremental, and unlimited when unnegotiated | Session wiring and wire carriage |
 | `unit/bounded-capacity.test.js` | Count/byte reservations are atomic and release is idempotent | Routing- or handler-specific policy |
 | `unit/connection-preidentity-closed-event.test.js` | A pre-admission ended attempt emits one remote-free event and cannot invent peer authority | Admitted-session teardown |
 | `unit/diagnostic-record-schema.test.js` | The sole core diagnostic record closes domain, severity, code, text, and extension boundaries | Sink scheduling and adapter diagnostics |

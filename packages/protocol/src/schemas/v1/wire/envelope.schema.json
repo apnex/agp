@@ -48,6 +48,29 @@
       "$ref": "urn:agp:schema:v1:protocol:common:message-id",
       "description": "Envelope message identity."
     },
+    "credit": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "bytes",
+        "packets"
+      ],
+      "properties": {
+        "bytes": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 9007199254740991,
+          "description": "Bytes the grantor will accept before further grant."
+        },
+        "packets": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 9007199254740991,
+          "description": "Packets the grantor will accept before further grant."
+        }
+      },
+      "description": "Receive credit this sender currently grants its peer. Optional: an absent grant means unlimited, which is the behaviour of a peer that never negotiated credit."
+    },
     "body": {
       "type": "object",
       "description": "Type-specific sovereign body."

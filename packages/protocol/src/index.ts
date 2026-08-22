@@ -45,6 +45,7 @@ export type {
 } from "./semantic.js";
 export type {
   AgpEnvelope,
+  CreditGrant,
   AgpMessage,
   CorrelationId,
   DataBody,

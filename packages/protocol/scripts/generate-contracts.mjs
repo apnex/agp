@@ -369,6 +369,30 @@ add(
   ),
 );
 
+// Two dimensions, because a channel has two exhaustible resources. A byte
+// budget alone lets small messages exhaust a packet ring, and each admitted
+// message additionally reserves a queue entry, a breadcrumb, and a return
+// token. See DECISIONS.md D19.
+const creditGrant = {
+  type: "object",
+  additionalProperties: false,
+  required: ["bytes", "packets"],
+  properties: {
+    bytes: {
+      type: "integer",
+      minimum: 0,
+      maximum: 9_007_199_254_740_991,
+      description: "Bytes the grantor will accept before further grant.",
+    },
+    packets: {
+      type: "integer",
+      minimum: 0,
+      maximum: 9_007_199_254_740_991,
+      description: "Packets the grantor will accept before further grant.",
+    },
+  },
+};
+
 add(
   "wire",
   "envelope",
@@ -396,6 +420,13 @@ add(
         description: "Closed v1 message discriminator.",
       },
       id: ref(ids.messageId, "Envelope message identity."),
+      credit: {
+        ...creditGrant,
+        description:
+          "Receive credit this sender currently grants its peer. Optional:"
+          + " an absent grant means unlimited, which is the behaviour of a peer"
+          + " that never negotiated credit.",
+      },
       body: { type: "object", description: "Type-specific sovereign body." },
       extensions: ref(
         ids.extensions,
@@ -459,6 +490,12 @@ add(
         minimum: 1,
         maximum: 255,
         description: "Maximum data hop-limit value accepted from this peer.",
+      },
+      initialCredit: {
+        ...creditGrant,
+        description:
+          "Initial receive credit offered to the peer. Absent means this node"
+          + " does not enforce credit and accepts an unlimited peer.",
       },
       transit: {
         type: "boolean",
@@ -908,8 +945,15 @@ export interface AgpEnvelope<
   readonly plane: P;
   readonly type: T;
   readonly id: MessageId;
+  readonly credit?: CreditGrant;
   readonly body: B;
   readonly extensions?: Extensions;
+}
+
+/** Receive credit a node grants its peer. Absent means unlimited. */
+export interface CreditGrant {
+  readonly bytes: number;
+  readonly packets: number;
 }
 
 export interface OpenBody {
@@ -920,6 +964,7 @@ export interface OpenBody {
   readonly maxRoutesPerSnapshot: number;
   readonly maxPathLength: number;
   readonly maxDataHopLimit: number;
+  readonly initialCredit?: CreditGrant;
   readonly transit: boolean;
 }
 

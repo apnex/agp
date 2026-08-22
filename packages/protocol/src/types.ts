@@ -1,5 +1,6 @@
 export type {
   AgpEnvelope,
+  CreditGrant,
   AgpMessage,
   CorrelationId,
   DataBody,

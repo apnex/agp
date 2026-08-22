@@ -1,4 +1,5 @@
 export * from "./bounded.js";
+export * from "./credit.js";
 export * from "./deterministic.js";
 export * from "./errors.js";
 export * from "./fsm.js";

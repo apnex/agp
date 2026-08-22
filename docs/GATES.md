@@ -868,6 +868,7 @@ Other file names may be refined before implementation, but every primary contrac
 | AX4 | `packages/core/test/unit/route-alternative-promotion.test.js` | Pure candidate loss atomically promotes the deterministic alternative |
 | AX4 | `packages/core/test/unit/route-session-withdrawal.test.js` | Session loss removes all and only session-owned routing state in one revision |
 | AX4 | `packages/core/test/unit/route-binding-withdrawal.test.js` | Binding close removes its local candidate/FIB/exports in one revision |
+| AX4 | `packages/core/test/unit/credit-grant.test.js` | Credit refuses on whichever dimension binds first, treats a grant as an absolute ceiling, and is unlimited only when the peer never advertised one |
 | AX4 | `packages/core/test/unit/bounded-capacity.test.js` | Bounded count, byte, and work reservations release exactly once and refuse admission past their limit |
 | AX4 | `packages/core/test/unit/route-capacity.test.js` | Each bounded routing reservation is all-or-nothing with canonical overflow outcomes |
 | AX4 | `packages/core/test/unit/rib-remote-rejection-memory.test.js` | An exact rejected export tuple remains filtered with its code/revision until tuple change or session replacement, without exercising retry scheduling |

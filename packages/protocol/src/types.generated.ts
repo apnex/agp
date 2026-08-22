@@ -86,8 +86,15 @@ export interface AgpEnvelope<
   readonly plane: P;
   readonly type: T;
   readonly id: MessageId;
+  readonly credit?: CreditGrant;
   readonly body: B;
   readonly extensions?: Extensions;
+}
+
+/** Receive credit a node grants its peer. Absent means unlimited. */
+export interface CreditGrant {
+  readonly bytes: number;
+  readonly packets: number;
 }
 
 export interface OpenBody {
@@ -98,6 +105,7 @@ export interface OpenBody {
   readonly maxRoutesPerSnapshot: number;
   readonly maxPathLength: number;
   readonly maxDataHopLimit: number;
+  readonly initialCredit?: CreditGrant;
   readonly transit: boolean;
 }
 

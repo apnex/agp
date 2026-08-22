@@ -72,6 +72,29 @@
       "maximum": 255,
       "description": "Maximum data hop-limit value accepted from this peer."
     },
+    "initialCredit": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "bytes",
+        "packets"
+      ],
+      "properties": {
+        "bytes": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 9007199254740991,
+          "description": "Bytes the grantor will accept before further grant."
+        },
+        "packets": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 9007199254740991,
+          "description": "Packets the grantor will accept before further grant."
+        }
+      },
+      "description": "Initial receive credit offered to the peer. Absent means this node does not enforce credit and accepts an unlimited peer."
+    },
     "transit": {
       "type": "boolean",
       "description": "Whether this node may export learned routes and forward nonlocal data."

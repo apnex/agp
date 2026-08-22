@@ -864,7 +864,7 @@
     {
       "id": "urn:agp:schema:v1:protocol:wire:envelope",
       "path": "packages/protocol/src/schemas/v1/wire/envelope.schema.json",
-      "sha256": "d736885c2f99e5041ab959fd6ae0e8a7affb32a028df002de9bf0606de3f8c87"
+      "sha256": "844486057a244aea4db5ef6daa034a78497bc809402b01aaf3bc101c9cc518b7"
     },
     {
       "id": "urn:agp:schema:v1:protocol:wire:error-message",
@@ -899,7 +899,7 @@
     {
       "id": "urn:agp:schema:v1:protocol:wire:open-body",
       "path": "packages/protocol/src/schemas/v1/wire/open-body.schema.json",
-      "sha256": "b630279d4d4ef6a465b78f00054f4a8625b7aff20f28917176d58b1b32150fab"
+      "sha256": "a5180eb832c3c7e2342ee51c5d519a79c6102fa5cfdd8be45a53192ce8a6891f"
     },
     {
       "id": "urn:agp:schema:v1:protocol:wire:open-message",

@@ -483,7 +483,8 @@ Credit is carried two ways, chosen so each mechanism serves the regime it alread
 | Traffic flowing | A field on every envelope | Free, and correlated exactly with the need |
 | Idle | `KEEPALIVE` | The only regime where no envelope flows, and where keepalive already fires |
 
-`OPEN` negotiates the initial grant.\
+An absent grant means unlimited, which is exactly how a peer that never negotiated credit behaves, so the field is optional and the wire shape is preserved.\
+A deployment configures whether it grants at all, and `OPEN` negotiates the initial grant between peers that do.\
 A receiver never advertises credit exceeding the channel limits it supplied to its adapter, so the ring cannot be oversubscribed by construction.
 
 Exceeding granted credit is a protocol violation and is fatal, in the same class as a revision or identity error.\
