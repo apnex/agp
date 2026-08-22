@@ -82,6 +82,18 @@ The AGP control plane has no knowledge of, and no responsibility for, how a chan
 
 The target scale is small and known: fewer than twenty nodes, in star and line topologies.
 
+### 2.5 Confirmed performance intent
+
+There is no performance target, and the absence is deliberate rather than an omission awaiting a number.\
+The standard is that AGP should be excellent, and that opportunities to improve it are taken as they are found.
+
+Two consequences follow, and they point in opposite directions.\
+A cost that is merely higher than some other system's is not a defect, so no measurement obliges a change on its own.\
+And an opportunity found is not deferred for want of a threshold to justify it, because there is no threshold and waiting for one is how an unwritten standard becomes an unmet one.
+
+This does not license slowness that breaks something else.\
+A cost that moves a deadline, exhausts a bound, or blocks the loop another obligation runs on is a correctness fault wearing a performance costume, and it is scored as the fault it is rather than as the number it presents.
+
 ### 2.4 Governing principles
 
 Three principles anchor the design and outrank convenience:

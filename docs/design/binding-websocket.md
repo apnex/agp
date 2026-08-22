@@ -225,8 +225,15 @@ A later write, error, or close callback cannot replace the committed outcome.
 
 Inbound buffering is bounded by both packet count and packet bytes.\
 `read(signal)` is a single-consumer pull operation with at most one outstanding call.\
-Where the WebSocket library exposes pause/resume or stream flow control, the adapter uses it.\
-If it cannot pause before exhausting the configured bound, it commits a local terminal with `kind: "resource-exhausted"` and diagnostic code `RECEIVE_OVERFLOW` rather than dropping a message.\
+Where the WebSocket library exposes pause/resume, the adapter pauses on reaching the configured bound and resumes when a read returns capacity below it.
+
+Pausing bounds memory, and the binding does not claim it provides flow control.\
+A WebSocket implementation delivers every frame it parsed from one carrier segment within a single turn, so a burst arriving inside one turn is buffered in full before any pause can take effect.\
+Pausing at a high-water mark below the bound was measured and does not change this, because the frames are already parsed by the time the mark is crossed; it only lowers the effective bound.\
+Enlarging the bound moves the threshold rather than removing it: a burst larger than the ring always exceeds it, and a ring larger than the burst never does.
+
+A packet that cannot be retained commits a local terminal with `kind: "resource-exhausted"` and diagnostic code `RECEIVE_OVERFLOW` rather than being dropped, because nothing above this layer retransmits.\
+Between conforming AGP v1 peers that outcome is unreachable, because per-hop credit keeps a sender inside the ring its peer advertised; it remains reachable against a peer that does not honour a grant, which is why it is specified rather than removed.\
 It never creates an unbounded push-backed shadow queue.
 
 The WebSocket implementation MUST be able to carry every packet permitted by the supplied common channel limits.\

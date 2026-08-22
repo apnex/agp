@@ -53,9 +53,10 @@ An item that is `I4`/`P1` belongs early even though nobody feels it today, becau
 | `B14` | Name a reproduction for the route-ack expiry a stream provokes | `I2` | `P2` | [`MX2`](VERIFICATION.md#46-open-findings-from-sweeps) | landed |
 | `B16` | Project credit and timing into the operations plane | `I2` | `P1` | [`D20`](DECISIONS.md#d20---observability-of-bounded-resources-and-timing) | landed |
 | `B17` | Derive the trace graph identifier set instead of hardcoding it | `I3` | `P1` | [`GATES.md` section 2](GATES.md#2-gate-ax0---intent-applicability-and-knowledge) | landed |
-| `B18` | Explain the residual per-hop cost and event-loop stalls | `I2` | `P3` | [`MX3`](VERIFICATION.md#46-open-findings-from-sweeps) | open |
+| `B18` | Explain the residual event-loop stalls under a stream | `I2` | `P3` | [`MX3`](VERIFICATION.md#46-open-findings-from-sweeps) | open |
+| `B19` | Take the per-hop cost against the carrier, opportunistically | `I4` | `P4` | [`MX4`](VERIFICATION.md#46-open-findings-from-sweeps) | open |
 | `B15` | Give a deployment the switch `D19` says it has, and credit control alongside data | `I3` | `P2` | [`D19`](DECISIONS.md#d19---per-hop-credit-flow-control) | open |
-| `B2` | Reconcile the pause wording in `binding-websocket.md` with the code | `I4` | `P2` | [`MX1`](VERIFICATION.md#46-open-findings-from-sweeps) | open |
+| `B2` | Reconcile the pause wording in `binding-websocket.md` with the code | `I4` | `P2` | [`MX1`](VERIFICATION.md#46-open-findings-from-sweeps) | landed |
 | `B12` | Split current and target architecture instants | `I4` | `P2` | [`ARCHITECTURE.md` section 12](ARCHITECTURE.md#12-owed-and-open) | open |
 | `B3` | Machine-readable cell to mechanism mapping | `I4` | `P3` | [`VERIFICATION.md` section 4](VERIFICATION.md#4-coverage-register) | open |
 | `B13` | Generate the package and dependency tables from the manifests | `I4` | `P3` | [`ARCHITECTURE.md` section 12](ARCHITECTURE.md#12-owed-and-open) | open |
@@ -102,7 +103,7 @@ Severity `P2`.
 
 | ID | Move | Note |
 |---|---|---|
-| `B2` | Align the pause wording in `binding-websocket.md` with the implementation, or the implementation with the wording | Open. Neither prevents the overrun, so this is a truth defect rather than a behaviour defect. It was to be done inside `B1` and was not, so the cheap moment has passed and it now costs its own visit |
+| `B2` | Align the pause wording in `binding-websocket.md` with the implementation, or the implementation with the wording | Landed, and the delay improved it. The old wording implied the adapter pauses before exhausting the bound and overflows only if it cannot, which suggested a flow control the carrier cannot provide. `MX1` since established that a burst inside one turn is buffered in full before any pause can engage, so the binding now states what pausing does and does not do, and names credit as what makes the overflow unreachable between conforming peers |
 | `B15` | Give a deployment the switch `D19` says it has, and govern control alongside data | `D19` states that a deployment configures whether it grants at all, and no such configuration exists. It also leaves control ungoverned, drawing on a reserve rather than a grant, so the ring is bounded by construction rather than by accounting |
 | `B17` | Derive the required identifier set of the trace graph from the record, rather than stating it as a literal | Landed. The gate had been sealing the graph against the literal seventeen while nineteen decisions were ratified, and the schema carried the same bound one layer down. `D18` and `D19` are now traced, and adding a decision without tracing it fails at the moment it is added |
 | `B12` | Split the architecture into current and target instants | Now legal, and smaller than when it was filed. The trigger was `D19` ratified but unbuilt; `D19` is built except for the switch `B15` owns, so one declared surface still has no running counterpart. Doing this before `B15` would describe a divergence that `B15` is about to remove |
@@ -115,7 +116,18 @@ Severity `I2`.
 
 | ID | Move | Note |
 |---|---|---|
-| `B18` | Explain the residual: seventy millisecond event-loop stalls under a stream, and a node hop costing roughly half a millisecond against a 75 microsecond carrier round trip | The ladder and the profile that found `D21` are the instruments, and `MX3` is filed with both. This is the same class of defect, now chased by the procedure in section 4.9 rather than by improvisation |
+| `B18` | Explain the seventy millisecond event-loop stalls that remain under a stream | Confirmed intent sets no performance target, so a large cost is not a defect. A stall is not a cost: it moves every deadline sharing the loop, which is precisely how a healthy session was torn down before `D21`. That makes this a latent correctness fault rather than an optimisation, and it keeps its `I2` |
+
+---
+
+## M4a - Opportunistic improvement
+
+Severity `P4`.\
+Confirmed intent section 2.5 sets no performance target and asks that opportunities be taken as they are found, so an item here earns its place by being found rather than by clearing a threshold.
+
+| ID | Move | Note |
+|---|---|---|
+| `B19` | Reduce the per-hop cost against the carrier beneath it | `MX4`. Roughly half a millisecond per message through a node pair against a 75 microsecond carrier round trip. Nothing is breached and nothing obliges this, which is exactly why it is scored `P4` and taken only when a way is found |
 
 ---
 
@@ -159,7 +171,6 @@ Scored on the same scale, so not choosing them is visible.
 
 | Question | Blocks |
 |---|---|
-| Whether AGP has a stated performance intent at all, and against what | `B18`. `MX3` records that a node hop costs roughly half a millisecond against a 75 microsecond carrier round trip. Whether that is a defect or simply the cost of the design cannot be decided without a stated intent, and no record holds one |
 | Whether a node should be able to decline to grant at all, and what a deployment that does so is choosing | `B15`. The wire field is optional and an absent grant is unlimited, so a peer that never negotiated credit is unaffected. What is not built is the switch `D19` says a deployment has, and the default was set to grant because leaving `RECEIVE_OVERFLOW` reachable is the fault `D19` exists to remove |
 | Whether a matrix sweep should run on a schedule, and if so at what depth | `B4`, and whether cost data is worth collecting at all |
 

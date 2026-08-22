@@ -310,7 +310,8 @@ A finding stays here until it is closed by a design decision or a regression tes
 |---|---|---|
 | `MX1` | A sender that offers messages back to back over WebSocket overruns the receiver, which commits `RECEIVE_OVERFLOW`, closes the session, purges its routes, and reconnects. Delivered messages equal `maxBufferedPackets` exactly, at every bound tested from 16 to 128. Every `send()` resolved successfully first. | Closed by `D19`, gated by `test/topology/credit-flow-control.test.js` |
 | `MX2` | A four-node diamond carrying twenty-four endpoints per node fails a two-second `routeAckTimeoutMs` while a stream is in flight, on sessions that carry no data of their own. Raising only that deadline to twenty seconds passes the same cell with every message delivered. | Closed by `D21`, gated by `packages/core/test/unit/write-path-cost.test.js` |
-| `MX3` | With the write path corrected, a two hundred message stream still leaves the event loop stalled for up to seventy milliseconds, and a node hop costs far more than the carrier beneath it: a raw WebSocket round trip is about 75 microseconds against roughly half a millisecond per message through a node pair. Neither figure is explained. | Open, instrument available |
+| `MX3` | With the write path corrected, a two hundred message stream still stalls the event loop for up to seventy milliseconds at a time. A stall of that size moves any deadline running on the same loop, which is the mechanism that previously tore down healthy sessions. | Open, instrument available |
+| `MX4` | A node hop costs far more than the carrier beneath it: a raw WebSocket round trip is about 75 microseconds against roughly half a millisecond per message through a node pair. Unexplained, and not a breach of anything. | Open, opportunistic |
 
 `MX1` was reproducible and understood, and `D19` ratifies the mechanism that closed it.\
 `ws` emits every frame parsed from one TCP segment in a single turn, so a burst of small messages arrives faster than `pause()` can take effect and the configured bound is exceeded within one tick.\
@@ -345,6 +346,11 @@ Deep cloning was thirty-one percent of all processor time, because every commit 
 
 The credit replenishment figure is the one worth reading twice.\
 It was the number the whole investigation began from, it was assumed to be credit's, and credit never touched it.
+
+`MX3` and `MX4` are separated because confirmed intent scores them differently.\
+There is no performance target, so a cost that is merely large is not a defect and `MX4` is an opportunity rather than an obligation.\
+A stall is not merely a cost: it moves every deadline sharing the loop, and that is the exact mechanism by which a healthy session was torn down before `D21`.\
+`MX3` is therefore chased as a latent correctness fault and `MX4` is taken when a way is found.
 
 #### Eliminated causes
 
