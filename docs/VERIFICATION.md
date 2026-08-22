@@ -437,6 +437,12 @@ Measured one carrier per process, because measuring three in one gave the later 
 One thousand messages, three runs, median.\
 Compare the columns to each other and to nothing else.
 
+Isolation now covers both socket carriers, and the pre-shared-key carrier authenticates across processes with a key table the parent generates and hands to each child.\
+No isolated figure is published here yet.\
+Three attempts produced three orderings, the last of them putting pre-shared keys at three times Loopback, and the machine they ran on was saturated by the work that produced them.\
+The capability is landed and the measurement is `B22`, to be taken on a quiet machine.\
+Two contaminations specific to an isolated run are already known and belong to that work: delivery is observed by the parent over a channel the parent must be scheduled to drain, and the sender and receiver are timed by different clocks.
+
 The figures above were taken with both nodes of each pair sharing a process.\
 Isolation is now an axis of the geometry harness rather than a separate harness, so `node scripts/throughput.mjs --isolation=process` runs each node on its own.\
 A first isolated reading put a WebSocket pair near the co-located one with a wider spread, which says the one-hop carrier comparison was not badly distorted by co-location, and says nothing yet about deeper shapes where four nodes shared one loop.\
@@ -535,33 +541,37 @@ The order below is the one that worked, and it is ordered deliberately.
 3. **Repeat before believing.**\
    A single stream run varies by a factor of two on an idle machine, so the ladder repeats and reports best, median and worst.\
    Acting on one sample is how a regression and an outlier become indistinguishable, and a reading of 979 microseconds per message was nearly acted on before three further runs put it at 525.
-4. **Give each node its own process when the measurement compares.**\
+4. **Let an isolated node generate its own load.**\
+   Driving sends from the parent puts an inter-process round trip in front of every one, so the figure measures the harness channel rather than the subject.\
+   Done that way, the pre-shared-key carrier read as the fastest of the three, because its round trip happened to be cheapest that run.\
+   The parent says how many to send; the node sends them and reports what it took.
+5. **Give each node its own process when the measurement compares.**\
    Nodes sharing a process share an event loop, a heap and a compilation state, so they contend in ways a deployment would not and they warm each other up.\
    Measuring three carriers in one process reported TLS as faster than an in-process fabric purely because it ran last.\
    This binds on measurement, not on correctness: a functional test co-locates nodes deliberately and cheaply, and isolating it would cost minutes and prove nothing.\
    A figure taken with nodes co-located is reported as such or it is not reported.\
    Loopback cannot be isolated today because its fabric is an in-process object, which is a fact about the current implementation and not about the transport; `F08` records what a cross-process carrier would take.
-5. **Prove the knob moved before believing the result.**\
+6. **Prove the knob moved before believing the result.**\
    A control that varies nothing produces three identical readings and reads as a strong negative.\
    A parameter was passed to a harness that did not accept it, and the conclusion drawn was the opposite of the truth.
-6. **Compare within one session, never across them.**\
+7. **Compare within one session, never across them.**\
    The same unchanged measurement read 525 microseconds per message and then 670 an hour later, and a sweep read 40 seconds and then 25.\
    An A and a B taken hours apart compare the machine, not the change.
-7. **Climb the ladder, do not measure the whole.**\
+8. **Climb the ladder, do not measure the whole.**\
    `scripts/latency-ladder.mjs` adds one layer per rung, so the rung where the milliseconds appear names the layer that owns them.\
    A single end-to-end number cannot do that, and chasing one produces hypotheses rather than causes.
-8. **Sample event-loop lag underneath every measurement.**\
+9. **Sample event-loop lag underneath every measurement.**\
    In a single-process topology a slow path and a starved one look identical.\
    `test/support/loop-lag.js` separates them, and in `MX2` the lag was the finding.
-9. **Profile before fixing.**\
+10. **Profile before fixing.**\
    A processor profile named the function in one run, after reasoning had failed twice.\
    `node --cpu-prof` against one ladder rung is enough.
-10. **Prove the cause before believing it.**\
+11. **Prove the cause before believing it.**\
    Disable the suspected path, measure again, and require the number to move.\
    Two suspects were eliminated this way before the third survived.
-11. **Fix the shape, not the constant.**\
+12. **Fix the shape, not the constant.**\
    A tenfold constant improvement on a quadratic is a longer fuse, not a fix, and it will read as success on every benchmark small enough to run in a test.
-12. **Revert what cannot be shown to help.**\
+13. **Revert what cannot be shown to help.**\
    A change that is principled, small and unmeasurable is still machinery somebody must maintain and can get wrong.\
    Record the negative result so the next reader does not spend the same afternoon proving it again.
 

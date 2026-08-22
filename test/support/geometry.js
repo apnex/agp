@@ -253,12 +253,22 @@ export async function buildGeometry({
 async function buildIsolatedGeometry({
   geometry, transport, endpointsPerNode, deliveries, capacity, context,
 }) {
-  if (transport !== "websocket") {
+  if (transport !== "websocket" && transport !== "websocket-psk") {
     throw new Error(
       `transport ${transport} has no cross-process carrier; see F08`,
     );
   }
   const shape = geometry.nodes;
+  const secure = transport === "websocket-psk";
+  // Generated here rather than in the children, because every node must be
+  // able to authenticate every other and a closure does not cross a process
+  // boundary. One table per topology, per run.
+  const secrets = secure
+    ? Object.fromEntries(
+        shape.map((_, index) => [`n${index}`, randomBytes(32).toString("hex")]),
+      )
+    : undefined;
+  const scheme = secure ? "wss" : "ws";
   const limits = {
     maxLocalEndpoints: Math.max(64, endpointsPerNode * 2),
     maxRoutesPerSnapshot: PROTOCOL_MAX_ROUTES_PER_SNAPSHOT,
@@ -288,9 +298,12 @@ async function buildIsolatedGeometry({
       transport: {
         kind: transport,
         listeners: spec.listens
-          ? [{ transportRef: listenerRef, url: "ws://127.0.0.1:0/agp" }]
+          ? [{ transportRef: listenerRef, url: `${scheme}://127.0.0.1:0/agp` }]
           : [],
         targets,
+        ...(secure
+          ? { presharedKeys: { localIdentity: `n${index}`, secrets } }
+          : {}),
       },
       endpoints: endpointsOf(index, endpointsPerNode),
       deliveries,

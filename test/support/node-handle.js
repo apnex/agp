@@ -65,6 +65,11 @@ export class ProcessNodeHandle {
     return this.#call("send", { source, destination, payload });
   }
 
+  /** Offer `count` messages from inside the node's own process. */
+  burst(source, destination, count) {
+    return this.#call("burst", { source, destination, count });
+  }
+
   selectedRoutes() {
     return this.#call("selected-routes");
   }

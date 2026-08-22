@@ -31,21 +31,42 @@ function emit(value) {
   if (process.connected) process.send(value);
 }
 
-function transportFor({ kind, listeners, targets }) {
-  if (kind !== "websocket") {
+function transportFor({ kind, listeners, targets, presharedKeys }) {
+  if (kind !== "websocket" && kind !== "websocket-psk") {
     throw new Error(
       `transport ${kind} cannot be isolated in a process; see F08`,
     );
   }
+  const security = kind === "websocket-psk"
+    ? { mode: "preshared-key", keying: "node" }
+    : { mode: "trusted-development" };
   const shape = (entry) => ({
     transportRef: entry.transportRef,
     url: entry.url,
     compression: { mode: "disabled" },
-    security: { mode: "trusted-development" },
+    security,
   });
-  return createNodeWsTransport({
+  const binding = {
     listeners: listeners.map(shape),
     targets: targets.map(shape),
+  };
+  if (kind !== "websocket-psk") return createNodeWsTransport(binding);
+
+  // A closure cannot cross a process boundary, so the parent generates the
+  // table and hands each child the identities it must authenticate. The
+  // material is per-run, lives in a directory removed on stop, and never
+  // leaves the machine.
+  const table = new Map(
+    Object.entries(presharedKeys.secrets).map(
+      ([identity, hex]) => [identity, Buffer.from(hex, "hex")],
+    ),
+  );
+  return createNodeWsTransport(binding, {
+    presharedKeys: {
+      localIdentity: presharedKeys.localIdentity,
+      own: () => table.get(presharedKeys.localIdentity),
+      resolve: (identity) => table.get(identity),
+    },
   });
 }
 
@@ -64,6 +85,36 @@ async function handle(message) {
         message.payload,
       );
       reply({ ok: true, value: receipt });
+      return;
+    }
+    if (message.command === "burst") {
+      // Generated here, not driven from the parent. A parent that awaits each
+      // send over IPC measures the channel to this process, which is neither
+      // AGP nor the carrier under it, and it reported TLS as the fastest
+      // carrier because its round trip happened to be cheapest that run.
+      const started = process.hrtime.bigint();
+      let accepted = 0;
+      let refusals = 0;
+      while (accepted < message.count) {
+        try {
+          await node.send(message.source, message.destination, {
+            ordinal: accepted,
+          });
+          accepted += 1;
+        } catch (error) {
+          if (error?.code !== "QUEUE_FULL") throw error;
+          refusals += 1;
+          await new Promise((resolve) => setTimeout(resolve, 1));
+        }
+      }
+      reply({
+        ok: true,
+        value: {
+          accepted,
+          refusals,
+          offeredUs: Number(process.hrtime.bigint() - started) / 1000,
+        },
+      });
       return;
     }
     if (message.command === "selected-routes") {

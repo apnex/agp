@@ -55,6 +55,13 @@ const geometry = () => GEOMETRIES.chain(HOPS + 1);
  * a refusal is capacity backpressure rather than an error, so it is retried.
  */
 async function saturate({ node, source, destination, count, arrived }) {
+  // An isolated node generates its own load. Driving it over IPC would put a
+  // round trip in front of every send and measure the harness.
+  if (typeof node.burst === "function") {
+    const result = await node.burst(source, destination, count);
+    await eventually(() => arrived() >= count, "throughput drain", 120_000);
+    return { refusals: result.refusals };
+  }
   // `send` resolves at admission, not at delivery, and admission is cheap, so
   // offering one at a time still keeps the writer queue full and the wire
   // busy. An earlier version held sixty-four admissions outstanding and
@@ -90,7 +97,7 @@ async function measure(transport) {
     // carrier property. It is lifted here so this measures the carrier. The
     // ceiling it imposes is measured on its own terms; see `MX6`.
     capacity: { maxReverseCorrelations: 500_000 },
-    ...(ISOLATION === "process" && transport === "websocket"
+    ...(ISOLATION === "process" && transport !== "loopback"
       ? { isolation: "process" }
       : {}),
   });
