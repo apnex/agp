@@ -911,6 +911,7 @@ Other file names may be refined before implementation, but every primary contrac
 | AX6 | `packages/core/test/unit/connection-preidentity-closed-event.test.js` | Every pre-admission ended attempt emits one remote-free `connection.preidentity-closed` and never invents remote identity |
 | AX6 | `packages/core/test/unit/operations-time-materialization.test.js` | Frozen monotonic clock produces exact duration/remaining-time fields, zero/max-safe presentation clamps, and no revision mutation |
 | AX6 | `packages/core/test/unit/latency-recorder.test.js` | Every measured duration reports through one primitive carrying count, last and high water, and an unobserved timing is absent rather than zero |
+| AX6 | `packages/core/test/unit/canonical-ordering.test.js` | Canonical ordering agrees with UTF-8 byte order on ASCII, non-ASCII and supplementary inputs, so a comparator fast path cannot reorder canonical state |
 | AX6 | `packages/core/test/unit/write-path-cost.test.js` | A commit returns a revision rather than materialised state, unchanged canonical state is shared rather than re-cloned, and per-write cost does not scale with held state |
 | AX6 | `test/topology/credit-observability.test.js` | A paced session projects its ceiling, spend, stalls, waiting time and acknowledgement round trip, and an unpaced one reports no pacing |
 | AX6 | `packages/management-http/test/contract/operations-projection.test.js` | Each resource is exact schema-valid SDK data from one reader call |

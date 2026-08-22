@@ -47,24 +47,24 @@ An item that is `I4`/`P1` belongs early even though nobody feels it today, becau
 
 ## Triage ledger
 
-| ID | Candidate | Impact | Breach | Evidence |
-|---|---|---|---|---|
-| `B1` | Implement `D19` credit flow control | `I1` | `P1` | [`MX1`](VERIFICATION.md#46-open-findings-from-sweeps), [`D19`](DECISIONS.md#d19---per-hop-credit-flow-control) |
-| `B14` | Name a reproduction for the route-ack expiry a stream provokes | `I2` | `P2` | [`MX2`](VERIFICATION.md#46-open-findings-from-sweeps) |
-| `B16` | Project credit and timing into the operations plane | `I2` | `P1` | [`D19`](DECISIONS.md#d19---per-hop-credit-flow-control), [`MX2`](VERIFICATION.md#46-open-findings-from-sweeps) |
-| `B17` | Derive the trace graph identifier set instead of hardcoding it | `I3` | `P1` | [`GATES.md` section 2](GATES.md#2-gate-ax0---intent-applicability-and-knowledge) |
-| `B18` | Explain the residual per-hop cost and event-loop stalls | `I2` | `P3` | [`MX3`](VERIFICATION.md#46-open-findings-from-sweeps) |
-| `B15` | Give a deployment the switch `D19` says it has, and credit control alongside data | `I3` | `P2` | [`D19`](DECISIONS.md#d19---per-hop-credit-flow-control) |
-| `B2` | Reconcile the pause wording in `binding-websocket.md` with the code | `I4` | `P2` | [`MX1`](VERIFICATION.md#46-open-findings-from-sweeps) |
-| `B3` | Machine-readable cell to mechanism mapping | `I4` | `P3` | [`VERIFICATION.md` section 4](VERIFICATION.md#4-coverage-register) |
-| `B4` | Cost model for matrix cells | `I4` | `P4` | [`VERIFICATION.md` section 4.7](VERIFICATION.md#47-matrix-execution) |
-| `B5` | Full-mesh geometry and per-pair keying | `I3` | `P3` | [`X1`](VERIFICATION.md#48-excluded-combinations), [`F07`](design/mechanisms.md) |
-| `B6` | Certificate and HTTP-authenticated WebSocket profiles | `I3` | `P3` | [`F07`](design/mechanisms.md) |
-| `B7` | Route volume beyond the 256 snapshot ceiling | `I3` | `P3` | [`D4`](DECISIONS.md#d4---full-route-snapshots) |
-| `B8` | Rewrite named geometry tests onto shared builders | `I4` | `P4` | [`VERIFICATION.md` section 4.7](VERIFICATION.md#47-matrix-execution) |
-| `B12` | Split current and target architecture instants | `I4` | `P2` | [`ARCHITECTURE.md` section 12](ARCHITECTURE.md#12-owed-and-open) |
-| `B13` | Generate the package and dependency tables from the manifests | `I4` | `P3` | [`ARCHITECTURE.md` section 12](ARCHITECTURE.md#12-owed-and-open) |
-| `B10` | Author an enduring intent statement for AGP | `I4` | `P3` | [`ARCHITECTURE.md` section 10](ARCHITECTURE.md#10-scope-boundary), [`DECISIONS.md` section 2](DECISIONS.md#2-confirmed-intent) |
+| ID | Candidate | Impact | Breach | Evidence | Status |
+|---|---|---|---|---|---|
+| `B1` | Implement `D19` credit flow control | `I1` | `P1` | [`MX1`](VERIFICATION.md#46-open-findings-from-sweeps), [`D19`](DECISIONS.md#d19---per-hop-credit-flow-control) | landed |
+| `B14` | Name a reproduction for the route-ack expiry a stream provokes | `I2` | `P2` | [`MX2`](VERIFICATION.md#46-open-findings-from-sweeps) | landed |
+| `B16` | Project credit and timing into the operations plane | `I2` | `P1` | [`D20`](DECISIONS.md#d20---observability-of-bounded-resources-and-timing) | landed |
+| `B17` | Derive the trace graph identifier set instead of hardcoding it | `I3` | `P1` | [`GATES.md` section 2](GATES.md#2-gate-ax0---intent-applicability-and-knowledge) | landed |
+| `B18` | Explain the residual per-hop cost and event-loop stalls | `I2` | `P3` | [`MX3`](VERIFICATION.md#46-open-findings-from-sweeps) | open |
+| `B15` | Give a deployment the switch `D19` says it has, and credit control alongside data | `I3` | `P2` | [`D19`](DECISIONS.md#d19---per-hop-credit-flow-control) | open |
+| `B2` | Reconcile the pause wording in `binding-websocket.md` with the code | `I4` | `P2` | [`MX1`](VERIFICATION.md#46-open-findings-from-sweeps) | open |
+| `B12` | Split current and target architecture instants | `I4` | `P2` | [`ARCHITECTURE.md` section 12](ARCHITECTURE.md#12-owed-and-open) | open |
+| `B3` | Machine-readable cell to mechanism mapping | `I4` | `P3` | [`VERIFICATION.md` section 4](VERIFICATION.md#4-coverage-register) | open |
+| `B13` | Generate the package and dependency tables from the manifests | `I4` | `P3` | [`ARCHITECTURE.md` section 12](ARCHITECTURE.md#12-owed-and-open) | open |
+| `B4` | Cost model for matrix cells | `I4` | `P4` | [`VERIFICATION.md` section 4.7](VERIFICATION.md#47-matrix-execution) | open |
+| `B5` | Full-mesh geometry and per-pair keying | `I3` | `P3` | [`X1`](VERIFICATION.md#48-excluded-combinations), [`F07`](design/mechanisms.md) | held |
+| `B6` | Certificate and HTTP-authenticated WebSocket profiles | `I3` | `P3` | [`F07`](design/mechanisms.md) | held |
+| `B7` | Route volume beyond the 256 snapshot ceiling | `I3` | `P3` | [`D4`](DECISIONS.md#d4---full-route-snapshots) | held |
+| `B8` | Rewrite named geometry tests onto shared builders | `I4` | `P4` | [`VERIFICATION.md` section 4.7](VERIFICATION.md#47-matrix-execution) | held |
+| `B10` | Author an enduring intent statement for AGP | `I4` | `P3` | [`ARCHITECTURE.md` section 10](ARCHITECTURE.md#10-scope-boundary), [`DECISIONS.md` section 2](DECISIONS.md#2-confirmed-intent) | open |
 
 ---
 
@@ -74,23 +74,25 @@ Severity `I1`.\
 Status: **closed.\
 The oracle reads 70 of 70.**
 
-| ID | Move | Why it is first |
+| ID | Move | Outcome |
 |---|---|---|
-| `B1` | Implement `D19`: envelope and `OPEN` credit fields, grant computation and enforcement beside `capacity-ledger`, and a regression test | The only `I1` on the board. A sender silently loses messages after `send()` resolves, and the session resets. `D19` is ratified, so only the build remains |
-| `B14` | Name a reproduction for `MX2`, then decide whether it is a harness bound or a defect | Done. It was a defect, and not in credit. The reproduction is a latency ladder rather than a topology, because the fault was in the write path shared by every session |
-| `B16` | Project credit and timing into the operations plane, so a timing defect is read rather than derived | Done, as `D20`. It paid for itself immediately: the first query named the number two rounds of reasoning had failed to explain |
+| `B1` | Implement `D19`: envelope and `OPEN` credit fields, grant computation and enforcement, and a regression test | Landed. Credit paces the wire rather than admission, control is never blocked by a grant, and the regression fails with credit disabled |
+| `B14` | Name a reproduction for `MX2`, then decide whether it is a harness bound or a defect | Landed. It was a defect, and not in credit. The reproduction is a latency ladder rather than a topology, because the fault was in the write path shared by every session |
+| `B16` | Project credit and timing into the operations plane, so a timing defect is read rather than derived | Landed as `D20`. It paid for itself on first use: the query named the number two rounds of reasoning had failed to explain |
 
 The oracle moved from 59 of 70 cells to 70, and the sweep that took 284 seconds now takes 58.\
 Credit recovered nine cells, all message loss under a stream.\
 The last two were `MX2`, and `MX2` was neither a harness bound nor credit: the write path of the operations plane was quadratic and blocked the event loop for up to 590 milliseconds, so every deadline in the system was being judged against a clock that a stall had already moved.\
-`D21` records the correction.
+`D21` records the correction and `MX3` records what is still unexplained.
 
 The lesson worth keeping is the order in which this became visible.\
 Two attempts to explain the timing by reasoning produced plausible causes and no progress.\
-The projection required by `D20` produced the number on first use, a processor profile named the function, and the fix followed in an afternoon.
+The projection required by `D20` produced the number on first use, a processor profile named the function, and the fix followed in an afternoon.\
+That order is now recorded as method in [`VERIFICATION.md` section 4.9](VERIFICATION.md#49-chasing-a-timing-defect).
 
-The internal order fixed by `D3` was followed: contracts and their gate first, then the grant primitives, then enforcement, then the regression.\
-The compatibility posture under `Decisions required` was resolved by building the mechanism and leaving the switch to `B15`.
+Two commitments made while closing this milestone were not kept, and are open rather than quietly dropped.\
+`B2` was to be done inside `B1` because it edits the same paragraph, and it was not.\
+`B15` remains the unbuilt half of `D19`.
 
 ---
 
@@ -100,10 +102,10 @@ Severity `P2`.
 
 | ID | Move | Note |
 |---|---|---|
-| `B2` | Align the pause wording in `binding-websocket.md` with the implementation, or the implementation with the wording | Neither prevents the overrun, so this is a truth defect rather than a behaviour defect. Cheapest done inside `B1`, which edits the same paragraph |
+| `B2` | Align the pause wording in `binding-websocket.md` with the implementation, or the implementation with the wording | Open. Neither prevents the overrun, so this is a truth defect rather than a behaviour defect. It was to be done inside `B1` and was not, so the cheap moment has passed and it now costs its own visit |
 | `B15` | Give a deployment the switch `D19` says it has, and govern control alongside data | `D19` states that a deployment configures whether it grants at all, and no such configuration exists. It also leaves control ungoverned, drawing on a reserve rather than a grant, so the ring is bounded by construction rather than by accounting |
-| `B17` | Derive the required identifier set of the trace graph from the record, rather than stating it as a literal | `AX0` seals the intent graph against `D1` to `D17` written as a constant, while nineteen decisions are ratified. `D18` and `D19` are built and gated and appear nowhere in the graph, and the gate cannot detect the drift it exists to prevent |
-| `B12` | Split the architecture into current and target instants | Not yet legal. `AR1` projects one architecture at two instants, and AGP has one because current and target converged. `D19` ratified but unbuilt is the trigger, so this becomes legal the moment `B1` starts |
+| `B17` | Derive the required identifier set of the trace graph from the record, rather than stating it as a literal | Landed. The gate had been sealing the graph against the literal seventeen while nineteen decisions were ratified, and the schema carried the same bound one layer down. `D18` and `D19` are now traced, and adding a decision without tracing it fails at the moment it is added |
+| `B12` | Split the architecture into current and target instants | Now legal, and smaller than when it was filed. The trigger was `D19` ratified but unbuilt; `D19` is built except for the switch `B15` owns, so one declared surface still has no running counterpart. Doing this before `B15` would describe a divergence that `B15` is about to remove |
 
 ---
 
@@ -157,6 +159,7 @@ Scored on the same scale, so not choosing them is visible.
 
 | Question | Blocks |
 |---|---|
+| Whether AGP has a stated performance intent at all, and against what | `B18`. `MX3` records that a node hop costs roughly half a millisecond against a 75 microsecond carrier round trip. Whether that is a defect or simply the cost of the design cannot be decided without a stated intent, and no record holds one |
 | Whether a node should be able to decline to grant at all, and what a deployment that does so is choosing | `B15`. The wire field is optional and an absent grant is unlimited, so a peer that never negotiated credit is unaffected. What is not built is the switch `D19` says a deployment has, and the default was set to grant because leaving `RECEIVE_OVERFLOW` reachable is the fault `D19` exists to remove |
 | Whether a matrix sweep should run on a schedule, and if so at what depth | `B4`, and whether cost data is worth collecting at all |
 
