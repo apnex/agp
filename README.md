@@ -39,6 +39,7 @@ For three independently managed processes with multiple endpoints per leaf, use 
 | Inspect a running node | [Operations and CLI](#operations-and-cli) |
 | Build and test the workspace | [Development and verification](#development-and-verification) |
 | Understand the protocol | [Design set](./docs/design/README.md) and [mechanisms.md](./docs/design/mechanisms.md) |
+| Know why AGP exists, and what it will never be | [VISION.md](./VISION.md) |
 
 ---
 

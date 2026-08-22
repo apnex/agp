@@ -11,6 +11,7 @@ Project-generalised documents are `UPPERCASE.md`; domain design contracts are `l
 
 | I want to | Read |
 |---|---|
+| Know why AGP exists, and what it will never be | [`../VISION.md`](../VISION.md) |
 | Understand what AGP is and run it | [`../README.md`](../README.md) |
 | Know whether it is safe to expose | [`SECURITY.md`](SECURITY.md) |
 | Change the code | [`CONTRIBUTING.md`](CONTRIBUTING.md) |

@@ -16,6 +16,7 @@ const normativeElsewhere = [
   "docs/VERIFICATION.md",
   "docs/GATES.md",
   "docs/BOARD.md",
+  "VISION.md",
 ];
 
 const normativeArtifacts = [
