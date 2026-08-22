@@ -70,6 +70,52 @@ export const LINE_ENDPOINTS = Object.freeze({
   c: "line/c",
 });
 
+/**
+ * The line, declared once.
+ *
+ * `transport-equivalence` builds this shape twice, in process and across
+ * processes, and asserts the two agree. That claim is only worth anything if
+ * both are the same topology, and until now each builder declared it by hand:
+ * a drift in either one would have left the comparison passing while comparing
+ * two different things.
+ *
+ * The star is deliberately not here. It is built from the configuration
+ * documents that ship in `examples/independent-star`, so its shape is coverage
+ * of a published artifact rather than a fixture, and deriving it from a
+ * fixture would delete that coverage.
+ */
+export const LINE_TOPOLOGY = Object.freeze({
+  nodes: Object.freeze([
+    Object.freeze({
+      key: "a",
+      nodeId: "line.a",
+      listens: true,
+      loopbackPort: 15_201,
+      dialsKey: undefined,
+      transit: false,
+      endpoints: Object.freeze([LINE_ENDPOINTS.a]),
+    }),
+    Object.freeze({
+      key: "b",
+      nodeId: "line.b",
+      listens: true,
+      loopbackPort: 15_202,
+      dialsKey: "a",
+      transit: true,
+      endpoints: Object.freeze([]),
+    }),
+    Object.freeze({
+      key: "c",
+      nodeId: "line.c",
+      listens: false,
+      loopbackPort: undefined,
+      dialsKey: "b",
+      transit: false,
+      endpoints: Object.freeze([LINE_ENDPOINTS.c]),
+    }),
+  ]),
+});
+
 export class IndependentProcessTopology {
   #directory;
   #nodes = [];
@@ -327,33 +373,38 @@ export async function startIndependentStar(topology) {
 }
 
 export async function startIndependentLine(topology) {
-  const a = await topology.start(
-    "line-a",
-    processDocument({
-      nodeId: "line.a",
-      listen: { host: "127.0.0.1", port: 0, path: "/agp" },
-      endpoints: [LINE_ENDPOINTS.a],
-    }),
+  const started = new Map();
+  for (const spec of LINE_TOPOLOGY.nodes) {
+    const dialed = spec.dialsKey === undefined
+      ? undefined
+      : started.get(spec.dialsKey);
+    const node = await topology.start(
+      `line-${spec.key}`,
+      processDocument({
+        nodeId: spec.nodeId,
+        ...(spec.listens
+          ? { listen: { host: "127.0.0.1", port: 0, path: "/agp" } }
+          : {}),
+        ...(dialed === undefined
+          ? {}
+          : {
+              peers: [peer(
+                `${spec.key}-${spec.dialsKey}`,
+                dialed.nodeId,
+                requiredListenerAddress(dialed.node),
+              )],
+            }),
+        ...(spec.transit ? { transit: true } : {}),
+        endpoints: [...spec.endpoints],
+      }),
+    );
+    started.set(spec.key, { node, nodeId: spec.nodeId });
+  }
+  return Object.freeze(
+    Object.fromEntries(
+      [...started].map(([key, value]) => [key, value.node]),
+    ),
   );
-  const b = await topology.start(
-    "line-b",
-    processDocument({
-      nodeId: "line.b",
-      listen: { host: "127.0.0.1", port: 0, path: "/agp" },
-      peers: [peer("b-a", "line.a", requiredListenerAddress(a))],
-      transit: true,
-      endpoints: [],
-    }),
-  );
-  const c = await topology.start(
-    "line-c",
-    processDocument({
-      nodeId: "line.c",
-      peers: [peer("c-b", "line.b", requiredListenerAddress(b))],
-      endpoints: [LINE_ENDPOINTS.c],
-    }),
-  );
-  return Object.freeze({ a, b, c });
 }
 
 export function processDocument({

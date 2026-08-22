@@ -52,7 +52,7 @@ An item that is `I4`/`P1` belongs early even though nobody feels it today, becau
 | `B20` | Release expired breadcrumbs, so a node can send more than 4096 messages in its life | `I1` | `P1` | [`MX5`](VERIFICATION.md#46-open-findings-from-sweeps) | landed |
 | `B21` | Stop discarding a rejectable promise on the inbound data path | `I1` | `P2` | [`MX6`](VERIFICATION.md#46-open-findings-from-sweeps) | landed |
 | `B22` | Measure throughput with each node in its own process | `I3` | `P3` | [`MX7`](VERIFICATION.md#46-open-findings-from-sweeps) | open |
-| `B24` | Collapse the private end-to-end geometry into the shared vocabulary | `I4` | `P3` | [`VERIFICATION.md` section 4.9](VERIFICATION.md#49-chasing-a-timing-defect) |  open |
+| `B24` | Give the equivalence line one declaration instead of two | `I4` | `P3` | [`VERIFICATION.md` section 4.9](VERIFICATION.md#49-chasing-a-timing-defect) | landed |
 | `B25` | Give pre-shared keys a cross-process key exchange so that carrier can be isolated too | `I4` | `P3` | [`F08`](design/mechanisms.md) | open |
 | `B23` | Decide whether the sustained send ceiling is the intended one | `I2` | `P3` | [`MX7`](VERIFICATION.md#46-open-findings-from-sweeps) | open |
 | `B1` | Implement `D19` credit flow control | `I1` | `P1` | [`MX1`](VERIFICATION.md#46-open-findings-from-sweeps), [`D19`](DECISIONS.md#d19---per-hop-credit-flow-control) | landed |
@@ -152,7 +152,7 @@ Severity `I2`.
 |---|---|---|
 | `B23` | Decide whether a sustained ceiling of roughly 136 messages a second is the intended one | `MX7`. It follows from retaining a correlation per originated message for at least thirty seconds with no delivery acknowledgement to release it early. Raising it means more retained state, a shorter reverse-error window, or releasing on evidence of delivery, and those are different designs rather than different numbers |
 | `B22` | Re-measure throughput with each node in its own process | Unblocked. Isolation is now an axis of the geometry harness rather than a second harness, and a WebSocket pair runs with each node in its own process. What remains is the measurement itself across shapes and hops, and `B25` before the pre-shared-key carrier can join it |
-| `B24` | Collapse the private end-to-end geometry into the shared vocabulary | The end-to-end suite carries `startIndependentStar` and `startIndependentLine` beside `GEOMETRIES`, which is the same concept written twice. One of the two already caused a wrong measurement by being the one nobody thought to use |
+| `B24` | Give the equivalence line one declaration instead of two | Landed, and smaller than filed. I had called the end-to-end star and line duplicates of `GEOMETRIES`; investigating showed neither is. The star is built from the configuration documents that ship in `examples/independent-star`, so its shape is coverage of a published artifact, and deriving it from a fixture would delete that coverage. The line is built twice on purpose, in process and across processes, because a test asserts the two agree. What was genuinely wrong is that each builder declared the line by hand, so a drift in either would have left that comparison passing while comparing two different topologies. Both now derive from one declaration |
 | `B25` | Give pre-shared keys a cross-process key exchange | The in-process factory shares a secret table by closure, which a child process cannot reach. Until it can, only the plain WebSocket carrier can be isolated |
 
 ---

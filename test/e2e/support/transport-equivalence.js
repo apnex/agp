@@ -9,6 +9,7 @@ import {
 import {
   IndependentProcessTopology,
   LINE_ENDPOINTS,
+  LINE_TOPOLOGY,
   STAR_ENDPOINTS,
   eventuallyProcess,
   getProcessManagement,
@@ -149,41 +150,49 @@ export async function captureWebSocketStar() {
 }
 
 export async function captureLoopbackLine() {
-  const a = createLoopbackNode({
-    nodeId: "line.a",
-    listen: { host: "loopback", port: 15201, path: "/agp" },
-    transit: false,
-    ...equivalenceProtocolLimits(),
-  });
-  let b;
-  let c;
+  // Built from the one line declaration, so this and the process-isolated
+  // capture cannot drift apart. The whole claim of this file is that the two
+  // agree, and two hand-written declarations of "the line" could disagree
+  // while both still passing.
+  const started = new Map();
   const atA = [];
   const atC = [];
+  const order = [];
   try {
-    await expose(a, [LINE_ENDPOINTS.a], atA);
-    const startedA = await a.start();
-    b = createLoopbackNode({
-      nodeId: "line.b",
-      listen: { host: "loopback", port: 15202, path: "/agp" },
-      peers: [{
-        ...memoryPeer("b-a", "line.a", 15201),
-        url: startedA.listener.publication.displayAddress,
-      }],
-      transit: true,
-      ...equivalenceProtocolLimits(),
-    });
-    const startedB = await b.start();
-    c = createLoopbackNode({
-      nodeId: "line.c",
-      peers: [{
-        ...memoryPeer("c-b", "line.b", 15202),
-        url: startedB.listener.publication.displayAddress,
-      }],
-      transit: false,
-      ...equivalenceProtocolLimits(),
-    });
-    await expose(c, [LINE_ENDPOINTS.c], atC);
-    await c.start();
+    for (const spec of LINE_TOPOLOGY.nodes) {
+      const dialed = spec.dialsKey === undefined
+        ? undefined
+        : started.get(spec.dialsKey);
+      const node = createLoopbackNode({
+        nodeId: spec.nodeId,
+        ...(spec.listens
+          ? { listen: { host: "loopback", port: spec.loopbackPort, path: "/agp" } }
+          : {}),
+        ...(dialed === undefined
+          ? {}
+          : {
+              peers: [{
+                ...memoryPeer(
+                  `${spec.key}-${spec.dialsKey}`,
+                  dialed.spec.nodeId,
+                  dialed.spec.loopbackPort,
+                ),
+                url: dialed.started.listener.publication.displayAddress,
+              }],
+            }),
+        transit: spec.transit,
+        ...equivalenceProtocolLimits(),
+      });
+      order.unshift(node);
+      const sink = spec.key === "a" ? atA : spec.key === "c" ? atC : undefined;
+      if (spec.endpoints.length > 0 && sink !== undefined) {
+        await expose(node, [...spec.endpoints], sink);
+      }
+      started.set(spec.key, { node, spec, started: await node.start() });
+    }
+    const a = started.get("a").node;
+    const b = started.get("b").node;
+    const c = started.get("c").node;
     const expected = [LINE_ENDPOINTS.a, LINE_ENDPOINTS.c];
     const [aSnapshot, bSnapshot, cSnapshot] = await Promise.all([
       waitForSnapshot(
@@ -218,7 +227,7 @@ export async function captureLoopbackLine() {
       deliveries,
     );
   } finally {
-    await stopAll(c, b, a);
+    await stopAll(...order);
   }
 }
 
