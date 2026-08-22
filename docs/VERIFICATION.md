@@ -310,7 +310,7 @@ A finding stays here until it is closed by a design decision or a regression tes
 |---|---|---|
 | `MX1` | A sender that offers messages back to back over WebSocket overruns the receiver, which commits `RECEIVE_OVERFLOW`, closes the session, purges its routes, and reconnects. Delivered messages equal `maxBufferedPackets` exactly, at every bound tested from 16 to 128. Every `send()` resolved successfully first. | Closed by `D19`, gated by `test/topology/credit-flow-control.test.js` |
 | `MX2` | A four-node diamond carrying twenty-four endpoints per node fails a two-second `routeAckTimeoutMs` while a stream is in flight, on sessions that carry no data of their own. Raising only that deadline to twenty seconds passes the same cell with every message delivered. | Closed by `D21`, gated by `packages/core/test/unit/write-path-cost.test.js` |
-| `MX3` | With the write path corrected, a two hundred message stream still stalls the event loop for up to seventy milliseconds at a time. A stall of that size moves any deadline running on the same loop, which is the mechanism that previously tore down healthy sessions. | Open, instrument available |
+| `MX3` | A stream saturates the event loop. Over a two hundred message run a one-millisecond interval timer fires about twelve times, so the loop drains roughly that often and the synchronous blocks between drains average around twenty milliseconds and reach ninety. End to end a message costs roughly one millisecond through a node pair. A block of that size moves any deadline sharing the loop, which is the mechanism that tore down healthy sessions before `D21`. | Open, characterised, cause not yet named |
 | `MX4` | A node hop costs far more than the carrier beneath it: a raw WebSocket round trip is about 75 microseconds against roughly half a millisecond per message through a node pair. Unexplained, and not a breach of anything. | Open, opportunistic |
 
 `MX1` was reproducible and understood, and `D19` ratifies the mechanism that closed it.\
@@ -339,10 +339,16 @@ Deep cloning was thirty-one percent of all processor time, because every commit 
 
 | Measure | Before `D21` | After |
 |---|---|---|
-| Matrix, every carrier, deepened | 68 of 70 in 284s | 70 of 70 in 58s |
-| Two hundred messages, drain | 298ms | 110ms |
-| Event-loop lag, worst | 429ms | 87ms |
+| Matrix, every carrier, deepened | 68 of 70 in 284s | 70 of 70 in 38s |
+| One write against 500 held entries | 1529us | 3us |
+| Per-write growth for tenfold held state | tenfold | none |
 | Credit replenishment, worst | 14.6ms | 8.3ms |
+
+Two figures previously published here have been withdrawn rather than restated.\
+A drain time and an event-loop worst case were quoted from an instrument that measured only the interval after the send loop had finished, so the two phases overlapped and the number reported whichever ended last.\
+It read lower for more messages, which should have been caught when it was written.\
+The ladder now times from the first send to the last arrival, and the lag sampler uses a fixed-rate timer rather than one that re-arms after firing, because a self-rearming sampler stops sampling exactly when the loop is busiest and understates the stall it exists to detect.\
+The measures kept above are the ones that survived the correction: an end-to-end sweep and a microbenchmark, neither of which depended on the faulty instrument.
 
 The credit replenishment figure is the one worth reading twice.\
 It was the number the whole investigation began from, it was assumed to be credit's, and credit never touched it.

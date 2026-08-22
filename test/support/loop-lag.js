@@ -10,29 +10,29 @@
  * is the floor under every other duration measured while it runs.
  */
 export function sampleLoopLag({ intervalMs = 1 } = {}) {
-  let running = true;
   let count = 0;
   let maxUs = 0;
   let totalUs = 0;
+  let previous = process.hrtime.bigint();
 
-  const tick = () => {
-    if (!running) return;
-    const scheduledAt = process.hrtime.bigint();
-    setTimeout(() => {
-      if (!running) return;
-      const observedUs = Number(process.hrtime.bigint() - scheduledAt) / 1000;
-      const lateUs = Math.max(0, observedUs - intervalMs * 1000);
-      count += 1;
-      totalUs += lateUs;
-      if (lateUs > maxUs) maxUs = lateUs;
-      tick();
-    }, intervalMs);
-  };
-  tick();
+  // A fixed-rate timer rather than a self-rearming one. A timer that re-arms
+  // only after it fires stops sampling exactly when the loop is busiest, so it
+  // reports few samples and understates the stall it exists to detect. An
+  // interval keeps its schedule, and the lateness of each fire is the lag.
+  const handle = setInterval(() => {
+    const now = process.hrtime.bigint();
+    const observedUs = Number(now - previous) / 1000;
+    previous = now;
+    const lateUs = Math.max(0, observedUs - intervalMs * 1000);
+    count += 1;
+    totalUs += lateUs;
+    if (lateUs > maxUs) maxUs = lateUs;
+  }, intervalMs);
+  handle.unref?.();
 
   return {
     stop() {
-      running = false;
+      clearInterval(handle);
       return {
         samples: count,
         maxUs: Math.round(maxUs),

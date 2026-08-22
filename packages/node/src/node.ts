@@ -209,6 +209,12 @@ export class NodeImpl implements AgpNode, SessionHost {
     object,
     ReverseCorrelationSnapshot
   >();
+  // The whole list, memoised against breadcrumb membership. Several commits
+  // land per delivered message and the set changes at most once between them.
+  #reverseListCache: {
+    readonly version: number;
+    readonly value: readonly ReverseCorrelationSnapshot[];
+  } | undefined;
   readonly #reverseErrors: ReverseErrorEngine;
   readonly #dataPlane: DataPlane;
   readonly #controllers = new Map<string, PeerController>();
@@ -1450,6 +1456,15 @@ export class NodeImpl implements AgpNode, SessionHost {
    * entry keeps the write path proportional to what changed. See `D21`.
    */
   #reverseSnapshots(): readonly ReverseCorrelationSnapshot[] {
+    const version = this.#breadcrumbs.version;
+    const cached = this.#reverseListCache;
+    if (cached !== undefined && cached.version === version) return cached.value;
+    const value = this.#buildReverseSnapshots();
+    this.#reverseListCache = { version, value };
+    return value;
+  }
+
+  #buildReverseSnapshots(): readonly ReverseCorrelationSnapshot[] {
     return this.#breadcrumbs.snapshot().map((entry) => {
       const cached = this.#reverseProjections.get(entry);
       if (cached !== undefined) return cached;

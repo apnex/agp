@@ -116,7 +116,7 @@ Severity `I2`.
 
 | ID | Move | Note |
 |---|---|---|
-| `B18` | Explain the seventy millisecond event-loop stalls that remain under a stream | Confirmed intent sets no performance target, so a large cost is not a defect. A stall is not a cost: it moves every deadline sharing the loop, which is precisely how a healthy session was torn down before `D21`. That makes this a latent correctness fault rather than an optimisation, and it keeps its `I2` |
+| `B18` | Explain the event-loop saturation that remains under a stream | Partly advanced, not closed. Two further projections are memoised against exact change signals rather than rebuilt per message, and the sweep fell from 58 seconds to 38. What remains is characterised rather than explained: the loop drains about twelve times over a two hundred message run, and the blocks between drains average twenty milliseconds. Confirmed intent sets no performance target, so cost alone would not justify continuing; a block that moves a deadline is a correctness fault, which is why this keeps its `I2` |
 
 ---
 

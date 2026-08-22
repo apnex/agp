@@ -37,6 +37,9 @@ export class BreadcrumbStore {
   readonly #capacity: BreadcrumbCapacity;
   readonly #byController = new Map<object, Map<ReturnToken, StoredBreadcrumb>>();
   #entries = 0;
+  // Increments on every membership change, so a consumer can memoise a
+  // projection of the set against an exact signal rather than rebuilding it.
+  #version = 0;
   #bytes = 0;
   #highWaterEntries = 0;
   #highWaterBytes = 0;
@@ -72,6 +75,7 @@ export class BreadcrumbStore {
     }
     tokens.set(input.outboundReturnToken, { input, retainedBytes });
     this.#entries += 1;
+    this.#version += 1;
     this.#bytes += retainedBytes;
     this.#highWaterEntries = Math.max(this.#highWaterEntries, this.#entries);
     this.#highWaterBytes = Math.max(this.#highWaterBytes, this.#bytes);
@@ -162,6 +166,11 @@ export class BreadcrumbStore {
     });
   }
 
+  /** Membership generation. Changes exactly when the set does. */
+  get version(): number {
+    return this.#version;
+  }
+
   snapshot(): readonly BreadcrumbInput[] {
     const values: BreadcrumbInput[] = [];
     for (const tokens of this.#byController.values()) {
@@ -178,6 +187,7 @@ export class BreadcrumbStore {
     const tokens = this.#byController.get(identity);
     if (tokens?.delete(token) !== true) return;
     this.#entries -= 1;
+    this.#version += 1;
     this.#bytes -= stored.retainedBytes;
     if (tokens.size === 0) this.#byController.delete(identity);
   }

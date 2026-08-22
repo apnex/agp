@@ -240,6 +240,10 @@ export class RoutingTable {
   readonly #forwarding = new Map<EndpointName, ForwardingEntrySnapshot>();
   #revision = 0n;
   #capturedAt: Timestamp;
+  #snapshotCache: {
+    readonly revision: bigint;
+    readonly value: RoutingSnapshot;
+  } | undefined;
 
   constructor(options: RoutingTableOptions) {
     this.#nodeId = requireString(options.nodeId, "nodeId") as NodeId;
@@ -668,7 +672,26 @@ export class RoutingTable {
     return immutableClone(updates.sort(compareOutboundUpdates));
   }
 
+  /**
+   * The routing projection, rebuilt only when routing has changed.
+   *
+   * Every received message publishes a session transition, and every
+   * transition commits canonical state, so this was rebuilt and deep-cloned
+   * twice per delivered message against routing that had not moved. The
+   * revision already increments on every mutation, so it is an exact
+   * invalidation signal rather than a heuristic one. See `D21`.
+   */
   snapshot(): RoutingSnapshot {
+    const cached = this.#snapshotCache;
+    if (cached !== undefined && cached.revision === this.#revision) {
+      return cached.value;
+    }
+    const value = this.#buildSnapshot();
+    this.#snapshotCache = { revision: this.#revision, value };
+    return value;
+  }
+
+  #buildSnapshot(): RoutingSnapshot {
     const candidates = this.#allCandidates();
     const advertisements = [...this.#sessions.values()]
       .flatMap((session) => [...session.advertisements.values()])

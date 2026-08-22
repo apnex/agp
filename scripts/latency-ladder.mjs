@@ -139,6 +139,11 @@ async function nodeStream({ transportReceivePackets }) {
   const at = () =>
     deliveries.filter((entry) => entry.endpoint === "ladder.receiver/ep0").length;
   try {
+    // Measured from the first send to the last arrival. Timing only the tail
+    // after the send loop overlaps the two phases and reports whichever
+    // happened to finish last, which is how an earlier reading of this number
+    // came out lower for more messages.
+    const started = process.hrtime.bigint();
     for (let ordinal = 0; ordinal < COUNT; ordinal += 1) {
       try {
         await pair.sender.send("ladder.sender/ep0", "ladder.receiver/ep0", { ordinal });
@@ -147,7 +152,6 @@ async function nodeStream({ transportReceivePackets }) {
         await new Promise((resolve) => setTimeout(resolve, 2));
       }
     }
-    const started = process.hrtime.bigint();
     await eventually(() => at() >= COUNT, "ladder drain", 60_000);
     const drainUs = Number(process.hrtime.bigint() - started) / 1000;
     const connection = pair.sender.operations.snapshot().connections[0];
@@ -190,7 +194,10 @@ for (const [id, rung] of Object.entries(RUNGS)) {
       `    rtt      p50 ${stats.p50Us}us  p99 ${stats.p99Us}us  max ${stats.maxUs}us\n`,
     );
   } else {
-    process.stdout.write(`    drain    ${Math.round(result.drainUs)}us total\n`);
+    process.stdout.write(
+      `    end-to-end ${Math.round(result.drainUs)}us total`
+        + `  ${Math.round(result.drainUs / COUNT)}us per message\n`,
+    );
     process.stdout.write(
       `    stalls   ${result.credit?.stalls ?? "n/a"}`
         + `  stalled ${result.credit?.stalledUs ?? 0}us\n`,
