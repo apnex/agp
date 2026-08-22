@@ -307,18 +307,24 @@ A finding stays here until it is closed by a design decision or a regression tes
 
 | ID | Finding | Status |
 |---|---|---|
-| `MX1` | A sender that offers messages back to back over WebSocket overruns the receiver, which commits `RECEIVE_OVERFLOW`, closes the session, purges its routes, and reconnects. Delivered messages equal `maxBufferedPackets` exactly, at every bound tested from 16 to 128. Every `send()` resolved successfully first. | Decided, awaiting implementation of `D19` |
+| `MX1` | A sender that offers messages back to back over WebSocket overruns the receiver, which commits `RECEIVE_OVERFLOW`, closes the session, purges its routes, and reconnects. Delivered messages equal `maxBufferedPackets` exactly, at every bound tested from 16 to 128. Every `send()` resolved successfully first. | Closed by `D19`, gated by `test/topology/credit-flow-control.test.js` |
+| `MX2` | A four-node diamond carrying twenty-four endpoints per node fails a two-second `routeAckTimeoutMs` while a stream is in flight, on sessions that carry no data of their own. Raising only that deadline to twenty seconds passes the same cell with every message delivered. | Open, reproduction not yet named |
 
-`MX1` is reproducible and understood, and `D19` ratifies the mechanism that closes it.\
+`MX1` was reproducible and understood, and `D19` ratifies the mechanism that closed it.\
 `ws` emits every frame parsed from one TCP segment in a single turn, so a burst of small messages arrives faster than `pause()` can take effect and the configured bound is exceeded within one tick.\
 Loopback is unaffected because it applies backpressure synchronously, and the pre-shared-key profile only survives longer because TLS adds enough latency per message to stay ahead.
 
 The adapter follows the letter of its contract: `binding-websocket.md` section 10 requires `RECEIVE_OVERFLOW` when backpressure cannot prevent the bound being exceeded, and `D14` states that a fulfilled `send()` does not prove peer receipt.\
 What the contract does not state is the consequence, which is that AGP v1 has no end-to-end flow control and a fast sender therefore resets a healthy session rather than being slowed.
 
-Two details make this a design question rather than a patch.\
+Two details made this a design question rather than a patch.\
 Pausing at a high -water mark below the bound was tried and does not fix it, because the frames are already parsed.\
 And `binding-websocket.md` says the adapter pauses *before* exhausting the bound while the implementation pauses *at* it, so the wording and the code disagree even though neither prevents the overrun.
+
+`MX2` was separated from `MX1` on evidence rather than on suspicion.\
+With credit disabled the cell fails at both deadlines, and with credit enabled it passes at twenty seconds and fails at two, so the loss and the expiry are two faults rather than one.\
+The expiries also land on sessions with no data on them, which no per-hop grant can be pacing.\
+What is not yet established is whether the deadline is simply too tight for a topology of this size on a shared event loop, or whether something is starving the acknowledgement path, and the difference decides whether this is a harness bound or a defect.
 
 ---
 

@@ -1,6 +1,7 @@
 import {
   encodeAgpPacket,
   type CorrelationId,
+  type CreditGrant,
   type DataMessage,
   type DeliveryErrorBody,
   type DeliveryErrorCode,
@@ -41,6 +42,8 @@ export interface DataSessionController extends ExactController {
   readonly returnTokens: ReturnTokenAllocatorPort;
   readonly peerReceiveLimitBytes: number;
   readonly maximumDataHopLimit: number;
+  /** This node's current ceiling, to ride out on the data it is already sending. */
+  readonly creditGrant: CreditGrant | undefined;
 }
 
 export interface DataRoutingPort {
@@ -243,6 +246,10 @@ export class DataPlane {
       this.#options.defaultHopLimit,
       egress.maximumDataHopLimit,
     );
+    // Read the ceiling once. The preview sizes the admission and the exact
+    // encode must match it to the byte, so a grant that advanced between them
+    // would trip the fixed-width admission check.
+    const grant = egress.creditGrant;
     const preview = makeDataMessage(
       messageId,
       source,
@@ -250,6 +257,7 @@ export class DataPlane {
       payload,
       "0000000000000000" as ReturnToken,
       hopLimit,
+      grant,
       correlationId,
     );
     const encoded = encodeAgpPacket(preview, egress.peerReceiveLimitBytes);
@@ -286,6 +294,7 @@ export class DataPlane {
       payload,
       allocation.token,
       hopLimit,
+      grant,
       correlationId,
     );
     const exactEncoded = encodeAgpPacket(message, egress.peerReceiveLimitBytes);
@@ -401,6 +410,7 @@ export class DataPlane {
       message.body.payload,
       allocation.token,
       hopLimit,
+      egress.creditGrant,
       message.body.correlationId,
       message.extensions,
     );
@@ -494,6 +504,7 @@ export class DataPlane {
       message.body.payload,
       "0000000000000000" as ReturnToken,
       Math.min(message.body.hopLimit - 1, egress.maximumDataHopLimit),
+      egress.creditGrant,
       message.body.correlationId,
       message.extensions,
     );
@@ -593,6 +604,7 @@ function makeDataMessage(
   payload: JsonObject,
   returnToken: DataMessage["body"]["returnToken"],
   hopLimit: number,
+  credit: CreditGrant | undefined,
   correlationId?: CorrelationId,
   extensions?: DataMessage["extensions"],
 ): DataMessage {
@@ -601,6 +613,7 @@ function makeDataMessage(
     plane: "data",
     type: "message",
     id,
+    ...(credit === undefined ? {} : { credit }),
     body: Object.freeze({
       source,
       destination,

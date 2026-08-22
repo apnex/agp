@@ -5,6 +5,7 @@ import {
   parseAgpPacket,
   validateOpenIdentity,
   type AgpMessage,
+  type CreditGrant,
   type DataMessage,
   type ErrorMessage,
   type MessageId,
@@ -19,6 +20,8 @@ import {
   type SessionId,
 } from "@agp/protocol";
 import {
+  CreditGrantor,
+  CreditSpend,
   createPeerSessionState,
   reducePeerSession,
   type Acquisition,
@@ -45,7 +48,7 @@ import type {
 } from "./data-plane.js";
 import type { ReturnTokenAllocatorPort } from "./return-token.js";
 import type { SerializedExecutor } from "./serialized-executor.js";
-import { SessionWriter } from "./session-writer.js";
+import { SessionWriter, type WriterCreditPort } from "./session-writer.js";
 
 export interface SessionRuntimeConfig {
   readonly localOpen: OpenBody;
@@ -56,6 +59,15 @@ export interface SessionRuntimeConfig {
     readonly maximumQueuedDataMessages: number;
     readonly maximumQueuedDataBytes: number;
     readonly maximumQueuedControlMessages: number;
+  };
+  /**
+   * Data capacity this node grants a peer, already reduced by the reserve it
+   * holds back for control. Absent disables credit, which is the behaviour of
+   * a peer that never negotiated it.
+   */
+  readonly credit?: {
+    readonly bytes: number;
+    readonly packets: number;
   };
   readonly expectedNodeId?: NodeId;
 }
@@ -128,6 +140,10 @@ export class PeerController implements DataSessionController {
   #notificationWrite?: Promise<void>;
   readonly #readAbort = new AbortController();
   #readCompletion?: Promise<void>;
+  // Two halves of one concern. The grantor is what this node will accept of a
+  // peer; the spend is what the peer will accept of this node.
+  readonly #grantor: CreditGrantor | undefined;
+  readonly #spend = new CreditSpend();
 
   constructor(input: {
     readonly host: SessionHost;
@@ -154,6 +170,27 @@ export class PeerController implements DataSessionController {
       (error) => this.#transportFailed(error),
       () => this.#recordOutboundActivity(),
     );
+    this.#grantor = input.config.credit === undefined
+      ? undefined
+      : new CreditGrantor(input.config.credit);
+    this.writer.useCredit(this.#creditPort());
+  }
+
+  /** The writer's view of the peer's grant. */
+  #creditPort(): WriterCreditPort {
+    return {
+      canSendData: (bytes) => this.#spend.canAdmit(bytes),
+      recordDataSent: (bytes) => {
+        if (this.#spend.unlimited) return;
+        this.#spend.admit(bytes);
+      },
+      whenCreditAdvances: (signal) => this.#spend.whenAdvanced(signal),
+    };
+  }
+
+  /** The cumulative ceiling this node currently offers its peer. */
+  get creditGrant(): CreditGrant | undefined {
+    return this.#grantor?.grant;
   }
 
   get controllerId(): string {
@@ -331,6 +368,15 @@ export class PeerController implements DataSessionController {
             return;
           }
           if (this.#released) continue;
+          this.#observePeerCredit(parsed.message);
+          // The ring slot is already free at this point, which is what credit
+          // governs. What the handler queue does with the payload afterwards
+          // is a separate bound, held by the capacity ledger, and conflating
+          // the two would let a slow handler withhold ring capacity it is not
+          // occupying.
+          if (parsed.message.type === "message") {
+            this.#consumeCredit(parsed.utf8Bytes);
+          }
           await this.#handleMessage(parsed.message);
         } else if (event.kind === "input-rejected") {
           if (this.#released) continue;
@@ -366,6 +412,37 @@ export class PeerController implements DataSessionController {
         }
       });
     }
+  }
+
+  #observePeerCredit(message: AgpMessage): void {
+    this.#spend.observeGrant(
+      message.type === "open" ? message.body.initialCredit : message.credit,
+    );
+  }
+
+  /**
+   * Records a drained packet and announces the room it made.
+   *
+   * A sender stopped at its ceiling sends nothing, so nothing arrives to carry
+   * the replenishment back and the receiver has to volunteer it. Announcing
+   * per packet would put a control message on the wire for every data message,
+   * so this waits for half the window, which is TCP's rule for TCP's reason.
+   *
+   * This is deliberately not the keepalive timer. A deployment with
+   * `holdTimeMs` at zero has no keepalive at all, and it still needs credit.
+   */
+  #consumeCredit(bytes: number): void {
+    const grantor = this.#grantor;
+    if (grantor === undefined) return;
+    grantor.consumed(bytes);
+    if (!grantor.shouldAdvertise) return;
+    this.#enqueueControl({
+      agp: AGP_V1,
+      plane: "control",
+      type: "keepalive",
+      id: this.#host.nextMessageId(),
+      body: {},
+    });
   }
 
   async #handleMessage(message: AgpMessage): Promise<void> {
@@ -687,6 +764,9 @@ export class PeerController implements DataSessionController {
         ...this.#config.localOpen,
         nodeId: this.#host.localNodeId,
         sessionId: this.#localSessionId,
+        ...(this.#grantor === undefined
+          ? {}
+          : { initialCredit: this.#grantor.grant }),
       },
     };
     this.#enqueueControl(message);
@@ -748,9 +828,28 @@ export class PeerController implements DataSessionController {
     );
   }
 
+  /**
+   * Encodes a control envelope and rides this node's ceiling on it.
+   *
+   * Credit travels on traffic that is already flowing, which costs nothing and
+   * correlates exactly with the need. `OPEN` is the exception: its body
+   * carries `initialCredit`, so stamping the envelope too would put the same
+   * grant on one message twice.
+   *
+   * The ceiling is marked announced here rather than after the write. Claiming
+   * an announcement that never reached the wire could suppress the one that
+   * would clear a stall, so this is only safe because a discarded control
+   * packet means the session is already going away.
+   */
   #encode(message: AgpMessage) {
-    const encoded = encodeAgpPacket(message, this.peerReceiveLimitBytes);
-    return encoded.ok ? encoded : undefined;
+    const grant = message.type === "open" ? undefined : this.#grantor?.grant;
+    const encoded = encodeAgpPacket(
+      grant === undefined ? message : { ...message, credit: grant },
+      this.peerReceiveLimitBytes,
+    );
+    if (!encoded.ok) return undefined;
+    if (grant !== undefined) this.#grantor?.advertised();
+    return encoded;
   }
 
   #resetProtocolTimers(): void {

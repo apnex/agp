@@ -37,6 +37,7 @@ Fixtures provide deterministic identities, clocks, and write ledgers only.
 | `contract/transport-reference-composition.test.js` | Opaque listener and target references resolve once by kind without leaking capability authority into kernel state | Binding-specific address syntax |
 | `contract/uniform-capabilities.test.js` | The same `NodeImpl` composes listener, dialer, routing, and delivery capabilities | Multi-hop geometry |
 | `contract/withdrawal-writer-order.test.js` | Admitted epoch data writes before the snapshot that withdraws that epoch | Remote convergence |
+| `contract/credit-writer-precedence.test.js` | The writer stops at the peer's grant, resumes in order, and lets only control overtake data the peer cannot hold | Grant computation and the wire field |
 | `unit/return-token-allocator.test.js` | Unsigned-64 tokens remain fixed-width and unique until terminal exhaustion | Breadcrumb storage and session replacement |
 
 Tests use positive executor/write/capacity barriers rather than sleep-based negative evidence.\

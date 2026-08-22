@@ -50,6 +50,8 @@ An item that is `I4`/`P1` belongs early even though nobody feels it today, becau
 | ID | Candidate | Impact | Breach | Evidence |
 |---|---|---|---|---|
 | `B1` | Implement `D19` credit flow control | `I1` | `P1` | [`MX1`](VERIFICATION.md#46-open-findings-from-sweeps), [`D19`](DECISIONS.md#d19---per-hop-credit-flow-control) |
+| `B14` | Name a reproduction for the route-ack expiry a stream provokes | `I2` | `P2` | [`MX2`](VERIFICATION.md#46-open-findings-from-sweeps) |
+| `B15` | Give a deployment the switch `D19` says it has, and credit control alongside data | `I3` | `P2` | [`D19`](DECISIONS.md#d19---per-hop-credit-flow-control) |
 | `B2` | Reconcile the pause wording in `binding-websocket.md` with the code | `I4` | `P2` | [`MX1`](VERIFICATION.md#46-open-findings-from-sweeps) |
 | `B3` | Machine-readable cell to mechanism mapping | `I4` | `P3` | [`VERIFICATION.md` section 4](VERIFICATION.md#4-coverage-register) |
 | `B4` | Cost model for matrix cells | `I4` | `P4` | [`VERIFICATION.md` section 4.7](VERIFICATION.md#47-matrix-execution) |
@@ -66,17 +68,19 @@ An item that is `I4`/`P1` belongs early even though nobody feels it today, becau
 ## M1 - Close the open correctness finding
 
 Severity `I1`.\
-Status: **selected, not started.**
+Status: **built and gated, one cell short of its oracle.**
 
 | ID | Move | Why it is first |
 |---|---|---|
 | `B1` | Implement `D19`: envelope and `OPEN` credit fields, grant computation and enforcement beside `capacity-ledger`, and a regression test | The only `I1` on the board. A sender silently loses messages after `send()` resolves, and the session resets. `D19` is ratified, so only the build remains |
+| `B14` | Name a reproduction for `MX2`, then decide whether it is a harness bound or a defect | The last two cells of the `B1` oracle fail on this and not on credit. It cannot stay a matrix observation, because a failing cell names a combination rather than an owning layer |
 
-`B1` has a ready oracle: `npm run test:matrix:all --deep` reports 59 of 70 cells and must reach 70.
+The oracle moved from 59 of 70 cells to 68.\
+The nine cells credit recovered were all message loss under a stream.\
+The two that remain are one cell on two carriers, and they fail for `MX2` rather than for anything credit governs, which is why `B14` now stands between `B1` and its oracle.
 
-It also has an internal order fixed by `D3`, which forbids runtime code before its contracts pass their gate.\
-Schemas and `OPEN` negotiation land first, then enforcement, then the regression.\
-The compatibility posture under `Decisions required` blocks the first of those three, not the whole move.
+The internal order fixed by `D3` was followed: contracts and their gate first, then the grant primitives, then enforcement, then the regression.\
+The compatibility posture under `Decisions required` was resolved by building the mechanism and leaving the switch to `B15`.
 
 ---
 
@@ -87,6 +91,7 @@ Severity `P2`.
 | ID | Move | Note |
 |---|---|---|
 | `B2` | Align the pause wording in `binding-websocket.md` with the implementation, or the implementation with the wording | Neither prevents the overrun, so this is a truth defect rather than a behaviour defect. Cheapest done inside `B1`, which edits the same paragraph |
+| `B15` | Give a deployment the switch `D19` says it has, and govern control alongside data | `D19` states that a deployment configures whether it grants at all, and no such configuration exists. It also leaves control ungoverned, drawing on a reserve rather than a grant, so the ring is bounded by construction rather than by accounting |
 | `B12` | Split the architecture into current and target instants | Not yet legal. `AR1` projects one architecture at two instants, and AGP has one because current and target converged. `D19` ratified but unbuilt is the trigger, so this becomes legal the moment `B1` starts |
 
 ---
@@ -131,7 +136,7 @@ Scored on the same scale, so not choosing them is visible.
 
 | Question | Blocks |
 |---|---|
-| Implementation scope for `D19`: whether the credit field is optional with an unlimited default for unnegotiated peers, or required between conforming v1 peers from the first release | `B1`. The mechanism is ratified; only the compatibility posture is open |
+| Whether a node should be able to decline to grant at all, and what a deployment that does so is choosing | `B15`. The wire field is optional and an absent grant is unlimited, so a peer that never negotiated credit is unaffected. What is not built is the switch `D19` says a deployment has, and the default was set to grant because leaving `RECEIVE_OVERFLOW` reachable is the fault `D19` exists to remove |
 | Whether a matrix sweep should run on a schedule, and if so at what depth | `B4`, and whether cost data is worth collecting at all |
 
 ---

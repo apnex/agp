@@ -481,6 +481,19 @@ Credit has two dimensions, because a channel has two exhaustible resources:
 A sender may admit only while both dimensions permit.\
 Bytes alone is insufficient: a sender holding a large byte budget can exhaust a packet ring with small messages, and every admitted message additionally reserves a queue entry, a breadcrumb, and a return token.
 
+Credit governs what reaches the wire, not what a caller offers.\
+The send queue is the buffer that absorbs the difference between the local offer rate and the remote drain rate, and the grant paces what leaves it, so a caller whose messages the queue can hold is never refused for a bound that belongs to the peer.\
+A caller past the local queue still fails `QUEUE_FULL`, unchanged, because that bound is this node's own.
+
+Only data is paced.\
+A receiver holds a reserve back from the ceiling it advertises, and control draws on that reserve, so a grant is never the reason a control message cannot be sent.\
+Control may also overtake data the peer has no room for, and it is the only thing that may overtake anything.\
+Both are required together: the reserve gives an overtaking control message somewhere to land, and the overtake lets it reach the wire at all.
+
+A route snapshot never overtakes data.\
+Epoch closure is synchronous with admission, so data admitted under an epoch is already queued ahead of the snapshot withdrawing it, and letting the withdrawal pass would put data behind a route the peer had been told to forget.\
+Control passing a route is safe where a route passing data is not, because an acknowledgement names the peer's revision by reference while a snapshot carries this node's own, and neither reads the other.
+
 Credit is carried two ways, chosen so each mechanism serves the regime it already suits:
 
 | Condition | Carrier | Why |
@@ -533,6 +546,13 @@ Treating an exceeded grant as a drop rather than a violation would lose a messag
 Deriving credit from anything other than observed drain progress would advertise capacity the receiver does not have, which is the same fault as static configuration masquerading as observation.
 
 Leaving `RECEIVE_OVERFLOW` reachable between conforming peers would keep a routine burst able to reset a healthy session and withdraw its routes.
+
+Pacing control alongside data would deadlock the link rather than throttle it.\
+A grant arrives on a control message, so two peers saturating each other would each hold the replenishment the other is waiting for, and neither would proceed.\
+The same stall silences `route.ack`, and a peer timing an acknowledgement it will never receive tears down a session that was merely busy.\
+Both were observed before the reserve and the overtake existed.
+
+Advertising the whole ring rather than the ring minus a reserve would remove the room an overtaking control message needs, which reintroduces the same deadlock through the other side.
 
 ---
 

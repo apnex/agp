@@ -899,6 +899,7 @@ Other file names may be refined before implementation, but every primary contrac
 | AX5 | `packages/node/test/contract/reverse-error-refid.test.js` | A matching token with the wrong end-to-end `refId` is discarded without consuming the breadcrumb |
 | AX5 | `packages/node/test/unit/return-token-allocator.test.js` | Unsigned-64 allocation never repeats and terminal exhaustion replaces the controller before wrap |
 | AX5 | `packages/node/test/contract/withdrawal-writer-order.test.js` | Already-admitted epoch data writes precede its withdrawing snapshot |
+| AX5 | `packages/node/test/contract/credit-writer-precedence.test.js` | A writer stops at the peer's grant, resumes in order, and lets only control overtake data the peer has no room for |
 | AX5 | `packages/node/test/contract/stop-drain.test.js` | Stop gates new work and releases handlers/reservations once within its deadline |
 | AX5 | `packages/node/test/contract/lifecycle-one-shot.test.js` | A runtime follows its closed lifecycle once; `Stopped` and `Failed` reject restart and stale-instance callbacks cannot regain authority |
 | AX5 | `packages/node/test/contract/operational-event-schema.test.js` | Events emitted across live lifecycle, routing, data, handler, and teardown activity all validate against the generated sovereign kind/data union |
@@ -916,6 +917,7 @@ Other file names may be refined before implementation, but every primary contrac
 | AX7 | `test/topology/chain-transit-depth.test.js` | A chain deeper than one transit node forwards through every interior node, and a forwarder authorises ingress learned from another forwarder |
 | AX7 | `test/topology/burst-admission.test.js` | Concurrent admission settles every send, rejects past a bound with a typed retryable capacity failure, and leaves the control plane converging |
 | AX7 | `test/topology/stream-ordering.test.js` | Sustained and bidirectional traffic across a transit hop preserves per-direction order and leaves bounded resources at their limit |
+| AX7 | `test/topology/credit-flow-control.test.js` | Traffic offered past a peer's receive ring is paced by its grant, arrives whole and in order, and never resets the session carrying it |
 | AX7 | `test/topology/route-volume.test.js` | Many endpoints converge on every node and every export stays inside the negotiated snapshot bound |
 | AX7 | `test/topology/line-transit.test.js` | Production Loopback selected learned routes support symmetric two-hop data |
 | AX7 | `test/topology/triangle-loop-prevention.test.js` | Production Loopback propagation cannot install/export a repeated-node loop |

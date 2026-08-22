@@ -153,6 +153,10 @@ interface EffectiveConfig {
   readonly maxSessions: number;
   readonly maxPendingHandshakes: number;
   readonly channelLimits: TransportChannelLimits;
+  readonly credit?: {
+    readonly bytes: number;
+    readonly packets: number;
+  };
   readonly controlQueueMessages: number;
   readonly dataQueueMessages: number;
   readonly dataQueueBytes: number;
@@ -1200,6 +1204,9 @@ export class NodeImpl implements AgpNode, SessionHost {
         maximumQueuedDataBytes: this.#config.dataQueueBytes,
         maximumQueuedControlMessages: this.#config.controlQueueMessages,
       },
+      ...(this.#config.credit === undefined
+        ? {}
+        : { credit: this.#config.credit }),
       ...(expectedNodeId === undefined ? {} : { expectedNodeId }),
     };
     const controller = new PeerController({
@@ -1605,6 +1612,11 @@ function resolveConfig(config: NodeConfig): EffectiveConfig {
       "capacity.transportReceiveBytes must admit one maximum packet",
     );
   }
+  const creditCapacity = resolveCreditCapacity(
+    transportReceivePackets,
+    transportReceiveBytes,
+    receiveLimitBytes,
+  );
   return Object.freeze({
     raw: config,
     nodeId: config.nodeId,
@@ -1637,6 +1649,7 @@ function resolveConfig(config: NodeConfig): EffectiveConfig {
       maxBufferedPackets: transportReceivePackets,
       maxBufferedBytes: transportReceiveBytes,
     }),
+    ...(creditCapacity === undefined ? {} : { credit: creditCapacity }),
     maxRoutesPerSnapshot: ranged(
       config.limits?.maxRoutesPerSnapshot ?? 256,
       1,
@@ -1834,6 +1847,40 @@ function queueSnapshot(
     maximumBytes: String(maximumBytes),
     highWaterBytes: String(bytes),
   };
+}
+
+/**
+ * The data ceiling a node offers a peer, derived from the ring it gave its
+ * adapter and reduced by a reserve it keeps for control.
+ *
+ * The reserve is what makes the arrangement deadlock free. A node whose send
+ * queue is stalled on credit must still be able to announce the room its own
+ * reads have made, and that announcement needs somewhere to land in the
+ * peer's ring that the peer's data grant has not already promised away.
+ *
+ * Control is otherwise ungoverned, exactly as it is today. Crediting it as
+ * well is the next increment, not this one.
+ */
+function resolveCreditCapacity(
+  ringPackets: number,
+  ringBytes: number,
+  maxPacketBytes: number,
+): { readonly bytes: number; readonly packets: number } | undefined {
+  const reservePackets = Math.min(
+    Math.max(1, Math.ceil(ringPackets / 8)),
+    Math.max(0, ringPackets - 1),
+  );
+  const reserveBytes = Math.min(
+    Math.ceil(ringBytes / 8),
+    Math.max(0, ringBytes - maxPacketBytes),
+  );
+  const packets = ringPackets - reservePackets;
+  const bytes = ringBytes - reserveBytes;
+  // A ring that cannot hold one maximum packet beside a reserve is too small
+  // to pace anything. Such a node keeps the unnegotiated behaviour rather
+  // than gaining a bound it would immediately stall against.
+  if (packets < 1 || bytes < maxPacketBytes) return undefined;
+  return Object.freeze({ bytes, packets });
 }
 
 function positive(value: number, name: string): number {

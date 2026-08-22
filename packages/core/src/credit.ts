@@ -39,6 +39,7 @@ export class CreditSpend {
   #ceiling: CreditGrant | undefined;
   #sentBytes = 0;
   #sentPackets = 0;
+  #waiters: Array<() => void> = [];
 
   constructor(initial?: CreditGrant) {
     if (initial !== undefined && !isCreditGrant(initial)) {
@@ -87,9 +88,36 @@ export class CreditSpend {
       );
     }
     const current = this.#ceiling;
-    this.#ceiling = current === undefined ? grant : Object.freeze({
+    const next = current === undefined ? grant : Object.freeze({
       bytes: Math.max(current.bytes, grant.bytes),
       packets: Math.max(current.packets, grant.packets),
+    });
+    const advanced = current === undefined
+      || next.bytes > current.bytes
+      || next.packets > current.packets;
+    this.#ceiling = next;
+    if (!advanced) return;
+    for (const wake of this.#waiters.splice(0)) wake();
+  }
+
+  /**
+   * Resolves once the peer raises its ceiling, or once the signal aborts.
+   *
+   * A sender that reached its ceiling stops sending, so it cannot discover on
+   * its own that the receiver has drained. Something must wake it, and the
+   * receiver's half of that contract is `CreditGrantor.shouldAdvertise`.
+   */
+  whenAdvanced(signal: AbortSignal): Promise<void> {
+    if (signal.aborted) return Promise.resolve();
+    return new Promise<void>((resolve) => {
+      const wake = (): void => {
+        signal.removeEventListener("abort", wake);
+        const index = this.#waiters.indexOf(wake);
+        if (index >= 0) this.#waiters.splice(index, 1);
+        resolve();
+      };
+      this.#waiters.push(wake);
+      signal.addEventListener("abort", wake, { once: true });
     });
   }
 
@@ -175,4 +203,5 @@ export class CreditGrantor {
     const advanced = this.grant.packets - this.#advertisedPackets;
     return advanced >= Math.max(1, Math.floor(this.#capacityPackets / 2));
   }
+
 }
