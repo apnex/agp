@@ -17,7 +17,6 @@
     "records": {
       "type": "array",
       "minItems": 32,
-      "maxItems": 32,
       "uniqueItems": true,
       "items": {
         "$ref": "#/$defs/requirementTrace"
@@ -63,7 +62,7 @@
         },
         "reference": {
           "type": "string",
-          "pattern": "^D(?:[1-9]|1[0-7])$"
+          "pattern": "^D[1-9][0-9]*$"
         },
         "ratification": {
           "enum": ["required", "ratified", "proposed"]
@@ -119,7 +118,7 @@
       "properties": {
         "requirementId": {
           "type": "string",
-          "pattern": "^(?:U(?:[1-9]|1[0-5])|D(?:[1-9]|1[0-7]))$"
+          "pattern": "^(?:U(?:[1-9]|1[0-5])|D[1-9][0-9]*)$"
         },
         "ratificationStatus": {
           "enum": ["required", "ratified", "proposed"]

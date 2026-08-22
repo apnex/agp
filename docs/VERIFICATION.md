@@ -169,8 +169,9 @@ docs/design/traceability.schema.json
 docs/design/traceability.json
 ```
 
-Every survey outcome `U1..U11`, every fixed transport-intent requirement `U12..U15`, and every normative requirement introduced by `D1..D17` has exactly one record.\
-The executable AX0 oracle compares the record ID multiset to the exact closed set `U1..U15` plus `D1..D17`; it fails on an omission, duplicate, unexpected ID, or cardinality mismatch rather than relying on schema cardinality alone.\
+Every survey outcome `U1..U11`, every fixed transport-intent requirement `U12..U15`, and every decision the record declares has exactly one record.\
+The executable AX0 oracle derives that decision set by reading `DECISIONS.md`, and fails on an omission, duplicate, unexpected ID, or cardinality mismatch rather than relying on schema cardinality alone.\
+It is derived rather than restated because the closed set was once written as a constant, and two ratified and built decisions accumulated outside it without the gate objecting.\
 `U12..U15` cite the explicit stakeholder authority in `transport-sovereignty-authority.md`; they do not retroactively claim a survey that was deliberately unnecessary after direction was fixed.\
 A non-applicable axiom and A0 cannot appear in `authorities`.\
 Multiple authorities are retained when intent, a ratified design decision, and an applicable axiom mechanic jointly constrain the result.\

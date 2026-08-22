@@ -1013,6 +1013,60 @@
         "test/topology/star-convergence.test.js",
         "test/topology/line-transit.test.js"
       ]
+    },
+    {
+      "requirementId": "D18",
+      "ratificationStatus": "ratified",
+      "authorities": [
+        {
+          "kind": "decision",
+          "reference": "D18",
+          "ratification": "ratified"
+        }
+      ],
+      "designReferences": [
+        "../DECISIONS.md#d18---pre-shared-key-transport-security",
+        "binding-websocket.md"
+      ],
+      "schemaIds": [
+        "urn:agp:schema:v1:binding-websocket:configuration:security"
+      ],
+      "semanticRuleIds": [],
+      "owningGate": "AX1",
+      "owningTests": [
+        "packages/transport-node-ws/test/contract/preshared-key-profile.test.js"
+      ],
+      "integrationWitnesses": [
+        "test/e2e/independent-line.test.js"
+      ]
+    },
+    {
+      "requirementId": "D19",
+      "ratificationStatus": "ratified",
+      "authorities": [
+        {
+          "kind": "decision",
+          "reference": "D19",
+          "ratification": "ratified"
+        }
+      ],
+      "designReferences": [
+        "../DECISIONS.md#d19---per-hop-credit-flow-control",
+        "mechanisms.md"
+      ],
+      "schemaIds": [
+        "urn:agp:schema:v1:protocol:wire:envelope",
+        "urn:agp:schema:v1:protocol:wire:open-body"
+      ],
+      "semanticRuleIds": [],
+      "owningGate": "AX5",
+      "owningTests": [
+        "packages/core/test/unit/credit-grant.test.js",
+        "packages/node/test/contract/credit-writer-precedence.test.js"
+      ],
+      "integrationWitnesses": [
+        "test/topology/credit-flow-control.test.js"
+      ]
     }
   ]
 }

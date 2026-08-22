@@ -34,7 +34,25 @@ async function headingAnchors(file) {
   return anchors;
 }
 
-test("Given the ratified intent graph, when AX0 validates it, then every U1-U15 and D1-D17 record has authorized and resolvable ownership", async () => {
+/**
+ * The decisions the record actually carries, read from the record.
+ *
+ * This set used to be a literal. It was written when there were seventeen
+ * decisions, and by the time anyone looked there were nineteen: `D18` and
+ * `D19` were ratified, built and gated while remaining absent from the graph
+ * this gate seals. A constant cannot detect drift away from itself, so a gate
+ * whose expected set is a constant is a gate against nothing.
+ */
+async function ratifiedDecisionIds(file) {
+  const source = await readFile(file, "utf8");
+  const ids = [...source.matchAll(/^###\s+(D\d+)\s+-\s+/gmu)]
+    .map((match) => match[1]);
+  assert.ok(ids.length > 0, "the decision record must declare decisions");
+  assert.equal(new Set(ids).size, ids.length, "decision ids must be unique");
+  return ids;
+}
+
+test("Given the ratified intent graph, when AX0 validates it, then every U record and every decision the record declares has authorized and resolvable ownership", async () => {
   const trace = JSON.parse(
     await readFile(path.join(designRoot, "traceability.json"), "utf8"),
   );
@@ -53,7 +71,7 @@ test("Given the ratified intent graph, when AX0 validates it, then every U1-U15 
   );
   const expected = [
     ...Array.from({ length: 15 }, (_, index) => `U${index + 1}`),
-    ...Array.from({ length: 17 }, (_, index) => `D${index + 1}`),
+    ...await ratifiedDecisionIds(path.join(root, "docs/DECISIONS.md")),
   ];
   const actual = trace.records.map(({ requirementId }) => requirementId);
   assert.equal(new Set(actual).size, actual.length);

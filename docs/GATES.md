@@ -23,9 +23,12 @@ Seal the authority and reasoning record before executable contracts bear weight.
 
 1. `traceability.schema.json` and `traceability.json` exist at their normative
    targets, validate, bind the current source revision, and contain exactly
-   one record for every `U1..U15` and normative `D1..D17` requirement. The
-   oracle compares the exact ID set and fails on a duplicate, omission, or
-   unexpected ID. Each `U12..U15` record must include the fixed-intent
+   one record for every `U1..U15` requirement and every decision the record
+   declares. The oracle reads that decision set from `DECISIONS.md` rather
+   than restating it, and fails on a duplicate, omission, or unexpected ID.
+   A gate whose expected set is a constant cannot detect drift away from
+   itself, which is how `D18` and `D19` came to be ratified, built and gated
+   while absent from the graph this evidence seals. Each `U12..U15` record must include the fixed-intent
    stakeholder authority.
 2. Every record has exactly one owning gate, at least one planned owning test,
    and one or more authorities.
