@@ -326,6 +326,20 @@ With credit disabled the cell fails at both deadlines, and with credit enabled i
 The expiries also land on sessions with no data on them, which no per-hop grant can be pacing.\
 What is not yet established is whether the deadline is simply too tight for a topology of this size on a shared event loop, or whether something is starving the acknowledgement path, and the difference decides whether this is a harness bound or a defect.
 
+The stream that does pass leaves a number that is not yet explained.\
+Two hundred messages of about two hundred and sixty bytes take on the order of seconds to drain over loopback once every `send()` has already been admitted, which is far above what the carrier costs.\
+That measurement was taken at one-second resolution and is therefore an upper bound rather than a figure, and the first thing any timing investigation here must do is measure it properly.
+
+#### Eliminated causes
+
+A cause is recorded once it is ruled out, so the same candidate is not tested twice.
+
+| Candidate | Why it is eliminated |
+|---|---|
+| Small-write batching by the carrier | `ws` calls `socket.setNoDelay()` inside `setSocket`, which both the client path and the server path reach, so the algorithm that would delay a small frame behind an outstanding acknowledgement is disabled at both ends |
+| Acknowledgement held behind paced data in the sender queue | Traced leaving the queue ahead of the stall, by the exception that permits exactly that |
+| A credit deadlock | The stall wakes, and the same cell completes whole when only the acknowledgement deadline is widened |
+
 ---
 
 ### 4.7 Matrix execution

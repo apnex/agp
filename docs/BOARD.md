@@ -51,6 +51,8 @@ An item that is `I4`/`P1` belongs early even though nobody feels it today, becau
 |---|---|---|---|---|
 | `B1` | Implement `D19` credit flow control | `I1` | `P1` | [`MX1`](VERIFICATION.md#46-open-findings-from-sweeps), [`D19`](DECISIONS.md#d19---per-hop-credit-flow-control) |
 | `B14` | Name a reproduction for the route-ack expiry a stream provokes | `I2` | `P2` | [`MX2`](VERIFICATION.md#46-open-findings-from-sweeps) |
+| `B16` | Project credit and timing into the operations plane | `I2` | `P1` | [`D19`](DECISIONS.md#d19---per-hop-credit-flow-control), [`MX2`](VERIFICATION.md#46-open-findings-from-sweeps) |
+| `B17` | Derive the trace graph identifier set instead of hardcoding it | `I3` | `P1` | [`GATES.md` section 2](GATES.md#2-gate-ax0---intent-applicability-and-knowledge) |
 | `B15` | Give a deployment the switch `D19` says it has, and credit control alongside data | `I3` | `P2` | [`D19`](DECISIONS.md#d19---per-hop-credit-flow-control) |
 | `B2` | Reconcile the pause wording in `binding-websocket.md` with the code | `I4` | `P2` | [`MX1`](VERIFICATION.md#46-open-findings-from-sweeps) |
 | `B3` | Machine-readable cell to mechanism mapping | `I4` | `P3` | [`VERIFICATION.md` section 4](VERIFICATION.md#4-coverage-register) |
@@ -74,6 +76,7 @@ Status: **built and gated, one cell short of its oracle.**
 |---|---|---|
 | `B1` | Implement `D19`: envelope and `OPEN` credit fields, grant computation and enforcement beside `capacity-ledger`, and a regression test | The only `I1` on the board. A sender silently loses messages after `send()` resolves, and the session resets. `D19` is ratified, so only the build remains |
 | `B14` | Name a reproduction for `MX2`, then decide whether it is a harness bound or a defect | The last two cells of the `B1` oracle fail on this and not on credit. It cannot stay a matrix observation, because a failing cell names a combination rather than an owning layer |
+| `B16` | Project credit and timing into the operations plane, so a timing defect is read rather than derived | `B14` cannot proceed without it. Credit is the only bounded resource in AGP that no authorized actor can query, and the last investigation was conducted by patching built artifacts and reading line numbers as if they were a clock |
 
 The oracle moved from 59 of 70 cells to 68.\
 The nine cells credit recovered were all message loss under a stream.\
@@ -92,6 +95,7 @@ Severity `P2`.
 |---|---|---|
 | `B2` | Align the pause wording in `binding-websocket.md` with the implementation, or the implementation with the wording | Neither prevents the overrun, so this is a truth defect rather than a behaviour defect. Cheapest done inside `B1`, which edits the same paragraph |
 | `B15` | Give a deployment the switch `D19` says it has, and govern control alongside data | `D19` states that a deployment configures whether it grants at all, and no such configuration exists. It also leaves control ungoverned, drawing on a reserve rather than a grant, so the ring is bounded by construction rather than by accounting |
+| `B17` | Derive the required identifier set of the trace graph from the record, rather than stating it as a literal | `AX0` seals the intent graph against `D1` to `D17` written as a constant, while nineteen decisions are ratified. `D18` and `D19` are built and gated and appear nowhere in the graph, and the gate cannot detect the drift it exists to prevent |
 | `B12` | Split the architecture into current and target instants | Not yet legal. `AR1` projects one architecture at two instants, and AGP has one because current and target converged. `D19` ratified but unbuilt is the trigger, so this becomes legal the moment `B1` starts |
 
 ---
