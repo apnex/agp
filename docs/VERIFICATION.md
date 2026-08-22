@@ -311,6 +311,8 @@ A finding stays here until it is closed by a design decision or a regression tes
 | `MX1` | A sender that offers messages back to back over WebSocket overruns the receiver, which commits `RECEIVE_OVERFLOW`, closes the session, purges its routes, and reconnects. Delivered messages equal `maxBufferedPackets` exactly, at every bound tested from 16 to 128. Every `send()` resolved successfully first. | Closed by `D19`, gated by `test/topology/credit-flow-control.test.js` |
 | `MX2` | A four-node diamond carrying twenty-four endpoints per node fails a two-second `routeAckTimeoutMs` while a stream is in flight, on sessions that carry no data of their own. Raising only that deadline to twenty seconds passes the same cell with every message delivered. | Closed by `D21`, gated by `packages/core/test/unit/write-path-cost.test.js` |
 | `MX3` | A stream saturates the event loop. A one-millisecond interval timer fires about twelve times across a whole run, so the loop drains roughly that often and the synchronous blocks between drains average around twenty milliseconds. A block of that size moves any deadline sharing the loop, which is the mechanism that tore down healthy sessions before `D21`, and it starves any event subscriber that touches the macrotask queue. Six operations commits land per delivered message. | Open, reduced, consequence demonstrated |
+| `MX5` | A node stops sending permanently after `maxReverseCorrelations` originated messages, 4096 by default. A breadcrumb is retained per sent message and released only by expiry, and `BreadcrumbStore.expire` is called from nowhere in the repository. Waiting past the 30 second lifetime recovers nothing. `send` then fails `QUEUE_FULL` forever, which is a retryable code, so a conforming caller retries a condition that cannot clear. | Open, reproduced, cause named |
+| `MX6` | An unhandled promise rejection was observed on the inbound data path, from `dispatchData` discarding the result of `admitData` with `void`. A reverse error that cannot be enqueued rejects into nothing and terminates the process. Seen once with a full stack; not yet reproduced deliberately. | Open, one observation |
 | `MX4` | A node hop costs far more than the carrier beneath it: a raw WebSocket round trip is about 75 microseconds against roughly half a millisecond per message through a node pair. Unexplained, and not a breach of anything. | Open, opportunistic |
 
 `MX1` was reproducible and understood, and `D19` ratifies the mechanism that closed it.\
@@ -427,6 +429,25 @@ What is not yet explained is why six commits are needed per delivered message, a
 There is no performance target, so a cost that is merely large is not a defect and `MX4` is an opportunity rather than an obligation.\
 A stall is not merely a cost: it moves every deadline sharing the loop, and that is the exact mechanism by which a healthy session was torn down before `D21`.\
 `MX3` is therefore chased as a latent correctness fault and `MX4` is taken when a way is found.
+
+#### Throughput ceiling
+
+Measured one carrier per process, because measuring three in one gave the later ones warm compilation and a grown heap and reported TLS as faster than an in-process fabric.\
+One thousand messages, three runs, median.\
+Compare the columns to each other and to nothing else.
+
+| Carrier | One hop | Two hops | Against Loopback |
+|---|---|---|---|
+| Loopback | 2849 msg/s | 1221 msg/s | 100% |
+| WebSocket | 2890 msg/s | 1080 msg/s | 101% and 88% |
+| WebSocket with pre-shared keys | 1868 msg/s | 744 msg/s | 66% and 61% |
+
+The carrier is not the bottleneck at one hop.\
+An in-process fabric and a real TCP socket measure the same, because the node's own per-message cost dominates both, and that cost is the subject of `MX3`.\
+Pre-shared keys cost about a third, and a second hop costs slightly more than half, which is the transit node paying the same per-message cost again.
+
+These are burst figures, and they are the less important number.\
+`MX5` records the sustained ceiling, which is not a rate: a node accepts `maxReverseCorrelations` messages in total and then refuses every further one for the rest of its life.
 
 #### Eliminated causes
 

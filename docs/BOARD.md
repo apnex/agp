@@ -49,6 +49,8 @@ An item that is `I4`/`P1` belongs early even though nobody feels it today, becau
 
 | ID | Candidate | Impact | Breach | Evidence | Status |
 |---|---|---|---|---|---|
+| `B20` | Release expired breadcrumbs, so a node can send more than 4096 messages in its life | `I1` | `P1` | [`MX5`](VERIFICATION.md#46-open-findings-from-sweeps) | open |
+| `B21` | Stop discarding a rejectable promise on the inbound data path | `I1` | `P2` | [`MX6`](VERIFICATION.md#46-open-findings-from-sweeps) | open |
 | `B1` | Implement `D19` credit flow control | `I1` | `P1` | [`MX1`](VERIFICATION.md#46-open-findings-from-sweeps), [`D19`](DECISIONS.md#d19---per-hop-credit-flow-control) | landed |
 | `B14` | Name a reproduction for the route-ack expiry a stream provokes | `I2` | `P2` | [`MX2`](VERIFICATION.md#46-open-findings-from-sweeps) | landed |
 | `B16` | Project credit and timing into the operations plane | `I2` | `P1` | [`D20`](DECISIONS.md#d20---observability-of-bounded-resources-and-timing) | landed |
@@ -66,6 +68,21 @@ An item that is `I4`/`P1` belongs early even though nobody feels it today, becau
 | `B7` | Route volume beyond the 256 snapshot ceiling | `I3` | `P3` | [`D4`](DECISIONS.md#d4---full-route-snapshots) | held |
 | `B8` | Rewrite named geometry tests onto shared builders | `I4` | `P4` | [`VERIFICATION.md` section 4.7](VERIFICATION.md#47-matrix-execution) | held |
 | `B10` | Author an enduring intent statement for AGP | `I4` | `P3` | [`ARCHITECTURE.md` section 10](ARCHITECTURE.md#10-scope-boundary), [`DECISIONS.md` section 2](DECISIONS.md#2-confirmed-intent) | open |
+
+---
+
+## M0 - Stop the node dying
+
+Severity `I1`.\
+Status: **selected, not started.**
+
+| ID | Move | Why it is first |
+|---|---|---|
+| `B20` | Call the breadcrumb expiry sweep that already exists and is never invoked | A node accepts `maxReverseCorrelations` originated messages, 4096 by default, and then refuses every further one permanently. `send` returns `QUEUE_FULL`, which is documented as retryable, so a conforming caller retries a condition that can never clear. No test caught it because no test sends four thousand messages |
+| `B21` | Handle the inbound data promise instead of discarding it with `void` | A reverse error that cannot be enqueued rejects into nothing, and an unhandled rejection ends the process. Observed once with a full stack and not yet reproduced, which makes it urgent to bound rather than urgent to explain |
+
+`MX5` is the answer to the question that found it.\
+Asked for a sustained throughput ceiling, the honest figure is not a rate: it is four thousand and ninety-six messages, and then nothing, for the remaining life of the process.
 
 ---
 
