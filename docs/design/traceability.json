@@ -1094,6 +1094,31 @@
       "integrationWitnesses": [
         "test/topology/credit-observability.test.js"
       ]
+    },
+    {
+      "requirementId": "D21",
+      "ratificationStatus": "ratified",
+      "authorities": [
+        {
+          "kind": "decision",
+          "reference": "D21",
+          "ratification": "ratified"
+        }
+      ],
+      "designReferences": [
+        "../DECISIONS.md#d21---write-cost-proportional-to-change"
+      ],
+      "schemaIds": [
+        "urn:agp:schema:v1:core:operations:operations-snapshot"
+      ],
+      "semanticRuleIds": [],
+      "owningGate": "AX6",
+      "owningTests": [
+        "packages/core/test/unit/rib-atomic-revision.test.js"
+      ],
+      "integrationWitnesses": [
+        "test/topology/credit-observability.test.js"
+      ]
     }
   ]
 }

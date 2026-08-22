@@ -8,6 +8,7 @@ Shared fixtures arrange state only; they contain no assertions.
 | `unit/adjacency-retry-suppression.test.js` | A satisfied adjacency suppresses dialing and loss resumes its bounded retry | Transport dialing and collision choice |
 | `unit/credit-grant.test.js` | Per-hop credit is two-dimensional, absolute rather than incremental, and unlimited when unnegotiated | Session wiring and wire carriage |
 | `unit/latency-recorder.test.js` | The one primitive every measured duration reports through keeps count, last and high water, and reports nothing until something is measured | What is timed, and where a sample is projected |
+| `unit/write-path-cost.test.js` | A commit reports a revision rather than state, unchanged canonical state is shared rather than re-cloned, and write cost does not follow held state | Which callers commit, and what they commit |
 | `unit/bounded-capacity.test.js` | Count/byte reservations are atomic and release is idempotent | Routing- or handler-specific policy |
 | `unit/connection-preidentity-closed-event.test.js` | A pre-admission ended attempt emits one remote-free event and cannot invent peer authority | Admitted-session teardown |
 | `unit/diagnostic-record-schema.test.js` | The sole core diagnostic record closes domain, severity, code, text, and extension boundaries | Sink scheduling and adapter diagnostics |

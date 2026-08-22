@@ -309,7 +309,7 @@ A finding stays here until it is closed by a design decision or a regression tes
 | ID | Finding | Status |
 |---|---|---|
 | `MX1` | A sender that offers messages back to back over WebSocket overruns the receiver, which commits `RECEIVE_OVERFLOW`, closes the session, purges its routes, and reconnects. Delivered messages equal `maxBufferedPackets` exactly, at every bound tested from 16 to 128. Every `send()` resolved successfully first. | Closed by `D19`, gated by `test/topology/credit-flow-control.test.js` |
-| `MX2` | A four-node diamond carrying twenty-four endpoints per node fails a two-second `routeAckTimeoutMs` while a stream is in flight, on sessions that carry no data of their own. Raising only that deadline to twenty seconds passes the same cell with every message delivered. | Open, reproduction not yet named |
+| `MX2` | A four-node diamond carrying twenty-four endpoints per node fails a two-second `routeAckTimeoutMs` while a stream is in flight, on sessions that carry no data of their own. Raising only that deadline to twenty seconds passes the same cell with every message delivered. | Closed by `D21`, gated by `packages/core/test/unit/write-path-cost.test.js` |
 
 `MX1` was reproducible and understood, and `D19` ratifies the mechanism that closed it.\
 `ws` emits every frame parsed from one TCP segment in a single turn, so a burst of small messages arrives faster than `pause()` can take effect and the configured bound is exceeded within one tick.\
@@ -327,9 +327,23 @@ With credit disabled the cell fails at both deadlines, and with credit enabled i
 The expiries also land on sessions with no data on them, which no per-hop grant can be pacing.\
 What is not yet established is whether the deadline is simply too tight for a topology of this size on a shared event loop, or whether something is starving the acknowledgement path, and the difference decides whether this is a harness bound or a defect.
 
-The stream that does pass leaves a number that is not yet explained.\
-Two hundred messages of about two hundred and sixty bytes take on the order of seconds to drain over loopback once every `send()` has already been admitted, which is far above what the carrier costs.\
-That measurement was taken at one-second resolution and is therefore an upper bound rather than a figure, and the first thing any timing investigation here must do is measure it properly.
+`MX2` was not a harness bound and was not credit.\
+The write path of the operations plane was quadratic, and it blocked the event loop for up to five hundred and ninety milliseconds at a time.\
+Everything measured against a deadline during such a stall was being compared to a clock the stall had already moved, which is why route acknowledgement, credit replenishment and delivery all degraded together and why explaining any one of them alone failed.
+
+The ladder in `scripts/latency-ladder.mjs` localised it, and a processor profile named it.\
+Deep cloning was thirty-one percent of all processor time, because every commit returned a freshly materialised clone of the whole of canonical state and a delivered message commits three times.\
+`D21` records the correction and the invariant it rests on.
+
+| Measure | Before `D21` | After |
+|---|---|---|
+| Matrix, every carrier, deepened | 68 of 70 in 284s | 70 of 70 in 58s |
+| Two hundred messages, drain | 298ms | 110ms |
+| Event-loop lag, worst | 429ms | 87ms |
+| Credit replenishment, worst | 14.6ms | 8.3ms |
+
+The credit replenishment figure is the one worth reading twice.\
+It was the number the whole investigation began from, it was assumed to be credit's, and credit never touched it.
 
 #### Eliminated causes
 

@@ -70,17 +70,23 @@ An item that is `I4`/`P1` belongs early even though nobody feels it today, becau
 ## M1 - Close the open correctness finding
 
 Severity `I1`.\
-Status: **built and gated, one cell short of its oracle.**
+Status: **closed.\
+The oracle reads 70 of 70.**
 
 | ID | Move | Why it is first |
 |---|---|---|
 | `B1` | Implement `D19`: envelope and `OPEN` credit fields, grant computation and enforcement beside `capacity-ledger`, and a regression test | The only `I1` on the board. A sender silently loses messages after `send()` resolves, and the session resets. `D19` is ratified, so only the build remains |
-| `B14` | Name a reproduction for `MX2`, then decide whether it is a harness bound or a defect | The last two cells of the `B1` oracle fail on this and not on credit. It cannot stay a matrix observation, because a failing cell names a combination rather than an owning layer |
-| `B16` | Project credit and timing into the operations plane, so a timing defect is read rather than derived | `B14` cannot proceed without it. Credit is the only bounded resource in AGP that no authorized actor can query, and the last investigation was conducted by patching built artifacts and reading line numbers as if they were a clock |
+| `B14` | Name a reproduction for `MX2`, then decide whether it is a harness bound or a defect | Done. It was a defect, and not in credit. The reproduction is a latency ladder rather than a topology, because the fault was in the write path shared by every session |
+| `B16` | Project credit and timing into the operations plane, so a timing defect is read rather than derived | Done, as `D20`. It paid for itself immediately: the first query named the number two rounds of reasoning had failed to explain |
 
-The oracle moved from 59 of 70 cells to 68.\
-The nine cells credit recovered were all message loss under a stream.\
-The two that remain are one cell on two carriers, and they fail for `MX2` rather than for anything credit governs, which is why `B14` now stands between `B1` and its oracle.
+The oracle moved from 59 of 70 cells to 70, and the sweep that took 284 seconds now takes 58.\
+Credit recovered nine cells, all message loss under a stream.\
+The last two were `MX2`, and `MX2` was neither a harness bound nor credit: the write path of the operations plane was quadratic and blocked the event loop for up to 590 milliseconds, so every deadline in the system was being judged against a clock that a stall had already moved.\
+`D21` records the correction.
+
+The lesson worth keeping is the order in which this became visible.\
+Two attempts to explain the timing by reasoning produced plausible causes and no progress.\
+The projection required by `D20` produced the number on first use, a processor profile named the function, and the fix followed in an afternoon.
 
 The internal order fixed by `D3` was followed: contracts and their gate first, then the grant primitives, then enforcement, then the regression.\
 The compatibility posture under `Decisions required` was resolved by building the mechanism and leaving the switch to `B15`.

@@ -8,8 +8,15 @@ test("given a canonical before-state, when one route transaction commits, then o
   const store = operations();
   const before = store.snapshot();
   rib.installLocal({ endpoint: "demo/local", bindingId: "binding" });
-  const after = store.commit({ routing: rib.snapshot() });
-  assert.equal(BigInt(after.revision), BigInt(before.revision) + 1n);
+  const receipt = store.commit({ routing: rib.snapshot() });
+  assert.equal(BigInt(receipt.revision), BigInt(before.revision) + 1n);
+
+  // A commit reports the revision it wrote; state is asked for separately,
+  // under `D21`. Atomicity is the claim under test either way: one
+  // transaction must leave every derived collection at one revision, and the
+  // receipt must name the revision the snapshot carries.
+  const after = store.snapshot();
+  assert.equal(after.revision, receipt.revision);
   assert.equal(after.candidateRoutes.length, 1);
   assert.equal(after.selectedRoutes.length, 1);
   assert.equal(after.forwarding.length, 1);

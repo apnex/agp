@@ -27,6 +27,7 @@ The stakeholder authorized autonomous implementation after design completion and
 | D18 | Provide confidentiality and peer authentication through a pre-shared-key transport profile, without certificate infrastructure | Explicit stakeholder direction | Ratified |
 | D19 | Govern per-hop admission with two-dimension credit the receiver grants and the sender may not exceed | Explicit stakeholder direction | Ratified |
 | D20 | Project every bounded resource and every timing the node governs into the sovereign operations plane | `A1` + `A14` + explicit stakeholder direction | Ratified |
+| D21 | Make the cost of a write proportional to what changed, never to what is held | Measurement + `A1` + `A11` | Ratified |
 
 ---
 
@@ -600,6 +601,46 @@ Projecting a derived duration rather than an observed one would let the plane st
 Making the projection expensive enough to perturb the timing it reports turns the instrument into the defect, and every measurement taken through it becomes unfalsifiable.
 
 Emitting timing only as a log leaves it unqueryable and unretained, so two actors diagnosing the same node reason from different reconstructions of it.
+
+### D21 - Write cost proportional to change
+
+**Mechanics.**\
+A write returns the identity of what it committed, not the state that follows it.\
+A caller wanting state asks for it, and pays for it then.
+
+Canonical values are cloned and frozen once, as they enter the store, and shared from then on.\
+A read assembles references to frozen values rather than copying them, because two readers holding one frozen reference can no more disturb each other than two holding separate copies.
+
+A projection of something that cannot change after admission is built once and shared.\
+An ordering key is computed once rather than inside a comparator, where the set size multiplies it.
+
+The invariant beneath all four: the cost of a write is proportional to what changed, and never to what is held.
+
+**Rationale.**\
+This was measured, not suspected.\
+Deep cloning was thirty-one percent of all processor time under a stream, and the largest single consumer in the system.
+
+Every commit returned a freshly materialised deep clone of the whole of canonical state, and a delivered message commits three times.\
+Each of those clones was proportional to everything the node held, including a reverse-correlation set that grows with the traffic in flight, so a stream of `M` messages cost on the order of `M` squared.\
+The reverse-correlation projection was rebuilt for every live breadcrumb on every commit, though a breadcrumb cannot change after admission, and the set was re-sorted by a comparator that parsed a date on each comparison.
+
+The consequence was not slowness but blindness.\
+The event loop stalled for up to five hundred and ninety milliseconds at a time, and everything timed against a deadline during that stall was measured against a clock that a stall had already moved.\
+Credit replenishment, route acknowledgement and delivery all degraded together, which is why the first attempts to explain any one of them in isolation failed.
+
+Nothing about the immutability guarantee is weakened.\
+It was never the copying that protected canonical state from its readers; it was the freezing, and the freezing is retained exactly.
+
+**Consequence.**\
+Returning state from a write makes every write pay for a read that nobody asked for, and the price is set by everything held rather than by anything done.
+
+Re-cloning canonical state that is already frozen converts an immutability guarantee into a throughput bound, and the bound tightens as the node holds more.
+
+Rebuilding an immutable projection on every commit ties the cost of one message to the number of messages already in flight, which is the quadratic that hid here.
+
+Computing an ordering key inside a comparator multiplies that key by the logarithm of the set size, on the write path, where the set is largest.
+
+A write path that scales with held state makes every latency measurement in the system suspect, because the observer and the observed share one event loop.
 
 ---
 

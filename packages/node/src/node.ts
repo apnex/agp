@@ -22,6 +22,7 @@ import {
   type SessionId,
 } from "@agp/protocol";
 import {
+  immutableClone,
   AgpError,
   assertCoreSchema,
   compareConnectionCandidates,
@@ -202,6 +203,12 @@ export class NodeImpl implements AgpNode, SessionHost {
   readonly #endpoints: EndpointRegistry;
   readonly #handlers: HandlerLedger;
   readonly #breadcrumbs: BreadcrumbStore;
+  // A breadcrumb is immutable once admitted, so its projection is built once
+  // and shared. The map is weak because the breadcrumb owns the lifetime.
+  readonly #reverseProjections = new WeakMap<
+    object,
+    ReverseCorrelationSnapshot
+  >();
   readonly #reverseErrors: ReverseErrorEngine;
   readonly #dataPlane: DataPlane;
   readonly #controllers = new Map<string, PeerController>();
@@ -1433,8 +1440,29 @@ export class NodeImpl implements AgpNode, SessionHost {
     });
   }
 
+  /**
+   * The reverse-correlation projection, built once per breadcrumb.
+   *
+   * A breadcrumb never changes after admission, so its projection never needs
+   * rebuilding. It used to be rebuilt on every committed message, against the
+   * whole live set, and then deep-cloned and re-sorted: quadratic in a stream
+   * and the largest single consumer of the event loop. Caching against the
+   * entry keeps the write path proportional to what changed. See `D21`.
+   */
   #reverseSnapshots(): readonly ReverseCorrelationSnapshot[] {
-    return this.#breadcrumbs.snapshot().map((entry) => ({
+    return this.#breadcrumbs.snapshot().map((entry) => {
+      const cached = this.#reverseProjections.get(entry);
+      if (cached !== undefined) return cached;
+      const projection = this.#projectBreadcrumb(entry);
+      this.#reverseProjections.set(entry, projection);
+      return projection;
+    });
+  }
+
+  #projectBreadcrumb(
+    entry: ReturnType<BreadcrumbStore["snapshot"]>[number],
+  ): ReverseCorrelationSnapshot {
+    return immutableClone({
       messageId: entry.messageId,
       outboundReturnToken: entry.outboundReturnToken,
       source: {
@@ -1454,7 +1482,7 @@ export class NodeImpl implements AgpNode, SessionHost {
       egressSessionId: entry.egress.owningSessionId,
       admittedAtRevision: entry.admittedAtRevision,
       expiresAt: entry.expiresAt,
-    }));
+    });
   }
 
   #adjacencySnapshots(): readonly AdjacencySnapshot[] {

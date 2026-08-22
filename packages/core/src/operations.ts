@@ -161,7 +161,13 @@ export class OperationsStore implements OperationsReader {
   #selectedRoutesData: RoutingSnapshot["selectedRoutes"] = Object.freeze([]);
   #forwardingData: readonly ForwardingEntrySnapshot[] = Object.freeze([]);
   #routeExportsData: readonly AdjRibOutRouteSnapshot[] = Object.freeze([]);
-  #reverseData: readonly ReverseCorrelationSnapshot[] = Object.freeze([]);
+  // Held unordered as written, ordered when read. Sorting on the write path
+  // cost a date parse per comparison against the whole live set, on every
+  // committed message; sorting on the read path costs it once per query and
+  // is reused until the set next changes. See `D21`.
+  #reverseSource: readonly ReverseCorrelationSnapshot[] = Object.freeze([]);
+  #reverseOrdered: readonly ReverseCorrelationSnapshot[] | undefined =
+    Object.freeze([]);
   #revision = 0n;
   #eventSequence = 0n;
   #capturedAt: Timestamp;
@@ -230,7 +236,17 @@ export class OperationsStore implements OperationsReader {
     return this.#revision.toString(10);
   }
 
-  commit(change: OperationsCommit): OperationsSnapshot {
+  /**
+   * Applies one change and returns the receipt for it.
+   *
+   * The receipt is the committed identity, not the state. Returning a
+   * materialised snapshot made every write pay for a read nobody had asked
+   * for: three commits per delivered message, each deep-cloning the whole of
+   * canonical state, which is quadratic in a stream and blocked the event
+   * loop for hundreds of milliseconds at a time. A caller that wants state
+   * calls `snapshot()`. See `D21`.
+   */
+  commit(change: OperationsCommit): SnapshotMeta {
     const now = this.#clock.wallTime();
     if (this.#terminal) return this.snapshot();
     const preflight = this.#preflightMonotonicDomain(change);
@@ -295,9 +311,10 @@ export class OperationsStore implements OperationsReader {
       );
     }
     if (change.reverseCorrelations !== undefined) {
-      this.#reverseData = immutableClone(
-        [...change.reverseCorrelations].sort(compareReverseCorrelations),
-      );
+      // A shallow copy detaches the caller's array. Its elements are already
+      // frozen canonical values, so nothing below the array is touched.
+      this.#reverseSource = Object.freeze([...change.reverseCorrelations]);
+      this.#reverseOrdered = undefined;
     }
     if (change.resources !== undefined) {
       for (const [name, value] of Object.entries(change.resources)) {
@@ -331,7 +348,7 @@ export class OperationsStore implements OperationsReader {
     for (const event of events) {
       for (const subscriber of this.#subscribers) subscriber.publish(event);
     }
-    return this.snapshot();
+    return this.#capture().meta;
   }
 
   #preflightMonotonicDomain(change: OperationsCommit): MonotonicPreflight {
@@ -401,7 +418,8 @@ export class OperationsStore implements OperationsReader {
     this.#selectedRoutesData = Object.freeze([]);
     this.#forwardingData = Object.freeze([]);
     this.#routeExportsData = Object.freeze([]);
-    this.#reverseData = Object.freeze([]);
+    this.#reverseSource = Object.freeze([]);
+    this.#reverseOrdered = Object.freeze([]);
     for (const value of this.#resources.values()) value.current = 0n;
     this.#terminal = true;
     this.#eventsTerminal = true;
@@ -434,7 +452,7 @@ export class OperationsStore implements OperationsReader {
       selectedRoutes: this.#selectedRoutesData,
       forwarding: this.#forwardingData,
       routeExports: this.#routeExportsData,
-      reverseCorrelations: this.#reverseData,
+      reverseCorrelations: this.#orderedReverse(),
       resources: this.#resourcesSnapshot(),
       counters: this.#countersSnapshot(),
     });
@@ -493,7 +511,7 @@ export class OperationsStore implements OperationsReader {
   }
 
   reverseCorrelations(): ReverseCorrelationListSnapshot {
-    return this.#list(this.#reverseData);
+    return this.#list(this.#orderedReverse());
   }
 
   resources(): ResourcesSnapshot & SnapshotMeta {
@@ -563,6 +581,17 @@ export class OperationsStore implements OperationsReader {
   #list<T>(items: readonly T[]): MetaList<T> {
     const capture = this.#capture();
     return immutableClone({ ...capture.meta, items });
+  }
+
+  /** Orders the reverse set on demand, and reuses that order until it changes. */
+  #orderedReverse(): readonly ReverseCorrelationSnapshot[] {
+    const cached = this.#reverseOrdered;
+    if (cached !== undefined) return cached;
+    const ordered = immutableClone(
+      [...this.#reverseSource].sort(compareReverseCorrelations),
+    );
+    this.#reverseOrdered = ordered;
+    return ordered;
   }
 
   #materializeConnections(monotonicMs: number): readonly ConnectionSnapshot[] {
@@ -637,11 +666,34 @@ function materializeConnection(
   return immutableClone({ ...fields, timers });
 }
 
+/**
+ * Memoised timestamp parse.
+ *
+ * The same instants are compared over and over: one live breadcrumb keeps its
+ * expiry string for its whole lifetime, and the set is re-sorted on every
+ * committed message. Parsing a date is not cheap, and doing it inside a
+ * comparator multiplies it by the log of the set size, on the write path.
+ *
+ * The cache is bounded and dropped whole rather than evicted piecewise, so it
+ * cannot grow with uptime and needs no eviction policy to reason about.
+ */
+const MAX_PARSED_TIMESTAMPS = 8_192;
+const parsedTimestamps = new Map<string, number>();
+
+function timestampMs(value: string): number {
+  const cached = parsedTimestamps.get(value);
+  if (cached !== undefined) return cached;
+  const parsed = Date.parse(value);
+  if (parsedTimestamps.size >= MAX_PARSED_TIMESTAMPS) parsedTimestamps.clear();
+  parsedTimestamps.set(value, parsed);
+  return parsed;
+}
+
 export function compareReverseCorrelations(
   left: ReverseCorrelationSnapshot,
   right: ReverseCorrelationSnapshot,
 ): number {
-  return Date.parse(left.expiresAt) - Date.parse(right.expiresAt)
+  return timestampMs(left.expiresAt) - timestampMs(right.expiresAt)
     || compareUtf8(left.messageId, right.messageId)
     || compareUtf8(left.egressNodeId, right.egressNodeId)
     || compareUtf8(left.egressSessionId, right.egressSessionId)
