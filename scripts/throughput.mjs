@@ -38,6 +38,10 @@ const REPEAT = Number.parseInt(flag("repeat", "3"), 10);
 const HOPS = Number.parseInt(flag("hops", "1"), 10);
 const TRANSPORTS = flag("transport", "loopback,websocket,websocket-psk")
   .split(",");
+// Nodes in one process share an event loop, a heap and a compilation state.
+// Isolation is the honest default for a carrier comparison; Loopback has no
+// cross-process carrier yet, so it stays co-located and is labelled as such.
+const ISOLATION = flag("isolation", "in-process");
 
 // One hop is two nodes; each further hop adds a transit node between them.
 const geometry = () => GEOMETRIES.chain(HOPS + 1);
@@ -86,12 +90,16 @@ async function measure(transport) {
     // carrier property. It is lifted here so this measures the carrier. The
     // ceiling it imposes is measured on its own terms; see `MX6`.
     capacity: { maxReverseCorrelations: 500_000 },
+    ...(ISOLATION === "process" && transport === "websocket"
+      ? { isolation: "process" }
+      : {}),
   });
   try {
     await awaitConvergence(topology);
     const from = topology.nodes[0];
     const source = topology.endpoints[0];
     const destination = topology.endpoints.at(-1);
+    const isolated = topology.isolation === "process";
     const arrivedAt = () =>
       deliveries.filter((entry) => entry.endpoint === destination).length;
 
@@ -132,6 +140,7 @@ async function measure(transport) {
       worst: Math.round(runs[0].perSecond),
       loopMaxUs: median.loopMaxUs,
       refusals,
+      isolated,
     };
   } finally {
     for (const node of [...topology.nodes].reverse()) {
@@ -148,7 +157,7 @@ if (TRANSPORTS.length === 1) {
   const result = await measure(only);
   process.stdout.write(
     `RESULT ${only} ${result.median} ${result.best} ${result.worst}`
-      + ` ${result.loopMaxUs} ${result.refusals}\n`,
+      + ` ${result.loopMaxUs} ${result.refusals} ${result.isolated}\n`,
   );
 } else {
   const { execFileSync } = await import("node:child_process");
@@ -165,10 +174,12 @@ if (TRANSPORTS.length === 1) {
       `--count=${COUNT}`,
       `--repeat=${REPEAT}`,
       `--hops=${HOPS}`,
+      `--isolation=${ISOLATION}`,
     ], { encoding: "utf8" });
     const line = out.split("\n").find((value) => value.startsWith("RESULT "));
     if (line === undefined) throw new Error(`no result for ${transport}`);
-    const [, name, median, best, worst, loopMaxUs, refusals] = line.split(" ");
+    const [, name, median, best, worst, loopMaxUs, refusals, isolated] =
+      line.split(" ");
     rows.push({
       transport: name,
       median: Number(median),
@@ -176,6 +187,7 @@ if (TRANSPORTS.length === 1) {
       worst: Number(worst),
       loopMaxUs: Number(loopMaxUs),
       refusals: Number(refusals),
+      isolated: isolated === "true",
     });
   }
   const baseline = rows.find(({ transport }) => transport === "loopback");
@@ -191,13 +203,18 @@ if (TRANSPORTS.length === 1) {
         + `${String(row.median).padStart(12)}`
         + `${String(row.best).padStart(9)}`
         + `${String(row.worst).padStart(10)}`
-        + `${relative.padStart(14)}\n`,
+        + `${relative.padStart(14)}`
+        + `${(row.isolated ? "  isolated" : "  co-located").padStart(13)}\n`,
     );
   }
   process.stdout.write("\n");
   for (const row of rows) {
+    // With the nodes elsewhere the sampler measures this driver, not them, so
+    // reporting its figure under the same heading would compare two different
+    // loops. It is named for what it is instead.
     process.stdout.write(
-      `  ${row.transport.padEnd(16)} loop stall worst ${row.loopMaxUs}us`
+      `  ${row.transport.padEnd(16)}`
+        + `${row.isolated ? "driver" : "node"} loop stall worst ${row.loopMaxUs}us`
         + `  capacity refusals ${row.refusals}\n`,
     );
   }

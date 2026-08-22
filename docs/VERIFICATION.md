@@ -437,7 +437,11 @@ Measured one carrier per process, because measuring three in one gave the later 
 One thousand messages, three runs, median.\
 Compare the columns to each other and to nothing else.
 
-Both nodes of each pair still shared a process, so these figures carry cross-node contention that a deployment would not have.\
+The figures above were taken with both nodes of each pair sharing a process.\
+Isolation is now an axis of the geometry harness rather than a separate harness, so `node scripts/throughput.mjs --isolation=process` runs each node on its own.\
+A first isolated reading put a WebSocket pair near the co-located one with a wider spread, which says the one-hop carrier comparison was not badly distorted by co-location, and says nothing yet about deeper shapes where four nodes shared one loop.\
+When nodes are isolated the loop-lag sampler measures the driver rather than the nodes, and is labelled accordingly.\
+Loopback has no cross-process carrier yet, so once the other two are isolated it stops being a like-for-like baseline and becomes the node's own ceiling instead; `F08` records the mechanism that would restore the comparison.\
 The carrier comparison is sound because every carrier was measured the same way, but the absolute rate is a floor rather than a ceiling.\
 `B22` owns re-measuring against the independent-process harness the end-to-end suite already uses.
 
@@ -535,7 +539,8 @@ The order below is the one that worked, and it is ordered deliberately.
    Nodes sharing a process share an event loop, a heap and a compilation state, so they contend in ways a deployment would not and they warm each other up.\
    Measuring three carriers in one process reported TLS as faster than an in-process fabric purely because it ran last.\
    This binds on measurement, not on correctness: a functional test co-locates nodes deliberately and cheaply, and isolating it would cost minutes and prove nothing.\
-   A figure taken with nodes co-located is reported as such or it is not reported.
+   A figure taken with nodes co-located is reported as such or it is not reported.\
+   Loopback cannot be isolated today because its fabric is an in-process object, which is a fact about the current implementation and not about the transport; `F08` records what a cross-process carrier would take.
 5. **Prove the knob moved before believing the result.**\
    A control that varies nothing produces three identical readings and reads as a strong negative.\
    A parameter was passed to a harness that did not accept it, and the conclusion drawn was the opposite of the truth.

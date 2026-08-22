@@ -199,7 +199,12 @@ export async function eventually(probe, description, timeoutMs = 5_000) {
   let lastError;
   while (performance.now() < deadline) {
     try {
-      const result = probe();
+      // Awaited, so an asynchronous probe is actually waited on. Returning a
+      // pending promise unawaited made every async predicate pass instantly,
+      // because a promise is neither undefined nor false. A node reached over
+      // a process boundary can only be probed asynchronously, so this has to
+      // hold before isolation is a harness option.
+      const result = await probe();
       if (result !== undefined && result !== false) return result;
     } catch (error) {
       lastError = error;

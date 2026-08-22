@@ -3,6 +3,7 @@ import { randomBytes } from "node:crypto";
 import { createNode } from "@agp/node";
 import { createNodeWsTransport } from "@agp/transport-node-ws";
 
+import { startProcessNode } from "./node-handle.js";
 import {
   createLoopbackNode,
   createWebSocketNode,
@@ -184,7 +185,13 @@ export async function buildGeometry({
   deliveries = [],
   capacity = {},
   context,
+  isolation = "in-process",
 }) {
+  if (isolation === "process") {
+    return buildIsolatedGeometry({
+      geometry, transport, endpointsPerNode, deliveries, capacity, context,
+    });
+  }
   const create = transportFactory(transport);
   const shape = geometry.nodes;
   const totalEndpoints = shape.length * endpointsPerNode;
@@ -231,13 +238,95 @@ export async function buildGeometry({
   };
 }
 
+/**
+ * The same geometry, with every node in a process of its own.
+ *
+ * Isolation is an axis rather than a separate harness: the shape, the
+ * endpoints, the traffic drivers and the delivery log are the ones the
+ * in-process path uses. Only node construction differs, which is the only
+ * thing that should.
+ *
+ * Nodes sharing a process share an event loop, a heap and a compilation state,
+ * so a measurement taken across them compares the harness as much as the
+ * subject. That is why this exists; see `VERIFICATION.md` section 4.9.
+ */
+async function buildIsolatedGeometry({
+  geometry, transport, endpointsPerNode, deliveries, capacity, context,
+}) {
+  if (transport !== "websocket") {
+    throw new Error(
+      `transport ${transport} has no cross-process carrier; see F08`,
+    );
+  }
+  const shape = geometry.nodes;
+  const limits = {
+    maxLocalEndpoints: Math.max(64, endpointsPerNode * 2),
+    maxRoutesPerSnapshot: PROTOCOL_MAX_ROUTES_PER_SNAPSHOT,
+    maxCandidateRoutes: Math.max(1024, endpointsPerNode * shape.length * 4),
+    ...capacity,
+  };
+  const nodes = [];
+  for (const [index, spec] of shape.entries()) {
+    const listenerRef = `listen.${index}`;
+    const targets = spec.dials.map((target, slot) => ({
+      transportRef: `target.${index}.${slot}`,
+      url: nodes[target].listener.publication.displayAddress,
+    }));
+    const config = uniformConfig({
+      nodeId: `n${index}`,
+      ...(spec.listens ? { listen: { transportRef: listenerRef } } : {}),
+      peers: spec.dials.map((target, slot) => ({
+        adjacencyId: `a${index}-${target}-${slot}`,
+        expectedNodeId: `n${target}`,
+        transportRef: `target.${index}.${slot}`,
+      })),
+      transit: true,
+      ...limits,
+    });
+    const handle = await startProcessNode({
+      config,
+      transport: {
+        kind: transport,
+        listeners: spec.listens
+          ? [{ transportRef: listenerRef, url: "ws://127.0.0.1:0/agp" }]
+          : [],
+        targets,
+      },
+      endpoints: endpointsOf(index, endpointsPerNode),
+      deliveries,
+    });
+    nodes.push(handle);
+    context?.after(() => handle.stop().catch(() => undefined));
+  }
+  return {
+    name: geometry.name,
+    transport,
+    isolation: "process",
+    nodes,
+    deliveries,
+    endpointsPerNode,
+    endpoints: shape.flatMap((_, index) => endpointsOf(index, endpointsPerNode)),
+  };
+}
+
 export async function awaitConvergence(topology, timeoutMs = 40_000) {
   await eventually(
-    () => topology.nodes.every((node) =>
-      topology.endpoints.every((endpoint) =>
-        selectedRoute(node, endpoint) !== undefined
-      )
-    ),
+    async () => {
+      if (topology.isolation === "process") {
+        for (const node of topology.nodes) {
+          const selected = new Set(await node.selectedRoutes());
+          if (!topology.endpoints.every((endpoint) => selected.has(endpoint))) {
+            return false;
+          }
+        }
+        return true;
+      }
+      return topology.nodes.every((node) =>
+        topology.endpoints.every((endpoint) =>
+          selectedRoute(node, endpoint) !== undefined
+        )
+      );
+    },
     `${topology.endpoints.length} endpoints selected on `
       + `${topology.nodes.length} ${topology.name} nodes over ${topology.transport}`,
     timeoutMs,
