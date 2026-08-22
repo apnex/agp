@@ -310,6 +310,7 @@ A finding stays here until it is closed by a design decision or a regression tes
 |---|---|---|
 | `MX1` | A sender that offers messages back to back over WebSocket overruns the receiver, which commits `RECEIVE_OVERFLOW`, closes the session, purges its routes, and reconnects. Delivered messages equal `maxBufferedPackets` exactly, at every bound tested from 16 to 128. Every `send()` resolved successfully first. | Closed by `D19`, gated by `test/topology/credit-flow-control.test.js` |
 | `MX2` | A four-node diamond carrying twenty-four endpoints per node fails a two-second `routeAckTimeoutMs` while a stream is in flight, on sessions that carry no data of their own. Raising only that deadline to twenty seconds passes the same cell with every message delivered. | Closed by `D21`, gated by `packages/core/test/unit/write-path-cost.test.js` |
+| `MX3` | With the write path corrected, a two hundred message stream still leaves the event loop stalled for up to seventy milliseconds, and a node hop costs far more than the carrier beneath it: a raw WebSocket round trip is about 75 microseconds against roughly half a millisecond per message through a node pair. Neither figure is explained. | Open, instrument available |
 
 `MX1` was reproducible and understood, and `D19` ratifies the mechanism that closed it.\
 `ws` emits every frame parsed from one TCP segment in a single turn, so a burst of small messages arrives faster than `pause()` can take effect and the configured bound is exceeded within one tick.\
@@ -395,6 +396,39 @@ Each exclusion is a decision with a re-entry condition, in the same form as the 
 | `X3` | `burst` over a real socket | Concurrency against a real carrier makes the oracle timing-dependent, and the same bound is proved deterministically over Loopback | A defect that reproduces only over a real carrier |
 | `X4` | Channel protection per geometry | The profile is carrier-level and geometry-independent, so one witness under transit is sufficient | A geometry whose behavior depends on the security profile |
 | `X5` | Traffic or route volume on every geometry | Volume stresses a transit hop and a RIB, neither of which varies with shape once one transit exists | A geometry whose volumetric behavior differs from `line` |
+
+---
+
+### 4.9 Chasing a timing defect
+
+A timing defect is a class, not an incident, and it resists the method that works on functional defects.\
+Everything passes while it is present, so there is no failing assertion to bisect toward, and reasoning about it produces plausible causes at a rate that feels like progress.\
+`MX2` absorbed two rounds of that before anything moved.
+
+The order below is the one that worked, and it is ordered deliberately.
+
+1. **Read the plane before reaching for a trace.**\
+   `D20` requires bounded resources and measured durations to be queryable.\
+   Reaching for a trace instead means the plane is missing something, and that absence is filed as a finding rather than worked around.
+2. **Measure with a clock.**\
+   Line numbers in a log are not time, and treating them as time is how a first pass concluded that packets were being dropped when they were being read late.
+3. **Climb the ladder, do not measure the whole.**\
+   `scripts/latency-ladder.mjs` adds one layer per rung, so the rung where the milliseconds appear names the layer that owns them.\
+   A single end-to-end number cannot do that, and chasing one produces hypotheses rather than causes.
+4. **Sample event-loop lag underneath every measurement.**\
+   In a single-process topology a slow path and a starved one look identical.\
+   `test/support/loop-lag.js` separates them, and in `MX2` the lag was the finding.
+5. **Profile before fixing.**\
+   A processor profile named the function in one run, after reasoning had failed twice.\
+   `node --cpu-prof` against one ladder rung is enough.
+6. **Prove the cause before believing it.**\
+   Disable the suspected path, measure again, and require the number to move.\
+   Two suspects were eliminated this way before the third survived.
+7. **Fix the shape, not the constant.**\
+   A tenfold constant improvement on a quadratic is a longer fuse, not a fix, and it will read as success on every benchmark small enough to run in a test.
+
+Measured cost of the instruments: recording an observation is about three nanoseconds, and advancing a counter about two.\
+An instrument that perturbs what it measures makes every number taken through it unfalsifiable, so this bound is a requirement rather than a boast.
 
 ---
 

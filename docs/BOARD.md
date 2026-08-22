@@ -53,6 +53,7 @@ An item that is `I4`/`P1` belongs early even though nobody feels it today, becau
 | `B14` | Name a reproduction for the route-ack expiry a stream provokes | `I2` | `P2` | [`MX2`](VERIFICATION.md#46-open-findings-from-sweeps) |
 | `B16` | Project credit and timing into the operations plane | `I2` | `P1` | [`D19`](DECISIONS.md#d19---per-hop-credit-flow-control), [`MX2`](VERIFICATION.md#46-open-findings-from-sweeps) |
 | `B17` | Derive the trace graph identifier set instead of hardcoding it | `I3` | `P1` | [`GATES.md` section 2](GATES.md#2-gate-ax0---intent-applicability-and-knowledge) |
+| `B18` | Explain the residual per-hop cost and event-loop stalls | `I2` | `P3` | [`MX3`](VERIFICATION.md#46-open-findings-from-sweeps) |
 | `B15` | Give a deployment the switch `D19` says it has, and credit control alongside data | `I3` | `P2` | [`D19`](DECISIONS.md#d19---per-hop-credit-flow-control) |
 | `B2` | Reconcile the pause wording in `binding-websocket.md` with the code | `I4` | `P2` | [`MX1`](VERIFICATION.md#46-open-findings-from-sweeps) |
 | `B3` | Machine-readable cell to mechanism mapping | `I4` | `P3` | [`VERIFICATION.md` section 4](VERIFICATION.md#4-coverage-register) |
@@ -103,6 +104,16 @@ Severity `P2`.
 | `B15` | Give a deployment the switch `D19` says it has, and govern control alongside data | `D19` states that a deployment configures whether it grants at all, and no such configuration exists. It also leaves control ungoverned, drawing on a reserve rather than a grant, so the ring is bounded by construction rather than by accounting |
 | `B17` | Derive the required identifier set of the trace graph from the record, rather than stating it as a literal | `AX0` seals the intent graph against `D1` to `D17` written as a constant, while nineteen decisions are ratified. `D18` and `D19` are built and gated and appear nowhere in the graph, and the gate cannot detect the drift it exists to prevent |
 | `B12` | Split the architecture into current and target instants | Not yet legal. `AR1` projects one architecture at two instants, and AGP has one because current and target converged. `D19` ratified but unbuilt is the trigger, so this becomes legal the moment `B1` starts |
+
+---
+
+## M2a - Finish the thread `MX2` opened
+
+Severity `I2`.
+
+| ID | Move | Note |
+|---|---|---|
+| `B18` | Explain the residual: seventy millisecond event-loop stalls under a stream, and a node hop costing roughly half a millisecond against a 75 microsecond carrier round trip | The ladder and the profile that found `D21` are the instruments, and `MX3` is filed with both. This is the same class of defect, now chased by the procedure in section 4.9 rather than by improvisation |
 
 ---
 
