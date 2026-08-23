@@ -34,6 +34,7 @@ const normativeArtifacts = [
   "transport-sovereignty-authority.md",
   "transport-loopback.md",
   "message-labels.md",
+  "destination-selection.md",
 ];
 
 function triadCount(source, heading) {

@@ -225,6 +225,72 @@ That, and not throughput, is the condition that would revive design B.
 
 ---
 
+## 8. Forward compatibility - what this design keeps open
+
+Flow-aware forwarding is wanted later: per-flow guarantees, quality of service, and eventually replication.\
+Per-message is built now, so this section states what it must do differently in order that those arrive as extensions rather than as a rework of the primitives beneath them.
+
+### 8.1 Five adjustments to the primitives
+
+1. The label vocabulary is generic and directionless. A `LabelTable` keyed by controller and label holds a binding; a forward binding is structurally the same record as a reverse one, so the table is not named or shaped for one direction.
+2. Label allocation is a session primitive rather than a detail of the return path. The allocator is already monotonic per session, which is what a label allocator is, so a forward label later draws on the same primitive instead of a parallel one.
+3. Forwarding takes a key rather than a destination. The key today is the destination endpoint, and a richer classification later replaces the key rather than every call site that resolves one. This is the most expensive adjustment to retrofit and the cheapest to make now.
+4. The disposition code space is open. A reason that does not exist yet, such as a class or reservation failure, must not require a wire change in order to be reported.
+5. Nothing assumes exactly one disposition per message. A message with more than one next hop has more than one fate.
+
+The fifth looked like cheap insurance when it was written and is load-bearing once replication exists.
+
+### 8.2 Two grades, and only one is expensive
+
+| Grade | What a label changes | Additionally requires | Collides with |
+|---|---|---|---|
+| Along the selected path | How a hop treats a message, never where it goes | A forward label on the wire, and a way for it to acquire meaning | Nothing |
+| Along an engineered path | Where a message goes | A signalling plane that establishes path state | `D6`, and `D4`'s distribution model |
+
+The first grade is the one that buys per-flow credit, per-flow queues and per-flow accounting, because it gives a transit node somewhere to hang state.\
+It is label switching that mirrors the routing table, in the manner of a label distribution protocol rather than a traffic-engineering one.
+
+The second grade is what a resource reservation protocol adds, and it is excluded: AGP does not diverge from the routing table.
+
+### 8.3 The classification is already on the wire
+
+A per-flow class can be formed from `source.endpoint`, `source.originNodeId` and `destination`, all of which every data message already carries.\
+Nothing new is needed in order to recognise a flow; only to label one.
+
+### 8.4 A return label is not a forward label
+
+The label in use today is allocated by the sender, understood only by the sender, and used to correlate a disposition.\
+A forward label would be meaningful to the node receiving it, and would tell that node how to treat what it carries.
+
+They share an allocator, a table shape and a vocabulary.\
+They must not share a field.\
+One field serving both directions couples the reverse path to the forwarding path, after which neither can change without the other.
+
+### 8.5 The stack question, when the field is added
+
+Nesting is what gives a label-switched network tunnels, hierarchy and multi-tenancy.\
+Nothing here precludes it, and whether the forward label field is one value or a list is a decision to take deliberately when the field is introduced, because it is free then and a wire change afterwards.
+
+### 8.6 A label may be learned rather than signalled
+
+A label distribution protocol is a substantial addition, and it may not be needed.\
+The reverse label already demonstrates the alternative: it is allocated unilaterally and never understood by anyone else.
+
+A forward label could be learned from the data plane instead of signalled.\
+The first message of a flow carries full addressing and a label, the receiver retains the association, and later messages carry the label alone, with an unrecognised label falling back to full resolution.
+
+This is promising and unverified.\
+It is recorded because it would avoid the single largest cost in the grade above, and because discovering it after building a signalling plane would be expensive.
+
+### 8.7 What follows the routing table moves when the routing table moves
+
+A flow follows whatever path is currently selected, so reconvergence moves it and per-hop state re-establishes on the new path.
+
+This is not a defect and it is how a label-switched path behaves when its interior routing changes.\
+It does mean a per-flow guarantee holds along the currently selected path and not across a reconvergence, which must be stated before anything is promised on top of it.
+
+---
+
 ## 7. Mechanics, rationale, and consequence
 
 ### Mechanics
@@ -271,3 +337,8 @@ Per-flow labels remove that growth more completely, and are rejected because doi
 - Interpreting payload content, or letting a flow layer's state travel in the
   hop-visible extension field, would put endpoint state where intermediate
   nodes can read and eventually depend on it.
+- Serving both directions with one label field would couple the reverse path
+  to the forwarding path, after which neither can change independently.
+- Hardcoding the destination endpoint as the forwarding key, rather than
+  passing a key, makes a richer classification a change to every call site
+  that resolves one.

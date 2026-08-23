@@ -56,6 +56,7 @@ An item that is `I4`/`P1` belongs early even though nobody feels it today, becau
 | `B25` | Give pre-shared keys a cross-process key exchange so that carrier can be isolated too | `I4` | `P3` | [`F08`](design/mechanisms.md) | landed |
 | `B23` | Build the disposition design that removes the sustained send ceiling | `I2` | `P3` | [`MX7`](VERIFICATION.md#46-open-findings-from-sweeps), [`message-labels.md`](design/message-labels.md) | open |
 | `B26` | Let a ratified decision be recorded before it is built | `I4` | `P2` | [`GATES.md` section 2](GATES.md#2-gate-ax0---intent-applicability-and-knowledge) | open |
+| `B27` | Name a destination instance, not only an endpoint | `I3` | `P4` | [`destination-selection.md`](design/destination-selection.md) | open |
 | `B1` | Implement `D19` credit flow control | `I1` | `P1` | [`MX1`](VERIFICATION.md#46-open-findings-from-sweeps), [`D19`](DECISIONS.md#d19---per-hop-credit-flow-control) | landed |
 | `B14` | Name a reproduction for the route-ack expiry a stream provokes | `I2` | `P2` | [`MX2`](VERIFICATION.md#46-open-findings-from-sweeps) | landed |
 | `B16` | Project credit and timing into the operations plane | `I2` | `P1` | [`D20`](DECISIONS.md#d20---observability-of-bounded-resources-and-timing) | landed |
@@ -159,6 +160,16 @@ Severity `I2`.
 
 ---
 
+## M3b - Addressing that a flow can rely on
+
+Severity `I3`.
+
+| ID | Move | Note |
+|---|---|---|
+| `B27` | Let a message name the instance it is for, not only the endpoint | Addressing by name alone means any advertiser may serve the message, which is anycast and arrived as a consequence rather than a choice. It is the wrong default for a flow with state on one instance. The candidate routing table already holds what is needed, so this asks a different question of state already kept. Blocked on the `Q1(b)` question above, and it pays forward: a named instance completes the classification that per-flow labelling would later use |
+
+---
+
 ## M4a - Opportunistic improvement
 
 Severity `P4`.\
@@ -210,6 +221,7 @@ Scored on the same scale, so not choosing them is visible.
 
 | Question | Blocks |
 |---|---|
+| Whether a data path may be gated by the candidate routing table rather than only by the selected one | `B27`. Confirmed intent `Q1(b)` says every data path is gated by the local selected routing table. Naming a destination instance gates on the candidate table instead, which already retains the alternatives and their origins. `D6` still selects and still governs what is advertised, and the selected route remains what an unqualified message follows. It is a small change of wording and a real change of gate, and confirmed intent is not a design decision |
 | Whether the operational event stream is a record of everything a node did, or a channel for what an operator must act on | `B18`. `D22` removed the one event that was not earned, leaving three per delivered message that are. Whether those three belong in the same stream as lifecycle events decides whether the answer is a lower rate, a separate high-volume path, or an explicit consumer contract. Raising the buffer is not among them: that is the `MX1` shape, where enlarging a bound moves the cliff |
 | Whether six operations commits per delivered message is the intended cost of the event model, or an artifact | `B18`. Three are the delivery events themselves and read as inherent. One is a session transition published for a state that did not change, one is a timer reset, and one re-commits a reverse set that a local delivery never altered. Reducing them is a change to what a canonical revision means, which is not an optimisation decision |
 | Whether a node should be able to decline to grant at all, and what a deployment that does so is choosing | `B15`. The wire field is optional and an absent grant is unlimited, so a peer that never negotiated credit is unaffected. What is not built is the switch `D19` says a deployment has, and the default was set to grant because leaving `RECEIVE_OVERFLOW` reachable is the fault `D19` exists to remove |
