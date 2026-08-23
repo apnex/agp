@@ -1182,6 +1182,27 @@
         "test/topology/credit-observability.test.js"
       ],
       "implementation": "built"
+    },
+    {
+      "requirementId": "D23",
+      "ratificationStatus": "ratified",
+      "implementation": "planned",
+      "authorities": [
+        {
+          "kind": "decision",
+          "reference": "D23",
+          "ratification": "ratified"
+        }
+      ],
+      "designReferences": [
+        "../DECISIONS.md#d23---delivery-disposition",
+        "message-labels.md"
+      ],
+      "schemaIds": [],
+      "semanticRuleIds": [],
+      "owningGate": "AX5",
+      "owningTests": [],
+      "integrationWitnesses": []
     }
   ]
 }

@@ -1,6 +1,6 @@
 # Message labels and delivery disposition
 
-> **Status:** Design of record for the per-message design, and a documented alternative.\
+> **Status:** Ratified as `D23`, not yet built. The per-flow design is recorded for comparison and is not built.\
 > The per-message design is the target state. The per-flow design is recorded for comparison and is not built.
 
 ## 1. Purpose
@@ -59,9 +59,15 @@ Expiry remains as a backstop for a disposition that never arrives.
 One wire message reports the fate of a message, carrying a code that distinguishes delivered from each failure reason, in the shape of a single control message rather than one message type per outcome.
 
 Every code in that set names an outcome.\
-Two mechanisms discussed alongside this one would need a code that names something else: a fan-out report saying how many destinations a dividing hop took responsibility for, and a suppression report saying a copy was discarded as a duplicate.\
-Both describe the journey rather than the destination, and neither is added here.\
-A vocabulary that holds one kind of thing should not acquire a second by having a value added to it, so if progress reporting is wanted it earns its own shape.
+A suppression report, saying a copy was discarded as a duplicate, would name something else, and it is not added here.\
+A vocabulary that holds one kind of thing should not acquire a second by having a value added to it.
+
+The number of destinations a message was divided into is not an exception to that.\
+It is a field on an outcome rather than a code, it is absent unless the number exceeds one, and it is stamped by the hop that enumerated because no hop downstream of the division knows the total.\
+It rides on every disposition rather than the first, so losing one report costs an outcome rather than the denominator, and a relay that passes a disposition through must preserve it.
+
+With several destinations, terminal outcomes arriving over time are themselves a progress stream: the count falling from five to four to three is progress built entirely from settled things.\
+The denominator is the only information in this mechanism that is not an outcome, and carrying it as a field is what keeps the vocabulary holding one kind.
 
 A hop reports upstream only once its own downstream has reported to it.\
 So a disposition arriving at the originating node means the network delivered the message to the destination endpoint.\

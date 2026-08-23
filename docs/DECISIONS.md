@@ -29,6 +29,7 @@ The stakeholder authorized autonomous implementation after design completion and
 | D20 | Project every bounded resource and every timing the node governs into the sovereign operations plane | `A1` + `A14` + explicit stakeholder direction | Ratified |
 | D21 | Make the cost of a write proportional to what changed, never to what is held | Measurement + `A1` + `A11` | Ratified |
 | D22 | Announce a self-transition only when nothing else already reports it | Measurement + explicit stakeholder direction | Ratified |
+| D23 | Report the fate of every message as an outcome, and release reverse-path state when it arrives | Measurement + explicit stakeholder direction | Ratified |
 
 ---
 
@@ -692,6 +693,63 @@ Withholding the keepalive self-transition as well would leave an idle but health
 Withholding the snapshot's record along with the announcement would remove the column an operator reads to see that a session is processing anything, which section 6.1 of the operations design requires to count self-transitions.
 
 Suppressing an announcement for a real change of state would hide a session leaving `Established`, which is the one transition every consumer is watching for.
+
+### D23 - Delivery disposition
+
+**Mechanics.**\
+Every message a node forwards acquires a reverse-path binding, and that binding is released when a disposition for it returns, whether the disposition reports delivery or failure.\
+Expiry remains as a backstop, and reaching capacity evicts the oldest binding rather than refusing new work, configurably, so a reverse-path concern can never stop the data plane.
+
+A hop reports upstream once its own downstream has reported to it.\
+A disposition arriving at the originating node therefore means the network delivered the message to the destination endpoint.\
+It does not mean the endpoint processed it, and it will not: what a handler does with a payload is above this layer.
+
+Dispositions are batched per session and expressed as ranges of labels carrying an outcome code.\
+Cumulative acknowledgement is unsafe here because dispositions complete out of order, and a flat list wastes labels that are already allocated monotonically.
+
+Every code names an outcome.\
+The vocabulary holds one kind of thing, so a disposition arriving always means something settled, and the count of what remains outstanding decrements unconditionally.
+
+A binding carries what remains outstanding against it and is released at zero.\
+For one next hop that count is one, so this is the same rule stated so that a message with several next hops needs no exception.\
+The count is destinations owed rather than copies sent, the origin retains which are outstanding, and an intermediate retains only how many.
+
+Where a message was replicated, the hop that enumerated the destinations stamps their number on every disposition it relays, absent when that number is one.\
+It is a field on an outcome rather than a kind of its own, so the invariant above survives, and it is carried on every disposition rather than the first so that losing one costs an outcome and not the denominator.
+
+The disposition is surfaced per message on the SDK.\
+It is not one operational event per message, because that rate is what reduced a subscriber doing real work to fifteen events of twelve hundred.
+
+**Rationale.**\
+AGP had no positive acknowledgement, so a binding was released by a failure or by expiry and never by success.\
+A flow that never failed still filled the table, and a node was throughput-capped by records it kept exclusively for failures that did not happen: about 136 messages a second sustained, against a burst ceiling near 2850.
+
+The fault was the retention duration rather than the placement of the state.\
+Relocating the state was considered and rejected: routing a report back rather than relaying it would remove the binding from transit hops entirely, and would forfeit the authorisation and exactness that `D8` requires, because any node could then inject a report at an endpoint it was never authorised to reach.\
+Shortening the retention achieves the same ceiling without that cost, since the bound becomes capacity over a round trip rather than over thirty seconds.
+
+Batching per session is the coarsest grain available, because one session carries every flow between two adjacent nodes.
+
+Holding the vocabulary to outcomes preserves the one property every consumer of this mechanism will rely on.\
+Progress is already available without a second kind of message: with several destinations, terminal outcomes arriving over time are themselves a progress stream, and the only information that is genuinely not an outcome is the denominator.\
+A denominator is a field, so it does not cost the invariant.
+
+**Consequence.**\
+Releasing a binding only on failure returns the ceiling, because success is the common case and nothing else clears the table.
+
+Refusing new messages when the table is full lets a reverse-path quality concern stop the data plane, which inverts the relationship between them.
+
+Sizing label capacity as though it were credit capacity reintroduces the ceiling, because a label is held for an end-to-end round trip while credit is released by one peer reading.
+
+Admitting a code that names progress rather than an outcome makes a disposition mean settled only sometimes, after which every consumer must branch before it knows whether anything has settled.
+
+Counting copies sent rather than destinations owed makes an intermediate count go negative the first time a downstream hop divides further.
+
+Stamping the denominator on only the first disposition makes the loss of one report cost the origin its ability to know when it is complete, rather than costing it one outcome.
+
+Reporting a disposition as one operational event per message reproduces subscriber starvation that has already been measured.
+
+Describing a delivered disposition as processing promises handler semantics this layer does not observe and cannot honour.
 
 ---
 
