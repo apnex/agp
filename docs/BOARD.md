@@ -78,112 +78,98 @@ An item that is `I4`/`P1` belongs early even though nobody feels it today, becau
 
 ---
 
-## M0 - Stop the node dying
+## Closed
 
-Severity `I1`.\
-Status: **both landed and gated.**
+Two milestones are complete and are kept here as one line each; their detail is in the record they cite.
 
-| ID | Move | Why it is first |
-|---|---|---|
-| `B20` | Call the breadcrumb expiry sweep that already exists and is never invoked | Landed. The sweep runs under admission pressure and at most once a millisecond, so it costs nothing per message and is paid only at the bound. A gate lowers the capacity and moves a manual clock rather than sending four thousand messages, which is why no existing test found it |
-| `B21` | Handle the inbound data promise instead of discarding it with `void` | Landed. Fixing `B20` reproduced it within minutes: a sender that can now reach the receiver's refusal path fills the control queue with reverse errors, and the rejection ended the process. It is now diagnosed and bounded to its own session |
+**Stop the node dying.**\
+`B20` and `B21`, both `I1`, landed together because fixing the first reproduced the second within minutes.\
+A node accepted `maxReverseCorrelations` messages and then refused every further one for the rest of its life, and an inbound dispatch failure ended the process rather than the session.
 
-Fixing the first unmasked the second, which is the argument for landing them together rather than in severity order.\
-`MX7` is what remains once neither kills the node: a sustained ceiling of about 136 messages a second against a burst ceiling near 2850, set by correlation capacity over a lifetime that cannot be shortened independently.
-
-`MX5` is the answer to the question that found it.\
-Asked for a sustained throughput ceiling, the honest figure is not a rate: it is four thousand and ninety-six messages, and then nothing, for the remaining life of the process.
+**Close the open correctness finding.**\
+`B1`, `B14` and `B16`.\
+The deepened sweep reads 70 of 70 and runs in about a quarter of the time it did.\
+`MX1` was closed by credit and `MX2` by `D21`, and neither was what it first appeared to be.
 
 ---
 
-## M1 - Close the open correctness finding
+## Build order
 
-Severity `I1`.\
-Status: **closed.\
-The oracle reads 70 of 70.**
+Severity says what matters; this says what can be done next.\
+Where the two disagree it is because of dependency, never because a severity was overridden.
 
-| ID | Move | Outcome |
-|---|---|---|
-| `B1` | Implement `D19`: envelope and `OPEN` credit fields, grant computation and enforcement, and a regression test | Landed. Credit paces the wire rather than admission, control is never blocked by a grant, and the regression fails with credit disabled |
-| `B14` | Name a reproduction for `MX2`, then decide whether it is a harness bound or a defect | Landed. It was a defect, and not in credit. The reproduction is a latency ladder rather than a topology, because the fault was in the write path shared by every session |
-| `B16` | Project credit and timing into the operations plane, so a timing defect is read rather than derived | Landed as `D20`. It paid for itself on first use: the query named the number two rounds of reasoning had failed to explain |
+| Order | Item | Ready | Why here |
+|---|---|---|---|
+| 1 | `B28` | Yes | Scores lowest on the board and builds first. The same forwarding decision is made in three sequences today, and both items after it change that decision |
+| 2 | `B23` | After `B28` | The largest open item. Removes the sustained ceiling `MX7` records, and is ratified as `D23` |
+| 3 | `B22` | Yes | Cheap, and wants a quiet machine rather than a queue position |
+| 4 | `B27` | Blocked | Waiting on the `Q1(b)` question below |
+| 5 | `B15` | Blocked | Waiting on the credit switch question below |
+| 6 | `B18` | Yes, re-scope first | Advanced to diminishing returns; the remaining cost is distributed rather than concentrated |
+| 7 | `B12`, `B10`, `B3`, `B13` | Yes | Record work, none of it blocking |
+| 8 | `B19`, `B4` | Yes | Taken when a way is found, not scheduled |
 
-The oracle moved from 59 of 70 cells to 70, and the sweep that took 284 seconds now takes 58.\
-Credit recovered nine cells, all message loss under a stream.\
-The last two were `MX2`, and `MX2` was neither a harness bound nor credit: the write path of the operations plane was quadratic and blocked the event loop for up to 590 milliseconds, so every deadline in the system was being judged against a clock that a stall had already moved.\
-`D21` records the correction and `MX3` records what is still unexplained.
-
-The lesson worth keeping is the order in which this became visible.\
-Two attempts to explain the timing by reasoning produced plausible causes and no progress.\
-The projection required by `D20` produced the number on first use, a processor profile named the function, and the fix followed in an afternoon.\
-That order is now recorded as method in [`VERIFICATION.md` section 4.9](VERIFICATION.md#49-chasing-a-timing-defect).
-
-Two commitments made while closing this milestone were not kept, and are open rather than quietly dropped.\
-`B2` was to be done inside `B1` because it edits the same paragraph, and it was not.\
-`B15` remains the unbuilt half of `D19`.
+Three items are unblocked and independent of everything above: `B22`, `B18` and the record work.\
+Nothing in this order is waiting on `B28` except the two items that change forwarding.
 
 ---
 
-## M2 - Stop a contract claiming something untrue
+## M3 - Remove the sustained send ceiling
+
+Severity `I2`.
+
+| ID | Move | Note |
+|---|---|---|
+| `B28` | Resolve a forwarding decision in one place instead of three | The same decision is made in local origination, in inbound classification, and again when a forward executes. Route resolution, local against session branching, hop limit, source export, epoch and capacity all appear more than once. `D23` and every destination mode would be written into each of them, and the third write is where they drift. One resolver returning deliver locally, forward to these next hops, or refuse with this code |
+| `B23` | Build `D23` | Ratified and recorded as planned rather than built, which is the state `B26` made recordable and this is its first use. What remains is the wire shape, the debounce and count defaults, the SDK surface including how an unknown denominator is distinguished from a known one, and the origin's outstanding table, which must be released by success by construction |
+
+A node today sustains about 136 messages a second against a burst ceiling near 2850, because a reverse-path binding is released by failure or expiry and never by success.\
+The ceiling is not a capacity to raise; it is a quality mechanism acting as a throughput bound.
+
+---
+
+## M4 - Finish the thread `MX2` opened
+
+Severity `I2`.
+
+| ID | Move | Note |
+|---|---|---|
+| `B18` | Explain the event-loop saturation that remains under a stream | Advanced, and now at diminishing returns. Three projections are memoised, a session transition and a timer reset commit session state rather than everything held, and a fourth memoisation was tried and reverted for producing no measurable gain. A steady-state profile shows the remaining cost is distributed rather than concentrated: schema validation on encode and parse, event materialisation, and the state and action clones the session machine makes per command. There is no next single fix, which is why this should be re-scoped before more is spent on it |
+
+---
+
+## M5 - Stop a contract claiming something untrue
 
 Severity `P2`.
 
 | ID | Move | Note |
 |---|---|---|
-| `B2` | Align the pause wording in `binding-websocket.md` with the implementation, or the implementation with the wording | Landed, and the delay improved it. The old wording implied the adapter pauses before exhausting the bound and overflows only if it cannot, which suggested a flow control the carrier cannot provide. `MX1` since established that a burst inside one turn is buffered in full before any pause can engage, so the binding now states what pausing does and does not do, and names credit as what makes the overflow unreachable between conforming peers |
 | `B15` | Give a deployment the switch `D19` says it has, and govern control alongside data | `D19` states that a deployment configures whether it grants at all, and no such configuration exists. It also leaves control ungoverned, drawing on a reserve rather than a grant, so the ring is bounded by construction rather than by accounting |
-| `B17` | Derive the required identifier set of the trace graph from the record, rather than stating it as a literal | Landed. The gate had been sealing the graph against the literal seventeen while nineteen decisions were ratified, and the schema carried the same bound one layer down. `D18` and `D19` are now traced, and adding a decision without tracing it fails at the moment it is added |
 | `B12` | Split the architecture into current and target instants | Now legal, and smaller than when it was filed. The trigger was `D19` ratified but unbuilt; `D19` is built except for the switch `B15` owns, so one declared surface still has no running counterpart. Doing this before `B15` would describe a divergence that `B15` is about to remove |
 
 ---
 
-## M2a - Finish the thread `MX2` opened
-
-Severity `I2`.
-
-| ID | Move | Note |
-|---|---|---|
-| `B18` | Explain the event-loop saturation that remains under a stream | Advanced, with its consequence now demonstrated rather than argued: a subscriber that yields to the macrotask queue receives 15 of 1205 events during a stream, because saturation removes its opportunities to drain. That is an observability failure under ordinary traffic and it raises the case for continuing. Three projections are memoised, a session transition and a timer reset commit session state rather than everything held, and a fourth memoisation was tried and reverted for producing no measurable gain. A steady-state profile of the stream window alone shows the remaining cost is distributed rather than concentrated: schema validation on encode and parse, event materialisation, and the state and action clones the session machine makes per command. There is no next single fix, which is why this should be re-scoped before more is spent on it |
-
----
-
-## M3a - Measure what a deployment would see
-
-Severity `I2`.
-
-| ID | Move | Note |
-|---|---|---|
-| `B23` | Build `D23`: completion reporting per session, ranges with outcome codes, eviction over refusal, the outstanding count, and the rename to label bindings | Ratified and recorded as planned rather than built, which is the state `B26` made recordable and this is its first use. What remains is the wire shape, the debounce and count defaults, the SDK surface including how an unknown denominator is distinguished from a known one, and the origin's outstanding table, which must be released by success by construction. Sequence `B28` first so the decision is not written into three forwarding sequences |
-| `B26` | Let a ratified decision be recorded before it is built | Landed. Build state is now its own axis rather than being inferred from whether tests exist. A built record owes its owning tests and a planned one owes its design, so the drift detection `B17` added is intact while a ratified but unbuilt decision can be written down. Verified by probing both directions: a planned record with no tests passes, and a built record without them still fails |
-| `B22` | Re-measure throughput with each node in its own process | Fully unblocked, and deliberately not attempted yet. Both socket carriers isolate and an isolated node now generates its own load, so the harness is ready. Three measurement attempts produced three orderings on a machine saturated by the session that built them, so the number is worth nothing until it is taken quiet. Two contaminations specific to an isolated run are known and belong here: the parent observes delivery over a channel it must be scheduled to drain, and sender and receiver are timed by different clocks |
-| `B24` | Give the equivalence line one declaration instead of two | Landed, and smaller than filed. I had called the end-to-end star and line duplicates of `GEOMETRIES`; investigating showed neither is. The star is built from the configuration documents that ship in `examples/independent-star`, so its shape is coverage of a published artifact, and deriving it from a fixture would delete that coverage. The line is built twice on purpose, in process and across processes, because a test asserts the two agree. What was genuinely wrong is that each builder declared the line by hand, so a drift in either would have left that comparison passing while comparing two different topologies. Both now derive from one declaration |
-| `B25` | Give pre-shared keys a cross-process key exchange | Landed. The parent generates one table per topology and hands each child the identities it must authenticate, because a closure does not cross a process boundary. Three nodes each in their own process converge and deliver over two hops under the pre-shared-key profile |
-
----
-
-## M3b - Addressing that a flow can rely on
+## M6 - Addressing that a flow can rely on
 
 Severity `I3`.
 
 | ID | Move | Note |
 |---|---|---|
-| `B28` | Resolve a forwarding decision in one place instead of three | The same decision is made in local origination, in inbound classification, and again when a forward executes. Route resolution, local against session branching, hop limit, source export, epoch and capacity all appear more than once. A destination mode or replication would be written into each of them, and the third write is where they drift. One resolver returning deliver locally, forward to these next hops, or refuse with this code, called by both paths, and everything after it extends the resolver rather than the sequences. Sequence this before `B27` |
-| `B27` | Let a message name the instance it is for, not only the endpoint | Addressing by name alone means any advertiser may serve the message, which is anycast and arrived as a consequence rather than a choice. It is the wrong default for a flow with state on one instance. The candidate routing table already holds what is needed, so this asks a different question of state already kept. Blocked on the `Q1(b)` question above, and it pays forward: a named instance completes the classification that per-flow labelling would later use |
+| `B27` | Let a message name the instance it is for, not only the endpoint | Addressing by name alone means any advertiser may serve the message, which is anycast and arrived as a consequence rather than a choice. It is the wrong default for a flow with state on one instance. The candidate routing table already holds what is needed, so this asks a different question of state already kept. Blocked on the `Q1(b)` question, and it pays forward: a named instance completes the classification that per-flow labelling would later use |
 
 ---
 
-## M4a - Opportunistic improvement
+## M7 - Measure what a deployment would see
 
-Severity `P4`.\
-Confirmed intent section 2.5 sets no performance target and asks that opportunities be taken as they are found, so an item here earns its place by being found rather than by clearing a threshold.
+Severity `I3`.
 
 | ID | Move | Note |
 |---|---|---|
-| `B19` | Reduce the per-hop cost against the carrier beneath it | `MX4`. Roughly half a millisecond per message through a node pair against a 75 microsecond carrier round trip. Nothing is breached and nothing obliges this, which is exactly why it is scored `P4` and taken only when a way is found |
+| `B22` | Re-measure throughput with each node in its own process | Fully unblocked. Both socket carriers isolate and an isolated node generates its own load, so the harness is ready. Three measurement attempts produced three orderings on a machine saturated by the session that built them, so the number is worth nothing until it is taken quiet. Two contaminations specific to an isolated run are known and belong here: the parent observes delivery over a channel it must be scheduled to drain, and sender and receiver are timed by different clocks |
 
 ---
 
-## M3 - Record what the system already knows about itself
+## M8 - Record what the system already knows about itself
 
 Severity `P3`.\
 Grouped by severity rather than theme, so three unrelated subjects sit together because they cost the same to leave unwritten.
@@ -196,12 +182,14 @@ Grouped by severity rather than theme, so three unrelated subjects sit together 
 
 ---
 
-## M4 - Instrumentation
+## M9 - Opportunistic improvement
 
-Severity `P4`.
+Severity `P4`.\
+Confirmed intent section 2.5 sets no performance target and asks that opportunities be taken as they are found, so an item here earns its place by being found rather than by clearing a threshold.
 
 | ID | Move | Note |
 |---|---|---|
+| `B19` | Reduce the per-hop cost against the carrier beneath it | `MX4`. Roughly half a millisecond per message through a node pair against a 75 microsecond carrier round trip. Nothing is breached and nothing obliges this, which is exactly why it is scored `P4` and taken only when a way is found |
 | `B4` | Record matrix cell timings as data rather than run output | Prerequisite for cost-aware subset selection under `B3`. Worth nothing on its own |
 
 ---
@@ -235,6 +223,10 @@ Scored on the same scale, so not choosing them is visible.
 
 The board scores every candidate on impact and principle breach, orders on the higher of the two, groups selected moves into milestones by severity, and holds the rest with an explicit revival trigger.
 
+Build order is stated separately from severity, because they answer different questions.\
+Severity says which item matters most; build order says which can be done next without writing the same decision twice.\
+Where they disagree the reason is a dependency, and it is named in the row rather than left to be inferred.
+
 ---
 
 ## Rationale
@@ -257,3 +249,8 @@ Scoring on two dimensions keeps that choice honest: impact is what hurts today, 
   beside the cleanup work that happens to share its files.
 - A decision entry that does not name what it blocks cannot be prioritised, so
   it waits on attention rather than earning it.
+- Presenting build order as though it were triage hides a dependency behind an
+  apparent judgement about severity, and the lowest-scored item on this board
+  is the one that must be built first.
+- Leaving a completed milestone in the live set makes the board a history
+  rather than a set of legal next moves, which is what the record is for.
