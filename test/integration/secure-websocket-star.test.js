@@ -11,13 +11,15 @@ import { createNodeWsTransport } from "@agp/transport-node-ws";
 // principal the transport observed.
 
 const SECURITY = { mode: "preshared-key", keying: "node" };
-// Each test binds its own port so a listener still releasing cannot collide
-// with the next one under load.
-let nextPort = 47_610;
-function endpointUrl() {
-  nextPort += 1;
-  return `wss://127.0.0.1:${nextPort}/agp`;
-}
+// Bind an ephemeral port and read back what was bound.
+//
+// These tests previously walked a fixed port counter, on the reasoning that a
+// listener still releasing could not then collide with the next test. That
+// defends against this file and nothing else: CI failed with EADDRINUSE on
+// 47612 because something outside the suite held it. A port nobody chose
+// cannot be taken by someone else first, so the dialer is built after the
+// listener is up rather than before.
+const LISTEN_URL = "wss://127.0.0.1:0/agp";
 
 function keyPort(localIdentity, secrets) {
   return {
@@ -90,7 +92,6 @@ test("given a three-node star whose channels are protected by per-node pre-share
     ["leaf.beta", randomBytes(32)],
   ]);
   const observed = [];
-  const url = endpointUrl();
 
   const hub = createNode({
     nodeId: "hub",
@@ -98,7 +99,7 @@ test("given a three-node star whose channels are protected by per-node pre-share
     transit: { enabled: true, defaultHopLimit: 8 },
     identityAdmission: { mode: "port" },
   }, {
-    transport: listenTransport(secrets, url),
+    transport: listenTransport(secrets, LISTEN_URL),
     identityAdmission: {
       // The transport reports; policy decides. A peer may claim only the node
       // identity whose secret completed its handshake.
@@ -122,17 +123,19 @@ test("given a three-node star whose channels are protected by per-node pre-share
     },
   });
 
-  const alpha = leaf("leaf.alpha", secrets, url);
-  const beta = leaf("leaf.beta", secrets, url);
+  const started = [hub];
   context.after(async () => {
-    for (const node of [alpha, beta, hub]) {
+    for (const node of started.toReversed()) {
       await node.stop().catch(() => undefined);
     }
   });
 
   let delivered;
   await hub.expose("hub/service", async () => {});
-  await hub.start();
+  const url = (await hub.start()).listener.publication.displayAddress;
+  const alpha = leaf("leaf.alpha", secrets, url);
+  const beta = leaf("leaf.beta", secrets, url);
+  started.push(alpha, beta);
   await alpha.expose("alpha/ping", async () => {});
   await alpha.start();
   await beta.expose("beta/pong", async (payload) => { delivered = payload; });
@@ -192,14 +195,13 @@ test("given a listener whose policy requires a matching principal, when a peer h
     ["leaf.alpha", randomBytes(32)],
   ]);
   const denials = [];
-  const url = endpointUrl();
 
   const hub = createNode({
     nodeId: "hub",
     listen: { transportRef: "ws.listen" },
     identityAdmission: { mode: "port" },
   }, {
-    transport: listenTransport(secrets, url),
+    transport: listenTransport(secrets, LISTEN_URL),
     identityAdmission: {
       evaluate: async (request) => {
         const { authentication } = request.peerEvidence;
@@ -215,6 +217,12 @@ test("given a listener whose policy requires a matching principal, when a peer h
     },
   });
 
+  const started = [hub];
+  context.after(async () => {
+    for (const node of started.toReversed()) await node.stop().catch(() => undefined);
+  });
+  const url = (await hub.start()).listener.publication.displayAddress;
+
   // The transport identity stays leaf.alpha, so the handshake succeeds, but the
   // node claims a different AGP identity in OPEN.
   const impostor = createNode({
@@ -226,12 +234,8 @@ test("given a listener whose policy requires a matching principal, when a peer h
       reconnect: { enabled: false, initialDelayMs: 25, maximumDelayMs: 25, multiplier: 1, jitterRatio: 0 },
     }],
   }, { transport: dialTransport("leaf.alpha", secrets, url) });
+  started.push(impostor);
 
-  context.after(async () => {
-    for (const node of [impostor, hub]) await node.stop().catch(() => undefined);
-  });
-
-  await hub.start();
   await impostor.start();
 
   await until(() => denials.includes("leaf.gamma"), "denial of the mismatched claim");
