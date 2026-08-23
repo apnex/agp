@@ -57,6 +57,7 @@ An item that is `I4`/`P1` belongs early even though nobody feels it today, becau
 | `B23` | Build the disposition design that removes the sustained send ceiling | `I2` | `P3` | [`MX7`](VERIFICATION.md#46-open-findings-from-sweeps), [`message-labels.md`](design/message-labels.md) | open |
 | `B26` | Let a ratified decision be recorded before it is built | `I4` | `P2` | [`GATES.md` section 2](GATES.md#2-gate-ax0---intent-applicability-and-knowledge) | open |
 | `B27` | Name a destination instance, not only an endpoint | `I3` | `P4` | [`destination-selection.md`](design/destination-selection.md) | open |
+| `B28` | Resolve a forwarding decision in one place instead of three | `I4` | `P3` | [`destination-selection.md`](design/destination-selection.md) | open |
 | `B1` | Implement `D19` credit flow control | `I1` | `P1` | [`MX1`](VERIFICATION.md#46-open-findings-from-sweeps), [`D19`](DECISIONS.md#d19---per-hop-credit-flow-control) | landed |
 | `B14` | Name a reproduction for the route-ack expiry a stream provokes | `I2` | `P2` | [`MX2`](VERIFICATION.md#46-open-findings-from-sweeps) | landed |
 | `B16` | Project credit and timing into the operations plane | `I2` | `P1` | [`D20`](DECISIONS.md#d20---observability-of-bounded-resources-and-timing) | landed |
@@ -166,6 +167,7 @@ Severity `I3`.
 
 | ID | Move | Note |
 |---|---|---|
+| `B28` | Resolve a forwarding decision in one place instead of three | The same decision is made in local origination, in inbound classification, and again when a forward executes. Route resolution, local against session branching, hop limit, source export, epoch and capacity all appear more than once. A destination mode or replication would be written into each of them, and the third write is where they drift. One resolver returning deliver locally, forward to these next hops, or refuse with this code, called by both paths, and everything after it extends the resolver rather than the sequences. Sequence this before `B27` |
 | `B27` | Let a message name the instance it is for, not only the endpoint | Addressing by name alone means any advertiser may serve the message, which is anycast and arrived as a consequence rather than a choice. It is the wrong default for a flow with state on one instance. The candidate routing table already holds what is needed, so this asks a different question of state already kept. Blocked on the `Q1(b)` question above, and it pays forward: a named instance completes the classification that per-flow labelling would later use |
 
 ---

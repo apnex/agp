@@ -91,7 +91,29 @@ Eviction and completion need each other.\
 Completion keeps the table small enough that eviction is rare, and eviction guarantees the table cannot cap throughput when completion does not arrive.\
 Without completion, eviction alone would routinely discard dispositions for messages that succeeded, and an application would see a timeout for a message that arrived.
 
-### 4.6 What the application receives
+### 4.6 Outstanding accounting
+
+A binding carries a count of what remains outstanding against it, and is released when that count reaches zero.
+
+For a message with one next hop the count is one, so this is the same rule as releasing on the disposition and nothing observable changes.\
+It is written this way because the general case is a message with several next hops, and a rule that reads `count reached zero` needs no exception for it.
+
+The count is the number of destinations a hop is responsible for, and not the number of copies it sent.\
+A hop that sends one copy covering three destinations is responsible for three, and will see three dispositions returned.\
+Counting copies instead would go negative the first time a downstream hop divided further.
+
+The origin retains which destinations are outstanding, and an intermediate hop retains only how many.\
+An intermediate never needs to name them, and a count is smaller; the origin does need to name them, because that is what an application asks.\
+Retaining the set at the origin also makes a repeated report harmless there, rather than leaving a bare integer to be defended by the consume-once rule of a hop further away.
+
+Two behaviours follow without being designed separately.\
+A destination that fails decrements the count with a failure code, so the count reaches zero carrying mixed outcomes, which is what happened.\
+A destination that never reports leaves a non-zero count visible, so an application sees a stall rather than inferring one from a timeout, and expiry remains the backstop.
+
+This is the same shape as the table an origin keeps for its own sends, and the same shape a request and response surface would need for calls in flight.\
+One substrate serves all three: an entry keyed by correlation, carrying what is outstanding, released when nothing is.
+
+### 4.7 What the application receives
 
 The disposition is surfaced on the SDK, per send and per endpoint.\
 It is not surfaced as one operational event per message: that rate is what reduced a subscriber doing real work to fifteen events out of twelve hundred, and the operational stream carries counters and anomalies instead.
