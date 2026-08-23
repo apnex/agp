@@ -473,6 +473,108 @@ Pre-shared keys cost about a third, and a second hop costs slightly more than ha
 #### What a node costs itself, measured with each node in its own process
 
 `B22`.\
+Five arms, interleaved: each round runs every arm once, in a fresh process, and the table reports the median over rounds.\
+Interleaving is what makes this readable at all, and the reason is in section 4.9 rule 8.
+
+| Arm | Median | Relative | Isolation gains |
+|---|---|---|---|
+| Loopback, co-located | 2405 msg/s | 100% | not possible, `F08` |
+| WebSocket, co-located | 2455 msg/s | 102% | |
+| WebSocket, isolated | 3517 msg/s | 146% | 43% |
+| WebSocket with pre-shared keys, co-located | 1748 msg/s | 73% | |
+| WebSocket with pre-shared keys, isolated | 2699 msg/s | 112% | 54% |
+
+Two nodes in one process cost about a third of throughput, because they share an event loop and contend for it.\
+Section 4.9 already required isolation for a measurement that compares; this is the size of what it was requiring.
+
+Pre-shared keys cost 29 per cent co-located and 22 per cent isolated.\
+The difference is the second process: the cipher gains somewhere else to run.
+
+Co-located, Loopback and a real TCP socket still measure within two per cent of each other, which is the earlier finding unchanged.\
+Isolated, WebSocket reaches 146 per cent of the Loopback baseline, so what made the carrier look irrelevant was the node contending with itself rather than the carrier being free.
+
+The worst loop stall under each arm is the clearest single number here: 450 ms co-located on Loopback against 30 ms isolated on WebSocket.\
+That is `MX3` seen from the outside.
+
+A first attempt at this table put the isolation gain at 67 to 82 per cent and was wrong.\
+It ran the co-located arms and the isolated arms as separate invocations, and the isolated ones happened to fall at a higher processor clock, so half the gain was the host.\
+The figures above were taken while the clock moved by nineteen per cent and are stable across invocations to within five points, because no arm gets a clock the others did not.
+
+#### What loop saturation does to an event subscriber
+
+`MX3` was scored a latent correctness fault on the argument that a stall moves deadlines.\
+It has a second consequence that can be demonstrated rather than argued, and it is the clearer reason to care.
+
+A delivered message produces about three operational events, so four hundred messages produce about twelve hundred.\
+A subscriber that stays on the microtask queue keeps up with all of them and loses nothing.\
+A subscriber that yields to the macrotask queue, which is what any subscriber doing real work does, is scheduled about as often as the loop drains, and under a stream that is roughly twelve times in total.
+
+| Subscriber, 400 messages | Buffer | Gaps | Events reaching it |
+|---|---|---|---|
+| Does nothing | 256 | 0 | 1205 |
+| Yields a microtask | 256 | 0 | 1205 |
+| Yields a macrotask | 256 | 260 | 15 |
+| Yields a macrotask | 2048 | 0 | 746 |
+
+`D24` corrected this by separating the streams rather than by enlarging a bound.\
+Re-measured against a 600-message stream, an operator subscriber doing real work lost 256 events at a buffer of 256 and 175 at the default of 1024; it now loses none at a buffer of one, because the operations stream is no longer traffic-rated.
+
+The per-message detail is unchanged for a consumer that asks for it, and still costs what it always did: that stream is traffic-rated by construction and its consumer sizes it.\
+What changed is who pays, and it is no longer the operator who only wanted to know when something broke.
+
+The bound is not the subscriber's speed and not a defect in the subscriber queue, which behaves exactly as specified and reports every drop.\
+It is that the buffer must absorb the whole burst rather than bridge the subscriber's own latency, because saturation removes the subscriber's opportunities to drain.\
+The buffer a deployment needs is therefore set by how badly the node saturates its loop, which is `MX3`, rather than by anything the operator controls about their own consumer.\
+Twelve hundred events against a default of 1024 makes that default marginal for a burst of this size.
+
+An earlier reading here concluded that buffer size made no difference at all.\
+That was wrong: the harness ignored the parameter being varied, so three runs at three nominal sizes were three runs at 256.\
+The instrument is now parameterised, and the rule it cost is in the method below.
+
+Absolute figures drift between sessions on a shared machine, and this is where that was learned.\
+The same measurement read 525 microseconds per message one hour and 670 the next with no change in between, and the deepened sweep read 40 seconds and then 25.\
+Only measurements taken against each other within one session are comparable, and any figure quoted here without its counterpart is an observation rather than evidence.\
+A message costs about 525 microseconds end to end through a node pair, down from roughly one millisecond, and the deepened sweep runs in about 40 seconds against 284 before any of this began.\
+What is not yet explained is why six commits are needed per delivered message, and that is the next thread rather than a conclusion.
+
+`MX3` and `MX4` are separated because confirmed intent scores them differently.\
+There is no performance target, so a cost that is merely large is not a defect and `MX4` is an opportunity rather than an obligation.\
+A stall is not merely a cost: it moves every deadline sharing the loop, and that is the exact mechanism by which a healthy session was torn down before `D21`.\
+`MX3` is therefore chased as a latent correctness fault and `MX4` is taken when a way is found.
+
+#### Throughput ceiling
+
+Measured one carrier per process, because measuring three in one gave the later ones warm compilation and a grown heap and reported TLS as faster than an in-process fabric.\
+One thousand messages, three runs, median.\
+Compare the columns to each other and to nothing else.
+
+Isolation now covers both socket carriers, and the pre-shared-key carrier authenticates across processes with a key table the parent generates and hands to each child.\
+No isolated figure is published here yet.\
+Three attempts produced three orderings, the last of them putting pre-shared keys at three times Loopback, and the machine they ran on was saturated by the work that produced them.\
+The capability is landed and the measurement is `B22`, to be taken on a quiet machine.\
+Two contaminations specific to an isolated run are already known and belong to that work: delivery is observed by the parent over a channel the parent must be scheduled to drain, and the sender and receiver are timed by different clocks.
+
+The figures above were taken with both nodes of each pair sharing a process.\
+Isolation is now an axis of the geometry harness rather than a separate harness, so `node scripts/throughput.mjs --isolation=process` runs each node on its own.\
+A first isolated reading put a WebSocket pair near the co-located one with a wider spread, which says the one-hop carrier comparison was not badly distorted by co-location, and says nothing yet about deeper shapes where four nodes shared one loop.\
+When nodes are isolated the loop-lag sampler measures the driver rather than the nodes, and is labelled accordingly.\
+Loopback has no cross-process carrier yet, so once the other two are isolated it stops being a like-for-like baseline and becomes the node's own ceiling instead; `F08` records the mechanism that would restore the comparison.\
+The carrier comparison is sound because every carrier was measured the same way, but the absolute rate is a floor rather than a ceiling.\
+`B22` owns re-measuring against the independent-process harness the end-to-end suite already uses.
+
+| Carrier | One hop | Two hops | Against Loopback |
+|---|---|---|---|
+| Loopback | 2849 msg/s | 1221 msg/s | 100% |
+| WebSocket | 2890 msg/s | 1080 msg/s | 101% and 88% |
+| WebSocket with pre-shared keys | 1868 msg/s | 744 msg/s | 66% and 61% |
+
+The carrier is not the bottleneck at one hop.\
+An in-process fabric and a real TCP socket measure the same, because the node's own per-message cost dominates both, and that cost is the subject of `MX3`.\
+Pre-shared keys cost about a third, and a second hop costs slightly more than half, which is the transit node paying the same per-message cost again.
+
+#### What a node costs itself, measured with each node in its own process
+
+`B22`.\
 Both tables below are one session on one machine, five runs per carrier, and both ran at 4100 to 4165 MHz, which is why they may be compared with each other at all.
 
 | Carrier | Co-located | Isolated | Isolation gains |
@@ -608,12 +710,14 @@ The order below is the one that worked, and it is ordered deliberately.
 7. **Compare within one session, never across them.**\
    The same unchanged measurement read 525 microseconds per message and then 670 an hour later, and a sweep read 40 seconds and then 25.\
    An A and a B taken hours apart compare the machine, not the change.
-8. **Check the clock is fixed, not merely that the machine is quiet.**\
-   A quiet machine is not a comparable one.\
-   Under a scaling governor the processor ran between 4200 and 800 MHz across one measurement session, and successive identical invocations read 4824, 4967, 4902, 4044 and 3555 messages a second in that order, which looks exactly like a regression and is the clock winding down.\
+8. **Interleave the arms; do not try to hold the host still.**\
+   A scaling processor clock is a property of every host worth measuring on, so an instrument that needs it pinned is an instrument nobody can use.\
+   Under a scaling governor the clock ran between 4200 and 800 MHz, and five identical invocations read 4824, 4967, 4902, 4044 and 3555 messages a second in that order, which looks exactly like a regression and is the clock winding down.\
    Three earlier attempts at this measurement produced three orderings and the machine was blamed for being busy; it was not busy, it was at a different speed each time.\
-   `scripts/throughput.mjs` samples and reports the clock under every run and refuses to call two carriers comparable when it moved more than a tenth between them.\
-   Two invocations at the same clock agreed within two per cent, which is what said the harness was sound and the host was not.
+   Running all of A and then all of B puts that drift between the arms, where it becomes the difference.\
+   Alternating them puts the same drift through both, where it cancels.\
+   Measured: two interleaved invocations whose absolute throughput differed by sixteen per cent reported ratios within two points of each other, and the arms include how a node is deployed, because whether nodes share a process is exactly the sort of thing worth comparing.\
+   The clock is still sampled and reported, not to gate anything, but so a reader knows which figures are absolute and which are the ratios worth trusting.
 9. **Climb the ladder, do not measure the whole.**\
    `scripts/latency-ladder.mjs` adds one layer per rung, so the rung where the milliseconds appear names the layer that owns them.\
    A single end-to-end number cannot do that, and chasing one produces hypotheses rather than causes.

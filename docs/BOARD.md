@@ -104,7 +104,7 @@ Where the two disagree it is because of dependency, never because a severity was
 |---|---|---|---|
 | 1 | `B28` | Landed | Scored lowest on the board and built first, because both items after it change the forwarding decision |
 | 2 | `B23` | Landed | Removed the sustained ceiling `MX7` recorded. The `error` message retired into it, so one message now reports the fate of a message whichever fate it was |
-| 3 | `B22` | Landed | Co-locating two nodes costs 40 to 45 per cent of throughput. The three attempts that produced three orderings were not a busy machine: they were a scaling processor clock, which the instrument now samples and reports |
+| 3 | `B22` | Landed | Co-locating two nodes costs about a third of throughput. The three attempts that produced three orderings were not a busy machine but a scaling processor clock, and the answer was to interleave the arms so the drift cancels rather than to try to hold the host still |
 | 4 | `B27` | Landed | Ratified as `D26` and built. Building it against a chain rather than a star showed that only the hop adjacent to the advertisers holds the alternatives, so a pin is enforced where a message would be delivered rather than where it was admitted |
 | 5 | `B15` | Blocked | Waiting on the credit switch question below |
 | 6 | `B30` | Landed | Ruled as `D25` and built. 9.17 revisions per delivered message down to 5.29. The first rule tried excluded only the hold timer and bought 11%, because the timer was one of four traffic-rated values and the smallest |
@@ -171,7 +171,7 @@ Severity `I3`.
 
 | ID | Move | Note |
 |---|---|---|
-| `B22` | Re-measure throughput with each node in its own process | Landed. Two nodes in one process cost 40 to 45 per cent of throughput, and pre-shared keys cost 28 per cent co-located against 21 per cent isolated, because the cipher gains somewhere else to run. Four contaminations were fixed, not the two expected: the parent counted arrivals over one IPC send per delivered message, the window spanned two processes' clocks, the loop-lag sampler ran in the idle parent and read 1251 microseconds against the node's 42688, and the processor clock scaled between 4200 and 800 MHz. The last one explains the three orderings, which had been blamed on a busy machine |
+| `B22` | Re-measure throughput with each node in its own process | Landed. Two nodes in one process cost about a third of throughput, and pre-shared keys cost 29 per cent co-located against 22 per cent isolated, because the cipher gains somewhere else to run. Four contaminations were fixed, not the two expected: the parent counted arrivals over one IPC send per delivered message, the window spanned two processes' clocks, the loop-lag sampler ran in the idle parent and read 1251 microseconds against the node's 42688, and the processor clock scaled between 4200 and 800 MHz. The last one explains the three orderings, and the fix was to interleave the arms rather than to demand a still host: a first table that ran the arms in blocks overstated the isolation gain by half, because the isolated block fell at a higher clock |
 
 ---
 

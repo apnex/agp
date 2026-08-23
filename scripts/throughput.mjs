@@ -36,12 +36,22 @@ const flag = (name, fallback) => {
 const COUNT = Number.parseInt(flag("count", "3000"), 10);
 const REPEAT = Number.parseInt(flag("repeat", "3"), 10);
 const HOPS = Number.parseInt(flag("hops", "1"), 10);
-const TRANSPORTS = flag("transport", "loopback,websocket,websocket-psk")
-  .split(",");
+const ISOLATION_DEFAULT = flag("isolation", "in-process");
+// An arm is a carrier and how it is deployed, because whether nodes share a
+// process is exactly the sort of thing worth comparing and it must therefore
+// be interleaved like anything else. `websocket:process` is one arm.
+const ARMS = flag("transport", "loopback,websocket,websocket-psk")
+  .split(",")
+  .map((spec) => {
+    const [name, isolation = ISOLATION_DEFAULT] = spec.split(":");
+    return { spec, name, isolation };
+  });
+const TRANSPORTS = ARMS.map(({ name }) => name);
+// Rounds of the whole set, so drift passes through every carrier alike.
+const ROUNDS = Number.parseInt(flag("rounds", "3"), 10);
 // Nodes in one process share an event loop, a heap and a compilation state.
 // Isolation is the honest default for a carrier comparison; Loopback has no
 // cross-process carrier yet, so it stays co-located and is labelled as such.
-const ISOLATION = flag("isolation", "in-process");
 
 // One hop is two nodes; each further hop adds a transit node between them.
 const geometry = () => GEOMETRIES.chain(HOPS + 1);
@@ -108,7 +118,7 @@ async function measure(transport) {
     // carrier property. It is lifted here so this measures the carrier. The
     // ceiling it imposes is measured on its own terms; see `MX6`.
     capacity: { maxLabelBindings: 500_000 },
-    ...(ISOLATION === "process" && transport !== "loopback"
+    ...(ISOLATION_DEFAULT === "process" && transport !== "loopback"
       ? { isolation: "process" }
       : {}),
   });
@@ -209,44 +219,74 @@ if (TRANSPORTS.length === 1) {
   const { execFileSync } = await import("node:child_process");
   process.stdout.write(
     `throughput | ${HOPS} hop${HOPS === 1 ? "" : "s"}`
-      + ` | ${COUNT} messages x ${REPEAT} runs`
+      + ` | ${COUNT} messages x ${REPEAT} runs x ${ROUNDS} interleaved rounds`
       + ` | one process per carrier, one machine\n\n`,
   );
-  const rows = [];
-  for (const transport of TRANSPORTS) {
-    const out = execFileSync(process.execPath, [
-      new URL(import.meta.url).pathname,
-      `--transport=${transport}`,
-      `--count=${COUNT}`,
-      `--repeat=${REPEAT}`,
-      `--hops=${HOPS}`,
-      `--isolation=${ISOLATION}`,
-    ], { encoding: "utf8" });
-    const line = out.split("\n").find((value) => value.startsWith("RESULT "));
-    if (line === undefined) throw new Error(`no result for ${transport}`);
-    const [, name, median, best, worst, loopMaxUs, refusals, isolated, mhz] =
-      line.split(" ");
-    rows.push({
-      transport: name,
-      median: Number(median),
-      best: Number(best),
-      worst: Number(worst),
-      loopMaxUs: Number(loopMaxUs),
-      refusals: Number(refusals),
-      isolated: isolated === "true",
-      clockMhz: Number(mhz),
-    });
+  // Round-robin, not one carrier at a time.
+  //
+  // A processor clock that scales is a property of every host worth measuring
+  // on, so an instrument that needs it held still is an instrument that cannot
+  // be used. Running all of A and then all of B puts the drift between the two
+  // arms, where it becomes the difference. Alternating them puts the same
+  // drift through both, where it cancels: each round is a fair pairing, and
+  // the median over rounds is stable even while the absolute numbers move.
+  //
+  // Each round still forks a fresh process per carrier, because a shared
+  // process gives whoever runs second a warm heap and a compiled path, which
+  // is a different contamination and one that does not cancel.
+  const samples = new Map(ARMS.map(({ spec }) => [spec, []]));
+  for (let round = 0; round < ROUNDS; round += 1) {
+    for (const arm of ARMS) {
+      const out = execFileSync(process.execPath, [
+        new URL(import.meta.url).pathname,
+        `--transport=${arm.name}`,
+        `--count=${COUNT}`,
+        `--repeat=${REPEAT}`,
+        `--hops=${HOPS}`,
+        `--isolation=${arm.isolation}`,
+      ], { encoding: "utf8" });
+      const line = out.split("\n").find((value) => value.startsWith("RESULT "));
+      if (line === undefined) throw new Error(`no result for ${arm.spec}`);
+      const [, , median, best, worst, loopMaxUs, refusals, isolated, mhz] =
+        line.split(" ");
+      samples.get(arm.spec).push({
+        median: Number(median),
+        best: Number(best),
+        worst: Number(worst),
+        loopMaxUs: Number(loopMaxUs),
+        refusals: Number(refusals),
+        isolated: isolated === "true",
+        clockMhz: Number(mhz),
+      });
+    }
   }
+  const middle = (values) => {
+    const sorted = [...values].sort((a, b) => a - b);
+    return sorted[Math.floor(sorted.length / 2)];
+  };
+  const rows = ARMS.map(({ spec, name, isolation }) => {
+    const taken = samples.get(spec);
+    return {
+      transport: isolation === "process" ? `${name} isolated` : name,
+      median: Math.round(middle(taken.map(({ median }) => median))),
+      best: Math.max(...taken.map(({ best }) => best)),
+      worst: Math.min(...taken.map(({ worst }) => worst)),
+      loopMaxUs: Math.round(middle(taken.map(({ loopMaxUs }) => loopMaxUs))),
+      refusals: taken.reduce((sum, { refusals }) => sum + refusals, 0),
+      isolated: taken[0].isolated,
+      clockMhz: Math.round(middle(taken.map(({ clockMhz }) => clockMhz))),
+    };
+  });
   const baseline = rows.find(({ transport }) => transport === "loopback");
   const header =
-    "carrier            median msg/s     best     worst   vs loopback";
+    "arm                        median msg/s     best     worst   vs loopback";
   process.stdout.write(`${header}\n${"-".repeat(header.length)}\n`);
   for (const row of rows) {
     const relative = baseline === undefined
       ? "n/a"
       : `${((row.median / baseline.median) * 100).toFixed(0)}%`;
     process.stdout.write(
-      `${row.transport.padEnd(18)}`
+      `${row.transport.padEnd(26)}`
         + `${String(row.median).padStart(12)}`
         + `${String(row.best).padStart(9)}`
         + `${String(row.worst).padStart(10)}`
@@ -261,7 +301,7 @@ if (TRANSPORTS.length === 1) {
     // say so, which was honest and useless: the driver read 1251 microseconds
     // while the node it was measuring read 42688.
     process.stdout.write(
-      `  ${row.transport.padEnd(16)}`
+      `  ${row.transport.padEnd(26)}`
         + `node loop stall worst ${row.loopMaxUs}us`
         + `  capacity refusals ${row.refusals}\n`,
     );
@@ -276,7 +316,9 @@ if (TRANSPORTS.length === 1) {
     // that and a clock difference of the same size silently reorders them.
     if (high / low >= 1.10) {
       process.stdout.write(
-        `  NOT COMPARABLE: the carriers above did not run at the same clock.\n`,
+        `  The clock moved under these runs. Interleaving is what makes the`
+          + ` comparison survive that;\n  the absolute figures are worth less`
+          + ` than the ratios between them.\n`,
       );
     }
   }
