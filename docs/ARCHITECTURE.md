@@ -286,7 +286,7 @@ Packages are distribution boundaries, not declarations that all code inside a pa
 | `@agp/binding-websocket` | Runtime-neutral AGP-v1-over-WebSocket binding rules, schemas, constants, and native-code mappings | WebSocket implementations |
 | `@agp/transport-node-ws` | Node.js `ws` implementation of the WebSocket binding and neutral transport ports | applications |
 | `@agp/transport-loopback` | Runtime-neutral canonical production transport for process-local AGP fabrics | applications |
-| `@agp/node` | Lifecycle composition, endpoints, sessions, forwarding, reverse errors | applications |
+| `@agp/node` | Lifecycle composition, endpoints, sessions, forwarding, reverse dispositions | applications |
 | `@agp/management-http` | Sovereign HTTP response schemas and read-only projection of `OperationsReader` | operators |
 | `agpctl` | Read-only HTTP client and deterministic table/JSON rendering | operators |
 

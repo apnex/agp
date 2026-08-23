@@ -125,7 +125,7 @@ The WebSocket URL or Loopback address is bound to `peer.hub.primary` in the inje
 | `@agp/binding-websocket` | Sovereign RFC 6455 configuration, subprotocol, validation, and close/rejection mappings |
 | `@agp/transport-node-ws` | Node.js `ws` implementation of the neutral transport port |
 | `@agp/transport-loopback` | Canonical process-local production fabric implementing the same neutral port |
-| `@agp/node` | Uniform lifecycle, endpoints, sessions, routing composition, data admission, and reverse errors |
+| `@agp/node` | Uniform lifecycle, endpoints, sessions, routing composition, data admission, and reverse dispositions |
 | `@agp/management-http` | Optional loopback-only read projection over an `OperationsReader` |
 | `cli/` | Read-only HTTP drivers, decoupled `jq` projections, and deterministic table rendering |
 

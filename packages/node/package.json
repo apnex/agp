@@ -2,7 +2,7 @@
   "name": "@agp/node",
   "version": "0.1.0",
   "private": true,
-  "description": "AGP uniform node: lifecycle, endpoints, sessions, routing composition, data admission, and reverse errors.",
+  "description": "AGP uniform node: lifecycle, endpoints, sessions, routing composition, data admission, and reverse dispositions.",
   "license": "MIT",
   "author": "apnex",
   "repository": {
