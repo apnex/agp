@@ -46,10 +46,21 @@ export {
   ReturnTokenAllocator as Uint64ReturnTokenAllocator,
 } from "./return-token.js";
 export {
-  ReverseErrorEngine,
-  type ReturnedErrorOutcome,
-  type ReverseErrorEngineOptions,
-} from "./reverse-errors.js";
+  compressLabels,
+  DEFAULT_DISPOSITION_BATCH,
+  type DispositionBatchPolicy,
+  DispositionEngine,
+  type DispositionEngineOptions,
+  type DispositionOutcome,
+  expandLabelRange,
+  labelRangeWidth,
+  type SettledOutcome,
+} from "./dispositions.js";
+export {
+  OriginOutstanding,
+  type OriginOutstandingOptions,
+  type OutstandingSummary,
+} from "./outstanding.js";
 export { CoreDataRoutingAdapter } from "./routing-adapter.js";
 export { SerializedExecutor } from "./serialized-executor.js";
 export {

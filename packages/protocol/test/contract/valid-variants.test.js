@@ -25,7 +25,7 @@ test("Given one fixture for every v1 wire variant, when each is validated, encod
       "route.update",
       "route.ack",
       "notification",
-      "error",
+      "disposition",
       "message",
     ],
   );

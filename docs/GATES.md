@@ -902,7 +902,7 @@ Other file names may be refined before implementation, but every primary contrac
 | AX5 | `packages/node/test/contract/transit-route-miss.test.js` | Transit `NO_ROUTE` writes one direct-ingress error and zero onward data |
 | AX5 | `packages/node/test/contract/data-failure-precedence.test.js` | Every transit multi-failure case commits only the first ordered failure, at most one ingress error, and zero onward data writes |
 | AX5 | `packages/node/test/contract/direct-delivery-error.test.js` | Current-node failure constructs one exact hop-token error directly to ingress |
-| AX5 | `packages/node/test/contract/reverse-error-relay.test.js` | A valid transit breadcrumb relays to its exact recorded ingress while translating only the hop token and preserving the validated failure body |
+| AX5 | `packages/node/test/contract/disposition-relay.test.js` | A valid transit binding relays to its exact recorded ingress while translating only the hop token, and an arriving batch is measured before any of it is applied |
 | AX5 | `packages/node/test/contract/reverse-error-no-rib.test.js` | Local resolution, relay, and unreturnable reverse-error outcomes consult only exact breadcrumb/controller state and perform zero destination-RIB lookups |
 | AX5 | `packages/node/test/contract/reverse-error-consume-once.test.js` | The first valid matching error consumes its breadcrumb; replay cannot deliver or relay a second outcome |
 | AX5 | `packages/node/test/contract/reverse-error-refid.test.js` | A matching token with the wrong end-to-end `refId` is discarded without consuming the breadcrumb |

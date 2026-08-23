@@ -184,6 +184,7 @@ export async function buildGeometry({
   endpointsPerNode = 1,
   deliveries = [],
   capacity = {},
+  disposition,
   context,
   isolation = "in-process",
 }) {
@@ -221,6 +222,7 @@ export async function buildGeometry({
       })),
       transit: true,
       ...limits,
+      ...(disposition === undefined ? {} : { disposition }),
     });
     nodes.push(node);
     context?.after(() => node.stop().catch(() => undefined));

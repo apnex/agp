@@ -1,0 +1,37 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:agp:schema:v1:protocol:wire:label-range",
+  "title": "LabelRange",
+  "description": "Inclusive run of hop-scoped labels sharing one outcome.",
+  "x-agp": {
+    "owner": "@agp/protocol",
+    "typescript": "LabelRange",
+    "kind": "wire-body",
+    "mechanics": "Inclusive run of hop-scoped labels sharing one outcome.",
+    "rationale": "A sovereign contract gives validators and consumers one stable reasoning boundary.",
+    "consequence": "Accepting another shape would make peer interpretation or ownership ambiguous.",
+    "semanticRules": []
+  },
+  "type": "object",
+  "required": [
+    "from",
+    "to"
+  ],
+  "properties": {
+    "from": {
+      "$ref": "urn:agp:schema:v1:protocol:common:return-token",
+      "description": "First label in the run, inclusive."
+    },
+    "to": {
+      "$ref": "urn:agp:schema:v1:protocol:common:return-token",
+      "description": "Last label in the run, inclusive."
+    },
+    "destinations": {
+      "type": "integer",
+      "minimum": 2,
+      "maximum": 1024,
+      "description": "Destinations this label was divided into, stamped by the enumerating hop. Absent means one."
+    }
+  },
+  "additionalProperties": false
+}

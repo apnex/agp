@@ -347,3 +347,20 @@ function compareNodePaths(
 function compareCanonicalStrings(left: string, right: string): number {
   return left < right ? -1 : left > right ? 1 : 0;
 }
+
+/**
+ * Read the denominator of a disposition outcome: how many destinations the
+ * label it names was divided into by the hop that enumerated them.
+ *
+ * The wire omits the field when that number is one, and the schema forbids a
+ * literal one, so absence is its only spelling. This is the one site that
+ * turns the absence back into a number. Every consumer above the wire reads
+ * the denominator through here and so never branches on whether it was sent,
+ * which matters because nothing can produce a number above one until
+ * replication exists and any missed site would ship untested. See D23.
+ */
+export function destinationsOf(
+  outcome: { readonly destinations?: number },
+): number {
+  return outcome.destinations ?? 1;
+}

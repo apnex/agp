@@ -128,7 +128,7 @@
       "path": "codes/session-event-code.schema.json",
       "kind": "code",
       "typescript": "SessionEventCode",
-      "sha256": "3bfd8f172bbef846aedef29cef9eb421bcb49001e569f80dcdd2606d83f333c7"
+      "sha256": "c3a0252aabc8831f8ebb5f5ec261080f59d6cb331c897be5c906b68dc680c2ce"
     },
     {
       "id": "urn:agp:schema:v1:core:codes:session-reason-code",
@@ -235,6 +235,14 @@
       "sha256": "f03b211e937bc6ac1133f4ab78bd54439048bd5f906f6aea3f16e5d969378cee"
     },
     {
+      "id": "urn:agp:schema:v1:core:configuration:disposition",
+      "owner": "@agp/core",
+      "path": "configuration/disposition.schema.json",
+      "kind": "configuration",
+      "typescript": "Disposition",
+      "sha256": "b75711e694341477dbe4fe0d6fbf6339aa1e53406eefdd4dbd60d3932fe85b98"
+    },
+    {
       "id": "urn:agp:schema:v1:core:configuration:identity-admission-policy",
       "owner": "@agp/core",
       "path": "configuration/identity-admission-policy.schema.json",
@@ -264,7 +272,7 @@
       "path": "configuration/node-config.schema.json",
       "kind": "configuration",
       "typescript": "NodeConfig",
-      "sha256": "7a767ffafac2e35cf90a40234f25d77928cbccdce66c5bafcdb8377b4578c9d9"
+      "sha256": "4284ad76a336a28e0caf4e3751f7948dae16acfd7250c753f0dccdba7474c5c9"
     },
     {
       "id": "urn:agp:schema:v1:core:configuration:peer-config",

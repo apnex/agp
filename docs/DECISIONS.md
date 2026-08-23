@@ -704,8 +704,16 @@ A hop reports upstream once its own downstream has reported to it.\
 A disposition arriving at the originating node therefore means the network delivered the message to the destination endpoint.\
 It does not mean the endpoint processed it, and it will not: what a handler does with a payload is above this layer.
 
-Dispositions are batched per session and expressed as ranges of labels carrying an outcome code.\
-Cumulative acknowledgement is unsafe here because dispositions complete out of order, and a flat list wastes labels that are already allocated monotonically.
+Dispositions are batched per session.\
+A delivery is expressed as a range of labels, because labels are allocated monotonically and a batch is usually contiguous.\
+A failure is expressed as one entry carrying its label, the end-to-end identity of the message, the node that failed it, and its reason.
+
+Cumulative acknowledgement is unsafe here, because dispositions complete out of order and the existing failure path consumes labels beside them.
+
+The two shapes are one kind of thing recorded at two levels of detail, and not two kinds.\
+A delivery has less to say than a failure, and the reason it may say less is exact: the label is unique to one controller and consumed once, so the label alone names the message.\
+A failure additionally echoes the end-to-end identity, because that check exists today, is fatal today, and catches a peer that is inconsistent about which message it is answering.\
+Requiring the same echo on a delivery would add roughly a quarter to the wire volume of a stream to carry a cross-check that prevents nothing there, since a peer able to invent a label can equally supply the identity that matches it.
 
 Every code names an outcome.\
 The vocabulary holds one kind of thing, so a disposition arriving always means something settled, and the count of what remains outstanding decrements unconditionally.

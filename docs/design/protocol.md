@@ -387,7 +387,24 @@ It replaces `returnToken` with the newly allocated hop token and changes only `h
 
 ---
 
-## 7. Correlated reverse errors
+## 7. Correlated reverse dispositions
+
+One control message reports the fate of a message, whether that fate was delivery or failure.\
+A batch carries deliveries as inclusive ranges of labels and failures as individual entries:
+```ts
+interface DispositionBody {
+  delivered?: LabelRange[];
+  failed?: DeliveryErrorBody[];
+}
+
+interface LabelRange {
+  from: ReturnToken;
+  to: ReturnToken;
+  // Destinations this label was divided into. Absent means one, and a literal
+  // one is not a legal value, so absence is its only spelling.
+  destinations?: number;
+}
+```
 
 ```ts
 interface DeliveryErrorBody {
@@ -404,6 +421,7 @@ interface DeliveryErrorBody {
   returnToken: ReturnToken;
   failedAtNodeId: NodeId;
   reason: string;
+  destinations?: number;
 }
 ```
 
@@ -420,7 +438,7 @@ The canonical locally generated `reason` text is closed:
 | `MESSAGE_TOO_LARGE` | `message exceeds egress receive limit` |
 | `QUEUE_FULL` | `required bounded capacity unavailable` |
 
-Errors never perform a RIB lookup.
+Dispositions never perform a RIB lookup.
 
 Each admitted peer egress creates a bounded breadcrumb:
 ```ts

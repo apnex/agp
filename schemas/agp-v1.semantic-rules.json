@@ -444,17 +444,17 @@
         "UNRETURNABLE"
       ],
       "designReferences": [
-        "docs/design/routing.md#103-downstream-error-handling"
+        "docs/design/routing.md#103-downstream-disposition-handling"
       ],
-      "implementation": "packages/node/src/node.ts#receiveDeliveryError",
-      "owningTest": "packages/node/test/contract/reverse-error-relay.test.js"
+      "implementation": "packages/node/src/node.ts#receiveDisposition",
+      "owningTest": "packages/node/test/contract/disposition-relay.test.js"
     },
     {
       "id": "ERROR-NO-RIB-LOOKUP-1",
       "owner": "@agp/node",
       "phase": "data-admission",
       "inputSchemaIds": [
-        "urn:agp:schema:v1:protocol:wire:error-message"
+        "urn:agp:schema:v1:protocol:wire:disposition-message"
       ],
       "resultCodes": [
         "DELIVER",
@@ -462,9 +462,9 @@
         "UNRETURNABLE"
       ],
       "designReferences": [
-        "docs/design/routing.md#10-reverse-delivery-errors"
+        "docs/design/routing.md#10-reverse-delivery-dispositions"
       ],
-      "implementation": "packages/node/src/node.ts#receiveDeliveryError",
+      "implementation": "packages/node/src/node.ts#receiveDisposition",
       "owningTest": "packages/node/test/contract/reverse-error-no-rib.test.js"
     },
     {
@@ -472,14 +472,14 @@
       "owner": "@agp/node",
       "phase": "data-admission",
       "inputSchemaIds": [
-        "urn:agp:schema:v1:protocol:wire:error-message"
+        "urn:agp:schema:v1:protocol:wire:disposition-message"
       ],
       "resultCodes": [
         "CONSUMED",
         "UNRETURNABLE"
       ],
       "designReferences": [
-        "docs/design/routing.md#103-downstream-error-handling"
+        "docs/design/routing.md#103-downstream-disposition-handling"
       ],
       "implementation": "packages/node/src/node.ts#consumeBreadcrumb",
       "owningTest": "packages/node/test/contract/reverse-error-consume-once.test.js"

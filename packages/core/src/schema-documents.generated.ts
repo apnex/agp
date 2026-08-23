@@ -384,7 +384,7 @@ export const coreSchemaDocumentsV1 = Object.freeze([
       "RouteUpdateReceived",
       "RouteAckReceived",
       "DataReceived",
-      "ErrorReceived",
+      "DispositionReceived",
       "NotificationReceived",
       "InvalidMessage",
       "UnexpectedMessage",
@@ -712,6 +712,47 @@ export const coreSchemaDocumentsV1 = Object.freeze([
   },
   {
     "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "urn:agp:schema:v1:core:configuration:disposition",
+    "title": "AGP core disposition",
+    "x-agp": {
+      "owner": "@agp/core",
+      "typescript": "Disposition",
+      "kind": "configuration",
+      "mechanics": "Sovereign disposition data contract owned by @agp/core.",
+      "rationale": "One schema gives runtime validators and consumers one stable reasoning boundary.",
+      "consequence": "Accepting another shape would make canonical state or SDK interpretation ambiguous.",
+      "semanticRules": []
+    },
+    "type": "object",
+    "properties": {
+      "debounceMs": {
+        "type": "integer",
+        "minimum": 0,
+        "maximum": 60000
+      },
+      "maximumOutcomes": {
+        "type": "integer",
+        "minimum": 1,
+        "maximum": 9007199254740991
+      },
+      "maximumInboundOutcomes": {
+        "type": "integer",
+        "minimum": 1,
+        "maximum": 9007199254740991
+      },
+      "onCapacity": {
+        "type": "string",
+        "enum": [
+          "evict-oldest",
+          "refuse"
+        ]
+      }
+    },
+    "required": [],
+    "additionalProperties": false
+  },
+  {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
     "$id": "urn:agp:schema:v1:core:configuration:identity-admission-policy",
     "title": "AGP core identity-admission-policy",
     "x-agp": {
@@ -854,6 +895,9 @@ export const coreSchemaDocumentsV1 = Object.freeze([
       },
       "capacity": {
         "$ref": "urn:agp:schema:v1:core:configuration:capacity"
+      },
+      "disposition": {
+        "$ref": "urn:agp:schema:v1:core:configuration:disposition"
       },
       "identityAdmission": {
         "$ref": "urn:agp:schema:v1:core:configuration:identity-admission-policy"

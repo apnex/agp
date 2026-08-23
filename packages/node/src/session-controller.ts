@@ -7,7 +7,7 @@ import {
   type AgpMessage,
   type CreditGrant,
   type DataMessage,
-  type ErrorMessage,
+  type DispositionMessage,
   type MessageId,
   type NodeId,
   type NotificationMessage,
@@ -111,7 +111,10 @@ export interface SessionHost {
   ): void;
   sessionTimersChanged(controller: PeerController): void;
   dispatchData(controller: PeerController, message: DataMessage): void;
-  dispatchError(controller: PeerController, message: ErrorMessage): void;
+  dispatchDisposition(
+    controller: PeerController,
+    message: DispositionMessage,
+  ): void;
 }
 
 interface PendingRouteAdmission {
@@ -541,9 +544,9 @@ export class PeerController implements DataSessionController {
           this.#dispatch({ type: "DataReceived" }, message);
         });
         break;
-      case "error":
+      case "disposition":
         await this.#host.executor.run(() => {
-          this.#dispatch({ type: "ErrorReceived" }, message);
+          this.#dispatch({ type: "DispositionReceived" }, message);
         });
         break;
       case "notification":
@@ -779,9 +782,9 @@ export class PeerController implements DataSessionController {
           queueMicrotask(() => this.#host.dispatchData(this, message));
         }
         break;
-      case "DispatchDeliveryError":
-        if (message?.type === "error") {
-          queueMicrotask(() => this.#host.dispatchError(this, message));
+      case "DispatchDisposition":
+        if (message?.type === "disposition") {
+          queueMicrotask(() => this.#host.dispatchDisposition(this, message));
         }
         break;
       case "SendNotification":

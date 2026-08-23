@@ -29,8 +29,9 @@ test("Given the last usable hop, when transit is attempted, then HOP_LIMIT_EXCEE
 
   await harness.plane.receive(ingress, message);
   assert.equal(egress.dataWrites.length, 0);
+  harness.flushDispositions();
   assert.equal(
-    JSON.parse(ingress.controlWrites[0]).body.code,
+    JSON.parse(ingress.controlWrites[0]).body.failed[0].code,
     "HOP_LIMIT_EXCEEDED",
   );
 });

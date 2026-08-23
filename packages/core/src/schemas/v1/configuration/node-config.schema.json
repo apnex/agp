@@ -44,6 +44,9 @@
     "capacity": {
       "$ref": "urn:agp:schema:v1:core:configuration:capacity"
     },
+    "disposition": {
+      "$ref": "urn:agp:schema:v1:core:configuration:disposition"
+    },
     "identityAdmission": {
       "$ref": "urn:agp:schema:v1:core:configuration:identity-admission-policy"
     },

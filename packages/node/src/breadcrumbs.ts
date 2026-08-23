@@ -10,6 +10,21 @@ import type {
 export interface BreadcrumbCapacity {
   readonly maximumEntries: number;
   readonly maximumBytes: number;
+  /**
+   * What a full table does.
+   *
+   * Evicting the oldest binding keeps a reverse-path concern from stopping the
+   * data plane, which is the relationship D23 requires between them: the table
+   * exists to report on traffic, so it must never be the thing that prevents
+   * traffic. Refusing is offered for a deployment that would rather stop than
+   * lose a disposition.
+   *
+   * Eviction and completion need each other. Completion keeps the table small
+   * enough that eviction is rare, and eviction guarantees the table cannot cap
+   * throughput when completion does not arrive. Eviction alone would routinely
+   * discard dispositions for messages that succeeded.
+   */
+  readonly onCapacity: "evict-oldest" | "refuse";
 }
 
 export interface BreadcrumbUsage {
@@ -27,6 +42,17 @@ export type BreadcrumbLookup =
 interface StoredBreadcrumb {
   readonly input: BreadcrumbInput;
   readonly retainedBytes: number;
+  /**
+   * Destinations still owed against this binding, not copies sent.
+   *
+   * Every message today has exactly one next hop, so this is one and settling
+   * once releases the entry, which is the behaviour without the field. It is
+   * written as a count anyway so that a message divided across several
+   * destinations needs no exception: the rule stays `released at zero`.
+   * Counting copies sent instead would go negative the first time a hop
+   * downstream divided further. See D23.
+   */
+  outstanding: number;
 }
 
 /**
@@ -45,6 +71,7 @@ export class BreadcrumbStore {
   #bytes = 0;
   #highWaterEntries = 0;
   #highWaterBytes = 0;
+  #evicted = 0;
 
   constructor(capacity: BreadcrumbCapacity, monotonicNow: () => number) {
     this.#monotonicNow = monotonicNow;
@@ -57,6 +84,11 @@ export class BreadcrumbStore {
       throw new RangeError("breadcrumb capacity must use positive safe integers");
     }
     this.#capacity = Object.freeze({ ...capacity });
+  }
+
+  /** Bindings evicted since start, because their table was full. */
+  get evicted(): number {
+    return this.#evicted;
   }
 
   canReserve(retainedBytes: number): boolean {
@@ -72,7 +104,26 @@ export class BreadcrumbStore {
     // forbid, so the cost is paid only at the bound and at most once a
     // millisecond. See `MX5`.
     this.#sweep();
+    if (this.#fits(retainedBytes)) return true;
+    if (this.#capacity.onCapacity === "refuse") return false;
+    // Nothing has expired and completion has not kept up, so make room. A
+    // Map preserves insertion order, so the first entry of the first
+    // controller is the oldest binding held.
+    while (!this.#fits(retainedBytes) && this.#entries > 0) {
+      if (!this.#evictOldest()) return false;
+    }
     return this.#fits(retainedBytes);
+  }
+
+  #evictOldest(): boolean {
+    for (const [identity, tokens] of this.#byController) {
+      for (const [token, stored] of tokens) {
+        this.#delete(identity, token, stored);
+        this.#evicted += 1;
+        return true;
+      }
+    }
+    return false;
   }
 
   #fits(retainedBytes: number): boolean {
@@ -87,7 +138,14 @@ export class BreadcrumbStore {
     this.expire(now);
   }
 
-  add(input: BreadcrumbInput, retainedBytes: number): boolean {
+  add(
+    input: BreadcrumbInput,
+    retainedBytes: number,
+    outstanding = 1,
+  ): boolean {
+    if (!Number.isSafeInteger(outstanding) || outstanding < 1) {
+      throw new RangeError("a binding must owe at least one destination");
+    }
     if (!this.canReserve(retainedBytes)) return false;
     let tokens = this.#byController.get(input.egress.identity);
     if (tokens === undefined) {
@@ -97,7 +155,7 @@ export class BreadcrumbStore {
     if (tokens.has(input.outboundReturnToken)) {
       throw new Error("return token reused by exact controller");
     }
-    tokens.set(input.outboundReturnToken, { input, retainedBytes });
+    tokens.set(input.outboundReturnToken, { input, retainedBytes, outstanding });
     this.#entries += 1;
     this.#version += 1;
     this.#bytes += retainedBytes;
@@ -106,11 +164,39 @@ export class BreadcrumbStore {
     return true;
   }
 
+  /**
+   * Settle a failure against its binding.
+   *
+   * A failure echoes the end-to-end identity of the message it concerns, so
+   * this path checks it and reports a mismatch as fatal. A delivery carries no
+   * identity to check and settles through `settleDelivered` instead: the label
+   * is unique to one controller and consumed once, so it already names the
+   * message, and a peer able to invent a label could equally supply an
+   * identity that matched it. See D23.
+   */
   consume(
     controller: ExactController,
     token: ReturnToken,
     refId: MessageId,
     nowMonotonicMs: number,
+  ): BreadcrumbLookup {
+    return this.#settle(controller, token, nowMonotonicMs, refId);
+  }
+
+  /** Settle a delivery against its binding. */
+  settleDelivered(
+    controller: ExactController,
+    token: ReturnToken,
+    nowMonotonicMs: number,
+  ): BreadcrumbLookup {
+    return this.#settle(controller, token, nowMonotonicMs, undefined);
+  }
+
+  #settle(
+    controller: ExactController,
+    token: ReturnToken,
+    nowMonotonicMs: number,
+    refId: MessageId | undefined,
   ): BreadcrumbLookup {
     const tokens = this.#byController.get(controller.identity);
     const stored = tokens?.get(token);
@@ -119,13 +205,19 @@ export class BreadcrumbStore {
       this.#delete(controller.identity, token, stored);
       return Object.freeze({ kind: "unreturnable" });
     }
-    if (stored.input.messageId !== refId) {
+    if (refId !== undefined && stored.input.messageId !== refId) {
       return Object.freeze({
         kind: "ref-mismatch",
         breadcrumb: stored.input,
       });
     }
-    this.#delete(controller.identity, token, stored);
+    // Released at zero rather than on the first outcome, so a message divided
+    // across several destinations needs no separate rule. Today every count is
+    // one and this deletes on the first settle. See D23.
+    stored.outstanding -= 1;
+    if (stored.outstanding <= 0) {
+      this.#delete(controller.identity, token, stored);
+    }
     return Object.freeze({ kind: "consumed", breadcrumb: stored.input });
   }
 

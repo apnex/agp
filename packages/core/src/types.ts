@@ -1,5 +1,6 @@
 import type {
   CorrelationId,
+  DeliveryErrorCode,
   EndpointName,
   EndpointSource,
   JsonObject,
@@ -398,7 +399,7 @@ export type SessionEventCode =
   | "RouteUpdateReceived"
   | "RouteAckReceived"
   | "DataReceived"
-  | "ErrorReceived"
+  | "DispositionReceived"
   | "NotificationReceived"
   | "InvalidMessage"
   | "UnexpectedMessage"
@@ -761,6 +762,32 @@ export interface CapacityConfig {
   readonly transportReceiveBytes?: number;
 }
 
+/**
+ * How the reverse-path label table reports the fate of what it forwards, and
+ * what it does when it is full.
+ *
+ * A binding is released when a disposition for it returns, so the table is
+ * sized by the offered rate over an end-to-end round trip plus the debounce
+ * interval, rather than over the expiry window. See D23.
+ */
+export interface DispositionConfig {
+  /** How long a batch may wait before it is sent. */
+  readonly debounceMs?: number;
+  /** How large a batch may grow before it is sent without waiting. */
+  readonly maximumOutcomes?: number;
+  /** The most outcomes this node will read out of one arriving batch. */
+  readonly maximumInboundOutcomes?: number;
+  /**
+   * What a full label table does.
+   *
+   * The default evicts the oldest binding, so a reverse-path quality concern
+   * can never stop the data plane. A deployment that would rather stop than
+   * lose a disposition sets `refuse` and accepts that the table can cap
+   * throughput.
+   */
+  readonly onCapacity?: "evict-oldest" | "refuse";
+}
+
 export interface IdentityAdmissionPolicyConfig {
   readonly mode?: "allow" | "port";
 }
@@ -782,6 +809,7 @@ export interface NodeConfig {
   readonly timers?: TimerConfig;
   readonly limits?: LimitConfig;
   readonly capacity?: CapacityConfig;
+  readonly disposition?: DispositionConfig;
   readonly identityAdmission?: IdentityAdmissionPolicyConfig;
   readonly routeAdmission?: RouteAdmissionPolicyConfig;
 }
@@ -841,6 +869,50 @@ export interface SendPolicy {
 
 export interface SendOptions extends SendPolicy {
   readonly signal?: AbortSignal;
+}
+
+/** One terminal thing that happened to a message, at one destination. */
+export interface MessageOutcome {
+  readonly kind: "delivered" | "failed";
+  readonly code?: DeliveryErrorCode;
+  readonly reason?: string;
+  readonly failedAtNodeId?: NodeId;
+}
+
+/**
+ * What an origin knows about the fate of one message it sent.
+ *
+ * The signal is best effort. A lost disposition leaves an application with
+ * neither outcome, so an application building reliable delivery on this still
+ * needs its own timeout. This is stated plainly because a signal that usually
+ * arrives is the easiest kind to over-trust. See D23 section 4.7.
+ */
+export interface MessageDisposition {
+  readonly messageId: MessageId;
+  readonly correlationId?: CorrelationId;
+  readonly source: EndpointName;
+  readonly destination: EndpointName;
+  /** Terminal outcomes received so far, in arrival order. */
+  readonly outcomes: readonly MessageOutcome[];
+  /** Destinations still owed. Zero with `settled` true means nothing is left. */
+  readonly outstanding: number;
+  /**
+   * Destinations the message was divided into.
+   *
+   * Undefined means at least one outcome is outstanding and the total is not
+   * yet known, which is a different statement from a total of one. The
+   * denominator is stamped by the hop that enumerated the destinations and
+   * rides on every disposition, so it becomes known as soon as any outcome
+   * arrives, and never by the absence of a field. See D23.
+   */
+  readonly total: number | undefined;
+  /**
+   * Whether the origin will learn anything further about this message.
+   *
+   * False with a non-zero `outstanding` is a stall an application can see,
+   * rather than one it has to infer from a timeout.
+   */
+  readonly settled: boolean;
 }
 
 export interface SendReceipt {

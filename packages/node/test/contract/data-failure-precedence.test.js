@@ -48,6 +48,7 @@ test("Given multi-failure transit frames, when admission runs, then only the fir
     const message = dataMessage({ payload: { too: "large" }, hopLimit: 1 });
     harness.authorizeFeasible(ingress, message.body.source);
     await harness.plane.receive(ingress, message);
+    harness.flushDispositions();
     assert.equal(lastErrorCode(ingress), "QUEUE_FULL");
   });
 
@@ -157,6 +158,7 @@ async function runTransitCase(options = {}) {
   }
 
   await harness.plane.receive(ingress, message);
+  harness.flushDispositions();
   return {
     code: lastErrorCode(ingress),
     writes: egress.dataWrites.length,
@@ -165,5 +167,7 @@ async function runTransitCase(options = {}) {
 
 function lastErrorCode(controller) {
   assert.equal(controller.controlWrites.length, 1);
-  return JSON.parse(controller.controlWrites[0]).body.code;
+  const body = JSON.parse(controller.controlWrites[0]).body;
+  assert.equal(body.failed.length, 1);
+  return body.failed[0].code;
 }

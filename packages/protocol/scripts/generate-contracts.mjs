@@ -46,7 +46,10 @@ const ids = Object.freeze({
     "urn:agp:schema:v1:protocol:wire:notification-message",
   deliveryErrorBody:
     "urn:agp:schema:v1:protocol:wire:delivery-error-body",
-  errorMessage: "urn:agp:schema:v1:protocol:wire:error-message",
+  labelRange: "urn:agp:schema:v1:protocol:wire:label-range",
+  deliveryFailure: "urn:agp:schema:v1:protocol:wire:delivery-failure",
+  dispositionBody: "urn:agp:schema:v1:protocol:wire:disposition-body",
+  dispositionMessage: "urn:agp:schema:v1:protocol:wire:disposition-message",
   dataBody: "urn:agp:schema:v1:protocol:wire:data-body",
   dataMessage: "urn:agp:schema:v1:protocol:wire:data-message",
   message: "urn:agp:schema:v1:protocol:wire:message",
@@ -414,7 +417,7 @@ add(
           "route.update",
           "route.ack",
           "notification",
-          "error",
+          "disposition",
           "message",
         ],
         description: "Closed v1 message discriminator.",
@@ -589,6 +592,19 @@ const deliveryReasons = Object.freeze({
   MESSAGE_TOO_LARGE: "message exceeds egress receive limit",
   QUEUE_FULL: "required bounded capacity unavailable",
 });
+// The denominator: how many destinations one label was divided into by the
+// hop that enumerated them, since no hop below the division knows the total.
+// Absent when the number is one, which is every message until replication
+// exists, and normalised to one by the codec so no consumer above the wire
+// ever branches on its absence. See DECISIONS.md D23.
+const destinationsField = Object.freeze({
+  type: "integer",
+  minimum: 2,
+  maximum: 1024,
+  description:
+    "Destinations this label was divided into, stamped by the enumerating hop. Absent means one.",
+});
+
 const deliveryErrorVariants = Object.entries(deliveryReasons).map(
   ([code, reason]) =>
     closedObject(
@@ -596,6 +612,7 @@ const deliveryErrorVariants = Object.entries(deliveryReasons).map(
       ["code", "refId", "returnToken", "failedAtNodeId", "reason"],
       {
         code: { const: code, description: "Exact delivery failure code." },
+        destinations: destinationsField,
         refId: ref(
           ids.messageId,
           "End-to-end message ID of the failing data envelope.",
@@ -627,6 +644,55 @@ add(
   },
   ["ERROR-RETURN-TOKEN-1"],
 );
+// A delivery says less than a failure because it may. A label is unique to
+// one controller and consumed once, so it names its message exactly, and
+// labels are allocated monotonically so a batch of them is usually
+// contiguous. See DECISIONS.md D23.
+add(
+  "wire",
+  "label-range",
+  "LabelRange",
+  "wire-body",
+  closedObject(
+    "Inclusive run of hop-scoped labels sharing one outcome.",
+    ["from", "to"],
+    {
+      from: ref(ids.returnToken, "First label in the run, inclusive."),
+      to: ref(ids.returnToken, "Last label in the run, inclusive."),
+      destinations: destinationsField,
+    },
+  ),
+);
+add(
+  "wire",
+  "disposition-body",
+  "DispositionBody",
+  "wire-body",
+  closedObject(
+    "Batched fate of messages forwarded on one session.",
+    [],
+    {
+      delivered: {
+        type: "array",
+        maxItems: 1024,
+        items: ref(ids.labelRange, "Run of labels that reached their endpoint."),
+        description:
+          "Labels whose messages were delivered, compressed to runs.",
+      },
+      failed: {
+        type: "array",
+        maxItems: 1024,
+        items: ref(
+          ids.deliveryErrorBody,
+          "One label that did not deliver, with the identity it concerns.",
+        ),
+        description:
+          "Labels whose messages failed, each carrying its own detail.",
+      },
+    },
+  ),
+);
+
 add(
   "wire",
   "data-body",
@@ -729,11 +795,11 @@ messageSchema(
   ids.notificationBody,
 );
 messageSchema(
-  "error-message",
-  "ErrorMessage",
+  "disposition-message",
+  "DispositionMessage",
   "control",
-  "error",
-  ids.deliveryErrorBody,
+  "disposition",
+  ids.dispositionBody,
   ["ERROR-NO-RIB-LOOKUP-1", "ERROR-CONSUME-ONCE-1"],
 );
 messageSchema(
@@ -757,7 +823,7 @@ add(
       { $ref: ids.routeUpdateMessage },
       { $ref: ids.routeAckMessage },
       { $ref: ids.notificationMessage },
-      { $ref: ids.errorMessage },
+      { $ref: ids.dispositionMessage },
       { $ref: ids.dataMessage },
     ],
   },
@@ -990,6 +1056,12 @@ interface DeliveryErrorFields {
   readonly refId: MessageId;
   readonly returnToken: ReturnToken;
   readonly failedAtNodeId: NodeId;
+  /**
+   * Wire form of the denominator: absent means one, and the schema forbids a
+   * literal one so absence is the only spelling of it. Read it through
+   * \`destinationsOf\` rather than directly.
+   */
+  readonly destinations?: number;
 }
 
 export type DeliveryErrorBody = DeliveryErrorFields & (
@@ -1002,6 +1074,31 @@ export type DeliveryErrorBody = DeliveryErrorFields & (
   | { readonly code: "MESSAGE_TOO_LARGE"; readonly reason: "message exceeds egress receive limit" }
   | { readonly code: "QUEUE_FULL"; readonly reason: "required bounded capacity unavailable" }
 );
+
+/** An inclusive run of labels sharing one outcome. */
+export interface LabelRange {
+  readonly from: ReturnToken;
+  readonly to: ReturnToken;
+  /**
+   * Wire form of the denominator: absent means one, and the schema forbids a
+   * literal one so absence is the only spelling of it. Read it through
+   * \`destinationsOf\` rather than directly.
+   */
+  readonly destinations?: number;
+}
+
+/**
+ * The batched fate of messages forwarded on one session.
+ *
+ * A delivery compresses to a run because a label is unique to one controller
+ * and consumed once, so it names its message without further evidence. A
+ * failure does not, because it echoes the end-to-end identity as a check
+ * against a peer that is inconsistent about which message it is answering.
+ */
+export interface DispositionBody {
+  readonly delivered?: readonly LabelRange[];
+  readonly failed?: readonly DeliveryErrorBody[];
+}
 
 export interface DataBody {
   readonly source: EndpointSource;
@@ -1020,8 +1117,8 @@ export type RouteAckMessage =
   AgpEnvelope<"control", "route.ack", RouteAckBody>;
 export type NotificationMessage =
   AgpEnvelope<"control", "notification", NotificationBody>;
-export type ErrorMessage =
-  AgpEnvelope<"control", "error", DeliveryErrorBody>;
+export type DispositionMessage =
+  AgpEnvelope<"control", "disposition", DispositionBody>;
 export type DataMessage = AgpEnvelope<"data", "message", DataBody>;
 
 export type AgpMessage =
@@ -1030,7 +1127,7 @@ export type AgpMessage =
   | RouteUpdateMessage
   | RouteAckMessage
   | NotificationMessage
-  | ErrorMessage
+  | DispositionMessage
   | DataMessage;
 `;
 }

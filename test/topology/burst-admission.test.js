@@ -22,8 +22,14 @@ import { eventually } from "../support/uniform-topology.js";
 const NEAR = "chain0/ep0";
 const FAR = "chain2/ep0";
 
-async function convergedLine(context, deliveries, capacity) {
-  const chain = await buildChain({ length: 3, deliveries, context, capacity });
+async function convergedLine(context, deliveries, capacity, disposition) {
+  const chain = await buildChain({
+    length: 3,
+    deliveries,
+    context,
+    capacity,
+    ...(disposition === undefined ? {} : { disposition }),
+  });
   await awaitFullConvergence(chain);
   return chain;
 }
@@ -65,13 +71,16 @@ test("given a converged transit hop, when many sends are issued concurrently, th
 test("given capacity smaller than the burst, when the bound is reached, then excess sends fail QUEUE_FULL promptly rather than waiting", async (context) => {
   const count = deepen("burst", 40);
   const deliveries = [];
-  // The breadcrumb bound is the one that reliably fills. A breadcrumb is
-  // expiring rather than delivery-consumed, so a successful send leaves one
-  // behind and a burst accumulates them; an egress queue drains between
-  // admissions and may never contend.
+  // The breadcrumb bound is the one that reliably fills, but since D23 a
+  // successful send no longer leaves a binding behind: the disposition that
+  // returns releases it. So the bound is held open deliberately here, by
+  // telling the table to refuse rather than evict and by pushing the batch
+  // interval past the life of the test. What is under test is that reaching a
+  // bound produces a prompt typed rejection rather than a hang, and that is
+  // still worth gating whichever bound it is.
   const chain = await convergedLine(context, deliveries, {
     maxReverseCorrelations: 8,
-  });
+  }, { debounceMs: 60_000, onCapacity: "refuse" });
 
   const started = performance.now();
   const { admitted, rejected, arrived } = await burstMessages({

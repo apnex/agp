@@ -73,14 +73,29 @@
   {
     "agp": 1,
     "plane": "control",
-    "type": "error",
-    "id": "error-1",
+    "type": "disposition",
+    "id": "disposition-1",
     "body": {
-      "code": "NO_ROUTE",
-      "refId": "data-1",
-      "returnToken": "0000000000000001",
-      "failedAtNodeId": "node.beta",
-      "reason": "no selected route"
+      "delivered": [
+        {
+          "from": "0000000000000001",
+          "to": "000000000000000a"
+        },
+        {
+          "from": "000000000000000c",
+          "to": "000000000000000c",
+          "destinations": 3
+        }
+      ],
+      "failed": [
+        {
+          "code": "NO_ROUTE",
+          "refId": "data-1",
+          "returnToken": "000000000000000b",
+          "failedAtNodeId": "node.beta",
+          "reason": "no selected route"
+        }
+      ]
     }
   },
   {

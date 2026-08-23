@@ -269,8 +269,8 @@
         }
       ],
       "designReferences": [
-        "protocol.md#7-correlated-reverse-errors",
-        "routing.md#10-reverse-delivery-errors"
+        "protocol.md#7-correlated-reverse-dispositions",
+        "routing.md#10-reverse-delivery-dispositions"
       ],
       "schemaIds": [
         "urn:agp:schema:v1:protocol:common:return-token",
@@ -283,7 +283,7 @@
       ],
       "owningGate": "AX5",
       "owningTests": [
-        "packages/node/test/contract/reverse-error-relay.test.js",
+        "packages/node/test/contract/disposition-relay.test.js",
         "packages/node/test/contract/reverse-error-no-rib.test.js"
       ],
       "integrationWitnesses": [],
@@ -741,7 +741,7 @@
       ],
       "owningGate": "AX5",
       "owningTests": [
-        "packages/node/test/contract/reverse-error-relay.test.js",
+        "packages/node/test/contract/disposition-relay.test.js",
         "packages/node/test/contract/reverse-error-no-rib.test.js",
         "packages/node/test/contract/reverse-error-consume-once.test.js",
         "packages/node/test/unit/return-token-allocator.test.js"
@@ -1186,7 +1186,7 @@
     {
       "requirementId": "D23",
       "ratificationStatus": "ratified",
-      "implementation": "planned",
+      "implementation": "built",
       "authorities": [
         {
           "kind": "decision",
@@ -1196,13 +1196,30 @@
       ],
       "designReferences": [
         "../DECISIONS.md#d23---delivery-disposition",
-        "message-labels.md"
+        "message-labels.md",
+        "routing.md#10-reverse-delivery-dispositions"
       ],
-      "schemaIds": [],
-      "semanticRuleIds": [],
+      "schemaIds": [
+        "urn:agp:schema:v1:protocol:wire:disposition-message",
+        "urn:agp:schema:v1:protocol:wire:disposition-body",
+        "urn:agp:schema:v1:protocol:wire:label-range",
+        "urn:agp:schema:v1:core:configuration:disposition"
+      ],
+      "semanticRuleIds": [
+        "ERROR-RETURN-TOKEN-1",
+        "ERROR-NO-RIB-LOOKUP-1",
+        "ERROR-CONSUME-ONCE-1"
+      ],
       "owningGate": "AX5",
-      "owningTests": [],
-      "integrationWitnesses": []
+      "owningTests": [
+        "packages/node/test/contract/disposition-release.test.js",
+        "packages/node/test/contract/disposition-relay.test.js",
+        "packages/node/test/contract/disposition-surface.test.js",
+        "packages/protocol/test/unit/disposition-denominator.test.js"
+      ],
+      "integrationWitnesses": [
+        "test/resilience/hop-exhaustion.test.js"
+      ]
     }
   ]
 }

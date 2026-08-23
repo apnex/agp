@@ -32,7 +32,7 @@ import type { HandlerLedger } from "./handler-ledger.js";
 import type {
   ReturnTokenAllocatorPort,
 } from "./return-token.js";
-import type { ReverseErrorEngine } from "./reverse-errors.js";
+import type { DispositionEngine } from "./dispositions.js";
 import type { SerializedExecutor } from "./serialized-executor.js";
 import type { SessionWriter } from "./session-writer.js";
 
@@ -95,7 +95,7 @@ export interface DataPlaneOptions {
   readonly endpoints: EndpointRegistry;
   readonly handlers: HandlerLedger;
   readonly breadcrumbs: BreadcrumbStore;
-  readonly reverseErrors: ReverseErrorEngine;
+  readonly dispositions: DispositionEngine;
   readonly executor: SerializedExecutor;
   readonly nextMessageId: () => MessageId;
   readonly wallTime: () => string;
@@ -203,7 +203,7 @@ export class DataPlane {
     const failure = await this.#options.executor.run(() =>
       this.#receiveInExecutor(ingress, message));
     if (failure !== undefined) {
-      await this.#options.reverseErrors.sendImmediateFailure(
+      this.#options.dispositions.reportImmediateFailure(
         ingress,
         message,
         failure,
@@ -518,6 +518,17 @@ export class DataPlane {
           operationsRevision: revision,
         }),
         decision.bytes,
+      );
+      // The message reached its endpoint, so the hop it came from may release
+      // the binding it is holding for it. This is the outcome AGP never had:
+      // without it a binding is released by a failure or by expiry and never
+      // by success, so a flow that never fails fills the table and caps the
+      // node. Reported here rather than after the handler runs, because this
+      // layer promises delivery to the endpoint and not processing by it.
+      // See D23 and MX7.
+      this.#options.dispositions.reportDelivered(
+        ingress,
+        message.body.returnToken,
       );
       return undefined;
     }

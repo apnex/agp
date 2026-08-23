@@ -29,9 +29,10 @@ test("Given nonlocal input with transit disabled, when admission runs, then one 
 
   await harness.plane.receive(ingress, message);
   assert.equal(egress.dataWrites.length, 0);
+  harness.flushDispositions();
   assert.equal(ingress.controlWrites.length, 1);
   assert.equal(
-    JSON.parse(ingress.controlWrites[0]).body.code,
+    JSON.parse(ingress.controlWrites[0]).body.failed[0].code,
     "TRANSIT_DISABLED",
   );
 });

@@ -54,7 +54,7 @@ An item that is `I4`/`P1` belongs early even though nobody feels it today, becau
 | `B22` | Measure throughput with each node in its own process | `I3` | `P3` | [`MX7`](VERIFICATION.md#46-open-findings-from-sweeps) | open |
 | `B24` | Give the equivalence line one declaration instead of two | `I4` | `P3` | [`VERIFICATION.md` section 4.9](VERIFICATION.md#49-chasing-a-timing-defect) | landed |
 | `B25` | Give pre-shared keys a cross-process key exchange so that carrier can be isolated too | `I4` | `P3` | [`F08`](design/mechanisms.md) | landed |
-| `B23` | Build the disposition design that removes the sustained send ceiling | `I2` | `P3` | [`D23`](DECISIONS.md#d23---delivery-disposition), [`MX7`](VERIFICATION.md#46-open-findings-from-sweeps) | open |
+| `B23` | Build the disposition design that removes the sustained send ceiling | `I2` | `P3` | [`D23`](DECISIONS.md#d23---delivery-disposition), [`MX7`](VERIFICATION.md#46-open-findings-from-sweeps) | landed |
 | `B26` | Let a ratified decision be recorded before it is built | `I4` | `P2` | [`GATES.md` section 2](GATES.md#2-gate-ax0---intent-applicability-and-knowledge) | landed |
 | `B27` | Name a destination instance, not only an endpoint | `I3` | `P4` | [`destination-selection.md`](design/destination-selection.md) | open |
 | `B28` | Resolve a forwarding decision in one place instead of three | `I4` | `P3` | [`destination-selection.md`](design/destination-selection.md) | landed |
@@ -101,7 +101,7 @@ Where the two disagree it is because of dependency, never because a severity was
 | Order | Item | Ready | Why here |
 |---|---|---|---|
 | 1 | `B28` | Landed | Scored lowest on the board and built first, because both items after it change the forwarding decision |
-| 2 | `B23` | Yes | The largest open item. Removes the sustained ceiling `MX7` records, and is ratified as `D23`. Its prerequisite is landed |
+| 2 | `B23` | Landed | Removed the sustained ceiling `MX7` recorded. The `error` message retired into it, so one message now reports the fate of a message whichever fate it was |
 | 3 | `B22` | Yes | Cheap, and wants a quiet machine rather than a queue position |
 | 4 | `B27` | Blocked | Waiting on the `Q1(b)` question below |
 | 5 | `B15` | Blocked | Waiting on the credit switch question below |
@@ -121,10 +121,11 @@ Severity `I2`.
 | ID | Move | Note |
 |---|---|---|
 | `B28` | Resolve a forwarding decision in one place instead of three | Landed. One resolver answers for both admission paths, and the transit preview encode went with it, so a forwarding hop encodes once rather than twice. The refusal precedence turned out to be specified rather than incidental, and the first attempt inverted two codes; the gate that owns it caught that before it left the machine |
-| `B23` | Build `D23` | Ratified and recorded as planned rather than built, which is the state `B26` made recordable and this is its first use. What remains is the wire shape, the debounce and count defaults, the SDK surface including how an unknown denominator is distinguished from a known one, and the origin's outstanding table, which must be released by success by construction |
+| `B23` | Build `D23` | Landed. A binding is released by the report that returns for it, so expiry became the backstop rather than the mechanism. The `error` message retired into the disposition, because a vocabulary that holds one kind of thing cannot also keep a second message for half of it. The denominator stays absent on the wire when it is one and the schema forbids spelling one, so absence is unambiguous and the codec normalises it at a single site. Two measurement mistakes are recorded with the instrument: holding the old behaviour open takes both batch bounds, and the debounce that drains an origin's table belongs to the far end |
 
-A node today sustains about 136 messages a second against a burst ceiling near 2850, because a reverse-path binding is released by failure or expiry and never by success.\
-The ceiling is not a capacity to raise; it is a quality mechanism acting as a throughput bound.
+A node used to sustain about 136 messages a second against a burst ceiling near 2850, because a reverse-path binding was released by failure or expiry and never by success.\
+The ceiling was not a capacity to raise; it was a quality mechanism acting as a throughput bound.\
+`scripts/sustained-rate.mjs` holds both batch bounds open to reproduce the old behaviour against the same binary, and measures the correction without reverting code.
 
 ---
 

@@ -90,11 +90,14 @@ test("Given a converged three-node line and a source limited to the last usable 
     }).length,
     0,
   );
+  // The failure returns inside a disposition batch rather than as its own
+  // message: one wire message reports the fate of a message, whether that
+  // fate was delivery or failure. See D23.
   assert.equal(
     network.entries("delivered", {
       from: "hop.transit",
       to: "hop.source",
-      type: "error",
+      type: "disposition",
     }).length,
     1,
   );

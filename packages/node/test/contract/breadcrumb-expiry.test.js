@@ -8,7 +8,7 @@ import {
 } from "../support/memory-transport.js";
 
 // Owns: that reverse-correlation capacity is a rate bound and not a lifetime
-// total.
+// total, in the one case where nothing reports back.
 //
 // A breadcrumb is retained for every message a node originates and released
 // only by expiry. The sweep that releases them existed and was called from
@@ -19,6 +19,13 @@ import {
 // No test caught it because no test sent four thousand messages. This one
 // lowers the bound instead of raising the volume, and moves a manual clock
 // rather than waiting thirty seconds.
+//
+// Since D23 a binding is normally released by the disposition that returns for
+// it, so expiry is the backstop rather than the mechanism. These cases pin the
+// backstop, and so must hold the disposition off: the debounce is set past the
+// life of the test, and the table is told to refuse rather than evict, which is
+// the configuration a deployment picks when it would rather stop than lose a
+// disposition. Release-on-success is gated by disposition-release.test.js.
 
 const CAPACITY = 8;
 
@@ -45,6 +52,7 @@ async function converged(t) {
     }],
     timers: { holdTimeMs: 0 },
     capacity: { maxReverseCorrelations: CAPACITY },
+    disposition: { debounceMs: 60_000, onCapacity: "refuse" },
   }, {
     transport: network.transport({ targets: ["expiry.listener"] }),
     clock,

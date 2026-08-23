@@ -120,7 +120,7 @@ export type PeerSessionAction =
   | { readonly type: "RecomputeRouteExport" }
   | { readonly type: "MarkRouteUpdateWritten" }
   | { readonly type: "DispatchData" }
-  | { readonly type: "DispatchDeliveryError" }
+  | { readonly type: "DispatchDisposition" }
   | {
       readonly type: "SendNotification";
       readonly code: FatalNotificationCode;
@@ -150,7 +150,7 @@ const ESTABLISHED_WIRE_TYPES = new Set<SessionEventCode>([
   "RouteUpdateReceived",
   "RouteAckReceived",
   "DataReceived",
-  "ErrorReceived",
+  "DispositionReceived",
   "NotificationReceived",
 ]);
 
@@ -604,12 +604,12 @@ function reduceEstablished(
       ]),
     };
   }
-  if (input.type === "ErrorReceived") {
+  if (input.type === "DispositionReceived") {
     return {
       next: transition(current, "Established", input.type),
       actions: publish([
         { type: "ResetHoldTimer" },
-        { type: "DispatchDeliveryError" },
+        { type: "DispatchDisposition" },
       ]),
     };
   }

@@ -3,7 +3,7 @@ import {
   DataPlane,
   EndpointRegistry,
   HandlerLedger,
-  ReverseErrorEngine,
+  DispositionEngine,
   SerializedExecutor,
   SessionWriter,
   Uint64ReturnTokenAllocator,
@@ -29,7 +29,8 @@ export function createDataPlaneHarness(overrides = {}) {
   const breadcrumbs = new BreadcrumbStore({
     maximumEntries: overrides.maximumBreadcrumbs ?? 8,
     maximumBytes: overrides.maximumBreadcrumbBytes ?? 64_000,
-  }, () => 0);
+    onCapacity: overrides.onCapacity ?? "refuse",
+  }, () => now);
   const commits = [];
   const localErrors = [];
   let revision = 0;
@@ -46,14 +47,30 @@ export function createDataPlaneHarness(overrides = {}) {
     sourceExportEpoch: (egress, source) =>
       epochs.get(sourceKey(egress.controllerId, source)),
   };
-  const reverseErrors = new ReverseErrorEngine({
+  // Timers are held rather than run, so a test decides when a batch is sent
+  // and never races a real debounce interval.
+  const scheduled = [];
+  const dispositions = new DispositionEngine({
     localNodeId: nodeId,
     breadcrumbs,
+    batch: {
+      debounceMs: overrides.debounceMs ?? 50,
+      maximumOutcomes: overrides.maximumOutcomes ?? 256,
+      maximumInboundOutcomes: overrides.maximumInboundOutcomes ?? 4096,
+    },
     monotonicNow: () => now,
-    nextMessageId: () => `error-${++messageSequence}`,
+    nextMessageId: () => `disposition-${++messageSequence}`,
+    schedule: (delayMs, callback) => {
+      const entry = { delayMs, callback, cancelled: false };
+      scheduled.push(entry);
+      return { cancel: () => { entry.cancelled = true; } };
+    },
     encode: (message) =>
       new TextEncoder().encode(JSON.stringify(message)),
-    publishLocal: (error) => localErrors.push(error),
+    publishLocal: (outcome) => localErrors.push(outcome),
+    onWriteFailure: (controller, cause) => {
+      throw cause;
+    },
   });
   const exhausted = [];
   const plane = new DataPlane({
@@ -70,7 +87,7 @@ export function createDataPlaneHarness(overrides = {}) {
     endpoints,
     handlers,
     breadcrumbs,
-    reverseErrors,
+    dispositions,
     executor,
     nextMessageId: () => `data-${++messageSequence}`,
     wallTime: () => "2026-07-30T00:00:00.000Z",
@@ -95,6 +112,8 @@ export function createDataPlaneHarness(overrides = {}) {
     endpoints,
     handlers,
     breadcrumbs,
+    dispositions,
+    scheduled,
     selected,
     forwarding,
     feasible,
@@ -107,6 +126,10 @@ export function createDataPlaneHarness(overrides = {}) {
     executor,
     advance(ms) {
       now += ms;
+    },
+    /** Send every pending disposition batch, as the debounce timer would. */
+    flushDispositions() {
+      dispositions.flushAll();
     },
     expose(endpoint, handler = async () => {}) {
       return endpoints.register({

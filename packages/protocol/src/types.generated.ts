@@ -131,6 +131,12 @@ interface DeliveryErrorFields {
   readonly refId: MessageId;
   readonly returnToken: ReturnToken;
   readonly failedAtNodeId: NodeId;
+  /**
+   * Wire form of the denominator: absent means one, and the schema forbids a
+   * literal one so absence is the only spelling of it. Read it through
+   * `destinationsOf` rather than directly.
+   */
+  readonly destinations?: number;
 }
 
 export type DeliveryErrorBody = DeliveryErrorFields & (
@@ -143,6 +149,31 @@ export type DeliveryErrorBody = DeliveryErrorFields & (
   | { readonly code: "MESSAGE_TOO_LARGE"; readonly reason: "message exceeds egress receive limit" }
   | { readonly code: "QUEUE_FULL"; readonly reason: "required bounded capacity unavailable" }
 );
+
+/** An inclusive run of labels sharing one outcome. */
+export interface LabelRange {
+  readonly from: ReturnToken;
+  readonly to: ReturnToken;
+  /**
+   * Wire form of the denominator: absent means one, and the schema forbids a
+   * literal one so absence is the only spelling of it. Read it through
+   * `destinationsOf` rather than directly.
+   */
+  readonly destinations?: number;
+}
+
+/**
+ * The batched fate of messages forwarded on one session.
+ *
+ * A delivery compresses to a run because a label is unique to one controller
+ * and consumed once, so it names its message without further evidence. A
+ * failure does not, because it echoes the end-to-end identity as a check
+ * against a peer that is inconsistent about which message it is answering.
+ */
+export interface DispositionBody {
+  readonly delivered?: readonly LabelRange[];
+  readonly failed?: readonly DeliveryErrorBody[];
+}
 
 export interface DataBody {
   readonly source: EndpointSource;
@@ -161,8 +192,8 @@ export type RouteAckMessage =
   AgpEnvelope<"control", "route.ack", RouteAckBody>;
 export type NotificationMessage =
   AgpEnvelope<"control", "notification", NotificationBody>;
-export type ErrorMessage =
-  AgpEnvelope<"control", "error", DeliveryErrorBody>;
+export type DispositionMessage =
+  AgpEnvelope<"control", "disposition", DispositionBody>;
 export type DataMessage = AgpEnvelope<"data", "message", DataBody>;
 
 export type AgpMessage =
@@ -171,5 +202,5 @@ export type AgpMessage =
   | RouteUpdateMessage
   | RouteAckMessage
   | NotificationMessage
-  | ErrorMessage
+  | DispositionMessage
   | DataMessage;

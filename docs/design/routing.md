@@ -823,25 +823,30 @@ There is no implicit upstream, default route, flood, or broadcast.
 
 ---
 
-## 10. Reverse delivery errors
+## 10. Reverse delivery dispositions
+
+One wire message reports the fate of a message, whether that fate was delivery or failure.\
+There is no separate error message: a vocabulary that holds one kind of thing lets every consumer know that a report arriving means something settled.\
+See [`D23`](../DECISIONS.md#d23---delivery-disposition).
 
 ### 10.1 Immediate failure
 
-When a received data packet fails at the current node before an onward write, the node sends a nonfatal `error` directly on its ingress session.\
+When a received data packet fails at the current node before an onward write, the node records a failure outcome against its ingress session.\
 This response does not require a breadcrumb because the failing packet still identifies its current ingress.
 
-The direct error uses a fresh error-envelope ID and sets:
+The failure entry sets:
 ```text
 code           = first failure from the routing precedence
 refId          = received data envelope.id
 returnToken    = received data body.returnToken
 failedAtNodeId = localNodeId
 reason         = exact code-to-reason text defined by protocol section 7
-extensions     = absent
+destinations   = absent, meaning one
 ```
 
-The response uses reserved bounded control capacity.\
-Failure to write it may terminate that session, but it never authorizes an onward data packet and never causes the error itself to be routed.
+The entry joins the batch owed to that ingress rather than being written alone.\
+The batch uses reserved bounded control capacity.\
+Failure to write it may terminate that session, but it never authorizes an onward data packet and never causes the report itself to be routed.
 
 ### 10.2 Breadcrumb admission
 
@@ -851,62 +856,95 @@ Every admitted peer egress creates a breadcrumb before the data write:
 - transit records the exact ingress controller, public
   `(nodeId, owningSessionId)`, and the received `returnToken` as
   `upstreamReturnToken`;
-- `(egressNodeId, egressSessionId)` is the public expected error-return
-  session;
+- `(egressNodeId, egressSessionId)` is the public expected return session;
 - `outboundReturnToken` is allocated by a per-controller non-reusing
   allocator and is written into the forwarded data body;
+- the count of destinations owed is fixed before admission, and is one for
+  every message that has one next hop;
 - expiry and capacity are fixed before admission.
 
-If breadcrumb capacity is unavailable, the data packet is rejected before wire admission.\
-A required reverse path cannot be added after the message has escaped.
+If breadcrumb capacity is unavailable the table evicts its oldest binding rather than refusing the packet, so a reverse-path concern can never stop the data plane.\
+A deployment that would rather stop than lose a report configures refusal instead, and then a full table rejects the packet before wire admission.
 
 The allocator never reuses a token during the lifetime of the exact controller.\
-After emitting its terminal value it rejects the next allocation and replaces the session before wrap or reuse, so a delayed old error cannot resolve to a later breadcrumb after the old entry expires.\
+After emitting its terminal value it rejects the next allocation and replaces the session before wrap or reuse, so a delayed old report cannot resolve to a later breadcrumb after the old entry expires.\
 This removes the ABA hazard without retaining unbounded message-ID tombstones.
 
-### 10.3 Downstream error handling
+### 10.3 Downstream disposition handling
 
+A batch is measured before any of it is applied:
 ```text
-receiveError(error, session):
+receiveDisposition(batch, session):
   require session is the exact live controller for this callback
-  breadcrumb := ReverseCorrelations[(session.controllerIdentity, error.returnToken)]
+  owed := count of failures + sum of the width of every delivered range
+  if owed > maximumInboundOutcomes:
+    send fatal INVALID_MESSAGE and terminate session, settling nothing
+```
+
+A range is a span rather than a list, so its cost to write is constant while its cost to read is its width.\
+Without that bound a peer could spend fifty bytes naming the whole label domain and occupy the node forever.\
+Measuring first means a batch that exceeds the bound has no partial effect.
+
+Each outcome then settles on its own:
+```text
+settle(outcome, session):
+  breadcrumb := ReverseCorrelations[(session.controllerIdentity, outcome.returnToken)]
 
   if breadcrumb absent or expired:
     discard as unreturnable
-  else if error.refId != breadcrumb.messageId:
+  else if outcome is a failure and outcome.refId != breadcrumb.messageId:
     send fatal INVALID_MESSAGE and terminate session without consuming breadcrumb
   else:
-    consume breadcrumb exactly once
+    decrement destinations owed; release the breadcrumb at zero
     if breadcrumb.ingress is local:
-      publish local correlated failure
+      record the outcome against the originating message
     else if exact recorded ingress controller is still live:
-      relay a fresh error envelope directly to ingress
-      preserve code, refId, failedAtNodeId, reason, and validated extensions
+      add the outcome to the batch owed to that ingress
+      preserve code, refId, failedAtNodeId, reason, and the denominator
       replace only returnToken with breadcrumb.ingress.upstreamReturnToken
     else:
       discard as unreturnable
 ```
 
-The token lookup and exact `refId` match both precede consumption.\
+A failure echoes the end-to-end identity of the message it concerns, and that check precedes consumption.\
+A delivery carries no identity and needs none: the label is unique to one controller and consumed once, so it already names the message, and a peer able to invent a label could equally supply an identity that matched it.\
+Requiring the echo on a delivery would add roughly a quarter to the wire volume of a stream to prevent nothing.
+
 The relay envelope gets a fresh hop-local `id`.\
-Its body preserves `code`, the now validated `refId`, the original `failedAtNodeId`, and `reason`; only `returnToken` is translated to the upstream hop.\
+A relayed failure preserves `code`, the now validated `refId`, the original `failedAtNodeId`, and `reason`; only `returnToken` is translated to the upstream hop.\
 An intermediate node never replaces the reported failure with its own identity.
 
-Breadcrumbs have no success acknowledgement, so unused entries expire.\
-They are bounded by entry count and retained bytes and are discarded on node restart.\
+A breadcrumb is released by the report that returns for it, so expiry is the backstop rather than the mechanism.\
+Entries are bounded by count and retained bytes and are discarded on node restart.\
 Session teardown:
 
 - removes breadcrumbs whose ingress has become unreturnable;
 - converts breadcrumbs whose egress failed into
   `NEXT_HOP_UNAVAILABLE` where bounded control admission permits: a still-live
-  session ingress receives a fresh error envelope using the stored upstream
-  token, original message ID as `refId`, local node as `failedAtNodeId`,
-  canonical reason, and absent extensions; a local origin receives the
-  equivalent local outcome using the outbound token and no wire envelope; and
+  session ingress receives the outcome using the stored upstream token,
+  original message ID as `refId`, local node as `failedAtNodeId`, and canonical
+  reason; a local origin receives the equivalent local outcome using the
+  outbound token and no wire envelope; and
 - removes every affected breadcrumb exactly once.
 
-No error lookup uses the destination RIB.\
-This prevents a missing-route error from failing recursively on the same missing route.
+### 10.4 Batching
+
+Reports are batched per session, which is the coarsest grain available, because one session carries every flow between two adjacent nodes.
+
+A batch is sent when a debounce interval elapses or an outcome count is reached, whichever comes first.\
+Both bounds are needed.\
+The interval alone would bound acknowledgement latency only while a session is idle, and the count alone would let a trickle of traffic wait indefinitely.
+
+Deliveries are carried as inclusive ranges of labels, because labels are allocated monotonically per session and a batch of them is usually contiguous.\
+Failures are carried as individual entries, because a failure echoes an end-to-end identity and one range cannot carry many identities.
+
+Cumulative acknowledgement is unsafe here, because reports genuinely complete out of order: a failure two hops away returns sooner than a success four hops away.
+
+Label capacity must cover the offered rate multiplied by the end-to-end round trip plus the debounce interval.\
+Sizing it as though it were credit capacity would make labels the binding constraint again, because credit is released when one peer reads while a label is held for a full round trip.
+
+No disposition lookup uses the destination RIB.\
+This prevents a missing-route report from failing recursively on the same missing route, and it is also what keeps the report authorized: routing a report back rather than relaying it along the bindings the forward path left would let any node inject one at an endpoint it was never authorized to reach.
 
 ---
 

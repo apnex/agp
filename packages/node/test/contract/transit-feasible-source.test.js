@@ -51,9 +51,10 @@ test("Given asymmetric reverse selection, when inbound source is checked, then e
     ...message,
     id: "incoming-2",
   });
+  harness.flushDispositions();
   assert.equal(wrongIngress.controlWrites.length, 1);
   assert.equal(
-    JSON.parse(wrongIngress.controlWrites[0]).body.code,
+    JSON.parse(wrongIngress.controlWrites[0]).body.failed[0].code,
     "SOURCE_NOT_AUTHORIZED",
   );
 });

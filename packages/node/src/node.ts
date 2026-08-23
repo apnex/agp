@@ -1,6 +1,7 @@
 import { randomBytes, randomUUID } from "node:crypto";
 
 import {
+  AGP_V1_DELIVERY_ERROR_REASONS,
   AGP_V1_LIMITS,
   encodeAgpPacket,
   isCorrelationId,
@@ -14,7 +15,7 @@ import {
   type DeliveryErrorCode,
   type EndpointName,
   type EndpointSource,
-  type ErrorMessage,
+  type DispositionMessage,
   type JsonObject,
   type MessageId,
   type NodeId,
@@ -53,6 +54,7 @@ import {
   type RouteImportResult,
   type RoutingMutationResult,
   type SendOptions,
+  type MessageDisposition,
   type SendReceipt,
   type SessionOperationalInput,
   type ConnectionOperationalInput,
@@ -84,7 +86,12 @@ import {
 } from "./endpoint-registry.js";
 import { HandlerLedger } from "./handler-ledger.js";
 import { ReturnTokenAllocator } from "./return-token.js";
-import { ReverseErrorEngine } from "./reverse-errors.js";
+import {
+  DEFAULT_DISPOSITION_BATCH,
+  type DispositionBatchPolicy,
+  DispositionEngine,
+} from "./dispositions.js";
+import { OriginOutstanding } from "./outstanding.js";
 import { CoreDataRoutingAdapter } from "./routing-adapter.js";
 import { SerializedExecutor } from "./serialized-executor.js";
 import {
@@ -168,6 +175,8 @@ interface EffectiveConfig {
   readonly maxEventSubscribers: number;
   readonly eventSubscriberBuffer: number;
   readonly reverseCorrelationLifetimeMs: number;
+  readonly dispositionBatch: DispositionBatchPolicy;
+  readonly labelTableOnCapacity: "evict-oldest" | "refuse";
 }
 
 interface SessionEvidence {
@@ -219,7 +228,11 @@ export class NodeImpl implements AgpNode, SessionHost {
     readonly version: number;
     readonly value: readonly LocalEndpointSnapshot[];
   } | undefined;
-  readonly #reverseErrors: ReverseErrorEngine;
+  readonly #dispositions: DispositionEngine;
+  readonly #outstanding: OriginOutstanding;
+  readonly #dispositionSubscribers = new Set<
+    (disposition: MessageDisposition) => void
+  >();
   readonly #dataPlane: DataPlane;
   readonly #controllers = new Map<string, PeerController>();
   readonly #controllerByPair = new Map<string, PeerController>();
@@ -349,12 +362,27 @@ export class NodeImpl implements AgpNode, SessionHost {
     this.#breadcrumbs = new BreadcrumbStore({
       maximumEntries: this.#config.maxReverseCorrelations,
       maximumBytes: this.#config.maxReverseCorrelationBytes,
+      onCapacity: this.#config.labelTableOnCapacity,
     }, () => this.clock.monotonicMs());
-    this.#reverseErrors = new ReverseErrorEngine({
+    this.#outstanding = new OriginOutstanding({
+      // Bounded by what the label table can hold, because an entry here exists
+      // only while a binding there does, plus the settled ones an application
+      // has not yet read.
+      maximumEntries: this.#config.maxReverseCorrelations * 2,
+      monotonicNow: () => this.clock.monotonicMs(),
+      onDisposition: (disposition) => {
+        for (const subscriber of this.#dispositionSubscribers) {
+          subscriber(disposition);
+        }
+      },
+    });
+    this.#dispositions = new DispositionEngine({
       localNodeId: this.nodeId,
       breadcrumbs: this.#breadcrumbs,
+      batch: this.#config.dispositionBatch,
       monotonicNow: () => this.clock.monotonicMs(),
       nextMessageId: () => this.nextMessageId(),
+      schedule: (delayMs, callback) => this.clock.schedule(delayMs, callback),
       encode: (message) => {
         const result = encodeAgpPacket(
           message,
@@ -363,14 +391,39 @@ export class NodeImpl implements AgpNode, SessionHost {
         if (!result.ok) {
           throw new AgpError(
             "INTERNAL",
-            "reverse-error.encode",
-            "reverse error did not encode",
+            "disposition.encode",
+            "disposition did not encode",
           );
         }
         return result.bytes;
       },
-      publishLocal: (error) => {
-        this.#commitMessageOutcome("message.failed", error.refId, error.code);
+      publishLocal: (binding, outcome, destinations) => {
+        if (outcome.kind === "failed") {
+          this.#commitMessageOutcome(
+            "message.failed",
+            outcome.failure.refId,
+            outcome.failure.code,
+          );
+        }
+        // Surfaced on the SDK per message, and deliberately not as one
+        // operational event per message: that rate is what reduced a
+        // subscriber doing real work to fifteen events of twelve hundred.
+        // The operations plane carries the counter instead. See D23 and MX3.
+        this.#outstanding.settle(
+          binding.messageId,
+          outcome.kind === "failed"
+            ? Object.freeze({
+              kind: "failed",
+              code: outcome.failure.code,
+              reason: outcome.failure.reason,
+              failedAtNodeId: outcome.failure.failedAtNodeId,
+            })
+            : Object.freeze({ kind: "delivered" }),
+          destinations,
+        );
+      },
+      onWriteFailure: (controller) => {
+        (controller as PeerController).terminate("TransportFailed");
       },
     });
     this.#dataPlane = new DataPlane({
@@ -386,7 +439,7 @@ export class NodeImpl implements AgpNode, SessionHost {
       endpoints: this.#endpoints,
       handlers: this.#handlers,
       breadcrumbs: this.#breadcrumbs,
-      reverseErrors: this.#reverseErrors,
+      dispositions: this.#dispositions,
       executor: this.executor,
       nextMessageId: () => this.nextMessageId(),
       wallTime: () => this.clock.wallTime(),
@@ -557,18 +610,110 @@ export class NodeImpl implements AgpNode, SessionHost {
       throw new AgpError("ABORTED", "node.send", "send aborted");
     }
     try {
-      return await this.#dataPlane.send(
+      const receipt = await this.#dataPlane.send(
         source,
         destination,
         payload,
         options.correlationId,
       );
+      this.#outstanding.open({
+        messageId: receipt.messageId,
+        ...(receipt.correlationId === undefined
+          ? {}
+          : { correlationId: receipt.correlationId }),
+        source,
+        destination,
+      });
+      if (receipt.nextHop.kind === "local") {
+        // A message that never left the node has already reached its endpoint,
+        // and no binding exists to carry a disposition back for it. Settling it
+        // here keeps the surface uniform: a caller does not have to know
+        // whether its destination happened to be local.
+        this.#outstanding.settle(
+          receipt.messageId,
+          Object.freeze({ kind: "delivered" }),
+          1,
+        );
+      }
+      return receipt;
     } catch (error) {
       if (error instanceof DataPlaneFailure) {
         throw new AgpError(error.code, "node.send", error.message);
       }
       throw error;
     }
+  }
+
+  /**
+   * What this node knows right now about the fate of one message it sent.
+   *
+   * Undefined means the message is not tracked: either it was never sent from
+   * here, or its entry has aged out of a bounded table.
+   */
+  disposition(messageId: MessageId): MessageDisposition | undefined {
+    return this.#outstanding.get(messageId);
+  }
+
+  /**
+   * Resolve when nothing further will be learned about a message.
+   *
+   * The signal is best effort. A lost disposition leaves an application with
+   * neither outcome, so an application building reliable delivery on this
+   * still needs its own timeout. A resolved disposition whose `settled` is
+   * false is exactly that case made visible rather than left to hang.
+   */
+  async settled(messageId: MessageId): Promise<MessageDisposition | undefined> {
+    return await this.#outstanding.settled(messageId);
+  }
+
+  /**
+   * Every disposition this node learns, as it learns it.
+   *
+   * Filtered by source endpoint when one is named, which is the per-endpoint
+   * surface. This is a separate stream from the operations events on purpose:
+   * one operational event per message is what starved a subscriber doing real
+   * work, so the operations plane carries the counter and this carries the
+   * detail for a consumer that has asked for it. See D23 section 4.7.
+   */
+  dispositions(
+    options: { readonly source?: EndpointName } = {},
+  ): AsyncIterable<MessageDisposition> & { close(): void } {
+    const queue: MessageDisposition[] = [];
+    let notify: (() => void) | undefined;
+    let closed = false;
+    const listener = (disposition: MessageDisposition): void => {
+      if (options.source !== undefined && disposition.source !== options.source) {
+        return;
+      }
+      queue.push(disposition);
+      notify?.();
+    };
+    this.#dispositionSubscribers.add(listener);
+    const close = (): void => {
+      if (closed) return;
+      closed = true;
+      this.#dispositionSubscribers.delete(listener);
+      notify?.();
+    };
+    return {
+      close,
+      async *[Symbol.asyncIterator]() {
+        try {
+          while (true) {
+            while (queue.length > 0) yield queue.shift() as MessageDisposition;
+            if (closed) return;
+            await new Promise<void>((resolve) => {
+              notify = () => {
+                notify = undefined;
+                resolve();
+              };
+            });
+          }
+        } finally {
+          close();
+        }
+      },
+    };
   }
 
   nextMessageId(): MessageId {
@@ -725,6 +870,38 @@ export class NodeImpl implements AgpNode, SessionHost {
       this.#discardedMessages += BigInt(
         removed.asIngress.length + removed.asEgress.length,
       );
+      // Every binding that pointed at this peer names a message whose answer
+      // can no longer arrive, and the node still knows which ingress each came
+      // from. Saying so now spares the upstream the expiry backstop it would
+      // otherwise wait out for an answer that cannot come.
+      this.#dispositions.reportNextHopLost(
+        removed.asEgress.flatMap((binding) =>
+          binding.ingress.kind === "session"
+            ? [{
+              messageId: binding.messageId,
+              ingress: binding.ingress.controller,
+              upstreamReturnToken: binding.ingress.upstreamReturnToken,
+            }]
+            : []
+        ),
+      );
+      // The same fact, for the messages this node originated itself: their
+      // answer cannot arrive either, and here the application is the upstream.
+      for (const binding of removed.asEgress) {
+        if (binding.ingress.kind !== "local") continue;
+        this.#outstanding.settle(
+          binding.messageId,
+          Object.freeze({
+            kind: "failed",
+            code: "NEXT_HOP_UNAVAILABLE",
+            reason: AGP_V1_DELIVERY_ERROR_REASONS.NEXT_HOP_UNAVAILABLE,
+            failedAtNodeId: this.nodeId,
+          }),
+          1,
+        );
+      }
+      // Nothing pending for this peer can be written to it any more.
+      this.#dispositions.forgetController(controller);
       const mutation = this.#routing.removeSession(controller.controllerId);
       if (mutation !== undefined) this.#applyRoutingMutation(mutation);
       const closedReason = controller.state.lastReason ?? "TransportFailed";
@@ -821,10 +998,13 @@ export class NodeImpl implements AgpNode, SessionHost {
     void this.#dispatchInbound(controller, this.admitData(controller, message));
   }
 
-  dispatchError(controller: PeerController, message: ErrorMessage): void {
+  dispatchDisposition(
+    controller: PeerController,
+    message: DispositionMessage,
+  ): void {
     void this.#dispatchInbound(
       controller,
-      this.receiveDeliveryError(controller, message),
+      this.receiveDisposition(controller, message),
     );
   }
 
@@ -902,12 +1082,14 @@ export class NodeImpl implements AgpNode, SessionHost {
     });
   }
 
-  /** Registry-owned returned-error handling; it has no destination RIB input. */
-  async receiveDeliveryError(
+  /** Registry-owned disposition handling; it has no destination RIB input. */
+  async receiveDisposition(
     egress: PeerController,
-    message: ErrorMessage,
+    message: DispositionMessage,
   ): Promise<void> {
-    await this.#reverseErrors.receive(egress, message);
+    await this.executor.run(() => {
+      this.#dispositions.receive(egress, message);
+    });
     this.#commitReverseOnly();
   }
 
@@ -1097,6 +1279,10 @@ export class NodeImpl implements AgpNode, SessionHost {
     return this.executor.run(() => {
       this.#hostState = "Stopped";
       this.#breadcrumbs.clear();
+      // Anyone waiting on a message learns that the node stopped, rather than
+      // holding a promise that can no longer be answered.
+      this.#dispositions.flushAll();
+      this.#outstanding.clear();
       const stoppedAt = this.clock.wallTime();
       const snapshot = this.#operations.commit({
         lifecycle: {
@@ -1859,6 +2045,25 @@ function resolveConfig(config: NodeConfig): EffectiveConfig {
       30_000,
       config.timers?.holdTimeMs ?? 30_000,
     ),
+    dispositionBatch: Object.freeze({
+      debounceMs: ranged(
+        config.disposition?.debounceMs ?? DEFAULT_DISPOSITION_BATCH.debounceMs,
+        0,
+        60_000,
+        "disposition.debounceMs",
+      ),
+      maximumOutcomes: positive(
+        config.disposition?.maximumOutcomes
+          ?? DEFAULT_DISPOSITION_BATCH.maximumOutcomes,
+        "disposition.maximumOutcomes",
+      ),
+      maximumInboundOutcomes: positive(
+        config.disposition?.maximumInboundOutcomes
+          ?? DEFAULT_DISPOSITION_BATCH.maximumInboundOutcomes,
+        "disposition.maximumInboundOutcomes",
+      ),
+    }),
+    labelTableOnCapacity: config.disposition?.onCapacity ?? "evict-oldest",
   });
 }
 

@@ -168,7 +168,23 @@
       "path": "wire/delivery-error-body.schema.json",
       "kind": "wire-body",
       "typescript": "DeliveryErrorBody",
-      "sha256": "dba00c012144b0ff79790b9257650fe6e2e421d1fb8bc469e0250cc7e9b46aa0"
+      "sha256": "9f7dfc2a9a4fab16c8c2b0ee45db67ad6cea1e72b19dcaa2d805ce176eb4b19f"
+    },
+    {
+      "id": "urn:agp:schema:v1:protocol:wire:disposition-body",
+      "owner": "@agp/protocol",
+      "path": "wire/disposition-body.schema.json",
+      "kind": "wire-body",
+      "typescript": "DispositionBody",
+      "sha256": "dd17f8b3c70234d62a18844c9254db5fd6edd2dafa19641831c6dfe14dafa0a5"
+    },
+    {
+      "id": "urn:agp:schema:v1:protocol:wire:disposition-message",
+      "owner": "@agp/protocol",
+      "path": "wire/disposition-message.schema.json",
+      "kind": "wire-message",
+      "typescript": "DispositionMessage",
+      "sha256": "022efd35ead47b129ee57850292987b9f6b637c8f6e94669e0a3e7251d5139f9"
     },
     {
       "id": "urn:agp:schema:v1:protocol:wire:envelope",
@@ -176,15 +192,7 @@
       "path": "wire/envelope.schema.json",
       "kind": "wire-envelope",
       "typescript": "AgpEnvelope",
-      "sha256": "844486057a244aea4db5ef6daa034a78497bc809402b01aaf3bc101c9cc518b7"
-    },
-    {
-      "id": "urn:agp:schema:v1:protocol:wire:error-message",
-      "owner": "@agp/protocol",
-      "path": "wire/error-message.schema.json",
-      "kind": "wire-message",
-      "typescript": "ErrorMessage",
-      "sha256": "cc8805c5ccfb6472c87f179aaea831ac192269284beb019aab2878e9eceff045"
+      "sha256": "7115aae39472e1d0713ee33b046de406a4f725e835a0e952026595d76715d333"
     },
     {
       "id": "urn:agp:schema:v1:protocol:wire:keepalive-body",
@@ -203,12 +211,20 @@
       "sha256": "092b578ed83cd916fbc221ac15f95f21ca371db242c5fe519ad6afad782d43cb"
     },
     {
+      "id": "urn:agp:schema:v1:protocol:wire:label-range",
+      "owner": "@agp/protocol",
+      "path": "wire/label-range.schema.json",
+      "kind": "wire-body",
+      "typescript": "LabelRange",
+      "sha256": "993929db81c301af58f3e92e64e4cb0d42fbab0f256b6346daa912744c1beb09"
+    },
+    {
       "id": "urn:agp:schema:v1:protocol:wire:message",
       "owner": "@agp/protocol",
       "path": "wire/message.schema.json",
       "kind": "wire-union",
       "typescript": "AgpMessage",
-      "sha256": "9e48c48624a16e1f042ef0702feb12f6d5e03e4fd825deeb76e2b7d3f56c8f80"
+      "sha256": "c8422a9292792d2834c08cfa1b613cbf7e7d62e0ea8777b2ba83d81130014aa3"
     },
     {
       "id": "urn:agp:schema:v1:protocol:wire:notification-body",

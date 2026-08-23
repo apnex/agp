@@ -1,0 +1,38 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:agp:schema:v1:protocol:wire:disposition-body",
+  "title": "DispositionBody",
+  "description": "Batched fate of messages forwarded on one session.",
+  "x-agp": {
+    "owner": "@agp/protocol",
+    "typescript": "DispositionBody",
+    "kind": "wire-body",
+    "mechanics": "Batched fate of messages forwarded on one session.",
+    "rationale": "A sovereign contract gives validators and consumers one stable reasoning boundary.",
+    "consequence": "Accepting another shape would make peer interpretation or ownership ambiguous.",
+    "semanticRules": []
+  },
+  "type": "object",
+  "required": [],
+  "properties": {
+    "delivered": {
+      "type": "array",
+      "maxItems": 1024,
+      "items": {
+        "$ref": "urn:agp:schema:v1:protocol:wire:label-range",
+        "description": "Run of labels that reached their endpoint."
+      },
+      "description": "Labels whose messages were delivered, compressed to runs."
+    },
+    "failed": {
+      "type": "array",
+      "maxItems": 1024,
+      "items": {
+        "$ref": "urn:agp:schema:v1:protocol:wire:delivery-error-body",
+        "description": "One label that did not deliver, with the identity it concerns."
+      },
+      "description": "Labels whose messages failed, each carrying its own detail."
+    }
+  },
+  "additionalProperties": false
+}

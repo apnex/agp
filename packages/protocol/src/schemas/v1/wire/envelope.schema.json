@@ -39,7 +39,7 @@
         "route.update",
         "route.ack",
         "notification",
-        "error",
+        "disposition",
         "message"
       ],
       "description": "Closed v1 message discriminator."

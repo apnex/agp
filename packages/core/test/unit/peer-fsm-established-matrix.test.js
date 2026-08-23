@@ -7,7 +7,7 @@ test("given an Established controller, when v1 wire families arrive, then the sy
   for (const type of [
     "KeepaliveReceived",
     "DataReceived",
-    "ErrorReceived",
+    "DispositionReceived",
     "NotificationReceived",
   ]) {
     const machine = establishedMachine();

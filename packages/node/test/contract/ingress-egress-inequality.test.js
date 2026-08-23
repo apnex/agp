@@ -24,8 +24,9 @@ test("Given a FIB that points back to exact ingress, when transit is admitted, t
 
   await harness.plane.receive(ingress, message);
   assert.equal(ingress.dataWrites.length, 0);
+  harness.flushDispositions();
   assert.equal(
-    JSON.parse(ingress.controlWrites[0]).body.code,
+    JSON.parse(ingress.controlWrites[0]).body.failed[0].code,
     "NEXT_HOP_UNAVAILABLE",
   );
 });

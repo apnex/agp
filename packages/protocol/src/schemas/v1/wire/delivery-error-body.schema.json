@@ -30,6 +30,12 @@
           "const": "NO_ROUTE",
           "description": "Exact delivery failure code."
         },
+        "destinations": {
+          "type": "integer",
+          "minimum": 2,
+          "maximum": 1024,
+          "description": "Destinations this label was divided into, stamped by the enumerating hop. Absent means one."
+        },
         "refId": {
           "$ref": "urn:agp:schema:v1:protocol:common:message-id",
           "description": "End-to-end message ID of the failing data envelope."
@@ -63,6 +69,12 @@
         "code": {
           "const": "HOP_LIMIT_EXCEEDED",
           "description": "Exact delivery failure code."
+        },
+        "destinations": {
+          "type": "integer",
+          "minimum": 2,
+          "maximum": 1024,
+          "description": "Destinations this label was divided into, stamped by the enumerating hop. Absent means one."
         },
         "refId": {
           "$ref": "urn:agp:schema:v1:protocol:common:message-id",
@@ -98,6 +110,12 @@
           "const": "SOURCE_NOT_AUTHORIZED",
           "description": "Exact delivery failure code."
         },
+        "destinations": {
+          "type": "integer",
+          "minimum": 2,
+          "maximum": 1024,
+          "description": "Destinations this label was divided into, stamped by the enumerating hop. Absent means one."
+        },
         "refId": {
           "$ref": "urn:agp:schema:v1:protocol:common:message-id",
           "description": "End-to-end message ID of the failing data envelope."
@@ -131,6 +149,12 @@
         "code": {
           "const": "SOURCE_NOT_ADVERTISED",
           "description": "Exact delivery failure code."
+        },
+        "destinations": {
+          "type": "integer",
+          "minimum": 2,
+          "maximum": 1024,
+          "description": "Destinations this label was divided into, stamped by the enumerating hop. Absent means one."
         },
         "refId": {
           "$ref": "urn:agp:schema:v1:protocol:common:message-id",
@@ -166,6 +190,12 @@
           "const": "TRANSIT_DISABLED",
           "description": "Exact delivery failure code."
         },
+        "destinations": {
+          "type": "integer",
+          "minimum": 2,
+          "maximum": 1024,
+          "description": "Destinations this label was divided into, stamped by the enumerating hop. Absent means one."
+        },
         "refId": {
           "$ref": "urn:agp:schema:v1:protocol:common:message-id",
           "description": "End-to-end message ID of the failing data envelope."
@@ -199,6 +229,12 @@
         "code": {
           "const": "NEXT_HOP_UNAVAILABLE",
           "description": "Exact delivery failure code."
+        },
+        "destinations": {
+          "type": "integer",
+          "minimum": 2,
+          "maximum": 1024,
+          "description": "Destinations this label was divided into, stamped by the enumerating hop. Absent means one."
         },
         "refId": {
           "$ref": "urn:agp:schema:v1:protocol:common:message-id",
@@ -234,6 +270,12 @@
           "const": "MESSAGE_TOO_LARGE",
           "description": "Exact delivery failure code."
         },
+        "destinations": {
+          "type": "integer",
+          "minimum": 2,
+          "maximum": 1024,
+          "description": "Destinations this label was divided into, stamped by the enumerating hop. Absent means one."
+        },
         "refId": {
           "$ref": "urn:agp:schema:v1:protocol:common:message-id",
           "description": "End-to-end message ID of the failing data envelope."
@@ -267,6 +309,12 @@
         "code": {
           "const": "QUEUE_FULL",
           "description": "Exact delivery failure code."
+        },
+        "destinations": {
+          "type": "integer",
+          "minimum": 2,
+          "maximum": 1024,
+          "description": "Destinations this label was divided into, stamped by the enumerating hop. Absent means one."
         },
         "refId": {
           "$ref": "urn:agp:schema:v1:protocol:common:message-id",

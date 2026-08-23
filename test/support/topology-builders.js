@@ -53,6 +53,7 @@ export async function buildChain({
   deliveries = [],
   context,
   capacity = {},
+  disposition,
 }) {
   if (length < 2) throw new Error("a chain needs at least two nodes");
   const nodes = [];
@@ -96,6 +97,7 @@ export async function buildChain({
       }],
       transit: true,
       ...limits,
+      ...(disposition === undefined ? {} : { disposition }),
     });
     nodes.push(node);
     context?.after(() => node.stop().catch(() => undefined));

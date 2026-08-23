@@ -124,7 +124,7 @@
     {
       "id": "urn:agp:schema:v1:core:codes:session-event-code",
       "path": "packages/core/src/schemas/v1/codes/session-event-code.schema.json",
-      "sha256": "3bfd8f172bbef846aedef29cef9eb421bcb49001e569f80dcdd2606d83f333c7"
+      "sha256": "c3a0252aabc8831f8ebb5f5ec261080f59d6cb331c897be5c906b68dc680c2ce"
     },
     {
       "id": "urn:agp:schema:v1:core:codes:session-reason-code",
@@ -192,6 +192,11 @@
       "sha256": "f03b211e937bc6ac1133f4ab78bd54439048bd5f906f6aea3f16e5d969378cee"
     },
     {
+      "id": "urn:agp:schema:v1:core:configuration:disposition",
+      "path": "packages/core/src/schemas/v1/configuration/disposition.schema.json",
+      "sha256": "b75711e694341477dbe4fe0d6fbf6339aa1e53406eefdd4dbd60d3932fe85b98"
+    },
+    {
       "id": "urn:agp:schema:v1:core:configuration:identity-admission-policy",
       "path": "packages/core/src/schemas/v1/configuration/identity-admission-policy.schema.json",
       "sha256": "4a3e530a96c33a614376db0ef71734d2e5822d54067675bafb80792bc2b52463"
@@ -209,7 +214,7 @@
     {
       "id": "urn:agp:schema:v1:core:configuration:node-config",
       "path": "packages/core/src/schemas/v1/configuration/node-config.schema.json",
-      "sha256": "7a767ffafac2e35cf90a40234f25d77928cbccdce66c5bafcdb8377b4578c9d9"
+      "sha256": "4284ad76a336a28e0caf4e3751f7948dae16acfd7250c753f0dccdba7474c5c9"
     },
     {
       "id": "urn:agp:schema:v1:core:configuration:peer-config",
@@ -894,17 +899,22 @@
     {
       "id": "urn:agp:schema:v1:protocol:wire:delivery-error-body",
       "path": "packages/protocol/src/schemas/v1/wire/delivery-error-body.schema.json",
-      "sha256": "dba00c012144b0ff79790b9257650fe6e2e421d1fb8bc469e0250cc7e9b46aa0"
+      "sha256": "9f7dfc2a9a4fab16c8c2b0ee45db67ad6cea1e72b19dcaa2d805ce176eb4b19f"
+    },
+    {
+      "id": "urn:agp:schema:v1:protocol:wire:disposition-body",
+      "path": "packages/protocol/src/schemas/v1/wire/disposition-body.schema.json",
+      "sha256": "dd17f8b3c70234d62a18844c9254db5fd6edd2dafa19641831c6dfe14dafa0a5"
+    },
+    {
+      "id": "urn:agp:schema:v1:protocol:wire:disposition-message",
+      "path": "packages/protocol/src/schemas/v1/wire/disposition-message.schema.json",
+      "sha256": "022efd35ead47b129ee57850292987b9f6b637c8f6e94669e0a3e7251d5139f9"
     },
     {
       "id": "urn:agp:schema:v1:protocol:wire:envelope",
       "path": "packages/protocol/src/schemas/v1/wire/envelope.schema.json",
-      "sha256": "844486057a244aea4db5ef6daa034a78497bc809402b01aaf3bc101c9cc518b7"
-    },
-    {
-      "id": "urn:agp:schema:v1:protocol:wire:error-message",
-      "path": "packages/protocol/src/schemas/v1/wire/error-message.schema.json",
-      "sha256": "cc8805c5ccfb6472c87f179aaea831ac192269284beb019aab2878e9eceff045"
+      "sha256": "7115aae39472e1d0713ee33b046de406a4f725e835a0e952026595d76715d333"
     },
     {
       "id": "urn:agp:schema:v1:protocol:wire:keepalive-body",
@@ -917,9 +927,14 @@
       "sha256": "092b578ed83cd916fbc221ac15f95f21ca371db242c5fe519ad6afad782d43cb"
     },
     {
+      "id": "urn:agp:schema:v1:protocol:wire:label-range",
+      "path": "packages/protocol/src/schemas/v1/wire/label-range.schema.json",
+      "sha256": "993929db81c301af58f3e92e64e4cb0d42fbab0f256b6346daa912744c1beb09"
+    },
+    {
       "id": "urn:agp:schema:v1:protocol:wire:message",
       "path": "packages/protocol/src/schemas/v1/wire/message.schema.json",
-      "sha256": "9e48c48624a16e1f042ef0702feb12f6d5e03e4fd825deeb76e2b7d3f56c8f80"
+      "sha256": "c8422a9292792d2834c08cfa1b613cbf7e7d62e0ea8777b2ba83d81130014aa3"
     },
     {
       "id": "urn:agp:schema:v1:protocol:wire:notification-body",

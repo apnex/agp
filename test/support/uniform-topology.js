@@ -37,6 +37,7 @@ export function uniformConfig({
   maxReverseCorrelations = 1024,
   transportReceivePackets,
   eventSubscriberBuffer = 256,
+  disposition,
 }) {
   return {
     nodeId,
@@ -71,6 +72,7 @@ export function uniformConfig({
       maxEventSubscribers: 16,
       eventSubscriberBuffer,
     },
+    ...(disposition === undefined ? {} : { disposition }),
   };
 }
 

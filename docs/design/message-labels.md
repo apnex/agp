@@ -1,7 +1,7 @@
 # Message labels and delivery disposition
 
-> **Status:** Ratified as `D23`, not yet built. The per-flow design is recorded for comparison and is not built.\
-> The per-message design is the target state. The per-flow design is recorded for comparison and is not built.
+> **Status:** Ratified as `D23` and built.\
+> The per-message design is the state of the system. The per-flow design is recorded for comparison and is not built.
 
 ## 1. Purpose
 
@@ -46,7 +46,7 @@ A node is throughput-capped by records it keeps exclusively for failures that di
 
 ## 4. Design A - per-message labels with completion disposition
 
-This is the target state.
+This is what is built.
 
 ### 4.1 Label lifetime
 
@@ -79,10 +79,16 @@ Dispositions are batched per session, which is the coarsest grain available, bec
 
 A batch is emitted when a debounce interval elapses or a message count is reached, whichever comes first, so acknowledgement latency stays bounded under load rather than only under idleness.
 
-A batch expresses its contents as ranges of labels carrying an outcome code, rather than as a cumulative high-water mark or a flat list.\
-Cumulative is unsafe because dispositions genuinely complete out of order: a failure two hops away returns sooner than a success four hops away, and the existing failure path consumes labels out of band.\
-A flat list wastes the structure, because labels are allocated monotonically per session and a batch is usually contiguous.\
-Ranges are exact when the batch is scattered, compact when it is not, and carry the outcome per range, which is what a single unified message shape needs anyway.
+A batch carries deliveries as ranges of labels and failures as individual entries.
+
+Cumulative acknowledgement is unsafe because dispositions genuinely complete out of order: a failure two hops away returns sooner than a success four hops away, and the existing failure path consumes labels beside them.\
+Ranges suit deliveries because labels are allocated monotonically per session, so a batch of them is usually contiguous.
+
+Failures do not compress, and the reason is worth stating because it was discovered by building rather than by designing.\
+A failure echoes the end-to-end identity of the message it concerns, a range spans labels belonging to many messages, and one range cannot carry many identities.\
+Abandoning ranges entirely was the first answer and costs roughly a quarter of the wire volume of a stream, which is not a rounding error on a control message.\
+The identity is not needed on a delivery: a label is unique to one controller and consumed once, so it already names the message exactly, and a peer able to invent a label could equally supply a matching identity.\
+It is needed on a failure, where the check already exists, is already fatal, and catches a peer that is inconsistent about which message it is answering.
 
 ### 4.4 Capacity, and the second window
 

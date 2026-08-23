@@ -1,13 +1,13 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "urn:agp:schema:v1:protocol:wire:error-message",
-  "title": "ErrorMessage",
-  "description": "error control-plane AGP v1 envelope.",
+  "$id": "urn:agp:schema:v1:protocol:wire:disposition-message",
+  "title": "DispositionMessage",
+  "description": "disposition control-plane AGP v1 envelope.",
   "x-agp": {
     "owner": "@agp/protocol",
-    "typescript": "ErrorMessage",
+    "typescript": "DispositionMessage",
     "kind": "wire-message",
-    "mechanics": "error control-plane AGP v1 envelope.",
+    "mechanics": "disposition control-plane AGP v1 envelope.",
     "rationale": "A sovereign contract gives validators and consumers one stable reasoning boundary.",
     "consequence": "Accepting another shape would make peer interpretation or ownership ambiguous.",
     "semanticRules": [
@@ -31,7 +31,7 @@
           "description": "Exact message plane."
         },
         "type": {
-          "const": "error",
+          "const": "disposition",
           "description": "Exact message discriminator."
         },
         "id": {
@@ -39,7 +39,7 @@
           "description": "Envelope message identity."
         },
         "body": {
-          "$ref": "urn:agp:schema:v1:protocol:wire:delivery-error-body",
+          "$ref": "urn:agp:schema:v1:protocol:wire:disposition-body",
           "description": "Sovereign type-specific message body."
         },
         "extensions": {

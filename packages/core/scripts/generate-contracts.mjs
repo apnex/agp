@@ -153,7 +153,7 @@ const codeSets = {
     "StartDial", "StartAccept", "Stop", "TransportOpened",
     "TransportAccepted", "TransportFailed", "TransportClosed",
     "TransportInputRejected", "OpenReceived", "KeepaliveReceived",
-    "RouteUpdateReceived", "RouteAckReceived", "DataReceived", "ErrorReceived",
+    "RouteUpdateReceived", "RouteAckReceived", "DataReceived", "DispositionReceived",
     "NotificationReceived", "InvalidMessage", "UnexpectedMessage",
     "IdentityAdmissionResolved", "RouteAdmissionResolved", "AdmissionExpired",
     "AdmissionFaulted", "LocalRoutesChanged", "RouteUpdateWritten",
@@ -238,6 +238,12 @@ add("configuration", "capacity", closed(Object.fromEntries([
   "maxActiveHandlerBytes", "maxReverseCorrelations", "maxEventSubscribers",
   "eventSubscriberBuffer", "transportReceivePackets", "transportReceiveBytes",
 ].map((name) => [name, integer({ minimum: 1, maximum: 9007199254740991 })])), []));
+add("configuration", "disposition", closed({
+  debounceMs: integer({ minimum: 0, maximum: 60000 }),
+  maximumOutcomes: integer({ minimum: 1, maximum: 9007199254740991 }),
+  maximumInboundOutcomes: integer({ minimum: 1, maximum: 9007199254740991 }),
+  onCapacity: { type: "string", enum: ["evict-oldest", "refuse"] },
+}, []));
 add("configuration", "node-config", closed({
   nodeId: ref(protocol("common", "node-id")),
   listen: ref(core("configuration", "listener-config")),
@@ -251,6 +257,7 @@ add("configuration", "node-config", closed({
   timers: ref(core("configuration", "timers")),
   limits: ref(core("configuration", "limits")),
   capacity: ref(core("configuration", "capacity")),
+  disposition: ref(core("configuration", "disposition")),
   identityAdmission: ref(core("configuration", "identity-admission-policy")),
   routeAdmission: ref(core("configuration", "route-admission-policy")),
 }, ["nodeId"], semantic(

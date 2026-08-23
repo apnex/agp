@@ -127,7 +127,7 @@ Global FSM invariants:
 | `RouteUpdateReceived` | protocol | Schema-valid authoritative route snapshot |
 | `RouteAckReceived` | protocol | Schema-valid route acknowledgement |
 | `DataReceived` | protocol | Schema-valid routed JSON message |
-| `ErrorReceived` | protocol | Schema-valid correlated nonfatal error |
+| `DispositionReceived` | protocol | Schema-valid batch of correlated terminal outcomes |
 | `NotificationReceived` | protocol | Schema-valid fatal notification |
 | `InvalidMessage` | protocol | Invalid UTF-8, JSON, schema, semantics, or duplicate member in an accepted packet |
 | `UnexpectedMessage` | dispatcher | Valid known message in an illegal state |
@@ -272,8 +272,9 @@ Sending the local KEEPALIVE is insufficient; only receiving the peer's confirmat
 | `DataReceived` / admissible transit | resolve selected route; reserve egress; record reverse breadcrumb; commit; enqueue one decremented packet | `Established` |
 | `DataReceived` / source fails feasible-path authorization | enqueue no onward data; send correlated `SOURCE_NOT_AUTHORIZED` directly to ingress | `Established` |
 | `DataReceived` / source authorized but route/transit/hop/egress/size/export/token/capacity guard fails | enqueue no onward data; send the one precedence-selected correlated error directly to ingress | `Established` |
-| `ErrorReceived` / exact current breadcrumb from recorded egress | consume breadcrumb exactly once; resolve locally or relay to recorded ingress | `Established` |
-| `ErrorReceived` / unknown, stale, or wrong egress | publish uncorrelated diagnostic; do not reply | `Established` |
+| `DispositionReceived` / batch within the inbound outcome bound | settle each outcome against its own binding, releasing at zero owed; resolve locally or relay to recorded ingress | `Established` |
+| `DispositionReceived` / unknown, stale, or wrong egress | publish uncorrelated diagnostic; do not reply | `Established` |
+| `DispositionReceived` / batch naming more outcomes than the inbound bound allows | apply none of it; terminate `INVALID_MESSAGE` | `Idle` |
 | `LocalRoutesChanged` | recompute desired per-peer snapshots; admit update or coalesce successor | `Established` |
 | `RouteUpdateWritten` / exact outstanding | switch finite write timer to ACK timer | `Established` |
 | `KeepaliveExpired` | send KEEPALIVE | `Established` |
