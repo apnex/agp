@@ -118,7 +118,7 @@ It also puts the work where the fan-out is, so a leaf sending into a star carrie
 The second is more current, because the origin's view of who serves an endpoint may be stale.\
 The first is exact, because the origin said who it meant.
 
-### 5.3 The open question in the discovered variant
+### 5.3 The question in the discovered variant, since answered
 
 An origin that did not enumerate does not know how many destinations to expect, so it can count what arrives and never know it is finished.
 
@@ -126,8 +126,13 @@ Asking the local node for the group is not an answer.\
 That returns the origin's own view, which is the view that was avoided by not enumerating, and completeness resting on it would hold until the two views differed.
 
 The available answer is for the dividing hop to report its fan-out upstream, so the origin learns the number without having chosen it.\
-That is a progress report rather than an outcome, and it is the first thing in this design that describes the journey instead of the destination.\
-Whether the disposition vocabulary should carry such a thing is open, and it should be decided deliberately rather than added as another code.
+That is a progress report rather than an outcome, and it was the first thing in this design to describe the journey instead of the destination.
+
+This was recorded here as open, and `D23` has since decided it deliberately, which is what it asked for.\
+The denominator is a field on an outcome rather than a code of its own, so the disposition vocabulary still holds one kind of thing and a report arriving still means something settled.\
+It is stamped by the hop that enumerated, because no hop below the division knows the total; it rides every disposition rather than the first, so losing one report costs an outcome and not the denominator; and it is absent when the number is one, which the schema enforces by refusing to let one be spelled.
+
+It is built, so replication would inherit it rather than needing it: see the `destinations` field on a label range and on a failure entry, and `destinationsOf`, which is the single site that reads an absence back as one.
 
 ### 5.4 The alternative that carries nothing, which is strict RPF
 
