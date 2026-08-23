@@ -62,7 +62,9 @@ An item that is `I4`/`P1` belongs early even though nobody feels it today, becau
 | `B14` | Name a reproduction for the route-ack expiry a stream provokes | `I2` | `P2` | [`MX2`](VERIFICATION.md#46-open-findings-from-sweeps) | landed |
 | `B16` | Project credit and timing into the operations plane | `I2` | `P1` | [`D20`](DECISIONS.md#d20---observability-of-bounded-resources-and-timing) | landed |
 | `B17` | Derive the trace graph identifier set instead of hardcoding it | `I3` | `P1` | [`GATES.md` section 2](GATES.md#2-gate-ax0---intent-applicability-and-knowledge) | landed |
-| `B18` | Explain the residual event-loop stalls under a stream | `I2` | `P3` | [`MX3`](VERIFICATION.md#46-open-findings-from-sweeps) | open |
+| `B18` | Explain the residual event-loop stalls under a stream | `I2` | `P3` | [`MX3`](VERIFICATION.md#46-open-findings-from-sweeps) | open, re-scoped |
+| `B29` | Move per-message events off the operations stream | `I2` | `P3` | [`D24`](DECISIONS.md#d24---the-operations-stream-is-a-channel-not-a-ledger), [`MX3`](VERIFICATION.md#46-open-findings-from-sweeps) | open |
+| `B30` | Stop traffic-rated session values advancing the canonical revision | `I3` | `P2` | [`D25`](DECISIONS.md#d25---a-revision-denotes-a-change-to-canonical-state), [`D10`](DECISIONS.md#d10---atomic-canonical-state) | landed |
 | `B19` | Take the per-hop cost against the carrier, opportunistically | `I4` | `P4` | [`MX4`](VERIFICATION.md#46-open-findings-from-sweeps) | open |
 | `B15` | Give a deployment the switch `D19` says it has, and credit control alongside data | `I3` | `P2` | [`D19`](DECISIONS.md#d19---per-hop-credit-flow-control) | open |
 | `B2` | Reconcile the pause wording in `binding-websocket.md` with the code | `I4` | `P2` | [`MX1`](VERIFICATION.md#46-open-findings-from-sweeps) | landed |
@@ -105,13 +107,15 @@ Where the two disagree it is because of dependency, never because a severity was
 | 3 | `B22` | Yes | Cheap, and wants a quiet machine rather than a queue position |
 | 4 | `B27` | Blocked | Waiting on the `Q1(b)` question below |
 | 5 | `B15` | Blocked | Waiting on the credit switch question below |
-| 6 | `B18` | Blocked | Waiting on the two event-stream questions below. Advanced to diminishing returns, and the remaining cost is distributed rather than concentrated, so what to spend next depends on what the stream is for |
-| 7 | `B12`, `B10`, `B3`, `B13` | Yes | Record work, none of it blocking |
-| 8 | `B19`, `B4` | Yes | Taken when a way is found, not scheduled |
+| 6 | `B30` | Landed | Ruled as `D25` and built. 9.17 revisions per delivered message down to 5.29. The first rule tried excluded only the hold timer and bought 11%, because the timer was one of four traffic-rated values and the smallest |
+| 7 | `B29` | Yes | Ruled as `D24`. The larger of the two and the one that removes the starvation |
+| 8 | `B18` | Re-scoped | What remains after `B29` and `B30` is the distributed cost, which is `MX4`'s character rather than a defect |
+| 9 | `B12`, `B10`, `B3`, `B13` | Yes | Record work, none of it blocking |
+| 10 | `B19`, `B4` | Yes | Taken when a way is found, not scheduled |
 
-Two things are unblocked and independent of everything above: `B22` and the record work.\
-`B18` is the highest-severity open item and cannot start, because both of its remaining questions are decisions rather than measurements.\
-Nothing in this order is waiting on `B28`; the two items that once did have landed.
+Both of `B18`'s remaining questions were decisions rather than measurements, and both are now ruled, as `D24` and `D25`.\
+What they leave is two buildable items and a residue: `B29` removes the starvation, `B30` removes 45% of the revisions, and what is left of `B18` after them is distributed cost with no next single fix.\
+`B22` and the record work remain independent of all of it.
 
 ---
 
@@ -214,8 +218,6 @@ Scored on the same scale, so not choosing them is visible.
 | Question | Blocks |
 |---|---|
 | Whether a data path may be gated by the candidate routing table rather than only by the selected one | `B27`. Confirmed intent `Q1(b)` says every data path is gated by the local selected routing table. Naming a destination instance gates on the candidate table instead, which already retains the alternatives and their origins. `D6` still selects and still governs what is advertised, and the selected route remains what an unqualified message follows. It is a small change of wording and a real change of gate, and confirmed intent is not a design decision |
-| Whether the operational event stream is a record of everything a node did, or a channel for what an operator must act on | `B18`. `D22` removed the one event that was not earned, leaving three per delivered message that are. Whether those three belong in the same stream as lifecycle events decides whether the answer is a lower rate, a separate high-volume path, or an explicit consumer contract. Raising the buffer is not among them: that is the `MX1` shape, where enlarging a bound moves the cliff |
-| Whether six operations commits per delivered message is the intended cost of the event model, or an artifact | `B18`. Three are the delivery events themselves and read as inherent. One is a session transition published for a state that did not change, one is a timer reset, and one re-commits a reverse set that a local delivery never altered. Reducing them is a change to what a canonical revision means, which is not an optimisation decision |
 | Whether a node should be able to decline to grant at all, and what a deployment that does so is choosing | `B15`. The wire field is optional and an absent grant is unlimited, so a peer that never negotiated credit is unaffected. What is not built is the switch `D19` says a deployment has, and the default was set to grant because leaving `RECEIVE_OVERFLOW` reachable is the fault `D19` exists to remove |
 | Whether a matrix sweep should run on a schedule, and if so at what depth | `B4`, and whether cost data is worth collecting at all |
 

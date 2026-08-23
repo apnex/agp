@@ -1220,6 +1220,48 @@
       "integrationWitnesses": [
         "test/resilience/hop-exhaustion.test.js"
       ]
+    },
+    {
+      "requirementId": "D24",
+      "ratificationStatus": "ratified",
+      "implementation": "planned",
+      "authorities": [
+        {
+          "kind": "decision",
+          "reference": "D24",
+          "ratification": "ratified"
+        }
+      ],
+      "designReferences": [
+        "../DECISIONS.md#d24---the-operations-stream-is-a-channel-not-a-ledger"
+      ],
+      "schemaIds": [],
+      "semanticRuleIds": [],
+      "owningGate": "AX5",
+      "owningTests": [],
+      "integrationWitnesses": []
+    },
+    {
+      "requirementId": "D25",
+      "ratificationStatus": "ratified",
+      "implementation": "built",
+      "authorities": [
+        {
+          "kind": "decision",
+          "reference": "D25",
+          "ratification": "ratified"
+        }
+      ],
+      "designReferences": [
+        "../DECISIONS.md#d25---a-revision-denotes-a-change-to-canonical-state"
+      ],
+      "schemaIds": [],
+      "semanticRuleIds": [],
+      "owningGate": "AX5",
+      "owningTests": [
+        "packages/core/test/unit/revision-change-signal.test.js"
+      ],
+      "integrationWitnesses": []
     }
   ]
 }

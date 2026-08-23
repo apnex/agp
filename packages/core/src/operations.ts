@@ -292,9 +292,25 @@ export class OperationsStore implements OperationsReader {
         }
         replacement.set(record.controllerId, immutableClone(record.snapshot));
       }
+      // Several values inside a session record move once per message: the
+      // hold timer, the token allocator's count, the timestamp on a recorded
+      // self-transition, and the credit counters. Writing them keeps every one
+      // readable; letting them advance the revision would make the revision
+      // advance at traffic rate, and a signal that changes on every message is
+      // not a change signal.
+      //
+      // The decision is taken here rather than declared by the caller so that
+      // it cannot be got wrong: anything that is not a timer still writes. A
+      // missed change cannot be recovered by re-reading, so the comparison
+      // fails towards signalling. Connections are bounded by `maxSessions`, so
+      // this cost is bounded by configuration and not by traffic. See `D25`.
+      const trafficOnly = connectionsDifferOnlyByTrafficRatedValues(
+        this.#connections,
+        replacement,
+      );
       this.#connections.clear();
       for (const [id, value] of replacement) this.#connections.set(id, value);
-      wrote = true;
+      if (!trafficOnly) wrote = true;
     }
     if (change.routing !== undefined) {
       this.#advertisementsData = immutableClone(
@@ -771,6 +787,119 @@ function compareCandidateRows(
   return compareUtf8(left.endpoint, right.endpoint)
     || compareCandidates(left, right)
     || compareUtf8(left.routeId, right.routeId);
+}
+
+/**
+ * Whether two connection sets are the same set differing only in values that
+ * move with traffic rather than with canonical state.
+ *
+ * Returns false for anything it cannot prove, including a differing set of
+ * controllers, so a caller can never suppress a revision by accident, and so
+ * a field added later is revision-bearing until someone decides otherwise.
+ */
+function connectionsDifferOnlyByTrafficRatedValues(
+  current: ReadonlyMap<ControllerId, ConnectionOperationalInput>,
+  replacement: ReadonlyMap<ControllerId, ConnectionOperationalInput>,
+): boolean {
+  if (current.size === 0 || current.size !== replacement.size) return false;
+  for (const [id, next] of replacement) {
+    const held = current.get(id);
+    if (held === undefined) return false;
+    if (held === next) continue;
+    if (!sameJson(canonicalConnectionView(held), canonicalConnectionView(next))) {
+      return false;
+    }
+  }
+  return true;
+}
+
+/**
+ * One connection record with its traffic-rated values removed.
+ *
+ * Four things inside a session record move once per message, and none of them
+ * is canonical state. They stay readable in the snapshot and on the counters
+ * surface; what stops is their claim that canonical state changed. See `D25`.
+ *
+ * Each is removed at the leaf rather than by dropping the field it lives in,
+ * because every one of these fields also carries something structural whose
+ * change must still signal: a token allocator can become exhausted, a
+ * transition can be a real one, and a peer can re-grant credit.
+ */
+function canonicalConnectionView(
+  record: ConnectionOperationalInput,
+): Record<string, unknown> {
+  const view: Record<string, unknown> = { ...record };
+
+  // A hold timer resets on every message the session carries.
+  delete view["timers"];
+
+  // `allocated` counts tokens issued, one per forwarded message. `exhausted`
+  // and `maximum` are structural: exhaustion replaces the session.
+  const allocator = view["returnTokenAllocator"] as
+    | { readonly allocated?: unknown }
+    | undefined;
+  if (allocator !== undefined) {
+    const { allocated: _allocated, ...rest } = allocator;
+    view["returnTokenAllocator"] = rest;
+  }
+
+  // `D22` records a self-transition without announcing it, so `at` is
+  // restamped by every delivery. A real transition changes `from`, `to` or
+  // `event`, and those remain.
+  const transition = view["lastTransition"] as
+    | { readonly at?: unknown }
+    | undefined;
+  if (transition !== undefined) {
+    const { at: _at, ...rest } = transition;
+    view["lastTransition"] = rest;
+  }
+
+  // `D20` projects credit into the plane, and its counters advance per
+  // message. Ceilings, capacity, what is advertised and how many times it was
+  // announced are not per-message and stay.
+  const credit = view["credit"] as
+    | {
+      readonly outbound?: Record<string, unknown>;
+      readonly inbound?: Record<string, unknown>;
+    }
+    | undefined;
+  if (credit !== undefined) {
+    view["credit"] = {
+      ...credit,
+      ...(credit.outbound === undefined ? {} : {
+        outbound: omit(credit.outbound, [
+          "sent",
+          "remaining",
+          "stalls",
+          "stalledUs",
+          "stalledSince",
+        ]),
+      }),
+      ...(credit.inbound === undefined ? {} : {
+        inbound: omit(credit.inbound, ["read"]),
+      }),
+    };
+  }
+  return view;
+}
+
+function omit(
+  value: Record<string, unknown>,
+  keys: readonly string[],
+): Record<string, unknown> {
+  const out: Record<string, unknown> = { ...value };
+  for (const key of keys) delete out[key];
+  return out;
+}
+
+/**
+ * Structural equality over canonical operational values.
+ *
+ * These are frozen JSON-shaped records with no cycles, so serialising them is
+ * exact. Key order is stable because one producer builds both sides.
+ */
+function sameJson(left: unknown, right: unknown): boolean {
+  return JSON.stringify(left) === JSON.stringify(right);
 }
 
 function compareConnections(

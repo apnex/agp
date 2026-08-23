@@ -48,6 +48,8 @@ Two renames since affect how these records read, and neither changes what any of
 | D21 | Make the cost of a write proportional to what changed, never to what is held | Measurement + `A1` + `A11` | Ratified |
 | D22 | Announce a self-transition only when nothing else already reports it | Measurement + explicit stakeholder direction | Ratified |
 | D23 | Report the fate of every message as an outcome, and release reverse-path state when it arrives | Measurement + explicit stakeholder direction | Ratified |
+| D24 | Make the operations stream a channel for what an operator must act on, and carry per-message detail elsewhere | Measurement + explicit stakeholder direction | Ratified |
+| D25 | Advance the canonical revision only when canonical state changed, not when a timer was reset | Measurement + `D10` + explicit stakeholder direction | Ratified |
 
 ---
 
@@ -776,6 +778,82 @@ Stamping the denominator on only the first disposition makes the loss of one rep
 Reporting a disposition as one operational event per message reproduces subscriber starvation that has already been measured.
 
 Describing a delivered disposition as processing promises handler semantics this layer does not observe and cannot honour.
+
+### D24 - The operations stream is a channel, not a ledger
+
+**Mechanics.**\
+The operations event stream carries what an operator must act on: lifecycle, counters and anomalies.\
+Its rate is set by what happens to a node rather than by how much traffic crosses it, so a subscriber doing real work can keep up with it on any bounded buffer.
+
+Per-message detail leaves that stream.\
+`message.accepted`, `message.forwarded`, `message.received` and `handler.completed` move to a dedicated stream a consumer opts into, and a consumer that does not ask for them pays nothing.\
+This is the arrangement `D23` already chose for dispositions, generalised rather than invented: the disposition is surfaced per message on its own surface for the same reason, and having two rules for one problem was the accident.
+
+Counters remain on the operations plane, so the operator still sees how much was delivered, forwarded and refused without seeing each one.
+
+**Rationale.**\
+A subscriber that yields to the macrotask queue is scheduled about as often as the loop drains, and under a stream that is close to never.\
+Measured on the highest-rate node, such a subscriber receives almost exactly its buffer size and then nothing: 257 events of 800 at a buffer of 256, and 1025 of 1200 at the default of 1024.
+
+That is the finding, and it is not a slow subscriber.\
+The buffer is not bridging consumer latency, it is absorbing the entire burst, because saturation removes the consumer's opportunities to drain at all.\
+So no buffer size is a property the operator can choose from anything they know: it would have to be sized to the largest burst the node will ever take.
+
+Raising the default is therefore refused for a second reason beyond the `MX1` shape of moving a cliff.\
+Even at the right size it makes the operator responsible for a property of the node.
+
+Separating the streams fixes it at the source: the operations stream stops being traffic-rated, so its buffer becomes a consumer property again.
+
+**Consequence.**\
+Leaving per-message events on the operations stream starves any subscriber that does real work, and the operator cannot size their way out of it because the required size is set by the node.
+
+Raising the default buffer instead moves the cliff without removing it, which is the `MX1` shape.
+
+Telling a consumer to stay on the microtask queue is a contract that forbids doing work in a work loop.
+
+Removing per-message events entirely rather than relocating them would take away detail that a consumer of the new stream legitimately wants, and the rate was never the problem for a consumer that asked for it.
+
+### D25 - A revision denotes a change to canonical state
+
+**Mechanics.**\
+The canonical operations revision advances when canonical state changed.\
+A value inside a session record that moves because traffic crossed the node does not advance it.
+
+Four such values exist and all four are excluded: the hold timer, the token allocator's count of tokens issued, the timestamp on the self-transition `D22` records without announcing, and the credit counters `D20` projects.
+
+Each is excluded at the leaf rather than by dropping the field it sits in, because every one of those fields also carries something structural.\
+An allocator can become exhausted, a transition can be a real one, and a peer can re-grant a ceiling or make a new announcement.\
+Those still advance the revision.
+
+Every excluded value stays readable in the snapshot and on the counters surface.\
+What stops is their claim that canonical state changed.
+
+The decision is taken by the operations store rather than declared by a caller, so it cannot be got wrong by a caller that believes its write is uninteresting.\
+Anything the comparison cannot prove to be traffic-rated still signals, including a changed set of controllers and any field added later.
+
+**Rationale.**\
+`D10` commits each routing change as one canonical revision, which makes the revision a change signal a consumer can poll.\
+A signal that advances on every message is not a change signal.
+
+Measured across a three-node path, in one session and against the same binary, a delivered message cost 9.17 revisions before this and 5.29 after: a 42 per cent reduction, and what remains is close to the delivery events themselves.
+
+The narrower rule this decision first carried, excluding only the hold timer, was measured at 8.17 and rejected on that evidence.\
+It removed 11 per cent, because the timer was one of four traffic-rated values and the smallest.\
+Suppressing it alone left the revision still advancing on every message through the other three, so it bought almost nothing while appearing to address the cause.
+
+`D21` already made this argument for the label-binding commit, and the sink demonstrates it working: that commit runs per message, writes nothing, and correctly issues no revision.\
+These four differ only in that a value genuinely moved, which is why the same rule did not already catch them; the effect on a polling consumer is identical.
+
+**Consequence.**\
+Advancing the revision at traffic rate forces every consumer polling on it to re-read on every message, which is the cost `D21` exists to remove, arriving by a second route.
+
+Excluding a whole field rather than its traffic-rated leaves would suppress a genuine event: token exhaustion, a real state transition, or a re-granted credit ceiling.
+
+Suppressing the revision for a commit where canonical state did change breaks the change signal in the direction that cannot be recovered, because a consumer that re-reads can survive a spurious signal and cannot survive a missing one.
+
+Withholding these values from the snapshot as well would remove what section 6.1 of the operations design requires an operator to read.
+
+Letting a caller declare its own write uninteresting would put the rule where it can be got wrong, and the failure would be silent.
 
 ---
 

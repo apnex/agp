@@ -10,6 +10,7 @@ Shared fixtures arrange state only; they contain no assertions.
 | `unit/latency-recorder.test.js` | The one primitive every measured duration reports through keeps count, last and high water, and reports nothing until something is measured | What is timed, and where a sample is projected |
 | `unit/canonical-ordering.test.js` | Canonical ordering is UTF-8 byte order on every input, including where code-unit order would disagree | Which collections are ordered |
 | `unit/write-path-cost.test.js` | A commit reports a revision rather than state, writes nothing and issues no revision when nothing changed, shares unchanged canonical state, and does not scale with held state | Which callers commit, and what they commit |
+| `unit/revision-change-signal.test.js` | A traffic-rated session value moves without advancing the revision while remaining readable, and every structural change beside one still advances it | Write cost, and what a node commits per message |
 | `unit/bounded-capacity.test.js` | Count/byte reservations are atomic and release is idempotent | Routing- or handler-specific policy |
 | `unit/connection-preidentity-closed-event.test.js` | A pre-admission ended attempt emits one remote-free event and cannot invent peer authority | Admitted-session teardown |
 | `unit/diagnostic-record-schema.test.js` | The sole core diagnostic record closes domain, severity, code, text, and extension boundaries | Sink scheduling and adapter diagnostics |
