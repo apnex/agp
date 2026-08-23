@@ -51,7 +51,7 @@ An item that is `I4`/`P1` belongs early even though nobody feels it today, becau
 |---|---|---|---|---|---|
 | `B20` | Release expired label bindings, so a node can send more than 4096 messages in its life | `I1` | `P1` | [`MX5`](VERIFICATION.md#46-open-findings-from-sweeps) | landed |
 | `B21` | Stop discarding a rejectable promise on the inbound data path | `I1` | `P2` | [`MX6`](VERIFICATION.md#46-open-findings-from-sweeps) | landed |
-| `B22` | Measure throughput with each node in its own process | `I3` | `P3` | [`MX7`](VERIFICATION.md#46-open-findings-from-sweeps) | open |
+| `B22` | Measure throughput with each node in its own process | `I3` | `P3` | [`MX4`](VERIFICATION.md#46-open-findings-from-sweeps), [`VERIFICATION.md` section 4.9](VERIFICATION.md#49-chasing-a-timing-defect) | open |
 | `B24` | Give the equivalence line one declaration instead of two | `I4` | `P3` | [`VERIFICATION.md` section 4.9](VERIFICATION.md#49-chasing-a-timing-defect) | landed |
 | `B25` | Give pre-shared keys a cross-process key exchange so that carrier can be isolated too | `I4` | `P3` | [`F08`](design/mechanisms.md) | landed |
 | `B23` | Build the disposition design that removes the sustained send ceiling | `I2` | `P3` | [`D23`](DECISIONS.md#d23---delivery-disposition), [`MX7`](VERIFICATION.md#46-open-findings-from-sweeps) | landed |
@@ -105,12 +105,13 @@ Where the two disagree it is because of dependency, never because a severity was
 | 3 | `B22` | Yes | Cheap, and wants a quiet machine rather than a queue position |
 | 4 | `B27` | Blocked | Waiting on the `Q1(b)` question below |
 | 5 | `B15` | Blocked | Waiting on the credit switch question below |
-| 6 | `B18` | Yes, re-scope first | Advanced to diminishing returns; the remaining cost is distributed rather than concentrated |
+| 6 | `B18` | Blocked | Waiting on the two event-stream questions below. Advanced to diminishing returns, and the remaining cost is distributed rather than concentrated, so what to spend next depends on what the stream is for |
 | 7 | `B12`, `B10`, `B3`, `B13` | Yes | Record work, none of it blocking |
 | 8 | `B19`, `B4` | Yes | Taken when a way is found, not scheduled |
 
-Three items are unblocked and independent of everything above: `B22`, `B18` and the record work.\
-Nothing in this order is waiting on `B28` except the two items that change forwarding.
+Two things are unblocked and independent of everything above: `B22` and the record work.\
+`B18` is the highest-severity open item and cannot start, because both of its remaining questions are decisions rather than measurements.\
+Nothing in this order is waiting on `B28`; the two items that once did have landed.
 
 ---
 

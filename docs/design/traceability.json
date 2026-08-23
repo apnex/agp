@@ -284,7 +284,7 @@
       "owningGate": "AX5",
       "owningTests": [
         "packages/node/test/contract/disposition-relay.test.js",
-        "packages/node/test/contract/reverse-error-no-rib.test.js"
+        "packages/node/test/contract/label-binding-exact-identity.test.js"
       ],
       "integrationWitnesses": [],
       "implementation": "built"
@@ -742,8 +742,8 @@
       "owningGate": "AX5",
       "owningTests": [
         "packages/node/test/contract/disposition-relay.test.js",
-        "packages/node/test/contract/reverse-error-no-rib.test.js",
-        "packages/node/test/contract/reverse-error-consume-once.test.js",
+        "packages/node/test/contract/label-binding-exact-identity.test.js",
+        "packages/node/test/contract/label-binding-consume-once.test.js",
         "packages/node/test/unit/return-token-allocator.test.js"
       ],
       "integrationWitnesses": [],

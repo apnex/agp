@@ -19,9 +19,9 @@ Fixtures provide deterministic identities, clocks, and write ledgers only.
 | `contract/local-route-miss.test.js` | Local `NO_ROUTE` creates no reservation or data write | Transit reverse error |
 | `contract/operational-event-schema.test.js` | Every live emitted node event validates against the closed sovereign event union | Generated vocabulary completeness |
 | `contract/peer-adjacency-uniqueness.test.js` | Duplicate adjacency identities fail construction before transport resolution | Remote identity collision |
-| `contract/reverse-error-consume-once.test.js` | An exact controller/token/refId label binding is consumable only once | Relay translation |
-| `contract/reverse-error-no-rib.test.js` | Reverse lookup uses exact retained controller identity and performs no RIB lookup | Destination forwarding |
-| `contract/reverse-error-refid.test.js` | Wrong-refId error input cannot consume a matching token | Successful consumption |
+| `contract/label-binding-consume-once.test.js` | An exact controller/token/refId label binding is consumable only once | Relay translation |
+| `contract/label-binding-exact-identity.test.js` | Reverse lookup uses exact retained controller identity and performs no RIB lookup | Destination forwarding |
+| `contract/label-binding-refid.test.js` | Wrong-refId error input cannot consume a matching token | Successful consumption |
 | `contract/disposition-relay.test.js` | Transit relay uses recorded ingress, translates only hop-local identity, compresses deliveries to runs, and measures an arriving batch before applying any of it | Direct current-hop failures, release under load |
 | `contract/session-hold-ttl.test.js` | Public inbound hold TTL decreases with monotonic time without a revision | Outbound keepalive suppression |
 | `contract/session-id-pair-scope.test.js` | Equal six-hex IDs coexist for different peers, including accepted pre-identity controllers | Cross-dial winner selection |

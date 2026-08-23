@@ -465,7 +465,7 @@
         "docs/design/routing.md#10-reverse-delivery-dispositions"
       ],
       "implementation": "packages/node/src/node.ts#receiveDisposition",
-      "owningTest": "packages/node/test/contract/reverse-error-no-rib.test.js"
+      "owningTest": "packages/node/test/contract/label-binding-exact-identity.test.js"
     },
     {
       "id": "ERROR-CONSUME-ONCE-1",
@@ -482,7 +482,7 @@
         "docs/design/routing.md#103-downstream-disposition-handling"
       ],
       "implementation": "packages/node/src/node.ts#consumeLabelBinding",
-      "owningTest": "packages/node/test/contract/reverse-error-consume-once.test.js"
+      "owningTest": "packages/node/test/contract/label-binding-consume-once.test.js"
     },
     {
       "id": "RESTART-EMPTY-DERIVED-STATE-1",
