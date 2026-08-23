@@ -58,6 +58,11 @@ Expiry remains as a backstop for a disposition that never arrives.
 
 One wire message reports the fate of a message, carrying a code that distinguishes delivered from each failure reason, in the shape of a single control message rather than one message type per outcome.
 
+Every code in that set names an outcome.\
+Two mechanisms discussed alongside this one would need a code that names something else: a fan-out report saying how many destinations a dividing hop took responsibility for, and a suppression report saying a copy was discarded as a duplicate.\
+Both describe the journey rather than the destination, and neither is added here.\
+A vocabulary that holds one kind of thing should not acquire a second by having a value added to it, so if progress reporting is wanted it earns its own shape.
+
 A hop reports upstream only once its own downstream has reported to it.\
 So a disposition arriving at the originating node means the network delivered the message to the destination endpoint.\
 It does not mean the endpoint processed it, and it never will: what a handler does with a payload is above this layer.

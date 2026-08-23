@@ -128,18 +128,27 @@ The available answer is for the dividing hop to report its fan-out upstream, so 
 That is a progress report rather than an outcome, and it is the first thing in this design that describes the journey instead of the destination.\
 Whether the disposition vocabulary should carry such a thing is open, and it should be decided deliberately rather than added as another code.
 
-### 5.4 The alternative that carries nothing
+### 5.4 The alternative that carries nothing, which is strict RPF
 
-Responsibility can be derived instead of assigned.
+Responsibility can be derived instead of assigned, and the mechanism that does so already has a name in this record.
 
-A hop accepts a replicated message only when it arrived on the ingress it would use to reach the origin, and drops it otherwise.\
-Every hop computes the same answer from routing state it already holds, so the surviving copies form a tree and the diamond resolves without anything being carried.
+`D7` validates a source by feasible-path reverse path forwarding: the source must be an eligible route owned by the actual ingress session, and it need not be the selected reverse route.\
+`M18` records that as aligned with [RFC 3704 section 2.3](https://www.rfc-editor.org/rfc/rfc3704#section-2.3), and `routing.md` section 8.2 states why the weaker form was chosen: strict validation would reject legitimate asymmetric best paths.
 
-It is not naive flooding, and it is not free.\
+Strict RPF is the missing coordination.\
+A hop accepts a replicated message only when the selected reverse route toward its origin points at the ingress it arrived on, and drops it otherwise.\
+Every hop computes the same answer from routing state it already holds, so the surviving copies form a tree, and the diamond resolves with nothing carried on the wire.
+
+The cost is not that it fails, but that it contradicts a ratified choice.\
+A node would hold two source-validation rules at once: feasible-path for a unicast message and strict for a replicated one.\
+Those two disagree in exactly the asymmetric cases `D7` exists to permit, so a topology where an asymmetric path is legitimate would deliver a unicast message and drop the replicated copy of it.
+
+The accounting cost is separate and also real.\
 A copy dropped this way is discarded silently, so there is no per-destination failure; an intermediate cannot know what it is responsible for, so there is no count; and an origin can never know it is complete.\
-Restoring those needs fan-out reports, an outcome meaning a copy was suppressed, and a reconciliation between them, which is more parts than the list it replaces.
+Restoring those needs a fan-out report, an outcome meaning a copy was suppressed, and a reconciliation between them, which is more parts than the list it replaces.
 
-It is recorded because it is the right shape for fan-out that wants delivery without accounting, and because deriving responsibility rather than assigning it is a genuinely different idea worth having written down.
+It is recorded as `F14` rather than dismissed.\
+It is the right shape for fan-out that wants delivery without accounting, and deriving responsibility rather than assigning it is a genuinely different idea that should be findable by the name the rest of the record already uses for it.
 
 ### 5.5 What replication does to a label binding
 
