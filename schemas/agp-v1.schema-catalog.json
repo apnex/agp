@@ -114,7 +114,7 @@
     {
       "id": "urn:agp:schema:v1:core:codes:sdk-error-code",
       "path": "packages/core/src/schemas/v1/codes/sdk-error-code.schema.json",
-      "sha256": "0fefec159173f8b7f1552e9a5b600dd1ac273796b42bbfb7c587d7e7ff2d2cfa"
+      "sha256": "51e64408afee36a9ccea0cf99d84056d321a31995e951ea1a92aea5dcaa9bec4"
     },
     {
       "id": "urn:agp:schema:v1:core:codes:selected-reason",
@@ -714,7 +714,7 @@
     {
       "id": "urn:agp:schema:v1:core:sdk:send-policy",
       "path": "packages/core/src/schemas/v1/sdk/send-policy.schema.json",
-      "sha256": "89b86e34e814c3e1e1ede4dabbb35da784b22fb2367a673c0b2faef8dcf9cafa"
+      "sha256": "b4a215c752e45a9a26a6d67a09d1a7f1943617af45702768d498ffb94cee3239"
     },
     {
       "id": "urn:agp:schema:v1:core:sdk:send-receipt",
@@ -799,7 +799,7 @@
     {
       "id": "urn:agp:schema:v1:protocol:codes:delivery-error-code",
       "path": "packages/protocol/src/schemas/v1/codes/delivery-error-code.schema.json",
-      "sha256": "87fdc73abdfd4523bd309e1cf5f19c103906ff3feb0fdbf6cdf803ff5b8f1a9f"
+      "sha256": "ecc3ac3013f7ccf12e6613e4d324b03dc12b174016598916086a3f020cea6476"
     },
     {
       "id": "urn:agp:schema:v1:protocol:codes:fatal-notification-code",
@@ -867,6 +867,11 @@
       "sha256": "ff8e5d687ec3ce9f45b2c6f12f720632689d125212375c4cc15658c6c00ff4d8"
     },
     {
+      "id": "urn:agp:schema:v1:protocol:routing:destination-selector",
+      "path": "packages/protocol/src/schemas/v1/routing/destination-selector.schema.json",
+      "sha256": "f8a6b8f53e374cc499eec7e8d88d99fd62929bd1b3c1d643a162c2a18d4b26e7"
+    },
+    {
       "id": "urn:agp:schema:v1:protocol:routing:endpoint-source",
       "path": "packages/protocol/src/schemas/v1/routing/endpoint-source.schema.json",
       "sha256": "ef8e4f39ba55da21ff53d724af253f90fb937c2692d130884cabfab7c1f3dbfe"
@@ -889,7 +894,7 @@
     {
       "id": "urn:agp:schema:v1:protocol:wire:data-body",
       "path": "packages/protocol/src/schemas/v1/wire/data-body.schema.json",
-      "sha256": "7716283d00243174bdc0d2479af32eed26bfb43890b10f70a0830f62506af41d"
+      "sha256": "493bbee248e99847fbfb5df3d8385052b43939d31da5d61d32ae1cff1fa6df25"
     },
     {
       "id": "urn:agp:schema:v1:protocol:wire:data-message",
@@ -899,7 +904,7 @@
     {
       "id": "urn:agp:schema:v1:protocol:wire:delivery-failure",
       "path": "packages/protocol/src/schemas/v1/wire/delivery-failure.schema.json",
-      "sha256": "92c73d335f70dce4628923d2a004ea2b6b4843b1744b3e5eef29f7a2ab1f5ff9"
+      "sha256": "af5e3c82a7ec5df3489ccd376291380ca7ba4bcb89c91a6c391153a1dc9d9f33"
     },
     {
       "id": "urn:agp:schema:v1:protocol:wire:disposition-body",

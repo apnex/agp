@@ -29,6 +29,7 @@ export const AGP_V1_DELIVERY_ERROR_CODES = Object.freeze(
   "SOURCE_NOT_ADVERTISED",
   "TRANSIT_DISABLED",
   "NEXT_HOP_UNAVAILABLE",
+  "INSTANCE_UNREACHABLE",
   "MESSAGE_TOO_LARGE",
   "QUEUE_FULL"
 ] as const satisfies readonly DeliveryErrorCode[],
@@ -51,6 +52,7 @@ export const AGP_V1_DELIVERY_ERROR_REASONS = Object.freeze(
   "SOURCE_NOT_ADVERTISED": "source route not acknowledged by egress",
   "TRANSIT_DISABLED": "transit disabled",
   "NEXT_HOP_UNAVAILABLE": "selected next hop unavailable",
+  "INSTANCE_UNREACHABLE": "named destination instance unreachable",
   "MESSAGE_TOO_LARGE": "message exceeds egress receive limit",
   "QUEUE_FULL": "required bounded capacity unavailable"
 } as const satisfies Readonly<Record<DeliveryErrorCode, string>>,

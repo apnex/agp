@@ -8,7 +8,7 @@
       "path": "codes/delivery-error-code.schema.json",
       "kind": "code",
       "typescript": "DeliveryErrorCode",
-      "sha256": "87fdc73abdfd4523bd309e1cf5f19c103906ff3feb0fdbf6cdf803ff5b8f1a9f"
+      "sha256": "ecc3ac3013f7ccf12e6613e4d324b03dc12b174016598916086a3f020cea6476"
     },
     {
       "id": "urn:agp:schema:v1:protocol:codes:fatal-notification-code",
@@ -115,6 +115,14 @@
       "sha256": "ff8e5d687ec3ce9f45b2c6f12f720632689d125212375c4cc15658c6c00ff4d8"
     },
     {
+      "id": "urn:agp:schema:v1:protocol:routing:destination-selector",
+      "owner": "@agp/protocol",
+      "path": "routing/destination-selector.schema.json",
+      "kind": "routing-record",
+      "typescript": "DestinationSelector",
+      "sha256": "f8a6b8f53e374cc499eec7e8d88d99fd62929bd1b3c1d643a162c2a18d4b26e7"
+    },
+    {
       "id": "urn:agp:schema:v1:protocol:routing:endpoint-source",
       "owner": "@agp/protocol",
       "path": "routing/endpoint-source.schema.json",
@@ -152,7 +160,7 @@
       "path": "wire/data-body.schema.json",
       "kind": "wire-body",
       "typescript": "DataBody",
-      "sha256": "7716283d00243174bdc0d2479af32eed26bfb43890b10f70a0830f62506af41d"
+      "sha256": "493bbee248e99847fbfb5df3d8385052b43939d31da5d61d32ae1cff1fa6df25"
     },
     {
       "id": "urn:agp:schema:v1:protocol:wire:data-message",
@@ -168,7 +176,7 @@
       "path": "wire/delivery-failure.schema.json",
       "kind": "wire-body",
       "typescript": "DeliveryFailure",
-      "sha256": "92c73d335f70dce4628923d2a004ea2b6b4843b1744b3e5eef29f7a2ab1f5ff9"
+      "sha256": "af5e3c82a7ec5df3489ccd376291380ca7ba4bcb89c91a6c391153a1dc9d9f33"
     },
     {
       "id": "urn:agp:schema:v1:protocol:wire:disposition-body",

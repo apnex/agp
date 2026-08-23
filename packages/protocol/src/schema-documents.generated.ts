@@ -15,28 +15,29 @@ import schema10 from "./schemas/v1/common/node-path.schema.json" with { type: "j
 import schema11 from "./schemas/v1/common/return-token.schema.json" with { type: "json" };
 import schema12 from "./schemas/v1/common/session-id.schema.json" with { type: "json" };
 import schema13 from "./schemas/v1/common/wire-revision.schema.json" with { type: "json" };
-import schema14 from "./schemas/v1/routing/endpoint-source.schema.json" with { type: "json" };
-import schema15 from "./schemas/v1/routing/route-advertisement.schema.json" with { type: "json" };
-import schema16 from "./schemas/v1/routing/route-key.schema.json" with { type: "json" };
-import schema17 from "./schemas/v1/routing/route-rejection.schema.json" with { type: "json" };
-import schema18 from "./schemas/v1/wire/data-body.schema.json" with { type: "json" };
-import schema19 from "./schemas/v1/wire/data-message.schema.json" with { type: "json" };
-import schema20 from "./schemas/v1/wire/delivery-failure.schema.json" with { type: "json" };
-import schema21 from "./schemas/v1/wire/disposition-body.schema.json" with { type: "json" };
-import schema22 from "./schemas/v1/wire/disposition-message.schema.json" with { type: "json" };
-import schema23 from "./schemas/v1/wire/envelope.schema.json" with { type: "json" };
-import schema24 from "./schemas/v1/wire/keepalive-body.schema.json" with { type: "json" };
-import schema25 from "./schemas/v1/wire/keepalive-message.schema.json" with { type: "json" };
-import schema26 from "./schemas/v1/wire/label-range.schema.json" with { type: "json" };
-import schema27 from "./schemas/v1/wire/message.schema.json" with { type: "json" };
-import schema28 from "./schemas/v1/wire/notification-body.schema.json" with { type: "json" };
-import schema29 from "./schemas/v1/wire/notification-message.schema.json" with { type: "json" };
-import schema30 from "./schemas/v1/wire/open-body.schema.json" with { type: "json" };
-import schema31 from "./schemas/v1/wire/open-message.schema.json" with { type: "json" };
-import schema32 from "./schemas/v1/wire/route-ack-body.schema.json" with { type: "json" };
-import schema33 from "./schemas/v1/wire/route-ack-message.schema.json" with { type: "json" };
-import schema34 from "./schemas/v1/wire/route-update-body.schema.json" with { type: "json" };
-import schema35 from "./schemas/v1/wire/route-update-message.schema.json" with { type: "json" };
+import schema14 from "./schemas/v1/routing/destination-selector.schema.json" with { type: "json" };
+import schema15 from "./schemas/v1/routing/endpoint-source.schema.json" with { type: "json" };
+import schema16 from "./schemas/v1/routing/route-advertisement.schema.json" with { type: "json" };
+import schema17 from "./schemas/v1/routing/route-key.schema.json" with { type: "json" };
+import schema18 from "./schemas/v1/routing/route-rejection.schema.json" with { type: "json" };
+import schema19 from "./schemas/v1/wire/data-body.schema.json" with { type: "json" };
+import schema20 from "./schemas/v1/wire/data-message.schema.json" with { type: "json" };
+import schema21 from "./schemas/v1/wire/delivery-failure.schema.json" with { type: "json" };
+import schema22 from "./schemas/v1/wire/disposition-body.schema.json" with { type: "json" };
+import schema23 from "./schemas/v1/wire/disposition-message.schema.json" with { type: "json" };
+import schema24 from "./schemas/v1/wire/envelope.schema.json" with { type: "json" };
+import schema25 from "./schemas/v1/wire/keepalive-body.schema.json" with { type: "json" };
+import schema26 from "./schemas/v1/wire/keepalive-message.schema.json" with { type: "json" };
+import schema27 from "./schemas/v1/wire/label-range.schema.json" with { type: "json" };
+import schema28 from "./schemas/v1/wire/message.schema.json" with { type: "json" };
+import schema29 from "./schemas/v1/wire/notification-body.schema.json" with { type: "json" };
+import schema30 from "./schemas/v1/wire/notification-message.schema.json" with { type: "json" };
+import schema31 from "./schemas/v1/wire/open-body.schema.json" with { type: "json" };
+import schema32 from "./schemas/v1/wire/open-message.schema.json" with { type: "json" };
+import schema33 from "./schemas/v1/wire/route-ack-body.schema.json" with { type: "json" };
+import schema34 from "./schemas/v1/wire/route-ack-message.schema.json" with { type: "json" };
+import schema35 from "./schemas/v1/wire/route-update-body.schema.json" with { type: "json" };
+import schema36 from "./schemas/v1/wire/route-update-message.schema.json" with { type: "json" };
 
 export const protocolSchemaDocumentsV1 = Object.freeze([
   schema0,
@@ -75,4 +76,5 @@ export const protocolSchemaDocumentsV1 = Object.freeze([
   schema33,
   schema34,
   schema35,
+  schema36,
 ] as const);

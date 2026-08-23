@@ -1266,6 +1266,31 @@
         "packages/core/test/unit/revision-change-signal.test.js"
       ],
       "integrationWitnesses": []
+    },
+    {
+      "requirementId": "D26",
+      "ratificationStatus": "ratified",
+      "implementation": "built",
+      "authorities": [
+        {
+          "kind": "decision",
+          "reference": "D26",
+          "ratification": "ratified"
+        }
+      ],
+      "designReferences": [
+        "../DECISIONS.md#d26---destination-selection",
+        "destination-selection.md"
+      ],
+      "schemaIds": [
+        "urn:agp:schema:v1:protocol:routing:destination-selector"
+      ],
+      "semanticRuleIds": [],
+      "owningGate": "AX5",
+      "owningTests": [
+        "packages/node/test/contract/destination-selector.test.js"
+      ],
+      "integrationWitnesses": []
     }
   ]
 }

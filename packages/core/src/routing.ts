@@ -581,6 +581,33 @@ export class RoutingTable {
     return value === undefined ? undefined : immutableClone(value);
   }
 
+  /**
+   * The next hop toward one named advertiser of an endpoint.
+   *
+   * This reads the candidate table rather than the selected one, which is what
+   * amended `Q1(b)` permits and the whole of what it permits. The selected
+   * route still decides what an unqualified message follows and still governs
+   * what is advertised.
+   *
+   * Only an eligible candidate resolves. Every candidate was accepted under
+   * `D5`, so its path is loop-free by construction and forwarding along one is
+   * not less safe than forwarding along the selected route. See `D26`.
+   */
+  routeToInstance(
+    endpoint: EndpointName,
+    originNodeId: NodeId,
+  ): CandidateRouteSnapshot | undefined {
+    for (const candidate of this.#candidatesFor(validateEndpoint(endpoint))) {
+      if (
+        candidate.snapshot.originNodeId === originNodeId
+        && candidate.snapshot.eligible
+      ) {
+        return immutableClone(candidate.snapshot);
+      }
+    }
+    return undefined;
+  }
+
   feasibleSource(input: {
     readonly owner: ExactSessionOwner;
     readonly endpoint: EndpointName;

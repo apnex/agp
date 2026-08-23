@@ -31,6 +31,10 @@
       "$ref": "urn:agp:schema:v1:protocol:common:endpoint-name",
       "description": "Destination endpoint lookup key."
     },
+    "destinationSelector": {
+      "$ref": "urn:agp:schema:v1:protocol:routing:destination-selector",
+      "description": "Which advertiser of the destination this message is for. Absent means any."
+    },
     "correlationId": {
       "$ref": "urn:agp:schema:v1:protocol:common:correlation-id",
       "description": "Optional application correlation identity."

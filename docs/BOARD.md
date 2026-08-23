@@ -56,7 +56,7 @@ An item that is `I4`/`P1` belongs early even though nobody feels it today, becau
 | `B25` | Give pre-shared keys a cross-process key exchange so that carrier can be isolated too | `I4` | `P3` | [`F08`](design/mechanisms.md) | landed |
 | `B23` | Build the disposition design that removes the sustained send ceiling | `I2` | `P3` | [`D23`](DECISIONS.md#d23---delivery-disposition), [`MX7`](VERIFICATION.md#46-open-findings-from-sweeps) | landed |
 | `B26` | Let a ratified decision be recorded before it is built | `I4` | `P2` | [`GATES.md` section 2](GATES.md#2-gate-ax0---intent-applicability-and-knowledge) | landed |
-| `B27` | Name a destination instance, not only an endpoint | `I3` | `P4` | [`destination-selection.md`](design/destination-selection.md) | open |
+| `B27` | Name a destination instance, not only an endpoint | `I3` | `P4` | [`D26`](DECISIONS.md#d26---destination-selection), [`destination-selection.md`](design/destination-selection.md) | landed |
 | `B28` | Resolve a forwarding decision in one place instead of three | `I4` | `P3` | [`destination-selection.md`](design/destination-selection.md) | landed |
 | `B1` | Implement `D19` credit flow control | `I1` | `P1` | [`MX1`](VERIFICATION.md#46-open-findings-from-sweeps), [`D19`](DECISIONS.md#d19---per-hop-credit-flow-control) | landed |
 | `B14` | Name a reproduction for the route-ack expiry a stream provokes | `I2` | `P2` | [`MX2`](VERIFICATION.md#46-open-findings-from-sweeps) | landed |
@@ -105,7 +105,7 @@ Where the two disagree it is because of dependency, never because a severity was
 | 1 | `B28` | Landed | Scored lowest on the board and built first, because both items after it change the forwarding decision |
 | 2 | `B23` | Landed | Removed the sustained ceiling `MX7` recorded. The `error` message retired into it, so one message now reports the fate of a message whichever fate it was |
 | 3 | `B22` | Yes | Cheap, and wants a quiet machine rather than a queue position |
-| 4 | `B27` | Yes | `Q1(b)` was amended on 2026-08-23 to permit a data path gated by the candidate RIB. The design still needs ratifying before it is built |
+| 4 | `B27` | Landed | Ratified as `D26` and built. Building it against a chain rather than a star showed that only the hop adjacent to the advertisers holds the alternatives, so a pin is enforced where a message would be delivered rather than where it was admitted |
 | 5 | `B15` | Blocked | Waiting on the credit switch question below |
 | 6 | `B30` | Landed | Ruled as `D25` and built. 9.17 revisions per delivered message down to 5.29. The first rule tried excluded only the hold timer and bought 11%, because the timer was one of four traffic-rated values and the smallest |
 | 7 | `B29` | Landed | Ruled as `D24` and built. An operator subscriber doing real work lost 256 events of a 600-message stream at a buffer of 256, and 175 at the default; it now loses none at a buffer of one |

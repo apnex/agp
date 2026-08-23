@@ -256,6 +256,46 @@
       "additionalProperties": false
     },
     {
+      "description": "INSTANCE_UNREACHABLE correlated delivery failure with its canonical reason.",
+      "type": "object",
+      "required": [
+        "code",
+        "refId",
+        "returnToken",
+        "failedAtNodeId",
+        "reason"
+      ],
+      "properties": {
+        "code": {
+          "const": "INSTANCE_UNREACHABLE",
+          "description": "Exact delivery failure code."
+        },
+        "destinations": {
+          "type": "integer",
+          "minimum": 2,
+          "maximum": 1024,
+          "description": "Destinations this label was divided into, stamped by the enumerating hop. Absent means one."
+        },
+        "refId": {
+          "$ref": "urn:agp:schema:v1:protocol:common:message-id",
+          "description": "End-to-end message ID of the failing data envelope."
+        },
+        "returnToken": {
+          "$ref": "urn:agp:schema:v1:protocol:common:return-token",
+          "description": "Hop token copied from the failing data packet or translated labelBinding."
+        },
+        "failedAtNodeId": {
+          "$ref": "urn:agp:schema:v1:protocol:common:node-id",
+          "description": "Node at which the original delivery failure occurred."
+        },
+        "reason": {
+          "const": "named destination instance unreachable",
+          "description": "Canonical safe reason text for this failure code."
+        }
+      },
+      "additionalProperties": false
+    },
+    {
       "description": "MESSAGE_TOO_LARGE correlated delivery failure with its canonical reason.",
       "type": "object",
       "required": [

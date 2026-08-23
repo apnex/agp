@@ -1,5 +1,6 @@
 import type {
   EndpointSource,
+  NodeId,
 } from "@agp/protocol";
 import type {
   ExactSessionOwner,
@@ -21,6 +22,10 @@ export class CoreDataRoutingAdapter implements DataRoutingPort {
 
   forwardingEntry(endpoint: EndpointSource["endpoint"]) {
     return this.#routing.forwardingEntry(endpoint);
+  }
+
+  routeToInstance(endpoint: EndpointSource["endpoint"], originNodeId: NodeId) {
+    return this.#routing.routeToInstance(endpoint, originNodeId);
   }
 
   feasibleSource(

@@ -13,10 +13,10 @@ import {
 test("Given the package schema catalog, when every entry is audited, then each sovereign identity, path, digest, reference, and generated type is exact", async () => {
   assert.equal(protocolSchemaCatalogV1.schemaVersion, "agp.schema-catalog/v1");
   assert.equal(protocolSchemaCatalogV1.owner, "@agp/protocol");
-  assert.equal(protocolSchemaCatalogV1.schemas.length, 36);
+  assert.equal(protocolSchemaCatalogV1.schemas.length, 37);
   assert.equal(
     new Set(protocolSchemaCatalogV1.schemas.map((entry) => entry.id)).size,
-    36,
+    37,
   );
   assert.deepEqual(
     [...AGP_V1_SCHEMA_IDS],

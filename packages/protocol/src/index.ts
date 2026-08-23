@@ -56,6 +56,7 @@ export type {
   DispositionMessage,
   LabelRange,
   DeliveryErrorCode,
+  DestinationSelector,
   EncodeResult,
   EndpointName,
   EndpointSource,

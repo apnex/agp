@@ -46,6 +46,7 @@ export type DeliveryErrorCode =
   | "SOURCE_NOT_ADVERTISED"
   | "TRANSIT_DISABLED"
   | "NEXT_HOP_UNAVAILABLE"
+  | "INSTANCE_UNREACHABLE"
   | "MESSAGE_TOO_LARGE"
   | "QUEUE_FULL";
 
@@ -146,6 +147,7 @@ export type DeliveryFailure = DeliveryErrorFields & (
   | { readonly code: "SOURCE_NOT_ADVERTISED"; readonly reason: "source route not acknowledged by egress" }
   | { readonly code: "TRANSIT_DISABLED"; readonly reason: "transit disabled" }
   | { readonly code: "NEXT_HOP_UNAVAILABLE"; readonly reason: "selected next hop unavailable" }
+  | { readonly code: "INSTANCE_UNREACHABLE"; readonly reason: "named destination instance unreachable" }
   | { readonly code: "MESSAGE_TOO_LARGE"; readonly reason: "message exceeds egress receive limit" }
   | { readonly code: "QUEUE_FULL"; readonly reason: "required bounded capacity unavailable" }
 );
@@ -175,9 +177,16 @@ export interface DispositionBody {
   readonly failed?: readonly DeliveryFailure[];
 }
 
+/** Which advertiser of an endpoint a message is for. Absent means any. */
+export interface DestinationSelector {
+  readonly originNodeId: NodeId;
+  readonly mode: "pinned" | "preferred";
+}
+
 export interface DataBody {
   readonly source: EndpointSource;
   readonly destination: EndpointName;
+  readonly destinationSelector?: DestinationSelector;
   readonly correlationId?: CorrelationId;
   readonly returnToken: ReturnToken;
   readonly hopLimit: number;

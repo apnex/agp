@@ -35,6 +35,7 @@ test("Given the ratified v1 code catalogs, when their public values are inspecte
     "SOURCE_NOT_ADVERTISED",
     "TRANSIT_DISABLED",
     "NEXT_HOP_UNAVAILABLE",
+    "INSTANCE_UNREACHABLE",
     "MESSAGE_TOO_LARGE",
     "QUEUE_FULL",
   ]);

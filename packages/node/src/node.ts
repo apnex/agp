@@ -615,6 +615,7 @@ export class NodeImpl implements AgpNode, SessionHost {
         destination,
         payload,
         options.correlationId,
+        options.destinationSelector,
       );
       this.#outstanding.open({
         messageId: receipt.messageId,

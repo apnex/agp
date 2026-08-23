@@ -6,6 +6,7 @@ import {
   type DataMessage,
   type DeliveryFailure,
   type DeliveryErrorCode,
+  type DestinationSelector,
   type EndpointName,
   type EndpointSource,
   type JsonObject,
@@ -14,6 +15,7 @@ import {
 } from "@agp/protocol";
 import type {
   ExactSessionOwner,
+  CandidateRouteSnapshot,
   ForwardingEntrySnapshot,
   OperationsRevision,
   SelectedRouteSnapshot,
@@ -49,6 +51,10 @@ export interface DataSessionController extends ExactController {
 export interface DataRoutingPort {
   selectedRoute(endpoint: EndpointName): SelectedRouteSnapshot | undefined;
   forwardingEntry(endpoint: EndpointName): ForwardingEntrySnapshot | undefined;
+  routeToInstance(
+    endpoint: EndpointName,
+    originNodeId: NodeId,
+  ): CandidateRouteSnapshot | undefined;
   feasibleSource(
     ingress: ExactSessionOwner,
     source: EndpointSource,
@@ -109,6 +115,7 @@ export type DataSendReceipt = SendReceipt;
 export type LocalSendFailure =
   | "SOURCE_NOT_OWNED"
   | "NO_ROUTE"
+  | "INSTANCE_UNREACHABLE"
   | "SOURCE_NOT_ADVERTISED"
   | "NEXT_HOP_UNAVAILABLE"
   | "MESSAGE_TOO_LARGE"
@@ -132,6 +139,7 @@ export type ForwardingRefusal =
   | "TRANSIT_DISABLED"
   | "HOP_LIMIT_EXCEEDED"
   | "NEXT_HOP_UNAVAILABLE"
+  | "INSTANCE_UNREACHABLE"
   | "SOURCE_NOT_ADVERTISED"
   | "MESSAGE_TOO_LARGE"
   | "QUEUE_FULL";
@@ -191,9 +199,10 @@ export class DataPlane {
     destination: EndpointName,
     payload: JsonObject,
     correlationId?: CorrelationId,
+    selector?: DestinationSelector,
   ): Promise<DataSendReceipt> {
     return this.#options.executor.run(() =>
-      this.#sendInExecutor(source, destination, payload, correlationId));
+      this.#sendInExecutor(source, destination, payload, correlationId, selector));
   }
 
   async receive(
@@ -228,6 +237,7 @@ export class DataPlane {
   #resolveForwarding(input: {
     readonly source: EndpointSource;
     readonly destination: EndpointName;
+    readonly selector?: DestinationSelector | undefined;
     readonly payload: JsonObject;
     readonly arrival: ForwardingArrival;
     readonly build: (context: {
@@ -263,21 +273,66 @@ export class DataPlane {
       return refuse("SOURCE_NOT_AUTHORIZED");
     }
 
+    // The selected route answers for every message that does not name an
+    // instance, which is the overwhelming majority, and it answers first so
+    // that the common path pays nothing for a branch it does not take.
     const selected = this.#options.routing.selectedRoute(input.destination);
     const forwarding = this.#options.routing.forwardingEntry(input.destination);
+    let routeId = selected?.routeId;
+    let nextHop = forwarding?.nextHop;
+
+    if (input.selector !== undefined) {
+      // Amended `Q1(b)`: a data path may be gated by the candidate table where
+      // a message names the instance it is for. This is the whole of what the
+      // amendment permits. See `D26`.
+      const instance = this.#options.routing.routeToInstance(
+        input.destination,
+        input.selector.originNodeId,
+      );
+      if (instance !== undefined) {
+        routeId = instance.routeId;
+        nextHop = instance.nextHop;
+      }
+      // A hop that cannot resolve the named instance forwards along its
+      // selected route rather than refusing. `D6` and `D4` export only the
+      // selected route, so alternatives are held by the hop that learned them
+      // and by nobody further away: an origin two hops from the advertisers
+      // cannot see the instance it is naming. Refusing here would make a pin
+      // usable only by a node adjacent to the advertisers.
+      //
+      // What the pin actually promises is that the message is never served by
+      // the wrong instance, and that is enforceable where it matters, at the
+      // hop that would deliver.
+    }
+
     if (
-      selected === undefined
-      || forwarding === undefined
-      || forwarding.selectedRouteId !== selected.routeId
+      routeId === undefined
+      || nextHop === undefined
+      || (input.selector === undefined
+        && forwarding?.selectedRouteId !== selected?.routeId)
     ) {
       return refuse("NO_ROUTE");
     }
 
-    if (forwarding.nextHop.kind === "local") {
+    if (nextHop.kind === "local") {
+      // The message stops here, so this is the last chance to be wrong about
+      // which instance serves it. A pin is a guarantee against misdelivery
+      // rather than a guarantee of reachability, and this is where that
+      // guarantee is kept. A preferred selector has already tried and is
+      // content with whoever answers.
+      if (
+        input.selector?.mode === "pinned"
+        && input.selector.originNodeId !== this.#options.localNodeId
+      ) {
+        // Distinct from NO_ROUTE on purpose: an application that named an
+        // instance must be able to tell a moved instance from a withdrawn
+        // service, because the remedies are opposite.
+        return refuse("INSTANCE_UNREACHABLE");
+      }
       const binding = this.#options.endpoints.get(input.destination);
       if (
         binding === undefined
-        || binding.bindingId !== forwarding.nextHop.bindingId
+        || binding.bindingId !== nextHop.bindingId
       ) {
         return refuse("NO_ROUTE");
       }
@@ -289,8 +344,8 @@ export class DataPlane {
         kind: "local",
         binding,
         bytes,
-        selectedRouteId: selected.routeId,
-        nextHop: forwarding.nextHop,
+        selectedRouteId: routeId,
+        nextHop,
       });
     }
 
@@ -300,8 +355,8 @@ export class DataPlane {
     }
 
     const egress = this.#options.sessions.resolve(
-      forwarding.nextHop.nodeId,
-      forwarding.nextHop.owningSessionId,
+      nextHop.nodeId,
+      nextHop.owningSessionId,
     );
     if (
       egress === undefined
@@ -364,8 +419,8 @@ export class DataPlane {
       packet: encoded.bytes,
       encodedBytes: encoded.utf8Bytes,
       retainedBytes,
-      selectedRouteId: selected.routeId,
-      nextHop: forwarding.nextHop,
+      selectedRouteId: routeId,
+      nextHop,
     });
   }
 
@@ -374,6 +429,7 @@ export class DataPlane {
     destination: EndpointName,
     payload: JsonObject,
     correlationId?: CorrelationId,
+    selector?: DestinationSelector,
   ): DataSendReceipt {
     const source = Object.freeze({
       endpoint: sourceEndpoint,
@@ -385,6 +441,7 @@ export class DataPlane {
       destination,
       payload,
       arrival: { kind: "local", sourceEndpoint },
+      ...(selector === undefined ? {} : { selector }),
       build: ({ egress, hopLimit, token }) => makeDataMessage(
         messageId,
         source,
@@ -394,6 +451,8 @@ export class DataPlane {
         hopLimit,
         egress.creditGrant,
         correlationId,
+        undefined,
+        selector,
       ),
     });
     if (decision.kind === "refuse") {
@@ -468,6 +527,9 @@ export class DataPlane {
       destination,
       payload: message.body.payload,
       arrival: { kind: "session", ingress, hopLimit: message.body.hopLimit },
+      ...(message.body.destinationSelector === undefined
+        ? {}
+        : { selector: message.body.destinationSelector }),
       // Built once. Classification used to encode a preview with a
       // placeholder token to size the admission and the forward encoded
       // again with the real one, which proved what the fixed-width token
@@ -482,6 +544,7 @@ export class DataPlane {
         egress.creditGrant,
         message.body.correlationId,
         message.extensions,
+        message.body.destinationSelector,
       ),
     });
 
@@ -623,6 +686,7 @@ function makeDataMessage(
   credit: CreditGrant | undefined,
   correlationId?: CorrelationId,
   extensions?: DataMessage["extensions"],
+  selector?: DestinationSelector | undefined,
 ): DataMessage {
   return Object.freeze({
     agp: 1,
@@ -633,6 +697,9 @@ function makeDataMessage(
     body: Object.freeze({
       source,
       destination,
+      // Carried unchanged to the next hop: a pin honoured only at admission
+      // pins nothing, because a later hop resolves the name its own way.
+      ...(selector === undefined ? {} : { destinationSelector: selector }),
       ...(correlationId === undefined ? {} : { correlationId }),
       returnToken,
       hopLimit,

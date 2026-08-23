@@ -1,6 +1,7 @@
 import type {
   CorrelationId,
   DeliveryErrorCode,
+  DestinationSelector,
   EndpointName,
   EndpointSource,
   JsonObject,
@@ -706,6 +707,7 @@ export type AgpErrorCode =
   | "NO_ROUTE"
   | "SOURCE_NOT_ADVERTISED"
   | "NEXT_HOP_UNAVAILABLE"
+  | "INSTANCE_UNREACHABLE"
   | "QUEUE_FULL"
   | "TRANSPORT_FAILURE"
   | "INTERNAL";
@@ -880,6 +882,15 @@ export interface EndpointDeliveryContext {
 export interface SendPolicy {
   readonly correlationId?: CorrelationId;
   readonly timeoutMs?: number;
+  /**
+   * Which advertiser of the destination this message is for.
+   *
+   * Absent means any of them, which is what a destination name alone has
+   * always meant. A pin yields that instance or a refusal, never a different
+   * instance; it guards against misdelivery rather than guaranteeing
+   * reachability. See `D26`.
+   */
+  readonly destinationSelector?: DestinationSelector;
 }
 
 export interface SendOptions extends SendPolicy {

@@ -29,6 +29,8 @@ const ids = Object.freeze({
     "urn:agp:schema:v1:protocol:codes:route-rejection-code",
   routeKey: "urn:agp:schema:v1:protocol:routing:route-key",
   endpointSource: "urn:agp:schema:v1:protocol:routing:endpoint-source",
+  destinationSelector:
+    "urn:agp:schema:v1:protocol:routing:destination-selector",
   routeAdvertisement:
     "urn:agp:schema:v1:protocol:routing:route-advertisement",
   routeRejection: "urn:agp:schema:v1:protocol:routing:route-rejection",
@@ -295,6 +297,7 @@ add("codes", "delivery-error-code", "DeliveryErrorCode", "code", {
     "SOURCE_NOT_ADVERTISED",
     "TRANSIT_DISABLED",
     "NEXT_HOP_UNAVAILABLE",
+    "INSTANCE_UNREACHABLE",
     "MESSAGE_TOO_LARGE",
     "QUEUE_FULL",
   ],
@@ -331,6 +334,32 @@ add(
     routeIdentityProperties,
   ),
   ["DATA-FEASIBLE-SOURCE-1", "DATA-SOURCE-EXPORT-1"],
+);
+// Naming which advertiser of an endpoint a message is for. Absent means any of
+// them, which is the behaviour a destination name alone has always had, so the
+// default costs nothing and cannot be spelled. See DECISIONS.md D26.
+add(
+  "routing",
+  "destination-selector",
+  "DestinationSelector",
+  "routing-record",
+  closedObject(
+    "The instance a message is for, and how hard a requirement that is.",
+    ["originNodeId", "mode"],
+    {
+      originNodeId: ref(
+        ids.nodeId,
+        "Final originating node of the endpoint this message is for.",
+      ),
+      mode: {
+        type: "string",
+        enum: ["pinned", "preferred"],
+        description:
+          "Whether the named instance is required or merely preferred. Absent selector means any.",
+      },
+    },
+  ),
+  ["DATA-SELECTED-RIB-1"],
 );
 add(
   "routing",
@@ -589,6 +618,7 @@ const deliveryReasons = Object.freeze({
   SOURCE_NOT_ADVERTISED: "source route not acknowledged by egress",
   TRANSIT_DISABLED: "transit disabled",
   NEXT_HOP_UNAVAILABLE: "selected next hop unavailable",
+  INSTANCE_UNREACHABLE: "named destination instance unreachable",
   MESSAGE_TOO_LARGE: "message exceeds egress receive limit",
   QUEUE_FULL: "required bounded capacity unavailable",
 });
@@ -704,6 +734,10 @@ add(
     {
       source: ref(ids.endpointSource, "Exact source endpoint identity."),
       destination: ref(ids.endpointName, "Destination endpoint lookup key."),
+      destinationSelector: ref(
+        ids.destinationSelector,
+        "Which advertiser of the destination this message is for. Absent means any.",
+      ),
       correlationId: ref(
         ids.correlationId,
         "Optional application correlation identity.",
@@ -971,6 +1005,7 @@ export type DeliveryErrorCode =
   | "SOURCE_NOT_ADVERTISED"
   | "TRANSIT_DISABLED"
   | "NEXT_HOP_UNAVAILABLE"
+  | "INSTANCE_UNREACHABLE"
   | "MESSAGE_TOO_LARGE"
   | "QUEUE_FULL";
 
@@ -1071,6 +1106,7 @@ export type DeliveryFailure = DeliveryErrorFields & (
   | { readonly code: "SOURCE_NOT_ADVERTISED"; readonly reason: "source route not acknowledged by egress" }
   | { readonly code: "TRANSIT_DISABLED"; readonly reason: "transit disabled" }
   | { readonly code: "NEXT_HOP_UNAVAILABLE"; readonly reason: "selected next hop unavailable" }
+  | { readonly code: "INSTANCE_UNREACHABLE"; readonly reason: "named destination instance unreachable" }
   | { readonly code: "MESSAGE_TOO_LARGE"; readonly reason: "message exceeds egress receive limit" }
   | { readonly code: "QUEUE_FULL"; readonly reason: "required bounded capacity unavailable" }
 );
@@ -1100,9 +1136,16 @@ export interface DispositionBody {
   readonly failed?: readonly DeliveryFailure[];
 }
 
+/** Which advertiser of an endpoint a message is for. Absent means any. */
+export interface DestinationSelector {
+  readonly originNodeId: NodeId;
+  readonly mode: "pinned" | "preferred";
+}
+
 export interface DataBody {
   readonly source: EndpointSource;
   readonly destination: EndpointName;
+  readonly destinationSelector?: DestinationSelector;
   readonly correlationId?: CorrelationId;
   readonly returnToken: ReturnToken;
   readonly hopLimit: number;

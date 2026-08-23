@@ -134,7 +134,7 @@ const codeSets = {
     "ABORTED", "ENDPOINT_INVALID", "HANDLER_INVALID",
     "ENDPOINT_ALREADY_EXPOSED", "ENDPOINT_CAPACITY", "CORRELATION_INVALID",
     "SOURCE_NOT_OWNED", "PAYLOAD_NOT_JSON", "MESSAGE_TOO_LARGE", "NO_ROUTE",
-    "SOURCE_NOT_ADVERTISED", "NEXT_HOP_UNAVAILABLE", "QUEUE_FULL",
+    "SOURCE_NOT_ADVERTISED", "NEXT_HOP_UNAVAILABLE", "INSTANCE_UNREACHABLE", "QUEUE_FULL",
     "TRANSPORT_FAILURE", "INTERNAL",
   ],
   "identity-denial-code": ["POLICY", "EXPECTED_NODE_MISMATCH", "SECURITY_EVIDENCE", "CAPACITY"],
@@ -366,6 +366,7 @@ add("sdk", "stop-policy", closed({
 add("sdk", "send-policy", closed({
   correlationId: ref(protocol("common", "correlation-id")),
   timeoutMs: integer({ minimum: 0, maximum: 9007199254740991 }),
+  destinationSelector: ref(protocol("routing", "destination-selector")),
 }, [], semantic("DATA-LOCAL-NO-ROUTE-1")));
 add("sdk", "event-subscription-policy", closed({
   bufferSize: integer({ minimum: 1, maximum: 65536 }),

@@ -1,0 +1,37 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:agp:schema:v1:protocol:routing:destination-selector",
+  "title": "DestinationSelector",
+  "description": "The instance a message is for, and how hard a requirement that is.",
+  "x-agp": {
+    "owner": "@agp/protocol",
+    "typescript": "DestinationSelector",
+    "kind": "routing-record",
+    "mechanics": "The instance a message is for, and how hard a requirement that is.",
+    "rationale": "A sovereign contract gives validators and consumers one stable reasoning boundary.",
+    "consequence": "Accepting another shape would make peer interpretation or ownership ambiguous.",
+    "semanticRules": [
+      "DATA-SELECTED-RIB-1"
+    ]
+  },
+  "type": "object",
+  "required": [
+    "originNodeId",
+    "mode"
+  ],
+  "properties": {
+    "originNodeId": {
+      "$ref": "urn:agp:schema:v1:protocol:common:node-id",
+      "description": "Final originating node of the endpoint this message is for."
+    },
+    "mode": {
+      "type": "string",
+      "enum": [
+        "pinned",
+        "preferred"
+      ],
+      "description": "Whether the named instance is required or merely preferred. Absent selector means any."
+    }
+  },
+  "additionalProperties": false
+}

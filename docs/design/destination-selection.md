@@ -1,8 +1,7 @@
 # Destination selection
 
-> **Status:** Design under consideration. Not built.\
-> The confirmed-intent question in section 4 was ruled on 2026-08-23: a data path may be gated by the candidate routing table where a message names its destination instance.\
-> The design itself is not yet ratified.
+> **Status:** Ratified as `D26` and built, for the three modes in section 3.\
+> Replication in section 5 remains deferred as `F13`.
 
 ## 1. Purpose
 
@@ -49,10 +48,18 @@ A pin honoured only by the originating node pins nothing, because a later hop ho
 Pinning yields **that instance or nothing**, not **always that instance**.\
 It is a guarantee against misdelivery rather than a guarantee of reachability, and the name should not be allowed to suggest otherwise.
 
-### 3.1 The substrate exists
+### 3.1 The substrate exists, one hop at a time
 
 `F01` keeps alternatives in the local candidate routing table while advertising and forwarding one selected path.\
 A candidate carries its origin node and the session it was learned from, so a next hop toward a named origin is already resolvable.
+
+The word local is load-bearing, and building this is what showed how much.\
+Alternatives are held by the hop that learned them directly and are advertised to nobody, because `D6` and `D4` export the selected route alone.\
+A node two hops from the advertisers therefore holds one candidate and cannot see the instance a message might name.
+
+That is why a pin is not refused where it cannot be resolved.\
+A hop that cannot resolve forwards along its selected route, and the hop that would deliver refuses a pin it does not match, which keeps the promise the mode makes without needing the alternatives distributed.\
+Distributing them is `F01` proper, and it stays deferred.
 
 Every candidate was accepted under `D5`, so its path is loop-free by construction, and forwarding along one is not less safe than forwarding along the selected route.
 

@@ -50,6 +50,7 @@ Two renames since affect how these records read, and neither changes what any of
 | D23 | Report the fate of every message as an outcome, and release reverse-path state when it arrives | Measurement + explicit stakeholder direction | Ratified |
 | D24 | Make the operations stream a channel for what an operator must act on, and carry per-message detail elsewhere | Measurement + explicit stakeholder direction | Ratified |
 | D25 | Advance the canonical revision only when canonical state changed, not when a timer was reset | Measurement + `D10` + explicit stakeholder direction | Ratified |
+| D26 | Let a message name the instance it is for, resolved against the candidate routing table at every hop | Amended `Q1(b)` + design + explicit stakeholder direction | Ratified |
 
 ---
 
@@ -865,6 +866,77 @@ Suppressing the revision for a commit where canonical state did change breaks th
 Withholding these values from the snapshot as well would remove what section 6.1 of the operations design requires an operator to read.
 
 Letting a caller declare its own write uninteresting would put the rule where it can be got wrong, and the failure would be silent.
+
+### D26 - Destination selection
+
+**Mechanics.**\
+A destination is an endpoint, optionally a node, and a mode that says whether that node is required, preferred, or absent.
+
+The three modes are closed.\
+`any` is today's behaviour and names no node.\
+`pinned` means that instance or none, and refuses when the named instance is not reachable.\
+`preferred` means that instance if it is reachable and otherwise any, forwarding to the selected route and reporting where it landed.
+
+On the wire, `destination` keeps its shape and an optional selector rides beside it, carrying the node and the mode together.\
+`any` is therefore the absence of the selector and cannot be spelled, which is the same rule the disposition denominator follows: the default costs nothing and absence has one meaning.
+
+The node is not encoded inside the endpoint string.\
+The endpoint grammar admits no separator, and widening it would put a parse on every forwarding hop.
+
+Making `destination` itself an endpoint-and-node object was measured and rejected.\
+It reads as the symmetry a source has always had, and it charges every message thirteen bytes, about three per cent, for a field the overwhelming majority never use.\
+An optional selector costs nothing until something names an instance, and it makes a mode without a node unrepresentable, because both are required inside an object that is itself optional.
+
+A named instance is resolved against the local candidate routing table, which already retains the alternatives and already records the origin and learning source of each.\
+This is what amended `Q1(b)` permits, and it is the whole of what it permits.
+
+A hop that can resolve the named instance forwards toward it.\
+A hop that cannot forwards along its selected route, because a hop further on may hold what this one does not.\
+The hop that would deliver locally refuses a pin it does not match.
+
+That last check is where the guarantee lives, and it is the only place it can live.\
+`D6` and `D4` export the selected route alone, so alternatives are held by the hop that learned them and by nobody further away, and an origin two hops from the advertisers cannot see the instance it is naming.\
+Refusing at admission would therefore make a pin usable only by a node adjacent to the advertisers, which in a star is one node.
+
+An unqualified message follows the selected route exactly as now.
+
+A refusal caused by an unreachable named instance carries a reason distinct from an endpoint that resolves nowhere.\
+It arrives as a disposition rather than as a rejected send, because the hop that refuses is not the hop that admitted.
+
+**Rationale.**\
+Addressing by name alone means any advertiser of that name may serve the message.\
+That is anycast, it arrived as a consequence of how a destination is written rather than as a choice, and it is the wrong default for a flow with state on one instance.
+
+The routing table already retains the alternatives and their origins, so naming an instance requires no new distribution and no new state, only a different question asked of state already held.\
+Every candidate was accepted under `D5`, so its path is loop-free by construction, and forwarding along one is not less safe than forwarding along the selected route.
+
+Enforcement at every hop is what makes a pin mean anything, because reconvergence is precisely the condition under which two hops resolve one name differently, and that is the condition a pin exists to survive.
+
+Refusing early was built first and measured against a chain rather than a star, which is what exposed it: only the hop adjacent to the advertisers holds the alternatives, so an origin refused a pin for an instance that was reachable two hops away.\
+Distributing the alternatives would fix the cause and is `F01`, deferred deliberately.\
+Enforcing at delivery instead needs no distribution, and keeps exactly the promise the mode makes.
+
+Pinning yields that instance or nothing rather than always that instance.\
+It is a guarantee against misdelivery and not a guarantee of reachability, and the vocabulary must not suggest otherwise.
+
+**Consequence.**\
+Enforcing a pin only at the originating node pins nothing, because a later hop holding different routing state resolves the name its own way.
+
+Refusing a pin at a hop that merely cannot see the instance turns a local gap in knowledge into a delivery failure, and under selected-route-only advertisement that is the normal case rather than the exception.
+
+Reporting an unreachable named instance as an unresolvable endpoint leaves an application unable to distinguish a moved instance from a withdrawn service, which are opposite remedies.
+
+Allowing a mode to choose a path rather than a destination turns instance selection into traffic engineering and overrides the deterministic selection `D6` exists to provide.
+
+Describing a pin as a reachability guarantee promises delivery the mechanism does not provide.
+
+Encoding the node inside the endpoint name puts a parse on every forwarding hop and widens a grammar that is currently exact.
+
+Charging every message for a destination shape only some messages use spends the common path on the exceptional one, which is the trade the disposition denominator already refused.
+
+Replicating to every advertiser is not a fourth mode.\
+It shares the addressing and shares nothing else: the forwarding needs a fan-out point, loop handling across branches, deduplication where branches reconverge, and per-branch accounting.\
+It stays `F13`.
 
 ---
 

@@ -328,6 +328,7 @@ export const coreSchemaDocumentsV1 = Object.freeze([
       "NO_ROUTE",
       "SOURCE_NOT_ADVERTISED",
       "NEXT_HOP_UNAVAILABLE",
+      "INSTANCE_UNREACHABLE",
       "QUEUE_FULL",
       "TRANSPORT_FAILURE",
       "INTERNAL"
@@ -5386,6 +5387,9 @@ export const coreSchemaDocumentsV1 = Object.freeze([
         "type": "integer",
         "minimum": 0,
         "maximum": 9007199254740991
+      },
+      "destinationSelector": {
+        "$ref": "urn:agp:schema:v1:protocol:routing:destination-selector"
       }
     },
     "required": [],

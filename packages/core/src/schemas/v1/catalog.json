@@ -112,7 +112,7 @@
       "path": "codes/sdk-error-code.schema.json",
       "kind": "code",
       "typescript": "AgpErrorCode",
-      "sha256": "0fefec159173f8b7f1552e9a5b600dd1ac273796b42bbfb7c587d7e7ff2d2cfa"
+      "sha256": "51e64408afee36a9ccea0cf99d84056d321a31995e951ea1a92aea5dcaa9bec4"
     },
     {
       "id": "urn:agp:schema:v1:core:codes:selected-reason",
@@ -1072,7 +1072,7 @@
       "path": "sdk/send-policy.schema.json",
       "kind": "sdk",
       "typescript": "SendPolicy",
-      "sha256": "89b86e34e814c3e1e1ede4dabbb35da784b22fb2367a673c0b2faef8dcf9cafa"
+      "sha256": "b4a215c752e45a9a26a6d67a09d1a7f1943617af45702768d498ffb94cee3239"
     },
     {
       "id": "urn:agp:schema:v1:core:sdk:send-receipt",
