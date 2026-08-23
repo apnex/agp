@@ -187,10 +187,12 @@ export async function buildGeometry({
   disposition,
   context,
   isolation = "in-process",
+  streamDeliveries,
 }) {
   if (isolation === "process") {
     return buildIsolatedGeometry({
       geometry, transport, endpointsPerNode, deliveries, capacity, context,
+      ...(streamDeliveries === undefined ? {} : { streamDeliveries }),
     });
   }
   const create = transportFactory(transport);
@@ -254,6 +256,7 @@ export async function buildGeometry({
  */
 async function buildIsolatedGeometry({
   geometry, transport, endpointsPerNode, deliveries, capacity, context,
+  streamDeliveries = true,
 }) {
   if (transport !== "websocket" && transport !== "websocket-psk") {
     throw new Error(
@@ -309,6 +312,7 @@ async function buildIsolatedGeometry({
       },
       endpoints: endpointsOf(index, endpointsPerNode),
       deliveries,
+      streamDeliveries,
     });
     nodes.push(handle);
     context?.after(() => handle.stop().catch(() => undefined));

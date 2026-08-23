@@ -2,6 +2,7 @@ import { readFile } from "node:fs/promises";
 
 import { createNode } from "@agp/node";
 import { createNodeWsTransport } from "@agp/transport-node-ws";
+import { sampleLoopLag } from "./loop-lag.js";
 
 // One AGP node, alone in a process, driven over IPC.
 //
@@ -70,6 +71,9 @@ function transportFor({ kind, listeners, targets, presharedKeys }) {
   });
 }
 
+/** Per-endpoint arrival tally, timed by the clock of the process that observes it. */
+const arrivals = new Map();
+
 async function handle(message) {
   if (message === null || typeof message !== "object") return;
   if (message.command === "stop") {
@@ -92,6 +96,10 @@ async function handle(message) {
       // send over IPC measures the channel to this process, which is neither
       // AGP nor the carrier under it, and it reported TLS as the fastest
       // carrier because its round trip happened to be cheapest that run.
+      // Sampled here, not in the parent. A parent that samples its own loop
+      // during an isolated run measures a process that is doing nothing,
+      // and reports a stall-free node whatever the node is doing.
+      const lag = sampleLoopLag();
       const started = process.hrtime.bigint();
       let accepted = 0;
       let refusals = 0;
@@ -107,13 +115,28 @@ async function handle(message) {
           await new Promise((resolve) => setTimeout(resolve, 1));
         }
       }
+      const offeredUs = Number(process.hrtime.bigint() - started) / 1000;
       reply({
         ok: true,
-        value: {
-          accepted,
-          refusals,
-          offeredUs: Number(process.hrtime.bigint() - started) / 1000,
-        },
+        value: { accepted, refusals, offeredUs, loop: lag.stop() },
+      });
+      return;
+    }
+    if (message.command === "reset-arrivals") {
+      arrivals.delete(message.endpoint);
+      reply({ ok: true, value: true });
+      return;
+    }
+    if (message.command === "arrivals") {
+      // One clock. The sender times what it offered on its own; comparing the
+      // two would be comparing two processes' clocks, which is the second
+      // contamination this harness had.
+      const seen = arrivals.get(message.endpoint);
+      reply({
+        ok: true,
+        value: seen === undefined
+          ? { count: 0, firstUs: 0, lastUs: 0 }
+          : { ...seen },
       });
       return;
     }
@@ -149,7 +172,20 @@ try {
       // Deliveries are streamed rather than polled, so the parent counts
       // arrivals the same way it does for a node in its own process.
       await node.expose(endpoint, (payload) => {
-        emit({ type: "delivery", endpoint, payload });
+        // Counted here, always. Streaming each arrival to the parent is one
+        // IPC send per delivered message on the receiver's own event loop,
+        // which is work no deployment does and which lands inside the window
+        // a throughput run is measuring. A measurement asks for the tally
+        // afterwards instead. See VERIFICATION section 4.9.
+        const seen = arrivals.get(endpoint) ?? { count: 0, firstUs: 0, lastUs: 0 };
+        const now = Number(process.hrtime.bigint()) / 1000;
+        if (seen.count === 0) seen.firstUs = now;
+        seen.count += 1;
+        seen.lastUs = now;
+        arrivals.set(endpoint, seen);
+        if (document.streamDeliveries !== false) {
+          emit({ type: "delivery", endpoint, payload });
+        }
       }),
     );
   }

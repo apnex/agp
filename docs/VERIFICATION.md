@@ -470,6 +470,29 @@ The carrier is not the bottleneck at one hop.\
 An in-process fabric and a real TCP socket measure the same, because the node's own per-message cost dominates both, and that cost is the subject of `MX3`.\
 Pre-shared keys cost about a third, and a second hop costs slightly more than half, which is the transit node paying the same per-message cost again.
 
+#### What a node costs itself, measured with each node in its own process
+
+`B22`.\
+Both tables below are one session on one machine, five runs per carrier, and both ran at 4100 to 4165 MHz, which is why they may be compared with each other at all.
+
+| Carrier | Co-located | Isolated | Isolation gains |
+|---|---|---|---|
+| Loopback | 2779 msg/s | not possible, `F08` | |
+| WebSocket | 2862 msg/s | 4785 msg/s | 67% |
+| WebSocket with pre-shared keys | 2070 msg/s | 3769 msg/s | 82% |
+
+Two nodes in one process cost between forty and forty-five per cent of throughput, because they share an event loop and contend for it.\
+Section 4.9 already required isolation for a measurement that compares; this is the size of what it was requiring.
+
+Pre-shared keys cost 28 per cent co-located and 21 per cent isolated.\
+The difference is the second process: the cipher has somewhere else to run.
+
+Co-located, Loopback and a real TCP socket still measure the same, which is the earlier finding unchanged.\
+Isolated, WebSocket reaches 4785, so what made the carrier look irrelevant was the node contending with itself rather than the carrier being free.
+
+The worst loop stall under each run is the clearest single number here: 383 ms co-located on Loopback, against 24 ms isolated on WebSocket.\
+That is `MX3` seen from the outside.
+
 These are burst figures, and the sustained ceiling used to be a different number entirely.
 
 A label binding is retained for every message a node originates, and AGP had no delivery acknowledgement, so nothing could release it early: it waited out the label binding lifetime whether or not the message arrived.\
@@ -585,21 +608,28 @@ The order below is the one that worked, and it is ordered deliberately.
 7. **Compare within one session, never across them.**\
    The same unchanged measurement read 525 microseconds per message and then 670 an hour later, and a sweep read 40 seconds and then 25.\
    An A and a B taken hours apart compare the machine, not the change.
-8. **Climb the ladder, do not measure the whole.**\
+8. **Check the clock is fixed, not merely that the machine is quiet.**\
+   A quiet machine is not a comparable one.\
+   Under a scaling governor the processor ran between 4200 and 800 MHz across one measurement session, and successive identical invocations read 4824, 4967, 4902, 4044 and 3555 messages a second in that order, which looks exactly like a regression and is the clock winding down.\
+   Three earlier attempts at this measurement produced three orderings and the machine was blamed for being busy; it was not busy, it was at a different speed each time.\
+   `scripts/throughput.mjs` samples and reports the clock under every run and refuses to call two carriers comparable when it moved more than a tenth between them.\
+   Two invocations at the same clock agreed within two per cent, which is what said the harness was sound and the host was not.
+9. **Climb the ladder, do not measure the whole.**\
    `scripts/latency-ladder.mjs` adds one layer per rung, so the rung where the milliseconds appear names the layer that owns them.\
    A single end-to-end number cannot do that, and chasing one produces hypotheses rather than causes.
-9. **Sample event-loop lag underneath every measurement.**\
+10. **Sample event-loop lag underneath every measurement, in the process doing the work.**\
    In a single-process topology a slow path and a starved one look identical.\
-   `test/support/loop-lag.js` separates them, and in `MX2` the lag was the finding.
-10. **Profile before fixing.**\
+   `test/support/loop-lag.js` separates them, and in `MX2` the lag was the finding.\
+   Sample it where the work happens: a driver that samples its own loop while the node runs elsewhere read 1251 microseconds against the node's 42688 and reported a stall-free node.
+11. **Profile before fixing.**\
    A processor profile named the function in one run, after reasoning had failed twice.\
    `node --cpu-prof` against one ladder rung is enough.
-11. **Prove the cause before believing it.**\
+12. **Prove the cause before believing it.**\
    Disable the suspected path, measure again, and require the number to move.\
    Two suspects were eliminated this way before the third survived.
-12. **Fix the shape, not the constant.**\
+13. **Fix the shape, not the constant.**\
    A tenfold constant improvement on a quadratic is a longer fuse, not a fix, and it will read as success on every benchmark small enough to run in a test.
-13. **Revert what cannot be shown to help.**\
+14. **Revert what cannot be shown to help.**\
    A change that is principled, small and unmeasurable is still machinery somebody must maintain and can get wrong.\
    Record the negative result so the next reader does not spend the same afternoon proving it again.
 

@@ -51,7 +51,7 @@ An item that is `I4`/`P1` belongs early even though nobody feels it today, becau
 |---|---|---|---|---|---|
 | `B20` | Release expired label bindings, so a node can send more than 4096 messages in its life | `I1` | `P1` | [`MX5`](VERIFICATION.md#46-open-findings-from-sweeps) | landed |
 | `B21` | Stop discarding a rejectable promise on the inbound data path | `I1` | `P2` | [`MX6`](VERIFICATION.md#46-open-findings-from-sweeps) | landed |
-| `B22` | Measure throughput with each node in its own process | `I3` | `P3` | [`MX4`](VERIFICATION.md#46-open-findings-from-sweeps), [`VERIFICATION.md` section 4.9](VERIFICATION.md#49-chasing-a-timing-defect) | open |
+| `B22` | Measure throughput with each node in its own process | `I3` | `P3` | [`MX4`](VERIFICATION.md#46-open-findings-from-sweeps), [`VERIFICATION.md` section 4.9](VERIFICATION.md#49-chasing-a-timing-defect) | landed |
 | `B24` | Give the equivalence line one declaration instead of two | `I4` | `P3` | [`VERIFICATION.md` section 4.9](VERIFICATION.md#49-chasing-a-timing-defect) | landed |
 | `B25` | Give pre-shared keys a cross-process key exchange so that carrier can be isolated too | `I4` | `P3` | [`F08`](design/mechanisms.md) | landed |
 | `B23` | Build the disposition design that removes the sustained send ceiling | `I2` | `P3` | [`D23`](DECISIONS.md#d23---delivery-disposition), [`MX7`](VERIFICATION.md#46-open-findings-from-sweeps) | landed |
@@ -104,7 +104,7 @@ Where the two disagree it is because of dependency, never because a severity was
 |---|---|---|---|
 | 1 | `B28` | Landed | Scored lowest on the board and built first, because both items after it change the forwarding decision |
 | 2 | `B23` | Landed | Removed the sustained ceiling `MX7` recorded. The `error` message retired into it, so one message now reports the fate of a message whichever fate it was |
-| 3 | `B22` | Yes | Cheap, and wants a quiet machine rather than a queue position |
+| 3 | `B22` | Landed | Co-locating two nodes costs 40 to 45 per cent of throughput. The three attempts that produced three orderings were not a busy machine: they were a scaling processor clock, which the instrument now samples and reports |
 | 4 | `B27` | Landed | Ratified as `D26` and built. Building it against a chain rather than a star showed that only the hop adjacent to the advertisers holds the alternatives, so a pin is enforced where a message would be delivered rather than where it was admitted |
 | 5 | `B15` | Blocked | Waiting on the credit switch question below |
 | 6 | `B30` | Landed | Ruled as `D25` and built. 9.17 revisions per delivered message down to 5.29. The first rule tried excluded only the hold timer and bought 11%, because the timer was one of four traffic-rated values and the smallest |
@@ -171,7 +171,7 @@ Severity `I3`.
 
 | ID | Move | Note |
 |---|---|---|
-| `B22` | Re-measure throughput with each node in its own process | Fully unblocked. Both socket carriers isolate and an isolated node generates its own load, so the harness is ready. Three measurement attempts produced three orderings on a machine saturated by the session that built them, so the number is worth nothing until it is taken quiet. Two contaminations specific to an isolated run are known and belong here: the parent observes delivery over a channel it must be scheduled to drain, and sender and receiver are timed by different clocks |
+| `B22` | Re-measure throughput with each node in its own process | Landed. Two nodes in one process cost 40 to 45 per cent of throughput, and pre-shared keys cost 28 per cent co-located against 21 per cent isolated, because the cipher gains somewhere else to run. Four contaminations were fixed, not the two expected: the parent counted arrivals over one IPC send per delivered message, the window spanned two processes' clocks, the loop-lag sampler ran in the idle parent and read 1251 microseconds against the node's 42688, and the processor clock scaled between 4200 and 800 MHz. The last one explains the three orderings, which had been blamed on a busy machine |
 
 ---
 

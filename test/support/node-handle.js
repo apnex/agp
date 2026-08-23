@@ -70,6 +70,15 @@ export class ProcessNodeHandle {
     return this.#call("burst", { source, destination, count });
   }
 
+  /** What this node observed arriving, timed by its own clock. */
+  arrivals(endpoint) {
+    return this.#call("arrivals", { endpoint });
+  }
+
+  resetArrivals(endpoint) {
+    return this.#call("reset-arrivals", { endpoint });
+  }
+
   selectedRoutes() {
     return this.#call("selected-routes");
   }
@@ -104,12 +113,18 @@ export class ProcessNodeHandle {
  * Deliveries are pushed into the same array the in-process harness fills, so a
  * traffic driver counting arrivals cannot tell the two apart.
  */
-export async function startProcessNode({ config, transport, endpoints, deliveries }) {
+export async function startProcessNode({
+  config,
+  transport,
+  endpoints,
+  deliveries,
+  streamDeliveries = true,
+}) {
   const directory = await mkdtemp(path.join(tmpdir(), "agp-node-"));
   const documentPath = path.join(directory, "node.json");
   await writeFile(
     documentPath,
-    JSON.stringify({ config, transport, endpoints }),
+    JSON.stringify({ config, transport, endpoints, streamDeliveries }),
     "utf8",
   );
   const child = fork(RUNNER, [documentPath], {

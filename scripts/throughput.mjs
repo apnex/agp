@@ -3,7 +3,7 @@ import {
   awaitConvergence,
   buildGeometry,
 } from "../test/support/geometry.js";
-import { sampleLoopLag } from "../test/support/loop-lag.js";
+import { sampleCpuClock, sampleLoopLag } from "../test/support/loop-lag.js";
 import { eventually } from "../test/support/uniform-topology.js";
 
 // Delivered messages per second, per carrier, against Loopback.
@@ -54,14 +54,25 @@ const geometry = () => GEOMETRIES.chain(HOPS + 1);
  * window of outstanding admissions in flight is what saturates the path, and
  * a refusal is capacity backpressure rather than an error, so it is retried.
  */
+let burstLoop;
+
 async function saturate({ node, source, destination, count, arrived }) {
   // An isolated node generates its own load. Driving it over IPC would put a
   // round trip in front of every send and measure the harness.
   if (typeof node.burst === "function") {
     const result = await node.burst(source, destination, count);
-    await eventually(() => arrived() >= count, "throughput drain", 120_000);
+    // The sender sampled its own loop while it worked. A parent that samples
+    // its own during an isolated run measures a process doing nothing: it read
+    // 1251 microseconds where the sender read 42688, and reported a stall-free
+    // node. See VERIFICATION 4.9.
+    burstLoop = result.loop;
+    // Awaited. `arrived` is asynchronous for an isolated receiver, and an
+    // unawaited promise compared with >= is never true, so this hung rather
+    // than passed. The inverse of the trap already recorded in `eventually`.
+    await eventually(async () => (await arrived()) >= count, "throughput drain", 120_000);
     return { refusals: result.refusals };
   }
+  burstLoop = undefined;
   // `send` resolves at admission, not at delivery, and admission is cheap, so
   // offering one at a time still keeps the writer queue full and the wire
   // busy. An earlier version held sixty-four admissions outstanding and
@@ -81,7 +92,7 @@ async function saturate({ node, source, destination, count, arrived }) {
       await new Promise((resolve) => setTimeout(resolve, 1));
     }
   }
-  await eventually(() => arrived() >= count, "throughput drain", 120_000);
+  await eventually(async () => (await arrived()) >= count, "throughput drain", 120_000);
   return { refusals };
 }
 
@@ -107,37 +118,61 @@ async function measure(transport) {
     const source = topology.endpoints[0];
     const destination = topology.endpoints.at(-1);
     const isolated = topology.isolation === "process";
-    const arrivedAt = () =>
-      deliveries.filter((entry) => entry.endpoint === destination).length;
+    const receiver = topology.nodes.at(-1);
+    // An isolated receiver counts and times its own arrivals. Asking the
+    // parent to count them means one IPC send per delivered message on the
+    // receiver's event loop, which is work no deployment does and which lands
+    // inside the window being measured; and it means the window closes when
+    // the parent was next scheduled rather than when delivery finished. Both
+    // contaminations are specific to an isolated run. See VERIFICATION 4.9.
+    const arrivedAt = isolated
+      ? async () => (await receiver.arrivals(destination)).count
+      : async () =>
+        deliveries.filter((entry) => entry.endpoint === destination).length;
 
     // Warm the path so compilation and first-touch allocation land outside the
     // measured window.
-    let base = arrivedAt();
+    let base = await arrivedAt();
     await saturate({
       node: from,
       source,
       destination,
       count: Math.min(300, COUNT),
-      arrived: () => arrivedAt() - base,
+      arrived: async () => (await arrivedAt()) - base,
     });
 
     const runs = [];
     let refusals = 0;
     for (let attempt = 0; attempt < REPEAT; attempt += 1) {
-      base = arrivedAt();
+      if (isolated) await receiver.resetArrivals(destination);
+      base = await arrivedAt();
       const lag = sampleLoopLag();
+      const clock = sampleCpuClock();
       const started = process.hrtime.bigint();
       const result = await saturate({
         node: from,
         source,
         destination,
         count: COUNT,
-        arrived: () => arrivedAt() - base,
+        arrived: async () => (await arrivedAt()) - base,
       });
-      const seconds = Number(process.hrtime.bigint() - started) / 1e9;
-      const loop = lag.stop();
+      // An isolated run is timed by the receiver, from its first arrival to
+      // its last, so one clock frames the window and the parent's scheduling
+      // is outside it. A co-located run has one clock already.
+      const seconds = isolated
+        ? await (async () => {
+          const seen = await receiver.arrivals(destination);
+          return (seen.lastUs - seen.firstUs) / 1e6;
+        })()
+        : Number(process.hrtime.bigint() - started) / 1e9;
+      // For an isolated run the parent is not the process doing the work, so
+      // its own loop lag says nothing about the subject. The sender samples
+      // its own and reports it. See VERIFICATION 4.9.
+      const cpu = clock.stop();
+      const parentLoop = lag.stop();
+      const loop = burstLoop ?? parentLoop;
       refusals += result.refusals;
-      runs.push({ perSecond: COUNT / seconds, loopMaxUs: loop.maxUs });
+      runs.push({ perSecond: COUNT / seconds, loopMaxUs: loop.maxUs, cpu });
     }
     runs.sort((a, b) => a.perSecond - b.perSecond);
     const median = runs[Math.floor(runs.length / 2)];
@@ -146,6 +181,9 @@ async function measure(transport) {
       median: Math.round(median.perSecond),
       worst: Math.round(runs[0].perSecond),
       loopMaxUs: median.loopMaxUs,
+      clockMhz: Math.round(
+        runs.reduce((sum, { cpu }) => sum + (cpu?.meanMhz ?? 0), 0) / runs.length,
+      ),
       refusals,
       isolated,
     };
@@ -164,7 +202,8 @@ if (TRANSPORTS.length === 1) {
   const result = await measure(only);
   process.stdout.write(
     `RESULT ${only} ${result.median} ${result.best} ${result.worst}`
-      + ` ${result.loopMaxUs} ${result.refusals} ${result.isolated}\n`,
+      + ` ${result.loopMaxUs} ${result.refusals} ${result.isolated}`
+      + ` ${result.clockMhz}\n`,
   );
 } else {
   const { execFileSync } = await import("node:child_process");
@@ -185,7 +224,7 @@ if (TRANSPORTS.length === 1) {
     ], { encoding: "utf8" });
     const line = out.split("\n").find((value) => value.startsWith("RESULT "));
     if (line === undefined) throw new Error(`no result for ${transport}`);
-    const [, name, median, best, worst, loopMaxUs, refusals, isolated] =
+    const [, name, median, best, worst, loopMaxUs, refusals, isolated, mhz] =
       line.split(" ");
     rows.push({
       transport: name,
@@ -195,6 +234,7 @@ if (TRANSPORTS.length === 1) {
       loopMaxUs: Number(loopMaxUs),
       refusals: Number(refusals),
       isolated: isolated === "true",
+      clockMhz: Number(mhz),
     });
   }
   const baseline = rows.find(({ transport }) => transport === "loopback");
@@ -216,13 +256,28 @@ if (TRANSPORTS.length === 1) {
   }
   process.stdout.write("\n");
   for (const row of rows) {
-    // With the nodes elsewhere the sampler measures this driver, not them, so
-    // reporting its figure under the same heading would compare two different
-    // loops. It is named for what it is instead.
+    // The sending node samples its own loop, including when it is in another
+    // process. This used to report the driver's loop for an isolated run and
+    // say so, which was honest and useless: the driver read 1251 microseconds
+    // while the node it was measuring read 42688.
     process.stdout.write(
       `  ${row.transport.padEnd(16)}`
-        + `${row.isolated ? "driver" : "node"} loop stall worst ${row.loopMaxUs}us`
+        + `node loop stall worst ${row.loopMaxUs}us`
         + `  capacity refusals ${row.refusals}\n`,
     );
+  }
+  const clocks = rows.map(({ clockMhz }) => clockMhz).filter((mhz) => mhz > 0);
+  if (clocks.length > 0) {
+    const low = Math.min(...clocks);
+    const high = Math.max(...clocks);
+    process.stdout.write(`\n  processor clock during these runs: `
+      + `${low === high ? `${low}` : `${low} to ${high}`} MHz\n`);
+    // Ten per cent, because carriers here differ from each other by less than
+    // that and a clock difference of the same size silently reorders them.
+    if (high / low >= 1.10) {
+      process.stdout.write(
+        `  NOT COMPARABLE: the carriers above did not run at the same clock.\n`,
+      );
+    }
   }
 }

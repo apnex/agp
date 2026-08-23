@@ -1,3 +1,5 @@
+import { readFileSync } from "node:fs";
+
 /**
  * Event-loop lag sampler.
  *
@@ -55,5 +57,57 @@ export function summarise(samplesUs) {
     p99Us: at(0.99),
     maxUs: Math.round(sorted.at(-1)),
     meanUs: Math.round(sorted.reduce((sum, value) => sum + value, 0) / sorted.length),
+  };
+}
+
+/**
+ * Processor clock sampler.
+ *
+ * A quiet machine is not a comparable one. On a host whose governor scales
+ * frequency, a run can begin at turbo and finish near the floor, and two runs
+ * minutes apart then differ by more than any change being measured. Measured
+ * on the development host, one run spanned 4200 MHz to 800 MHz, which is
+ * enough on its own to reorder three carriers.
+ *
+ * Sampling it does not fix it. It makes a figure quotable or not quotable,
+ * which is the part that was missing when three attempts produced three
+ * orderings and the machine was blamed for being busy.
+ */
+export function sampleCpuClock({ intervalMs = 250 } = {}) {
+  const samples = [];
+  const read = () => {
+    try {
+      const text = readFileSync("/proc/cpuinfo", "utf8");
+      const values = [...text.matchAll(/cpu MHz\s*:\s*([\d.]+)/g)]
+        .map((match) => Number(match[1]));
+      if (values.length > 0) {
+        samples.push(values.reduce((sum, v) => sum + v, 0) / values.length);
+      }
+    } catch {
+      // No /proc/cpuinfo. The figure is simply unqualified rather than wrong.
+    }
+  };
+  read();
+  const handle = setInterval(read, intervalMs);
+  handle.unref?.();
+  return {
+    stop() {
+      clearInterval(handle);
+      read();
+      if (samples.length === 0) return undefined;
+      const min = Math.round(Math.min(...samples));
+      const max = Math.round(Math.max(...samples));
+      const mean = samples.reduce((sum, v) => sum + v, 0) / samples.length;
+      return {
+        samples: samples.length,
+        minMhz: min,
+        maxMhz: max,
+        // Absolute, because the swing that reorders carriers happens between
+        // invocations rather than inside one. A run steady at 4 GHz and a run
+        // steady at 1.5 GHz each look perfectly stable from the inside.
+        meanMhz: Math.round(mean),
+        spread: min === 0 ? 0 : Number((max / min).toFixed(2)),
+      };
+    },
   };
 }
