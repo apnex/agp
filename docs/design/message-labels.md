@@ -22,7 +22,7 @@ The record held at each hop binds an outbound label to the ingress it arrived fr
 
 That is label swapping.\
 The label is the label; the record is the cross-connect that swaps it.\
-They are named accordingly: a `LabelBinding` held in a `LabelTable`, replacing the earlier name `breadcrumb`, which suggested something passively left behind rather than an active forwarding entry.
+They are named accordingly: a `LabelBinding` held in a `LabelTable`, replacing the earlier name `label binding`, which suggested something passively left behind rather than an active forwarding entry.
 
 One property separates this from the mechanism it resembles.\
 A label in a label-switched network identifies a class of traffic, so the table is proportional to the number of classes.\

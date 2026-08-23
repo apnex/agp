@@ -57,8 +57,8 @@ const core = Object.freeze({
     "urn:agp:schema:v1:core:operations:forwarding-entry-snapshot",
   adjRibOutRoute:
     "urn:agp:schema:v1:core:operations:adj-rib-out-route-snapshot",
-  reverseCorrelation:
-    "urn:agp:schema:v1:core:operations:reverse-correlation-snapshot",
+  labelBinding:
+    "urn:agp:schema:v1:core:operations:label-binding-snapshot",
   resources: "urn:agp:schema:v1:core:operations:resources-snapshot",
   counters: "urn:agp:schema:v1:core:operations:counters-snapshot",
 });
@@ -271,7 +271,7 @@ const operationsData = closedObject(
     "selectedRoutes",
     "forwarding",
     "routeExports",
-    "reverseCorrelations",
+    "labelBindings",
     "resources",
     "counters",
   ],
@@ -320,10 +320,10 @@ const operationsData = closedObject(
       items: { $ref: core.adjRibOutRoute },
       description: "Canonical per-peer Adj-RIB-Out decisions.",
     },
-    reverseCorrelations: {
+    labelBindings: {
       type: "array",
-      items: { $ref: core.reverseCorrelation },
-      description: "Canonical bounded reverse-correlation rows.",
+      items: { $ref: core.labelBinding },
+      description: "Canonical bounded label binding rows.",
     },
     resources: ref(core.resources, "Canonical bounded resource gauges."),
     counters: ref(core.counters, "Canonical instance-local counters."),

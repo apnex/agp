@@ -5,7 +5,7 @@ import {
   dataMessage,
 } from "../support/data-plane-harness.js";
 import {
-  breadcrumb,
+  labelBinding,
   selectedLocal,
   selectedSession,
 } from "../support/fakes.js";
@@ -91,10 +91,10 @@ test("Given multi-failure transit frames, when admission runs, then only the fir
     assert.equal(writes, 0);
   });
 
-  await t.test("Given missing source export and breadcrumb saturation, when classified, then export failure wins", async () => {
+  await t.test("Given missing source export and labelBinding saturation, when classified, then export failure wins", async () => {
     const { code, writes } = await runTransitCase({
       ackSource: false,
-      fillBreadcrumbCapacity: true,
+      fillLabelTableCapacity: true,
     });
     assert.equal(code, "SOURCE_NOT_ADVERTISED");
     assert.equal(writes, 0);
@@ -102,7 +102,7 @@ test("Given multi-failure transit frames, when admission runs, then only the fir
 
   await t.test("Given every prior condition succeeds, when bounded capacity is full, then QUEUE_FULL wins", async () => {
     const { code, writes } = await runTransitCase({
-      fillBreadcrumbCapacity: true,
+      fillLabelTableCapacity: true,
     });
     assert.equal(code, "QUEUE_FULL");
     assert.equal(writes, 0);
@@ -112,7 +112,7 @@ test("Given multi-failure transit frames, when admission runs, then only the fir
 async function runTransitCase(options = {}) {
   const harness = createDataPlaneHarness({
     transitEnabled: options.transitEnabled ?? true,
-    maximumBreadcrumbs: 1,
+    maximumLabelBindings: 1,
   });
   const ingress = harness.makeController({
     remoteNodeId: "ingress.example",
@@ -145,13 +145,13 @@ async function runTransitCase(options = {}) {
   if (options.ackSource !== false) {
     harness.acknowledgeSource(egress, message.body.source);
   }
-  if (options.fillBreadcrumbCapacity === true) {
+  if (options.fillLabelTableCapacity === true) {
     const occupiedEgress = harness.makeController({
       remoteNodeId: "occupied.example",
       owningSessionId: "000003",
       controllerId: "occupied-controller",
     });
-    harness.breadcrumbs.add(breadcrumb({
+    harness.labelBindings.add(labelBinding({
       egress: occupiedEgress,
       messageId: "occupied",
     }), 1);

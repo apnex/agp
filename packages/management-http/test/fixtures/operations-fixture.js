@@ -16,7 +16,7 @@ export function createOperationsFixture(overrides = {}) {
     "routes",
     "forwarding",
     "routeExports",
-    "reverseCorrelations",
+    "labelBindings",
     "resources",
     "counters",
     "events",
@@ -43,8 +43,8 @@ export function createOperationsFixture(overrides = {}) {
     routes: () => invoke("routes", snapshots.routes),
     forwarding: () => invoke("forwarding", snapshots.forwarding),
     routeExports: () => invoke("routeExports", snapshots.routeExports),
-    reverseCorrelations: () =>
-      invoke("reverseCorrelations", snapshots.reverseCorrelations),
+    labelBindings: () =>
+      invoke("labelBindings", snapshots.labelBindings),
     resources: () => invoke("resources", snapshots.resourcesQuery),
     counters: () => invoke("counters", snapshots.countersQuery),
     events: () => {
@@ -157,7 +157,7 @@ export function createSnapshots() {
     selectedRoutes: [selected],
     forwarding: [forwardingEntry],
     routeExports: [],
-    reverseCorrelations: [],
+    labelBindings: [],
     resources,
     counters,
   };
@@ -178,7 +178,7 @@ export function createSnapshots() {
     routes: { ...meta, candidates: [candidate], selected: [selected] },
     forwarding: { ...meta, items: [forwardingEntry] },
     routeExports: { ...meta, items: [] },
-    reverseCorrelations: { ...meta, items: [] },
+    labelBindings: { ...meta, items: [] },
     resources,
     resourcesQuery: { ...meta, ...resources },
     counters,

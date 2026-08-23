@@ -44,8 +44,8 @@ const ids = Object.freeze({
   notificationBody: "urn:agp:schema:v1:protocol:wire:notification-body",
   notificationMessage:
     "urn:agp:schema:v1:protocol:wire:notification-message",
-  deliveryErrorBody:
-    "urn:agp:schema:v1:protocol:wire:delivery-error-body",
+  deliveryFailure:
+    "urn:agp:schema:v1:protocol:wire:delivery-failure",
   labelRange: "urn:agp:schema:v1:protocol:wire:label-range",
   deliveryFailure: "urn:agp:schema:v1:protocol:wire:delivery-failure",
   dispositionBody: "urn:agp:schema:v1:protocol:wire:disposition-body",
@@ -171,7 +171,7 @@ add(
   "ReturnToken",
   "scalar",
   stringScalar(
-    "Hop-scoped unsigned 64-bit reverse-correlation token in fixed-width lowercase hexadecimal.",
+    "Hop-scoped unsigned 64-bit label in fixed-width lowercase hexadecimal.",
     "^[0-9a-f]{16}$",
     16,
     16,
@@ -374,7 +374,7 @@ add(
 
 // Two dimensions, because a channel has two exhaustible resources. A byte
 // budget alone lets small messages exhaust a packet ring, and each admitted
-// message additionally reserves a queue entry, a breadcrumb, and a return
+// message additionally reserves a queue entry, a labelBinding, and a return
 // token. See DECISIONS.md D19.
 const creditGrant = {
   type: "object",
@@ -619,7 +619,7 @@ const deliveryErrorVariants = Object.entries(deliveryReasons).map(
         ),
         returnToken: ref(
           ids.returnToken,
-          "Hop token copied from the failing data packet or translated breadcrumb.",
+          "Hop token copied from the failing data packet or translated labelBinding.",
         ),
         failedAtNodeId: ref(
           ids.nodeId,
@@ -634,12 +634,12 @@ const deliveryErrorVariants = Object.entries(deliveryReasons).map(
 );
 add(
   "wire",
-  "delivery-error-body",
-  "DeliveryErrorBody",
+  "delivery-failure",
+  "DeliveryFailure",
   "wire-body",
   {
     description:
-      "Nonfatal correlated delivery failure returned only over reverse breadcrumbs.",
+      "Nonfatal correlated delivery failure returned only over reverse labelBindings.",
     oneOf: deliveryErrorVariants,
   },
   ["ERROR-RETURN-TOKEN-1"],
@@ -683,7 +683,7 @@ add(
         type: "array",
         maxItems: 1024,
         items: ref(
-          ids.deliveryErrorBody,
+          ids.deliveryFailure,
           "One label that did not deliver, with the identity it concerns.",
         ),
         description:
@@ -710,7 +710,7 @@ add(
       ),
       returnToken: ref(
         ids.returnToken,
-        "Exact hop-scoped reverse-correlation token.",
+        "Exact hop-scoped label.",
       ),
       hopLimit: {
         type: "integer",
@@ -1064,7 +1064,7 @@ interface DeliveryErrorFields {
   readonly destinations?: number;
 }
 
-export type DeliveryErrorBody = DeliveryErrorFields & (
+export type DeliveryFailure = DeliveryErrorFields & (
   | { readonly code: "NO_ROUTE"; readonly reason: "no selected route" }
   | { readonly code: "HOP_LIMIT_EXCEEDED"; readonly reason: "hop limit exhausted" }
   | { readonly code: "SOURCE_NOT_AUTHORIZED"; readonly reason: "source not authorized on ingress" }
@@ -1097,7 +1097,7 @@ export interface LabelRange {
  */
 export interface DispositionBody {
   readonly delivered?: readonly LabelRange[];
-  readonly failed?: readonly DeliveryErrorBody[];
+  readonly failed?: readonly DeliveryFailure[];
 }
 
 export interface DataBody {

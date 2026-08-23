@@ -92,11 +92,11 @@ async function measure(transport) {
     transport,
     endpointsPerNode: 1,
     deliveries,
-    // A breadcrumb is retained per sent message and released by expiry rather
+    // A labelBinding is retained per sent message and released by expiry rather
     // than by delivery, so its bound is a sustained-rate ceiling and not a
     // carrier property. It is lifted here so this measures the carrier. The
     // ceiling it imposes is measured on its own terms; see `MX6`.
-    capacity: { maxReverseCorrelations: 500_000 },
+    capacity: { maxLabelBindings: 500_000 },
     ...(ISOLATION === "process" && transport !== "loopback"
       ? { isolation: "process" }
       : {}),

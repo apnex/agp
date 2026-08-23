@@ -274,8 +274,8 @@
       ],
       "schemaIds": [
         "urn:agp:schema:v1:protocol:common:return-token",
-        "urn:agp:schema:v1:protocol:wire:delivery-error-body",
-        "urn:agp:schema:v1:core:operations:reverse-correlation-snapshot"
+        "urn:agp:schema:v1:protocol:wire:delivery-failure",
+        "urn:agp:schema:v1:core:operations:label-binding-snapshot"
       ],
       "semanticRuleIds": [
         "ERROR-RETURN-TOKEN-1",

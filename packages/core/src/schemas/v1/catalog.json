@@ -96,7 +96,7 @@
       "path": "codes/resource-code.schema.json",
       "kind": "code",
       "typescript": "ResourceCode",
-      "sha256": "684aa12dd87f6e0882f6a04a1cac200e5a7d71f3d0be9878529bdde714d18f64"
+      "sha256": "088fde753d05f643da852b01a62d53b18dc3982bac76210bd73d809c44ed608c"
     },
     {
       "id": "urn:agp:schema:v1:core:codes:route-reason-code",
@@ -232,7 +232,7 @@
       "path": "configuration/capacity.schema.json",
       "kind": "configuration",
       "typescript": "Capacity",
-      "sha256": "f03b211e937bc6ac1133f4ab78bd54439048bd5f906f6aea3f16e5d969378cee"
+      "sha256": "a820ea78fc9f304974c963a205e2ef35f91b73b9dafdc0fdada83bdc2bc22d12"
     },
     {
       "id": "urn:agp:schema:v1:core:configuration:disposition",
@@ -779,6 +779,22 @@
       "sha256": "89487a909df83537a07bc14c207c73996b37d13dd06b4f198cd6c1d4710bda6f"
     },
     {
+      "id": "urn:agp:schema:v1:core:operations:label-binding-list-snapshot",
+      "owner": "@agp/core",
+      "path": "operations/label-binding-list-snapshot.schema.json",
+      "kind": "list",
+      "typescript": "LabelBindingListSnapshot",
+      "sha256": "ba7ad6ee299c23710873620d96474b534e5e08f29e59f80cf2cc301b49707fed"
+    },
+    {
+      "id": "urn:agp:schema:v1:core:operations:label-binding-snapshot",
+      "owner": "@agp/core",
+      "path": "operations/label-binding-snapshot.schema.json",
+      "kind": "operations",
+      "typescript": "LabelBindingSnapshot",
+      "sha256": "11ce902bdb65f092213b717ecaec995fb2a6195071b5784c862f55503c380320"
+    },
+    {
       "id": "urn:agp:schema:v1:core:operations:latency-sample",
       "owner": "@agp/core",
       "path": "operations/latency-sample.schema.json",
@@ -840,7 +856,7 @@
       "path": "operations/operations-snapshot.schema.json",
       "kind": "aggregate",
       "typescript": "OperationsSnapshot",
-      "sha256": "455fc3267fa56be51e9556aa7a4df61e667f1fd63804b9b5becb87ec7672a85e"
+      "sha256": "6ce8aead3704a06113eab361b9fdc3ce911a167d980bfb58b7813d50042ae0ed"
     },
     {
       "id": "urn:agp:schema:v1:core:operations:outbound-credit-snapshot",
@@ -881,22 +897,6 @@
       "kind": "operations",
       "typescript": "ReturnTokenAllocatorSnapshot",
       "sha256": "7b42012f9422475aea6e697283e1013bae797a3bf3ade8b71c394a6f4b4d4a2d"
-    },
-    {
-      "id": "urn:agp:schema:v1:core:operations:reverse-correlation-list-snapshot",
-      "owner": "@agp/core",
-      "path": "operations/reverse-correlation-list-snapshot.schema.json",
-      "kind": "list",
-      "typescript": "ReverseCorrelationListSnapshot",
-      "sha256": "f6e13ef7cd94766945b437dac58841c213e08519cc8f949f0dfefdf79cb34355"
-    },
-    {
-      "id": "urn:agp:schema:v1:core:operations:reverse-correlation-snapshot",
-      "owner": "@agp/core",
-      "path": "operations/reverse-correlation-snapshot.schema.json",
-      "kind": "operations",
-      "typescript": "ReverseCorrelationSnapshot",
-      "sha256": "b83e00acaaee345af020a75b7d924740f66cbe1175c716b5b3956274901c98c3"
     },
     {
       "id": "urn:agp:schema:v1:core:operations:route-export-state",

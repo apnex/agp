@@ -269,7 +269,7 @@ Sending the local KEEPALIVE is insufficient; only receiving the peer's confirmat
 | `RouteAckReceived` / exact outstanding ref and revision | commit accepted/rejected Adj-RIB-Out; release slot; promote coalesced successor | `Established` |
 | route ACK / no exact outstanding match | send `INVALID_MESSAGE`; purge; release | retry outcome / `Idle` |
 | `DataReceived` / admissible local destination | reserve bounded handler capacity; commit receipt/event; invoke handler outside executor | `Established` |
-| `DataReceived` / admissible transit | resolve selected route; reserve egress; record reverse breadcrumb; commit; enqueue one decremented packet | `Established` |
+| `DataReceived` / admissible transit | resolve selected route; reserve egress; record reverse label binding; commit; enqueue one decremented packet | `Established` |
 | `DataReceived` / source fails feasible-path authorization | enqueue no onward data; send correlated `SOURCE_NOT_AUTHORIZED` directly to ingress | `Established` |
 | `DataReceived` / source authorized but route/transit/hop/egress/size/export/token/capacity guard fails | enqueue no onward data; send the one precedence-selected correlated error directly to ingress | `Established` |
 | `DispositionReceived` / batch within the inbound outcome bound | settle each outcome against its own binding, releasing at zero owed; resolve locally or relay to recorded ingress | `Established` |
@@ -307,7 +307,7 @@ Overflow of the bounded continuation queue is fatal because dropping a command w
 
 The node executor-not a peer-session FSM-owns local SDK `send()`.\
 It resolves local or peer next hop against canonical routing state.\
-For peer egress it atomically revalidates the exact `Established` controller, allocates the hop-scoped return token, and reserves that controller's queue/breadcrumb before enqueuing a peer write.\
+For peer egress it atomically revalidates the exact `Established` controller, allocates the hop-scoped return token, and reserves that controller's queue/label binding before enqueuing a peer write.\
 An application-local node therefore sends to a local endpoint without fabricating an `Established` session.
 
 ---
@@ -322,8 +322,8 @@ Every terminal path uses the same idempotent order:
 2. mark the controller non-Established so no new next hop resolves through it;
 3. invalidate admission, timer, write, and handler tokens;
 4. in one routing transaction remove its Adj-RIB-In, recompute selected
-   alternatives/FIB/exports, invalidate its Adj-RIB-Out, remove breadcrumbs
-   whose ingress became unusable, and convert breadcrumbs whose egress failed
+   alternatives/FIB/exports, invalidate its Adj-RIB-Out, remove label bindings
+   whose ingress became unusable, and convert label bindings whose egress failed
    into bounded direct `NEXT_HOP_UNAVAILABLE` results where return ingress is
    still usable;
 5. stop protocol timers and close/abort the neutral channel within a finite

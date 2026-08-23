@@ -1,13 +1,13 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "urn:agp:schema:v1:protocol:wire:delivery-error-body",
-  "title": "DeliveryErrorBody",
-  "description": "Nonfatal correlated delivery failure returned only over reverse breadcrumbs.",
+  "$id": "urn:agp:schema:v1:protocol:wire:delivery-failure",
+  "title": "DeliveryFailure",
+  "description": "Nonfatal correlated delivery failure returned only over reverse labelBindings.",
   "x-agp": {
     "owner": "@agp/protocol",
-    "typescript": "DeliveryErrorBody",
+    "typescript": "DeliveryFailure",
     "kind": "wire-body",
-    "mechanics": "Nonfatal correlated delivery failure returned only over reverse breadcrumbs.",
+    "mechanics": "Nonfatal correlated delivery failure returned only over reverse labelBindings.",
     "rationale": "A sovereign contract gives validators and consumers one stable reasoning boundary.",
     "consequence": "Accepting another shape would make peer interpretation or ownership ambiguous.",
     "semanticRules": [
@@ -42,7 +42,7 @@
         },
         "returnToken": {
           "$ref": "urn:agp:schema:v1:protocol:common:return-token",
-          "description": "Hop token copied from the failing data packet or translated breadcrumb."
+          "description": "Hop token copied from the failing data packet or translated labelBinding."
         },
         "failedAtNodeId": {
           "$ref": "urn:agp:schema:v1:protocol:common:node-id",
@@ -82,7 +82,7 @@
         },
         "returnToken": {
           "$ref": "urn:agp:schema:v1:protocol:common:return-token",
-          "description": "Hop token copied from the failing data packet or translated breadcrumb."
+          "description": "Hop token copied from the failing data packet or translated labelBinding."
         },
         "failedAtNodeId": {
           "$ref": "urn:agp:schema:v1:protocol:common:node-id",
@@ -122,7 +122,7 @@
         },
         "returnToken": {
           "$ref": "urn:agp:schema:v1:protocol:common:return-token",
-          "description": "Hop token copied from the failing data packet or translated breadcrumb."
+          "description": "Hop token copied from the failing data packet or translated labelBinding."
         },
         "failedAtNodeId": {
           "$ref": "urn:agp:schema:v1:protocol:common:node-id",
@@ -162,7 +162,7 @@
         },
         "returnToken": {
           "$ref": "urn:agp:schema:v1:protocol:common:return-token",
-          "description": "Hop token copied from the failing data packet or translated breadcrumb."
+          "description": "Hop token copied from the failing data packet or translated labelBinding."
         },
         "failedAtNodeId": {
           "$ref": "urn:agp:schema:v1:protocol:common:node-id",
@@ -202,7 +202,7 @@
         },
         "returnToken": {
           "$ref": "urn:agp:schema:v1:protocol:common:return-token",
-          "description": "Hop token copied from the failing data packet or translated breadcrumb."
+          "description": "Hop token copied from the failing data packet or translated labelBinding."
         },
         "failedAtNodeId": {
           "$ref": "urn:agp:schema:v1:protocol:common:node-id",
@@ -242,7 +242,7 @@
         },
         "returnToken": {
           "$ref": "urn:agp:schema:v1:protocol:common:return-token",
-          "description": "Hop token copied from the failing data packet or translated breadcrumb."
+          "description": "Hop token copied from the failing data packet or translated labelBinding."
         },
         "failedAtNodeId": {
           "$ref": "urn:agp:schema:v1:protocol:common:node-id",
@@ -282,7 +282,7 @@
         },
         "returnToken": {
           "$ref": "urn:agp:schema:v1:protocol:common:return-token",
-          "description": "Hop token copied from the failing data packet or translated breadcrumb."
+          "description": "Hop token copied from the failing data packet or translated labelBinding."
         },
         "failedAtNodeId": {
           "$ref": "urn:agp:schema:v1:protocol:common:node-id",
@@ -322,7 +322,7 @@
         },
         "returnToken": {
           "$ref": "urn:agp:schema:v1:protocol:common:return-token",
-          "description": "Hop token copied from the failing data packet or translated breadcrumb."
+          "description": "Hop token copied from the failing data packet or translated labelBinding."
         },
         "failedAtNodeId": {
           "$ref": "urn:agp:schema:v1:protocol:common:node-id",

@@ -28,7 +28,7 @@
       "type": "array",
       "maxItems": 1024,
       "items": {
-        "$ref": "urn:agp:schema:v1:protocol:wire:delivery-error-body",
+        "$ref": "urn:agp:schema:v1:protocol:wire:delivery-failure",
         "description": "One label that did not deliver, with the identity it concerns."
       },
       "description": "Labels whose messages failed, each carrying its own detail."

@@ -51,7 +51,7 @@ export type {
   CorrelationId,
   DataBody,
   DataMessage,
-  DeliveryErrorBody,
+  DeliveryFailure,
   DispositionBody,
   DispositionMessage,
   LabelRange,

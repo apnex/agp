@@ -272,7 +272,7 @@ export const coreSchemaDocumentsV1 = Object.freeze([
       "candidateRoutes",
       "localBindings",
       "activeHandlers",
-      "reverseCorrelations",
+      "labelBindings",
       "eventSubscribers"
     ]
   },
@@ -681,7 +681,7 @@ export const coreSchemaDocumentsV1 = Object.freeze([
         "minimum": 1,
         "maximum": 9007199254740991
       },
-      "maxReverseCorrelations": {
+      "maxLabelBindings": {
         "type": "integer",
         "minimum": 1,
         "maximum": 9007199254740991
@@ -3579,6 +3579,109 @@ export const coreSchemaDocumentsV1 = Object.freeze([
   },
   {
     "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "urn:agp:schema:v1:core:operations:label-binding-list-snapshot",
+    "title": "AGP core label-binding-list-snapshot",
+    "x-agp": {
+      "owner": "@agp/core",
+      "typescript": "LabelBindingListSnapshot",
+      "kind": "list",
+      "mechanics": "Sovereign label-binding-list-snapshot data contract owned by @agp/core.",
+      "rationale": "One schema gives runtime validators and consumers one stable reasoning boundary.",
+      "consequence": "Accepting another shape would make canonical state or SDK interpretation ambiguous.",
+      "semanticRules": []
+    },
+    "type": "object",
+    "properties": {
+      "schemaVersion": {
+        "const": "agp.operations/v1"
+      },
+      "nodeId": {
+        "$ref": "urn:agp:schema:v1:protocol:common:node-id"
+      },
+      "instanceId": {
+        "$ref": "urn:agp:schema:v1:core:common:instance-id"
+      },
+      "capturedAt": {
+        "$ref": "urn:agp:schema:v1:core:common:timestamp"
+      },
+      "revision": {
+        "$ref": "urn:agp:schema:v1:core:common:operations-revision"
+      },
+      "items": {
+        "type": "array",
+        "items": {
+          "$ref": "urn:agp:schema:v1:core:operations:label-binding-snapshot"
+        }
+      }
+    },
+    "required": [
+      "schemaVersion",
+      "nodeId",
+      "instanceId",
+      "capturedAt",
+      "revision",
+      "items"
+    ],
+    "additionalProperties": false
+  },
+  {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "urn:agp:schema:v1:core:operations:label-binding-snapshot",
+    "title": "AGP core label-binding-snapshot",
+    "x-agp": {
+      "owner": "@agp/core",
+      "typescript": "LabelBindingSnapshot",
+      "kind": "operations",
+      "mechanics": "Sovereign label-binding-snapshot data contract owned by @agp/core.",
+      "rationale": "One schema gives runtime validators and consumers one stable reasoning boundary.",
+      "consequence": "Accepting another shape would make canonical state or SDK interpretation ambiguous.",
+      "semanticRules": []
+    },
+    "type": "object",
+    "properties": {
+      "messageId": {
+        "$ref": "urn:agp:schema:v1:protocol:common:message-id"
+      },
+      "outboundReturnToken": {
+        "$ref": "urn:agp:schema:v1:protocol:common:return-token"
+      },
+      "source": {
+        "$ref": "urn:agp:schema:v1:protocol:routing:endpoint-source"
+      },
+      "destination": {
+        "$ref": "urn:agp:schema:v1:protocol:common:endpoint-name"
+      },
+      "ingress": {
+        "type": "object"
+      },
+      "egressNodeId": {
+        "$ref": "urn:agp:schema:v1:protocol:common:node-id"
+      },
+      "egressSessionId": {
+        "$ref": "urn:agp:schema:v1:protocol:common:session-id"
+      },
+      "admittedAtRevision": {
+        "$ref": "urn:agp:schema:v1:core:common:operations-revision"
+      },
+      "expiresAt": {
+        "$ref": "urn:agp:schema:v1:core:common:timestamp"
+      }
+    },
+    "required": [
+      "messageId",
+      "outboundReturnToken",
+      "source",
+      "destination",
+      "ingress",
+      "egressNodeId",
+      "egressSessionId",
+      "admittedAtRevision",
+      "expiresAt"
+    ],
+    "additionalProperties": false
+  },
+  {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
     "$id": "urn:agp:schema:v1:core:operations:latency-sample",
     "title": "AGP core latency-sample",
     "x-agp": {
@@ -4004,10 +4107,10 @@ export const coreSchemaDocumentsV1 = Object.freeze([
           "$ref": "urn:agp:schema:v1:core:operations:adj-rib-out-route-snapshot"
         }
       },
-      "reverseCorrelations": {
+      "labelBindings": {
         "type": "array",
         "items": {
-          "$ref": "urn:agp:schema:v1:core:operations:reverse-correlation-snapshot"
+          "$ref": "urn:agp:schema:v1:core:operations:label-binding-snapshot"
         }
       },
       "resources": {
@@ -4034,7 +4137,7 @@ export const coreSchemaDocumentsV1 = Object.freeze([
       "selectedRoutes",
       "forwarding",
       "routeExports",
-      "reverseCorrelations",
+      "labelBindings",
       "resources",
       "counters"
     ],
@@ -4297,109 +4400,6 @@ export const coreSchemaDocumentsV1 = Object.freeze([
       "allocated",
       "exhausted",
       "maximum"
-    ],
-    "additionalProperties": false
-  },
-  {
-    "$schema": "https://json-schema.org/draft/2020-12/schema",
-    "$id": "urn:agp:schema:v1:core:operations:reverse-correlation-list-snapshot",
-    "title": "AGP core reverse-correlation-list-snapshot",
-    "x-agp": {
-      "owner": "@agp/core",
-      "typescript": "ReverseCorrelationListSnapshot",
-      "kind": "list",
-      "mechanics": "Sovereign reverse-correlation-list-snapshot data contract owned by @agp/core.",
-      "rationale": "One schema gives runtime validators and consumers one stable reasoning boundary.",
-      "consequence": "Accepting another shape would make canonical state or SDK interpretation ambiguous.",
-      "semanticRules": []
-    },
-    "type": "object",
-    "properties": {
-      "schemaVersion": {
-        "const": "agp.operations/v1"
-      },
-      "nodeId": {
-        "$ref": "urn:agp:schema:v1:protocol:common:node-id"
-      },
-      "instanceId": {
-        "$ref": "urn:agp:schema:v1:core:common:instance-id"
-      },
-      "capturedAt": {
-        "$ref": "urn:agp:schema:v1:core:common:timestamp"
-      },
-      "revision": {
-        "$ref": "urn:agp:schema:v1:core:common:operations-revision"
-      },
-      "items": {
-        "type": "array",
-        "items": {
-          "$ref": "urn:agp:schema:v1:core:operations:reverse-correlation-snapshot"
-        }
-      }
-    },
-    "required": [
-      "schemaVersion",
-      "nodeId",
-      "instanceId",
-      "capturedAt",
-      "revision",
-      "items"
-    ],
-    "additionalProperties": false
-  },
-  {
-    "$schema": "https://json-schema.org/draft/2020-12/schema",
-    "$id": "urn:agp:schema:v1:core:operations:reverse-correlation-snapshot",
-    "title": "AGP core reverse-correlation-snapshot",
-    "x-agp": {
-      "owner": "@agp/core",
-      "typescript": "ReverseCorrelationSnapshot",
-      "kind": "operations",
-      "mechanics": "Sovereign reverse-correlation-snapshot data contract owned by @agp/core.",
-      "rationale": "One schema gives runtime validators and consumers one stable reasoning boundary.",
-      "consequence": "Accepting another shape would make canonical state or SDK interpretation ambiguous.",
-      "semanticRules": []
-    },
-    "type": "object",
-    "properties": {
-      "messageId": {
-        "$ref": "urn:agp:schema:v1:protocol:common:message-id"
-      },
-      "outboundReturnToken": {
-        "$ref": "urn:agp:schema:v1:protocol:common:return-token"
-      },
-      "source": {
-        "$ref": "urn:agp:schema:v1:protocol:routing:endpoint-source"
-      },
-      "destination": {
-        "$ref": "urn:agp:schema:v1:protocol:common:endpoint-name"
-      },
-      "ingress": {
-        "type": "object"
-      },
-      "egressNodeId": {
-        "$ref": "urn:agp:schema:v1:protocol:common:node-id"
-      },
-      "egressSessionId": {
-        "$ref": "urn:agp:schema:v1:protocol:common:session-id"
-      },
-      "admittedAtRevision": {
-        "$ref": "urn:agp:schema:v1:core:common:operations-revision"
-      },
-      "expiresAt": {
-        "$ref": "urn:agp:schema:v1:core:common:timestamp"
-      }
-    },
-    "required": [
-      "messageId",
-      "outboundReturnToken",
-      "source",
-      "destination",
-      "ingress",
-      "egressNodeId",
-      "egressSessionId",
-      "admittedAtRevision",
-      "expiresAt"
     ],
     "additionalProperties": false
   },

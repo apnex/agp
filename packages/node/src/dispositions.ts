@@ -2,7 +2,7 @@ import {
   AGP_V1_DELIVERY_ERROR_REASONS,
   type AgpMessage,
   type DataMessage,
-  type DeliveryErrorBody,
+  type DeliveryFailure,
   type DeliveryErrorCode,
   type DispositionMessage,
   destinationsOf,
@@ -12,8 +12,8 @@ import {
   type ReturnToken,
 } from "@agp/protocol";
 import type { Cancellable } from "@agp/core";
-import type { BreadcrumbStore } from "./breadcrumbs.js";
-import type { BreadcrumbInput, ExactController } from "./controller.js";
+import type { LabelTable } from "./label-table.js";
+import type { LabelBinding, ExactController } from "./controller.js";
 
 /**
  * How long a batch may wait, and how large it may grow.
@@ -47,14 +47,14 @@ export const DEFAULT_DISPOSITION_BATCH: DispositionBatchPolicy = Object.freeze({
 
 export type DispositionOutcome =
   | { readonly kind: "delivered"; readonly token: ReturnToken }
-  | { readonly kind: "failed"; readonly failure: DeliveryErrorBody };
+  | { readonly kind: "failed"; readonly failure: DeliveryFailure };
 
 export type SettledOutcome =
   | { readonly kind: "discarded"; readonly reason: "unreturnable" }
   | { readonly kind: "invalid-ref" }
   | {
     readonly kind: "delivered-local";
-    readonly binding: BreadcrumbInput;
+    readonly binding: LabelBinding;
     readonly outcome: DispositionOutcome;
     readonly destinations: number;
   }
@@ -62,14 +62,14 @@ export type SettledOutcome =
 
 export interface DispositionEngineOptions {
   readonly localNodeId: NodeId;
-  readonly breadcrumbs: BreadcrumbStore;
+  readonly labelBindings: LabelTable;
   readonly batch: DispositionBatchPolicy;
   readonly monotonicNow: () => number;
   readonly nextMessageId: () => MessageId;
   readonly schedule: (delayMs: number, callback: () => void) => Cancellable;
   readonly encode: (message: AgpMessage) => Readonly<Uint8Array>;
   readonly publishLocal: (
-    binding: BreadcrumbInput,
+    binding: LabelBinding,
     outcome: DispositionOutcome,
     destinations: number,
   ) => void;
@@ -82,7 +82,7 @@ export interface DispositionEngineOptions {
 interface PendingBatch {
   readonly controller: ExactController;
   readonly delivered: ReturnToken[];
-  readonly failed: DeliveryErrorBody[];
+  readonly failed: DeliveryFailure[];
   timer: Cancellable | undefined;
 }
 
@@ -112,7 +112,7 @@ export class DispositionEngine {
     this.#enqueue(ingress, (batch) => batch.delivered.push(token));
   }
 
-  reportFailed(ingress: ExactController, failure: DeliveryErrorBody): void {
+  reportFailed(ingress: ExactController, failure: DeliveryFailure): void {
     this.#enqueue(ingress, (batch) => batch.failed.push(failure));
   }
 
@@ -229,7 +229,7 @@ export class DispositionEngine {
     token: ReturnToken,
     destinations: number,
   ): SettledOutcome {
-    const lookup = this.#options.breadcrumbs.settleDelivered(
+    const lookup = this.#options.labelBindings.settleDelivered(
       egress,
       token,
       this.#options.monotonicNow(),
@@ -237,20 +237,20 @@ export class DispositionEngine {
     if (lookup.kind !== "consumed") {
       return Object.freeze({ kind: "discarded", reason: "unreturnable" });
     }
-    if (lookup.breadcrumb.ingress.kind === "local") {
+    if (lookup.labelBinding.ingress.kind === "local") {
       const outcome = Object.freeze({
         kind: "delivered",
         token,
       } as const);
-      this.#options.publishLocal(lookup.breadcrumb, outcome, destinations);
+      this.#options.publishLocal(lookup.labelBinding, outcome, destinations);
       return Object.freeze({
         kind: "delivered-local",
-        binding: lookup.breadcrumb,
+        binding: lookup.labelBinding,
         outcome,
         destinations,
       });
     }
-    const ingress = lookup.breadcrumb.ingress.controller;
+    const ingress = lookup.labelBinding.ingress.controller;
     if (!ingress.isLive()) {
       return Object.freeze({ kind: "discarded", reason: "unreturnable" });
     }
@@ -258,16 +258,16 @@ export class DispositionEngine {
     // downstream label instead would name a binding that peer never made.
     this.reportDelivered(
       ingress,
-      lookup.breadcrumb.ingress.upstreamReturnToken,
+      lookup.labelBinding.ingress.upstreamReturnToken,
     );
     return Object.freeze({ kind: "relayed", ingress });
   }
 
   #settleFailed(
     egress: ExactController,
-    failure: DeliveryErrorBody,
+    failure: DeliveryFailure,
   ): SettledOutcome {
-    const lookup = this.#options.breadcrumbs.consume(
+    const lookup = this.#options.labelBindings.consume(
       egress,
       failure.returnToken,
       failure.refId,
@@ -280,21 +280,21 @@ export class DispositionEngine {
       egress.terminate("INVALID_MESSAGE");
       return Object.freeze({ kind: "invalid-ref" });
     }
-    if (lookup.breadcrumb.ingress.kind === "local") {
+    if (lookup.labelBinding.ingress.kind === "local") {
       const outcome = Object.freeze({ kind: "failed", failure } as const);
       this.#options.publishLocal(
-        lookup.breadcrumb,
+        lookup.labelBinding,
         outcome,
         destinationsOf(failure),
       );
       return Object.freeze({
         kind: "delivered-local",
-        binding: lookup.breadcrumb,
+        binding: lookup.labelBinding,
         outcome,
         destinations: destinationsOf(failure),
       });
     }
-    const ingress = lookup.breadcrumb.ingress.controller;
+    const ingress = lookup.labelBinding.ingress.controller;
     if (!ingress.isLive()) {
       return Object.freeze({ kind: "discarded", reason: "unreturnable" });
     }
@@ -302,8 +302,8 @@ export class DispositionEngine {
       ingress,
       Object.freeze({
         ...failure,
-        returnToken: lookup.breadcrumb.ingress.upstreamReturnToken,
-      }) as DeliveryErrorBody,
+        returnToken: lookup.labelBinding.ingress.upstreamReturnToken,
+      }) as DeliveryFailure,
     );
     return Object.freeze({ kind: "relayed", ingress });
   }
@@ -366,14 +366,14 @@ export class DispositionEngine {
     code: DeliveryErrorCode,
     refId: MessageId,
     returnToken: ReturnToken,
-  ): DeliveryErrorBody {
+  ): DeliveryFailure {
     return Object.freeze({
       code,
       refId,
       returnToken,
       failedAtNodeId: this.#options.localNodeId,
       reason: AGP_V1_DELIVERY_ERROR_REASONS[code],
-    }) as DeliveryErrorBody;
+    }) as DeliveryFailure;
   }
 }
 

@@ -88,10 +88,10 @@
         "$ref": "urn:agp:schema:v1:core:operations:adj-rib-out-route-snapshot"
       }
     },
-    "reverseCorrelations": {
+    "labelBindings": {
       "type": "array",
       "items": {
-        "$ref": "urn:agp:schema:v1:core:operations:reverse-correlation-snapshot"
+        "$ref": "urn:agp:schema:v1:core:operations:label-binding-snapshot"
       }
     },
     "resources": {
@@ -118,7 +118,7 @@
     "selectedRoutes",
     "forwarding",
     "routeExports",
-    "reverseCorrelations",
+    "labelBindings",
     "resources",
     "counters"
   ],

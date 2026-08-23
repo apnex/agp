@@ -426,7 +426,7 @@
         "NEXT_HOP_UNAVAILABLE"
       ],
       "designReferences": [
-        "docs/design/routing.md#102-breadcrumb-admission"
+        "docs/design/routing.md#102-label-binding-admission"
       ],
       "implementation": "packages/node/src/return-token.ts#ReturnTokenAllocator",
       "owningTest": "packages/node/test/unit/return-token-allocator.test.js"
@@ -436,7 +436,7 @@
       "owner": "@agp/node",
       "phase": "data-admission",
       "inputSchemaIds": [
-        "urn:agp:schema:v1:protocol:wire:delivery-error-body"
+        "urn:agp:schema:v1:protocol:wire:delivery-failure"
       ],
       "resultCodes": [
         "DELIVER",
@@ -481,7 +481,7 @@
       "designReferences": [
         "docs/design/routing.md#103-downstream-disposition-handling"
       ],
-      "implementation": "packages/node/src/node.ts#consumeBreadcrumb",
+      "implementation": "packages/node/src/node.ts#consumeLabelBinding",
       "owningTest": "packages/node/test/contract/reverse-error-consume-once.test.js"
     },
     {

@@ -96,7 +96,7 @@
       "path": "common/return-token.schema.json",
       "kind": "scalar",
       "typescript": "ReturnToken",
-      "sha256": "7747860fd1e51ea5df4f1fce1ce743e8a5383fd5a5897491d60acec22fb2f3d1"
+      "sha256": "6339337bc5717c4aa19d8e6a2b5f042a738820833236ece42826452e4c74ac14"
     },
     {
       "id": "urn:agp:schema:v1:protocol:common:session-id",
@@ -152,7 +152,7 @@
       "path": "wire/data-body.schema.json",
       "kind": "wire-body",
       "typescript": "DataBody",
-      "sha256": "b16be255c822073af94ee181a18f207dab836269c3e4c21e252518f650ba0a7c"
+      "sha256": "7716283d00243174bdc0d2479af32eed26bfb43890b10f70a0830f62506af41d"
     },
     {
       "id": "urn:agp:schema:v1:protocol:wire:data-message",
@@ -163,12 +163,12 @@
       "sha256": "1b136bfa0d67ea1f72eaa556c6e32f50103eb6b7b1522ba24a653b216a8ff086"
     },
     {
-      "id": "urn:agp:schema:v1:protocol:wire:delivery-error-body",
+      "id": "urn:agp:schema:v1:protocol:wire:delivery-failure",
       "owner": "@agp/protocol",
-      "path": "wire/delivery-error-body.schema.json",
+      "path": "wire/delivery-failure.schema.json",
       "kind": "wire-body",
-      "typescript": "DeliveryErrorBody",
-      "sha256": "9f7dfc2a9a4fab16c8c2b0ee45db67ad6cea1e72b19dcaa2d805ce176eb4b19f"
+      "typescript": "DeliveryFailure",
+      "sha256": "92c73d335f70dce4628923d2a004ea2b6b4843b1744b3e5eef29f7a2ab1f5ff9"
     },
     {
       "id": "urn:agp:schema:v1:protocol:wire:disposition-body",
@@ -176,7 +176,7 @@
       "path": "wire/disposition-body.schema.json",
       "kind": "wire-body",
       "typescript": "DispositionBody",
-      "sha256": "dd17f8b3c70234d62a18844c9254db5fd6edd2dafa19641831c6dfe14dafa0a5"
+      "sha256": "3854d2456cfad5474f02036cd491db8f4bb56f89caa783e528cdad8f599552e8"
     },
     {
       "id": "urn:agp:schema:v1:protocol:wire:disposition-message",

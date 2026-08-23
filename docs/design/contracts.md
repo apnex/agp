@@ -130,7 +130,7 @@ wire/
   route-ack-message.schema.json
   notification-body.schema.json
   notification-message.schema.json
-  delivery-error-body.schema.json
+  delivery-failure.schema.json
   error-message.schema.json
   data-body.schema.json
   data-message.schema.json
@@ -165,7 +165,7 @@ No public message body or route object is inline.
 | `route.update` | control | Revision plus authoritative bounded `RouteAdvertisement[]` | Replace the sender-owned Adj-RIB-In view; omission withdraws |
 | `route.ack` | control | `refId`, revision, bounded rejection results; acceptance is the exact outstanding set minus rejections | Close one outbound snapshot transaction |
 | `notification` | control | Fatal code and bounded reason | Terminate an invalid session deterministically |
-| `error` | control | Correlated nonfatal delivery code, end-to-end `refId`, hop-scoped `returnToken`, failing node, bounded reason | Return a data failure over reverse breadcrumbs |
+| `disposition` | control | Batched terminal outcomes: deliveries as inclusive ranges of hop-scoped labels, failures as entries carrying delivery code, end-to-end `refId`, hop-scoped `returnToken`, failing node and bounded reason | Report the fate of forwarded data over reverse label bindings |
 | `message` | data | Source endpoint/origin, destination, correlation, hop-scoped `returnToken`, hop limit, opaque JSON object payload | Carry one routed application object |
 
 `role`, `endpoint.update`, `endpoint.ack`, and role-mismatch codes are removed from the replacement AGP v1 language.
@@ -446,7 +446,7 @@ operations/
   next-hop.schema.json
   forwarding-entry-snapshot.schema.json
   adj-rib-out-route-snapshot.schema.json
-  reverse-correlation-snapshot.schema.json
+  label-binding-snapshot.schema.json
   resource-gauge.schema.json
   resources-snapshot.schema.json
   counters-snapshot.schema.json
@@ -457,7 +457,7 @@ operations/
   route-table-snapshot.schema.json
   forwarding-list-snapshot.schema.json
   adj-rib-out-list-snapshot.schema.json
-  reverse-correlation-list-snapshot.schema.json
+  label-binding-list-snapshot.schema.json
   operations-snapshot.schema.json
 ```
 
@@ -476,7 +476,7 @@ operations/
 | `SelectedRouteSnapshot` | The single chosen path for an endpoint, including origin and complete path through the local node |
 | `ForwardingEntrySnapshot` | Resolved immediate local binding or peer session derived from one selected route |
 | `AdjRibOutRouteSnapshot` | One selected route desired/advertised to one peer and its acknowledgement state |
-| `ReverseCorrelationSnapshot` | Bounded breadcrumb that can return an error without another route lookup |
+| `LabelBindingSnapshot` | Bounded label binding that can return an error without another route lookup |
 | `OperationsSnapshot` | One reference-only aggregate of all state at a single node revision |
 
 Hub/spoke-specific endpoint-state unions are replaced by symmetric per-session `routeImport` and `routeExport` objects.
@@ -514,7 +514,7 @@ Thus terminal retention is bounded by the existing controller and adjacency/sess
 `AdjRibOutRouteSnapshot` uses the closed state/field combinations in `routing.md` section 3.6.\
 In particular, a peer-rejected `POLICY` or `CAPACITY` row owns `remoteRejectionCode`, zero-based `remoteRetryAttempt`, and `remoteRetryAt`; local suppression and non-retryable remote rejection cannot carry those retry fields.
 
-`ReverseCorrelationSnapshot` exposes the end-to-end `messageId`, `outboundReturnToken`, source/destination, ingress discriminator, and exact public pair identities: session ingress has `nodeId`, `owningSessionId`, and `upstreamReturnToken`; egress has `egressNodeId` and `egressSessionId`.\
+`LabelBindingSnapshot` exposes the end-to-end `messageId`, `outboundReturnToken`, source/destination, ingress discriminator, and exact public pair identities: session ingress has `nodeId`, `owningSessionId`, and `upstreamReturnToken`; egress has `egressNodeId` and `egressSessionId`.\
 Private controller handles never cross the operations boundary.
 
 `operations-revision`, `event-sequence`, and `counter-value` are separate sovereign decimal-string schemas.\

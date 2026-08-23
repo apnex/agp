@@ -104,7 +104,7 @@
     {
       "id": "urn:agp:schema:v1:core:codes:resource-code",
       "path": "packages/core/src/schemas/v1/codes/resource-code.schema.json",
-      "sha256": "684aa12dd87f6e0882f6a04a1cac200e5a7d71f3d0be9878529bdde714d18f64"
+      "sha256": "088fde753d05f643da852b01a62d53b18dc3982bac76210bd73d809c44ed608c"
     },
     {
       "id": "urn:agp:schema:v1:core:codes:route-reason-code",
@@ -189,7 +189,7 @@
     {
       "id": "urn:agp:schema:v1:core:configuration:capacity",
       "path": "packages/core/src/schemas/v1/configuration/capacity.schema.json",
-      "sha256": "f03b211e937bc6ac1133f4ab78bd54439048bd5f906f6aea3f16e5d969378cee"
+      "sha256": "a820ea78fc9f304974c963a205e2ef35f91b73b9dafdc0fdada83bdc2bc22d12"
     },
     {
       "id": "urn:agp:schema:v1:core:configuration:disposition",
@@ -532,6 +532,16 @@
       "sha256": "89487a909df83537a07bc14c207c73996b37d13dd06b4f198cd6c1d4710bda6f"
     },
     {
+      "id": "urn:agp:schema:v1:core:operations:label-binding-list-snapshot",
+      "path": "packages/core/src/schemas/v1/operations/label-binding-list-snapshot.schema.json",
+      "sha256": "ba7ad6ee299c23710873620d96474b534e5e08f29e59f80cf2cc301b49707fed"
+    },
+    {
+      "id": "urn:agp:schema:v1:core:operations:label-binding-snapshot",
+      "path": "packages/core/src/schemas/v1/operations/label-binding-snapshot.schema.json",
+      "sha256": "11ce902bdb65f092213b717ecaec995fb2a6195071b5784c862f55503c380320"
+    },
+    {
       "id": "urn:agp:schema:v1:core:operations:latency-sample",
       "path": "packages/core/src/schemas/v1/operations/latency-sample.schema.json",
       "sha256": "e8a94359251e13222bc04529da587ee9aa85dcc66a5c300d619220c5146cec78"
@@ -569,7 +579,7 @@
     {
       "id": "urn:agp:schema:v1:core:operations:operations-snapshot",
       "path": "packages/core/src/schemas/v1/operations/operations-snapshot.schema.json",
-      "sha256": "455fc3267fa56be51e9556aa7a4df61e667f1fd63804b9b5becb87ec7672a85e"
+      "sha256": "6ce8aead3704a06113eab361b9fdc3ce911a167d980bfb58b7813d50042ae0ed"
     },
     {
       "id": "urn:agp:schema:v1:core:operations:outbound-credit-snapshot",
@@ -595,16 +605,6 @@
       "id": "urn:agp:schema:v1:core:operations:return-token-allocator-snapshot",
       "path": "packages/core/src/schemas/v1/operations/return-token-allocator-snapshot.schema.json",
       "sha256": "7b42012f9422475aea6e697283e1013bae797a3bf3ade8b71c394a6f4b4d4a2d"
-    },
-    {
-      "id": "urn:agp:schema:v1:core:operations:reverse-correlation-list-snapshot",
-      "path": "packages/core/src/schemas/v1/operations/reverse-correlation-list-snapshot.schema.json",
-      "sha256": "f6e13ef7cd94766945b437dac58841c213e08519cc8f949f0dfefdf79cb34355"
-    },
-    {
-      "id": "urn:agp:schema:v1:core:operations:reverse-correlation-snapshot",
-      "path": "packages/core/src/schemas/v1/operations/reverse-correlation-snapshot.schema.json",
-      "sha256": "b83e00acaaee345af020a75b7d924740f66cbe1175c716b5b3956274901c98c3"
     },
     {
       "id": "urn:agp:schema:v1:core:operations:route-export-state",
@@ -784,7 +784,7 @@
     {
       "id": "urn:agp:schema:v1:management:operations-response",
       "path": "packages/management-http/src/schemas/v1/responses/operations-response.schema.json",
-      "sha256": "0a70aa799900f6c519eb2f229047e4c261e9ec614dd898be85576f70a759dd10"
+      "sha256": "d5dac6a1b992065833ff67d9e79ba649fc808392ad8b55bf84f1b716992ab46f"
     },
     {
       "id": "urn:agp:schema:v1:management:resources-response",
@@ -854,7 +854,7 @@
     {
       "id": "urn:agp:schema:v1:protocol:common:return-token",
       "path": "packages/protocol/src/schemas/v1/common/return-token.schema.json",
-      "sha256": "7747860fd1e51ea5df4f1fce1ce743e8a5383fd5a5897491d60acec22fb2f3d1"
+      "sha256": "6339337bc5717c4aa19d8e6a2b5f042a738820833236ece42826452e4c74ac14"
     },
     {
       "id": "urn:agp:schema:v1:protocol:common:session-id",
@@ -889,7 +889,7 @@
     {
       "id": "urn:agp:schema:v1:protocol:wire:data-body",
       "path": "packages/protocol/src/schemas/v1/wire/data-body.schema.json",
-      "sha256": "b16be255c822073af94ee181a18f207dab836269c3e4c21e252518f650ba0a7c"
+      "sha256": "7716283d00243174bdc0d2479af32eed26bfb43890b10f70a0830f62506af41d"
     },
     {
       "id": "urn:agp:schema:v1:protocol:wire:data-message",
@@ -897,14 +897,14 @@
       "sha256": "1b136bfa0d67ea1f72eaa556c6e32f50103eb6b7b1522ba24a653b216a8ff086"
     },
     {
-      "id": "urn:agp:schema:v1:protocol:wire:delivery-error-body",
-      "path": "packages/protocol/src/schemas/v1/wire/delivery-error-body.schema.json",
-      "sha256": "9f7dfc2a9a4fab16c8c2b0ee45db67ad6cea1e72b19dcaa2d805ce176eb4b19f"
+      "id": "urn:agp:schema:v1:protocol:wire:delivery-failure",
+      "path": "packages/protocol/src/schemas/v1/wire/delivery-failure.schema.json",
+      "sha256": "92c73d335f70dce4628923d2a004ea2b6b4843b1744b3e5eef29f7a2ab1f5ff9"
     },
     {
       "id": "urn:agp:schema:v1:protocol:wire:disposition-body",
       "path": "packages/protocol/src/schemas/v1/wire/disposition-body.schema.json",
-      "sha256": "dd17f8b3c70234d62a18844c9254db5fd6edd2dafa19641831c6dfe14dafa0a5"
+      "sha256": "3854d2456cfad5474f02036cd491db8f4bb56f89caa783e528cdad8f599552e8"
     },
     {
       "id": "urn:agp:schema:v1:protocol:wire:disposition-message",

@@ -21,7 +21,7 @@
     "candidateRoutes",
     "localBindings",
     "activeHandlers",
-    "reverseCorrelations",
+    "labelBindings",
     "eventSubscribers"
   ]
 }

@@ -40,7 +40,7 @@ async function converged(t, overrides = {}) {
       expectedNodeId: "node.sink",
       transportRef: "release.listener",
     }],
-    capacity: { maxReverseCorrelations: CAPACITY },
+    capacity: { maxLabelBindings: CAPACITY },
     disposition: { debounceMs: 0, onCapacity: "refuse", ...overrides },
   }, { transport: network.transport({ targets: ["release.listener"] }) });
   t.after(async () => {
@@ -65,7 +65,7 @@ async function converged(t, overrides = {}) {
 }
 
 function held(dialer) {
-  return dialer.operations.snapshot().reverseCorrelations.length;
+  return dialer.operations.snapshot().labelBindings.length;
 }
 
 test("Given messages that all succeed, when their dispositions return, then the label table empties without waiting for expiry", async (t) => {

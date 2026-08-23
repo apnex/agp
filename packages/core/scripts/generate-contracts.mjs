@@ -164,7 +164,7 @@ const codeSets = {
   "resource-code": [
     "pendingHandshakes", "sessionCapacitySlots", "controlQueue",
     "dataQueue", "continuationQueue", "candidateRoutes", "localBindings",
-    "activeHandlers", "reverseCorrelations", "eventSubscribers",
+    "activeHandlers", "labelBindings", "eventSubscribers",
   ],
 };
 for (const [name, values] of Object.entries(codeSets)) {
@@ -235,7 +235,7 @@ add("configuration", "capacity", closed(Object.fromEntries([
   "maxSessions", "maxPendingHandshakes", "controlQueueMessages",
   "controlQueueBytes", "dataQueueMessages", "dataQueueBytes",
   "continuationQueueMessages", "continuationQueueBytes", "maxActiveHandlers",
-  "maxActiveHandlerBytes", "maxReverseCorrelations", "maxEventSubscribers",
+  "maxActiveHandlerBytes", "maxLabelBindings", "maxEventSubscribers",
   "eventSubscriberBuffer", "transportReceivePackets", "transportReceiveBytes",
 ].map((name) => [name, integer({ minimum: 1, maximum: 9007199254740991 })])), []));
 add("configuration", "disposition", closed({
@@ -695,7 +695,7 @@ add("operations", "forwarding-entry-snapshot", closed({
   nextHop: ref(core("operations", "next-hop")),
   resolvedAtRevision: ref(core("common", "operations-revision")),
 }));
-add("operations", "reverse-correlation-snapshot", closed({
+add("operations", "label-binding-snapshot", closed({
   messageId: ref(protocol("common", "message-id")),
   outboundReturnToken: ref(protocol("common", "return-token")),
   source: ref(protocol("routing", "endpoint-source")),
@@ -731,7 +731,7 @@ const listSchemas = [
   ["advertisement-list-snapshot", "advertisement-snapshot"],
   ["forwarding-list-snapshot", "forwarding-entry-snapshot"],
   ["adj-rib-out-list-snapshot", "adj-rib-out-route-snapshot"],
-  ["reverse-correlation-list-snapshot", "reverse-correlation-snapshot"],
+  ["label-binding-list-snapshot", "label-binding-snapshot"],
 ];
 for (const [name, item] of listSchemas) {
   add("operations", name, list(core("operations", item)));
@@ -754,7 +754,7 @@ add("operations", "operations-snapshot", closed({
   selectedRoutes: { type: "array", items: ref(core("operations", "selected-route-snapshot")) },
   forwarding: { type: "array", items: ref(core("operations", "forwarding-entry-snapshot")) },
   routeExports: { type: "array", items: ref(core("operations", "adj-rib-out-route-snapshot")) },
-  reverseCorrelations: { type: "array", items: ref(core("operations", "reverse-correlation-snapshot")) },
+  labelBindings: { type: "array", items: ref(core("operations", "label-binding-snapshot")) },
   resources: ref(core("operations", "resources-snapshot")),
   counters: ref(core("operations", "counters-snapshot")),
 }, undefined, semantic(

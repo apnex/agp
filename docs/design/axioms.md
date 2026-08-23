@@ -70,7 +70,7 @@ AGP must not claim that conformance on the consumer's behalf.
 | Concrete adapter configuration and logical-reference capability maps | Embedding application and adapter | Revalidated and reconstructed; never persisted as kernel authority |
 | Loopback fabric | Embedding application | May outlive one node instance, but registrations/channels are live capabilities and are never restored |
 | Locally exposed endpoint intent | Embedding application through SDK bindings | Re-registered by the application |
-| Session FSM, timers, queues, and correlation breadcrumbs | AGP runtime | Discarded |
+| Session FSM, timers, queues, and correlation label bindings | AGP runtime | Discarded |
 | Adj-RIB-In, candidate RIB, selected RIB, Adj-RIB-Out, and forwarding projection | AGP runtime | Reconstructed through route convergence |
 | Operational snapshots, events, and counters | AGP runtime | Queryable while live; no identity across restart |
 | Durable audit or message backlog | No AGP owner | Out of scope |

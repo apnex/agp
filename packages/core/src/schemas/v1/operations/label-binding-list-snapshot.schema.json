@@ -1,12 +1,12 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "urn:agp:schema:v1:core:operations:reverse-correlation-list-snapshot",
-  "title": "AGP core reverse-correlation-list-snapshot",
+  "$id": "urn:agp:schema:v1:core:operations:label-binding-list-snapshot",
+  "title": "AGP core label-binding-list-snapshot",
   "x-agp": {
     "owner": "@agp/core",
-    "typescript": "ReverseCorrelationListSnapshot",
+    "typescript": "LabelBindingListSnapshot",
     "kind": "list",
-    "mechanics": "Sovereign reverse-correlation-list-snapshot data contract owned by @agp/core.",
+    "mechanics": "Sovereign label-binding-list-snapshot data contract owned by @agp/core.",
     "rationale": "One schema gives runtime validators and consumers one stable reasoning boundary.",
     "consequence": "Accepting another shape would make canonical state or SDK interpretation ambiguous.",
     "semanticRules": []
@@ -31,7 +31,7 @@
     "items": {
       "type": "array",
       "items": {
-        "$ref": "urn:agp:schema:v1:core:operations:reverse-correlation-snapshot"
+        "$ref": "urn:agp:schema:v1:core:operations:label-binding-snapshot"
       }
     }
   },

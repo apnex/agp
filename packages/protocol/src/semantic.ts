@@ -1,7 +1,7 @@
 import { AGP_V1_DELIVERY_ERROR_REASONS, AGP_V1_LIMITS } from "./constants.js";
 import type {
   CorrelationId,
-  DeliveryErrorBody,
+  DeliveryFailure,
   EndpointName,
   MessageId,
   NodeId,
@@ -279,7 +279,7 @@ export function compareRouteRejections(
 }
 
 export function isCanonicalDeliveryErrorReason(
-  body: DeliveryErrorBody,
+  body: DeliveryFailure,
 ): boolean {
   return AGP_V1_DELIVERY_ERROR_REASONS[body.code] === body.reason;
 }

@@ -1,5 +1,5 @@
 import {
-  BreadcrumbStore,
+  LabelTable,
   DataPlane,
   EndpointRegistry,
   HandlerLedger,
@@ -26,9 +26,9 @@ export function createDataPlaneHarness(overrides = {}) {
     maximumConcurrent: overrides.maximumHandlers ?? 8,
     maximumBytes: overrides.maximumHandlerBytes ?? 64_000,
   });
-  const breadcrumbs = new BreadcrumbStore({
-    maximumEntries: overrides.maximumBreadcrumbs ?? 8,
-    maximumBytes: overrides.maximumBreadcrumbBytes ?? 64_000,
+  const labelBindings = new LabelTable({
+    maximumEntries: overrides.maximumLabelBindings ?? 8,
+    maximumBytes: overrides.maximumLabelBindingBytes ?? 64_000,
     onCapacity: overrides.onCapacity ?? "refuse",
   }, () => now);
   const commits = [];
@@ -52,7 +52,7 @@ export function createDataPlaneHarness(overrides = {}) {
   const scheduled = [];
   const dispositions = new DispositionEngine({
     localNodeId: nodeId,
-    breadcrumbs,
+    labelBindings,
     batch: {
       debounceMs: overrides.debounceMs ?? 50,
       maximumOutcomes: overrides.maximumOutcomes ?? 256,
@@ -77,7 +77,7 @@ export function createDataPlaneHarness(overrides = {}) {
     localNodeId: nodeId,
     transitEnabled: overrides.transitEnabled ?? true,
     defaultHopLimit: overrides.defaultHopLimit ?? 8,
-    reverseCorrelationLifetimeMs: 30_000,
+    labelBindingLifetimeMs: 30_000,
     routing,
     sessions: {
       resolve(node, session) {
@@ -86,7 +86,7 @@ export function createDataPlaneHarness(overrides = {}) {
     },
     endpoints,
     handlers,
-    breadcrumbs,
+    labelBindings,
     dispositions,
     executor,
     nextMessageId: () => `data-${++messageSequence}`,
@@ -111,7 +111,7 @@ export function createDataPlaneHarness(overrides = {}) {
     routing,
     endpoints,
     handlers,
-    breadcrumbs,
+    labelBindings,
     dispositions,
     scheduled,
     selected,

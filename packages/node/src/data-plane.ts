@@ -4,7 +4,7 @@ import {
   type CorrelationId,
   type CreditGrant,
   type DataMessage,
-  type DeliveryErrorBody,
+  type DeliveryFailure,
   type DeliveryErrorCode,
   type EndpointName,
   type EndpointSource,
@@ -19,9 +19,9 @@ import type {
   SelectedRouteSnapshot,
   SendReceipt,
 } from "@agp/core";
-import type { BreadcrumbStore } from "./breadcrumbs.js";
+import type { LabelTable } from "./label-table.js";
 import type {
-  BreadcrumbIngress,
+  LabelBindingIngress,
   ExactController,
 } from "./controller.js";
 import type {
@@ -89,12 +89,12 @@ export interface DataPlaneOptions {
   readonly localNodeId: NodeId;
   readonly transitEnabled: boolean;
   readonly defaultHopLimit: number;
-  readonly reverseCorrelationLifetimeMs: number;
+  readonly labelBindingLifetimeMs: number;
   readonly routing: DataRoutingPort;
   readonly sessions: SessionLookupPort;
   readonly endpoints: EndpointRegistry;
   readonly handlers: HandlerLedger;
-  readonly breadcrumbs: BreadcrumbStore;
+  readonly labelBindings: LabelTable;
   readonly dispositions: DispositionEngine;
   readonly executor: SerializedExecutor;
   readonly nextMessageId: () => MessageId;
@@ -350,7 +350,7 @@ export class DataPlane {
 
     const retainedBytes = reverseRetainedBytes(encoded.utf8Bytes);
     if (
-      !this.#options.breadcrumbs.canReserve(retainedBytes)
+      !this.#options.labelBindings.canReserve(retainedBytes)
       || !egress.writer.canAdmitData(epoch, encoded.utf8Bytes)
     ) {
       return refuse("QUEUE_FULL");
@@ -436,10 +436,10 @@ export class DataPlane {
   /** Retain the reverse path and hand the packet to the ordered writer. */
   #admitToEgress(
     decision: Extract<ForwardingDecision, { kind: "session" }>,
-    ingress: BreadcrumbIngress,
+    ingress: LabelBindingIngress,
     revision: OperationsRevision,
   ): void {
-    this.#addBreadcrumb({
+    this.#addLabelBinding({
       message: decision.message,
       ingress,
       egress: decision.egress,
@@ -548,16 +548,16 @@ export class DataPlane {
     return undefined;
   }
 
-  #addBreadcrumb(input: {
+  #addLabelBinding(input: {
     readonly message: DataMessage;
-    readonly ingress: BreadcrumbIngress;
+    readonly ingress: LabelBindingIngress;
     readonly egress: DataSessionController;
     readonly retainedBytes: number;
     readonly revision: OperationsRevision;
   }): void {
     const now = this.#options.monotonicNow();
-    const expires = now + this.#options.reverseCorrelationLifetimeMs;
-    const added = this.#options.breadcrumbs.add({
+    const expires = now + this.#options.labelBindingLifetimeMs;
+    const added = this.#options.labelBindings.add({
       messageId: input.message.id,
       outboundReturnToken: input.message.body.returnToken,
       sourceEndpoint: input.message.body.source.endpoint,
@@ -568,12 +568,12 @@ export class DataPlane {
       admittedAtRevision: input.revision,
       expiresAt: new Date(
         Date.parse(this.#options.wallTime())
-          + this.#options.reverseCorrelationLifetimeMs,
+          + this.#options.labelBindingLifetimeMs,
       ).toISOString(),
       expiresAtMonotonicMs: expires,
     }, input.retainedBytes);
     if (!added) {
-      throw new Error("breadcrumb reservation changed inside serialized admission");
+      throw new Error("labelBinding reservation changed inside serialized admission");
     }
   }
 

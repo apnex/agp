@@ -47,7 +47,7 @@
         "selectedRoutes",
         "forwarding",
         "routeExports",
-        "reverseCorrelations",
+        "labelBindings",
         "resources",
         "counters"
       ],
@@ -120,12 +120,12 @@
           },
           "description": "Canonical per-peer Adj-RIB-Out decisions."
         },
-        "reverseCorrelations": {
+        "labelBindings": {
           "type": "array",
           "items": {
-            "$ref": "urn:agp:schema:v1:core:operations:reverse-correlation-snapshot"
+            "$ref": "urn:agp:schema:v1:core:operations:label-binding-snapshot"
           },
-          "description": "Canonical bounded reverse-correlation rows."
+          "description": "Canonical bounded label binding rows."
         },
         "resources": {
           "$ref": "urn:agp:schema:v1:core:operations:resources-snapshot",

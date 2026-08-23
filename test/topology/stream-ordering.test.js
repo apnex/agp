@@ -11,7 +11,7 @@ import {
 // Owns: sustained traffic across a transit hop. Every other live test admits a
 // single message, which proves a path resolves but says nothing about what
 // happens when many messages traverse it: ordering under repeated admission,
-// breadcrumb allocation and release, return-token cycling, and whether bounded
+// labelBinding allocation and release, return-token cycling, and whether bounded
 // resources return to their baseline.
 //
 // Volume is the dimension this file varies. AGP_DEEPEN_STREAM raises it.
@@ -30,7 +30,7 @@ async function convergedLine(context, deliveries) {
 function resources(node) {
   const snapshot = node.operations.snapshot();
   return {
-    reverseCorrelations: snapshot.reverseCorrelations.length,
+    labelBindings: snapshot.labelBindings.length,
     handlers: snapshot.resources.handlers?.current ?? 0,
   };
 }
@@ -65,7 +65,7 @@ test("given a converged transit hop, when many messages stream across it, then e
   }
 });
 
-test("given a stream that has fully drained, when bounded resources are sampled, then handler capacity returns to baseline and breadcrumbs stay within their bound", async (context) => {
+test("given a stream that has fully drained, when bounded resources are sampled, then handler capacity returns to baseline and labelBindings stay within their bound", async (context) => {
   const count = deepen("stream", 60);
   const deliveries = [];
   const chain = await convergedLine(context, deliveries);
@@ -80,17 +80,17 @@ test("given a stream that has fully drained, when bounded resources are sampled,
     deliveries,
   });
 
-  // A breadcrumb is expiring, not delivery-consumed: it must outlive a
+  // A labelBinding is expiring, not delivery-consumed: it must outlive a
   // successful send so a later downstream error can still resolve against it.
   // The property is therefore boundedness, not a return to zero. Handler
   // capacity is reserved per delivery and must return.
   const limit = origin.operations.snapshot().configuration
-    .effective.capacity.maxReverseCorrelations;
+    .effective.capacity.maxLabelBindings;
   for (const [index, node] of [origin, transit, destination].entries()) {
     const after = resources(node);
     assert.ok(
-      after.reverseCorrelations <= limit,
-      `node ${index} exceeded its breadcrumb bound: ${after.reverseCorrelations} > ${limit}`,
+      after.labelBindings <= limit,
+      `node ${index} exceeded its labelBinding bound: ${after.labelBindings} > ${limit}`,
     );
     assert.equal(
       after.handlers,

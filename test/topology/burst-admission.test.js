@@ -71,7 +71,7 @@ test("given a converged transit hop, when many sends are issued concurrently, th
 test("given capacity smaller than the burst, when the bound is reached, then excess sends fail QUEUE_FULL promptly rather than waiting", async (context) => {
   const count = deepen("burst", 40);
   const deliveries = [];
-  // The breadcrumb bound is the one that reliably fills, but since D23 a
+  // The labelBinding bound is the one that reliably fills, but since D23 a
   // successful send no longer leaves a binding behind: the disposition that
   // returns releases it. So the bound is held open deliberately here, by
   // telling the table to refuse rather than evict and by pushing the batch
@@ -79,7 +79,7 @@ test("given capacity smaller than the burst, when the bound is reached, then exc
   // bound produces a prompt typed rejection rather than a hang, and that is
   // still worth gating whichever bound it is.
   const chain = await convergedLine(context, deliveries, {
-    maxReverseCorrelations: 8,
+    maxLabelBindings: 8,
   }, { debounceMs: 60_000, onCapacity: "refuse" });
 
   const started = performance.now();
@@ -111,7 +111,7 @@ test("given a burst that has fully drained, when the node is sampled, then handl
   const count = deepen("burst", 40);
   const deliveries = [];
   const chain = await convergedLine(context, deliveries, {
-    maxReverseCorrelations: 8,
+    maxLabelBindings: 8,
   });
   const [origin, , destination] = chain.nodes;
   const baseline = destination.operations.snapshot().resources.handlers?.current ?? 0;

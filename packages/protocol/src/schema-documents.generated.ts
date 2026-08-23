@@ -21,7 +21,7 @@ import schema16 from "./schemas/v1/routing/route-key.schema.json" with { type: "
 import schema17 from "./schemas/v1/routing/route-rejection.schema.json" with { type: "json" };
 import schema18 from "./schemas/v1/wire/data-body.schema.json" with { type: "json" };
 import schema19 from "./schemas/v1/wire/data-message.schema.json" with { type: "json" };
-import schema20 from "./schemas/v1/wire/delivery-error-body.schema.json" with { type: "json" };
+import schema20 from "./schemas/v1/wire/delivery-failure.schema.json" with { type: "json" };
 import schema21 from "./schemas/v1/wire/disposition-body.schema.json" with { type: "json" };
 import schema22 from "./schemas/v1/wire/disposition-message.schema.json" with { type: "json" };
 import schema23 from "./schemas/v1/wire/envelope.schema.json" with { type: "json" };

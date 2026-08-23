@@ -7,12 +7,12 @@ import {
   MemoryPeerNetwork,
 } from "../support/memory-transport.js";
 
-// Owns: that reverse-correlation capacity is a rate bound and not a lifetime
+// Owns: that label table capacity is a rate bound and not a lifetime
 // total, in the one case where nothing reports back.
 //
-// A breadcrumb is retained for every message a node originates and released
+// A labelBinding is retained for every message a node originates and released
 // only by expiry. The sweep that releases them existed and was called from
-// nowhere, so a node accepted exactly `maxReverseCorrelations` messages and
+// nowhere, so a node accepted exactly `maxLabelBindings` messages and
 // then refused every further one for the rest of its life, returning a code
 // documented as retryable for a condition that could never clear.
 //
@@ -51,7 +51,7 @@ async function converged(t) {
       transportRef: "expiry.listener",
     }],
     timers: { holdTimeMs: 0 },
-    capacity: { maxReverseCorrelations: CAPACITY },
+    capacity: { maxLabelBindings: CAPACITY },
     disposition: { debounceMs: 60_000, onCapacity: "refuse" },
   }, {
     transport: network.transport({ targets: ["expiry.listener"] }),
@@ -90,7 +90,7 @@ async function offer(dialer, count) {
   return accepted;
 }
 
-test("Given reverse-correlation capacity reached, when more is offered, then it is refused with a retryable capacity code", async (t) => {
+test("Given label table capacity reached, when more is offered, then it is refused with a retryable capacity code", async (t) => {
   const { dialer } = await converged(t);
 
   const accepted = await offer(dialer, CAPACITY * 4);
@@ -117,18 +117,18 @@ test("Given the correlation lifetime has elapsed, when sending resumes, then the
   );
 });
 
-test("Given breadcrumbs that have expired, when sending resumes, then the retained set is replaced rather than grown", async (t) => {
+test("Given labelBindings that have expired, when sending resumes, then the retained set is replaced rather than grown", async (t) => {
   const { dialer, clock } = await converged(t);
   await offer(dialer, CAPACITY * 4);
   const before = new Set(
-    dialer.operations.snapshot().reverseCorrelations.map(({ messageId }) => messageId),
+    dialer.operations.snapshot().labelBindings.map(({ messageId }) => messageId),
   );
   assert.ok(before.size > 0 && before.size <= CAPACITY);
 
   clock.advanceBy(31_000);
   await offer(dialer, CAPACITY);
 
-  const after = dialer.operations.snapshot().reverseCorrelations;
+  const after = dialer.operations.snapshot().labelBindings;
   assert.ok(
     after.length <= CAPACITY,
     "the retained set may never exceed the bound it is admitted against",

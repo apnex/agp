@@ -79,7 +79,7 @@ export function nodeConfig({
       continuationQueueBytes: 1_048_576,
       maxActiveHandlers: 32,
       maxActiveHandlerBytes: 1_048_576,
-      maxReverseCorrelations: 1024,
+      maxLabelBindings: 1024,
       maxEventSubscribers: 16,
       eventSubscriberBuffer: 256,
       ...capacity,

@@ -1,11 +1,11 @@
 import assert from "node:assert/strict";
 import test from "node:test";
 import {
-  BreadcrumbStore,
+  LabelTable,
   DispositionEngine,
 } from "../../dist/index.js";
 import {
-  breadcrumb,
+  labelBinding,
   fakeController,
 } from "../support/fakes.js";
 
@@ -18,14 +18,14 @@ function scenario() {
     remoteNodeId: "downstream.example",
     owningSessionId: "000002",
   });
-  const store = new BreadcrumbStore({
+  const store = new LabelTable({
     maximumEntries: 4,
     maximumBytes: 1_024,
     onCapacity: "refuse",
   }, () => 0);
   const engine = new DispositionEngine({
     localNodeId: "middle.example",
-    breadcrumbs: store,
+    labelBindings: store,
     batch: {
       debounceMs: 50,
       maximumOutcomes: 256,
@@ -43,7 +43,7 @@ function scenario() {
     },
   });
   const bind = (messageId, outbound, upstream) => {
-    store.add(breadcrumb({
+    store.add(labelBinding({
       egress,
       messageId,
       outboundReturnToken: outbound,

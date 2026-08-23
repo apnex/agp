@@ -142,7 +142,7 @@ try {
         profile,
         counters: runtime.node.operations.counters(),
         connections: runtime.node.operations.connections(),
-        reverseCorrelations: runtime.node.operations.reverseCorrelations(),
+        labelBindings: runtime.node.operations.labelBindings(),
       })}\n`,
     );
   }

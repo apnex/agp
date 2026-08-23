@@ -139,7 +139,7 @@ interface DeliveryErrorFields {
   readonly destinations?: number;
 }
 
-export type DeliveryErrorBody = DeliveryErrorFields & (
+export type DeliveryFailure = DeliveryErrorFields & (
   | { readonly code: "NO_ROUTE"; readonly reason: "no selected route" }
   | { readonly code: "HOP_LIMIT_EXCEEDED"; readonly reason: "hop limit exhausted" }
   | { readonly code: "SOURCE_NOT_AUTHORIZED"; readonly reason: "source not authorized on ingress" }
@@ -172,7 +172,7 @@ export interface LabelRange {
  */
 export interface DispositionBody {
   readonly delivered?: readonly LabelRange[];
-  readonly failed?: readonly DeliveryErrorBody[];
+  readonly failed?: readonly DeliveryFailure[];
 }
 
 export interface DataBody {

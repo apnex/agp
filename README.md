@@ -105,7 +105,7 @@ The WebSocket URL or Loopback address is bound to `peer.hub.primary` in the inje
 - local, direct, and multi-hop endpoint routes with deterministic selection;
 - path-vector loop prevention and feasible-ingress source authorization;
 - RIB-gated local delivery and transit forwarding;
-- ACKed source-export barriers and reverse-hop error breadcrumbs;
+- ACKed source-export barriers and reverse-hop error label bindings;
 - six-character lowercase hexadecimal, pair-scoped session identifiers;
 - sovereign JSON Schemas for wire, configuration, SDK, state, event, and
   management objects;

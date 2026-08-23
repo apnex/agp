@@ -21,7 +21,7 @@ Each file owns one primary axis, creates no shared mutable state, and imports on
 | `unit/open-identity.test.js` | `OPEN-IDENTITY-1` distinct/expected/admitted identity precedence | Valid OPEN body | Pair allocation, collision, timers |
 | `unit/route-path-semantics.test.js` | `ROUTE-PATH-OWNERSHIP-1` origin/sender/repetition precedence and snapshot-local canonicality | Inline immutable routes | Receiver-loop policy, RIB mutation, path limit |
 | `unit/route-path-limit.test.js` | `ROUTE-PATH-LIMIT-1` receiver-append equality boundary | One inline immutable route | Path ownership and negotiated-value derivation |
-| `unit/return-token-shape.test.js` | Fixed 16-hex `ReturnToken` shape and separation from six-hex/message textual domains | Inline boundary strings | Stateful allocation, exhaustion, breadcrumb lifetime |
+| `unit/return-token-shape.test.js` | Fixed 16-hex `ReturnToken` shape and separation from six-hex/message textual domains | Inline boundary strings | Stateful allocation, exhaustion, label binding lifetime |
 | `unit/preflight-safety.test.js` | Duplicate/raw grammar, numeric/runtime graphs, UTF-8, and packet-byte precedence before schema interpretation | Values are constructed because token/byte identity is the stimulus | Binding close mapping, protocol path semantics, FSM legality |
 | `unit/disposition-denominator.test.js` | Absence is the only wire spelling of a denominator of one, and `destinationsOf` is the single site that reads it back | Inline disposition bodies | Batching, binding release, outstanding accounting |
 

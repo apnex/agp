@@ -18,7 +18,7 @@ export interface ExactController {
   terminate(reason: string): void;
 }
 
-export type BreadcrumbIngress =
+export type LabelBindingIngress =
   | { readonly kind: "local" }
   | {
       readonly kind: "session";
@@ -28,13 +28,13 @@ export type BreadcrumbIngress =
       readonly upstreamReturnToken: ReturnToken;
     };
 
-export interface BreadcrumbInput {
+export interface LabelBinding {
   readonly messageId: MessageId;
   readonly outboundReturnToken: ReturnToken;
   readonly sourceEndpoint: string;
   readonly sourceOriginNodeId: NodeId;
   readonly destination: string;
-  readonly ingress: BreadcrumbIngress;
+  readonly ingress: LabelBindingIngress;
   readonly egress: ExactController;
   readonly admittedAtRevision: string;
   readonly expiresAt: string;

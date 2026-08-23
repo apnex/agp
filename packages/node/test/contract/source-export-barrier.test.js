@@ -26,7 +26,7 @@ test("Given a peer route, when its exact source identity is not ACKed, then send
     { code: "SOURCE_NOT_ADVERTISED" },
   );
   assert.deepEqual(peer.dataWrites, []);
-  assert.equal(harness.breadcrumbs.usage().entries, 0);
+  assert.equal(harness.labelBindings.usage().entries, 0);
 
   harness.acknowledgeSource(peer, {
     endpoint: "demo/source",

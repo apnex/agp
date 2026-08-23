@@ -6,7 +6,7 @@ import {
 
 // Sustained delivered messages per second, against the reverse-path label bound.
 //
-// This is not throughput.mjs. That script lifts `maxReverseCorrelations` to
+// This is not throughput.mjs. That script lifts `maxLabelBindings` to
 // half a million so that what it measures is the carrier, and says so. The
 // number it cannot report is what happens when the label table is left at a
 // realistic size and the offered volume exceeds it, which is a different
@@ -63,7 +63,7 @@ async function measure(arm) {
     transport: "loopback",
     endpointsPerNode: 1,
     deliveries,
-    capacity: { maxReverseCorrelations: LABELS },
+    capacity: { maxLabelBindings: LABELS },
     disposition: ARMS[arm],
   });
   try {

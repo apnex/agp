@@ -11,7 +11,7 @@ import {
   isSessionId,
   type CorrelationId,
   type DataMessage,
-  type DeliveryErrorBody,
+  type DeliveryFailure,
   type DeliveryErrorCode,
   type EndpointName,
   type EndpointSource,
@@ -49,7 +49,7 @@ import {
   type OperationalEventInput,
   type PeerConfig,
   type RandomPort,
-  type ReverseCorrelationSnapshot,
+  type LabelBindingSnapshot,
   type RouteAdmissionPort,
   type RouteImportResult,
   type RoutingMutationResult,
@@ -74,7 +74,7 @@ import {
   type TransportListenerTerminal,
 } from "@agp/transport";
 
-import { BreadcrumbStore } from "./breadcrumbs.js";
+import { LabelTable } from "./label-table.js";
 import {
   DataPlane,
   DataPlaneFailure,
@@ -170,11 +170,11 @@ interface EffectiveConfig {
   readonly dataQueueBytes: number;
   readonly maxActiveHandlers: number;
   readonly maxActiveHandlerBytes: number;
-  readonly maxReverseCorrelations: number;
-  readonly maxReverseCorrelationBytes: number;
+  readonly maxLabelBindings: number;
+  readonly maxLabelBindingBytes: number;
   readonly maxEventSubscribers: number;
   readonly eventSubscriberBuffer: number;
-  readonly reverseCorrelationLifetimeMs: number;
+  readonly labelBindingLifetimeMs: number;
   readonly dispositionBatch: DispositionBatchPolicy;
   readonly labelTableOnCapacity: "evict-oldest" | "refuse";
 }
@@ -211,18 +211,18 @@ export class NodeImpl implements AgpNode, SessionHost {
   readonly #routing: RoutingTable;
   readonly #endpoints: EndpointRegistry;
   readonly #handlers: HandlerLedger;
-  readonly #breadcrumbs: BreadcrumbStore;
-  // A breadcrumb is immutable once admitted, so its projection is built once
-  // and shared. The map is weak because the breadcrumb owns the lifetime.
+  readonly #labelBindings: LabelTable;
+  // A labelBinding is immutable once admitted, so its projection is built once
+  // and shared. The map is weak because the labelBinding owns the lifetime.
   readonly #reverseProjections = new WeakMap<
     object,
-    ReverseCorrelationSnapshot
+    LabelBindingSnapshot
   >();
-  // The whole list, memoised against breadcrumb membership. Several commits
+  // The whole list, memoised against labelBinding membership. Several commits
   // land per delivered message and the set changes at most once between them.
   #reverseListCache: {
     readonly version: number;
-    readonly value: readonly ReverseCorrelationSnapshot[];
+    readonly value: readonly LabelBindingSnapshot[];
   } | undefined;
   #endpointListCache: {
     readonly version: number;
@@ -359,16 +359,16 @@ export class NodeImpl implements AgpNode, SessionHost {
       maximumConcurrent: this.#config.maxActiveHandlers,
       maximumBytes: this.#config.maxActiveHandlerBytes,
     });
-    this.#breadcrumbs = new BreadcrumbStore({
-      maximumEntries: this.#config.maxReverseCorrelations,
-      maximumBytes: this.#config.maxReverseCorrelationBytes,
+    this.#labelBindings = new LabelTable({
+      maximumEntries: this.#config.maxLabelBindings,
+      maximumBytes: this.#config.maxLabelBindingBytes,
       onCapacity: this.#config.labelTableOnCapacity,
     }, () => this.clock.monotonicMs());
     this.#outstanding = new OriginOutstanding({
       // Bounded by what the label table can hold, because an entry here exists
       // only while a binding there does, plus the settled ones an application
       // has not yet read.
-      maximumEntries: this.#config.maxReverseCorrelations * 2,
+      maximumEntries: this.#config.maxLabelBindings * 2,
       monotonicNow: () => this.clock.monotonicMs(),
       onDisposition: (disposition) => {
         for (const subscriber of this.#dispositionSubscribers) {
@@ -378,7 +378,7 @@ export class NodeImpl implements AgpNode, SessionHost {
     });
     this.#dispositions = new DispositionEngine({
       localNodeId: this.nodeId,
-      breadcrumbs: this.#breadcrumbs,
+      labelBindings: this.#labelBindings,
       batch: this.#config.dispositionBatch,
       monotonicNow: () => this.clock.monotonicMs(),
       nextMessageId: () => this.nextMessageId(),
@@ -430,7 +430,7 @@ export class NodeImpl implements AgpNode, SessionHost {
       localNodeId: this.nodeId,
       transitEnabled: this.#config.transitEnabled,
       defaultHopLimit: this.#config.defaultHopLimit,
-      reverseCorrelationLifetimeMs: this.#config.reverseCorrelationLifetimeMs,
+      labelBindingLifetimeMs: this.#config.labelBindingLifetimeMs,
       routing: new CoreDataRoutingAdapter(this.#routing),
       sessions: {
         resolve: (nodeId, sessionId) =>
@@ -438,7 +438,7 @@ export class NodeImpl implements AgpNode, SessionHost {
       },
       endpoints: this.#endpoints,
       handlers: this.#handlers,
-      breadcrumbs: this.#breadcrumbs,
+      labelBindings: this.#labelBindings,
       dispositions: this.#dispositions,
       executor: this.executor,
       nextMessageId: () => this.nextMessageId(),
@@ -866,7 +866,7 @@ export class NodeImpl implements AgpNode, SessionHost {
           this.#controllerByPair.delete(key);
         }
       }
-      const removed = this.#breadcrumbs.removeForController(controller);
+      const removed = this.#labelBindings.removeForController(controller);
       this.#discardedMessages += BigInt(
         removed.asIngress.length + removed.asEgress.length,
       );
@@ -1093,12 +1093,12 @@ export class NodeImpl implements AgpNode, SessionHost {
     this.#commitReverseOnly();
   }
 
-  /** Registry-owned exact-controller/token/refId breadcrumb consumption. */
-  consumeBreadcrumb(
+  /** Registry-owned exact-controller/token/refId labelBinding consumption. */
+  consumeLabelBinding(
     egress: PeerController,
-    body: DeliveryErrorBody,
+    body: DeliveryFailure,
   ) {
-    return this.#breadcrumbs.consume(
+    return this.#labelBindings.consume(
       egress,
       body.returnToken,
       body.refId,
@@ -1278,7 +1278,7 @@ export class NodeImpl implements AgpNode, SessionHost {
     }
     return this.executor.run(() => {
       this.#hostState = "Stopped";
-      this.#breadcrumbs.clear();
+      this.#labelBindings.clear();
       // Anyone waiting on a message learns that the node stopped, rather than
       // holding a promise that can no longer be answered.
       this.#dispositions.flushAll();
@@ -1296,7 +1296,7 @@ export class NodeImpl implements AgpNode, SessionHost {
         listener: this.#listenerSnapshot(
           this.#config.listen === undefined ? "disabled" : "stopped",
         ),
-        reverseCorrelations: [],
+        labelBindings: [],
         incrementCounters: { "lifecycle.stopped": 1 },
         events: [{ kind: "lifecycle.stopped", subjectId: this.nodeId }],
       });
@@ -1515,7 +1515,7 @@ export class NodeImpl implements AgpNode, SessionHost {
       localEndpoints: this.#localEndpointSnapshots(),
       connections: this.#connectionSnapshots(),
       routing: this.#routing.snapshot(),
-      reverseCorrelations: this.#reverseSnapshots(),
+      labelBindings: this.#reverseSnapshots(),
       ...(event === undefined ? {} : { events: [event] }),
     });
     for (const update of mutation.outboundUpdates) {
@@ -1547,7 +1547,7 @@ export class NodeImpl implements AgpNode, SessionHost {
       localEndpoints: this.#localEndpointSnapshots(),
       connections: this.#connectionSnapshots(),
       routing: this.#routing.snapshot(),
-      reverseCorrelations: this.#reverseSnapshots(),
+      labelBindings: this.#reverseSnapshots(),
       adjacencies: this.#adjacencySnapshots(),
       ...(event === undefined ? {} : { events: [event] }),
     });
@@ -1555,7 +1555,7 @@ export class NodeImpl implements AgpNode, SessionHost {
 
   #commitReverseOnly(): void {
     this.#operations.commit({
-      reverseCorrelations: this.#reverseSnapshots(),
+      labelBindings: this.#reverseSnapshots(),
     });
   }
 
@@ -1572,7 +1572,7 @@ export class NodeImpl implements AgpNode, SessionHost {
         }
       : { kind, subjectId: messageId };
     const snapshot = this.#operations.commit({
-      reverseCorrelations: this.#reverseSnapshots(),
+      labelBindings: this.#reverseSnapshots(),
       incrementCounters: {
         [kind === "message.failed" ? "message.rejected_before_admission" : kind]: 1,
       },
@@ -1599,7 +1599,7 @@ export class NodeImpl implements AgpNode, SessionHost {
    * Two full canonical commits land per delivered message, and this changes
    * on `expose` and `close` alone. Rebuilding it per commit made a message
    * pay for a set it never touched. Same construction as routing and
-   * breadcrumbs: memoise against an exact change signal. See `D21`.
+   * labelBindings: memoise against an exact change signal. See `D21`.
    */
   #localEndpointSnapshots(): readonly LocalEndpointSnapshot[] {
     const version = this.#endpoints.version;
@@ -1722,16 +1722,16 @@ export class NodeImpl implements AgpNode, SessionHost {
   }
 
   /**
-   * The reverse-correlation projection, built once per breadcrumb.
+   * The label binding projection, built once per binding.
    *
-   * A breadcrumb never changes after admission, so its projection never needs
+   * A labelBinding never changes after admission, so its projection never needs
    * rebuilding. It used to be rebuilt on every committed message, against the
    * whole live set, and then deep-cloned and re-sorted: quadratic in a stream
    * and the largest single consumer of the event loop. Caching against the
    * entry keeps the write path proportional to what changed. See `D21`.
    */
-  #reverseSnapshots(): readonly ReverseCorrelationSnapshot[] {
-    const version = this.#breadcrumbs.version;
+  #reverseSnapshots(): readonly LabelBindingSnapshot[] {
+    const version = this.#labelBindings.version;
     const cached = this.#reverseListCache;
     if (cached !== undefined && cached.version === version) return cached.value;
     const value = this.#buildReverseSnapshots();
@@ -1739,19 +1739,19 @@ export class NodeImpl implements AgpNode, SessionHost {
     return value;
   }
 
-  #buildReverseSnapshots(): readonly ReverseCorrelationSnapshot[] {
-    return this.#breadcrumbs.snapshot().map((entry) => {
+  #buildReverseSnapshots(): readonly LabelBindingSnapshot[] {
+    return this.#labelBindings.snapshot().map((entry) => {
       const cached = this.#reverseProjections.get(entry);
       if (cached !== undefined) return cached;
-      const projection = this.#projectBreadcrumb(entry);
+      const projection = this.#projectLabelBinding(entry);
       this.#reverseProjections.set(entry, projection);
       return projection;
     });
   }
 
-  #projectBreadcrumb(
-    entry: ReturnType<BreadcrumbStore["snapshot"]>[number],
-  ): ReverseCorrelationSnapshot {
+  #projectLabelBinding(
+    entry: ReturnType<LabelTable["snapshot"]>[number],
+  ): LabelBindingSnapshot {
     return immutableClone({
       messageId: entry.messageId,
       outboundReturnToken: entry.outboundReturnToken,
@@ -2025,13 +2025,13 @@ function resolveConfig(config: NodeConfig): EffectiveConfig {
       config.capacity?.maxActiveHandlerBytes ?? 4_194_304,
       "capacity.maxActiveHandlerBytes",
     ),
-    maxReverseCorrelations: positive(
-      config.capacity?.maxReverseCorrelations ?? 4096,
-      "capacity.maxReverseCorrelations",
+    maxLabelBindings: positive(
+      config.capacity?.maxLabelBindings ?? 4096,
+      "capacity.maxLabelBindings",
     ),
-    maxReverseCorrelationBytes: positive(
-      (config.capacity?.maxReverseCorrelations ?? 4096) * 2048,
-      "capacity.maxReverseCorrelationBytes",
+    maxLabelBindingBytes: positive(
+      (config.capacity?.maxLabelBindings ?? 4096) * 2048,
+      "capacity.maxLabelBindingBytes",
     ),
     maxEventSubscribers: positive(
       config.capacity?.maxEventSubscribers ?? 32,
@@ -2041,7 +2041,7 @@ function resolveConfig(config: NodeConfig): EffectiveConfig {
       config.capacity?.eventSubscriberBuffer ?? 1024,
       "capacity.eventSubscriberBuffer",
     ),
-    reverseCorrelationLifetimeMs: Math.max(
+    labelBindingLifetimeMs: Math.max(
       30_000,
       config.timers?.holdTimeMs ?? 30_000,
     ),

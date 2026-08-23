@@ -15,7 +15,7 @@ test("Given a selected local source but missing destination, when send runs, the
     harness.plane.send("demo/source", "missing/destination", {}),
     { code: "NO_ROUTE" },
   );
-  assert.equal(harness.breadcrumbs.usage().entries, 0);
+  assert.equal(harness.labelBindings.usage().entries, 0);
   assert.deepEqual(unrelated.writer.usage(), {
     dataMessages: 0,
     dataBytes: 0,

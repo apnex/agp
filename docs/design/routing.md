@@ -297,7 +297,7 @@ During convergence the same route key may therefore have an ACKed row for the pr
 ### 3.7 Reverse-correlation state
 
 ```ts
-interface ReverseCorrelationSnapshot {
+interface LabelBindingSnapshot {
   messageId: MessageId;
   outboundReturnToken: ReturnToken;
   source: EndpointSource;
@@ -317,7 +317,7 @@ interface ReverseCorrelationSnapshot {
 }
 ```
 
-This bounded breadcrumb is forwarding state, not durable message state.\
+This bounded label binding is forwarding state, not durable message state.\
 It exists only to validate and return a downstream nonfatal error without another route lookup.\
 Its private lookup identity is the exact egress controller object plus `outboundReturnToken`; public egress identity is the pair `(egressNodeId, egressSessionId)`, which is still not sufficient private identity.
 
@@ -346,7 +346,7 @@ The implementation and conformance suite must enforce:
 | R10 | A data egress is admitted only against a selected forwarding entry from the same operations revision. |
 | R11 | A peer data egress is admitted only when that peer has ACKed a source route matching the message's `(source.endpoint, source.originNodeId)`. |
 | R12 | A local or transit route miss emits zero onward data packets. |
-| R13 | A reverse error follows a validated breadcrumb or the immediate failing ingress; it never performs a route lookup. |
+| R13 | A reverse error follows a validated label binding or the immediate failing ingress; it never performs a route lookup. |
 | R14 | Session loss removes all and only state owned by that exact session before later affected data is admitted. |
 | R15 | Wire revisions, session IDs, route IDs, and operations revisions are never substituted for one another. |
 | R16 | All capacity decisions are made before canonical state or wire admission is partially mutated. |
@@ -717,7 +717,7 @@ localSend(source, destination, payload):
   lookup selected destination and forwarding entry
 
   if no usable destination:
-    reject typed NO_ROUTE before any queue/breadcrumb reservation
+    reject typed NO_ROUTE before any queue/label binding reservation
 
   if destination next hop is local:
     reserve handler count and bytes
@@ -728,7 +728,7 @@ localSend(source, destination, payload):
     require exact egress return-token allocator is usable
     require encoded packet fits egress receive limit
     require ACKed source export to egress
-    reserve breadcrumb and egress message/byte capacity atomically
+    reserve label binding and egress message/byte capacity atomically
     allocate next ReturnToken as the final infallible reservation step
     enqueue one data packet carrying returnToken after commit
 
@@ -767,7 +767,7 @@ transit(message, ingress):
   require encoded packet fits egress receive limit
   require source-export barrier for egress
   compute forwardedHopLimit
-  atomically reserve breadcrumb plus egress count/bytes
+  atomically reserve label binding plus egress count/bytes
   allocate next ReturnToken as the final infallible reservation step
   enqueue exactly one onward data packet with the new returnToken
 ```
@@ -790,7 +790,7 @@ After wire/FSM validation, inbound routing commits the first failing condition i
 6. exact egress usability and ingress inequality -> `NEXT_HOP_UNAVAILABLE`;
 7. egress receive size -> `MESSAGE_TOO_LARGE`;
 8. source-export barrier -> `SOURCE_NOT_ADVERTISED`;
-9. breadcrumb/egress capacity -> `QUEUE_FULL`.
+9. label binding/egress capacity -> `QUEUE_FULL`.
 
 Exactly one failure transaction and at most one correlated ingress error are produced.\
 This order is part of the executable protocol contract; it is not an implementation accident.
@@ -832,7 +832,7 @@ See [`D23`](../DECISIONS.md#d23---delivery-disposition).
 ### 10.1 Immediate failure
 
 When a received data packet fails at the current node before an onward write, the node records a failure outcome against its ingress session.\
-This response does not require a breadcrumb because the failing packet still identifies its current ingress.
+This response does not require a label binding because the failing packet still identifies its current ingress.
 
 The failure entry sets:
 ```text
@@ -848,9 +848,9 @@ The entry joins the batch owed to that ingress rather than being written alone.\
 The batch uses reserved bounded control capacity.\
 Failure to write it may terminate that session, but it never authorizes an onward data packet and never causes the report itself to be routed.
 
-### 10.2 Breadcrumb admission
+### 10.2 Label binding admission
 
-Every admitted peer egress creates a breadcrumb before the data write:
+Every admitted peer egress creates a label binding before the data write:
 
 - local origin uses `ingress.kind = "local"`;
 - transit records the exact ingress controller, public
@@ -863,11 +863,11 @@ Every admitted peer egress creates a breadcrumb before the data write:
   every message that has one next hop;
 - expiry and capacity are fixed before admission.
 
-If breadcrumb capacity is unavailable the table evicts its oldest binding rather than refusing the packet, so a reverse-path concern can never stop the data plane.\
+If label binding capacity is unavailable the table evicts its oldest binding rather than refusing the packet, so a reverse-path concern can never stop the data plane.\
 A deployment that would rather stop than lose a report configures refusal instead, and then a full table rejects the packet before wire admission.
 
 The allocator never reuses a token during the lifetime of the exact controller.\
-After emitting its terminal value it rejects the next allocation and replaces the session before wrap or reuse, so a delayed old report cannot resolve to a later breadcrumb after the old entry expires.\
+After emitting its terminal value it rejects the next allocation and replaces the session before wrap or reuse, so a delayed old report cannot resolve to a later label binding after the old entry expires.\
 This removes the ABA hazard without retaining unbounded message-ID tombstones.
 
 ### 10.3 Downstream disposition handling
@@ -888,20 +888,20 @@ Measuring first means a batch that exceeds the bound has no partial effect.
 Each outcome then settles on its own:
 ```text
 settle(outcome, session):
-  breadcrumb := ReverseCorrelations[(session.controllerIdentity, outcome.returnToken)]
+  labelBinding := LabelTable[(session.controllerIdentity, outcome.returnToken)]
 
-  if breadcrumb absent or expired:
+  if labelBinding absent or expired:
     discard as unreturnable
-  else if outcome is a failure and outcome.refId != breadcrumb.messageId:
-    send fatal INVALID_MESSAGE and terminate session without consuming breadcrumb
+  else if outcome is a failure and outcome.refId != labelBinding.messageId:
+    send fatal INVALID_MESSAGE and terminate session without consuming labelBinding
   else:
-    decrement destinations owed; release the breadcrumb at zero
-    if breadcrumb.ingress is local:
+    decrement destinations owed; release the labelBinding at zero
+    if labelBinding.ingress is local:
       record the outcome against the originating message
     else if exact recorded ingress controller is still live:
       add the outcome to the batch owed to that ingress
       preserve code, refId, failedAtNodeId, reason, and the denominator
-      replace only returnToken with breadcrumb.ingress.upstreamReturnToken
+      replace only returnToken with labelBinding.ingress.upstreamReturnToken
     else:
       discard as unreturnable
 ```
@@ -914,18 +914,18 @@ The relay envelope gets a fresh hop-local `id`.\
 A relayed failure preserves `code`, the now validated `refId`, the original `failedAtNodeId`, and `reason`; only `returnToken` is translated to the upstream hop.\
 An intermediate node never replaces the reported failure with its own identity.
 
-A breadcrumb is released by the report that returns for it, so expiry is the backstop rather than the mechanism.\
+A label binding is released by the report that returns for it, so expiry is the backstop rather than the mechanism.\
 Entries are bounded by count and retained bytes and are discarded on node restart.\
 Session teardown:
 
-- removes breadcrumbs whose ingress has become unreturnable;
-- converts breadcrumbs whose egress failed into
+- removes label bindings whose ingress has become unreturnable;
+- converts label bindings whose egress failed into
   `NEXT_HOP_UNAVAILABLE` where bounded control admission permits: a still-live
   session ingress receives the outcome using the stored upstream token,
   original message ID as `refId`, local node as `failedAtNodeId`, and canonical
   reason; a local origin receives the equivalent local outcome using the
   outbound token and no wire envelope; and
-- removes every affected breadcrumb exactly once.
+- removes every affected label binding exactly once.
 
 ### 10.4 Batching
 
@@ -961,7 +961,7 @@ One node-state executor serializes:
 - selected-route and next-hop changes;
 - export ACK/rejection;
 - data admission and capacity reservation;
-- breadcrumb expiry/error consumption; and
+- label binding expiry/error consumption; and
 - lifecycle stopping gates.
 
 No asynchronous transport, policy, handler, or identity callback runs inside a transaction.\
@@ -996,7 +996,7 @@ A data admission transaction:
    egress is used;
 5. reserves all required count and byte capacity;
 6. allocates the next non-reusing return token as the final infallible
-   reservation step and creates the breadcrumb when peer egress is used;
+   reservation step and creates the label binding when peer egress is used;
 7. records the accepted/failed operational outcome; and
 8. commits before scheduling handler or wire work.
 
@@ -1041,7 +1041,7 @@ Every allocation has a configured or negotiated bound:
 | Export epochs | One current epoch plus bounded references held only by already admitted data |
 | Handler work | Active count and bytes; no hidden backlog |
 | Return-token allocator | One 64-bit monotonic domain per exact session controller, rendered as 16 lowercase hex characters; post-`ffffffffffffffff` allocation terminates that controller before reuse |
-| Reverse breadcrumbs | Entry count, retained bytes, and expiry duration |
+| Reverse label bindings | Entry count, retained bytes, and expiry duration |
 | Operations events/subscribers | Existing bounded buffers and gap semantics |
 
 Capacity rejection must not depend on private iteration order.\
@@ -1062,7 +1062,7 @@ mark exact session non-Established
 -> promote alternate paths where available
 -> remove or replace forwarding
 -> recompute exports to every remaining peer
--> resolve/remove affected breadcrumbs
+-> resolve/remove affected label bindings
 -> commit one operations revision
 ```
 
@@ -1098,7 +1098,7 @@ The named objects used here map one-to-one to the package-owned schemas required
 | Management route/advertisement/forwarding responses | `@agp/management-http`, referencing exact core URNs |
 
 The TypeScript shapes in this document explain relationships; generated public DTOs and runtime validators derive from those sovereign documents.\
-Temporal rules-revision order, exact session ownership, atomic replacement, path endpoint identity, and breadcrumb correlation-require named semantic-rule tests because JSON Schema cannot prove them.
+Temporal rules-revision order, exact session ownership, atomic replacement, path endpoint identity, and label binding correlation-require named semantic-rule tests because JSON Schema cannot prove them.
 
 ---
 
@@ -1118,7 +1118,7 @@ Temporal rules-revision order, exact session ownership, atomic replacement, path
 6. Feasible-ingress routes authorize sources without requiring the selected
    reverse path.
 7. Local and transit data use the same selected RIB and fail closed.
-8. Reverse breadcrumbs return downstream failures without routing the error.
+8. Reverse label bindings return downstream failures without routing the error.
 9. All state and resource consequences commit at one node operations revision.
 
 ### Rationale
@@ -1152,7 +1152,7 @@ Bounded direct error return makes route failure useful to the source without ass
   an unrecorded egress permits false failure injection.
 - Committing import, selection, forwarding, and export separately exposes
   impossible intermediate state and admits data against stale routes.
-- Restoring learned routes, sessions, ACKs, or breadcrumbs after restart
+- Restoring learned routes, sessions, ACKs, or label bindings after restart
   creates phantom reachability contrary to the state-lifetime boundary.
 - Hiding capacity decisions outside canonical ordering makes overload behavior
   timing-dependent and operationally irreproducible.

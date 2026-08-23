@@ -64,7 +64,7 @@ The complete v1 language is:
 | control | `route.update` | symmetric |
 | control | `route.ack` | symmetric |
 | control | `notification` | symmetric, fatal |
-| control | `error` | symmetric, nonfatal and correlated |
+| control | `disposition` | symmetric, nonfatal, correlated and batched |
 | data | `message` | symmetric |
 
 `endpoint.update`, `endpoint.ack`, protocol `role`, and role-mismatch errors are removed.
@@ -337,7 +337,7 @@ Origin admission:
    fits the egress receive bound;
 5. for peer egress, the source route is ACKed in that peer's Adj-RIB-Out;
 6. `hopLimit` is the configured default and within the egress bound;
-7. breadcrumb and destination capacity are reserved, then the next egress
+7. label binding and destination capacity are reserved, then the next egress
    `returnToken` is allocated as the final infallible reservation step before
    success.
 
@@ -360,7 +360,7 @@ Transit admission:
 10. a selected exported route for the same source identity is ACKed in the
    egress peer's Adj-RIB-Out, so the next node can authorize it; it need not be
    the same candidate/path as the feasible ingress route;
-11. breadcrumb plus egress queue capacity are reserved and the next
+11. label binding plus egress queue capacity are reserved and the next
     non-reusing egress `returnToken` is allocated as the final infallible
     reservation step;
 12. the forwarded message decrements `hopLimit` once and, if necessary, caps it
@@ -394,7 +394,7 @@ A batch carries deliveries as inclusive ranges of labels and failures as individ
 ```ts
 interface DispositionBody {
   delivered?: LabelRange[];
-  failed?: DeliveryErrorBody[];
+  failed?: DeliveryFailure[];
 }
 
 interface LabelRange {
@@ -407,7 +407,7 @@ interface LabelRange {
 ```
 
 ```ts
-interface DeliveryErrorBody {
+interface DeliveryFailure {
   code:
     | "NO_ROUTE"
     | "HOP_LIMIT_EXCEEDED"
@@ -440,9 +440,9 @@ The canonical locally generated `reason` text is closed:
 
 Dispositions never perform a RIB lookup.
 
-Each admitted peer egress creates a bounded breadcrumb:
+Each admitted peer egress creates a bounded label binding:
 ```ts
-interface ReverseCorrelation {
+interface LabelBinding {
   messageId: MessageId;
   outboundReturnToken: ReturnToken;
   ingress:
@@ -459,9 +459,9 @@ interface ReverseCorrelation {
 }
 ```
 
-Private breadcrumb lookup is keyed by the exact egress controller object and `outboundReturnToken`, not by the pair-scoped six-hex session string or end-to-end message ID.\
+Private label binding lookup is keyed by the exact egress controller object and `outboundReturnToken`, not by the pair-scoped six-hex session string or end-to-end message ID.\
 Public egress identity is `(egressNodeId, egressSessionId)`.\
-Because an exact controller never reuses a token, an expired or consumed breadcrumb cannot be confused with a later message (the ABA case).
+Because an exact controller never reuses a token, an expired or consumed label binding cannot be confused with a later message (the ABA case).
 
 An immediate error generated for an admitted peer data packet is constructed exactly as follows:
 
@@ -473,17 +473,17 @@ An immediate error generated for an admitted peer data packet is constructed exa
 6. `reason` is a bounded canonical protocol reason, never a raw exception; and
 7. `extensions` is absent on a locally generated error.
 
-An error is accepted only when its `returnToken` resolves on the exact controller from which it arrived and `refId === breadcrumb.messageId`.\
+An error is accepted only when its `returnToken` resolves on the exact controller from which it arrived and `refId === labelBinding.messageId`.\
 An unknown or expired token is discarded as unreturnable.\
-A token hit with a mismatched `refId` is fatal `INVALID_MESSAGE`; it does not consume the breadcrumb, and normal exact-session teardown resolves that state.\
-After both fields validate, the breadcrumb is consumed atomically exactly once.\
+A token hit with a mismatched `refId` is fatal `INVALID_MESSAGE`; it does not consume the label binding, and normal exact-session teardown resolves that state.\
+After both fields validate, the label binding is consumed atomically exactly once.\
 A local ingress publishes the complete error body.\
-A session ingress relays a new error envelope directly to the exact controller recorded by `(nodeId, owningSessionId)` plus private identity, preserving `code`, `refId`, `failedAtNodeId`, `reason`, and any validated received `extensions`, while replacing only `returnToken` with the breadcrumb's `upstreamReturnToken`.\
+A session ingress relays a new error envelope directly to the exact controller recorded by `(nodeId, owningSessionId)` plus private identity, preserving `code`, `refId`, `failedAtNodeId`, `reason`, and any validated received `extensions`, while replacing only `returnToken` with the label binding's `upstreamReturnToken`.\
 The relay envelope receives a fresh hop-local `id`.
 
-If a breadcrumb or ingress session has expired, the error is discarded as unreturnable and cannot recurse.
+If a label binding or ingress session has expired, the error is discarded as unreturnable and cannot recurse.
 
-If the expected egress controller terminates, each affected breadcrumb is consumed exactly once.\
+If the expected egress controller terminates, each affected label binding is consumed exactly once.\
 A still-live session ingress receives a locally generated `NEXT_HOP_UNAVAILABLE` with a fresh envelope `id`, original data envelope ID as `refId`, stored `upstreamReturnToken` as `returnToken`, local node as `failedAtNodeId`, the canonical reason above, and no `extensions`.\
 A local ingress publishes the equivalent local failure using its `outboundReturnToken`; it does not emit another wire envelope.\
 Failure to reserve bounded control capacity makes the result unreturnable rather than recursive.
@@ -494,7 +494,7 @@ Route-miss behavior is therefore:
 |---|---|
 | Local SDK send | Reject typed `NO_ROUTE`; emit no data packet |
 | Received transit message | Emit no onward data packet; send `NO_ROUTE` directly to ingress |
-| Downstream returned error | Relay over reverse breadcrumb; never route |
+| Downstream returned error | Relay over reverse label binding; never route |
 
 ---
 
@@ -521,7 +521,7 @@ Both inbound and outbound sessions:
 - send and receive `route.update`;
 - send and receive `route.ack`;
 - send, receive, and transit `message`;
-- send, receive, and relay `error`;
+- send, receive, and relay `disposition`;
 - receive a fatal `notification` and terminate;
 - withdraw all locally owned imported state on termination.
 
@@ -619,7 +619,7 @@ Fatal teardown purges session-owned routes before later affected data is admitte
 ### Mechanics
 
 One carrier-independent symmetric FSM and message matrix replace role branches.\
-Authoritative selected-route snapshots build per-peer RIB state; ordered paths prevent stable control-plane loops; hop limits bound transient data loops; reverse breadcrumbs return failures without depending on reachability.\
+Authoritative selected-route snapshots build per-peer RIB state; ordered paths prevent stable control-plane loops; hop limits bound transient data loops; reverse label bindings return failures without depending on reachability.\
 The protocol codec consumes and emits opaque packets through the one mandatory transport profile.
 
 ### Rationale

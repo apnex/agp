@@ -5,6 +5,24 @@
 This register distinguishes stakeholder intent from the design choices that realize it.\
 The stakeholder authorized autonomous implementation after design completion and validation on 2026-07-30; the completed design choices below are therefore ratified implementation authority.
 
+A record here is frozen at the time it was ratified and is not rewritten when a later decision changes a name.\
+Two renames since affect how these records read, and neither changes what any of them decided:
+
+- The reverse-path record a hop keeps was called a `breadcrumb`, and its
+  operational projection was called a reverse correlation. Both are now a
+  `LabelBinding` held in a `LabelTable`. The name changed under `D23` because
+  the old one suggested something passively left behind rather than an active
+  forwarding entry, and the second name was carried along so that one thing has
+  one name. This renamed the `capacity.maxLabelBindings` configuration key, the
+  `operations.labelBindings()` reader, and their schemas. See
+  [`design/message-labels.md` section 2](design/message-labels.md#2-what-the-record-is).
+- The `error` message was retired into the `disposition` under `D23`, which
+  reports the fate of a message whether that fate was delivery or failure.
+  `DeliveryErrorBody` became `DeliveryFailure` with it, because once no error
+  message existed the type was no longer any message's body. Records below that
+  name an `error` message describe the mechanism as it stood when they were
+  ratified.
+
 | ID | Decision | Authority | Status |
 |---|---|---|---|
 | D1 | One `AgpNode` implementation and sole `createNode()` factory | Confirmed survey | Required |

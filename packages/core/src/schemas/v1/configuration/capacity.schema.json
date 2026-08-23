@@ -63,7 +63,7 @@
       "minimum": 1,
       "maximum": 9007199254740991
     },
-    "maxReverseCorrelations": {
+    "maxLabelBindings": {
       "type": "integer",
       "minimum": 1,
       "maximum": 9007199254740991

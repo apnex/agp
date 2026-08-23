@@ -290,7 +290,7 @@ export interface RouteImportState {
   readonly routeCount: number;
 }
 
-export interface ReverseCorrelationSnapshot {
+export interface LabelBindingSnapshot {
   readonly messageId: MessageId;
   readonly outboundReturnToken: ReturnToken;
   readonly source: EndpointSource;
@@ -635,7 +635,7 @@ export interface OperationsSnapshot extends SnapshotMeta {
   readonly selectedRoutes: readonly SelectedRouteSnapshot[];
   readonly forwarding: readonly ForwardingEntrySnapshot[];
   readonly routeExports: readonly AdjRibOutRouteSnapshot[];
-  readonly reverseCorrelations: readonly ReverseCorrelationSnapshot[];
+  readonly labelBindings: readonly LabelBindingSnapshot[];
   readonly resources: ResourcesSnapshot;
   readonly counters: CountersSnapshot;
 }
@@ -654,7 +654,7 @@ export interface RouteTableSnapshot extends SnapshotMeta {
 }
 export type ForwardingListSnapshot = MetaList<ForwardingEntrySnapshot>;
 export type AdjRibOutListSnapshot = MetaList<AdjRibOutRouteSnapshot>;
-export type ReverseCorrelationListSnapshot = MetaList<ReverseCorrelationSnapshot>;
+export type LabelBindingListSnapshot = MetaList<LabelBindingSnapshot>;
 
 export interface OperationsReader {
   snapshot(): OperationsSnapshot;
@@ -668,7 +668,7 @@ export interface OperationsReader {
   routes(): RouteTableSnapshot;
   forwarding(): ForwardingListSnapshot;
   routeExports(): AdjRibOutListSnapshot;
-  reverseCorrelations(): ReverseCorrelationListSnapshot;
+  labelBindings(): LabelBindingListSnapshot;
   resources(): ResourcesSnapshot & SnapshotMeta;
   counters(): CountersSnapshot & SnapshotMeta;
   events(options?: EventSubscriptionOptions): EventSubscription;
@@ -755,7 +755,7 @@ export interface CapacityConfig {
   readonly continuationQueueBytes?: number;
   readonly maxActiveHandlers?: number;
   readonly maxActiveHandlerBytes?: number;
-  readonly maxReverseCorrelations?: number;
+  readonly maxLabelBindings?: number;
   readonly maxEventSubscribers?: number;
   readonly eventSubscriberBuffer?: number;
   readonly transportReceivePackets?: number;

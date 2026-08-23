@@ -1,7 +1,7 @@
 import assert from "node:assert/strict";
 import test from "node:test";
 import {
-  BreadcrumbStore,
+  LabelTable,
   DispositionEngine,
 } from "../../dist/index.js";
 import { fakeController } from "../support/fakes.js";
@@ -9,7 +9,7 @@ import { fakeController } from "../support/fakes.js";
 function engineFor(ingress, held) {
   return new DispositionEngine({
     localNodeId: "middle.example",
-    breadcrumbs: new BreadcrumbStore({
+    labelBindings: new LabelTable({
       maximumEntries: 4,
       maximumBytes: 1_024,
       onCapacity: "refuse",

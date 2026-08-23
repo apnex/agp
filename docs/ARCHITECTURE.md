@@ -95,7 +95,7 @@ Three are planes, distinguished by function; one is the carriage beneath them.
 | Concern | Owns | Sovereign home |
 |---|---|---|
 | Control plane | Sessions, endpoint advertisement, route selection, propagation, withdrawal | `core/session-fsm`, `core/rib` |
-| Data plane | Admission, forwarding, hop accounting, correlated reverse failure | `node/data-plane`, `node/breadcrumbs` |
+| Data plane | Admission, forwarding, hop accounting, correlated reverse failure | `node/data-plane`, `node/label bindings` |
 | Management plane | Canonical state, events, counters, and read-only projections | `core/operations-store`, `@agp/management-http`, `agpctl` |
 | Wire and transport | The packet language, and the carrier-neutral channel beneath it | `@agp/protocol`, `@agp/transport`, the bindings |
 
@@ -391,7 +391,7 @@ Public direction is only the fixed read-only projection described in section 5.
    acknowledged Adj-RIB-Out; otherwise reject with typed
    `SOURCE_NOT_ADVERTISED` before writing data.
 7. Reserve exact bounded handler capacity for local delivery, or atomically
-   reserve peer breadcrumb/egress capacity and then allocate the next
+   reserve peer label binding/egress capacity and then allocate the next
    non-reusing hop-scoped return token as the final infallible step.
 8. Admit exactly one local handler delivery or one peer-session write and
    return a receipt naming the selected route and operations revision used for
@@ -409,7 +409,7 @@ Public direction is only the fixed read-only projection described in section 5.
 5. For nonlocal forwarding, require transit permission, remaining hop budget,
    an Established egress distinct from ingress, egress size fit, and an ACKed
    export for the same source identity.
-6. Atomically reserve breadcrumb and egress capacity, allocate the next fresh
+6. Atomically reserve label binding and egress capacity, allocate the next fresh
    non-reusing hop-scoped return token as the final infallible step, decrement
    the hop limit, and enqueue exactly one onward packet.
 
@@ -419,7 +419,7 @@ There is no broadcast, flood, or implicit default next hop.
 
 1. Move the session out of `Established` before route mutation.
 2. Atomically remove its complete Adj-RIB-In, invalidate its complete
-   Adj-RIB-Out, and resolve or remove every affected reverse breadcrumb.
+   Adj-RIB-Out, and resolve or remove every affected reverse label binding.
 3. Recompute affected candidates, selected routes, forwarding entries, and
    exports to every remaining peer.
 4. Publish the one revision before admitting later affected data.

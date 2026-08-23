@@ -1,12 +1,12 @@
 export {
-  BreadcrumbStore,
-  type BreadcrumbCapacity,
-  type BreadcrumbLookup,
-  type BreadcrumbUsage,
-} from "./breadcrumbs.js";
+  LabelTable,
+  type LabelTableCapacity,
+  type LabelBindingLookup,
+  type LabelTableUsage,
+} from "./label-table.js";
 export type {
-  BreadcrumbIngress,
-  BreadcrumbInput,
+  LabelBindingIngress,
+  LabelBinding,
   ExactController,
 } from "./controller.js";
 export {

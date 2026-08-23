@@ -72,7 +72,7 @@ function decode(bytes) {
   return new TextDecoder().decode(bytes);
 }
 
-export function breadcrumb(overrides = {}) {
+export function labelBinding(overrides = {}) {
   const egress = overrides.egress ?? fakeController();
   return {
     messageId: overrides.messageId ?? "message-1",

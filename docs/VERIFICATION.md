@@ -191,7 +191,7 @@ An integration witness may remain empty until its later gate, but the owning tes
 | U6 - every data path uses the local selected RIB | AX5 | Every admitted local or transit write records the selected route and admission revision |
 | U7 - local route miss rejects before wire admission | AX5 | Typed `NO_ROUTE`, no data-queue reservation, and exactly zero data writes |
 | U8 - transit route miss emits no onward packet | AX5 | Correlated error on ingress and exactly zero onward data writes |
-| U9 - correlated failure returns toward the source | AX5 | The failing node returns directly to the current ingress; each prior forwarder follows its recorded breadcrumb; no hop performs a RIB lookup |
+| U9 - correlated failure returns toward the source | AX5 | The failing node returns directly to the current ingress; each prior forwarder follows its recorded label binding; no hop performs a RIB lookup |
 | U10 - truthful stable management HTTP and `agpctl` | AX6 | Frozen projection inputs agree exactly; live same-instance/revision non-time state agrees and time-derived fields satisfy measured capture-window bounds |
 | U11 - sovereign schemas for named DTOs | AX1 | Catalog completeness, one `$id`/owner/file/type mapping, and generated-output equality |
 | U12 - no concrete transport semantics in the kernel | AX1 | Dependency/vocabulary gates and a package-root consumer prove the kernel imports only `@agp/transport` |
@@ -238,11 +238,12 @@ Where that is true it is marked, so a declared value is never mistaken for a cov
 | `D-TRANSPORT` carrier | `loopback`, `websocket`, `websocket-psk` | All supported |
 
 `D-TRAFFIC` and `D-ROUTE` are both volumetric but stress different machinery.\
-Message volume exercises ordering, breadcrumb churn, return-token cycling, and egress backpressure along one path.\
+Message volume exercises ordering, label binding churn, return-token cycling, and egress backpressure along one path.\
 Route volume exercises Adj-RIB-In and candidate size, selection cost, export recomputation across every peer, and the encoded size of an authoritative snapshot.
 
 Concurrency reaches a bound that sequential traffic never contends for.\
-The bound a burst actually meets is the breadcrumb reservation rather than an egress queue, because a breadcrumb is expiring rather than delivery-consumed: a successful send leaves one behind, so a burst accumulates them while a queue drains between admissions.
+The bound a burst actually meets is the label binding reservation rather than an egress queue, because a binding is held until its disposition returns while a queue drains between admissions.\
+Before `D23` that bound was far tighter, because a binding was released by expiry rather than by delivery and a successful send left one behind for the whole retention window.
 
 Route volume is the dimension that probes `D4`.\
 Because a route update carries the complete selected set rather than a delta, the cost of every convergence event scales with route count, and a large enough set makes an update approach the negotiated receive bound.\
@@ -312,9 +313,9 @@ A finding stays here until it is closed by a design decision or a regression tes
 | `MX1` | A sender that offers messages back to back over WebSocket overruns the receiver, which commits `RECEIVE_OVERFLOW`, closes the session, purges its routes, and reconnects. Delivered messages equal `maxBufferedPackets` exactly, at every bound tested from 16 to 128. Every `send()` resolved successfully first. | Closed by `D19`, gated by `test/topology/credit-flow-control.test.js` |
 | `MX2` | A four-node diamond carrying twenty-four endpoints per node fails a two-second `routeAckTimeoutMs` while a stream is in flight, on sessions that carry no data of their own. Raising only that deadline to twenty seconds passes the same cell with every message delivered. | Closed by `D21`, gated by `packages/core/test/unit/write-path-cost.test.js` |
 | `MX3` | A stream saturates the event loop. A one-millisecond interval timer fires about twelve times across a whole run, so the loop drains roughly that often and the synchronous blocks between drains average around twenty milliseconds. A block of that size moves any deadline sharing the loop, which is the mechanism that tore down healthy sessions before `D21`, and it starves any event subscriber that touches the macrotask queue. Six operations commits land per delivered message. | Open, reduced, consequence demonstrated |
-| `MX5` | A node stopped sending permanently after `maxReverseCorrelations` originated messages, because the expiry sweep that releases a breadcrumb was called from nowhere. | Closed, gated by `packages/node/test/contract/breadcrumb-expiry.test.js` |
+| `MX5` | A node stopped sending permanently after `maxLabelBindings` originated messages, because the expiry sweep that releases a label binding was called from nowhere. | Closed, gated by `packages/node/test/contract/label-binding-expiry.test.js` |
 | `MX6` | An unhandled rejection on the inbound data path, from `dispatchData` discarding the result of `admitData` with `void`, ended the process. Reproduced once `MX5` was fixed and the sender could reach the receiver's refusal path. | Closed, gated by `packages/node/test/contract/inbound-dispatch-failure.test.js` |
-| `MX7` | Sustained send rate was bounded by `maxReverseCorrelations` divided by the correlation lifetime, about 136 messages a second at defaults against a burst ceiling near 2850. A breadcrumb was released by a failure or by expiry and never by success, so a flow that never failed still filled the store. | Closed by `D23`, gated by `packages/node/test/contract/disposition-release.test.js`, measured by `scripts/sustained-rate.mjs` |
+| `MX7` | Sustained send rate was bounded by `maxLabelBindings` divided by the correlation lifetime, about 136 messages a second at defaults against a burst ceiling near 2850. A label binding was released by a failure or by expiry and never by success, so a flow that never failed still filled the store. | Closed by `D23`, gated by `packages/node/test/contract/disposition-release.test.js`, measured by `scripts/sustained-rate.mjs` |
 | `MX4` | A node hop costs far more than the carrier beneath it: a raw WebSocket round trip is about 75 microseconds against roughly half a millisecond per message through a node pair. Unexplained, and not a breach of anything. | Open, opportunistic |
 
 `MX1` was reproducible and understood, and `D19` ratifies the mechanism that closed it.\
@@ -385,7 +386,7 @@ That assertion could not fail, because the token is fixed-width by contract and 
 The second encode proved what the contract already guaranteed and charged a serialisation and a validation to do it.\
 Deciding everything that does not need the encoded size first leaves one encode.
 
-The reverse-correlation commit that follows every local delivery supplies a set the delivery never altered.\
+The label binding commit that follows every local delivery supplies a set the delivery never altered.\
 The projection is memoised, so an unchanged set arrives as the same reference and is recognised without inspection, and the commit now writes nothing and issues no revision.\
 A revision denotes a change to canonical state; issuing one for a commit that wrote nothing makes it useless as a change signal and forces every consumer polling on it to re-read.
 
@@ -465,7 +466,7 @@ Pre-shared keys cost about a third, and a second hop costs slightly more than ha
 
 These are burst figures, and the sustained ceiling used to be a different number entirely.
 
-A breadcrumb is retained for every message a node originates, and AGP had no delivery acknowledgement, so nothing could release it early: it waited out the reverse-correlation window whether or not the message arrived.\
+A label binding is retained for every message a node originates, and AGP had no delivery acknowledgement, so nothing could release it early: it waited out the label binding lifetime whether or not the message arrived.\
 The sustained rate was therefore capacity divided by lifetime, about 136 messages a second at defaults, against a burst ceiling near 2850.\
 It arrived in cycles rather than smoothly, because a burst of correlations created together expires together: measured over forty seconds, 4096 admitted immediately, nothing for the next twenty seconds, then 4096 more.
 
@@ -480,8 +481,8 @@ One arm holds both batch bounds open so no report returns, which reproduces the 
 The held arm admits exactly the label count and then refuses everything, so its rate column understates it: the true sustained rate is the label count over the retention window, and no measurement window changes that.\
 The released arm is no longer bounded by the table at all, and its nine refusals are the batch interval briefly outrunning the offered rate rather than a ceiling.
 
-A breadcrumb holds no payload and is not load-bearing for delivery.\
-It is the reverse path: `D8` returns an error through breadcrumbs rather than through the RIB, so each hop keeps a record of who to tell if a later hop complains.\
+A label binding holds no payload and is not load-bearing for delivery.\
+It is the reverse path: `D8` returns an outcome through label bindings rather than through the RIB, so each hop keeps a record of who to tell if a later hop complains.\
 A missing or expired one degrades to `unreturnable`, which is discarded rather than fatal, so the retention window bounds how long an error can find its way home and bounds nothing else.
 
 That is what made the behaviour an anomaly rather than a cost.\

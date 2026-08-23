@@ -33,12 +33,12 @@ function correlations(count, expiry) {
 test("Given a committed change, when the write returns, then it reports the revision rather than the state that follows it", () => {
   const store = operations();
 
-  const receipt = store.commit({ reverseCorrelations: correlations(4, "2026-01-01T00:00:00.000Z") });
+  const receipt = store.commit({ labelBindings: correlations(4, "2026-01-01T00:00:00.000Z") });
 
   assert.equal(typeof receipt.revision, "string");
   // Returning state made every write pay for a read nobody asked for, priced
   // by everything held rather than by anything done.
-  for (const collection of ["connections", "reverseCorrelations", "selectedRoutes"]) {
+  for (const collection of ["connections", "labelBindings", "selectedRoutes"]) {
     assert.equal(
       receipt[collection],
       undefined,
@@ -49,17 +49,17 @@ test("Given a committed change, when the write returns, then it reports the revi
 
 test("Given canonical state that has not changed, when it is read twice, then the same frozen value is shared rather than copied again", () => {
   const store = operations();
-  store.commit({ reverseCorrelations: correlations(8, "2026-01-01T00:00:00.000Z") });
+  store.commit({ labelBindings: correlations(8, "2026-01-01T00:00:00.000Z") });
 
   const first = store.snapshot();
   const second = store.snapshot();
 
   // Sharing is safe precisely because it is frozen: two readers holding one
   // reference can no more disturb each other than two holding copies.
-  assert.equal(Object.isFrozen(first.reverseCorrelations), true);
+  assert.equal(Object.isFrozen(first.labelBindings), true);
   assert.equal(
-    first.reverseCorrelations,
-    second.reverseCorrelations,
+    first.labelBindings,
+    second.labelBindings,
     "unchanged canonical state must not be re-cloned on every read",
   );
 });
@@ -77,11 +77,11 @@ test("Given a value already cloned and frozen, when it is cloned again, then the
 test("Given a commit that changes nothing, when it is applied, then no revision is issued for it", () => {
   const store = operations();
   const rows = correlations(4, "2026-01-01T00:00:00.000Z");
-  const first = store.commit({ reverseCorrelations: rows });
+  const first = store.commit({ labelBindings: rows });
 
   // The caller memoises this projection, so an unchanged set arrives as the
   // same reference. One commit per delivered message supplies exactly that.
-  const second = store.commit({ reverseCorrelations: rows });
+  const second = store.commit({ labelBindings: rows });
 
   assert.equal(
     second.revision,
@@ -94,10 +94,10 @@ test("Given a commit that changes nothing, when it is applied, then no revision 
 test("Given a commit that changes nothing but announces something, when it is applied, then the event still earns a revision", () => {
   const store = operations();
   const rows = correlations(2, "2026-01-01T00:00:00.000Z");
-  const first = store.commit({ reverseCorrelations: rows });
+  const first = store.commit({ labelBindings: rows });
 
   const second = store.commit({
-    reverseCorrelations: rows,
+    labelBindings: rows,
     events: [{ kind: "session.transition", subjectId: "controller-1" }],
   });
 
@@ -112,10 +112,10 @@ test("Given ten times as much held state, when the same write is repeated, then 
   const measure = (held) => {
     const store = operations();
     const rows = correlations(held, expiry);
-    for (let warm = 0; warm < 20; warm += 1) store.commit({ reverseCorrelations: rows });
+    for (let warm = 0; warm < 20; warm += 1) store.commit({ labelBindings: rows });
     const started = process.hrtime.bigint();
     for (let commit = 0; commit < 200; commit += 1) {
-      store.commit({ reverseCorrelations: rows });
+      store.commit({ labelBindings: rows });
     }
     return Number(process.hrtime.bigint() - started) / 200;
   };

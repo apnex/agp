@@ -1,12 +1,12 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "urn:agp:schema:v1:core:operations:reverse-correlation-snapshot",
-  "title": "AGP core reverse-correlation-snapshot",
+  "$id": "urn:agp:schema:v1:core:operations:label-binding-snapshot",
+  "title": "AGP core label-binding-snapshot",
   "x-agp": {
     "owner": "@agp/core",
-    "typescript": "ReverseCorrelationSnapshot",
+    "typescript": "LabelBindingSnapshot",
     "kind": "operations",
-    "mechanics": "Sovereign reverse-correlation-snapshot data contract owned by @agp/core.",
+    "mechanics": "Sovereign label-binding-snapshot data contract owned by @agp/core.",
     "rationale": "One schema gives runtime validators and consumers one stable reasoning boundary.",
     "consequence": "Accepting another shape would make canonical state or SDK interpretation ambiguous.",
     "semanticRules": []

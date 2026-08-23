@@ -49,7 +49,7 @@ An item that is `I4`/`P1` belongs early even though nobody feels it today, becau
 
 | ID | Candidate | Impact | Breach | Evidence | Status |
 |---|---|---|---|---|---|
-| `B20` | Release expired breadcrumbs, so a node can send more than 4096 messages in its life | `I1` | `P1` | [`MX5`](VERIFICATION.md#46-open-findings-from-sweeps) | landed |
+| `B20` | Release expired label bindings, so a node can send more than 4096 messages in its life | `I1` | `P1` | [`MX5`](VERIFICATION.md#46-open-findings-from-sweeps) | landed |
 | `B21` | Stop discarding a rejectable promise on the inbound data path | `I1` | `P2` | [`MX6`](VERIFICATION.md#46-open-findings-from-sweeps) | landed |
 | `B22` | Measure throughput with each node in its own process | `I3` | `P3` | [`MX7`](VERIFICATION.md#46-open-findings-from-sweeps) | open |
 | `B24` | Give the equivalence line one declaration instead of two | `I4` | `P3` | [`VERIFICATION.md` section 4.9](VERIFICATION.md#49-chasing-a-timing-defect) | landed |
@@ -84,7 +84,7 @@ Two milestones are complete and are kept here as one line each; their detail is 
 
 **Stop the node dying.**\
 `B20` and `B21`, both `I1`, landed together because fixing the first reproduced the second within minutes.\
-A node accepted `maxReverseCorrelations` messages and then refused every further one for the rest of its life, and an inbound dispatch failure ended the process rather than the session.
+A node accepted `maxLabelBindings` messages and then refused every further one for the rest of its life, and an inbound dispatch failure ended the process rather than the session.
 
 **Close the open correctness finding.**\
 `B1`, `B14` and `B16`.\

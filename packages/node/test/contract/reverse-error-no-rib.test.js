@@ -1,14 +1,14 @@
 import assert from "node:assert/strict";
 import test from "node:test";
-import { BreadcrumbStore } from "../../dist/index.js";
-import { breadcrumb, fakeController } from "../support/fakes.js";
+import { LabelTable } from "../../dist/index.js";
+import { labelBinding, fakeController } from "../support/fakes.js";
 
 test("Given equal public session fields on distinct controllers, when reverse lookup runs, then exact identity wins without a RIB callback", () => {
-  const store = new BreadcrumbStore({
+  const store = new LabelTable({
     maximumEntries: 4,
     maximumBytes: 1_024,
   }, () => 0);
-  const entry = breadcrumb();
+  const entry = labelBinding();
   store.add(entry, 100);
 
   const samePublicIdentityDifferentController = fakeController({

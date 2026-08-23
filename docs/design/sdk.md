@@ -350,11 +350,11 @@ Its validation and admission order is:
 6. require an acknowledged Adj-RIB-Out route for the same
    source identity, or fail `SOURCE_NOT_ADVERTISED`;
 7. reserve exact local-handler capacity, or atomically reserve the peer
-   breadcrumb and session-queue capacity;
+   label binding and session-queue capacity;
 8. for peer egress, allocate the next non-reusing `ReturnToken` from the exact
    controller as the final infallible reservation step;
 9. commit message admission, counter, and event state, including the
-   reverse-correlation state only for peer egress;
+   label binding state only for peer egress;
 10. enqueue exactly one local delivery or peer write;
 11. resolve an immutable `SendReceipt`.
 
@@ -406,7 +406,7 @@ The enum is closed: inventing another code, passing through an adapter exception
 | `NO_ROUTE` | No usable selected destination route existed at admission |
 | `SOURCE_NOT_ADVERTISED` | Peer egress lacked an ACKed export of the exact source identity |
 | `NEXT_HOP_UNAVAILABLE` | The selected next hop/controller was unusable, including return-token exhaustion |
-| `QUEUE_FULL` | A required bounded handler, subscriber, breadcrumb, or session-queue reservation was unavailable |
+| `QUEUE_FULL` | A required bounded handler, subscriber, label binding, or session-queue reservation was unavailable |
 | `TRANSPORT_FAILURE` | `start()` could not acquire an enabled listener or other transport facility required to commit `Running` |
 | `INTERNAL` | An injected port violated its contract or an AGP invariant failed; bounded public details do not expose the original exception |
 
@@ -453,7 +453,7 @@ AGP owns no durable runtime state.
 | Loopback fabric | Application-owned production capability; its lifetime is independent of any one node and its live channels are not restorable |
 | Local endpoint intent and handlers | Re-exposed by the embedding application |
 | Listener acquisition, adjacency attempts, channels, and sessions | Discarded and reacquired |
-| FSM state, timers, queues, and reverse breadcrumbs | Discarded |
+| FSM state, timers, queues, and reverse label bindings | Discarded |
 | Adj-RIB-In, candidate RIB, selected RIB, forwarding, and Adj-RIB-Out | Discarded and reconstructed through route exchange |
 | Snapshot revisions, event sequences, events, counters, and high-water marks | Discarded; new `instanceId`, revision `0`, and zero counters |
 | Durable message queue, delivery receipt, or audit history | No AGP owner; out of scope |
@@ -469,7 +469,7 @@ construct adapter/fabric and resolver port
 -> deterministically converge current reachability
 ```
 
-No API serializes or restores an `Established` session, learned route, selected next hop, pending write, or reverse breadcrumb as live truth.\
+No API serializes or restores an `Established` session, learned route, selected next hop, pending write, or reverse label binding as live truth.\
 Persisting those objects would create phantom transports and stale forwarding authority.
 
 The final snapshot of a stopped node remains queryable only while that object remains in process.\

@@ -46,7 +46,7 @@ Every node exposes the same entity kinds regardless of configured topology.
 | `SelectedRouteSnapshot` | The one route selected for an endpoint, including origin and complete path through this node |
 | `ForwardingEntrySnapshot` | The resolved local binding or immediate peer session for one selected route |
 | `AdjRibOutRouteSnapshot` | One desired, outstanding, acknowledged, rejected, or locally suppressed route decision for one peer, with exact local/remote reason and retry projection |
-| `ReverseCorrelationSnapshot` | One bounded data-error breadcrumb with end-to-end message ID, hop tokens, public ingress/egress node-session pairs, and expiry |
+| `LabelBindingSnapshot` | One bounded data-error label binding with end-to-end message ID, hop tokens, public ingress/egress node-session pairs, and expiry |
 | `ResourcesSnapshot` | Current, maximum, and high-water bounded resource gauges |
 | `CountersSnapshot` | Monotonic values scoped to this runtime instance |
 
@@ -205,7 +205,7 @@ If any result would exceed its domain, or if the ordinary revision would consume
 ```text
 gate all new work
 -> detach bindings, subscriptions, controllers, and callback authority
--> purge sessions, queues, breadcrumbs, Adj-RIB-In, candidates, selected RIB,
+-> purge sessions, queues, label bindings, Adj-RIB-In, candidates, selected RIB,
   FIB, and Adj-RIB-Out
 -> release all logical capacity reservations
 -> set lifecycle to Failed with MONOTONIC_DOMAIN_EXHAUSTED evidence
@@ -248,7 +248,7 @@ interface OperationsReader {
   routes(): RouteTableSnapshot;
   forwarding(): ForwardingListSnapshot;
   routeExports(): AdjRibOutListSnapshot;
-  reverseCorrelations(): ReverseCorrelationListSnapshot;
+  labelBindings(): LabelBindingListSnapshot;
   resources(): ResourcesSnapshot;
   counters(): CountersSnapshot;
   events(options?: EventSubscriptionOptions): EventSubscription;
@@ -272,7 +272,7 @@ Lists are deterministically ordered:
 | Selected routes | endpoint |
 | Forwarding | endpoint |
 | Route exports | the complete route-export key below |
-| Reverse correlations | the complete breadcrumb key below |
+| Reverse correlations | the complete label binding key below |
 
 Ordering uses UTF-8 byte order for strings and never depends on insertion, object-property, connection-arrival, or locale order.
 
@@ -290,7 +290,7 @@ The route-export comparator is lexicographic over:
 7. retry attempt as an unsigned integer, with absent before present; and
 8. retry time as an instant, with absent before present.
 
-The reverse-correlation comparator is lexicographic over:
+The label binding comparator is lexicographic over:
 
 1. expiry instant, message ID, egress node, and egress session;
 2. outbound return token interpreted as its unsigned 64-bit hexadecimal value;
@@ -303,7 +303,7 @@ The reverse-correlation comparator is lexicographic over:
 Timestamp comparisons are by represented instant, never wall-clock string locale.\
 Numeric revisions, attempts, and tokens are compared numerically, never as decimal strings.\
 For each comparator, equality means every observable row field is equal; exact duplicate rows are forbidden by the owning list schema.\
-Thus multiple route stages/revisions for one tuple and multiple breadcrumbs for one end-to-end message still have a total, reproducible order.
+Thus multiple route stages/revisions for one tuple and multiple label bindings for one end-to-end message still have a total, reproducible order.
 
 The reader remains queryable after `Stopped` or `Failed` so an embedding application can inspect the final live-instance snapshot.\
 It does not retain historical revisions.
@@ -407,7 +407,7 @@ The adapter may:
 
 It may not recompute selected routes, synthesize connection state, inspect queues, derive counters, or replace a typed core entity with a generic object.
 
-Adjacency supervision, per-peer export state, and reverse-correlation state are available in `/v1/snapshot`.\
+Adjacency supervision, per-peer export state, and label binding state are available in `/v1/snapshot`.\
 No new top-level HTTP path is required for the initial cutover; adding one later requires its own sovereign response schema.
 
 ### 5.2 Point-in-time behavior
@@ -507,4 +507,4 @@ If a projection can compute state independently, two surfaces can disagree while
 - Incrementing revisions per derived table exposes impossible intermediate states in which a route is selected but not yet forwardable.
 - Reconstructing state in HTTP or in a CLI template lets an adapter disagree with the SDK, and an operator cannot tell which one is lying.
 - Keeping a role field under a different name lets a topology label regain protocol meaning it no longer has.
-- Persisting sessions, routes, queues, or breadcrumbs across instances creates phantom adjacencies and stale next hops that outlive the transport that justified them.
+- Persisting sessions, routes, queues, or label bindings across instances creates phantom adjacencies and stale next hops that outlive the transport that justified them.

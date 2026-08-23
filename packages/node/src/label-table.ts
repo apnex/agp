@@ -3,11 +3,11 @@ import type {
   ReturnToken,
 } from "@agp/protocol";
 import type {
-  BreadcrumbInput,
+  LabelBinding,
   ExactController,
 } from "./controller.js";
 
-export interface BreadcrumbCapacity {
+export interface LabelTableCapacity {
   readonly maximumEntries: number;
   readonly maximumBytes: number;
   /**
@@ -27,20 +27,20 @@ export interface BreadcrumbCapacity {
   readonly onCapacity: "evict-oldest" | "refuse";
 }
 
-export interface BreadcrumbUsage {
+export interface LabelTableUsage {
   readonly entries: number;
   readonly bytes: number;
   readonly highWaterEntries: number;
   readonly highWaterBytes: number;
 }
 
-export type BreadcrumbLookup =
+export type LabelBindingLookup =
   | { readonly kind: "unreturnable" }
-  | { readonly kind: "ref-mismatch"; readonly breadcrumb: BreadcrumbInput }
-  | { readonly kind: "consumed"; readonly breadcrumb: BreadcrumbInput };
+  | { readonly kind: "ref-mismatch"; readonly labelBinding: LabelBinding }
+  | { readonly kind: "consumed"; readonly labelBinding: LabelBinding };
 
-interface StoredBreadcrumb {
-  readonly input: BreadcrumbInput;
+interface StoredLabelBinding {
+  readonly input: LabelBinding;
   readonly retainedBytes: number;
   /**
    * Destinations still owed against this binding, not copies sent.
@@ -59,11 +59,11 @@ interface StoredBreadcrumb {
  * Bounded reverse-path forwarding state. The first map is keyed by the exact
  * controller identity object; no public node/session identifier can hit it.
  */
-export class BreadcrumbStore {
-  readonly #capacity: BreadcrumbCapacity;
+export class LabelTable {
+  readonly #capacity: LabelTableCapacity;
   readonly #monotonicNow: () => number;
   #lastSweepMs = Number.NEGATIVE_INFINITY;
-  readonly #byController = new Map<object, Map<ReturnToken, StoredBreadcrumb>>();
+  readonly #byController = new Map<object, Map<ReturnToken, StoredLabelBinding>>();
   #entries = 0;
   // Increments on every membership change, so a consumer can memoise a
   // projection of the set against an exact signal rather than rebuilding it.
@@ -73,7 +73,7 @@ export class BreadcrumbStore {
   #highWaterBytes = 0;
   #evicted = 0;
 
-  constructor(capacity: BreadcrumbCapacity, monotonicNow: () => number) {
+  constructor(capacity: LabelTableCapacity, monotonicNow: () => number) {
     this.#monotonicNow = monotonicNow;
     if (
       !Number.isSafeInteger(capacity.maximumEntries)
@@ -81,7 +81,7 @@ export class BreadcrumbStore {
       || !Number.isSafeInteger(capacity.maximumBytes)
       || capacity.maximumBytes < 1
     ) {
-      throw new RangeError("breadcrumb capacity must use positive safe integers");
+      throw new RangeError("labelBinding capacity must use positive safe integers");
     }
     this.#capacity = Object.freeze({ ...capacity });
   }
@@ -96,11 +96,11 @@ export class BreadcrumbStore {
     if (this.#fits(retainedBytes)) return true;
     // Only sweep when the answer would otherwise be no.
     //
-    // A breadcrumb is released by expiry rather than by delivery, so without a
+    // A labelBinding is released by expiry rather than by delivery, so without a
     // sweep the store fills once and never empties: a node accepted exactly
     // `maximumEntries` messages and refused every one after that for the rest
     // of its life. Sweeping on every admission instead would make each message
-    // pay for every breadcrumb held, which is the shape `D21` exists to
+    // pay for every labelBinding held, which is the shape `D21` exists to
     // forbid, so the cost is paid only at the bound and at most once a
     // millisecond. See `MX5`.
     this.#sweep();
@@ -139,7 +139,7 @@ export class BreadcrumbStore {
   }
 
   add(
-    input: BreadcrumbInput,
+    input: LabelBinding,
     retainedBytes: number,
     outstanding = 1,
   ): boolean {
@@ -179,7 +179,7 @@ export class BreadcrumbStore {
     token: ReturnToken,
     refId: MessageId,
     nowMonotonicMs: number,
-  ): BreadcrumbLookup {
+  ): LabelBindingLookup {
     return this.#settle(controller, token, nowMonotonicMs, refId);
   }
 
@@ -188,7 +188,7 @@ export class BreadcrumbStore {
     controller: ExactController,
     token: ReturnToken,
     nowMonotonicMs: number,
-  ): BreadcrumbLookup {
+  ): LabelBindingLookup {
     return this.#settle(controller, token, nowMonotonicMs, undefined);
   }
 
@@ -197,7 +197,7 @@ export class BreadcrumbStore {
     token: ReturnToken,
     nowMonotonicMs: number,
     refId: MessageId | undefined,
-  ): BreadcrumbLookup {
+  ): LabelBindingLookup {
     const tokens = this.#byController.get(controller.identity);
     const stored = tokens?.get(token);
     if (stored === undefined) return Object.freeze({ kind: "unreturnable" });
@@ -208,7 +208,7 @@ export class BreadcrumbStore {
     if (refId !== undefined && stored.input.messageId !== refId) {
       return Object.freeze({
         kind: "ref-mismatch",
-        breadcrumb: stored.input,
+        labelBinding: stored.input,
       });
     }
     // Released at zero rather than on the first outcome, so a message divided
@@ -218,11 +218,11 @@ export class BreadcrumbStore {
     if (stored.outstanding <= 0) {
       this.#delete(controller.identity, token, stored);
     }
-    return Object.freeze({ kind: "consumed", breadcrumb: stored.input });
+    return Object.freeze({ kind: "consumed", labelBinding: stored.input });
   }
 
-  expire(nowMonotonicMs: number): readonly BreadcrumbInput[] {
-    const expired: BreadcrumbInput[] = [];
+  expire(nowMonotonicMs: number): readonly LabelBinding[] {
+    const expired: LabelBinding[] = [];
     for (const [identity, tokens] of this.#byController) {
       for (const [token, stored] of tokens) {
         if (stored.input.expiresAtMonotonicMs <= nowMonotonicMs) {
@@ -237,11 +237,11 @@ export class BreadcrumbStore {
   removeForController(
     controller: ExactController,
   ): {
-    readonly asIngress: readonly BreadcrumbInput[];
-    readonly asEgress: readonly BreadcrumbInput[];
+    readonly asIngress: readonly LabelBinding[];
+    readonly asEgress: readonly LabelBinding[];
   } {
-    const asIngress: BreadcrumbInput[] = [];
-    const asEgress: BreadcrumbInput[] = [];
+    const asIngress: LabelBinding[] = [];
+    const asEgress: LabelBinding[] = [];
     for (const [identity, tokens] of this.#byController) {
       for (const [token, stored] of tokens) {
         if (identity === controller.identity) {
@@ -262,8 +262,8 @@ export class BreadcrumbStore {
     });
   }
 
-  clear(): readonly BreadcrumbInput[] {
-    const removed: BreadcrumbInput[] = [];
+  clear(): readonly LabelBinding[] {
+    const removed: LabelBinding[] = [];
     for (const tokens of this.#byController.values()) {
       for (const stored of tokens.values()) removed.push(stored.input);
     }
@@ -273,7 +273,7 @@ export class BreadcrumbStore {
     return Object.freeze(removed);
   }
 
-  usage(): BreadcrumbUsage {
+  usage(): LabelTableUsage {
     return Object.freeze({
       entries: this.#entries,
       bytes: this.#bytes,
@@ -287,8 +287,8 @@ export class BreadcrumbStore {
     return this.#version;
   }
 
-  snapshot(): readonly BreadcrumbInput[] {
-    const values: BreadcrumbInput[] = [];
+  snapshot(): readonly LabelBinding[] {
+    const values: LabelBinding[] = [];
     for (const tokens of this.#byController.values()) {
       for (const stored of tokens.values()) values.push(stored.input);
     }
@@ -298,7 +298,7 @@ export class BreadcrumbStore {
   #delete(
     identity: object,
     token: ReturnToken,
-    stored: StoredBreadcrumb,
+    stored: StoredLabelBinding,
   ): void {
     const tokens = this.#byController.get(identity);
     if (tokens?.delete(token) !== true) return;

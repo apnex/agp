@@ -1,14 +1,14 @@
 import assert from "node:assert/strict";
 import test from "node:test";
-import { BreadcrumbStore } from "../../dist/index.js";
-import { breadcrumb } from "../support/fakes.js";
+import { LabelTable } from "../../dist/index.js";
+import { labelBinding } from "../support/fakes.js";
 
-test("Given a matching token with the wrong refId, when reverse lookup runs, then fatal evidence does not consume the breadcrumb", () => {
-  const store = new BreadcrumbStore({
+test("Given a matching token with the wrong refId, when reverse lookup runs, then fatal evidence does not consume the labelBinding", () => {
+  const store = new LabelTable({
     maximumEntries: 4,
     maximumBytes: 1_024,
   }, () => 0);
-  const entry = breadcrumb();
+  const entry = labelBinding();
   store.add(entry, 100);
 
   assert.equal(

@@ -8,7 +8,7 @@ Fixtures provide deterministic identities, clocks, and write ledgers only.
 |---|---|---|
 | `contract/acceptance-callback-fault-lifecycle.test.js` | A listener-reported acceptance-callback adapter fault fails the running node once while transferred channel ownership closes once | Adapter callback isolation internals |
 | `contract/data-failure-precedence.test.js` | Multi-failure transit admission commits only the first normative failure | Topology convergence |
-| `contract/direct-delivery-error.test.js` | A current-hop data failure reaches ingress as one exact disposition, and only once its batch is sent | Breadcrumb relay |
+| `contract/direct-delivery-error.test.js` | A current-hop data failure reaches ingress as one exact disposition, and only once its batch is sent | Label binding relay |
 | `contract/hop-exhaustion.test.js` | The last usable hop returns `HOP_LIMIT_EXCEEDED` with zero onward data | Route-miss precedence |
 | `contract/handler-settlement-operations.test.js` | Successful and failed handler settlements each commit one exact event and closed counter | Handler scheduling and payload semantics |
 | `contract/ingress-egress-inequality.test.js` | Exact ingress can never be reused as selected egress | Route selection |
@@ -19,13 +19,13 @@ Fixtures provide deterministic identities, clocks, and write ledgers only.
 | `contract/local-route-miss.test.js` | Local `NO_ROUTE` creates no reservation or data write | Transit reverse error |
 | `contract/operational-event-schema.test.js` | Every live emitted node event validates against the closed sovereign event union | Generated vocabulary completeness |
 | `contract/peer-adjacency-uniqueness.test.js` | Duplicate adjacency identities fail construction before transport resolution | Remote identity collision |
-| `contract/reverse-error-consume-once.test.js` | An exact controller/token/refId breadcrumb is consumable only once | Relay translation |
+| `contract/reverse-error-consume-once.test.js` | An exact controller/token/refId label binding is consumable only once | Relay translation |
 | `contract/reverse-error-no-rib.test.js` | Reverse lookup uses exact retained controller identity and performs no RIB lookup | Destination forwarding |
 | `contract/reverse-error-refid.test.js` | Wrong-refId error input cannot consume a matching token | Successful consumption |
 | `contract/disposition-relay.test.js` | Transit relay uses recorded ingress, translates only hop-local identity, compresses deliveries to runs, and measures an arriving batch before applying any of it | Direct current-hop failures, release under load |
 | `contract/session-hold-ttl.test.js` | Public inbound hold TTL decreases with monotonic time without a revision | Outbound keepalive suppression |
 | `contract/session-id-pair-scope.test.js` | Equal six-hex IDs coexist for different peers, including accepted pre-identity controllers | Cross-dial winner selection |
-| `contract/breadcrumb-expiry.test.js` | Expiry is a working backstop when nothing reports back, so capacity is a bound on what is outstanding rather than a lifetime total | Release by disposition, relay |
+| `contract/label-binding-expiry.test.js` | Expiry is a working backstop when nothing reports back, so capacity is a bound on what is outstanding rather than a lifetime total | Release by disposition, relay |
 | `contract/disposition-surface.test.js` | What an application is told about a message it sent, including an unknown denominator distinguished from a known one, the per-endpoint stream, and a next hop lost mid-flight | Wire shape, batching, relay |
 | `contract/disposition-release.test.js` | A binding is released by a delivery and not only by a failure or expiry, and a full table evicts rather than refusing | Wire shape, batch composition |
 | `contract/inbound-dispatch-failure.test.js` | An inbound dispatch failure is diagnosed and terminates only its own session | Which failures reach the inbound path |
@@ -43,7 +43,7 @@ Fixtures provide deterministic identities, clocks, and write ledgers only.
 | `contract/uniform-capabilities.test.js` | The same `NodeImpl` composes listener, dialer, routing, and delivery capabilities | Multi-hop geometry |
 | `contract/withdrawal-writer-order.test.js` | Admitted epoch data writes before the snapshot that withdraws that epoch | Remote convergence |
 | `contract/credit-writer-precedence.test.js` | The writer stops at the peer's grant, resumes in order, and lets only control overtake data the peer cannot hold | Grant computation and the wire field |
-| `unit/return-token-allocator.test.js` | Unsigned-64 tokens remain fixed-width and unique until terminal exhaustion | Breadcrumb storage and session replacement |
+| `unit/return-token-allocator.test.js` | Unsigned-64 tokens remain fixed-width and unique until terminal exhaustion | Label binding storage and session replacement |
 
 Tests use positive executor/write/capacity barriers rather than sleep-based negative evidence.\
 Run with `npm test --workspace @agp/node`.

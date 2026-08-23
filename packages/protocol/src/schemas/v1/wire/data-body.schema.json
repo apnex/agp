@@ -37,7 +37,7 @@
     },
     "returnToken": {
       "$ref": "urn:agp:schema:v1:protocol:common:return-token",
-      "description": "Exact hop-scoped reverse-correlation token."
+      "description": "Exact hop-scoped label."
     },
     "hopLimit": {
       "type": "integer",

@@ -483,14 +483,14 @@ The generic `message-failed` event and existing rejected/lost counter families h
 ### Reverse-error proofs
 
 - A failure at the current node returns directly to the exact current ingress
-  using the received hop token; that first return requires no local breadcrumb.
+  using the received hop token; that first return requires no local label binding.
 - A returned error is accepted only from the recorded egress session.
 - It is delivered locally or relayed to the recorded ingress without a route
   lookup.
-- Expired/missing breadcrumbs and closed ingress sessions discard the error
+- Expired/missing label bindings and closed ingress sessions discard the error
   once, with no recursive error.
-- Breadcrumb count, bytes, and lifetime are bounded.
-- Private breadcrumb lookup is `(exact egress controller,
+- Label binding count, bytes, and lifetime are bounded.
+- Private label binding lookup is `(exact egress controller,
   outboundReturnToken)`; the public six-hex session ID and end-to-end message ID
   are insufficient lookup identities.
 - A controller never reuses an outbound return token. Exhaustion replaces the
@@ -903,12 +903,12 @@ Other file names may be refined before implementation, but every primary contrac
 | AX5 | `packages/node/test/contract/data-failure-precedence.test.js` | Every transit multi-failure case commits only the first ordered failure, at most one ingress error, and zero onward data writes |
 | AX5 | `packages/node/test/contract/direct-delivery-error.test.js` | Current-node failure constructs one exact hop-token error directly to ingress |
 | AX5 | `packages/node/test/contract/disposition-relay.test.js` | A valid transit binding relays to its exact recorded ingress while translating only the hop token, and an arriving batch is measured before any of it is applied |
-| AX5 | `packages/node/test/contract/reverse-error-no-rib.test.js` | Local resolution, relay, and unreturnable reverse-error outcomes consult only exact breadcrumb/controller state and perform zero destination-RIB lookups |
-| AX5 | `packages/node/test/contract/reverse-error-consume-once.test.js` | The first valid matching error consumes its breadcrumb; replay cannot deliver or relay a second outcome |
-| AX5 | `packages/node/test/contract/reverse-error-refid.test.js` | A matching token with the wrong end-to-end `refId` is discarded without consuming the breadcrumb |
+| AX5 | `packages/node/test/contract/reverse-error-no-rib.test.js` | Local resolution, relay, and unreturnable reverse-error outcomes consult only exact label binding/controller state and perform zero destination-RIB lookups |
+| AX5 | `packages/node/test/contract/reverse-error-consume-once.test.js` | The first valid matching error consumes its label binding; replay cannot deliver or relay a second outcome |
+| AX5 | `packages/node/test/contract/reverse-error-refid.test.js` | A matching token with the wrong end-to-end `refId` is discarded without consuming the label binding |
 | AX5 | `packages/node/test/unit/return-token-allocator.test.js` | Unsigned-64 allocation never repeats and terminal exhaustion replaces the controller before wrap |
 | AX5 | `packages/node/test/contract/withdrawal-writer-order.test.js` | Already-admitted epoch data writes precede its withdrawing snapshot |
-| AX5 | `packages/node/test/contract/breadcrumb-expiry.test.js` | Reverse-correlation capacity bounds what is outstanding rather than what a node may ever send, so a retryable refusal describes a condition that clears |
+| AX5 | `packages/node/test/contract/label-binding-expiry.test.js` | Reverse-correlation capacity bounds what is outstanding rather than what a node may ever send, so a retryable refusal describes a condition that clears |
 | AX5 | `packages/node/test/contract/inbound-dispatch-failure.test.js` | A failing inbound dispatch is reported and bounded to its session, and never escapes as an unhandled rejection |
 | AX5 | `packages/node/test/contract/credit-writer-precedence.test.js` | A writer stops at the peer's grant, resumes in order, and lets only control overtake data the peer has no room for |
 | AX5 | `packages/node/test/contract/stop-drain.test.js` | Stop gates new work and releases handlers/reservations once within its deadline |

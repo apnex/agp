@@ -72,7 +72,7 @@
       "path": "responses/operations-response.schema.json",
       "kind": "management-response",
       "typescript": "ManagementOperationsSnapshot",
-      "sha256": "0a70aa799900f6c519eb2f229047e4c261e9ec614dd898be85576f70a759dd10"
+      "sha256": "d5dac6a1b992065833ff67d9e79ba649fc808392ad8b55bf84f1b716992ab46f"
     },
     {
       "id": "urn:agp:schema:v1:management:resources-response",

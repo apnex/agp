@@ -39,8 +39,8 @@ import type {
   OperationsRevision,
   OperationsSnapshot,
   ResourcesSnapshot,
-  ReverseCorrelationListSnapshot,
-  ReverseCorrelationSnapshot,
+  LabelBindingListSnapshot,
+  LabelBindingSnapshot,
   RouteTableSnapshot,
   SessionSnapshot,
   SnapshotMeta,
@@ -67,7 +67,7 @@ export interface OperationsCommit {
   readonly connections?: readonly ConnectionRecordInput[];
   readonly routing?: RoutingSnapshot;
   readonly routeExports?: readonly AdjRibOutRouteSnapshot[];
-  readonly reverseCorrelations?: readonly ReverseCorrelationSnapshot[];
+  readonly labelBindings?: readonly LabelBindingSnapshot[];
   readonly resources?: Readonly<Record<string, ResourceGaugeInput>>;
   readonly incrementCounters?: Readonly<Record<string, number | bigint>>;
   readonly events?: readonly OperationalEventInput[];
@@ -165,11 +165,11 @@ export class OperationsStore implements OperationsReader {
   // cost a date parse per comparison against the whole live set, on every
   // committed message; sorting on the read path costs it once per query and
   // is reused until the set next changes. See `D21`.
-  #reverseSource: readonly ReverseCorrelationSnapshot[] = Object.freeze([]);
+  #reverseSource: readonly LabelBindingSnapshot[] = Object.freeze([]);
   // The exact array last accepted, kept so an unchanged set is recognised by
   // identity rather than by comparison.
-  #reverseInput: readonly ReverseCorrelationSnapshot[] | undefined;
-  #reverseOrdered: readonly ReverseCorrelationSnapshot[] | undefined =
+  #reverseInput: readonly LabelBindingSnapshot[] | undefined;
+  #reverseOrdered: readonly LabelBindingSnapshot[] | undefined =
     Object.freeze([]);
   #revision = 0n;
   #eventSequence = 0n;
@@ -324,7 +324,7 @@ export class OperationsStore implements OperationsReader {
       );
       wrote = true;
     }
-    if (change.reverseCorrelations !== undefined) {
+    if (change.labelBindings !== undefined) {
       // A shallow copy detaches the caller's array. Its elements are already
       // frozen canonical values, so nothing below the array is touched.
       //
@@ -332,9 +332,9 @@ export class OperationsStore implements OperationsReader {
       // the same reference and is recognised without inspecting it. One
       // commit per delivered message supplies a reverse set that a local
       // delivery never altered, and that commit now writes nothing.
-      if (change.reverseCorrelations !== this.#reverseInput) {
-        this.#reverseInput = change.reverseCorrelations;
-        this.#reverseSource = Object.freeze([...change.reverseCorrelations]);
+      if (change.labelBindings !== this.#reverseInput) {
+        this.#reverseInput = change.labelBindings;
+        this.#reverseSource = Object.freeze([...change.labelBindings]);
         this.#reverseOrdered = undefined;
         wrote = true;
       }
@@ -482,7 +482,7 @@ export class OperationsStore implements OperationsReader {
       selectedRoutes: this.#selectedRoutesData,
       forwarding: this.#forwardingData,
       routeExports: this.#routeExportsData,
-      reverseCorrelations: this.#orderedReverse(),
+      labelBindings: this.#orderedReverse(),
       resources: this.#resourcesSnapshot(),
       counters: this.#countersSnapshot(),
     });
@@ -540,7 +540,7 @@ export class OperationsStore implements OperationsReader {
     return this.#list(this.#routeExportsData);
   }
 
-  reverseCorrelations(): ReverseCorrelationListSnapshot {
+  labelBindings(): LabelBindingListSnapshot {
     return this.#list(this.#orderedReverse());
   }
 
@@ -614,11 +614,11 @@ export class OperationsStore implements OperationsReader {
   }
 
   /** Orders the reverse set on demand, and reuses that order until it changes. */
-  #orderedReverse(): readonly ReverseCorrelationSnapshot[] {
+  #orderedReverse(): readonly LabelBindingSnapshot[] {
     const cached = this.#reverseOrdered;
     if (cached !== undefined) return cached;
     const ordered = immutableClone(
-      [...this.#reverseSource].sort(compareReverseCorrelations),
+      [...this.#reverseSource].sort(compareLabelTable),
     );
     this.#reverseOrdered = ordered;
     return ordered;
@@ -699,7 +699,7 @@ function materializeConnection(
 /**
  * Memoised timestamp parse.
  *
- * The same instants are compared over and over: one live breadcrumb keeps its
+ * The same instants are compared over and over: one live labelBinding keeps its
  * expiry string for its whole lifetime, and the set is re-sorted on every
  * committed message. Parsing a date is not cheap, and doing it inside a
  * comparator multiplies it by the log of the set size, on the write path.
@@ -719,9 +719,9 @@ function timestampMs(value: string): number {
   return parsed;
 }
 
-export function compareReverseCorrelations(
-  left: ReverseCorrelationSnapshot,
-  right: ReverseCorrelationSnapshot,
+export function compareLabelTable(
+  left: LabelBindingSnapshot,
+  right: LabelBindingSnapshot,
 ): number {
   return timestampMs(left.expiresAt) - timestampMs(right.expiresAt)
     || compareUtf8(left.messageId, right.messageId)
@@ -806,14 +806,14 @@ function compareStringArrays(
 }
 
 function ingressRank(
-  value: ReverseCorrelationSnapshot["ingress"],
+  value: LabelBindingSnapshot["ingress"],
 ): number {
   return value.kind === "local" ? 0 : 1;
 }
 
 function compareSessionIngress(
-  left: ReverseCorrelationSnapshot["ingress"],
-  right: ReverseCorrelationSnapshot["ingress"],
+  left: LabelBindingSnapshot["ingress"],
+  right: LabelBindingSnapshot["ingress"],
 ): number {
   if (left.kind !== "session" || right.kind !== "session") return 0;
   return compareUtf8(left.nodeId, right.nodeId)
