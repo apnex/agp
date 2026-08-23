@@ -28,7 +28,13 @@ Seal the authority and reasoning record before executable contracts bear weight.
    than restating it, and fails on a duplicate, omission, or unexpected ID.
    A gate whose expected set is a constant cannot detect drift away from
    itself, which is how `D18` and `D19` came to be ratified, built and gated
-   while absent from the graph this evidence seals. Each `U12..U15` record must include the fixed-intent
+   while absent from the graph this evidence seals.
+   Each record states whether it is built or planned, because ratifying a
+   decision and building it are different acts and the corpus treats a
+   ratified but unbuilt decision as legitimate. A built record owes its
+   owning tests; a planned one owes its design instead. Requiring tests of
+   both conflated the two and made a decision impossible to write down until
+   it was implemented, which discouraged writing decisions down. Each `U12..U15` record must include the fixed-intent
    stakeholder authority.
 2. Every record has exactly one owning gate, at least one planned owning test,
    and one or more authorities.

@@ -85,7 +85,20 @@ test("Given the ratified intent graph, when AX0 validates it, then every U recor
   const referencedRules = new Set();
   const anchorCache = new Map();
   for (const record of trace.records) {
-    assert.equal(record.owningTests.length > 0, true, record.requirementId);
+    // A decision may be ratified before it is built, and the corpus treats
+    // that as a legitimate state: `B12` is triggered by exactly it. Requiring
+    // an owning test of every decision conflated deciding with building, and
+    // made a ratified but unbuilt decision impossible to write down. Build
+    // state is its own axis, and a built record still owes its tests.
+    if (record.implementation === "built") {
+      assert.equal(record.owningTests.length > 0, true, record.requirementId);
+    } else {
+      assert.equal(
+        record.designReferences.length > 0,
+        true,
+        `${record.requirementId}: a planned decision must name its design`,
+      );
+    }
     assert.match(record.owningGate, /^AX[0-8]$/u);
     for (const ruleId of record.semanticRuleIds) {
       assert.equal(knownRules.has(ruleId), true, `${record.requirementId}:${ruleId}`);

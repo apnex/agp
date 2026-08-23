@@ -31,7 +31,8 @@
       ],
       "integrationWitnesses": [
         "test/conformance/public-node-consumer.test.js"
-      ]
+      ],
+      "implementation": "built"
     },
     {
       "requirementId": "U2",
@@ -69,7 +70,8 @@
         "test/e2e/independent-star-hub-endpoint.test.js",
         "test/e2e/independent-star-multi-endpoint.test.js",
         "test/e2e/independent-line.test.js"
-      ]
+      ],
+      "implementation": "built"
     },
     {
       "requirementId": "U3",
@@ -99,7 +101,8 @@
       ],
       "integrationWitnesses": [
         "test/topology/star-convergence.test.js"
-      ]
+      ],
+      "implementation": "built"
     },
     {
       "requirementId": "U4",
@@ -129,7 +132,8 @@
         "test/e2e/independent-star-duplicate-route.test.js",
         "test/e2e/independent-star-multi-endpoint.test.js",
         "test/e2e/independent-line.test.js"
-      ]
+      ],
+      "implementation": "built"
     },
     {
       "requirementId": "U5",
@@ -161,7 +165,8 @@
       ],
       "integrationWitnesses": [
         "test/topology/triangle-loop-prevention.test.js"
-      ]
+      ],
+      "implementation": "built"
     },
     {
       "requirementId": "U6",
@@ -193,7 +198,8 @@
         "test/e2e/independent-star-hub-endpoint.test.js",
         "test/e2e/independent-star-multi-endpoint.test.js",
         "test/e2e/independent-line.test.js"
-      ]
+      ],
+      "implementation": "built"
     },
     {
       "requirementId": "U7",
@@ -221,7 +227,8 @@
       "owningTests": [
         "packages/node/test/contract/local-route-miss.test.js"
       ],
-      "integrationWitnesses": []
+      "integrationWitnesses": [],
+      "implementation": "built"
     },
     {
       "requirementId": "U8",
@@ -248,7 +255,8 @@
       "owningTests": [
         "packages/node/test/contract/transit-route-miss.test.js"
       ],
-      "integrationWitnesses": []
+      "integrationWitnesses": [],
+      "implementation": "built"
     },
     {
       "requirementId": "U9",
@@ -278,7 +286,8 @@
         "packages/node/test/contract/reverse-error-relay.test.js",
         "packages/node/test/contract/reverse-error-no-rib.test.js"
       ],
-      "integrationWitnesses": []
+      "integrationWitnesses": [],
+      "implementation": "built"
     },
     {
       "requirementId": "U10",
@@ -309,7 +318,8 @@
       "integrationWitnesses": [
         "test/e2e/operations-frozen-parity.test.js",
         "test/e2e/operations-live-time-bounds.test.js"
-      ]
+      ],
+      "implementation": "built"
     },
     {
       "requirementId": "U11",
@@ -357,7 +367,8 @@
         "packages/core/test/unit/diagnostic-record-schema.test.js",
         "packages/transport/test/contract/diagnostic-sink.test.js"
       ],
-      "integrationWitnesses": []
+      "integrationWitnesses": [],
+      "implementation": "built"
     },
     {
       "requirementId": "U12",
@@ -388,7 +399,8 @@
       ],
       "integrationWitnesses": [
         "test/conformance/public-node-consumer.test.js"
-      ]
+      ],
+      "implementation": "built"
     },
     {
       "requirementId": "U13",
@@ -414,7 +426,8 @@
       "integrationWitnesses": [
         "test/topology/star-convergence.test.js",
         "test/e2e/independent-star-multi-endpoint.test.js"
-      ]
+      ],
+      "implementation": "built"
     },
     {
       "requirementId": "U14",
@@ -450,7 +463,8 @@
       ],
       "integrationWitnesses": [
         "test/topology/star-convergence.test.js"
-      ]
+      ],
+      "implementation": "built"
     },
     {
       "requirementId": "U15",
@@ -488,7 +502,8 @@
       ],
       "integrationWitnesses": [
         "test/e2e/independent-star-multi-endpoint.test.js"
-      ]
+      ],
+      "implementation": "built"
     },
     {
       "requirementId": "D1",
@@ -511,7 +526,8 @@
       "owningTests": [
         "packages/node/test/contract/uniform-capabilities.test.js"
       ],
-      "integrationWitnesses": []
+      "integrationWitnesses": [],
+      "implementation": "built"
     },
     {
       "requirementId": "D2",
@@ -534,7 +550,8 @@
       "owningTests": [
         "test/conformance/no-legacy-surface.test.js"
       ],
-      "integrationWitnesses": []
+      "integrationWitnesses": [],
+      "implementation": "built"
     },
     {
       "requirementId": "D3",
@@ -567,7 +584,8 @@
         "packages/core/test/unit/diagnostic-record-schema.test.js",
         "packages/transport/test/contract/diagnostic-sink.test.js"
       ],
-      "integrationWitnesses": []
+      "integrationWitnesses": [],
+      "implementation": "built"
     },
     {
       "requirementId": "D4",
@@ -601,7 +619,8 @@
       "integrationWitnesses": [
         "test/topology/withdrawal-binding-close.test.js",
         "test/topology/withdrawal-snapshot-omission.test.js"
-      ]
+      ],
+      "implementation": "built"
     },
     {
       "requirementId": "D5",
@@ -634,7 +653,8 @@
         "packages/core/test/unit/session-terminal-retention.test.js",
         "packages/core/test/unit/session-closed-event.test.js",
         "packages/core/test/unit/connection-preidentity-closed-event.test.js"
-      ]
+      ],
+      "implementation": "built"
     },
     {
       "requirementId": "D6",
@@ -662,7 +682,8 @@
       ],
       "integrationWitnesses": [
         "test/topology/diamond-selection.test.js"
-      ]
+      ],
+      "implementation": "built"
     },
     {
       "requirementId": "D7",
@@ -694,7 +715,8 @@
       ],
       "integrationWitnesses": [
         "test/topology/line-transit.test.js"
-      ]
+      ],
+      "implementation": "built"
     },
     {
       "requirementId": "D8",
@@ -724,7 +746,8 @@
         "packages/node/test/contract/reverse-error-consume-once.test.js",
         "packages/node/test/unit/return-token-allocator.test.js"
       ],
-      "integrationWitnesses": []
+      "integrationWitnesses": [],
+      "implementation": "built"
     },
     {
       "requirementId": "D9",
@@ -749,7 +772,8 @@
       "owningTests": [
         "test/topology/restart-reconvergence.test.js"
       ],
-      "integrationWitnesses": []
+      "integrationWitnesses": [],
+      "implementation": "built"
     },
     {
       "requirementId": "D10",
@@ -786,7 +810,8 @@
         "packages/core/test/unit/rib-atomic-revision.test.js",
         "packages/core/test/unit/monotonic-domain-exhaustion.test.js"
       ],
-      "integrationWitnesses": []
+      "integrationWitnesses": [],
+      "implementation": "built"
     },
     {
       "requirementId": "D11",
@@ -814,7 +839,8 @@
       ],
       "integrationWitnesses": [
         "test/resilience/cross-dial-race.test.js"
-      ]
+      ],
+      "implementation": "built"
     },
     {
       "requirementId": "D12",
@@ -843,7 +869,8 @@
       ],
       "integrationWitnesses": [
         "test/e2e/operations-frozen-parity.test.js"
-      ]
+      ],
+      "implementation": "built"
     },
     {
       "requirementId": "D13",
@@ -871,7 +898,8 @@
       "owningTests": [
         "packages/node/test/contract/lifecycle-one-shot.test.js"
       ],
-      "integrationWitnesses": []
+      "integrationWitnesses": [],
+      "implementation": "built"
     },
     {
       "requirementId": "D14",
@@ -912,7 +940,8 @@
       "integrationWitnesses": [
         "packages/node/test/contract/acceptance-callback-fault-lifecycle.test.js",
         "packages/node/test/contract/transport-disposition-latch.test.js"
-      ]
+      ],
+      "implementation": "built"
     },
     {
       "requirementId": "D15",
@@ -942,7 +971,8 @@
         "packages/node/test/contract/transport-reference-composition.test.js",
         "packages/node/test/contract/identity-peer-evidence.test.js"
       ],
-      "integrationWitnesses": []
+      "integrationWitnesses": [],
+      "implementation": "built"
     },
     {
       "requirementId": "D16",
@@ -974,7 +1004,8 @@
       ],
       "integrationWitnesses": [
         "test/e2e/independent-line.test.js"
-      ]
+      ],
+      "implementation": "built"
     },
     {
       "requirementId": "D17",
@@ -1012,7 +1043,8 @@
       "integrationWitnesses": [
         "test/topology/star-convergence.test.js",
         "test/topology/line-transit.test.js"
-      ]
+      ],
+      "implementation": "built"
     },
     {
       "requirementId": "D18",
@@ -1038,7 +1070,8 @@
       ],
       "integrationWitnesses": [
         "test/e2e/independent-line.test.js"
-      ]
+      ],
+      "implementation": "built"
     },
     {
       "requirementId": "D19",
@@ -1066,7 +1099,8 @@
       ],
       "integrationWitnesses": [
         "test/topology/credit-flow-control.test.js"
-      ]
+      ],
+      "implementation": "built"
     },
     {
       "requirementId": "D20",
@@ -1093,7 +1127,8 @@
       ],
       "integrationWitnesses": [
         "test/topology/credit-observability.test.js"
-      ]
+      ],
+      "implementation": "built"
     },
     {
       "requirementId": "D21",
@@ -1118,7 +1153,8 @@
       ],
       "integrationWitnesses": [
         "test/topology/credit-observability.test.js"
-      ]
+      ],
+      "implementation": "built"
     },
     {
       "requirementId": "D22",
@@ -1144,7 +1180,8 @@
       ],
       "integrationWitnesses": [
         "test/topology/credit-observability.test.js"
-      ]
+      ],
+      "implementation": "built"
     }
   ]
 }

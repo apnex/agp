@@ -172,6 +172,7 @@ docs/design/traceability.json
 Every survey outcome `U1..U11`, every fixed transport-intent requirement `U12..U15`, and every decision the record declares has exactly one record.\
 The executable AX0 oracle derives that decision set by reading `DECISIONS.md`, and fails on an omission, duplicate, unexpected ID, or cardinality mismatch rather than relying on schema cardinality alone.\
 It is derived rather than restated because the closed set was once written as a constant, and two ratified and built decisions accumulated outside it without the gate objecting.\
+Each record also states whether it is built or planned: a built one names the tests that own it, and a planned one names the design that defines it.\
 `U12..U15` cite the explicit stakeholder authority in `transport-sovereignty-authority.md`; they do not retroactively claim a survey that was deliberately unnecessary after direction was fixed.\
 A non-applicable axiom and A0 cannot appear in `authorities`.\
 Multiple authorities are retained when intent, a ratified design decision, and an applicable axiom mechanic jointly constrain the result.\
