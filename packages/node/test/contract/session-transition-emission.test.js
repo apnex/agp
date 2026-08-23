@@ -59,13 +59,26 @@ async function converge(dialer, listener) {
   }, "route and ACKed source export");
 }
 
+/**
+ * Both streams, kept apart.
+ *
+ * Since `D24` a delivery announces itself on the traffic-rated stream and a
+ * self-transition stays on the operator stream, so `D22`'s question is now
+ * asked across two surfaces: the delivery is reported, and the session is not
+ * also reported as having stayed where it was.
+ */
 function collect(node) {
-  const kinds = [];
-  const subscription = node.operations.events();
+  const operator = [];
+  const perMessage = [];
+  const events = node.operations.events();
+  const messages = node.operations.messages();
   void (async () => {
-    for await (const event of subscription) kinds.push(event.kind);
+    for await (const event of events) operator.push(event.kind);
   })();
-  return kinds;
+  void (async () => {
+    for await (const event of messages) perMessage.push(event.kind);
+  })();
+  return { operator, perMessage };
 }
 
 test("Given an Established session, when a data message is delivered, then the stream announces the delivery and withholds the self-transition", async (t) => {
@@ -77,16 +90,16 @@ test("Given an Established session, when a data message is delivered, then the s
   });
   await converge(dialer, listener);
 
-  const kinds = collect(listener);
+  const { operator, perMessage } = collect(listener);
   await dialer.send("dialer/source", "listener/service", { ordinal: 1 });
   await eventually(
-    () => kinds.includes("handler.completed"),
+    () => perMessage.includes("handler.completed"),
     "delivery announced",
   );
 
-  assert.ok(kinds.includes("message.received"), "the delivery is announced");
+  assert.ok(perMessage.includes("message.received"), "the delivery is announced");
   assert.equal(
-    kinds.filter((kind) => kind === "session.transition").length,
+    operator.filter((kind) => kind === "session.transition").length,
     0,
     "a delivery must not also announce that the session stayed Established",
   );
@@ -125,12 +138,12 @@ test("Given an idle session, when a keepalive is processed, then the self-transi
   });
   await converge(dialer, listener);
 
-  const kinds = collect(listener);
+  const { operator } = collect(listener);
   // A keepalive carries no delivery, so a withheld transition would leave an
   // idle but healthy session silent. The keepalive timer bounds this rate.
   clock.advanceBy(10_000);
   await eventually(
-    () => kinds.includes("session.transition"),
+    () => operator.includes("session.transition"),
     "an idle session still reports that it is alive",
   );
   assert.equal(

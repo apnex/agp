@@ -7,6 +7,28 @@ import {
   compareRouteExportRows,
   type RoutingSnapshot,
 } from "./routing.js";
+import type { OperationalEventKind } from "./event-types.generated.js";
+
+/**
+ * The event kinds whose rate is set by traffic rather than by what happened
+ * to the node.
+ *
+ * These are the successful path of one message crossing one node. They are
+ * exactly the kinds that leave the operations stream under `D24`, and the set
+ * is written out rather than derived so that adding an event kind is a
+ * decision about which stream it belongs on.
+ *
+ * `message.failed` and `handler.failed` are deliberately absent. Their rate is
+ * set by how often something goes wrong, which is what an operator must act
+ * on, so they stay where an operator is already watching.
+ */
+export const PER_MESSAGE_EVENT_KINDS: ReadonlySet<OperationalEventKind> =
+  Object.freeze(new Set<OperationalEventKind>([
+    "message.accepted",
+    "message.forwarded",
+    "message.received",
+    "handler.completed",
+  ]));
 import type {
   AdjacencySnapshot,
   AdvertisementListSnapshot,
@@ -148,6 +170,7 @@ export class OperationsStore implements OperationsReader {
   readonly #maxEventSubscribers: number;
   readonly #eventSubscriberBuffer: number;
   readonly #subscribers = new Set<OperationsSubscription>();
+  readonly #messageSubscribers = new Set<OperationsSubscription>();
   readonly #connections = new Map<ControllerId, ConnectionOperationalInput>();
   readonly #counters = new Map<string, bigint>();
   readonly #resources = new Map<string, StoredResource>();
@@ -392,7 +415,12 @@ export class OperationsStore implements OperationsReader {
       }) as OperationalEvent;
     });
     for (const event of events) {
-      for (const subscriber of this.#subscribers) subscriber.publish(event);
+      // Routed by kind rather than by caller, so one commit API keeps serving
+      // both streams and no producer has to know which one it is feeding.
+      const into = PER_MESSAGE_EVENT_KINDS.has(event.kind)
+        ? this.#messageSubscribers
+        : this.#subscribers;
+      for (const subscriber of into) subscriber.publish(event);
     }
     return this.#capture().meta;
   }
@@ -471,6 +499,7 @@ export class OperationsStore implements OperationsReader {
     this.#eventsTerminal = true;
     const snapshot = this.snapshot();
     for (const subscriber of [...this.#subscribers]) subscriber.close();
+    for (const subscriber of [...this.#messageSubscribers]) subscriber.close();
     return snapshot;
   }
 
@@ -481,6 +510,7 @@ export class OperationsStore implements OperationsReader {
     if (this.#eventsTerminal) return;
     this.#eventsTerminal = true;
     for (const subscriber of [...this.#subscribers]) subscriber.close();
+    for (const subscriber of [...this.#messageSubscribers]) subscriber.close();
   }
 
   snapshot(): OperationsSnapshot {
@@ -585,22 +615,62 @@ export class OperationsStore implements OperationsReader {
         "bufferSize must be a positive safe integer no greater than 65536",
       );
     }
+    return this.#subscribe(this.#subscribers, "operations.events", options);
+  }
+
+  /**
+   * Every per-message event, for a consumer that has asked for them.
+   *
+   * This stream is traffic-rated by construction, so its consumer sizes its own
+   * buffer against the burst it expects. That is the whole reason it is
+   * separate: while these rode `events()`, an operator subscribing for
+   * lifecycle and anomalies inherited a rate set by how much traffic crossed
+   * the node, and no buffer size they could choose was a property of anything
+   * they controlled. See `D24`.
+   */
+  messages(options: EventSubscriptionOptions = {}): EventSubscription {
+    if (
+      options.bufferSize !== undefined
+      && (
+        !Number.isSafeInteger(options.bufferSize)
+        || options.bufferSize <= 0
+        || options.bufferSize > 65536
+      )
+    ) {
+      throw new AgpError(
+        "OPTIONS_INVALID",
+        "operations.messages",
+        "bufferSize must be a positive safe integer no greater than 65536",
+      );
+    }
+    return this.#subscribe(
+      this.#messageSubscribers,
+      "operations.messages",
+      options,
+    );
+  }
+
+  #subscribe(
+    into: Set<OperationsSubscription>,
+    operation: string,
+    options: EventSubscriptionOptions,
+  ): EventSubscription {
     if (options.signal?.aborted) {
-      throw new AgpError("ABORTED", "operations.events", "subscription aborted");
+      throw new AgpError("ABORTED", operation, "subscription aborted");
     }
     if (this.#eventsTerminal) return OperationsSubscription.completed();
-    if (this.#subscribers.size >= this.#maxEventSubscribers) {
+    if (into.size >= this.#maxEventSubscribers) {
       throw new AgpError(
         "QUEUE_FULL",
-        "operations.events",
+        operation,
         "event subscriber capacity reached",
       );
     }
     const subscriber = new OperationsSubscription(
       options.bufferSize ?? this.#eventSubscriberBuffer,
-      () => this.#subscribers.delete(subscriber),
+      () => into.delete(subscriber),
     );
-    this.#subscribers.add(subscriber);
+    into.add(subscriber);
     if (options.signal !== undefined) {
       const signal = options.signal;
       const abort = (): void => subscriber.close();

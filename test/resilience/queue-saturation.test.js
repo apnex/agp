@@ -40,7 +40,7 @@ test("Given the sole local handler reservation is held at a named barrier, when 
     (snapshot) => snapshot.connections[0]?.state === "Established",
     "initial peer readiness",
   );
-  const subscription = node.operations.events();
+  const subscription = node.operations.messages();
   const completed = nextEvent(
     subscription,
     (event) => event.kind === "handler.completed",

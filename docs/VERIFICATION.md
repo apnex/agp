@@ -312,7 +312,7 @@ A finding stays here until it is closed by a design decision or a regression tes
 |---|---|---|
 | `MX1` | A sender that offers messages back to back over WebSocket overruns the receiver, which commits `RECEIVE_OVERFLOW`, closes the session, purges its routes, and reconnects. Delivered messages equal `maxBufferedPackets` exactly, at every bound tested from 16 to 128. Every `send()` resolved successfully first. | Closed by `D19`, gated by `test/topology/credit-flow-control.test.js` |
 | `MX2` | A four-node diamond carrying twenty-four endpoints per node fails a two-second `routeAckTimeoutMs` while a stream is in flight, on sessions that carry no data of their own. Raising only that deadline to twenty seconds passes the same cell with every message delivered. | Closed by `D21`, gated by `packages/core/test/unit/write-path-cost.test.js` |
-| `MX3` | A stream saturates the event loop. A one-millisecond interval timer fires about twelve times across a whole run, so the loop drains roughly that often and the synchronous blocks between drains average around twenty milliseconds. A block of that size moves any deadline sharing the loop, which is the mechanism that tore down healthy sessions before `D21`, and it starves any event subscriber that touches the macrotask queue. Six operations commits land per delivered message. | Open, reduced, consequence demonstrated |
+| `MX3` | A stream saturates the event loop. A one-millisecond interval timer fires about twelve times across a whole run, so the loop drains roughly that often and the synchronous blocks between drains average around twenty milliseconds. A block of that size moves any deadline sharing the loop, which is the mechanism that tore down healthy sessions before `D21`. | Open, reduced. Its two demonstrated consequences are closed: subscriber starvation by `D24`, and the revision rate by `D25`, which took a delivered message from 9.17 canonical revisions to 5.29. What remains is distributed cost with no next single fix |
 | `MX5` | A node stopped sending permanently after `maxLabelBindings` originated messages, because the expiry sweep that releases a label binding was called from nowhere. | Closed, gated by `packages/node/test/contract/label-binding-expiry.test.js` |
 | `MX6` | An unhandled rejection on the inbound data path, from `dispatchData` discarding the result of `admitData` with `void`, ended the process. Reproduced once `MX5` was fixed and the sender could reach the receiver's refusal path. | Closed, gated by `packages/node/test/contract/inbound-dispatch-failure.test.js` |
 | `MX7` | Sustained send rate was bounded by `maxLabelBindings` divided by the correlation lifetime, about 136 messages a second at defaults against a burst ceiling near 2850. A label binding was released by a failure or by expiry and never by success, so a flow that never failed still filled the store. | Closed by `D23`, gated by `packages/node/test/contract/disposition-release.test.js`, measured by `scripts/sustained-rate.mjs` |
@@ -413,6 +413,12 @@ A subscriber that yields to the macrotask queue, which is what any subscriber do
 | Yields a microtask | 256 | 0 | 1205 |
 | Yields a macrotask | 256 | 260 | 15 |
 | Yields a macrotask | 2048 | 0 | 746 |
+
+`D24` corrected this by separating the streams rather than by enlarging a bound.\
+Re-measured against a 600-message stream, an operator subscriber doing real work lost 256 events at a buffer of 256 and 175 at the default of 1024; it now loses none at a buffer of one, because the operations stream is no longer traffic-rated.
+
+The per-message detail is unchanged for a consumer that asks for it, and still costs what it always did: that stream is traffic-rated by construction and its consumer sizes it.\
+What changed is who pays, and it is no longer the operator who only wanted to know when something broke.
 
 The bound is not the subscriber's speed and not a defect in the subscriber queue, which behaves exactly as specified and reports every drop.\
 It is that the buffer must absorb the whole burst rather than bridge the subscriber's own latency, because saturation removes the subscriber's opportunities to drain.\

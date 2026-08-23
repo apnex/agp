@@ -1224,7 +1224,7 @@
     {
       "requirementId": "D24",
       "ratificationStatus": "ratified",
-      "implementation": "planned",
+      "implementation": "built",
       "authorities": [
         {
           "kind": "decision",
@@ -1238,8 +1238,12 @@
       "schemaIds": [],
       "semanticRuleIds": [],
       "owningGate": "AX5",
-      "owningTests": [],
-      "integrationWitnesses": []
+      "owningTests": [
+        "packages/node/test/contract/operator-stream-rate.test.js"
+      ],
+      "integrationWitnesses": [
+        "test/resilience/queue-saturation.test.js"
+      ]
     },
     {
       "requirementId": "D25",

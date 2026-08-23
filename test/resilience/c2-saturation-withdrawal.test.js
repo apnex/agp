@@ -43,7 +43,7 @@ test("Given a held final handler slot and an ACKed remote binding, when exact sa
     ),
     "ACKed remote route",
   );
-  const subscription = node.operations.events();
+  const subscription = node.operations.messages();
   const completed = nextEvent(
     subscription,
     (event) => event.kind === "handler.completed",

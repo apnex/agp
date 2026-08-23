@@ -252,8 +252,24 @@ interface OperationsReader {
   resources(): ResourcesSnapshot;
   counters(): CountersSnapshot;
   events(options?: EventSubscriptionOptions): EventSubscription;
+  messages(options?: EventSubscriptionOptions): EventSubscription;
 }
 ```
+
+Two streams, separated by what sets their rate rather than by what they carry.
+
+`events()` carries lifecycle, anomalies and everything else an operator must act on.\
+Its rate follows what happens to the node, so a consumer doing real work keeps up on a bounded buffer of its own choosing.
+
+`messages()` carries the successful path of each message: `message.accepted`, `message.forwarded`, `message.received` and `handler.completed`.\
+It is traffic-rated by construction, and a consumer sizes its buffer against the burst it expects.
+
+`message.failed` and `handler.failed` stay on `events()`.\
+Their rate is set by how often something goes wrong, which is what an operator wants to be told.
+
+Both streams report a gap the same way, and both are bounded the same way.\
+The counters an operator reads for volume are unaffected: they are keyed by event kind on the operations plane whichever stream the event rode.\
+See [`D24`](../DECISIONS.md#d24---the-operations-stream-is-a-channel-not-a-ledger).
 
 Every named return type above resolves to `urn:agp:schema:v1:core:operations:<kebab-case-name>`.\
 The exact list wrappers own their item `$ref`; there is no erased generic entity schema.

@@ -26,6 +26,7 @@ Fixtures provide deterministic identities, clocks, and write ledgers only.
 | `contract/session-hold-ttl.test.js` | Public inbound hold TTL decreases with monotonic time without a revision | Outbound keepalive suppression |
 | `contract/session-id-pair-scope.test.js` | Equal six-hex IDs coexist for different peers, including accepted pre-identity controllers | Cross-dial winner selection |
 | `contract/label-binding-expiry.test.js` | Expiry is a working backstop when nothing reports back, so capacity is a bound on what is outstanding rather than a lifetime total | Release by disposition, relay |
+| `contract/operator-stream-rate.test.js` | The operations stream stays lossless for a subscriber doing real work under traffic, the per-message stream still carries the detail, and anomalies stay with the operator | Which events exist, and their schema |
 | `contract/disposition-surface.test.js` | What an application is told about a message it sent, including an unknown denominator distinguished from a known one, the per-endpoint stream, and a next hop lost mid-flight | Wire shape, batching, relay |
 | `contract/disposition-release.test.js` | A binding is released by a delivery and not only by a failure or expiry, and a full table evicts rather than refusing | Wire shape, batch composition |
 | `contract/inbound-dispatch-failure.test.js` | An inbound dispatch failure is diagnosed and terminates only its own session | Which failures reach the inbound path |

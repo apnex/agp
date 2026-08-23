@@ -36,11 +36,16 @@ test("given a live uniform-node lifecycle with routing and data activity, when i
   context.after(async () => {
     await Promise.allSettled([dialer.stop(), listener.stop()]);
   });
+  // Both streams, because the vocabulary and the schema are one contract
+  // whichever stream an event rides. D24 split where events are delivered, not
+  // what an event is.
   const subscription = listener.operations.events({ bufferSize: 256 });
+  const messages = listener.operations.messages({ bufferSize: 256 });
   const observed = [];
-  const collecting = (async () => {
-    for await (const event of subscription) observed.push(event);
-  })();
+  const collecting = Promise.all([
+    (async () => { for await (const event of subscription) observed.push(event); })(),
+    (async () => { for await (const event of messages) observed.push(event); })(),
+  ]);
 
   await listener.expose("events/source", () => undefined);
   await listener.expose("events/success", () => undefined);

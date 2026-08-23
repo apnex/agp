@@ -671,7 +671,22 @@ export interface OperationsReader {
   labelBindings(): LabelBindingListSnapshot;
   resources(): ResourcesSnapshot & SnapshotMeta;
   counters(): CountersSnapshot & SnapshotMeta;
+  /**
+   * Lifecycle, anomalies and everything else an operator must act on.
+   *
+   * Its rate is set by what happens to the node rather than by how much
+   * traffic crosses it, so a consumer doing real work keeps up on a bounded
+   * buffer of its own choosing. See `D24`.
+   */
   events(options?: EventSubscriptionOptions): EventSubscription;
+  /**
+   * The successful path of each message, for a consumer that asks for it.
+   *
+   * Traffic-rated by construction. A consumer sizes its buffer against the
+   * burst it expects, and a subscriber that cannot keep up is told through the
+   * same gap record the other stream uses.
+   */
+  messages(options?: EventSubscriptionOptions): EventSubscription;
 }
 
 export type AgpErrorCode =

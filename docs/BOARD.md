@@ -63,7 +63,7 @@ An item that is `I4`/`P1` belongs early even though nobody feels it today, becau
 | `B16` | Project credit and timing into the operations plane | `I2` | `P1` | [`D20`](DECISIONS.md#d20---observability-of-bounded-resources-and-timing) | landed |
 | `B17` | Derive the trace graph identifier set instead of hardcoding it | `I3` | `P1` | [`GATES.md` section 2](GATES.md#2-gate-ax0---intent-applicability-and-knowledge) | landed |
 | `B18` | Explain the residual event-loop stalls under a stream | `I2` | `P3` | [`MX3`](VERIFICATION.md#46-open-findings-from-sweeps) | open, re-scoped |
-| `B29` | Move per-message events off the operations stream | `I2` | `P3` | [`D24`](DECISIONS.md#d24---the-operations-stream-is-a-channel-not-a-ledger), [`MX3`](VERIFICATION.md#46-open-findings-from-sweeps) | open |
+| `B29` | Move per-message events off the operations stream | `I2` | `P3` | [`D24`](DECISIONS.md#d24---the-operations-stream-is-a-channel-not-a-ledger), [`MX3`](VERIFICATION.md#46-open-findings-from-sweeps) | landed |
 | `B30` | Stop traffic-rated session values advancing the canonical revision | `I3` | `P2` | [`D25`](DECISIONS.md#d25---a-revision-denotes-a-change-to-canonical-state), [`D10`](DECISIONS.md#d10---atomic-canonical-state) | landed |
 | `B19` | Take the per-hop cost against the carrier, opportunistically | `I4` | `P4` | [`MX4`](VERIFICATION.md#46-open-findings-from-sweeps) | open |
 | `B15` | Give a deployment the switch `D19` says it has, and credit control alongside data | `I3` | `P2` | [`D19`](DECISIONS.md#d19---per-hop-credit-flow-control) | open |
@@ -108,7 +108,7 @@ Where the two disagree it is because of dependency, never because a severity was
 | 4 | `B27` | Blocked | Waiting on the `Q1(b)` question below |
 | 5 | `B15` | Blocked | Waiting on the credit switch question below |
 | 6 | `B30` | Landed | Ruled as `D25` and built. 9.17 revisions per delivered message down to 5.29. The first rule tried excluded only the hold timer and bought 11%, because the timer was one of four traffic-rated values and the smallest |
-| 7 | `B29` | Yes | Ruled as `D24`. The larger of the two and the one that removes the starvation |
+| 7 | `B29` | Landed | Ruled as `D24` and built. An operator subscriber doing real work lost 256 events of a 600-message stream at a buffer of 256, and 175 at the default; it now loses none at a buffer of one |
 | 8 | `B18` | Re-scoped | What remains after `B29` and `B30` is the distributed cost, which is `MX4`'s character rather than a defect |
 | 9 | `B12`, `B10`, `B3`, `B13` | Yes | Record work, none of it blocking |
 | 10 | `B19`, `B4` | Yes | Taken when a way is found, not scheduled |
