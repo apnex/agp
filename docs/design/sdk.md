@@ -53,7 +53,7 @@ The SDK does not create a second handwritten representation.
 The core catalog therefore includes these SDK result schemas:
 ```text
 packages/core/src/schemas/v1/sdk/
-  agp-error-data.schema.json
+  error-record.schema.json
   diagnostic-record.schema.json
   started-node.schema.json
   stop-report.schema.json
@@ -117,8 +117,22 @@ export interface AgpNode {
     payload: JsonObject,
     options?: SendOptions,
   ): Promise<SendReceipt>;
+
+  disposition(messageId: MessageId): MessageDisposition | undefined;
+  settled(messageId: MessageId): Promise<MessageDisposition | undefined>;
+  dispositions(
+    options?: { readonly source?: EndpointName },
+  ): AsyncIterable<MessageDisposition> & { close(): void };
 }
 ```
+
+`disposition()` reads what this node currently knows about the fate of one message it sent, and `settled()` resolves when nothing further will be learned.\
+`dispositions()` streams them as they arrive, filtered by source endpoint when one is named, which is the per-endpoint surface.
+
+The signal is best effort.\
+A lost report leaves an application with neither outcome, so an application building reliable delivery on this still needs its own timeout, and a resolved disposition whose `settled` is false is exactly that case made visible rather than left to hang.\
+`total` is undefined while no outcome has arrived, which is a different statement from a total of one.\
+See [`D23`](../DECISIONS.md#d23---delivery-disposition).
 
 `NodeDependencies` contains only injected capabilities: clock, randomness, identifier source, diagnostic sink, neutral peer transport bindings, identity admission, and route admission.\
 There are no hub or spoke transports, dependencies, factories, or role literals.\
@@ -343,7 +357,8 @@ Its validation and admission order is:
 1. validate endpoint names, payload, correlation ID, timeout, and cancellation;
 2. prove that `source` has an active binding and is the selected local route;
 3. resolve `destination` through the current selected RIB and forwarding
-   projection;
+   projection, or, where `options.destinationSelector` names an instance,
+   through the candidate RIB;
 4. fail with `NO_ROUTE` if no usable entry exists;
 5. for peer egress, choose the bounded default hop limit and validate the
    encoded packet against that peer's receive bound;
@@ -359,6 +374,11 @@ Its validation and admission order is:
 11. resolve an immutable `SendReceipt`.
 
 No route miss, source failure, cancellation, timeout, or capacity rejection before step 9 emits a data packet.
+
+`options.destinationSelector` names which advertiser of the destination the message is for, and how hard a requirement that is.\
+Absent means any of them, which is what a destination name alone has always meant.\
+A pin yields that instance or a refusal and never a different instance, so it guards against misdelivery rather than guaranteeing reachability, and the refusal arrives as a disposition because the hop that refuses is not this one.\
+See [`D26`](../DECISIONS.md#d26---destination-selection).
 
 `SendOptions.timeoutMs` bounds local admission and write reservation; it is not an end-to-end delivery deadline.\
 `AbortSignal` has the same boundary.\
@@ -406,6 +426,7 @@ The enum is closed: inventing another code, passing through an adapter exception
 | `NO_ROUTE` | No usable selected destination route existed at admission |
 | `SOURCE_NOT_ADVERTISED` | Peer egress lacked an ACKed export of the exact source identity |
 | `NEXT_HOP_UNAVAILABLE` | The selected next hop/controller was unusable, including return-token exhaustion |
+| `INSTANCE_UNREACHABLE` | A message named a destination instance and reached a node that would have served it while not being that instance. It is distinct from `NO_ROUTE` because a moved instance and a withdrawn service call for opposite remedies. It reaches a sender as a disposition rather than as a rejected `send()`, since the hop that refuses is not the hop that admitted |
 | `QUEUE_FULL` | A required bounded handler, subscriber, label binding, or session-queue reservation was unavailable |
 | `TRANSPORT_FAILURE` | `start()` could not acquire an enabled listener or other transport facility required to commit `Running` |
 | `INTERNAL` | An injected port violated its contract or an AGP invariant failed; bounded public details do not expose the original exception |
@@ -426,6 +447,7 @@ Emission authority is also closed:
 | `node.send` | `OPTIONS_INVALID`, `NOT_RUNNING`, `ABORTED`, `ENDPOINT_INVALID`, `CORRELATION_INVALID`, `SOURCE_NOT_OWNED`, `PAYLOAD_NOT_JSON`, `MESSAGE_TOO_LARGE`, `NO_ROUTE`, `SOURCE_NOT_ADVERTISED`, `NEXT_HOP_UNAVAILABLE`, `QUEUE_FULL`, `INTERNAL` |
 | Any `OperationsReader` state query | `INTERNAL` only |
 | `operations.events` | `OPTIONS_INVALID`, `ABORTED`, `QUEUE_FULL`, `INTERNAL` |
+| `operations.messages` | `OPTIONS_INVALID`, `ABORTED`, `QUEUE_FULL`, `INTERNAL` |
 | Event-subscription iteration or `close` | `INTERNAL` only; closing is idempotent and iteration after close completes normally |
 
 The generated `SdkOperation` scalar contains the exact names shown above.\

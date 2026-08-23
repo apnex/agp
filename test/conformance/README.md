@@ -4,6 +4,7 @@
 |---|---|---|---|
 | `traceability-graph.test.js` | Ratified requirement authorities and design references resolve | intent graph | trace schema, authority set, and local targets |
 | `schema-catalog-composition.test.js` | Package-owned schemas compose without copied ownership | root schema catalog | paths, digests, owners, and validator loading |
+| `schema-listing-currency.test.js` | A design document that lists a schema directory lists exactly what is there | hand-written listings in contracts.md and sdk.md | whether a schema is registered, referenced, or correct |
 | `event-schema-catalog.test.js` | Every event and event-data DTO is sovereign and union-referenced | event family closure | exact IDs, generated types, discriminators, and `$ref` set |
 | `no-legacy-surface.test.js` | In-place v1 replacement retains no router/spoke workspace or package | public replacement boundary | workspace, package, and lockfile absence |
 | `semantic-rule-registry.test.js` | Every contextual rule resolves to one implementation and test | semantic ownership | schema annotation, source symbol, and test path |

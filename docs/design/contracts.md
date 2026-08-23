@@ -105,7 +105,7 @@ packages/protocol/src/schemas/v1/
 |---|---|
 | `common/` | `node-id`, `session-id`, `message-id`, `return-token`, `correlation-id`, `endpoint-name`, `wire-revision`, `json-value`, `json-object`, `extensions`, `node-path` |
 | `codes/` | `fatal-notification-code`, `delivery-error-code`, `route-rejection-code` |
-| `routing/` | `route-key`, `endpoint-source`, `route-advertisement`, `route-rejection` |
+| `routing/` | `route-key`, `endpoint-source`, `destination-selector`, `route-advertisement`, `route-rejection` |
 
 `node-path` is a bounded array of unique `node-id` values.\
 JSON Schema proves shape, uniqueness, and static length.\
@@ -130,8 +130,10 @@ wire/
   route-ack-message.schema.json
   notification-body.schema.json
   notification-message.schema.json
+  label-range.schema.json
   delivery-failure.schema.json
-  error-message.schema.json
+  disposition-body.schema.json
+  disposition-message.schema.json
   data-body.schema.json
   data-message.schema.json
   message.schema.json
@@ -148,7 +150,7 @@ The root `message.schema.json` is only:
     { "$ref": "urn:agp:schema:v1:protocol:wire:route-update-message" },
     { "$ref": "urn:agp:schema:v1:protocol:wire:route-ack-message" },
     { "$ref": "urn:agp:schema:v1:protocol:wire:notification-message" },
-    { "$ref": "urn:agp:schema:v1:protocol:wire:error-message" },
+    { "$ref": "urn:agp:schema:v1:protocol:wire:disposition-message" },
     { "$ref": "urn:agp:schema:v1:protocol:wire:data-message" }
   ]
 }
@@ -311,6 +313,7 @@ configuration/
   timers.schema.json
   limits.schema.json
   capacity.schema.json
+  disposition.schema.json
 ```
 
 There is one `node-config`; `router-config` and `spoke-config` cease to exist.\
