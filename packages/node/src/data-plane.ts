@@ -1,5 +1,6 @@
 import {
   encodeAgpPacket,
+  type ReturnToken,
   type CorrelationId,
   type CreditGrant,
   type DataMessage,
@@ -10,7 +11,6 @@ import {
   type JsonObject,
   type MessageId,
   type NodeId,
-  type ReturnToken,
 } from "@agp/protocol";
 import type {
   ExactSessionOwner,
@@ -124,6 +124,57 @@ export class DataPlaneFailure extends Error {
   }
 }
 
+/** Why a message may not be forwarded, across both admission paths. */
+export type ForwardingRefusal =
+  | "SOURCE_NOT_OWNED"
+  | "SOURCE_NOT_AUTHORIZED"
+  | "NO_ROUTE"
+  | "TRANSIT_DISABLED"
+  | "HOP_LIMIT_EXCEEDED"
+  | "NEXT_HOP_UNAVAILABLE"
+  | "SOURCE_NOT_ADVERTISED"
+  | "MESSAGE_TOO_LARGE"
+  | "QUEUE_FULL";
+
+/**
+ * Where a message came from, which is the only thing the two admission paths
+ * genuinely disagree about.
+ *
+ * A locally originated message must prove it owns its source. One arriving on
+ * a session must prove the source is feasible from that ingress, must find
+ * transit enabled, must have hops left, and must not leave by the session it
+ * arrived on.
+ */
+export type ForwardingArrival =
+  | { readonly kind: "local"; readonly sourceEndpoint: EndpointName }
+  | {
+      readonly kind: "session";
+      readonly ingress: DataSessionController;
+      readonly hopLimit: number;
+    };
+
+/** What the resolver decided, before any message is built or encoded. */
+export type ForwardingDecision =
+  | { readonly kind: "refuse"; readonly code: ForwardingRefusal }
+  | {
+      readonly kind: "local";
+      readonly binding: NonNullable<ReturnType<EndpointRegistry["get"]>>;
+      readonly bytes: number;
+      readonly selectedRouteId: string;
+      readonly nextHop: ForwardingEntrySnapshot["nextHop"];
+    }
+  | {
+      readonly kind: "session";
+      readonly egress: DataSessionController;
+      readonly epoch: string;
+      readonly message: DataMessage;
+      readonly packet: Readonly<Uint8Array>;
+      readonly encodedBytes: number;
+      readonly retainedBytes: number;
+      readonly selectedRouteId: string;
+      readonly nextHop: ForwardingEntrySnapshot["nextHop"];
+    };
+
 /**
  * The sole local/transit data admission path. Every decision is made inside
  * the node executor against the same routing revision.
@@ -160,321 +211,93 @@ export class DataPlane {
     }
   }
 
-  #sendInExecutor(
-    sourceEndpoint: EndpointName,
-    destination: EndpointName,
-    payload: JsonObject,
-    correlationId?: CorrelationId,
-  ): DataSendReceipt {
-    const binding = this.#options.endpoints.get(sourceEndpoint);
-    const sourceRoute = this.#options.routing.selectedRoute(sourceEndpoint);
-    if (
-      binding === undefined
-      || sourceRoute === undefined
-      || sourceRoute.sourceKind !== "local"
-      || sourceRoute.originNodeId !== this.#options.localNodeId
-      || sourceRoute.nextHop.kind !== "local"
-      || sourceRoute.nextHop.bindingId !== binding.bindingId
+  /**
+   * Resolve one forwarding decision, for both admission paths.
+   *
+   * This decision used to be made three times: once when a local message was
+   * admitted, once when an inbound message was classified, and again when the
+   * forward it authorised was executed. Route resolution, the local against
+   * session branch, the hop limit, the source export and the capacity checks
+   * all appeared more than once, and every future destination mode or
+   * disposition would have had to be written into each of them.
+   *
+   * Everything that depends on the encoded size stays with the caller,
+   * because that is where the message is built and the two paths build
+   * different messages. Everything before it is here.
+   */
+  #resolveForwarding(input: {
+    readonly source: EndpointSource;
+    readonly destination: EndpointName;
+    readonly payload: JsonObject;
+    readonly arrival: ForwardingArrival;
+    readonly build: (context: {
+      readonly egress: DataSessionController;
+      readonly hopLimit: number;
+      readonly token: ReturnToken;
+    }) => DataMessage;
+  }): ForwardingDecision {
+    const refuse = (code: ForwardingRefusal): ForwardingDecision =>
+      Object.freeze({ kind: "refuse", code });
+
+    if (input.arrival.kind === "local") {
+      const binding = this.#options.endpoints.get(input.arrival.sourceEndpoint);
+      const sourceRoute = this.#options.routing.selectedRoute(
+        input.arrival.sourceEndpoint,
+      );
+      if (
+        binding === undefined
+        || sourceRoute === undefined
+        || sourceRoute.sourceKind !== "local"
+        || sourceRoute.originNodeId !== this.#options.localNodeId
+        || sourceRoute.nextHop.kind !== "local"
+        || sourceRoute.nextHop.bindingId !== binding.bindingId
+      ) {
+        return refuse("SOURCE_NOT_OWNED");
+      }
+    } else if (
+      !this.#options.routing.feasibleSource(
+        input.arrival.ingress.owner,
+        input.source,
+      )
     ) {
-      throw new DataPlaneFailure("SOURCE_NOT_OWNED");
+      return refuse("SOURCE_NOT_AUTHORIZED");
     }
 
-    const selected = this.#options.routing.selectedRoute(destination);
-    const forwarding = this.#options.routing.forwardingEntry(destination);
+    const selected = this.#options.routing.selectedRoute(input.destination);
+    const forwarding = this.#options.routing.forwardingEntry(input.destination);
     if (
       selected === undefined
       || forwarding === undefined
       || forwarding.selectedRouteId !== selected.routeId
     ) {
-      throw new DataPlaneFailure("NO_ROUTE");
+      return refuse("NO_ROUTE");
     }
 
-    const messageId = this.#options.nextMessageId();
-    const acceptedAt = this.#options.wallTime();
-    const source = Object.freeze({
-      endpoint: sourceEndpoint,
-      originNodeId: this.#options.localNodeId,
-    });
-
     if (forwarding.nextHop.kind === "local") {
-      const destinationBinding = this.#options.endpoints.get(destination);
+      const binding = this.#options.endpoints.get(input.destination);
       if (
-        destinationBinding === undefined
-        || destinationBinding.bindingId !== forwarding.nextHop.bindingId
+        binding === undefined
+        || binding.bindingId !== forwarding.nextHop.bindingId
       ) {
-        throw new DataPlaneFailure("NO_ROUTE");
+        return refuse("NO_ROUTE");
       }
-      const bytes = jsonBytes(payload);
+      const bytes = jsonBytes(input.payload);
       if (!this.#options.handlers.canReserve(bytes)) {
-        throw new DataPlaneFailure("QUEUE_FULL");
+        return refuse("QUEUE_FULL");
       }
-      const revision = this.#options.commit.commit({
-        kind: "message.accepted",
-        messageId,
-        subjectId: destination,
-      });
-      const delivery = deliveryContext({
-        messageId,
-        ...(correlationId === undefined ? {} : { correlationId }),
-        source,
-        destination,
-        receivedAt: acceptedAt,
-        operationsRevision: revision,
-      });
-      this.#dispatch(destinationBinding, payload, delivery, bytes);
       return Object.freeze({
-        messageId,
-        ...(correlationId === undefined ? {} : { correlationId }),
-        acceptedAt,
-        operationsRevision: revision,
+        kind: "local",
+        binding,
+        bytes,
         selectedRouteId: selected.routeId,
         nextHop: forwarding.nextHop,
       });
     }
 
-    const egress = this.#options.sessions.resolve(
-      forwarding.nextHop.nodeId,
-      forwarding.nextHop.owningSessionId,
-    );
-    if (egress === undefined || !egress.isLive() || !egress.returnTokens.usable) {
-      if (egress !== undefined && !egress.returnTokens.usable) {
-        this.#options.onTokenExhausted(egress);
-      }
-      throw new DataPlaneFailure("NEXT_HOP_UNAVAILABLE");
+    if (input.arrival.kind === "session") {
+      if (!this.#options.transitEnabled) return refuse("TRANSIT_DISABLED");
+      if (input.arrival.hopLimit <= 1) return refuse("HOP_LIMIT_EXCEEDED");
     }
-    const hopLimit = Math.min(
-      this.#options.defaultHopLimit,
-      egress.maximumDataHopLimit,
-    );
-    // Read the ceiling once, so the encoded size cannot move under the
-    // admission checks that follow it.
-    const grant = egress.creditGrant;
-
-    // Everything that does not need the encoded size is decided first, so the
-    // packet is built once. This used to encode a preview with a placeholder
-    // token to size the admission, then encode again with the real token and
-    // assert the two matched. The assertion could not fail: the token is
-    // fixed-width by contract, which is the whole reason a preview was legal.
-    // So the second encode proved what the contract already guaranteed, and
-    // charged a JSON serialisation and a schema validation per message to do
-    // it. See `MX3`.
-    if (!this.#options.routing.hasAckedSource(egress.owner, source)) {
-      throw new DataPlaneFailure("SOURCE_NOT_ADVERTISED");
-    }
-    const epoch = this.#options.routing.sourceExportEpoch(egress.owner, source);
-    if (epoch === undefined) {
-      throw new DataPlaneFailure("SOURCE_NOT_ADVERTISED");
-    }
-    const allocation = egress.returnTokens.allocate();
-    if (allocation.kind === "exhausted") {
-      this.#options.onTokenExhausted(egress);
-      throw new DataPlaneFailure("NEXT_HOP_UNAVAILABLE");
-    }
-    const message = makeDataMessage(
-      messageId,
-      source,
-      destination,
-      payload,
-      allocation.token,
-      hopLimit,
-      grant,
-      correlationId,
-    );
-    const encoded = encodeAgpPacket(message, egress.peerReceiveLimitBytes);
-    if (!encoded.ok) {
-      throw new DataPlaneFailure(
-        encoded.reasonCode === "MESSAGE_TOO_LARGE"
-          ? "MESSAGE_TOO_LARGE"
-          : "NEXT_HOP_UNAVAILABLE",
-      );
-    }
-    const retainedBytes = reverseRetainedBytes(encoded.utf8Bytes);
-    if (
-      !this.#options.breadcrumbs.canReserve(retainedBytes)
-      || !egress.writer.canAdmitData(epoch, encoded.utf8Bytes)
-    ) {
-      throw new DataPlaneFailure("QUEUE_FULL");
-    }
-    const revision = this.#options.commit.commit({
-      kind: "message.accepted",
-      messageId,
-      subjectId: destination,
-    });
-    this.#addBreadcrumb({
-      message,
-      ingress: { kind: "local" },
-      egress,
-      retainedBytes,
-      revision,
-    });
-    const admitted = egress.writer.admitData({
-      packet: encoded.bytes,
-      encodedBytes: encoded.utf8Bytes,
-      epoch,
-    });
-    if (!admitted.accepted) {
-      throw new Error("writer reservation changed inside serialized admission");
-    }
-    return Object.freeze({
-      messageId,
-      ...(correlationId === undefined ? {} : { correlationId }),
-      acceptedAt,
-      operationsRevision: revision,
-      selectedRouteId: selected.routeId,
-      nextHop: forwarding.nextHop,
-    });
-  }
-
-  #receiveInExecutor(
-    ingress: DataSessionController,
-    message: DataMessage,
-  ): DeliveryErrorCode | undefined {
-    const failure = this.#classifyInboundFailure(ingress, message);
-    if (failure !== undefined) {
-      this.#options.commit.commit({
-        kind: "message.failed",
-        messageId: message.id,
-        subjectId: message.body.destination,
-        code: failure,
-      });
-      return failure;
-    }
-
-    const selected = this.#options.routing.selectedRoute(
-      message.body.destination,
-    );
-    const forwarding = this.#options.routing.forwardingEntry(
-      message.body.destination,
-    );
-    if (selected === undefined || forwarding === undefined) {
-      throw new Error("inbound classification admitted an absent route");
-    }
-
-    if (forwarding.nextHop.kind === "local") {
-      const binding = this.#options.endpoints.get(message.body.destination);
-      if (binding === undefined) {
-        throw new Error("inbound classification admitted a stale binding");
-      }
-      const bytes = jsonBytes(message.body.payload);
-      const revision = this.#options.commit.commit({
-        kind: "message.received",
-        messageId: message.id,
-        subjectId: message.body.destination,
-      });
-      const delivery = deliveryContext({
-        messageId: message.id,
-        ...(message.body.correlationId === undefined
-          ? {}
-          : { correlationId: message.body.correlationId }),
-        source: message.body.source,
-        destination: message.body.destination,
-        receivedAt: this.#options.wallTime(),
-        ingressNodeId: ingress.remoteNodeId,
-        ingressSessionId: ingress.owningSessionId,
-        operationsRevision: revision,
-      });
-      this.#dispatch(binding, message.body.payload, delivery, bytes);
-      return undefined;
-    }
-
-    const egress = this.#options.sessions.resolve(
-      forwarding.nextHop.nodeId,
-      forwarding.nextHop.owningSessionId,
-    );
-    if (egress === undefined) {
-      throw new Error("inbound classification admitted a stale egress");
-    }
-    const source = message.body.source;
-    const epoch = this.#options.routing.sourceExportEpoch(egress.owner, source);
-    if (epoch === undefined) {
-      throw new Error("inbound classification admitted an absent export epoch");
-    }
-    const hopLimit = Math.min(
-      message.body.hopLimit - 1,
-      egress.maximumDataHopLimit,
-    );
-    const allocation = egress.returnTokens.allocate();
-    if (allocation.kind === "exhausted") {
-      throw new Error("inbound classification admitted exhausted token domain");
-    }
-    const forwarded = makeDataMessage(
-      message.id,
-      source,
-      message.body.destination,
-      message.body.payload,
-      allocation.token,
-      hopLimit,
-      egress.creditGrant,
-      message.body.correlationId,
-      message.extensions,
-    );
-    const encoded = encodeAgpPacket(forwarded, egress.peerReceiveLimitBytes);
-    if (!encoded.ok) {
-      throw new Error("inbound classification admitted an unencodable message");
-    }
-    const revision = this.#options.commit.commit({
-      kind: "message.forwarded",
-      messageId: message.id,
-      subjectId: message.body.destination,
-    });
-    this.#addBreadcrumb({
-      message: forwarded,
-      ingress: {
-        kind: "session",
-        controller: ingress,
-        nodeId: ingress.remoteNodeId,
-        owningSessionId: ingress.owningSessionId,
-        upstreamReturnToken: message.body.returnToken,
-      },
-      egress,
-      retainedBytes: reverseRetainedBytes(encoded.utf8Bytes),
-      revision,
-    });
-    const admitted = egress.writer.admitData({
-      packet: encoded.bytes,
-      encodedBytes: encoded.utf8Bytes,
-      epoch,
-    });
-    if (!admitted.accepted) {
-      throw new Error("writer reservation changed inside serialized admission");
-    }
-    return undefined;
-  }
-
-  #classifyInboundFailure(
-    ingress: DataSessionController,
-    message: DataMessage,
-  ): DeliveryErrorCode | undefined {
-    if (!this.#options.routing.feasibleSource(ingress.owner, message.body.source)) {
-      return "SOURCE_NOT_AUTHORIZED";
-    }
-    const selected = this.#options.routing.selectedRoute(
-      message.body.destination,
-    );
-    const forwarding = this.#options.routing.forwardingEntry(
-      message.body.destination,
-    );
-    if (
-      selected === undefined
-      || forwarding === undefined
-      || forwarding.selectedRouteId !== selected.routeId
-    ) {
-      return "NO_ROUTE";
-    }
-    if (forwarding.nextHop.kind === "local") {
-      const binding = this.#options.endpoints.get(message.body.destination);
-      if (
-        binding === undefined
-        || binding.bindingId !== forwarding.nextHop.bindingId
-      ) {
-        return "NO_ROUTE";
-      }
-      return this.#options.handlers.canReserve(jsonBytes(message.body.payload))
-        ? undefined
-        : "QUEUE_FULL";
-    }
-    if (!this.#options.transitEnabled) return "TRANSIT_DISABLED";
-    if (message.body.hopLimit <= 1) return "HOP_LIMIT_EXCEEDED";
 
     const egress = this.#options.sessions.resolve(
       forwarding.nextHop.nodeId,
@@ -482,47 +305,235 @@ export class DataPlane {
     );
     if (
       egress === undefined
-      || egress.identity === ingress.identity
+      || (input.arrival.kind === "session"
+        && egress.identity === input.arrival.ingress.identity)
       || !egress.isLive()
       || !egress.returnTokens.usable
     ) {
       if (egress !== undefined && !egress.returnTokens.usable) {
         this.#options.onTokenExhausted(egress);
       }
-      return "NEXT_HOP_UNAVAILABLE";
+      return refuse("NEXT_HOP_UNAVAILABLE");
     }
-    const preview = makeDataMessage(
-      message.id,
-      message.body.source,
-      message.body.destination,
-      message.body.payload,
-      "0000000000000000" as ReturnToken,
-      Math.min(message.body.hopLimit - 1, egress.maximumDataHopLimit),
-      egress.creditGrant,
-      message.body.correlationId,
-      message.extensions,
-    );
-    const encoded = encodeAgpPacket(preview, egress.peerReceiveLimitBytes);
+
+    const hopLimit = input.arrival.kind === "local"
+      ? Math.min(this.#options.defaultHopLimit, egress.maximumDataHopLimit)
+      : Math.min(input.arrival.hopLimit - 1, egress.maximumDataHopLimit);
+
+    const allocation = egress.returnTokens.allocate();
+    if (allocation.kind === "exhausted") {
+      this.#options.onTokenExhausted(egress);
+      return refuse("NEXT_HOP_UNAVAILABLE");
+    }
+
+    // Size is decided before source export, and that order is specified
+    // rather than incidental: `data-failure-precedence` asserts that an
+    // oversized frame beats a missing export when both are true.
+    const message = input.build({ egress, hopLimit, token: allocation.token });
+    const encoded = encodeAgpPacket(message, egress.peerReceiveLimitBytes);
     if (!encoded.ok) {
-      return encoded.reasonCode === "MESSAGE_TOO_LARGE"
-        ? "MESSAGE_TOO_LARGE"
-        : "NEXT_HOP_UNAVAILABLE";
+      return refuse(
+        encoded.reasonCode === "MESSAGE_TOO_LARGE"
+          ? "MESSAGE_TOO_LARGE"
+          : "NEXT_HOP_UNAVAILABLE",
+      );
     }
-    if (!this.#options.routing.hasAckedSource(egress.owner, message.body.source)) {
-      return "SOURCE_NOT_ADVERTISED";
+
+    if (!this.#options.routing.hasAckedSource(egress.owner, input.source)) {
+      return refuse("SOURCE_NOT_ADVERTISED");
     }
     const epoch = this.#options.routing.sourceExportEpoch(
       egress.owner,
-      message.body.source,
+      input.source,
     );
-    if (epoch === undefined) return "SOURCE_NOT_ADVERTISED";
+    if (epoch === undefined) return refuse("SOURCE_NOT_ADVERTISED");
+
     const retainedBytes = reverseRetainedBytes(encoded.utf8Bytes);
     if (
       !this.#options.breadcrumbs.canReserve(retainedBytes)
       || !egress.writer.canAdmitData(epoch, encoded.utf8Bytes)
     ) {
-      return "QUEUE_FULL";
+      return refuse("QUEUE_FULL");
     }
+
+    return Object.freeze({
+      kind: "session",
+      egress,
+      epoch,
+      message,
+      packet: encoded.bytes,
+      encodedBytes: encoded.utf8Bytes,
+      retainedBytes,
+      selectedRouteId: selected.routeId,
+      nextHop: forwarding.nextHop,
+    });
+  }
+
+  #sendInExecutor(
+    sourceEndpoint: EndpointName,
+    destination: EndpointName,
+    payload: JsonObject,
+    correlationId?: CorrelationId,
+  ): DataSendReceipt {
+    const source = Object.freeze({
+      endpoint: sourceEndpoint,
+      originNodeId: this.#options.localNodeId,
+    });
+    const messageId = this.#options.nextMessageId();
+    const decision = this.#resolveForwarding({
+      source,
+      destination,
+      payload,
+      arrival: { kind: "local", sourceEndpoint },
+      build: ({ egress, hopLimit, token }) => makeDataMessage(
+        messageId,
+        source,
+        destination,
+        payload,
+        token,
+        hopLimit,
+        egress.creditGrant,
+        correlationId,
+      ),
+    });
+    if (decision.kind === "refuse") {
+      throw new DataPlaneFailure(asLocalFailure(decision.code));
+    }
+
+    const acceptedAt = this.#options.wallTime();
+    const revision = this.#options.commit.commit({
+      kind: "message.accepted",
+      messageId,
+      subjectId: destination,
+    });
+    if (decision.kind === "local") {
+      this.#dispatch(
+        decision.binding,
+        payload,
+        deliveryContext({
+          messageId,
+          ...(correlationId === undefined ? {} : { correlationId }),
+          source,
+          destination,
+          receivedAt: acceptedAt,
+          operationsRevision: revision,
+        }),
+        decision.bytes,
+      );
+    } else {
+      this.#admitToEgress(decision, { kind: "local" }, revision);
+    }
+    return Object.freeze({
+      messageId,
+      ...(correlationId === undefined ? {} : { correlationId }),
+      acceptedAt,
+      operationsRevision: revision,
+      selectedRouteId: decision.selectedRouteId,
+      nextHop: decision.nextHop,
+    });
+  }
+
+  /** Retain the reverse path and hand the packet to the ordered writer. */
+  #admitToEgress(
+    decision: Extract<ForwardingDecision, { kind: "session" }>,
+    ingress: BreadcrumbIngress,
+    revision: OperationsRevision,
+  ): void {
+    this.#addBreadcrumb({
+      message: decision.message,
+      ingress,
+      egress: decision.egress,
+      retainedBytes: decision.retainedBytes,
+      revision,
+    });
+    const admitted = decision.egress.writer.admitData({
+      packet: decision.packet,
+      encodedBytes: decision.encodedBytes,
+      epoch: decision.epoch,
+    });
+    if (!admitted.accepted) {
+      throw new Error("writer reservation changed inside serialized admission");
+    }
+  }
+
+  #receiveInExecutor(
+    ingress: DataSessionController,
+    message: DataMessage,
+  ): DeliveryErrorCode | undefined {
+    const source = message.body.source;
+    const destination = message.body.destination;
+
+    const decision = this.#resolveForwarding({
+      source,
+      destination,
+      payload: message.body.payload,
+      arrival: { kind: "session", ingress, hopLimit: message.body.hopLimit },
+      // Built once. Classification used to encode a preview with a
+      // placeholder token to size the admission and the forward encoded
+      // again with the real one, which proved what the fixed-width token
+      // contract already guaranteed.
+      build: ({ egress, hopLimit, token }) => makeDataMessage(
+        message.id,
+        source,
+        destination,
+        message.body.payload,
+        token,
+        hopLimit,
+        egress.creditGrant,
+        message.body.correlationId,
+        message.extensions,
+      ),
+    });
+
+    if (decision.kind === "refuse") {
+      const code = asDeliveryError(decision.code);
+      this.#options.commit.commit({
+        kind: "message.failed",
+        messageId: message.id,
+        subjectId: destination,
+        code,
+      });
+      return code;
+    }
+
+    if (decision.kind === "local") {
+      const revision = this.#options.commit.commit({
+        kind: "message.received",
+        messageId: message.id,
+        subjectId: destination,
+      });
+      this.#dispatch(
+        decision.binding,
+        message.body.payload,
+        deliveryContext({
+          messageId: message.id,
+          ...(message.body.correlationId === undefined
+            ? {}
+            : { correlationId: message.body.correlationId }),
+          source,
+          destination,
+          receivedAt: this.#options.wallTime(),
+          ingressNodeId: ingress.remoteNodeId,
+          ingressSessionId: ingress.owningSessionId,
+          operationsRevision: revision,
+        }),
+        decision.bytes,
+      );
+      return undefined;
+    }
+
+    const revision = this.#options.commit.commit({
+      kind: "message.forwarded",
+      messageId: message.id,
+      subjectId: destination,
+    });
+    this.#admitToEgress(decision, {
+      kind: "session",
+      controller: ingress,
+      nodeId: ingress.remoteNodeId,
+      owningSessionId: ingress.owningSessionId,
+      upstreamReturnToken: message.body.returnToken,
+    }, revision);
     return undefined;
   }
 
@@ -646,6 +657,37 @@ function deliveryContext(input: {
       : { ingressSessionId: input.ingressSessionId }),
     operationsRevision: input.operationsRevision,
   });
+}
+
+/**
+ * Narrow a refusal to the codes a local send can produce.
+ *
+ * The transit-only refusals cannot arise from local origination: nothing
+ * arrived on a session, so there is no feasibility check, no transit gate and
+ * no hop limit to exhaust.
+ */
+function asLocalFailure(code: ForwardingRefusal): LocalSendFailure {
+  switch (code) {
+    case "SOURCE_NOT_AUTHORIZED":
+    case "TRANSIT_DISABLED":
+    case "HOP_LIMIT_EXCEEDED":
+      throw new Error(`local admission cannot refuse with ${code}`);
+    default:
+      return code;
+  }
+}
+
+/**
+ * Narrow a refusal to the codes a delivery error can carry.
+ *
+ * `SOURCE_NOT_OWNED` is the mirror case: it is asked only of a locally
+ * originated message, which by definition did not arrive on a session.
+ */
+function asDeliveryError(code: ForwardingRefusal): DeliveryErrorCode {
+  if (code === "SOURCE_NOT_OWNED") {
+    throw new Error("transit admission cannot refuse with SOURCE_NOT_OWNED");
+  }
+  return code;
 }
 
 function jsonBytes(value: JsonObject): number {

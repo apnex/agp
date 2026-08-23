@@ -57,7 +57,7 @@ An item that is `I4`/`P1` belongs early even though nobody feels it today, becau
 | `B23` | Build the disposition design that removes the sustained send ceiling | `I2` | `P3` | [`D23`](DECISIONS.md#d23---delivery-disposition), [`MX7`](VERIFICATION.md#46-open-findings-from-sweeps) | open |
 | `B26` | Let a ratified decision be recorded before it is built | `I4` | `P2` | [`GATES.md` section 2](GATES.md#2-gate-ax0---intent-applicability-and-knowledge) | landed |
 | `B27` | Name a destination instance, not only an endpoint | `I3` | `P4` | [`destination-selection.md`](design/destination-selection.md) | open |
-| `B28` | Resolve a forwarding decision in one place instead of three | `I4` | `P3` | [`destination-selection.md`](design/destination-selection.md) | open |
+| `B28` | Resolve a forwarding decision in one place instead of three | `I4` | `P3` | [`destination-selection.md`](design/destination-selection.md) | landed |
 | `B1` | Implement `D19` credit flow control | `I1` | `P1` | [`MX1`](VERIFICATION.md#46-open-findings-from-sweeps), [`D19`](DECISIONS.md#d19---per-hop-credit-flow-control) | landed |
 | `B14` | Name a reproduction for the route-ack expiry a stream provokes | `I2` | `P2` | [`MX2`](VERIFICATION.md#46-open-findings-from-sweeps) | landed |
 | `B16` | Project credit and timing into the operations plane | `I2` | `P1` | [`D20`](DECISIONS.md#d20---observability-of-bounded-resources-and-timing) | landed |
@@ -100,8 +100,8 @@ Where the two disagree it is because of dependency, never because a severity was
 
 | Order | Item | Ready | Why here |
 |---|---|---|---|
-| 1 | `B28` | Yes | Scores lowest on the board and builds first. The same forwarding decision is made in three sequences today, and both items after it change that decision |
-| 2 | `B23` | After `B28` | The largest open item. Removes the sustained ceiling `MX7` records, and is ratified as `D23` |
+| 1 | `B28` | Landed | Scored lowest on the board and built first, because both items after it change the forwarding decision |
+| 2 | `B23` | Yes | The largest open item. Removes the sustained ceiling `MX7` records, and is ratified as `D23`. Its prerequisite is landed |
 | 3 | `B22` | Yes | Cheap, and wants a quiet machine rather than a queue position |
 | 4 | `B27` | Blocked | Waiting on the `Q1(b)` question below |
 | 5 | `B15` | Blocked | Waiting on the credit switch question below |
@@ -120,7 +120,7 @@ Severity `I2`.
 
 | ID | Move | Note |
 |---|---|---|
-| `B28` | Resolve a forwarding decision in one place instead of three | The same decision is made in local origination, in inbound classification, and again when a forward executes. Route resolution, local against session branching, hop limit, source export, epoch and capacity all appear more than once. `D23` and every destination mode would be written into each of them, and the third write is where they drift. One resolver returning deliver locally, forward to these next hops, or refuse with this code |
+| `B28` | Resolve a forwarding decision in one place instead of three | Landed. One resolver answers for both admission paths, and the transit preview encode went with it, so a forwarding hop encodes once rather than twice. The refusal precedence turned out to be specified rather than incidental, and the first attempt inverted two codes; the gate that owns it caught that before it left the machine |
 | `B23` | Build `D23` | Ratified and recorded as planned rather than built, which is the state `B26` made recordable and this is its first use. What remains is the wire shape, the debounce and count defaults, the SDK surface including how an unknown denominator is distinguished from a known one, and the origin's outstanding table, which must be released by success by construction |
 
 A node today sustains about 136 messages a second against a burst ceiling near 2850, because a reverse-path binding is released by failure or expiry and never by success.\

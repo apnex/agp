@@ -389,8 +389,9 @@ The reverse-correlation commit that follows every local delivery supplies a set 
 The projection is memoised, so an unchanged set arrives as the same reference and is recognised without inspection, and the commit now writes nothing and issues no revision.\
 A revision denotes a change to canonical state; issuing one for a commit that wrote nothing makes it useless as a change signal and forces every consumer polling on it to re-read.
 
-The same fault remains on the transit path, where classification encodes a preview and forwarding encodes again.\
-It is left because the two happen in different functions and the restructuring is larger than the one above, not because it is different.
+The transit path carried the same fault and is now closed too.\
+Classification encoded a preview and forwarding encoded again, and the restructuring that removed it is `B28`: the decision those two shared is resolved once, so there is one encode per forwarding hop rather than two at every transit.\
+Measured over a two-hop chain, a delivered message costs 2.07 encodes, which is one per hop that forwards it and a fraction for control.
 
 The fourth event per message was a `session.transition` announcing that the session stayed `Established`.\
 `D22` records why it is now withheld for a delivery and kept for a keepalive, and the short of it is that the delivery already announced itself three times while the keepalive announces nothing else.\
