@@ -62,7 +62,7 @@ An item that is `I4`/`P1` belongs early even though nobody feels it today, becau
 | `B14` | Name a reproduction for the route-ack expiry a stream provokes | `I2` | `P2` | [`MX2`](VERIFICATION.md#46-open-findings-from-sweeps) | landed |
 | `B16` | Project credit and timing into the operations plane | `I2` | `P1` | [`D20`](DECISIONS.md#d20---observability-of-bounded-resources-and-timing) | landed |
 | `B17` | Derive the trace graph identifier set instead of hardcoding it | `I3` | `P1` | [`GATES.md` section 2](GATES.md#2-gate-ax0---intent-applicability-and-knowledge) | landed |
-| `B18` | Explain the residual event-loop stalls under a stream | `I2` | `P3` | [`MX3`](VERIFICATION.md#46-open-findings-from-sweeps) | open, re-scoped |
+| `B18` | Explain the residual event-loop stalls under a stream | `I3` | `P3` | [`MX3`](VERIFICATION.md#46-open-findings-from-sweeps) | open, re-scored |
 | `B29` | Move per-message events off the operations stream | `I2` | `P3` | [`D24`](DECISIONS.md#d24---the-operations-stream-is-a-channel-not-a-ledger), [`MX3`](VERIFICATION.md#46-open-findings-from-sweeps) | landed |
 | `B30` | Stop traffic-rated session values advancing the canonical revision | `I3` | `P2` | [`D25`](DECISIONS.md#d25---a-revision-denotes-a-change-to-canonical-state), [`D10`](DECISIONS.md#d10---atomic-canonical-state) | landed |
 | `B19` | Take the per-hop cost against the carrier, opportunistically | `I4` | `P4` | [`MX4`](VERIFICATION.md#46-open-findings-from-sweeps) | open |
@@ -82,7 +82,7 @@ An item that is `I4`/`P1` belongs early even though nobody feels it today, becau
 
 ## Closed
 
-Two milestones are complete and are kept here as one line each; their detail is in the record they cite.
+Five milestones are complete and are kept here as one line each; their detail is in the record they cite.
 
 **Stop the node dying.**\
 `B20` and `B21`, both `I1`, landed together because fixing the first reproduced the second within minutes.\
@@ -93,6 +93,25 @@ A node accepted `maxLabelBindings` messages and then refused every further one f
 The deepened sweep reads 70 of 70 and runs in about a quarter of the time it did.\
 `MX1` was closed by credit and `MX2` by `D21`, and neither was what it first appeared to be.
 
+**Remove the sustained send ceiling.**\
+`B28`, `B23`, and the `LabelBinding` rename that followed them.\
+A binding is released by the report that returns for it, so `MX7` is closed and expiry became the backstop rather than the mechanism.\
+The `error` message retired into the disposition, because a vocabulary that holds one kind of thing cannot keep a second message for half of it.
+
+**Addressing that a flow can rely on.**\
+`B27`, ratified as `D26` under the amendment to `Q1(b)`.\
+A message may name the advertiser it is for, and building it against a chain rather than a star showed that only the hop adjacent to the advertisers holds the alternatives, so a pin is enforced where a message would be delivered rather than where it was admitted.
+
+**Measure what a deployment would see.**\
+`B22`.\
+Two nodes in one process cost about a third of throughput.\
+Four contaminations were fixed rather than the two expected, and the three attempts that had produced three orderings were a scaling processor clock rather than a busy machine; the answer was to interleave the arms rather than to hold the host still.
+
+**See an operator through a stream, and mean something by a revision.**\
+`B29` and `B30`, ratified as `D24` and `D25`.\
+An operator subscriber doing real work lost 256 events of a 600-message stream and now loses none at a buffer of one.\
+A delivered message cost 9.17 canonical revisions and now costs 5.29, because a counter had been claiming that canonical state changed.
+
 ---
 
 ## Build order
@@ -100,47 +119,40 @@ The deepened sweep reads 70 of 70 and runs in about a quarter of the time it did
 Severity says what matters; this says what can be done next.\
 Where the two disagree it is because of dependency, never because a severity was overridden.
 
+Landed items leave this table rather than accumulating in it.\
+What they decided is in the record they cite, and what they cost is in the milestone they closed.
+
 | Order | Item | Ready | Why here |
 |---|---|---|---|
-| 1 | `B28` | Landed | Scored lowest on the board and built first, because both items after it change the forwarding decision |
-| 2 | `B23` | Landed | Removed the sustained ceiling `MX7` recorded. The `error` message retired into it, so one message now reports the fate of a message whichever fate it was |
-| 3 | `B22` | Landed | Co-locating two nodes costs about a third of throughput. The three attempts that produced three orderings were not a busy machine but a scaling processor clock, and the answer was to interleave the arms so the drift cancels rather than to try to hold the host still |
-| 4 | `B27` | Landed | Ratified as `D26` and built. Building it against a chain rather than a star showed that only the hop adjacent to the advertisers holds the alternatives, so a pin is enforced where a message would be delivered rather than where it was admitted |
-| 5 | `B15` | Blocked | Waiting on the credit switch question below |
-| 6 | `B30` | Landed | Ruled as `D25` and built. 9.17 revisions per delivered message down to 5.29. The first rule tried excluded only the hold timer and bought 11%, because the timer was one of four traffic-rated values and the smallest |
-| 7 | `B29` | Landed | Ruled as `D24` and built. An operator subscriber doing real work lost 256 events of a 600-message stream at a buffer of 256, and 175 at the default; it now loses none at a buffer of one |
-| 8 | `B18` | Re-scoped | What remains after `B29` and `B30` is the distributed cost, which is `MX4`'s character rather than a defect |
-| 9 | `B12`, `B10`, `B3`, `B13` | Yes | Record work, none of it blocking |
-| 10 | `B19`, `B4` | Yes | Taken when a way is found, not scheduled |
+| 1 | `B15` | Blocked | Waiting on the credit switch question below. It is the only open item above `I4` that a decision would unblock |
+| 2 | `B12` | Yes, after `B15` | Its own trigger is a declared surface with no running counterpart, and `B15` is the item that removes the last one. Doing it first would document a divergence about to disappear |
+| 3 | `B10` | Yes | A proposal is currently tested against an unwritten standard, which makes every other item on this board harder to argue about |
+| 4 | `B13`, `B3` | Yes | Record work. `B3` wants `B4` first if cost-aware subset selection is the point of it |
+| 5 | `B18`, `B19` | Opportunistic | Neither has a next single fix. They are taken when a way is found, not scheduled |
+| 6 | `B4` | Blocked | Waiting on the sweep-schedule question below |
 
-Both of `B18`'s remaining questions were decisions rather than measurements, and both are now ruled, as `D24` and `D25`.\
-What they leave is two buildable items and a residue: `B29` removes the starvation, `B30` removes 45% of the revisions, and what is left of `B18` after them is distributed cost with no next single fix.\
-`B22` and the record work remain independent of all of it.
-
----
-
-## M3 - Remove the sustained send ceiling
-
-Severity `I2`.
-
-| ID | Move | Note |
-|---|---|---|
-| `B28` | Resolve a forwarding decision in one place instead of three | Landed. One resolver answers for both admission paths, and the transit preview encode went with it, so a forwarding hop encodes once rather than twice. The refusal precedence turned out to be specified rather than incidental, and the first attempt inverted two codes; the gate that owns it caught that before it left the machine |
-| `B23` | Build `D23` | Landed. A binding is released by the report that returns for it, so expiry became the backstop rather than the mechanism. The `error` message retired into the disposition, because a vocabulary that holds one kind of thing cannot also keep a second message for half of it. The denominator stays absent on the wire when it is one and the schema forbids spelling one, so absence is unambiguous and the codec normalises it at a single site. Two measurement mistakes are recorded with the instrument: holding the old behaviour open takes both batch bounds, and the debounce that drains an origin's table belongs to the far end |
-
-A node used to sustain about 136 messages a second against a burst ceiling near 2850, because a reverse-path binding was released by failure or expiry and never by success.\
-The ceiling was not a capacity to raise; it was a quality mechanism acting as a throughput bound.\
-`scripts/sustained-rate.mjs` holds both batch bounds open to reproduce the old behaviour against the same binary, and measures the correction without reverting code.
+Two items are blocked and both are blocked on a decision rather than on work.\
+Everything else is available, and none of it depends on anything else here except `B12` on `B15`.
 
 ---
 
 ## M4 - Finish the thread `MX2` opened
 
-Severity `I2`.
+Severity `I3`, lowered from `I2` on 2026-08-23.
 
 | ID | Move | Note |
 |---|---|---|
-| `B18` | Explain the event-loop saturation that remains under a stream | Advanced, and now at diminishing returns. Three projections are memoised, a session transition and a timer reset commit session state rather than everything held, and a fourth memoisation was tried and reverted for producing no measurable gain. A steady-state profile shows the remaining cost is distributed rather than concentrated: schema validation on encode and parse, event materialisation, and the state and action clones the session machine makes per command. There is no next single fix, which is why this should be re-scoped before more is spent on it |
+| `B18` | Explain the event-loop saturation that remains under a stream | Advanced, and now at diminishing returns. Three projections are memoised, a session transition and a timer reset commit session state rather than everything held, and a fourth memoisation was tried and reverted for producing no measurable gain. A steady-state profile shows the remaining cost is distributed rather than concentrated: schema validation on encode and parse, event materialisation, and the state and action clones the session machine makes per command. There is no next single fix |
+
+`MX3` was scored `I2` because a stall moves every deadline sharing the loop, and that is the mechanism by which healthy sessions were torn down before `D21`.\
+Both of its demonstrated consequences are now closed: subscriber starvation by `D24`, and the revision rate by `D25`, which took a delivered message from 9.17 canonical revisions to 5.29.
+
+What remains is a stall that is real and measured, 450 ms co-located and 30 ms isolated under a stream, and that no longer breaks anything observed.\
+It is therefore a degraded capability that the operations plane reports honestly rather than a failure a user must work around, which is `I3` on this scale and not `I2`.
+
+The lowering is recorded rather than assumed, because it is the kind of judgement that should be easy to overturn.\
+Confirmed intent section 2.5 says a cost that moves a deadline is a correctness fault wearing a performance costume, and a 450 ms stall against a two second route-acknowledgement deadline is not comfortable.\
+If a deadline is shown to move again, this returns to `I2` without needing a new argument.
 
 ---
 
@@ -152,26 +164,6 @@ Severity `P2`.
 |---|---|---|
 | `B15` | Give a deployment the switch `D19` says it has, and govern control alongside data | `D19` states that a deployment configures whether it grants at all, and no such configuration exists. It also leaves control ungoverned, drawing on a reserve rather than a grant, so the ring is bounded by construction rather than by accounting |
 | `B12` | Split the architecture into current and target instants | Now legal, and smaller than when it was filed. The trigger was `D19` ratified but unbuilt; `D19` is built except for the switch `B15` owns, so one declared surface still has no running counterpart. Doing this before `B15` would describe a divergence that `B15` is about to remove |
-
----
-
-## M6 - Addressing that a flow can rely on
-
-Severity `I3`.
-
-| ID | Move | Note |
-|---|---|---|
-| `B27` | Let a message name the instance it is for, not only the endpoint | Addressing by name alone means any advertiser may serve the message, which is anycast and arrived as a consequence rather than a choice. It is the wrong default for a flow with state on one instance. The candidate routing table already holds what is needed, so this asks a different question of state already kept. `Q1(b)` was amended on 2026-08-23 to permit it, so what remains is to ratify the design and build it. It pays forward: a named instance completes the classification that per-flow labelling would later use |
-
----
-
-## M7 - Measure what a deployment would see
-
-Severity `I3`.
-
-| ID | Move | Note |
-|---|---|---|
-| `B22` | Re-measure throughput with each node in its own process | Landed. Two nodes in one process cost about a third of throughput, and pre-shared keys cost 29 per cent co-located against 22 per cent isolated, because the cipher gains somewhere else to run. Four contaminations were fixed, not the two expected: the parent counted arrivals over one IPC send per delivered message, the window spanned two processes' clocks, the loop-lag sampler ran in the idle parent and read 1251 microseconds against the node's 42688, and the processor clock scaled between 4200 and 800 MHz. The last one explains the three orderings, and the fix was to interleave the arms rather than to demand a still host: a first table that ran the arms in blocks overstated the isolation gain by half, because the isolated block fell at a higher clock |
 
 ---
 
