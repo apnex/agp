@@ -474,7 +474,8 @@ A missing or expired one degrades to `unreturnable`, which is discarded rather t
 That is what makes the current behaviour an anomaly rather than a cost.\
 AGP has no positive acknowledgement, so a breadcrumb can only ever be consumed by a failure; on success nothing releases it and it waits out the window.\
 A node is therefore throughput-capped by state it retains exclusively for failures that did not happen, and a quality knob is serving as a hard bound.\
-`F09` records the acknowledgement that would let success release it, and `F11` records why a store-and-forward relay would meet this ceiling before anything else does.
+The design that corrects it is written out in [`design/message-labels.md`](design/message-labels.md), together with the per-flow alternative that was considered and the reason it is not being built.\
+`F11` records why a store-and-forward relay would meet this ceiling before anything else does.
 
 Two consequences are worth stating plainly.\
 Matching the burst rate would need roughly eighty-five thousand retained correlations, which is a deliberate memory decision rather than a default.\

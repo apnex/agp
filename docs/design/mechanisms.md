@@ -83,6 +83,7 @@ AGP's schemas and owning design sections remain normative: an RFC rule applies o
 | F09 | Batched cumulative delivery acknowledgement | No positive acknowledgement exists. A reverse breadcrumb is released by a failure or by expiry, never by success. | TCP cumulative and delayed acknowledgement ([RFC 9293](https://www.rfc-editor.org/rfc/rfc9293)); DTN custody signals ([RFC 5050](https://www.rfc-editor.org/rfc/rfc5050)) | Requires `MX7` to bind on a real deployment, and a ruling on when a transit hop acknowledges upstream: on successful forward, which releases immediately but makes a failure beyond that hop unreturnable, or on its own downstream acknowledgement, which preserves reverse reach at end-to-end retention. |
 | F10 | Request and response, and tool calling | One-way delivery only. `correlationId` crosses the wire and pairing is an application concern. | RPC and message correlation patterns | Requires a real consumer. A single correlated reply needs no wire change and belongs above the node; multi-response or streaming does need a wire concept and is a separate decision, not an extension of this one. |
 | F11 | Store-and-forward relay | A node forwards or refuses and never accepts custody on behalf of a destination. | SMTP relay; DTN bundle custody | Requires a deployment that needs it, and `MX7` first, because a relay is the node most likely to sustain a high rate. It is an application addressed as a destination, not a routing-plane capability. |
+| F12 | Per-flow labels | A label identifies one message, so the label table is proportional to traffic. | MPLS label-switched paths, where a label identifies a forwarding class | Requires AGP to acquire a flow concept for some other ratified reason. Throughput is not a trigger: once a disposition releases a binding, table size stops binding. Adopting it for efficiency alone would put flow lifecycle, sequencing and route-change invalidation into a datagram plane. The design is written out in full in [`message-labels.md`](message-labels.md) section 5, and contrasted in section 6. |
 
 ---
 
@@ -105,6 +106,7 @@ If the implementation differs from this index, the design must be revised and ra
 `A3` earns a boundary by having one concern, so a mechanism is placed by asking whose concern it is rather than where it would be convenient.\
 Three entries above were reasoned through together and are recorded with their placement, because the tempting placement is the wrong one in each case.
 
+`F09` is superseded in shape by the disposition design in [`message-labels.md`](message-labels.md), which reports success as well as failure along the same reverse path; what follows remains the reason it sits where it does.\
 `F09` belongs to the AGP session layer, beside credit.\
 A carrier cannot release a breadcrumb because it does not know one exists, and an application cannot release one because it does not own it.\
 It is the structural dual of credit: credit is a receiver saying what a sender may send, and this is a receiver saying what a sender may forget.\
