@@ -175,6 +175,56 @@ It is AGP acquiring a flow concept for some other ratified reason, at which poin
 
 ---
 
+## 7. Demarcation - what per-message owes a future flow layer
+
+Flow semantics will be wanted by some applications.\
+Per-message is chosen anyway, on the condition that it does not foreclose them, so this section states what per-message must hold true for a flow layer to be added later as a sovereign layer above rather than a revision of what is beneath it.
+
+### 7.1 Two different analogies, and the line between them
+
+A flow layer can be built two ways, and the two are not variations of one idea.
+
+| Model | AGP form | State lives | Buys |
+|---|---|---|---|
+| A transport header inside a network payload | A flow layer wraps the payload | The endpoints only | Sequencing, gap detection, reliable delivery, connection lifecycle |
+| A signalled label-switched path | Per-flow labels, design B | Every hop | Per-flow credit, path pinning, transit fairness |
+
+The second model exists for bandwidth reservation, explicit paths and traffic engineering.\
+Those are exactly the three things a layer above cannot reach, which is why the line falls where it does rather than somewhere convenient.
+
+### 7.2 The flow layer carries its own header in the payload
+
+A flow layer belongs in the first model.\
+Its state is endpoint to endpoint, so its header travels inside the payload, which AGP bounds and carries and never interprets.
+
+That the flow layer dictates the payload shape is the layering working, not a leak.\
+An application talks to the flow layer, not through it to AGP, in the same way that an application using a transport does not see the transport's sequence number.\
+Mixing the two is not supported, and is not meant to be.
+
+`extensions` on the envelope is a different slot for a different concern.\
+It is the hop-visible one: metadata an intermediate node may read.\
+A flow layer's state has no business being hop-visible, so needing a metadata channel is not a reason to open that field for origination, and if it is opened later it must be for a concern that intermediate nodes genuinely act on.
+
+### 7.3 The five guarantees
+
+1. A disposition is per message at the interface, whatever its wire form. Batching into ranges is a wire economy and must never surface as the shape an application sees, because a layer above maps one disposition to one sequence and cannot do that from an aggregate.
+2. `messageId` is stable end to end and the disposition names it, so a layer above can correlate without inventing an identifier of its own.
+3. AGP bounds and carries the payload and never interprets its content. A wrapper draws on the same depth and size allowance as the application data it carries, which a flow layer must budget for.
+4. A disposition carries its reason and whether that reason is retryable, so a layer above can distinguish a condition worth retrying from one that will never clear.
+5. The absence of a disposition means unknown and never means undelivered. The signal is best effort, so a layer above still owns its own timeout, and nothing may be built on silence.
+
+Four of these are already true or are simply how the disposition is written.\
+None requires an interface change, which is the point: the cost of keeping this door open is close to zero now and considerable once applications depend on a shape.
+
+### 7.4 What a layer above will never reach
+
+Per-flow credit, per-flow path selection and per-flow fairness in a transit queue all require a transit node to know that a flow exists.\
+No arrangement of endpoint state provides them.
+
+That, and not throughput, is the condition that would revive design B.
+
+---
+
 ## 7. Mechanics, rationale, and consequence
 
 ### Mechanics
@@ -215,3 +265,9 @@ Per-flow labels remove that growth more completely, and are rejected because doi
   lifecycle, sequencing and route-change invalidation into a datagram plane,
   relocating into AGP the end-to-end state its scope assigns to the
   application.
+- Surfacing a batched disposition as the shape an application sees would
+  foreclose a flow layer, because one disposition must map to one sequence
+  and an aggregate cannot be decomposed after the fact.
+- Interpreting payload content, or letting a flow layer's state travel in the
+  hop-visible extension field, would put endpoint state where intermediate
+  nodes can read and eventually depend on it.
