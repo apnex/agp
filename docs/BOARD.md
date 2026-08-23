@@ -105,7 +105,7 @@ Where the two disagree it is because of dependency, never because a severity was
 | 1 | `B28` | Landed | Scored lowest on the board and built first, because both items after it change the forwarding decision |
 | 2 | `B23` | Landed | Removed the sustained ceiling `MX7` recorded. The `error` message retired into it, so one message now reports the fate of a message whichever fate it was |
 | 3 | `B22` | Yes | Cheap, and wants a quiet machine rather than a queue position |
-| 4 | `B27` | Blocked | Waiting on the `Q1(b)` question below |
+| 4 | `B27` | Yes | `Q1(b)` was amended on 2026-08-23 to permit a data path gated by the candidate RIB. The design still needs ratifying before it is built |
 | 5 | `B15` | Blocked | Waiting on the credit switch question below |
 | 6 | `B30` | Landed | Ruled as `D25` and built. 9.17 revisions per delivered message down to 5.29. The first rule tried excluded only the hold timer and bought 11%, because the timer was one of four traffic-rated values and the smallest |
 | 7 | `B29` | Landed | Ruled as `D24` and built. An operator subscriber doing real work lost 256 events of a 600-message stream at a buffer of 256, and 175 at the default; it now loses none at a buffer of one |
@@ -161,7 +161,7 @@ Severity `I3`.
 
 | ID | Move | Note |
 |---|---|---|
-| `B27` | Let a message name the instance it is for, not only the endpoint | Addressing by name alone means any advertiser may serve the message, which is anycast and arrived as a consequence rather than a choice. It is the wrong default for a flow with state on one instance. The candidate routing table already holds what is needed, so this asks a different question of state already kept. Blocked on the `Q1(b)` question, and it pays forward: a named instance completes the classification that per-flow labelling would later use |
+| `B27` | Let a message name the instance it is for, not only the endpoint | Addressing by name alone means any advertiser may serve the message, which is anycast and arrived as a consequence rather than a choice. It is the wrong default for a flow with state on one instance. The candidate routing table already holds what is needed, so this asks a different question of state already kept. `Q1(b)` was amended on 2026-08-23 to permit it, so what remains is to ratify the design and build it. It pays forward: a named instance completes the classification that per-flow labelling would later use |
 
 ---
 
@@ -217,7 +217,6 @@ Scored on the same scale, so not choosing them is visible.
 
 | Question | Blocks |
 |---|---|
-| Whether a data path may be gated by the candidate routing table rather than only by the selected one | `B27`. Confirmed intent `Q1(b)` says every data path is gated by the local selected routing table. Naming a destination instance gates on the candidate table instead, which already retains the alternatives and their origins. `D6` still selects and still governs what is advertised, and the selected route remains what an unqualified message follows. It is a small change of wording and a real change of gate, and confirmed intent is not a design decision |
 | Whether a node should be able to decline to grant at all, and what a deployment that does so is choosing | `B15`. The wire field is optional and an absent grant is unlimited, so a peer that never negotiated credit is unaffected. What is not built is the switch `D19` says a deployment has, and the default was set to grant because leaving `RECEIVE_OVERFLOW` reachable is the fault `D19` exists to remove |
 | Whether a matrix sweep should run on a schedule, and if so at what depth | `B4`, and whether cost data is worth collecting at all |
 

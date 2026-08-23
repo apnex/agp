@@ -80,7 +80,7 @@ The confirmed answers below are the authority cited by `authorities[].kind` of `
 
 | Ref | Confirmed intent |
 |---|---|
-| `Q1(b)` | Every data path is gated by the local selected RIB |
+| `Q1(b)` | A data path is gated by the local selected RIB, or by the local candidate RIB where a message names the instance it is for. Amended 2026-08-23; see below |
 | `Q1/Q3/Q6` | One uniform node runtime, created through a single `createNode()` factory, with a stable operational surface |
 | `Q4(a)` | Either side of an adjacency may exchange endpoint routes |
 | `Q4(b)` | A selected learned route may be exported to other peers for multi-hop transit |
@@ -90,6 +90,17 @@ The confirmed answers below are the authority cited by `authorities[].kind` of `
 | `Q5(c)` | A correlated nonfatal failure travels back toward the source |
 | `Q6(c)` | Management HTTP and `agpctl` remain stable where their semantics remain true |
 | Aggregate | Listener, dialer, local delivery, and transit behavior compose inside the same implementation |
+
+`Q1(b)` was confirmed before design began as **every data path is gated by the local selected RIB**, and it is amended above rather than replaced so that the requirement it authorises keeps its reference.\
+The original wording is preserved in this sentence because a reader six months from now must be able to tell that the candidate RIB was admitted later, and by whom.
+
+The amendment was made by the project owner on 2026-08-23, on the question of whether a message may reach a specific advertiser of an endpoint rather than always the selected one.\
+Addressing an endpoint by name alone means any advertiser may serve the message, which is anycast, and it arrived as a consequence of addressing rather than as a choice.
+
+What the amendment does not do is loosen anything else.\
+`D6` still selects deterministically, still governs what is advertised, and still decides what an unqualified message follows.\
+Every candidate was accepted under `D5`, so its path is loop-free by construction.\
+A message names a destination, never a path: choosing the path would be traffic engineering and remains out of scope.
 
 ### 2.3 Confirmed transport security intent
 

@@ -74,7 +74,7 @@ No selected usable route means no onward data packet.
 | U3 | Either side of an adjacency can exchange endpoint routes. | Survey Q4(a) |
 | U4 | A selected learned route may be exported to other peers for multi-hop transit. | Survey Q4(b) |
 | U5 | Ordered path provenance rejects control-plane loops. | Survey Q4(c) |
-| U6 | Every data path is gated by the local selected RIB. | Survey Q1(b) |
+| U6 | A data path is gated by the local selected RIB, or by the local candidate RIB where a message names the instance it is for. | Survey Q1(b), amended 2026-08-23 |
 | U7 | A local route miss rejects before wire admission. | Survey Q5(a) |
 | U8 | A transit route miss emits no onward data packet. | Survey Q5(b) |
 | U9 | A correlated nonfatal failure travels back toward the source. | Survey Q5(c) |

@@ -1,7 +1,8 @@
 # Destination selection
 
 > **Status:** Design under consideration. Not built.\
-> One part of it changes confirmed intent and is a director decision rather than a design one.
+> The confirmed-intent question in section 4 was ruled on 2026-08-23: a data path may be gated by the candidate routing table where a message names its destination instance.\
+> The design itself is not yet ratified.
 
 ## 1. Purpose
 
@@ -66,13 +67,13 @@ The distinction matters because a mechanism that chose the path rather than the 
 
 ## 4. The confirmed-intent question
 
-Confirmed intent `Q1(b)` states that every data path is gated by the local selected routing table.
+Confirmed intent `Q1(b)` stated that every data path is gated by the local selected routing table.
 
 Pinned and preferred modes gate on the candidate table instead.\
 The selected route remains what is advertised and what an unqualified message follows, but it stops being the only route a message may take.
 
-That is a small change in wording and a real change in what the gate is.\
-It is recorded here as a question rather than resolved, because confirmed intent is not a design decision.
+That is a small change in wording and a real change in what the gate is, which is why it was put to the project owner rather than settled here: confirmed intent is not a design decision.\
+It was amended on 2026-08-23 to permit exactly this, and the amendment is recorded with its original wording in [`DECISIONS.md` section 2.2](../DECISIONS.md#22-confirmed-intent-by-question).
 
 Nothing else moves.\
 `D6` still selects deterministically and still governs what is advertised.\
