@@ -29,6 +29,20 @@ export interface TransportDiagnosticSinkPort {
 
 export interface TransportChannelPort {
   readonly peerEvidence: TransportPeerEvidence;
+  /**
+   * Whether `send` resolves only once the receiver has room for the packet.
+   *
+   * A carrier that can answer yes is already exact about backpressure, and a
+   * sender using it cannot outrun its receiver however hard it tries. A
+   * carrier that cannot, such as anything over a socket, sits behind kernel
+   * buffers and a congestion window that together hold far more than an AGP
+   * ring, so its backpressure engages long after the ring has overflowed.
+   *
+   * Absent means no, which is the protective answer: a node credits a carrier
+   * that has not claimed the guarantee. An adapter must not claim it unless a
+   * pending send genuinely waits on receiver capacity. See `D29`.
+   */
+  readonly sendAwaitsReceiverCapacity?: boolean;
   send(packet: TransportPacket, signal: AbortSignal): Promise<void>;
   read(signal: AbortSignal): Promise<TransportRead>;
   close(

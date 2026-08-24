@@ -1335,6 +1335,30 @@
         "packages/node/test/contract/caller-loop-starvation.test.js"
       ],
       "integrationWitnesses": []
+    },
+    {
+      "requirementId": "D29",
+      "ratificationStatus": "ratified",
+      "implementation": "built",
+      "authorities": [
+        {
+          "kind": "decision",
+          "reference": "D29",
+          "ratification": "ratified"
+        }
+      ],
+      "designReferences": [
+        "../DECISIONS.md#d29---credit-the-carrier-that-can-be-outrun"
+      ],
+      "schemaIds": [],
+      "semanticRuleIds": [],
+      "owningGate": "AX5",
+      "owningTests": [
+        "packages/node/test/contract/credit-carrier-declaration.test.js"
+      ],
+      "integrationWitnesses": [
+        "test/topology/credit-flow-control.test.js"
+      ]
     }
   ]
 }

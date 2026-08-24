@@ -2410,6 +2410,12 @@ class ChannelEndpoint implements TransportChannelPort {
   readonly transportName: string;
   readonly limits: TransportChannelLimits;
   readonly peerEvidence: TransportPeerEvidence;
+  /**
+   * A pending send is delivered only once the receiving side has room for it,
+   * so a sender on this fabric cannot outrun its receiver. See `deliverable`
+   * in this file, and `D29`.
+   */
+  readonly sendAwaitsReceiverCapacity = true;
   readonly inbound: PacketRecord[] = [];
   readonly #closeSignals = new Map<AbortSignal, () => void>();
 

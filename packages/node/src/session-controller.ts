@@ -180,9 +180,17 @@ export class PeerController implements DataSessionController {
       (error) => this.#transportFailed(error),
       () => this.#recordOutboundActivity(),
     );
-    this.#grantor = input.config.credit === undefined
-      ? undefined
-      : new CreditGrantor(input.config.credit);
+    // A carrier that resolves a send only when the receiver has room already
+    // bounds what can be in flight, exactly, and crediting it spends about a
+    // fifth of throughput to prevent an overrun that cannot happen. A carrier
+    // that cannot make that promise is credited, because `MX1` is what happens
+    // otherwise. The carrier answers, not a deployment: which of the two is
+    // true is a property of the carrier and not a preference. See `D29`.
+    this.#grantor =
+      input.config.credit === undefined
+        || input.channel.sendAwaitsReceiverCapacity === true
+        ? undefined
+        : new CreditGrantor(input.config.credit);
     this.writer.useCredit(this.#creditPort());
   }
 

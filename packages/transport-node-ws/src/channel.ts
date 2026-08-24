@@ -79,6 +79,16 @@ export class NodeWsChannel implements TransportChannelPort {
   #pongDeadline: ReturnType<typeof setTimeout> | undefined;
 
   readonly peerEvidence: TransportPeerEvidence;
+  /**
+   * Stated rather than omitted, so a reader knows it was answered.
+   *
+   * A socket send resolves once the bytes are handed to the kernel, and a
+   * local send buffer, a congestion window and a peer receive buffer together
+   * hold far more than an AGP ring, so this carrier's own backpressure cannot
+   * engage before the ring overflows. That is the measurement behind `MX1`.
+   * A node must credit this carrier. See `D29`.
+   */
+  readonly sendAwaitsReceiverCapacity = false;
 
   constructor(input: {
     readonly socket: WebSocket;

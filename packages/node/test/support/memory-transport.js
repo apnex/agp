@@ -7,9 +7,23 @@ export class MemoryPeerNetwork {
   // constructors it happens to know about.
   #captured;
 
-  constructor({ peerEvidence = defaultPeerEvidence(), capture = false } = {}) {
+  #sendAwaitsReceiverCapacity;
+
+  constructor({
+    peerEvidence = defaultPeerEvidence(),
+    capture = false,
+    // Declared rather than implemented, because what is under test is the
+    // node's reading of the claim. A test of the guarantee itself belongs to
+    // the carrier that makes it.
+    sendAwaitsReceiverCapacity = false,
+  } = {}) {
     this.#peerEvidence = peerEvidence;
     this.#captured = capture ? [] : undefined;
+    this.#sendAwaitsReceiverCapacity = sendAwaitsReceiverCapacity;
+  }
+
+  get declaresBackpressure() {
+    return this.#sendAwaitsReceiverCapacity;
   }
 
   /** Every packet sent since the network was created, as raw bytes. */
@@ -122,6 +136,7 @@ class MemoryChannel {
     this.#release = release;
     this.peerEvidence = peerEvidence;
     this.network = network;
+    this.sendAwaitsReceiverCapacity = network?.declaresBackpressure === true;
   }
 
   async send(packet, signal) {

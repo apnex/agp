@@ -66,7 +66,7 @@ An item that is `I4`/`P1` belongs early even though nobody feels it today, becau
 | `B29` | Move per-message events off the operations stream | `I2` | `P3` | [`D24`](DECISIONS.md#d24---the-operations-stream-is-a-channel-not-a-ledger), [`MX3`](VERIFICATION.md#46-open-findings-from-sweeps) | landed |
 | `B30` | Stop traffic-rated session values advancing the canonical revision | `I3` | `P2` | [`D25`](DECISIONS.md#d25---a-revision-denotes-a-change-to-canonical-state), [`D10`](DECISIONS.md#d10---atomic-canonical-state) | landed |
 | `B19` | Take the per-hop cost against the carrier, opportunistically | `I4` | `P4` | [`MX4`](VERIFICATION.md#46-open-findings-from-sweeps) | open |
-| `B15` | Give a deployment the switch `D19` says it has, and credit control alongside data | `I3` | `P2` | [`D19`](DECISIONS.md#d19---per-hop-credit-flow-control) | open |
+| `B15` | Decide credit by the carrier rather than by configuration | `I3` | `P2` | [`D29`](DECISIONS.md#d29---credit-the-carrier-that-can-be-outrun), [`D19`](DECISIONS.md#d19---per-hop-credit-flow-control) | landed |
 | `B2` | Reconcile the pause wording in `binding-websocket.md` with the code | `I4` | `P2` | [`MX1`](VERIFICATION.md#46-open-findings-from-sweeps) | landed |
 | `B12` | Split current and target architecture instants | `I4` | `P2` | [`ARCHITECTURE.md` section 12](ARCHITECTURE.md#12-owed-and-open) | open |
 | `B3` | Machine-readable cell to mechanism mapping | `I4` | `P3` | [`VERIFICATION.md` section 4](VERIFICATION.md#4-coverage-register) | open |
@@ -83,7 +83,7 @@ An item that is `I4`/`P1` belongs early even though nobody feels it today, becau
 
 ## Closed
 
-Six milestones are complete and are kept here as one line each; their detail is in the record they cite.
+Seven milestones are complete and are kept here as one line each; their detail is in the record they cite.
 
 **Stop the node dying.**\
 `B20` and `B21`, both `I1`, landed together because fixing the first reproduced the second within minutes.\
@@ -113,6 +113,12 @@ Four contaminations were fixed rather than the two expected, and the three attem
 An operator subscriber doing real work lost 256 events of a 600-message stream and now loses none at a buffer of one.\
 A delivered message cost 9.17 canonical revisions and now costs 5.29, because a counter had been claiming that canonical state changed.
 
+**Give the credit decision to the thing that knows the answer.**\
+`B15`, ratified as `D29`.\
+`D19` promised a deployment switch and never had one, but the evidence said it was not a deployment's question: a carrier whose send resolves only when the receiver has room cannot be outrun, and one behind kernel buffers always can.\
+Loopback declares the guarantee and is no longer credited, which returned 21 and 23 per cent across two clock-matched pairs; socket carriers do not and are, unchanged.\
+Disabling credit on a socket carrier with the nodes in separate processes reproduced `MX1` exactly, and with them in one process it did not, because two nodes sharing an event loop cannot outrun each other.
+
 **Finish the thread `MX2` opened.**\
 `B18`, ratified as `D27` and `D28`.\
 The residual stall had been recorded as distributed cost with no next single fix, on the strength of one profile that was never tested against and was taken co-located.\
@@ -131,16 +137,15 @@ What they decided is in the record they cite, and what they cost is in the miles
 
 | Order | Item | Ready | Why here |
 |---|---|---|---|
-| 1 | `B15` | Blocked | Waiting on the credit switch question below. It is the only open item above `I4` that a decision would unblock |
-| 2 | `B12` | Yes, after `B15` | Its own trigger is a declared surface with no running counterpart, and `B15` is the item that removes the last one. Doing it first would document a divergence about to disappear |
-| 3 | `B31` | Yes | A design document says the SDK does not do this, and it does, three times. Scored on the breach rather than the impact |
-| 4 | `B10` | Yes | A proposal is currently tested against an unwritten standard, which makes every other item on this board harder to argue about |
-| 5 | `B13`, `B3` | Yes | Record work. `B3` wants `B4` first if cost-aware subset selection is the point of it |
-| 6 | `B19` | Opportunistic | No next single fix. Taken when a way is found, not scheduled |
-| 7 | `B4` | Blocked | Waiting on the sweep-schedule question below |
+| 1 | `B12` | Yes | Its own trigger is a declared surface with no running counterpart, and `B15` is the item that removes the last one. Doing it first would document a divergence about to disappear |
+| 2 | `B31` | Yes | A design document says the SDK does not do this, and it does, three times. Scored on the breach rather than the impact |
+| 3 | `B10` | Yes | A proposal is currently tested against an unwritten standard, which makes every other item on this board harder to argue about |
+| 4 | `B13`, `B3` | Yes | Record work. `B3` wants `B4` first if cost-aware subset selection is the point of it |
+| 5 | `B19` | Opportunistic | No next single fix. Taken when a way is found, not scheduled |
+| 6 | `B4` | Blocked | Waiting on the sweep-schedule question below |
 
-Two items are blocked and both are blocked on a decision rather than on work.\
-Everything else is available, and none of it depends on anything else here except `B12` on `B15`.
+One item is blocked, on a decision rather than on work.\
+Everything else is available and nothing depends on anything else here.
 
 ---
 
@@ -150,8 +155,8 @@ Severity `P2`.
 
 | ID | Move | Note |
 |---|---|---|
-| `B15` | Give a deployment the switch `D19` says it has, and govern control alongside data | `D19` states that a deployment configures whether it grants at all, and no such configuration exists. It also leaves control ungoverned, drawing on a reserve rather than a grant, so the ring is bounded by construction rather than by accounting |
-| `B12` | Split the architecture into current and target instants | Now legal, and smaller than when it was filed. The trigger was `D19` ratified but unbuilt; `D19` is built except for the switch `B15` owns, so one declared surface still has no running counterpart. Doing this before `B15` would describe a divergence that `B15` is about to remove |
+| `B12` | Split the architecture into current and target instants | Now legal, and smaller than when it was filed. The trigger was `D19` ratified but unbuilt; `D19` is now built, including the part `B15` owned, so the divergence this would have documented has gone |
+| `B31` | Generate the code unions that are currently written twice | `AgpErrorCode`, `SessionEventCode` and `ConnectionState` are hand-written unions in `core/src/types.ts` beside generated schemas carrying the same values. Section 3.1 of `sdk.md` says the SDK does not create a second handwritten representation, so the document is untrue rather than merely aspirational. The class is live rather than theoretical: `AgpErrorCode` was missing `INSTANCE_UNREACHABLE` when `D26` added it, and the drift was found by a compiler error rather than by a gate |
 
 ---
 
@@ -198,7 +203,6 @@ Scored on the same scale, so not choosing them is visible.
 
 | Question | Blocks |
 |---|---|
-| Whether a node should be able to decline to grant at all, and what a deployment that does so is choosing | `B15`. The wire field is optional and an absent grant is unlimited, so a peer that never negotiated credit is unaffected. What is not built is the switch `D19` says a deployment has, and the default was set to grant because leaving `RECEIVE_OVERFLOW` reachable is the fault `D19` exists to remove |
 | Whether a matrix sweep should run on a schedule, and if so at what depth | `B4`, and whether cost data is worth collecting at all |
 
 ---

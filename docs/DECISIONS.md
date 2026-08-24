@@ -53,6 +53,7 @@ Two renames since affect how these records read, and neither changes what any of
 | D26 | Let a message name the instance it is for, resolved against the candidate routing table at every hop | Amended `Q1(b)` + design + explicit stakeholder direction | Ratified |
 | D27 | Validate what a peer sends, not what this node built | Measurement + explicit stakeholder direction | Ratified |
 | D28 | Let the event loop turn regardless of how a caller drives the node | Measurement + `MX2` + explicit stakeholder direction | Ratified |
+| D29 | Credit a carrier that can be outrun, and only that | Measurement + `MX1` + explicit stakeholder direction | Ratified |
 
 ---
 
@@ -552,7 +553,8 @@ Credit is carried two ways, chosen so each mechanism serves the regime it alread
 | Idle | `KEEPALIVE` | The only regime where no envelope flows, and where keepalive already fires |
 
 An absent grant means unlimited, which is exactly how a peer that never negotiated credit behaves, so the field is optional and the wire shape is preserved.\
-A deployment configures whether it grants at all, and `OPEN` negotiates the initial grant between peers that do.\
+Whether a node grants at all is decided by the carrier beneath it rather than by configuration, which is `D29` and supersedes the deployment switch this sentence originally promised.\
+`OPEN` negotiates the initial grant between peers that do.\
 A receiver never advertises credit exceeding the channel limits it supplied to its adapter, so the ring cannot be oversubscribed by construction.
 
 Exceeding granted credit is a protocol violation and is fatal, in the same class as a revision or identity error.\
@@ -991,6 +993,45 @@ Leaving the caller responsible puts the node's own deadlines at the mercy of an 
 Yielding on every send trades throughput for a calm that nothing needs.
 
 Yielding rarely enough is worse than not yielding, because the queue drained in one turn is then large enough to be the stall.
+
+### D29 - Credit the carrier that can be outrun
+
+**Mechanics.**\
+A carrier declares whether its `send` resolves only once the receiver has room for the packet.\
+A node grants credit to a peer across a carrier that does not make that promise, and does not grant it across one that does.
+
+Absence is the protective answer.\
+An adapter that says nothing is credited, so a carrier gains the bound by default and loses it only by claiming a guarantee.
+
+This replaces the deployment switch `D19` promised and never had.\
+A deployment does not choose.
+
+**Rationale.**\
+Credit exists to stop a sender outrunning its receiver's ring, which is `MX1`.\
+Whether that is possible at all is a property of the carrier and not a preference.
+
+Loopback delivers a pending send only once the receiving side has room, so a sender on it cannot outrun its receiver however hard it tries, and the ring cannot overflow.\
+A socket resolves a send once the kernel holds the bytes, and a local send buffer, a congestion window and a peer receive buffer together hold far more than an AGP ring, which is the scale mismatch `D19` was ratified on.
+
+Measured, credit costs between 16 and 19 per cent of throughput on every carrier.\
+Removing it from Loopback returned 21 and 23 per cent across two clock-matched pairs, and left the socket carriers unchanged and still credited.\
+Removing it from a socket carrier, with the two nodes in separate processes, killed the session mid-burst and purged its routes, which is `MX1` reproduced exactly.
+
+A switch would offer a choice whose correct value the node already knows, and the only way to set it correctly would be to know what the carrier does.\
+Something that can be derived should not be configured.
+
+One measurement is worth recording because it nearly hid this.\
+With both nodes in one process, disabling credit did not fail: two nodes sharing an event loop cannot outrun each other, so `MX1` is unreachable there.\
+It is reachable only with real parallelism, which is what `B22` made testable.
+
+**Consequence.**\
+Crediting a carrier that already awaits receiver capacity spends about a fifth of throughput preventing an overrun that cannot occur.
+
+Declining to credit a carrier that can be outrun returns `MX1`: the session dies mid-burst, its routes are purged, and every `send` resolved successfully first.
+
+Treating absence as a claim of backpressure would make a silent adapter an uncredited one, so the failure of an adapter author to answer would be a protocol fault at the far end.
+
+Letting a deployment override the carrier lets someone reintroduce a known session-killing fault by configuration, which the node had enough information to prevent.
 
 ---
 
