@@ -100,14 +100,19 @@ export function encodeAgpPacket(
     return { ok: false, reasonCode: "LIMIT_INVALID" };
   }
 
-  const validation = validateAgpMessage(message);
-  if (!validation.ok) {
-    return { ok: false, reasonCode: "INVALID_MESSAGE" };
-  }
-
+  // Not validated against its schema here.
+  //
+  // This message was built by this node from its own generated types, so the
+  // check proved that our own construction matched our own contract, and it
+  // cost between a fifth and a quarter of throughput to prove it on every
+  // message forever. It is proven once instead, over the bytes a real topology
+  // puts on the wire, by `outbound-wire-validity`.
+  //
+  // What a peer sends is a different question and is still validated on parse.
+  // Nothing about trusting a peer changed. See `D27`.
   let text: string;
   try {
-    text = JSON.stringify(validation.message);
+    text = JSON.stringify(message);
   } catch {
     return { ok: false, reasonCode: "INVALID_MESSAGE" };
   }
@@ -119,7 +124,7 @@ export function encodeAgpPacket(
   const utf8Bytes = bytes.byteLength;
   if (
     utf8Bytes > sendLimitBytes ||
-    (validation.message.type === "open" &&
+    (message.type === "open" &&
       utf8Bytes > AGP_V1_LIMITS.maxOpenBytes)
   ) {
     return { ok: false, reasonCode: "MESSAGE_TOO_LARGE" };

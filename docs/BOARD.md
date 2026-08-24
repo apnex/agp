@@ -62,7 +62,7 @@ An item that is `I4`/`P1` belongs early even though nobody feels it today, becau
 | `B14` | Name a reproduction for the route-ack expiry a stream provokes | `I2` | `P2` | [`MX2`](VERIFICATION.md#46-open-findings-from-sweeps) | landed |
 | `B16` | Project credit and timing into the operations plane | `I2` | `P1` | [`D20`](DECISIONS.md#d20---observability-of-bounded-resources-and-timing) | landed |
 | `B17` | Derive the trace graph identifier set instead of hardcoding it | `I3` | `P1` | [`GATES.md` section 2](GATES.md#2-gate-ax0---intent-applicability-and-knowledge) | landed |
-| `B18` | Explain the residual event-loop stalls under a stream | `I3` | `P3` | [`MX3`](VERIFICATION.md#46-open-findings-from-sweeps) | open, re-scored |
+| `B18` | Explain the residual event-loop stalls under a stream | `I2` | `P3` | [`MX3`](VERIFICATION.md#46-open-findings-from-sweeps) | landed |
 | `B29` | Move per-message events off the operations stream | `I2` | `P3` | [`D24`](DECISIONS.md#d24---the-operations-stream-is-a-channel-not-a-ledger), [`MX3`](VERIFICATION.md#46-open-findings-from-sweeps) | landed |
 | `B30` | Stop traffic-rated session values advancing the canonical revision | `I3` | `P2` | [`D25`](DECISIONS.md#d25---a-revision-denotes-a-change-to-canonical-state), [`D10`](DECISIONS.md#d10---atomic-canonical-state) | landed |
 | `B19` | Take the per-hop cost against the carrier, opportunistically | `I4` | `P4` | [`MX4`](VERIFICATION.md#46-open-findings-from-sweeps) | open |
@@ -82,7 +82,7 @@ An item that is `I4`/`P1` belongs early even though nobody feels it today, becau
 
 ## Closed
 
-Five milestones are complete and are kept here as one line each; their detail is in the record they cite.
+Six milestones are complete and are kept here as one line each; their detail is in the record they cite.
 
 **Stop the node dying.**\
 `B20` and `B21`, both `I1`, landed together because fixing the first reproduced the second within minutes.\
@@ -112,6 +112,12 @@ Four contaminations were fixed rather than the two expected, and the three attem
 An operator subscriber doing real work lost 256 events of a 600-message stream and now loses none at a buffer of one.\
 A delivered message cost 9.17 canonical revisions and now costs 5.29, because a counter had been claiming that canonical state changed.
 
+**Finish the thread `MX2` opened.**\
+`B18`, ratified as `D27` and `D28`.\
+The residual stall had been recorded as distributed cost with no next single fix, on the strength of one profile that was never tested against and was taken co-located.\
+Disabling each named suspect moved the stall not at all: most of it was the load generator awaiting `send()` in a loop and never reaching the macrotask queue, which is also what any application doing the same would suffer, and the timers it starves are the ones that tore sessions down in `MX2`.\
+Throughput up about 16 per cent and the worst stall down between 40 and 53 per cent, over three clock-matched pairs.
+
 ---
 
 ## Build order
@@ -128,31 +134,11 @@ What they decided is in the record they cite, and what they cost is in the miles
 | 2 | `B12` | Yes, after `B15` | Its own trigger is a declared surface with no running counterpart, and `B15` is the item that removes the last one. Doing it first would document a divergence about to disappear |
 | 3 | `B10` | Yes | A proposal is currently tested against an unwritten standard, which makes every other item on this board harder to argue about |
 | 4 | `B13`, `B3` | Yes | Record work. `B3` wants `B4` first if cost-aware subset selection is the point of it |
-| 5 | `B18`, `B19` | Opportunistic | Neither has a next single fix. They are taken when a way is found, not scheduled |
+| 5 | `B19` | Opportunistic | No next single fix. Taken when a way is found, not scheduled |
 | 6 | `B4` | Blocked | Waiting on the sweep-schedule question below |
 
 Two items are blocked and both are blocked on a decision rather than on work.\
 Everything else is available, and none of it depends on anything else here except `B12` on `B15`.
-
----
-
-## M4 - Finish the thread `MX2` opened
-
-Severity `I3`, lowered from `I2` on 2026-08-23.
-
-| ID | Move | Note |
-|---|---|---|
-| `B18` | Explain the event-loop saturation that remains under a stream | Advanced, and now at diminishing returns. Three projections are memoised, a session transition and a timer reset commit session state rather than everything held, and a fourth memoisation was tried and reverted for producing no measurable gain. A steady-state profile shows the remaining cost is distributed rather than concentrated: schema validation on encode and parse, event materialisation, and the state and action clones the session machine makes per command. There is no next single fix |
-
-`MX3` was scored `I2` because a stall moves every deadline sharing the loop, and that is the mechanism by which healthy sessions were torn down before `D21`.\
-Both of its demonstrated consequences are now closed: subscriber starvation by `D24`, and the revision rate by `D25`, which took a delivered message from 9.17 canonical revisions to 5.29.
-
-What remains is a stall that is real and measured, 450 ms co-located and 30 ms isolated under a stream, and that no longer breaks anything observed.\
-It is therefore a degraded capability that the operations plane reports honestly rather than a failure a user must work around, which is `I3` on this scale and not `I2`.
-
-The lowering is recorded rather than assumed, because it is the kind of judgement that should be easy to overturn.\
-Confirmed intent section 2.5 says a cost that moves a deadline is a correctness fault wearing a performance costume, and a 450 ms stall against a two second route-acknowledgement deadline is not comfortable.\
-If a deadline is shown to move again, this returns to `I2` without needing a new argument.
 
 ---
 

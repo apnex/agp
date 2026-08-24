@@ -1,9 +1,27 @@
 export class MemoryPeerNetwork {
   #listeners = new Map();
   #peerEvidence;
+  // Every outbound packet, when a test asks for them. This is the only place
+  // every message a node sends passes through as bytes, whatever built it, so
+  // a gate over what AGP puts on the wire belongs here rather than over the
+  // constructors it happens to know about.
+  #captured;
 
-  constructor({ peerEvidence = defaultPeerEvidence() } = {}) {
+  constructor({ peerEvidence = defaultPeerEvidence(), capture = false } = {}) {
     this.#peerEvidence = peerEvidence;
+    this.#captured = capture ? [] : undefined;
+  }
+
+  /** Every packet sent since the network was created, as raw bytes. */
+  captured() {
+    if (this.#captured === undefined) {
+      throw new Error("construct the network with { capture: true }");
+    }
+    return [...this.#captured];
+  }
+
+  observe(bytes) {
+    this.#captured?.push(bytes);
   }
 
   transport({ listeners = [], targets = [] } = {}) {
@@ -82,6 +100,7 @@ export class MemoryPeerNetwork {
       listener.limits.channel,
       listener.releaseChannel,
       this.#peerEvidence,
+      this,
     );
     queueMicrotask(() => {
       listener.callbacks.accept({ channel: pair.inbound });
@@ -98,10 +117,11 @@ class MemoryChannel {
   #terminal;
   #release;
 
-  constructor(limits, release, peerEvidence) {
+  constructor(limits, release, peerEvidence, network) {
     this.readonlyLimits = limits;
     this.#release = release;
     this.peerEvidence = peerEvidence;
+    this.network = network;
   }
 
   async send(packet, signal) {
@@ -116,6 +136,7 @@ class MemoryChannel {
       throw new Error("packet too large");
     }
     const bytes = new Uint8Array(packet.bytes);
+    this.network?.observe(bytes);
     this.peer.#reads.push(Object.freeze({
       kind: "packet",
       packet: Object.freeze({ bytes }),
@@ -228,6 +249,7 @@ function createChannelPair(
   inboundLimits,
   release,
   peerEvidence,
+  network,
 ) {
   let released = false;
   const releaseOnce = () => {
@@ -239,11 +261,13 @@ function createChannelPair(
     outboundLimits,
     releaseOnce,
     peerEvidence,
+    network,
   );
   const inbound = new MemoryChannel(
     inboundLimits,
     releaseOnce,
     peerEvidence,
+    network,
   );
   outbound.peer = inbound;
   inbound.peer = outbound;

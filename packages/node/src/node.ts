@@ -609,6 +609,7 @@ export class NodeImpl implements AgpNode, SessionHost {
     if (options.signal?.aborted) {
       throw new AgpError("ABORTED", "node.send", "send aborted");
     }
+    await this.#yieldIfLoopStarved();
     try {
       const receipt = await this.#dataPlane.send(
         source,
@@ -715,6 +716,35 @@ export class NodeImpl implements AgpNode, SessionHost {
         }
       },
     };
+  }
+
+  #sendsSinceYield = 0;
+
+  /**
+   * Let the event loop turn, periodically, whatever the caller does.
+   *
+   * A caller that awaits `send()` in a loop never reaches the macrotask queue,
+   * because every step of admission settles as a microtask and microtasks are
+   * drained to exhaustion before a timer is allowed to fire. Nothing the
+   * caller does wrong causes this; it is what a tight await loop is.
+   *
+   * The timers it starves include this node's own hold and route-acknowledgement
+   * deadlines, and a starved deadline is exactly how healthy sessions were torn
+   * down in `MX2`. So a well-meaning caller must not be able to stop them
+   * firing, and that is not something a document can guarantee.
+   *
+   * Measured on an isolated pair: never yielding read 4983 messages a second
+   * with a 25 ms worst stall, and yielding every sixteenth read 5352 with a
+   * 10 ms stall. Yielding is faster as well as calmer, because a loop that
+   * never turns also never lets the writer drain. See `D28`.
+   */
+  async #yieldIfLoopStarved(): Promise<void> {
+    this.#sendsSinceYield += 1;
+    if (this.#sendsSinceYield < SENDS_PER_LOOP_YIELD) return;
+    this.#sendsSinceYield = 0;
+    await new Promise<void>((resolve) => {
+      setImmediate(resolve);
+    });
   }
 
   nextMessageId(): MessageId {
@@ -1876,6 +1906,15 @@ class CryptoIdSource implements IdSourcePort {
     return `${scope}-${randomUUID()}`;
   }
 }
+
+/**
+ * How many sends may settle before the event loop is allowed to turn.
+ *
+ * Sixteen, because it measured faster than not yielding at all and less than
+ * half as stalled. One is calmer still and costs throughput; a hundred and
+ * twenty-eight is worse than never yielding on both counts. See `D28`.
+ */
+const SENDS_PER_LOOP_YIELD = 16;
 
 const ALLOW_IDENTITY: IdentityAdmissionPort = Object.freeze({
   async evaluate(): Promise<import("@agp/core").IdentityAdmissionResult> {

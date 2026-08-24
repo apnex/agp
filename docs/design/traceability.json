@@ -1291,6 +1291,50 @@
         "packages/node/test/contract/destination-selector.test.js"
       ],
       "integrationWitnesses": []
+    },
+    {
+      "requirementId": "D27",
+      "ratificationStatus": "ratified",
+      "implementation": "built",
+      "authorities": [
+        {
+          "kind": "decision",
+          "reference": "D27",
+          "ratification": "ratified"
+        }
+      ],
+      "designReferences": [
+        "../DECISIONS.md#d27---validate-what-a-peer-sends-not-what-this-node-built"
+      ],
+      "schemaIds": [],
+      "semanticRuleIds": [],
+      "owningGate": "AX5",
+      "owningTests": [
+        "packages/node/test/contract/outbound-wire-validity.test.js"
+      ],
+      "integrationWitnesses": []
+    },
+    {
+      "requirementId": "D28",
+      "ratificationStatus": "ratified",
+      "implementation": "built",
+      "authorities": [
+        {
+          "kind": "decision",
+          "reference": "D28",
+          "ratification": "ratified"
+        }
+      ],
+      "designReferences": [
+        "../DECISIONS.md#d28---the-event-loop-turns-regardless-of-how-a-caller-drives-the-node"
+      ],
+      "schemaIds": [],
+      "semanticRuleIds": [],
+      "owningGate": "AX5",
+      "owningTests": [
+        "packages/node/test/contract/caller-loop-starvation.test.js"
+      ],
+      "integrationWitnesses": []
     }
   ]
 }

@@ -51,6 +51,8 @@ Two renames since affect how these records read, and neither changes what any of
 | D24 | Make the operations stream a channel for what an operator must act on, and carry per-message detail elsewhere | Measurement + explicit stakeholder direction | Ratified |
 | D25 | Advance the canonical revision only when canonical state changed, not when a timer was reset | Measurement + `D10` + explicit stakeholder direction | Ratified |
 | D26 | Let a message name the instance it is for, resolved against the candidate routing table at every hop | Amended `Q1(b)` + design + explicit stakeholder direction | Ratified |
+| D27 | Validate what a peer sends, not what this node built | Measurement + explicit stakeholder direction | Ratified |
+| D28 | Let the event loop turn regardless of how a caller drives the node | Measurement + `MX2` + explicit stakeholder direction | Ratified |
 
 ---
 
@@ -937,6 +939,58 @@ Charging every message for a destination shape only some messages use spends the
 Replicating to every advertiser is not a fourth mode.\
 It shares the addressing and shares nothing else: the forwarding needs a fan-out point, loop handling across branches, deduplication where branches reconverge, and per-branch accounting.\
 It stays `F13`.
+
+### D27 - Validate what a peer sends, not what this node built
+
+**Mechanics.**\
+A message arriving from a peer is validated against its sovereign schema before anything reads it.\
+A message this node constructed is not validated again when it is encoded.
+
+The shapes this node emits are proven once instead, over the bytes a converged topology actually puts on the wire, by a gate that reads every packet the transport carries.
+
+**Rationale.**\
+An outbound message is built by this node from its own generated types against its own contract, so validating it proved that our construction matched our own description.\
+Measured across five clock-matched pairs, removing it gained between 6 and 14 per cent of throughput, with a median near 9.
+
+Trust is the whole distinction.\
+A peer's message is evidence about someone else and must be checked; this node's message is a statement about itself, and a statement cannot corroborate itself by being read twice.
+
+The gate is over bytes at the transport rather than over the constructors, because the transport is the one place every packet passes whatever produced it.\
+A gate over constructors proves the constructors someone remembered to list.
+
+**Consequence.**\
+Dropping parse-side validation would let a peer decide what this node parses, which is the opposite change and is not this one.
+
+Gating the constructors rather than the wire leaves any message built somewhere the gate does not know about unproven, and the set of such places grows quietly.
+
+Keeping the check behind a deployment switch would make the fast path the one nobody tested.
+
+### D28 - The event loop turns regardless of how a caller drives the node
+
+**Mechanics.**\
+A bounded number of sends may settle before the node yields to the macrotask queue.\
+Sixteen is the number, and it is a constant rather than a knob.
+
+**Rationale.**\
+Every step of admission settles as a microtask, and microtasks are drained to exhaustion before a timer is allowed to fire.\
+A caller that awaits `send()` in a loop therefore never reaches the macrotask queue, and nothing it does wrong causes that: it is what a tight await loop is.
+
+The timers it starves include this node's own hold and route-acknowledgement deadlines.\
+A starved deadline is exactly how healthy sessions were torn down in `MX2`, so a well-meaning caller must not be able to stop those timers firing, and a document cannot guarantee that.
+
+Yielding is also faster.\
+Measured on an isolated pair, never yielding read 4983 messages a second with a 25 ms worst stall; yielding every sixteenth read 5352 with a 10 ms stall, because a loop that never turns also never lets the writer drain.\
+Every send is calmer still at 4 ms and costs throughput; every hundred and twenty-eighth is worse than never yielding on both counts.
+
+It is a constant because the measurement chose it and no deployment has a reason to differ.\
+A knob here would be a knob nobody can tune without repeating this measurement.
+
+**Consequence.**\
+Leaving the caller responsible puts the node's own deadlines at the mercy of an application's loop shape, which is the failure `D19` and `D21` were spent removing by other routes.
+
+Yielding on every send trades throughput for a calm that nothing needs.
+
+Yielding rarely enough is worse than not yielding, because the queue drained in one turn is then large enough to be the stall.
 
 ---
 

@@ -312,7 +312,7 @@ A finding stays here until it is closed by a design decision or a regression tes
 |---|---|---|
 | `MX1` | A sender that offers messages back to back over WebSocket overruns the receiver, which commits `RECEIVE_OVERFLOW`, closes the session, purges its routes, and reconnects. Delivered messages equal `maxBufferedPackets` exactly, at every bound tested from 16 to 128. Every `send()` resolved successfully first. | Closed by `D19`, gated by `test/topology/credit-flow-control.test.js` |
 | `MX2` | A four-node diamond carrying twenty-four endpoints per node fails a two-second `routeAckTimeoutMs` while a stream is in flight, on sessions that carry no data of their own. Raising only that deadline to twenty seconds passes the same cell with every message delivered. | Closed by `D21`, gated by `packages/core/test/unit/write-path-cost.test.js` |
-| `MX3` | A stream saturates the event loop. A one-millisecond interval timer fires about twelve times across a whole run, so the loop drains roughly that often and the synchronous blocks between drains average around twenty milliseconds. A block of that size moves any deadline sharing the loop, which is the mechanism that tore down healthy sessions before `D21`. | Open, reduced. Its two demonstrated consequences are closed: subscriber starvation by `D24`, and the revision rate by `D25`, which took a delivered message from 9.17 canonical revisions to 5.29. What remains is distributed cost with no next single fix |
+| `MX3` | A stream saturates the event loop. A one-millisecond interval timer fires about twelve times across a whole run, so the loop drains roughly that often and the synchronous blocks between drains average around twenty milliseconds. A block of that size moves any deadline sharing the loop, which is the mechanism that tore down healthy sessions before `D21`. | Closed. Root-caused rather than reduced: most of it was a caller awaiting `send()` in a loop and never reaching the macrotask queue, closed by `D28`; the largest concentrated cost was validating this node's own outbound messages, closed by `D27`; and its two earlier consequences were closed by `D24` and `D25`. Gated by `caller-loop-starvation.test.js` and `outbound-wire-validity.test.js` |
 | `MX5` | A node stopped sending permanently after `maxLabelBindings` originated messages, because the expiry sweep that releases a label binding was called from nowhere. | Closed, gated by `packages/node/test/contract/label-binding-expiry.test.js` |
 | `MX6` | An unhandled rejection on the inbound data path, from `dispatchData` discarding the result of `admitData` with `void`, ended the process. Reproduced once `MX5` was fixed and the sender could reach the receiver's refusal path. | Closed, gated by `packages/node/test/contract/inbound-dispatch-failure.test.js` |
 | `MX7` | Sustained send rate was bounded by `maxLabelBindings` divided by the correlation lifetime, about 136 messages a second at defaults against a burst ceiling near 2850. A label binding was released by a failure or by expiry and never by success, so a flow that never failed still filled the store. | Closed by `D23`, gated by `packages/node/test/contract/disposition-release.test.js`, measured by `scripts/sustained-rate.mjs` |
@@ -398,6 +398,47 @@ The fourth event per message was a `session.transition` announcing that the sess
 `D22` records why it is now withheld for a delivery and kept for a keepalive, and the short of it is that the delivery already announced itself three times while the keepalive announces nothing else.\
 Three events per delivered message remain, and all three are earned.
 
+#### What the saturation actually was
+
+`B18`.\
+The residual stall was attributed to distributed cost on the strength of one steady-state profile, and that attribution was wrong twice over.
+
+It was wrong because it was never tested.\
+Section 4.9 rule 11 requires disabling a suspected path and requiring the number to move, and none of the three suspects a profile had named was ever disabled.\
+When they finally were, none of them moved the stall at all.
+
+It was also wrong because it was measured co-located, where two nodes share one event loop.\
+`B22` later put the co-located stall at 450 ms against 30 ms isolated, so most of what had been profiled was two nodes contending rather than one node working.
+
+Disabling each suspect in turn, with the driver yielding so its own loop was not the subject:
+
+| Suspect disabled | Throughput | Worst stall |
+|---|---|---|
+| Schema validation on encode | +6% to +14% | unchanged |
+| Schema validation on parse | +4% to +12% | unchanged |
+| Event materialisation | 0% to +4% | unchanged |
+| Session state clone per command | 0% | unchanged |
+
+So the cost was concentrated and the stall was somewhere else entirely.
+
+The stall was the load generator.\
+`saturate` awaits `send()` in a tight loop, every step of admission settles as a microtask, and microtasks are drained to exhaustion before a timer fires, so the loop never reached the macrotask queue and the one-millisecond sampler never ran.
+
+| Driver yields | Throughput | Worst stall |
+|---|---|---|
+| Never | 4983 msg/s | 25181 us |
+| Every send | 4683 msg/s | 4279 us |
+| Every 16 sends | 5352 msg/s | 10242 us |
+| Every 128 sends | 4882 msg/s | 31798 us |
+
+Around 21 ms of the 25 was the harness, and about 4 ms is the node.
+
+That is not only an instrument fault, which is why it produced a decision rather than a correction.\
+Any application that awaits `send()` in a loop starves the same loop, and the timers it starves include this node's hold and route-acknowledgement deadlines, which is the `MX2` teardown mechanism exactly.\
+`D28` makes the node yield every sixteenth send so a caller cannot do this, and `D27` stops validating outbound messages this node built itself.
+
+Measured together over three clock-matched pairs, against the same binary without them: throughput up 14.8, 15.9 and 16.8 per cent, and the worst stall down 53, 40 and 44 per cent.
+
 #### What loop saturation does to an event subscriber
 
 `MX3` was scored a latent correctness fault on the argument that a stall moves deadlines.\
@@ -433,7 +474,8 @@ Absolute figures drift between sessions on a shared machine, and this is where t
 The same measurement read 525 microseconds per message one hour and 670 the next with no change in between, and the deepened sweep read 40 seconds and then 25.\
 Only measurements taken against each other within one session are comparable, and any figure quoted here without its counterpart is an observation rather than evidence.\
 A message costs about 525 microseconds end to end through a node pair, down from roughly one millisecond, and the deepened sweep runs in about 40 seconds against 284 before any of this began.\
-What is not yet explained is why six commits are needed per delivered message, and that is the next thread rather than a conclusion.
+Six commits per delivered message was the next thread, and it ran out.\
+`D25` took a delivered message from 9.17 canonical revisions to 5.29 by stopping four traffic-rated values inside a session record from claiming that canonical state changed, and what remains is the counter increments, which are genuine.
 
 `MX3` and `MX4` are separated because confirmed intent scores them differently.\
 There is no performance target, so a cost that is merely large is not a defect and `MX4` is an opportunity rather than an obligation.\
@@ -535,7 +577,8 @@ Absolute figures drift between sessions on a shared machine, and this is where t
 The same measurement read 525 microseconds per message one hour and 670 the next with no change in between, and the deepened sweep read 40 seconds and then 25.\
 Only measurements taken against each other within one session are comparable, and any figure quoted here without its counterpart is an observation rather than evidence.\
 A message costs about 525 microseconds end to end through a node pair, down from roughly one millisecond, and the deepened sweep runs in about 40 seconds against 284 before any of this began.\
-What is not yet explained is why six commits are needed per delivered message, and that is the next thread rather than a conclusion.
+Six commits per delivered message was the next thread, and it ran out.\
+`D25` took a delivered message from 9.17 canonical revisions to 5.29 by stopping four traffic-rated values inside a session record from claiming that canonical state changed, and what remains is the counter increments, which are genuine.
 
 `MX3` and `MX4` are separated because confirmed intent scores them differently.\
 There is no performance target, so a cost that is merely large is not a defect and `MX4` is an opportunity rather than an obligation.\
