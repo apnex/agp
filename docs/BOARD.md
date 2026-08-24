@@ -77,6 +77,7 @@ An item that is `I4`/`P1` belongs early even though nobody feels it today, becau
 | `B7` | Route volume beyond the 256 snapshot ceiling | `I3` | `P3` | [`D4`](DECISIONS.md#d4---full-route-snapshots) | held |
 | `B8` | Rewrite named geometry tests onto shared builders | `I4` | `P4` | [`VERIFICATION.md` section 4.7](VERIFICATION.md#47-matrix-execution) | held |
 | `B10` | Author an enduring intent statement for AGP | `I4` | `P3` | [`ARCHITECTURE.md` section 10](ARCHITECTURE.md#10-scope-boundary), [`DECISIONS.md` section 2](DECISIONS.md#2-confirmed-intent) | open |
+| `B31` | Generate the code unions that are currently written twice | `I4` | `P2` | [`D3`](DECISIONS.md#d3---sovereign-contracts), [`sdk.md` section 3.1](design/sdk.md#31-schema-backed-dtos) | open |
 
 ---
 
@@ -132,10 +133,11 @@ What they decided is in the record they cite, and what they cost is in the miles
 |---|---|---|---|
 | 1 | `B15` | Blocked | Waiting on the credit switch question below. It is the only open item above `I4` that a decision would unblock |
 | 2 | `B12` | Yes, after `B15` | Its own trigger is a declared surface with no running counterpart, and `B15` is the item that removes the last one. Doing it first would document a divergence about to disappear |
-| 3 | `B10` | Yes | A proposal is currently tested against an unwritten standard, which makes every other item on this board harder to argue about |
-| 4 | `B13`, `B3` | Yes | Record work. `B3` wants `B4` first if cost-aware subset selection is the point of it |
-| 5 | `B19` | Opportunistic | No next single fix. Taken when a way is found, not scheduled |
-| 6 | `B4` | Blocked | Waiting on the sweep-schedule question below |
+| 3 | `B31` | Yes | A design document says the SDK does not do this, and it does, three times. Scored on the breach rather than the impact |
+| 4 | `B10` | Yes | A proposal is currently tested against an unwritten standard, which makes every other item on this board harder to argue about |
+| 5 | `B13`, `B3` | Yes | Record work. `B3` wants `B4` first if cost-aware subset selection is the point of it |
+| 6 | `B19` | Opportunistic | No next single fix. Taken when a way is found, not scheduled |
+| 7 | `B4` | Blocked | Waiting on the sweep-schedule question below |
 
 Two items are blocked and both are blocked on a decision rather than on work.\
 Everything else is available, and none of it depends on anything else here except `B12` on `B15`.
@@ -162,6 +164,7 @@ Grouped by severity rather than theme, so three unrelated subjects sit together 
 |---|---|---|
 | `B10` | Author an enduring intent statement | Scope and anti-goals are recorded, but the purpose they serve is not. A proposal is currently tested against an unwritten standard |
 | `B3` | Declare which mechanisms each matrix cell exercises | Makes a minimal covering subset computable rather than editorial. `traceability.json` links requirements to tests but not to dimension values |
+| `B31` | Generate the code unions that are currently written twice | `AgpErrorCode`, `SessionEventCode` and `ConnectionState` are hand-written unions in `core/src/types.ts` beside generated schemas carrying the same values. Section 3.1 of `sdk.md` says the SDK does not create a second handwritten representation, so the document is untrue rather than merely aspirational. The class is live rather than theoretical: `AgpErrorCode` was missing `INSTANCE_UNREACHABLE` when `D26` added it, and the drift was found by a compiler error rather than by a gate |
 | `B13` | Generate the package and dependency tables from the manifests | Both are derivable and hand-maintained. `contracts.md` carried three stale paths for months, and section 10 is still forked with the `F` series, so the fault class is observed rather than theoretical |
 
 ---
