@@ -76,7 +76,7 @@ An item that is `I4`/`P1` belongs early even though nobody feels it today, becau
 | `B6` | Certificate and HTTP-authenticated WebSocket profiles | `I3` | `P3` | [`F07`](design/mechanisms.md) | held |
 | `B7` | Route volume beyond the 256 snapshot ceiling | `I3` | `P3` | [`D4`](DECISIONS.md#d4---full-route-snapshots) | held |
 | `B8` | Rewrite named geometry tests onto shared builders | `I4` | `P4` | [`VERIFICATION.md` section 4.7](VERIFICATION.md#47-matrix-execution) | held |
-| `B10` | Author an enduring intent statement for AGP | `I4` | `P3` | [`ARCHITECTURE.md` section 10](ARCHITECTURE.md#10-scope-boundary), [`DECISIONS.md` section 2](DECISIONS.md#2-confirmed-intent) | open |
+| `B10` | Author an enduring intent statement for AGP | `I4` | `P3` | [`ARCHITECTURE.md` section 10](ARCHITECTURE.md#10-scope-boundary), [`DECISIONS.md` section 2](DECISIONS.md#2-confirmed-intent) | landed |
 | `B31` | Generate the code unions that are currently written twice | `I4` | `P2` | [`D3`](DECISIONS.md#d3---sovereign-contracts), [`sdk.md` section 3.1](design/sdk.md#31-schema-backed-dtos) | landed |
 | `B32` | Give a closed domain a schema that is as closed as its type | `I3` | `P2` | [`D3`](DECISIONS.md#d3---sovereign-contracts), [`contracts.md` section 6](design/contracts.md#61-configuration) | landed |
 
@@ -146,10 +146,9 @@ What they decided is in the record they cite, and what they cost is in the miles
 
 | Order | Item | Ready | Why here |
 |---|---|---|---|
-| 1 | `B10` | Yes | A proposal is currently tested against an unwritten standard, which makes every other item on this board harder to argue about |
-| 2 | `B13`, `B3` | Yes | Record work. `B3` wants `B4` first if cost-aware subset selection is the point of it |
-| 3 | `B19` | Opportunistic | No next single fix. Taken when a way is found, not scheduled |
-| 4 | `B4` | Blocked | Waiting on the sweep-schedule question below |
+| 1 | `B13`, `B3` | Yes | Record work. `B3` wants `B4` first if cost-aware subset selection is the point of it |
+| 2 | `B19` | Opportunistic | No next single fix. Taken when a way is found, not scheduled |
+| 3 | `B4` | Blocked | Waiting on the sweep-schedule question below |
 
 One item is blocked, on a decision rather than on work.\
 Everything else is available and nothing depends on anything else here.
@@ -159,11 +158,10 @@ Everything else is available and nothing depends on anything else here.
 ## M8 - Record what the system already knows about itself
 
 Severity `P3`.\
-Grouped by severity rather than theme, so three unrelated subjects sit together because they cost the same to leave unwritten.
+Grouped by severity rather than theme, so two unrelated subjects sit together because they cost the same to leave unwritten.
 
 | ID | Move | Note |
 |---|---|---|
-| `B10` | Author an enduring intent statement | Scope and anti-goals are recorded, but the purpose they serve is not. A proposal is currently tested against an unwritten standard |
 | `B3` | Declare which mechanisms each matrix cell exercises | Makes a minimal covering subset computable rather than editorial. `traceability.json` links requirements to tests but not to dimension values |
 | `B13` | Generate the package and dependency tables from the manifests | Both are derivable and hand-maintained. `contracts.md` carried three stale paths for months, and section 10 is still forked with the `F` series, so the fault class is observed rather than theoretical |
 

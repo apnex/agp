@@ -21,8 +21,9 @@ Three terms in that sentence carry weight, so this document defines them rather 
 
 **Routing guarantees** means the properties an interior gateway protocol provides and a message bus does not: every node computes reachability from state it holds, selection is deterministic, paths cannot loop, withdrawal is atomic, and a message with no usable route is refused before it is sent rather than accepted and lost.
 
-**By name** means an endpoint is the unit of reachability.\
-A sender names the endpoint it wants, never a host, port, address, or intermediate node.\
+**By name** means an endpoint is the unit of reachability, optionally qualified by which instance of it the sender wants.\
+A sender names the endpoint, and may name the instance advertising it where one advertiser is not interchangeable with another; it never names a host, port, address, or intermediate node.\
+Naming the endpoint alone means any advertiser may serve the message, which is a consequence of addressing rather than a choice, and the qualification exists so that the choice can be made deliberately.\
 The name is what propagates, and the topology is what changes underneath it.
 
 **No one centrally administers** means there is no broker, no registry, no controller, and no node whose failure removes reachability that other nodes could have computed.\
@@ -73,8 +74,9 @@ There is no central node, no store, and no delivery agent.\
 A node forwards or refuses; it never accepts custody on behalf of a destination.
 
 **Not a durable queue.**\
-Nothing is persisted, replayed, retried, or acknowledged end to end.\
-A send that resolves means one node admitted it against a route it can justify, and that is all it means.
+Nothing is persisted, replayed, or retried, and securing delivery is never an obligation this layer accepts.\
+A send that resolves means one node admitted it against a route it can justify, and that is all it means.\
+Whether the message reached its destination is reported back where that can be known, and such a report is an observation rather than a guarantee: nothing re-sends what it says failed.
 
 **Not a remote procedure call framework.**\
 There is no request and response pairing, no service contract, and no interface description.\
