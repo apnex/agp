@@ -77,6 +77,7 @@ An item that is `I4`/`P1` belongs early even though nobody feels it today, becau
 | `B7` | Route volume beyond the 256 snapshot ceiling | `I3` | `P3` | [`D4`](DECISIONS.md#d4---full-route-snapshots) | held |
 | `B8` | Rewrite named geometry tests onto shared builders | `I4` | `P4` | [`VERIFICATION.md` section 4.7](VERIFICATION.md#47-matrix-execution) | held |
 | `B10` | Author an enduring intent statement for AGP | `I4` | `P3` | [`ARCHITECTURE.md` section 10](ARCHITECTURE.md#10-scope-boundary), [`DECISIONS.md` section 2](DECISIONS.md#2-confirmed-intent) | open |
+| `B31` | Generate the code unions that are currently written twice | `I4` | `P2` | [`D3`](DECISIONS.md#d3---sovereign-contracts), [`sdk.md` section 3.1](design/sdk.md#31-schema-backed-dtos) | landed |
 | `B32` | Give a closed domain a schema that is as closed as its type | `I3` | `P2` | [`D3`](DECISIONS.md#d3---sovereign-contracts), [`contracts.md` section 6](design/contracts.md#61-configuration) | landed |
 
 ---
@@ -164,7 +165,6 @@ Grouped by severity rather than theme, so three unrelated subjects sit together 
 |---|---|---|
 | `B10` | Author an enduring intent statement | Scope and anti-goals are recorded, but the purpose they serve is not. A proposal is currently tested against an unwritten standard |
 | `B3` | Declare which mechanisms each matrix cell exercises | Makes a minimal covering subset computable rather than editorial. `traceability.json` links requirements to tests but not to dimension values |
-| `B31` | Generate the code unions that are currently written twice | `AgpErrorCode`, `SessionEventCode` and `ConnectionState` are hand-written unions in `core/src/types.ts` beside generated schemas carrying the same values. Section 3.1 of `sdk.md` says the SDK does not create a second handwritten representation, so the document is untrue rather than merely aspirational. The class is live rather than theoretical: `AgpErrorCode` was missing `INSTANCE_UNREACHABLE` when `D26` added it, and the drift was found by a compiler error rather than by a gate |
 | `B13` | Generate the package and dependency tables from the manifests | Both are derivable and hand-maintained. `contracts.md` carried three stale paths for months, and section 10 is still forked with the `F` series, so the fault class is observed rather than theoretical |
 
 ---
