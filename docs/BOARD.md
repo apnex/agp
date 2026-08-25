@@ -80,11 +80,11 @@ An item that is `I4`/`P1` belongs early even though nobody feels it today, becau
 | `B31` | Generate the code unions that are currently written twice | `I4` | `P2` | [`D3`](DECISIONS.md#d3---sovereign-contracts), [`sdk.md` section 3.1](design/sdk.md#31-schema-backed-dtos) | landed |
 | `B32` | Give a closed domain a schema that is as closed as its type | `I3` | `P2` | [`D3`](DECISIONS.md#d3---sovereign-contracts), [`contracts.md` section 6](design/contracts.md#61-configuration) | landed |
 | `B11` | Reconcile the scope boundary with the `F` series it is forked with | `I4` | `P2` | [`ARCHITECTURE.md` section 10](ARCHITECTURE.md#10-scope-boundary), [`F07`](design/mechanisms.md) | open |
-| `B37` | Gate that a record citing a board item reaches the board | `I4` | `P2` | [`BOARD.md` section 1](BOARD.md#the-contract-between-board-and-record), [`ARCHITECTURE.md` section 1](ARCHITECTURE.md#1-status-and-authority) | open |
-| `B33` | Gate that a ratified decision reaches the vision it changes | `I4` | `P2` | [`VISION.md`](../VISION.md#authority), [`DECISIONS.md`](DECISIONS.md) | open |
+| `B37` | Gate that a record citing a board item reaches the board | `I4` | `P2` | [`BOARD.md` section 1](BOARD.md#the-contract-between-board-and-record), [`ARCHITECTURE.md` section 1](ARCHITECTURE.md#1-status-and-authority) | landed |
+| `B33` | Gate that a ratified decision reaches the vision it changes | `I4` | `P2` | [`VISION.md`](../VISION.md#authority), [`DECISIONS.md`](DECISIONS.md) | landed |
 | `B34` | Give confirmed intent one subsection numbering | `I4` | `P2` | [`DECISIONS.md` section 2](DECISIONS.md#2-confirmed-intent) | open |
 | `B35` | Bound the tests that await an event with no deadline | `I4` | `P4` | [`TESTING.md`](TESTING.md) | held |
-| `B36` | Gate the self-consistency this board declares | `I4` | `P2` | [`BOARD.md` section 1](BOARD.md#the-contract-between-board-and-record) | open |
+| `B36` | Gate the self-consistency this board declares | `I4` | `P2` | [`BOARD.md` section 1](BOARD.md#the-contract-between-board-and-record) | landed |
 
 ---
 
@@ -152,11 +152,10 @@ What they decided is in the record they cite, and what they cost is in the miles
 
 | Order | Item | Ready | Why here |
 |---|---|---|---|
-| 1 | `B36`, `B33`, `B37` | Yes | One gate class. Each is a record asserting something about another record with nothing checking it, so building them apart triples the harness |
-| 2 | `B34` | Yes | Independent of the gates and small. An ambiguous citation by number |
-| 3 | `B11` | Yes | Content rather than gate, and separated from `B37` because reconciling two lists of deferrals is editorial judgement rather than mechanism |
-| 4 | `B13`, `B3` | Yes | Record work. `B3` selects a covering subset by coverage rather than by cost, now that cost data is not being collected |
-| 5 | `B19` | Opportunistic | No next single fix. Taken when a way is found, not scheduled |
+| 1 | `B34` | Yes | Small, and the gates now hold the board still while it is edited |
+| 2 | `B11` | Yes | Content rather than gate. Reconciling two lists of deferrals is editorial judgement rather than mechanism |
+| 3 | `B13`, `B3` | Yes | Record work. `B3` selects a covering subset by coverage rather than by cost, now that cost data is not being collected |
+| 4 | `B19` | Opportunistic | No next single fix. Taken when a way is found, not scheduled |
 
 Nothing is blocked, and nothing here depends on anything else here.\
 The gates in row one are grouped because they share a harness, not because one needs another.
@@ -168,15 +167,13 @@ The gates in row one are grouped because they share a harness, not because one n
 Severity `P2`.\
 Each of these is a record stating something that is not true, rather than a record that is merely incomplete, which is why they sit above `M8`.
 
-All three were surfaced by being asked a question rather than by any gate, and each names the gate that would have caught it.
+The three gates this milestone opened with have landed, and what remains is the content they cannot judge.\
+`B34` is a numbering an author must choose, and `B11` is two lists of deferrals that have to be read against each other.
 
 | ID | Move | Note |
 |---|---|---|
-| `B33` | Gate that a ratified decision reaches the vision it changes | Ten decisions were ratified after `VISION.md` was written and two contradicted it for fifty-six commits. The document states the rule itself and nothing enforces it. A watermark cannot live in the vision, which carries no point-in-time state, so the register belongs beside it |
 | `B34` | Give confirmed intent one subsection numbering | `DECISIONS.md` numbers two different sections `2.5` and orders them `2.3`, `2.5`, `2.4`, `2.5`. `BOARD.md` cites section 2.5 for the performance intent, and that citation is ambiguous by number rather than wrong |
-| `B36` | Gate the self-consistency this board declares | The contract above says this board must not disagree with the record about any item's state, and five tests check structure while none check state. A row reading open beside a milestone reading landed, a closed count that had drifted, and a landed item sitting in a live milestone all passed the suite on the same day. Each was caught by hand, and the hand-run version was thrown away rather than kept |
 | `B11` | Reconcile the scope boundary with the `F` series it is forked with | Section 10 lists what is included and deferred, and the `F` series lists deferred mechanisms with their re-entry conditions, so a deferral is written twice and section 10 is marked provisional because of it. Editorial work with its own risk: the two lists have to be read against each other before either can be cut |
-| `B37` | Gate that a record citing a board item reaches the board | `ARCHITECTURE.md` has cited `B11` as the item resolving section 10 since the architecture was promoted, and `B11` had never existed here. The board checks its own items reach the ledger and nothing checks the reverse, so a record may cite a move that was never filed |
 
 ---
 

@@ -1,0 +1,51 @@
+{
+  "$comment": "Register of ratified decisions resolved against VISION.md. The vision states that a ruling changing direction is absorbed into it; this file is where that judgement is recorded, because a vision carries no point-in-time state and a watermark inside it would make one status line declare the currency of both. Gated by test/conformance/record-integrity.test.js.",
+  "absorbedThrough": 19,
+  "absorbedThroughNote": "VISION.md was authored with D1 through D19 already ratified and in view, so those decisions are absorbed by authorship rather than by entry. Every decision ratified after it must be resolved below.",
+  "dispositions": {
+    "absorbed": "The decision changed direction and VISION.md was amended to carry it.",
+    "not-applicable": "The decision changes the system without changing what the programme is for or what it excludes."
+  },
+  "decisions": {
+    "D20": {
+      "disposition": "not-applicable",
+      "reason": "Projects bounded resources and timing into the operations plane. The vision already requires a forwarding outcome to be justified by state the node holds, and exposing that state neither widens nor narrows what the programme is for."
+    },
+    "D21": {
+      "disposition": "not-applicable",
+      "reason": "An efficiency rule for how canonical state is written. It names no purpose the vision states and collides with no exclusion it makes."
+    },
+    "D22": {
+      "disposition": "not-applicable",
+      "reason": "Changes what an observer is told about a self-transition. The vision speaks to what is delivered and what is refused, not to how a state change is announced."
+    },
+    "D23": {
+      "disposition": "absorbed",
+      "reason": "Made the phrase 'acknowledged end to end' untrue by half. Delivery is now reported back to the origin while nothing is persisted, replayed or retried, so the Not a durable queue exclusion was restated to separate a report from a guarantee and to say that nothing re-sends what it says failed."
+    },
+    "D24": {
+      "disposition": "not-applicable",
+      "reason": "Routes per-message events off the operations stream. The shape of an observability channel is architecture, and the vision names no component and asserts nothing about how events reach a subscriber."
+    },
+    "D25": {
+      "disposition": "not-applicable",
+      "reason": "Narrows what advances a canonical revision. This sharpens the correctness dimension, which requires a forwarding outcome to be justified by held state, rather than redirecting it."
+    },
+    "D26": {
+      "disposition": "absorbed",
+      "reason": "Changed the unit of reachability, which is the one term the north star defines. A destination is now an endpoint, optionally an advertiser, and a mode; the definition of 'by name' carries that qualification and states why it exists, since naming an endpoint alone means any advertiser may serve the message."
+    },
+    "D27": {
+      "disposition": "not-applicable",
+      "reason": "Moves a validation boundary so a node validates what a peer sent rather than what it built itself. The sovereignty dimension requires concerns to be separately replaceable and this does not weaken that; no statement of purpose is touched."
+    },
+    "D28": {
+      "disposition": "not-applicable",
+      "reason": "A liveness property of the runtime under a caller that never yields. It serves the correctness-under-adversity dimension and contradicts no statement of purpose or exclusion."
+    },
+    "D29": {
+      "disposition": "not-applicable",
+      "reason": "Lets a carrier declare whether it can be outrun. Tested against the Reach dimension deliberately, because that dimension forbids a variant, a fork, or a privileged path: the node implementation stays single and unforked, and it is the carrier that varies rather than the node, so no privileged path is introduced."
+    }
+  }
+}
