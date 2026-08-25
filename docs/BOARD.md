@@ -137,7 +137,7 @@ What they decided is in the record they cite, and what they cost is in the miles
 
 | Order | Item | Ready | Why here |
 |---|---|---|---|
-| 1 | `B12` | Yes | Its own trigger is a declared surface with no running counterpart, and `B15` is the item that removes the last one. Doing it first would document a divergence about to disappear |
+| 1 | `B12` | Yes | Its trigger was a declared surface with no running counterpart, and the last one went with `D29`. Smaller than when it was filed, and now describing agreement rather than divergence |
 | 2 | `B31` | Yes | A design document says the SDK does not do this, and it does, three times. Scored on the breach rather than the impact |
 | 3 | `B10` | Yes | A proposal is currently tested against an unwritten standard, which makes every other item on this board harder to argue about |
 | 4 | `B13`, `B3` | Yes | Record work. `B3` wants `B4` first if cost-aware subset selection is the point of it |
