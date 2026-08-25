@@ -894,6 +894,11 @@ await emit(
  * it. See `B31`.
  */
 function generatedCodeTypes(sets) {
+  // Every closed code set gets a type. One left out of this map is one whose
+  // values can be written a second time by hand without anything noticing,
+  // which is how `RouteExportSuppressionCode` came to duplicate
+  // `route-reason-code` exactly while carrying a different name, and why
+  // checking for duplicates by name found nothing.
   const exported = {
     "sdk-error-code": "AgpErrorCode",
     "session-event-code": "SessionEventCode",
@@ -904,7 +909,18 @@ function generatedCodeTypes(sets) {
     "counter-key": "CounterKey",
     "selected-reason": "SelectedReason",
     "ineligible-reason": "IneligibleReason",
+    "diagnostic-severity": "DiagnosticSeverity",
+    "host-failure-code": "HostFailureCode",
+    "resource-code": "ResourceCode",
+    "monotonic-domain": "MonotonicDomain",
+    // Named for the concern rather than for its schema file, because that is
+    // the name the SDK already exposes. The values are the schema's.
+    "route-reason-code": "RouteExportSuppressionCode",
   };
+  const unmapped = Object.keys(sets).filter((name) => exported[name] === undefined);
+  if (unmapped.length > 0) {
+    throw new Error(`code sets with no TypeScript export: ${unmapped.join(", ")}`);
+  }
   const blocks = Object.entries(exported).map(([name, typescript]) => {
     const values = sets[name];
     if (values === undefined) {

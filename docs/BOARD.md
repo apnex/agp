@@ -78,6 +78,7 @@ An item that is `I4`/`P1` belongs early even though nobody feels it today, becau
 | `B8` | Rewrite named geometry tests onto shared builders | `I4` | `P4` | [`VERIFICATION.md` section 4.7](VERIFICATION.md#47-matrix-execution) | held |
 | `B10` | Author an enduring intent statement for AGP | `I4` | `P3` | [`ARCHITECTURE.md` section 10](ARCHITECTURE.md#10-scope-boundary), [`DECISIONS.md` section 2](DECISIONS.md#2-confirmed-intent) | open |
 | `B31` | Generate the code unions that are currently written twice | `I4` | `P2` | [`D3`](DECISIONS.md#d3---sovereign-contracts), [`sdk.md` section 3.1](design/sdk.md#31-schema-backed-dtos) | landed |
+| `B32` | Give a closed domain a schema that is as closed as its type | `I3` | `P2` | [`D3`](DECISIONS.md#d3---sovereign-contracts), [`contracts.md` section 6](design/contracts.md#61-configuration) | open |
 
 ---
 
@@ -143,13 +144,24 @@ What they decided is in the record they cite, and what they cost is in the miles
 
 | Order | Item | Ready | Why here |
 |---|---|---|---|
-| 1 | `B10` | Yes | A proposal is currently tested against an unwritten standard, which makes every other item on this board harder to argue about |
-| 2 | `B13`, `B3` | Yes | Record work. `B3` wants `B4` first if cost-aware subset selection is the point of it |
-| 3 | `B19` | Opportunistic | No next single fix. Taken when a way is found, not scheduled |
-| 4 | `B4` | Blocked | Waiting on the sweep-schedule question below |
+| 1 | `B32` | Yes | A validator accepts values the type forbids, so the schema is the weaker of the two contracts. Scored above the record work because a peer reads the schema |
+| 2 | `B10` | Yes | A proposal is currently tested against an unwritten standard, which makes every other item on this board harder to argue about |
+| 3 | `B13`, `B3` | Yes | Record work. `B3` wants `B4` first if cost-aware subset selection is the point of it |
+| 4 | `B19` | Opportunistic | No next single fix. Taken when a way is found, not scheduled |
+| 5 | `B4` | Blocked | Waiting on the sweep-schedule question below |
 
 One item is blocked, on a decision rather than on work.\
 Everything else is available and nothing depends on anything else here.
+
+---
+
+## M5 - Stop a contract claiming something untrue
+
+Severity `P2`.
+
+| ID | Move | Note |
+|---|---|---|
+| `B32` | Give a closed domain a schema that is as closed as its type | `SessionTimerName` enumerates ten values and the schema for the field carrying it says only that it is a non-empty string, so a validator accepts what the type forbids and the sovereign contract is the weaker of the two. This is the opposite fault to `B31`: not written twice, but written once loosely and once exactly. `IdScope` and `Direction` are the same shape and have no public carrier, so they are the cheap part; the question worth deciding is whether a closed domain inside a public DTO must be a referenced code schema rather than an inline string |
 
 ---
 

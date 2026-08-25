@@ -6,9 +6,11 @@ import type {
   ConnectionState,
   CounterKey,
   DiagnosticDomain,
+  DiagnosticSeverity,
   HostState,
   IdentityDenialCode,
   IneligibleReason,
+  RouteExportSuppressionCode,
   SelectedReason,
   SessionEventCode,
 } from "./code-types.generated.js";
@@ -18,9 +20,11 @@ export type {
   ConnectionState,
   CounterKey,
   DiagnosticDomain,
+  DiagnosticSeverity,
   HostState,
   IdentityDenialCode,
   IneligibleReason,
+  RouteExportSuppressionCode,
   SelectedReason,
   SessionEventCode,
 } from "./code-types.generated.js";
@@ -110,7 +114,6 @@ export interface IdSourcePort {
   next(scope: IdScope): string;
 }
 
-export type DiagnosticSeverity = "warning" | "error" | "critical";
 export type DiagnosticCode = string;
 
 export interface DiagnosticRecord {
@@ -220,11 +223,6 @@ export interface ExportSnapshot {
   readonly routes: readonly RouteAdvertisement[];
 }
 
-export type RouteExportSuppressionCode =
-  | "TRANSIT_DISABLED"
-  | "PEER_IN_PATH"
-  | "PATH_TOO_LONG"
-  | "CAPACITY";
 
 export interface AdjRibOutRouteSnapshot {
   readonly remoteNodeId: NodeId;

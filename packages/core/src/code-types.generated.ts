@@ -121,3 +121,37 @@ export type IneligibleReason =
   | "SESSION_IDENTITY_MISMATCH"
   | "PATH_INVALID"
   | "NEXT_HOP_UNRESOLVED";
+
+export type DiagnosticSeverity =
+  | "warning"
+  | "error"
+  | "critical";
+
+export type HostFailureCode =
+  | "START_FAILED"
+  | "LISTENER_TERMINAL"
+  | "MONOTONIC_DOMAIN_EXHAUSTED"
+  | "INTERNAL_INVARIANT";
+
+export type ResourceCode =
+  | "pendingHandshakes"
+  | "sessionCapacitySlots"
+  | "controlQueue"
+  | "dataQueue"
+  | "continuationQueue"
+  | "candidateRoutes"
+  | "localBindings"
+  | "activeHandlers"
+  | "labelBindings"
+  | "eventSubscribers";
+
+export type MonotonicDomain =
+  | "operations-revision"
+  | "event-sequence"
+  | "counter";
+
+export type RouteExportSuppressionCode =
+  | "TRANSIT_DISABLED"
+  | "PEER_IN_PATH"
+  | "PATH_TOO_LONG"
+  | "CAPACITY";
