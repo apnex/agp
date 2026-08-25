@@ -83,6 +83,7 @@ An item that is `I4`/`P1` belongs early even though nobody feels it today, becau
 | `B33` | Gate that a ratified decision reaches the vision it changes | `I4` | `P2` | [`VISION.md`](../VISION.md#authority), [`DECISIONS.md`](DECISIONS.md) | open |
 | `B34` | Give confirmed intent one subsection numbering | `I4` | `P2` | [`DECISIONS.md` section 2](DECISIONS.md#2-confirmed-intent) | open |
 | `B35` | Bound the tests that await an event with no deadline | `I4` | `P4` | [`TESTING.md`](TESTING.md) | held |
+| `B36` | Gate the self-consistency this board declares | `I4` | `P2` | [`BOARD.md` section 1](BOARD.md#the-contract-between-board-and-record) | open |
 
 ---
 
@@ -150,10 +151,11 @@ What they decided is in the record they cite, and what they cost is in the miles
 
 | Order | Item | Ready | Why here |
 |---|---|---|---|
-| 1 | `B33`, `B34`, `B11` | Yes | Each is a record asserting something untrue, so they outrank the `P3` work below them |
-| 2 | `B13`, `B3` | Yes | Record work. `B3` wants `B4` first if cost-aware subset selection is the point of it |
-| 3 | `B19` | Opportunistic | No next single fix. Taken when a way is found, not scheduled |
-| 4 | `B4` | Blocked | Waiting on the sweep-schedule question below |
+| 1 | `B36`, `B33`, `B11` | Yes | One gate class. Each is a record asserting something about another record with nothing checking it, so building them apart triples the harness |
+| 2 | `B34` | Yes | Independent of the gates and small. An ambiguous citation by number |
+| 3 | `B13`, `B3` | Yes | Record work. `B3` wants `B4` first if cost-aware subset selection is the point of it |
+| 4 | `B19` | Opportunistic | No next single fix. Taken when a way is found, not scheduled |
+| 5 | `B4` | Blocked | Waiting on the sweep-schedule question below |
 
 One item is blocked, on a decision rather than on work.\
 Everything else is available and nothing depends on anything else here.
@@ -171,6 +173,7 @@ All three were surfaced by being asked a question rather than by any gate, and e
 |---|---|---|
 | `B33` | Gate that a ratified decision reaches the vision it changes | Ten decisions were ratified after `VISION.md` was written and two contradicted it for fifty-six commits. The document states the rule itself and nothing enforces it. A watermark cannot live in the vision, which carries no point-in-time state, so the register belongs beside it |
 | `B34` | Give confirmed intent one subsection numbering | `DECISIONS.md` numbers two different sections `2.5` and orders them `2.3`, `2.5`, `2.4`, `2.5`. `BOARD.md` cites section 2.5 for the performance intent, and that citation is ambiguous by number rather than wrong |
+| `B36` | Gate the self-consistency this board declares | The contract above says this board must not disagree with the record about any item's state, and five tests check structure while none check state. A row reading open beside a milestone reading landed, a closed count that had drifted, and a landed item sitting in a live milestone all passed the suite on the same day. Each was caught by hand, and the hand-run version was thrown away rather than kept |
 | `B11` | Reconcile the scope boundary with the `F` series it is forked with | `ARCHITECTURE.md` section 1 has cited `B11` as the item that resolves this since the architecture was promoted, and `B11` has never existed on this board. The reverse direction is ungated: the board checks that its own items reach the ledger, and nothing checks that a record citing a board item reaches the board |
 
 ---
