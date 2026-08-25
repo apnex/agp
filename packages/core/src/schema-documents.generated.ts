@@ -429,6 +429,33 @@ export const coreSchemaDocumentsV1 = Object.freeze([
   },
   {
     "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "urn:agp:schema:v1:core:codes:session-timer-name",
+    "title": "AGP core session-timer-name",
+    "x-agp": {
+      "owner": "@agp/core",
+      "typescript": "SessionTimerName",
+      "kind": "code",
+      "mechanics": "Sovereign session-timer-name data contract owned by @agp/core.",
+      "rationale": "One schema gives runtime validators and consumers one stable reasoning boundary.",
+      "consequence": "Accepting another shape would make canonical state or SDK interpretation ambiguous.",
+      "semanticRules": []
+    },
+    "type": "string",
+    "enum": [
+      "retry",
+      "open",
+      "keepalive",
+      "hold",
+      "identityAdmission",
+      "routeAdmission",
+      "routeWrite",
+      "routeAck",
+      "transportWrite",
+      "transportClose"
+    ]
+  },
+  {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
     "$id": "urn:agp:schema:v1:core:common:adjacency-id",
     "title": "AGP core adjacency-id",
     "x-agp": {
@@ -4884,8 +4911,7 @@ export const coreSchemaDocumentsV1 = Object.freeze([
     "type": "object",
     "properties": {
       "name": {
-        "type": "string",
-        "minLength": 1
+        "$ref": "urn:agp:schema:v1:core:codes:session-timer-name"
       },
       "state": {
         "type": "string",

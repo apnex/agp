@@ -115,9 +115,11 @@ An operator subscriber doing real work lost 256 events of a 600-message stream a
 A delivered message cost 9.17 canonical revisions and now costs 5.29, because a counter had been claiming that canonical state changed.
 
 **Stop a contract claiming something untrue.**\
-`B31`, and `B12` returned to Held.\
+`B31` and `B32`, with `B12` returned to Held.\
 Nine closed code domains were written once in `codeSets` and again by hand in `types.ts`, which section 3.1 of `sdk.md` says the SDK does not do; `AgpErrorCode` had already drifted and a compiler error rather than a gate had found it.\
 They are generated now, so adding a value to a schema reaches the type with no edit, and `generate:check` rejects a hand edit to the generated file.\
+`B32` was the mirror image and took two more passes to see whole: `SessionTimerName` enumerated ten values while the schema for the field carrying it accepted any non-empty string, and `Direction` was a duplicate that every check missed because it lives under `common` rather than `codes`.\
+Every closed domain in a public object now has a schema as closed as its type, and no union is written twice anywhere.\
 `B12` turned out not to be a breach at all: `ARCHITECTURE.md` opens by saying there is no target-state companion because the two instants have not diverged, and that the split happens when they do, so the item is honestly recorded and waiting on a trigger rather than open.
 
 **Give the credit decision to the thing that knows the answer.**\
@@ -144,24 +146,13 @@ What they decided is in the record they cite, and what they cost is in the miles
 
 | Order | Item | Ready | Why here |
 |---|---|---|---|
-| 1 | `B32` | Yes | A validator accepts values the type forbids, so the schema is the weaker of the two contracts. Scored above the record work because a peer reads the schema |
-| 2 | `B10` | Yes | A proposal is currently tested against an unwritten standard, which makes every other item on this board harder to argue about |
-| 3 | `B13`, `B3` | Yes | Record work. `B3` wants `B4` first if cost-aware subset selection is the point of it |
-| 4 | `B19` | Opportunistic | No next single fix. Taken when a way is found, not scheduled |
-| 5 | `B4` | Blocked | Waiting on the sweep-schedule question below |
+| 1 | `B10` | Yes | A proposal is currently tested against an unwritten standard, which makes every other item on this board harder to argue about |
+| 2 | `B13`, `B3` | Yes | Record work. `B3` wants `B4` first if cost-aware subset selection is the point of it |
+| 3 | `B19` | Opportunistic | No next single fix. Taken when a way is found, not scheduled |
+| 4 | `B4` | Blocked | Waiting on the sweep-schedule question below |
 
 One item is blocked, on a decision rather than on work.\
 Everything else is available and nothing depends on anything else here.
-
----
-
-## M5 - Stop a contract claiming something untrue
-
-Severity `P2`.
-
-| ID | Move | Note |
-|---|---|---|
-| `B32` | Give a closed domain a schema that is as closed as its type | `SessionTimerName` enumerates ten values and the schema for the field carrying it says only that it is a non-empty string, so a validator accepts what the type forbids and the sovereign contract is the weaker of the two. This is the opposite fault to `B31`: not written twice, but written once loosely and once exactly. `IdScope` and `Direction` are the same shape and have no public carrier, so they are the cheap part; the question worth deciding is whether a closed domain inside a public DTO must be a referenced code schema rather than an inline string |
 
 ---
 

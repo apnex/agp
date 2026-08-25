@@ -150,6 +150,22 @@ export type MonotonicDomain =
   | "event-sequence"
   | "counter";
 
+export type SessionTimerName =
+  | "retry"
+  | "open"
+  | "keepalive"
+  | "hold"
+  | "identityAdmission"
+  | "routeAdmission"
+  | "routeWrite"
+  | "routeAck"
+  | "transportWrite"
+  | "transportClose";
+
+export type Direction =
+  | "inbound"
+  | "outbound";
+
 export type RouteExportSuppressionCode =
   | "TRANSIT_DISABLED"
   | "PEER_IN_PATH"

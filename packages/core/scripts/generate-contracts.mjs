@@ -161,6 +161,11 @@ const codeSets = {
     "RouteWriteExpired", "RouteAckExpired", "RouteRevisionRollover",
     "ControlQueueOverflow",
   ],
+  "session-timer-name": [
+    "retry", "open", "keepalive", "hold", "identityAdmission",
+    "routeAdmission", "routeWrite", "routeAck", "transportWrite",
+    "transportClose",
+  ],
   "resource-code": [
     "pendingHandshakes", "sessionCapacitySlots", "controlQueue",
     "dataQueue", "continuationQueue", "candidateRoutes", "localBindings",
@@ -484,7 +489,10 @@ add("operations", "negotiated-capabilities-snapshot", closed({
   transit: bool,
 }));
 add("operations", "timer-snapshot", closed({
-  name: string({ minLength: 1 }),
+  // Referenced rather than left as any non-empty string. The TypeScript type
+  // has always enumerated these ten names, so a validator that accepted an
+  // eleventh was the weaker of the two contracts. See `B32`.
+  name: ref(core("codes", "session-timer-name")),
   state: { type: "string", enum: ["armed", "disabled"] },
   startedAt: ref(core("common", "timestamp")),
   durationMs: ref(core("common", "duration-ms")),
@@ -894,6 +902,10 @@ await emit(
  * it. See `B31`.
  */
 function generatedCodeTypes(sets) {
+  // `direction` is a closed domain that lives under `common` rather than
+  // `codes`, so it is not in `codeSets` and every check scoped to that map
+  // missed that its type was written by hand as well. Passed in explicitly.
+  sets = { ...sets, direction: ["inbound", "outbound"] };
   // Every closed code set gets a type. One left out of this map is one whose
   // values can be written a second time by hand without anything noticing,
   // which is how `RouteExportSuppressionCode` came to duplicate
@@ -913,6 +925,8 @@ function generatedCodeTypes(sets) {
     "host-failure-code": "HostFailureCode",
     "resource-code": "ResourceCode",
     "monotonic-domain": "MonotonicDomain",
+    "session-timer-name": "SessionTimerName",
+    direction: "Direction",
     // Named for the concern rather than for its schema file, because that is
     // the name the SDK already exposes. The values are the schema's.
     "route-reason-code": "RouteExportSuppressionCode",

@@ -139,6 +139,14 @@
       "sha256": "4ee01031850c35158b9309eb243adb8706ff45e626c89ffabd532f36694cbba2"
     },
     {
+      "id": "urn:agp:schema:v1:core:codes:session-timer-name",
+      "owner": "@agp/core",
+      "path": "codes/session-timer-name.schema.json",
+      "kind": "code",
+      "typescript": "SessionTimerName",
+      "sha256": "dd3a63ed6c96f42b03d65fc448e081626ab07632ceb3ea922f310b444d5a50e8"
+    },
+    {
       "id": "urn:agp:schema:v1:core:common:adjacency-id",
       "owner": "@agp/core",
       "path": "common/adjacency-id.schema.json",
@@ -984,7 +992,7 @@
       "path": "operations/timer-snapshot.schema.json",
       "kind": "operations",
       "typescript": "TimerSnapshot",
-      "sha256": "9008d968089de2e32469b5e373b5c600b329fcb26c9f0a8459370dd0bf3bf387"
+      "sha256": "63cf629e8b3a79cd3558a7dd8ba792303f4024ac45ee79d6c923bca3d7715dbf"
     },
     {
       "id": "urn:agp:schema:v1:core:sdk:diagnostic-record",

@@ -7,12 +7,14 @@ import type {
   CounterKey,
   DiagnosticDomain,
   DiagnosticSeverity,
+  Direction,
   HostState,
   IdentityDenialCode,
   IneligibleReason,
   RouteExportSuppressionCode,
   SelectedReason,
   SessionEventCode,
+  SessionTimerName,
 } from "./code-types.generated.js";
 
 export type {
@@ -21,12 +23,14 @@ export type {
   CounterKey,
   DiagnosticDomain,
   DiagnosticSeverity,
+  Direction,
   HostState,
   IdentityDenialCode,
   IneligibleReason,
   RouteExportSuppressionCode,
   SelectedReason,
   SessionEventCode,
+  SessionTimerName,
 } from "./code-types.generated.js";
 
 import type {
@@ -131,8 +135,6 @@ export interface DiagnosticRecord {
 export interface DiagnosticSinkPort {
   emit(record: DiagnosticRecord, cause?: unknown): void;
 }
-
-export type Direction = "inbound" | "outbound";
 
 export interface ExactSessionOwner {
   /**
@@ -381,17 +383,6 @@ export interface NegotiatedCapabilitiesSnapshot {
   readonly transit: boolean;
 }
 
-export type SessionTimerName =
-  | "retry"
-  | "open"
-  | "keepalive"
-  | "hold"
-  | "identityAdmission"
-  | "routeAdmission"
-  | "routeWrite"
-  | "routeAck"
-  | "transportWrite"
-  | "transportClose";
 
 export interface TimerSnapshot {
   readonly name: SessionTimerName;

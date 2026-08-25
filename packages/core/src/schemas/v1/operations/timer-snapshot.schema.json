@@ -14,8 +14,7 @@
   "type": "object",
   "properties": {
     "name": {
-      "type": "string",
-      "minLength": 1
+      "$ref": "urn:agp:schema:v1:core:codes:session-timer-name"
     },
     "state": {
       "type": "string",
