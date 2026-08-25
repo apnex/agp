@@ -705,6 +705,11 @@ Shape-specific properties stay in named tests, because only a triangle test can 
 
 Measured cost: 30 loopback cells in about 4 seconds, 70 cells across all carriers in about 9 seconds, and roughly two minutes deepened.
 
+A sweep runs on demand and on no schedule, ruled by the director.\
+The measured cost is the reason: at nine seconds for every carrier there is nothing to select between, so choosing a cheaper covering subset would cost more to decide than to skip.\
+Cost data about cells is therefore not collected, and the item that would have collected it is held rather than built.\
+The trigger is sweep runtime becoming a felt cost, which is also the point at which a schedule would begin to earn its keep.
+
 ---
 
 ### 4.8 Excluded combinations

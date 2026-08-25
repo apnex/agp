@@ -71,7 +71,7 @@ An item that is `I4`/`P1` belongs early even though nobody feels it today, becau
 | `B12` | Split current and target architecture instants | `I4` | `P3` | [`ARCHITECTURE.md` section 12](ARCHITECTURE.md#12-owed-and-open) | held |
 | `B3` | Machine-readable cell to mechanism mapping | `I4` | `P3` | [`VERIFICATION.md` section 4](VERIFICATION.md#4-coverage-register) | open |
 | `B13` | Generate the package and dependency tables from the manifests | `I4` | `P3` | [`ARCHITECTURE.md` section 12](ARCHITECTURE.md#12-owed-and-open) | open |
-| `B4` | Cost model for matrix cells | `I4` | `P4` | [`VERIFICATION.md` section 4.7](VERIFICATION.md#47-matrix-execution) | open |
+| `B4` | Cost model for matrix cells | `I4` | `P4` | [`VERIFICATION.md` section 4.7](VERIFICATION.md#47-matrix-execution) | held |
 | `B5` | Full-mesh geometry and per-pair keying | `I3` | `P3` | [`X1`](VERIFICATION.md#48-excluded-combinations), [`F07`](design/mechanisms.md) | held |
 | `B6` | Certificate and HTTP-authenticated WebSocket profiles | `I3` | `P3` | [`F07`](design/mechanisms.md) | held |
 | `B7` | Route volume beyond the 256 snapshot ceiling | `I3` | `P3` | [`D4`](DECISIONS.md#d4---full-route-snapshots) | held |
@@ -80,6 +80,7 @@ An item that is `I4`/`P1` belongs early even though nobody feels it today, becau
 | `B31` | Generate the code unions that are currently written twice | `I4` | `P2` | [`D3`](DECISIONS.md#d3---sovereign-contracts), [`sdk.md` section 3.1](design/sdk.md#31-schema-backed-dtos) | landed |
 | `B32` | Give a closed domain a schema that is as closed as its type | `I3` | `P2` | [`D3`](DECISIONS.md#d3---sovereign-contracts), [`contracts.md` section 6](design/contracts.md#61-configuration) | landed |
 | `B11` | Reconcile the scope boundary with the `F` series it is forked with | `I4` | `P2` | [`ARCHITECTURE.md` section 10](ARCHITECTURE.md#10-scope-boundary), [`F07`](design/mechanisms.md) | open |
+| `B37` | Gate that a record citing a board item reaches the board | `I4` | `P2` | [`BOARD.md` section 1](BOARD.md#the-contract-between-board-and-record), [`ARCHITECTURE.md` section 1](ARCHITECTURE.md#1-status-and-authority) | open |
 | `B33` | Gate that a ratified decision reaches the vision it changes | `I4` | `P2` | [`VISION.md`](../VISION.md#authority), [`DECISIONS.md`](DECISIONS.md) | open |
 | `B34` | Give confirmed intent one subsection numbering | `I4` | `P2` | [`DECISIONS.md` section 2](DECISIONS.md#2-confirmed-intent) | open |
 | `B35` | Bound the tests that await an event with no deadline | `I4` | `P4` | [`TESTING.md`](TESTING.md) | held |
@@ -151,14 +152,14 @@ What they decided is in the record they cite, and what they cost is in the miles
 
 | Order | Item | Ready | Why here |
 |---|---|---|---|
-| 1 | `B36`, `B33`, `B11` | Yes | One gate class. Each is a record asserting something about another record with nothing checking it, so building them apart triples the harness |
+| 1 | `B36`, `B33`, `B37` | Yes | One gate class. Each is a record asserting something about another record with nothing checking it, so building them apart triples the harness |
 | 2 | `B34` | Yes | Independent of the gates and small. An ambiguous citation by number |
-| 3 | `B13`, `B3` | Yes | Record work. `B3` wants `B4` first if cost-aware subset selection is the point of it |
-| 4 | `B19` | Opportunistic | No next single fix. Taken when a way is found, not scheduled |
-| 5 | `B4` | Blocked | Waiting on the sweep-schedule question below |
+| 3 | `B11` | Yes | Content rather than gate, and separated from `B37` because reconciling two lists of deferrals is editorial judgement rather than mechanism |
+| 4 | `B13`, `B3` | Yes | Record work. `B3` selects a covering subset by coverage rather than by cost, now that cost data is not being collected |
+| 5 | `B19` | Opportunistic | No next single fix. Taken when a way is found, not scheduled |
 
-One item is blocked, on a decision rather than on work.\
-Everything else is available and nothing depends on anything else here.
+Nothing is blocked, and nothing here depends on anything else here.\
+The gates in row one are grouped because they share a harness, not because one needs another.
 
 ---
 
@@ -174,7 +175,8 @@ All three were surfaced by being asked a question rather than by any gate, and e
 | `B33` | Gate that a ratified decision reaches the vision it changes | Ten decisions were ratified after `VISION.md` was written and two contradicted it for fifty-six commits. The document states the rule itself and nothing enforces it. A watermark cannot live in the vision, which carries no point-in-time state, so the register belongs beside it |
 | `B34` | Give confirmed intent one subsection numbering | `DECISIONS.md` numbers two different sections `2.5` and orders them `2.3`, `2.5`, `2.4`, `2.5`. `BOARD.md` cites section 2.5 for the performance intent, and that citation is ambiguous by number rather than wrong |
 | `B36` | Gate the self-consistency this board declares | The contract above says this board must not disagree with the record about any item's state, and five tests check structure while none check state. A row reading open beside a milestone reading landed, a closed count that had drifted, and a landed item sitting in a live milestone all passed the suite on the same day. Each was caught by hand, and the hand-run version was thrown away rather than kept |
-| `B11` | Reconcile the scope boundary with the `F` series it is forked with | `ARCHITECTURE.md` section 1 has cited `B11` as the item that resolves this since the architecture was promoted, and `B11` has never existed on this board. The reverse direction is ungated: the board checks that its own items reach the ledger, and nothing checks that a record citing a board item reaches the board |
+| `B11` | Reconcile the scope boundary with the `F` series it is forked with | Section 10 lists what is included and deferred, and the `F` series lists deferred mechanisms with their re-entry conditions, so a deferral is written twice and section 10 is marked provisional because of it. Editorial work with its own risk: the two lists have to be read against each other before either can be cut |
+| `B37` | Gate that a record citing a board item reaches the board | `ARCHITECTURE.md` has cited `B11` as the item resolving section 10 since the architecture was promoted, and `B11` had never existed here. The board checks its own items reach the ledger and nothing checks the reverse, so a record may cite a move that was never filed |
 
 ---
 
@@ -198,7 +200,6 @@ Confirmed intent section 2.5 sets no performance target and asks that opportunit
 | ID | Move | Note |
 |---|---|---|
 | `B19` | Reduce the per-hop cost against the carrier beneath it | `MX4`. Roughly half a millisecond per message through a node pair against a 75 microsecond carrier round trip. Nothing is breached and nothing obliges this, which is exactly why it is scored `P4` and taken only when a way is found |
-| `B4` | Record matrix cell timings as data rather than run output | Prerequisite for cost-aware subset selection under `B3`. Worth nothing on its own |
 
 ---
 
@@ -212,6 +213,7 @@ Scored on the same scale, so not choosing them is visible.
 | `B6` | Certificate and HTTP-authenticated profiles | `I3` | `P3` | Fresh intent. Pre-shared keys meet the stated requirement, which was confidentiality and peer authentication without certificate infrastructure |
 | `B7` | Route volume beyond 256 | `I3` | `P3` | A topology needing more than 256 routes. `D4` names deltas as the change required |
 | `B12` | Split current and target architecture instants | `I4` | `P3` | A decision that changes structure being ratified before it is built. `ARCHITECTURE.md` opens by saying there is no target-state companion because the two have not diverged, and that the split happens when they do rather than in anticipation. Nothing is ratified and unbuilt today, and `B26` gave such a record a home in the trace graph, so the trigger is further away than when this was filed |
+| `B4` | Cost model for matrix cells | `I4` | `P4` | Sweep runtime becoming a felt cost. Ruled on demand and on no schedule: every carrier sweeps in about nine seconds, so there is nothing to select between and a cheaper covering subset would cost more to decide than to skip |
 | `B8` | Named geometry tests onto shared builders | `I4` | `P4` | Duplication becoming a real maintenance cost. Their oracles are shape-specific, and rewriting a passing test to share a builder is a known way to weaken an assertion |
 | `B35` | Bound the tests that await an event with no deadline | `I4` | `P4` | A hang masking a real failure, or a suite timeout recurring. Six files await an event indefinitely, so a broken assertion presents as the suite stopping rather than as a test failing. `TESTING.md` states no rule about this, so nothing is breached and the cost is diagnostic time |
 
@@ -219,9 +221,9 @@ Scored on the same scale, so not choosing them is visible.
 
 ## Decisions required
 
-| Question | Blocks |
-|---|---|
-| Whether a matrix sweep should run on a schedule, and if so at what depth | `B4`, and whether cost data is worth collecting at all |
+None outstanding.
+
+The sweep-schedule question was ruled on demand and on no schedule, and `B4` is held with the trigger that ruling implies.
 
 ---
 
