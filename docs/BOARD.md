@@ -87,7 +87,7 @@ An item that is `I4`/`P1` belongs early even though nobody feels it today, becau
 | `B36` | Gate the self-consistency this board declares | `I4` | `P2` | [`BOARD.md` section 1](BOARD.md#the-contract-between-board-and-record) | landed |
 | `B38` | Catch a direction change that carries no decision number | `I4` | `P2` | [`VISION.md`](../VISION.md#authority), [`DECISIONS.md` section 2](DECISIONS.md#2-confirmed-intent) | landed |
 | `B39` | Reconcile the architecture with what has been built since it was written | `I4` | `P2` | [`ARCHITECTURE.md` section 1](ARCHITECTURE.md#1-status-and-authority) | open |
-| `B40` | Extend absorption to the architecture, which owes the same duty | `I4` | `P2` | [`ARCHITECTURE.md` section 1](ARCHITECTURE.md#1-status-and-authority), [`DECISIONS.md`](DECISIONS.md) | open |
+| `B40` | Extend absorption to the architecture, which owes the same duty | `I4` | `P2` | [`ARCHITECTURE.md` section 1](ARCHITECTURE.md#1-status-and-authority), [`DECISIONS.md`](DECISIONS.md) | landed |
 | `B41` | Judge whether the absorption register is evidence or ceremony | `I4` | `P4` | [`vision-absorption.json`](design/vision-absorption.json), [`traceability.json`](design/traceability.json) | held |
 
 ---
@@ -156,11 +156,10 @@ What they decided is in the record they cite, and what they cost is in the miles
 
 | Order | Item | Ready | Why here |
 |---|---|---|---|
-| 1 | `B40` | Yes | The register already exists and the architecture owes the same duty, so this is one more consumer of a built mechanism rather than a new one |
-| 2 | `B34` | Yes | Small, and the gates now hold the board still while it is edited |
-| 3 | `B39`, `B11` | Yes | Both are the architecture disagreeing with another record, and both need reading rather than mechanism. `B40` first, so the gate says when they are done |
-| 4 | `B13`, `B3` | Yes | Record work. `B3` selects a covering subset by coverage rather than by cost, now that cost data is not being collected |
-| 5 | `B19` | Opportunistic | No next single fix. Taken when a way is found, not scheduled |
+| 1 | `B34` | Yes | Small, and the gates now hold the board still while it is edited |
+| 2 | `B39`, `B11` | Yes | Both are the architecture disagreeing with another record, and both need reading rather than mechanism |
+| 3 | `B13`, `B3` | Yes | Record work. `B3` selects a covering subset by coverage rather than by cost, now that cost data is not being collected |
+| 4 | `B19` | Opportunistic | No next single fix. Taken when a way is found, not scheduled |
 
 Nothing is blocked, and nothing here depends on anything else here.
 
@@ -176,7 +175,6 @@ What remains is the content a gate cannot judge: `B34` is a numbering an author 
 
 | ID | Move | Note |
 |---|---|---|
-| `B40` | Extend absorption to the architecture, which owes the same duty | The vision is not the only living document a ratified ruling must reach. The register and its gate cover the vision alone, and the same eleven decisions were owed to the architecture, which is why the gap below went the same distance undetected. Do it by extending `traceability.json` rather than by adding a second register: it already holds a record per decision and a `designReferences` field, and none of the thirty decision records names an architecture section today. The question the architecture asks is which section changed, which an anchor answers, rather than whether purpose changed, which needs prose |
 | `B39` | Reconcile the architecture with what has been built since it was written | `ARCHITECTURE.md` opens by saying it describes AGP as it is built and proved today. Eleven decisions have been ratified and built since, and it names one of them, added this session. Section 8 is marked Approved against the reopen trigger `D19` credit admission lands in the send path; `B1` landed that credit and section 8 does not mention it, so a trigger fired and the section it governs never moved |
 | `B34` | Give confirmed intent one subsection numbering | `DECISIONS.md` numbers two different sections `2.5` and orders them `2.3`, `2.5`, `2.4`, `2.5`. `BOARD.md` cites section 2.5 for the performance intent, and that citation is ambiguous by number rather than wrong |
 | `B11` | Reconcile the scope boundary with the `F` series it is forked with | Section 10 lists what is included and deferred, and the `F` series lists deferred mechanisms with their re-entry conditions, so a deferral is written twice and section 10 is marked provisional because of it. Editorial work with its own risk: the two lists have to be read against each other before either can be cut |

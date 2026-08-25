@@ -25,7 +25,7 @@ Per-section maturity, because one status over eleven sections either overstates 
 | 5 Logical architecture | Provisional | The diagram is hand-drawn and derivable; see section 12 |
 | 6 Topology is configuration | Approved | A topology that configuration cannot express |
 | 7 Package and module composition | Provisional | The package table is hand-maintained and derivable from the manifests |
-| 8 Canonical processing paths | Approved | `D19` credit admission lands in the send path |
+| 8 Canonical processing paths | Provisional | Section 8.3 states the send path without credit admission or destination selection, and both are built; see `B39` |
 | 9 Global invariants | Approved | A ruling that adds or retires an invariant |
 | 10 Scope boundary | Provisional | Forked with the `F` series; see `B11` |
 | 11 Mechanics, rationale, consequence | Approved | Any of the above |

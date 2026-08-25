@@ -180,6 +180,37 @@ test("Given every record that cites a board item, when the citation is resolved,
   assert.deepEqual(problems, [], `a record may not cite a board item that does not exist:\n${problems.join("\n")}`);
 });
 
+test("Given the architecture maturity table, when a reopen trigger is read, then it names a condition that has not already happened", async () => {
+  const architecture = await readFile(path.join(root, "docs/ARCHITECTURE.md"), "utf8");
+  const traceability = JSON.parse(
+    await readFile(path.join(root, "docs/design/traceability.json"), "utf8"),
+  );
+  const built = new Set(
+    traceability.records
+      .filter((record) => record.implementation === "built")
+      .map((record) => record.requirementId),
+  );
+  assert.ok(built.size > 10, "traceability parsed no built records, so this gate would pass vacuously");
+
+  const rows = rowsOf(sectionOf(architecture, "1. Status and authority"))
+    .filter(([, maturity]) => /^(Approved|Provisional|Live)$/u.test(maturity ?? ""));
+  assert.ok(rows.length > 5, `maturity table parsed ${rows.length} rows, so this gate would pass vacuously`);
+
+  // A section states the condition that would reopen it. Once that condition
+  // has happened the row is spent: the section either was revisited, in which
+  // case it owes a new trigger, or it was not, in which case its maturity is a
+  // claim about currency it no longer has.
+  const problems = [];
+  for (const [section, maturity, trigger] of rows) {
+    for (const decision of new Set([...(trigger ?? "").matchAll(/`(D\d+)`/gu)].map((m) => m[1]))) {
+      if (built.has(decision)) {
+        problems.push(`${section}: reads ${maturity} and reopens on ${decision}, which is built`);
+      }
+    }
+  }
+  assert.deepEqual(problems, [], `a spent reopen trigger cannot certify a section:\n${problems.join("\n")}`);
+});
+
 test("Given confirmed intent, when a row says it was amended, then it names the decision that amended it", async () => {
   const decisions = await readFile(path.join(root, "docs/DECISIONS.md"), "utf8");
   const intent = sectionOf(decisions, "2. Confirmed intent");
