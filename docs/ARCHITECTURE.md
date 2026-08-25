@@ -534,4 +534,4 @@ Risk not held by any of those:
 | Risk | Consequence if it lands |
 |---|---|
 | The package composition table and dependency graph are hand-maintained | A structural change to the manifests leaves this document asserting a shape the tree does not have |
-| Current and target instants are not separated | A ratified but unbuilt decision has nowhere to be described, and this document will be edited to describe something that does not exist |
+| Current and target instants are not separated | A decision that changes structure and is ratified before it is built has to be described somewhere, and if that place is this document then this document stops being one instant. `B26` gave the trace graph a built-or-planned axis, so such a decision now has a home; the risk that remains is smaller and is that this document is edited anyway |

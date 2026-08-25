@@ -68,7 +68,7 @@ An item that is `I4`/`P1` belongs early even though nobody feels it today, becau
 | `B19` | Take the per-hop cost against the carrier, opportunistically | `I4` | `P4` | [`MX4`](VERIFICATION.md#46-open-findings-from-sweeps) | open |
 | `B15` | Decide credit by the carrier rather than by configuration | `I3` | `P2` | [`D29`](DECISIONS.md#d29---credit-the-carrier-that-can-be-outrun), [`D19`](DECISIONS.md#d19---per-hop-credit-flow-control) | landed |
 | `B2` | Reconcile the pause wording in `binding-websocket.md` with the code | `I4` | `P2` | [`MX1`](VERIFICATION.md#46-open-findings-from-sweeps) | landed |
-| `B12` | Split current and target architecture instants | `I4` | `P2` | [`ARCHITECTURE.md` section 12](ARCHITECTURE.md#12-owed-and-open) | open |
+| `B12` | Split current and target architecture instants | `I4` | `P3` | [`ARCHITECTURE.md` section 12](ARCHITECTURE.md#12-owed-and-open) | held |
 | `B3` | Machine-readable cell to mechanism mapping | `I4` | `P3` | [`VERIFICATION.md` section 4](VERIFICATION.md#4-coverage-register) | open |
 | `B13` | Generate the package and dependency tables from the manifests | `I4` | `P3` | [`ARCHITECTURE.md` section 12](ARCHITECTURE.md#12-owed-and-open) | open |
 | `B4` | Cost model for matrix cells | `I4` | `P4` | [`VERIFICATION.md` section 4.7](VERIFICATION.md#47-matrix-execution) | open |
@@ -77,13 +77,13 @@ An item that is `I4`/`P1` belongs early even though nobody feels it today, becau
 | `B7` | Route volume beyond the 256 snapshot ceiling | `I3` | `P3` | [`D4`](DECISIONS.md#d4---full-route-snapshots) | held |
 | `B8` | Rewrite named geometry tests onto shared builders | `I4` | `P4` | [`VERIFICATION.md` section 4.7](VERIFICATION.md#47-matrix-execution) | held |
 | `B10` | Author an enduring intent statement for AGP | `I4` | `P3` | [`ARCHITECTURE.md` section 10](ARCHITECTURE.md#10-scope-boundary), [`DECISIONS.md` section 2](DECISIONS.md#2-confirmed-intent) | open |
-| `B31` | Generate the code unions that are currently written twice | `I4` | `P2` | [`D3`](DECISIONS.md#d3---sovereign-contracts), [`sdk.md` section 3.1](design/sdk.md#31-schema-backed-dtos) | open |
+| `B31` | Generate the code unions that are currently written twice | `I4` | `P2` | [`D3`](DECISIONS.md#d3---sovereign-contracts), [`sdk.md` section 3.1](design/sdk.md#31-schema-backed-dtos) | landed |
 
 ---
 
 ## Closed
 
-Seven milestones are complete and are kept here as one line each; their detail is in the record they cite.
+Eight milestones are complete and are kept here as one line each; their detail is in the record they cite.
 
 **Stop the node dying.**\
 `B20` and `B21`, both `I1`, landed together because fixing the first reproduced the second within minutes.\
@@ -113,6 +113,12 @@ Four contaminations were fixed rather than the two expected, and the three attem
 An operator subscriber doing real work lost 256 events of a 600-message stream and now loses none at a buffer of one.\
 A delivered message cost 9.17 canonical revisions and now costs 5.29, because a counter had been claiming that canonical state changed.
 
+**Stop a contract claiming something untrue.**\
+`B31`, and `B12` returned to Held.\
+Nine closed code domains were written once in `codeSets` and again by hand in `types.ts`, which section 3.1 of `sdk.md` says the SDK does not do; `AgpErrorCode` had already drifted and a compiler error rather than a gate had found it.\
+They are generated now, so adding a value to a schema reaches the type with no edit, and `generate:check` rejects a hand edit to the generated file.\
+`B12` turned out not to be a breach at all: `ARCHITECTURE.md` opens by saying there is no target-state companion because the two instants have not diverged, and that the split happens when they do, so the item is honestly recorded and waiting on a trigger rather than open.
+
 **Give the credit decision to the thing that knows the answer.**\
 `B15`, ratified as `D29`.\
 `D19` promised a deployment switch and never had one, but the evidence said it was not a deployment's question: a carrier whose send resolves only when the receiver has room cannot be outrun, and one behind kernel buffers always can.\
@@ -137,26 +143,13 @@ What they decided is in the record they cite, and what they cost is in the miles
 
 | Order | Item | Ready | Why here |
 |---|---|---|---|
-| 1 | `B12` | Yes | Its trigger was a declared surface with no running counterpart, and the last one went with `D29`. Smaller than when it was filed, and now describing agreement rather than divergence |
-| 2 | `B31` | Yes | A design document says the SDK does not do this, and it does, three times. Scored on the breach rather than the impact |
-| 3 | `B10` | Yes | A proposal is currently tested against an unwritten standard, which makes every other item on this board harder to argue about |
-| 4 | `B13`, `B3` | Yes | Record work. `B3` wants `B4` first if cost-aware subset selection is the point of it |
-| 5 | `B19` | Opportunistic | No next single fix. Taken when a way is found, not scheduled |
-| 6 | `B4` | Blocked | Waiting on the sweep-schedule question below |
+| 1 | `B10` | Yes | A proposal is currently tested against an unwritten standard, which makes every other item on this board harder to argue about |
+| 2 | `B13`, `B3` | Yes | Record work. `B3` wants `B4` first if cost-aware subset selection is the point of it |
+| 3 | `B19` | Opportunistic | No next single fix. Taken when a way is found, not scheduled |
+| 4 | `B4` | Blocked | Waiting on the sweep-schedule question below |
 
 One item is blocked, on a decision rather than on work.\
 Everything else is available and nothing depends on anything else here.
-
----
-
-## M5 - Stop a contract claiming something untrue
-
-Severity `P2`.
-
-| ID | Move | Note |
-|---|---|---|
-| `B12` | Split the architecture into current and target instants | Now legal, and smaller than when it was filed. The trigger was `D19` ratified but unbuilt; `D19` is now built, including the part `B15` owned, so the divergence this would have documented has gone |
-| `B31` | Generate the code unions that are currently written twice | `AgpErrorCode`, `SessionEventCode` and `ConnectionState` are hand-written unions in `core/src/types.ts` beside generated schemas carrying the same values. Section 3.1 of `sdk.md` says the SDK does not create a second handwritten representation, so the document is untrue rather than merely aspirational. The class is live rather than theoretical: `AgpErrorCode` was missing `INSTANCE_UNREACHABLE` when `D26` added it, and the drift was found by a compiler error rather than by a gate |
 
 ---
 
@@ -195,6 +188,7 @@ Scored on the same scale, so not choosing them is visible.
 | `B5` | Full-mesh geometry and per-pair keying | `I3` | `P3` | A deployment that needs mesh. One key per node lets a single compromise forge every identity, so mesh needs a per-pair model first |
 | `B6` | Certificate and HTTP-authenticated profiles | `I3` | `P3` | Fresh intent. Pre-shared keys meet the stated requirement, which was confidentiality and peer authentication without certificate infrastructure |
 | `B7` | Route volume beyond 256 | `I3` | `P3` | A topology needing more than 256 routes. `D4` names deltas as the change required |
+| `B12` | Split current and target architecture instants | `I4` | `P3` | A decision that changes structure being ratified before it is built. `ARCHITECTURE.md` opens by saying there is no target-state companion because the two have not diverged, and that the split happens when they do rather than in anticipation. Nothing is ratified and unbuilt today, and `B26` gave such a record a home in the trace graph, so the trigger is further away than when this was filed |
 | `B8` | Named geometry tests onto shared builders | `I4` | `P4` | Duplication becoming a real maintenance cost. Their oracles are shape-specific, and rewriting a passing test to share a builder is a known way to weaken an assertion |
 
 ---

@@ -859,6 +859,10 @@ await emit(
   join(root, "src", "event-types.generated.ts"),
   generatedEventTypes(eventDefinitions),
 );
+await emit(
+  join(root, "src", "code-types.generated.ts"),
+  generatedCodeTypes(codeSets),
+);
 const rootSemanticRegistry = JSON.parse(await readFile(
   join(root, "..", "..", "schemas", "agp-v1.semantic-rules.json"),
   "utf8",
@@ -879,6 +883,43 @@ await emit(
     ),
   }, null, 2)}\n`,
 );
+
+/**
+ * The TypeScript union for every closed code domain.
+ *
+ * `codeSets` is the one place these values are written. They were written a
+ * second time by hand in `types.ts`, which section 3.1 of `sdk.md` says the
+ * SDK does not do, and one had already drifted: `AgpErrorCode` was missing a
+ * code its own schema carried, and a compiler error rather than a gate found
+ * it. See `B31`.
+ */
+function generatedCodeTypes(sets) {
+  const exported = {
+    "sdk-error-code": "AgpErrorCode",
+    "session-event-code": "SessionEventCode",
+    "connection-state": "ConnectionState",
+    "host-state": "HostState",
+    "diagnostic-domain": "DiagnosticDomain",
+    "identity-denial-code": "IdentityDenialCode",
+    "counter-key": "CounterKey",
+    "selected-reason": "SelectedReason",
+    "ineligible-reason": "IneligibleReason",
+  };
+  const blocks = Object.entries(exported).map(([name, typescript]) => {
+    const values = sets[name];
+    if (values === undefined) {
+      throw new Error(`no code set named ${name}`);
+    }
+    const members = values.map((value) => `  | ${JSON.stringify(value)}`);
+    return `export type ${typescript} =\n${members.join("\n")};\n`;
+  });
+  return [
+    "// Generated from the sovereign code schemas by scripts/generate-contracts.mjs.",
+    "// DO NOT EDIT.",
+    "",
+    ...blocks,
+  ].join("\n");
+}
 
 async function emit(path, content) {
   if (check) {
