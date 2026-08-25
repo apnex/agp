@@ -79,6 +79,10 @@ An item that is `I4`/`P1` belongs early even though nobody feels it today, becau
 | `B10` | Author an enduring intent statement for AGP | `I4` | `P3` | [`ARCHITECTURE.md` section 10](ARCHITECTURE.md#10-scope-boundary), [`DECISIONS.md` section 2](DECISIONS.md#2-confirmed-intent) | landed |
 | `B31` | Generate the code unions that are currently written twice | `I4` | `P2` | [`D3`](DECISIONS.md#d3---sovereign-contracts), [`sdk.md` section 3.1](design/sdk.md#31-schema-backed-dtos) | landed |
 | `B32` | Give a closed domain a schema that is as closed as its type | `I3` | `P2` | [`D3`](DECISIONS.md#d3---sovereign-contracts), [`contracts.md` section 6](design/contracts.md#61-configuration) | landed |
+| `B11` | Reconcile the scope boundary with the `F` series it is forked with | `I4` | `P2` | [`ARCHITECTURE.md` section 10](ARCHITECTURE.md#10-scope-boundary), [`F07`](design/mechanisms.md) | open |
+| `B33` | Gate that a ratified decision reaches the vision it changes | `I4` | `P2` | [`VISION.md`](../VISION.md#authority), [`DECISIONS.md`](DECISIONS.md) | open |
+| `B34` | Give confirmed intent one subsection numbering | `I4` | `P2` | [`DECISIONS.md` section 2](DECISIONS.md#2-confirmed-intent) | open |
+| `B35` | Bound the tests that await an event with no deadline | `I4` | `P4` | [`TESTING.md`](TESTING.md) | held |
 
 ---
 
@@ -146,12 +150,28 @@ What they decided is in the record they cite, and what they cost is in the miles
 
 | Order | Item | Ready | Why here |
 |---|---|---|---|
-| 1 | `B13`, `B3` | Yes | Record work. `B3` wants `B4` first if cost-aware subset selection is the point of it |
-| 2 | `B19` | Opportunistic | No next single fix. Taken when a way is found, not scheduled |
-| 3 | `B4` | Blocked | Waiting on the sweep-schedule question below |
+| 1 | `B33`, `B34`, `B11` | Yes | Each is a record asserting something untrue, so they outrank the `P3` work below them |
+| 2 | `B13`, `B3` | Yes | Record work. `B3` wants `B4` first if cost-aware subset selection is the point of it |
+| 3 | `B19` | Opportunistic | No next single fix. Taken when a way is found, not scheduled |
+| 4 | `B4` | Blocked | Waiting on the sweep-schedule question below |
 
 One item is blocked, on a decision rather than on work.\
 Everything else is available and nothing depends on anything else here.
+
+---
+
+## M10 - Make the records answer for each other
+
+Severity `P2`.\
+Each of these is a record stating something that is not true, rather than a record that is merely incomplete, which is why they sit above `M8`.
+
+All three were surfaced by being asked a question rather than by any gate, and each names the gate that would have caught it.
+
+| ID | Move | Note |
+|---|---|---|
+| `B33` | Gate that a ratified decision reaches the vision it changes | Ten decisions were ratified after `VISION.md` was written and two contradicted it for fifty-six commits. The document states the rule itself and nothing enforces it. A watermark cannot live in the vision, which carries no point-in-time state, so the register belongs beside it |
+| `B34` | Give confirmed intent one subsection numbering | `DECISIONS.md` numbers two different sections `2.5` and orders them `2.3`, `2.5`, `2.4`, `2.5`. `BOARD.md` cites section 2.5 for the performance intent, and that citation is ambiguous by number rather than wrong |
+| `B11` | Reconcile the scope boundary with the `F` series it is forked with | `ARCHITECTURE.md` section 1 has cited `B11` as the item that resolves this since the architecture was promoted, and `B11` has never existed on this board. The reverse direction is ungated: the board checks that its own items reach the ledger, and nothing checks that a record citing a board item reaches the board |
 
 ---
 
@@ -190,6 +210,7 @@ Scored on the same scale, so not choosing them is visible.
 | `B7` | Route volume beyond 256 | `I3` | `P3` | A topology needing more than 256 routes. `D4` names deltas as the change required |
 | `B12` | Split current and target architecture instants | `I4` | `P3` | A decision that changes structure being ratified before it is built. `ARCHITECTURE.md` opens by saying there is no target-state companion because the two have not diverged, and that the split happens when they do rather than in anticipation. Nothing is ratified and unbuilt today, and `B26` gave such a record a home in the trace graph, so the trigger is further away than when this was filed |
 | `B8` | Named geometry tests onto shared builders | `I4` | `P4` | Duplication becoming a real maintenance cost. Their oracles are shape-specific, and rewriting a passing test to share a builder is a known way to weaken an assertion |
+| `B35` | Bound the tests that await an event with no deadline | `I4` | `P4` | A hang masking a real failure, or a suite timeout recurring. Six files await an event indefinitely, so a broken assertion presents as the suite stopping rather than as a test failing. `TESTING.md` states no rule about this, so nothing is breached and the cost is diagnostic time |
 
 ---
 
