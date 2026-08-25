@@ -54,6 +54,7 @@ Two renames since affect how these records read, and neither changes what any of
 | D27 | Validate what a peer sends, not what this node built | Measurement + explicit stakeholder direction | Ratified |
 | D28 | Let the event loop turn regardless of how a caller drives the node | Measurement + `MX2` + explicit stakeholder direction | Ratified |
 | D29 | Credit a carrier that can be outrun, and only that | Measurement + `MX1` + explicit stakeholder direction | Ratified |
+| D30 | Admit the candidate routing table as a data-path gate, where a message names the instance it is for | Amended `Q1(b)` + explicit stakeholder direction | Ratified |
 
 ---
 
@@ -61,6 +62,10 @@ Two renames since affect how these records read, and neither changes what any of
 
 Every decision below realizes intent that was confirmed by the project owner before design began.\
 That intent is recorded here rather than in a separate survey artifact, so a reader reaches the authority from the decision it authorizes.
+
+Confirmed intent is amended only by a numbered decision.\
+An amendment written as prose alone cannot be seen by the gate that checks whether a change of direction reached the vision, so a row below that says it was amended must name the decision that amended it.\
+This is enforced by `test/conformance/record-integrity.test.js`, and it is the rule `D30` exists to satisfy retrospectively.
 
 ### 2.1 Composite intent envelope
 
@@ -84,7 +89,7 @@ The confirmed answers below are the authority cited by `authorities[].kind` of `
 
 | Ref | Confirmed intent |
 |---|---|
-| `Q1(b)` | A data path is gated by the local selected RIB, or by the local candidate RIB where a message names the instance it is for. Amended 2026-08-23; see below |
+| `Q1(b)` | A data path is gated by the local selected RIB, or by the local candidate RIB where a message names the instance it is for. Amended by `D30` on 2026-08-23; see below |
 | `Q1/Q3/Q6` | One uniform node runtime, created through a single `createNode()` factory, with a stable operational surface |
 | `Q4(a)` | Either side of an adjacency may exchange endpoint routes |
 | `Q4(b)` | A selected learned route may be exported to other peers for multi-hop transit |
@@ -1032,6 +1037,37 @@ Declining to credit a carrier that can be outrun returns `MX1`: the session dies
 Treating absence as a claim of backpressure would make a silent adapter an uncredited one, so the failure of an adapter author to answer would be a protocol fault at the far end.
 
 Letting a deployment override the carrier lets someone reintroduce a known session-killing fault by configuration, which the node had enough information to prevent.
+
+---
+
+### D30 - Admit the candidate routing table as a data-path gate
+
+**Mechanics.**\
+Confirmed intent `Q1(b)` read that every data path is gated by the local selected RIB.\
+It is amended to read that a data path is gated by the local selected RIB, or by the local candidate RIB where a message names the instance it is for.
+
+The original wording is preserved in section 2.2 rather than overwritten, so a reader can see that the candidate RIB was admitted later and by whom.
+
+This record is written after the fact.\
+The amendment was ratified by the project owner on 2026-08-23, carried no decision number at the time, and `D26` was built on it in the same week.
+
+**Rationale.**\
+Addressing an endpoint by name alone means any advertiser may serve the message, which is anycast, and it arrived as a consequence of addressing rather than as a choice.\
+The amendment makes that choice available rather than implied.
+
+Gating on the candidate RIB loosens nothing else.\
+`D6` still selects deterministically and still governs what is advertised, every candidate was accepted under `D5` so its path is loop-free by construction, and a message names a destination rather than a path.
+
+It is numbered now because a direction change that carries no number is invisible to the gate that checks whether the vision still holds.\
+This one reached the vision only because `D26` arrived carrying it, which is a coincidence rather than a mechanism.
+
+**Consequence.**\
+Leaving the amendment unnumbered left the vision defining reachability as an endpoint alone while ratified intent described an endpoint and optionally an advertiser, with nothing able to detect the gap.
+
+A direction change recorded only as prose inside an intent table is invisible to every gate that reads decisions, so the record can diverge from intent without any check failing.
+
+Numbering it retrospectively rewrites nothing that was ratified.\
+It gives an existing ruling the reference the rest of the corpus needs in order to cite it.
 
 ---
 

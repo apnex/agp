@@ -180,6 +180,29 @@ test("Given every record that cites a board item, when the citation is resolved,
   assert.deepEqual(problems, [], `a record may not cite a board item that does not exist:\n${problems.join("\n")}`);
 });
 
+test("Given confirmed intent, when a row says it was amended, then it names the decision that amended it", async () => {
+  const decisions = await readFile(path.join(root, "docs/DECISIONS.md"), "utf8");
+  const intent = sectionOf(decisions, "2. Confirmed intent");
+  assert.notEqual(intent, undefined, "confirmed intent section is missing");
+
+  const rows = rowsOf(intent);
+  assert.ok(rows.length > 5, `confirmed intent parsed ${rows.length} rows, so this gate would pass vacuously`);
+
+  // The absorption gate reads decision numbers. An amendment recorded as prose
+  // alone therefore changes direction where no gate is looking, which is how
+  // Q1(b) widened the unit of reachability and reached the vision only because
+  // D26 happened to arrive carrying it.
+  const problems = [];
+  for (const cells of rows) {
+    const row = cells.join(" | ");
+    if (!/mended/u.test(row)) continue;
+    if (!/`D\d+`/u.test(row)) {
+      problems.push(`${cells[0]}: says it was amended and names no decision`);
+    }
+  }
+  assert.deepEqual(problems, [], `an amended intent must name its decision:\n${problems.join("\n")}`);
+});
+
 test("Given every ratified decision, when it is checked against the vision, then it has been absorbed or explicitly ruled not to change purpose", async () => {
   const decisions = await readFile(path.join(root, "docs/DECISIONS.md"), "utf8");
   const register = JSON.parse(

@@ -85,7 +85,7 @@ An item that is `I4`/`P1` belongs early even though nobody feels it today, becau
 | `B34` | Give confirmed intent one subsection numbering | `I4` | `P2` | [`DECISIONS.md` section 2](DECISIONS.md#2-confirmed-intent) | open |
 | `B35` | Bound the tests that await an event with no deadline | `I4` | `P4` | [`TESTING.md`](TESTING.md) | held |
 | `B36` | Gate the self-consistency this board declares | `I4` | `P2` | [`BOARD.md` section 1](BOARD.md#the-contract-between-board-and-record) | landed |
-| `B38` | Catch a direction change that carries no decision number | `I4` | `P2` | [`VISION.md`](../VISION.md#authority), [`DECISIONS.md` section 2](DECISIONS.md#2-confirmed-intent) | open |
+| `B38` | Catch a direction change that carries no decision number | `I4` | `P2` | [`VISION.md`](../VISION.md#authority), [`DECISIONS.md` section 2](DECISIONS.md#2-confirmed-intent) | landed |
 
 ---
 
@@ -154,13 +154,11 @@ What they decided is in the record they cite, and what they cost is in the miles
 | Order | Item | Ready | Why here |
 |---|---|---|---|
 | 1 | `B34` | Yes | Small, and the gates now hold the board still while it is edited |
-| 2 | `B38` | Blocked | Waiting on the question below, which decides whether the fix is a rule or a wider gate |
-| 3 | `B11` | Yes | Content rather than gate. Reconciling two lists of deferrals is editorial judgement rather than mechanism |
-| 4 | `B13`, `B3` | Yes | Record work. `B3` selects a covering subset by coverage rather than by cost, now that cost data is not being collected |
-| 5 | `B19` | Opportunistic | No next single fix. Taken when a way is found, not scheduled |
+| 2 | `B11` | Yes | Content rather than gate. Reconciling two lists of deferrals is editorial judgement rather than mechanism |
+| 3 | `B13`, `B3` | Yes | Record work. `B3` selects a covering subset by coverage rather than by cost, now that cost data is not being collected |
+| 4 | `B19` | Opportunistic | No next single fix. Taken when a way is found, not scheduled |
 
-One item is blocked, on a decision rather than on work.\
-Nothing else here depends on anything else here.
+Nothing is blocked, and nothing here depends on anything else here.
 
 ---
 
@@ -169,12 +167,11 @@ Nothing else here depends on anything else here.
 Severity `P2`.\
 Each of these is a record stating something that is not true, rather than a record that is merely incomplete, which is why they sit above `M8`.
 
-The three gates this milestone opened with have landed, and what remains is the content they cannot judge.\
-`B34` is a numbering an author must choose, and `B11` is two lists of deferrals that have to be read against each other.
+The gates this milestone opened with have landed, and a fourth landed after one of them was found to rest on a coincidence rather than a mechanism.\
+What remains is the content a gate cannot judge: `B34` is a numbering an author must choose, and `B11` is two lists of deferrals that have to be read against each other.
 
 | ID | Move | Note |
 |---|---|---|
-| `B38` | Catch a direction change that carries no decision number | `VISION.md` says a ruling that changes direction is recorded as a decision and absorbed here, and the absorption gate keys on decision headings accordingly. `Q1(b)` was amended on 2026-08-23 without one, changing what a data path may be gated by, and it reached the vision only because `D26` arrived carrying it. An amendment landing alone would pass in silence |
 | `B34` | Give confirmed intent one subsection numbering | `DECISIONS.md` numbers two different sections `2.5` and orders them `2.3`, `2.5`, `2.4`, `2.5`. `BOARD.md` cites section 2.5 for the performance intent, and that citation is ambiguous by number rather than wrong |
 | `B11` | Reconcile the scope boundary with the `F` series it is forked with | Section 10 lists what is included and deferred, and the `F` series lists deferred mechanisms with their re-entry conditions, so a deferral is written twice and section 10 is marked provisional because of it. Editorial work with its own risk: the two lists have to be read against each other before either can be cut |
 
@@ -221,11 +218,10 @@ Scored on the same scale, so not choosing them is visible.
 
 ## Decisions required
 
-| Question | Blocks |
-|---|---|
-| Whether every direction change must carry a decision number, or the absorption gate must widen to cover confirmed intent as well | `B38` |
+None outstanding.
 
-The sweep-schedule question was ruled on demand and on no schedule, and `B4` is held with the trigger that ruling implies.
+The sweep schedule was ruled on demand and on no schedule, and `B4` is held with the trigger that ruling implies.\
+Direction changes were ruled to carry a decision number always, which `D30` satisfies retrospectively and `record-integrity.test.js` now enforces.
 
 ---
 

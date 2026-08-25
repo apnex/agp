@@ -46,6 +46,10 @@
     "D29": {
       "disposition": "not-applicable",
       "reason": "Lets a carrier declare whether it can be outrun. Tested against the Reach dimension deliberately, because that dimension forbids a variant, a fork, or a privileged path: the node implementation stays single and unforked, and it is the carrier that varies rather than the node, so no privileged path is introduced."
+    },
+    "D30": {
+      "disposition": "absorbed",
+      "reason": "Numbers the Q1(b) amendment that widened the unit of reachability, which is the term the north star defines. The absorption predates the number: the definition of 'by name' was amended when D26 was resolved, because D26 was built on this amendment and arrived carrying it. This entry exists so the change is reachable by its own reference rather than through the decision that happened to accompany it."
     }
   }
 }
