@@ -137,6 +137,35 @@ export interface AgpNode {
     payload: JsonObject,
     options?: SendOptions,
   ): Promise<SendReceipt>;
+
+  /**
+   * The outcome of one sent message, once every destination has settled.
+   *
+   * A `SendReceipt` states only that a message was admitted against a route.
+   * This states what became of it, and an application that must know before it
+   * exits -- a short-lived CLI, say -- cannot get that from the receipt.
+   *
+   * **Best effort, and the name of this method does not say so.** A lost
+   * disposition leaves an application with neither outcome, so anything
+   * building reliable delivery on this still needs its own timeout. A resolved
+   * disposition whose `settled` is false is exactly that case made visible
+   * rather than left to hang. This is not a delivery guarantee and AGP is not
+   * a queue.
+   */
+  settled(messageId: MessageId): Promise<MessageDisposition | undefined>;
+
+  /**
+   * Every disposition this node learns, as it learns it.
+   *
+   * Optionally filtered to one source endpoint. Separate from the operations
+   * event stream on purpose: the operations plane carries one counter per
+   * message, and this carries the detail for a consumer that asked for it.
+   *
+   * Carries the same best-effort caveat as `settled`.
+   */
+  dispositions(
+    options?: { readonly source?: EndpointName },
+  ): AsyncIterable<MessageDisposition> & { close(): void };
 }
 
 interface EffectiveConfig {
