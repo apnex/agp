@@ -1,5 +1,3 @@
-import { randomBytes, randomUUID } from "node:crypto";
-
 import {
   AGP_V1_DELIVERY_ERROR_REASONS,
   AGP_V1_LIMITS,
@@ -23,6 +21,7 @@ import {
   type SessionId,
 } from "@agp/protocol";
 import {
+  CryptoIdSource,
   immutableClone,
   AgpError,
   assertCoreSchema,
@@ -742,8 +741,13 @@ export class NodeImpl implements AgpNode, SessionHost {
     this.#sendsSinceYield += 1;
     if (this.#sendsSinceYield < SENDS_PER_LOOP_YIELD) return;
     this.#sendsSinceYield = 0;
+    // `setTimeout(resolve, 0)` rather than `setImmediate`, which is Node-only
+    // and would prevent a browser from hosting a node. The two differ in phase
+    // -- `setImmediate` runs after I/O callbacks, a zero timer on the next
+    // timer phase -- but this is a fairness yield rather than a scheduling
+    // guarantee, so either turns the loop.
     await new Promise<void>((resolve) => {
-      setImmediate(resolve);
+      setTimeout(resolve, 0);
     });
   }
 
@@ -1897,13 +1901,6 @@ export class NodeImpl implements AgpNode, SessionHost {
       if (isSessionId(candidate)) return candidate;
     }
     throw new AgpError("INTERNAL", "node.identifier", "session ID space unavailable");
-  }
-}
-
-class CryptoIdSource implements IdSourcePort {
-  next(scope: IdScope): string {
-    if (scope === "session") return randomBytes(3).toString("hex");
-    return `${scope}-${randomUUID()}`;
   }
 }
 
