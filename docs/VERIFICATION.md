@@ -318,6 +318,7 @@ A finding stays here until it is closed by a design decision or a regression tes
 | `MX7` | Sustained send rate was bounded by `maxLabelBindings` divided by the correlation lifetime, about 136 messages a second at defaults against a burst ceiling near 2850. A label binding was released by a failure or by expiry and never by success, so a flow that never failed still filled the store. | Closed by `D23`, gated by `packages/node/test/contract/disposition-release.test.js`, measured by `scripts/sustained-rate.mjs` |
 | `MX4` | A node hop costs far more than the carrier beneath it: a raw WebSocket round trip is about 75 microseconds against roughly half a millisecond per message through a node pair. Unexplained, and not a breach of anything. | Open, opportunistic |
 | `MX8` | The owner selected full native Rust CLI integration as the first consumer of the configurable CLI kernel; the shell surface at selection exposed only connections and routes. | Closed by `B42`; [integration record and live evidence](rustcli/INTEGRATION.md) |
+| `MX9` | The owner's first-use transcript exposed repetitive operator help, root navigation failures, and management configuration available only at launch. | Closed by `B43`; [operator results and live evidence](rustcli/OPERATOR.md) |
 
 `MX1` was reproducible and understood, and `D19` ratifies the mechanism that closed it.\
 `ws` emits every frame parsed from one TCP segment in a single turn, so a burst of small messages arrives faster than `pause()` can take effect and the configured bound is exceeded within one tick.\

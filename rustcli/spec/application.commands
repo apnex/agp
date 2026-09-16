@@ -1835,5 +1835,35 @@ set "./INVALID_HTTP_DOCUMENT" number 6
 set "./OUTPUT_VIEW_FAILED" number 7
 up
 top
+set "/control_aliases/management" string ":endpoint"
+set "/control_aliases/~1" string ":top"
+set "/operator" object
+edit "/operator"
+set "./context_listing" array
+append "./context_listing" string "ls"
+append "./context_listing" string "show"
+set "./command_aliases" object
+edit "./command_aliases"
+set "./agp.advertisements.list" string "agp.advertisements.show"
+set "./agp.advertisements.ls" string "agp.advertisements.show"
+set "./agp.configuration.list" string "agp.configuration.show"
+set "./agp.configuration.ls" string "agp.configuration.show"
+set "./agp.connections.list" string "agp.connections.show"
+set "./agp.connections.ls" string "agp.connections.show"
+set "./agp.counters.list" string "agp.counters.show"
+set "./agp.counters.ls" string "agp.counters.show"
+set "./agp.endpoints.list" string "agp.endpoints.show"
+set "./agp.endpoints.ls" string "agp.endpoints.show"
+set "./agp.forwarding.list" string "agp.forwarding.show"
+set "./agp.forwarding.ls" string "agp.forwarding.show"
+set "./agp.health.list" string "agp.health.show"
+set "./agp.health.ls" string "agp.health.show"
+set "./agp.resources.list" string "agp.resources.show"
+set "./agp.resources.ls" string "agp.resources.show"
+set "./agp.routes.list" string "agp.routes.show"
+set "./agp.routes.ls" string "agp.routes.show"
+set "./agp.snapshot.list" string "agp.snapshot.show"
+set "./agp.snapshot.ls" string "agp.snapshot.show"
+top
 commit
 save application.json

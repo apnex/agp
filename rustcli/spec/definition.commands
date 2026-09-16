@@ -4114,6 +4114,28 @@ up
 up
 up
 top
+top
+set "/contexts/root/help" string "AGP management"
+set "/contexts/advertisements/help" string "Received advertisements"
+set "/contexts/advertisements/commands/show/help" string "Display received advertisements"
+set "/contexts/configuration/help" string "Effective configuration"
+set "/contexts/configuration/commands/show/help" string "Display effective configuration"
+set "/contexts/connections/help" string "Peer connections"
+set "/contexts/connections/commands/show/help" string "Display peer connections"
+set "/contexts/counters/help" string "Operational counters"
+set "/contexts/counters/commands/show/help" string "Display operational counters"
+set "/contexts/endpoints/help" string "Local endpoints"
+set "/contexts/endpoints/commands/show/help" string "Display local endpoints"
+set "/contexts/forwarding/help" string "Forwarding entries"
+set "/contexts/forwarding/commands/show/help" string "Display forwarding entries"
+set "/contexts/health/help" string "Health and readiness"
+set "/contexts/health/commands/show/help" string "Display health and readiness"
+set "/contexts/resources/help" string "Resource usage"
+set "/contexts/resources/commands/show/help" string "Display resource usage"
+set "/contexts/routes/help" string "Routing table"
+set "/contexts/routes/commands/show/help" string "Display routing table"
+set "/contexts/snapshot/help" string "Node summary"
+set "/contexts/snapshot/commands/show/help" string "Display node summary"
 commit
 save definition.json
 activate

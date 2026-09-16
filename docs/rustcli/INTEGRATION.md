@@ -4,6 +4,8 @@ Status: complete for the selected local native integration.\
 The owner requested a complete configured Rust consumer in `rustcli/`, validated against the live local AGP suite, with reusable mechanisms contributed to `apnex/cli`.\
 This is the consumer implementation record for `B42` and `MX8`.
 
+The later [operator increment](OPERATOR.md) adds compact discovery and in-shell management settings under `B43` and `MX9`.
+
 ---
 
 ## Scope and authority

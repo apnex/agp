@@ -295,7 +295,9 @@ cargo build --locked --manifest-path rustcli/Cargo.toml
 ./rustcli/target/debug/agp tree
 ```
 
-Building the native CLI requires a sibling `cli` checkout; its guide includes installation, authoring, and live-suite verification.
+Building the native CLI requires a sibling `cli` checkout; its guide includes installation, authoring, and live-suite verification.\
+Inside the native shell, `management set <url>` selects a local node and `management save` stores the default for future launches.\
+Use `?` for compact contextual help, `/` to return to root, and `help --all` for the complete command metadata.
 
 ---
 

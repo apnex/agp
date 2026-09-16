@@ -49,6 +49,7 @@ An item that is `I4`/`P1` belongs early even though nobody feels it today, becau
 
 | ID | Candidate | Impact | Breach | Evidence | Status |
 |---|---|---|---|---|---|
+| `B43` | Make native operator discovery and in-shell management setup usable | `I2` | `P3` | [`MX9`](VERIFICATION.md#46-open-findings-from-sweeps), [operator results](rustcli/OPERATOR.md) | landed |
 | `B42` | Integrate the configured Rust CLI across the complete management surface | `I3` | `P3` | [`MX8`](VERIFICATION.md#46-open-findings-from-sweeps), [consumer record](rustcli/INTEGRATION.md) | landed |
 | `B20` | Release expired label bindings, so a node can send more than 4096 messages in its life | `I1` | `P1` | [`MX5`](VERIFICATION.md#46-open-findings-from-sweeps) | landed |
 | `B21` | Stop discarding a rejectable promise on the inbound data path | `I1` | `P2` | [`MX6`](VERIFICATION.md#46-open-findings-from-sweeps) | landed |
@@ -95,7 +96,11 @@ An item that is `I4`/`P1` belongs early even though nobody feels it today, becau
 
 ## Closed
 
-Ten milestones are complete and are kept here as one line each; their detail is in the record they cite.
+Eleven milestones are complete and are kept here as one line each; their detail is in the record they cite.
+
+**Configure management inside the operator shell.**\
+`B43` closes the first-use discovery and setup failures with compact help, root navigation, and explicitly saved endpoint selection.\
+The [operator record](rustcli/OPERATOR.md) retains live tests and the installed terminal journey.
 
 **Use one configured native CLI across management.**\
 `B42` supplies ten contexts, thirty verbs, and ten views in `rustcli/`, with [local live acceptance and installed terminal evidence](rustcli/INTEGRATION.md).\

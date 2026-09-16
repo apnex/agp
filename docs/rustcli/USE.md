@@ -39,21 +39,29 @@ npm run build
 node examples/loopback-star/example.mjs --persist
 ```
 
-In another terminal, select the example's hub and call ordinary verbs:
+In another terminal, open the native CLI:
 ```sh
-export AGP_MANAGEMENT_URL=http://127.0.0.1:47201
-./rustcli/target/debug/agp connections show
-./rustcli/target/debug/agp routes ls
-./rustcli/target/debug/agp health show
-./rustcli/target/debug/agp resources show
-./rustcli/target/debug/agp counters show
-./rustcli/target/debug/agp snapshot show --json
+./rustcli/target/debug/agp
+```
+
+Select the example's default hub from inside the shell and save the selection:
+```text
+management set http://127.0.0.1:47201
+management save
+connections
+show
+up
+routes
+ls
+exit
 ```
 
 The example prints its actual management addresses at startup.\
 If you override its ports, use those addresses instead.\
 Stop the example with Ctrl-C in its own terminal.\
-For another existing node, supply its actual management URL through `--url` or `AGP_MANAGEMENT_URL`; the explicit option wins.
+For another existing node, use its actual management URL in `management set`.\
+Selection takes effect immediately and does not itself make a network request.\
+Future launches use the saved default unless `--url` or `AGP_MANAGEMENT_URL` supplies an override; the explicit option wins.
 
 Start an interactive shell:
 ```sh
@@ -74,11 +82,41 @@ tree
 exit
 ```
 
-Entering a context displays its available commands and updates the prompt.\
+Entering a context displays a short command hint and updates the prompt.\
 Tab completes contexts, commands, and control shortcuts.\
 `show` and `ls` read the current resource; `?` or `help` explains its commands.\
-`up` selects the parent, `top` selects root, and `tree` prints the complete verb structure.\
+`up` selects the parent; `top` and `/` select root.\
+At root, `ls` and `show` list contexts; inside resources they execute the configured read.\
+`tree` prints the compact verb structure; `tree --all` and `help --all` include compatibility aliases and full metadata.\
 The same input can be piped to the executable.
+
+---
+
+## Management settings
+
+These controls work from any context:
+
+| Command | Effect |
+|---|---|
+| `management show` | Show the current endpoint, its selection source, saved default, and settings file |
+| `management set <url>` | Validate and select an endpoint for this session |
+| `management clear` | Remove this session's endpoint selection |
+| `management save` | Save the current selection or cleared state for future launches |
+| `management load` | Reload the saved selection into this session |
+
+The default file is `$XDG_CONFIG_HOME/programmable-cli/agp/management.json`, falling back to `$HOME/.config/programmable-cli/agp/management.json`.\
+Launch with `--config FILE` to use a separate settings file.\
+The CLI authors this file; operators do not edit JSON.\
+A malformed endpoint leaves the current selection intact.\
+If another session saves first, a stale save is rejected; use `management load`, inspect the new selection, then make the intended change.\
+These commands configure the CLI's management access; the AGP server remains read-only.
+
+To configure the default in a single invocation, use the intended node's management URL:
+```sh
+agp management set http://127.0.0.1:47201 --save
+```
+
+One-shot set and clear require `--save`; an interactive session can keep an unsaved selection until it exits.
 
 ---
 
@@ -115,7 +153,7 @@ Retain context and observations across launches:
 
 Useful canonical controls inside the shell are `:status`, `:views`, `:render connections`, and `:export FILE`.\
 A re-render uses the saved result and labels it historical.\
-An exported interface carries no endpoint authority; another process must receive `--url` or the environment variable for fresh reads.\
+An exported interface carries no endpoint authority; another process selects its endpoint independently through its own settings, launch options, or in-shell management control.\
 The application profile remains a separate reusable document when using the generic kernel's `cli app` launcher.
 
 ---
