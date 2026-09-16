@@ -99,6 +99,12 @@ if (!(await exists(path.join(cliDirectory, "test", "run.sh")))) {
 }
 allTests.push(...cliTests);
 
+const nativeTests = [];
+await collectTests(path.join(workspace, "rustcli/test"), nativeTests);
+if (nativeTests.length === 0) failures.push("rustcli: no component-owned tests");
+await auditOwnershipMap("rustcli", path.join(workspace, "rustcli/test/README.md"), nativeTests);
+allTests.push(...nativeTests);
+
 for (const suiteName of [
   "conformance",
   "integration",

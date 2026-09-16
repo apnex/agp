@@ -1,0 +1,4120 @@
+set "" object
+set "./format" string "cli-definition-v3"
+set "./id" string "agp"
+set "./description" string "Read-only AGP node management."
+set "./contexts" object
+edit "./contexts"
+set "./root" object
+edit "./root"
+set "./parent" null
+set "./help" string "Inspect a local AGP node. Enter a context, then use show or ls."
+set "./related" array
+set "./commands" object
+edit "./commands"
+set "./health.list" object
+edit "./health.list"
+set "./id" string "agp.health.list"
+set "./help" string "Node lifecycle, readiness, and identity."
+set "./parameters" array
+set "./binding" object
+edit "./binding"
+set "./kind" string "connected"
+set "./provider" string "json-http-get-v1"
+set "./capability" string "agp.health"
+up
+set "./view" string "health"
+up
+set "./snapshot.list" object
+edit "./snapshot.list"
+set "./id" string "agp.snapshot.list"
+set "./help" string "Summary of one canonical operations capture; --json retains all sections."
+set "./parameters" array
+set "./binding" object
+edit "./binding"
+set "./kind" string "connected"
+set "./provider" string "json-http-get-v1"
+set "./capability" string "agp.snapshot"
+up
+set "./view" string "snapshot"
+up
+set "./configuration.list" object
+edit "./configuration.list"
+set "./id" string "agp.configuration.list"
+set "./help" string "Effective redacted node configuration."
+set "./parameters" array
+set "./binding" object
+edit "./binding"
+set "./kind" string "connected"
+set "./provider" string "json-http-get-v1"
+set "./capability" string "agp.configuration"
+up
+set "./view" string "configuration"
+up
+set "./endpoints.list" object
+edit "./endpoints.list"
+set "./id" string "agp.endpoints.list"
+set "./help" string "Locally registered endpoints and binding identities."
+set "./parameters" array
+set "./binding" object
+edit "./binding"
+set "./kind" string "connected"
+set "./provider" string "json-http-get-v1"
+set "./capability" string "agp.endpoints"
+up
+set "./view" string "endpoints"
+up
+set "./connections.list" object
+edit "./connections.list"
+set "./id" string "agp.connections.list"
+set "./help" string "Display connection identities, states, supplied uptime and hold TTL."
+set "./parameters" array
+set "./binding" object
+edit "./binding"
+set "./kind" string "connected"
+set "./provider" string "json-http-get-v1"
+set "./capability" string "agp.connections"
+up
+set "./view" string "connections"
+up
+set "./advertisements.list" object
+edit "./advertisements.list"
+set "./id" string "agp.advertisements.list"
+set "./help" string "Received advertisements and their source sessions."
+set "./parameters" array
+set "./binding" object
+edit "./binding"
+set "./kind" string "connected"
+set "./provider" string "json-http-get-v1"
+set "./capability" string "agp.advertisements"
+up
+set "./view" string "advertisements"
+up
+set "./routes.list" object
+edit "./routes.list"
+set "./id" string "agp.routes.list"
+set "./help" string "Display route candidates and supplied selected-route membership."
+set "./parameters" array
+set "./binding" object
+edit "./binding"
+set "./kind" string "connected"
+set "./provider" string "json-http-get-v1"
+set "./capability" string "agp.routes"
+up
+set "./view" string "routes"
+up
+set "./forwarding.list" object
+edit "./forwarding.list"
+set "./id" string "agp.forwarding.list"
+set "./help" string "Resolved forwarding entries."
+set "./parameters" array
+set "./binding" object
+edit "./binding"
+set "./kind" string "connected"
+set "./provider" string "json-http-get-v1"
+set "./capability" string "agp.forwarding"
+up
+set "./view" string "forwarding"
+up
+set "./resources.list" object
+edit "./resources.list"
+set "./id" string "agp.resources.list"
+set "./help" string "Resource usage and observed high-water marks."
+set "./parameters" array
+set "./binding" object
+edit "./binding"
+set "./kind" string "connected"
+set "./provider" string "json-http-get-v1"
+set "./capability" string "agp.resources"
+up
+set "./view" string "resources"
+up
+set "./counters.list" object
+edit "./counters.list"
+set "./id" string "agp.counters.list"
+set "./help" string "Canonical operational counters."
+set "./parameters" array
+set "./binding" object
+edit "./binding"
+set "./kind" string "connected"
+set "./provider" string "json-http-get-v1"
+set "./capability" string "agp.counters"
+up
+set "./view" string "counters"
+up
+up
+up
+set "./health" object
+edit "./health"
+set "./parent" string "root"
+set "./help" string "Node lifecycle, readiness, and identity."
+set "./related" array
+set "./commands" object
+edit "./commands"
+set "./show" object
+edit "./show"
+set "./id" string "agp.health.show"
+set "./help" string "Node lifecycle, readiness, and identity."
+set "./parameters" array
+set "./binding" object
+edit "./binding"
+set "./kind" string "connected"
+set "./provider" string "json-http-get-v1"
+set "./capability" string "agp.health"
+up
+set "./view" string "health"
+up
+set "./ls" object
+edit "./ls"
+set "./id" string "agp.health.ls"
+set "./help" string "Node lifecycle, readiness, and identity."
+set "./parameters" array
+set "./binding" object
+edit "./binding"
+set "./kind" string "connected"
+set "./provider" string "json-http-get-v1"
+set "./capability" string "agp.health"
+up
+set "./view" string "health"
+up
+up
+up
+set "./snapshot" object
+edit "./snapshot"
+set "./parent" string "root"
+set "./help" string "Summary of one canonical operations capture; --json retains all sections."
+set "./related" array
+set "./commands" object
+edit "./commands"
+set "./show" object
+edit "./show"
+set "./id" string "agp.snapshot.show"
+set "./help" string "Summary of one canonical operations capture; --json retains all sections."
+set "./parameters" array
+set "./binding" object
+edit "./binding"
+set "./kind" string "connected"
+set "./provider" string "json-http-get-v1"
+set "./capability" string "agp.snapshot"
+up
+set "./view" string "snapshot"
+up
+set "./ls" object
+edit "./ls"
+set "./id" string "agp.snapshot.ls"
+set "./help" string "Summary of one canonical operations capture; --json retains all sections."
+set "./parameters" array
+set "./binding" object
+edit "./binding"
+set "./kind" string "connected"
+set "./provider" string "json-http-get-v1"
+set "./capability" string "agp.snapshot"
+up
+set "./view" string "snapshot"
+up
+up
+up
+set "./configuration" object
+edit "./configuration"
+set "./parent" string "root"
+set "./help" string "Effective redacted node configuration."
+set "./related" array
+set "./commands" object
+edit "./commands"
+set "./show" object
+edit "./show"
+set "./id" string "agp.configuration.show"
+set "./help" string "Effective redacted node configuration."
+set "./parameters" array
+set "./binding" object
+edit "./binding"
+set "./kind" string "connected"
+set "./provider" string "json-http-get-v1"
+set "./capability" string "agp.configuration"
+up
+set "./view" string "configuration"
+up
+set "./ls" object
+edit "./ls"
+set "./id" string "agp.configuration.ls"
+set "./help" string "Effective redacted node configuration."
+set "./parameters" array
+set "./binding" object
+edit "./binding"
+set "./kind" string "connected"
+set "./provider" string "json-http-get-v1"
+set "./capability" string "agp.configuration"
+up
+set "./view" string "configuration"
+up
+up
+up
+set "./endpoints" object
+edit "./endpoints"
+set "./parent" string "root"
+set "./help" string "Locally registered endpoints and binding identities."
+set "./related" array
+set "./commands" object
+edit "./commands"
+set "./show" object
+edit "./show"
+set "./id" string "agp.endpoints.show"
+set "./help" string "Locally registered endpoints and binding identities."
+set "./parameters" array
+set "./binding" object
+edit "./binding"
+set "./kind" string "connected"
+set "./provider" string "json-http-get-v1"
+set "./capability" string "agp.endpoints"
+up
+set "./view" string "endpoints"
+up
+set "./ls" object
+edit "./ls"
+set "./id" string "agp.endpoints.ls"
+set "./help" string "Locally registered endpoints and binding identities."
+set "./parameters" array
+set "./binding" object
+edit "./binding"
+set "./kind" string "connected"
+set "./provider" string "json-http-get-v1"
+set "./capability" string "agp.endpoints"
+up
+set "./view" string "endpoints"
+up
+up
+up
+set "./connections" object
+edit "./connections"
+set "./parent" string "root"
+set "./help" string "Display connection identities, states, supplied uptime and hold TTL."
+set "./related" array
+set "./commands" object
+edit "./commands"
+set "./show" object
+edit "./show"
+set "./id" string "agp.connections.show"
+set "./help" string "Display connection identities, states, supplied uptime and hold TTL."
+set "./parameters" array
+set "./binding" object
+edit "./binding"
+set "./kind" string "connected"
+set "./provider" string "json-http-get-v1"
+set "./capability" string "agp.connections"
+up
+set "./view" string "connections"
+up
+set "./ls" object
+edit "./ls"
+set "./id" string "agp.connections.ls"
+set "./help" string "Display connection identities, states, supplied uptime and hold TTL."
+set "./parameters" array
+set "./binding" object
+edit "./binding"
+set "./kind" string "connected"
+set "./provider" string "json-http-get-v1"
+set "./capability" string "agp.connections"
+up
+set "./view" string "connections"
+up
+up
+up
+set "./advertisements" object
+edit "./advertisements"
+set "./parent" string "root"
+set "./help" string "Received advertisements and their source sessions."
+set "./related" array
+set "./commands" object
+edit "./commands"
+set "./show" object
+edit "./show"
+set "./id" string "agp.advertisements.show"
+set "./help" string "Received advertisements and their source sessions."
+set "./parameters" array
+set "./binding" object
+edit "./binding"
+set "./kind" string "connected"
+set "./provider" string "json-http-get-v1"
+set "./capability" string "agp.advertisements"
+up
+set "./view" string "advertisements"
+up
+set "./ls" object
+edit "./ls"
+set "./id" string "agp.advertisements.ls"
+set "./help" string "Received advertisements and their source sessions."
+set "./parameters" array
+set "./binding" object
+edit "./binding"
+set "./kind" string "connected"
+set "./provider" string "json-http-get-v1"
+set "./capability" string "agp.advertisements"
+up
+set "./view" string "advertisements"
+up
+up
+up
+set "./routes" object
+edit "./routes"
+set "./parent" string "root"
+set "./help" string "Display route candidates and supplied selected-route membership."
+set "./related" array
+set "./commands" object
+edit "./commands"
+set "./show" object
+edit "./show"
+set "./id" string "agp.routes.show"
+set "./help" string "Display route candidates and supplied selected-route membership."
+set "./parameters" array
+set "./binding" object
+edit "./binding"
+set "./kind" string "connected"
+set "./provider" string "json-http-get-v1"
+set "./capability" string "agp.routes"
+up
+set "./view" string "routes"
+up
+set "./ls" object
+edit "./ls"
+set "./id" string "agp.routes.ls"
+set "./help" string "Display route candidates and supplied selected-route membership."
+set "./parameters" array
+set "./binding" object
+edit "./binding"
+set "./kind" string "connected"
+set "./provider" string "json-http-get-v1"
+set "./capability" string "agp.routes"
+up
+set "./view" string "routes"
+up
+up
+up
+set "./forwarding" object
+edit "./forwarding"
+set "./parent" string "root"
+set "./help" string "Resolved forwarding entries."
+set "./related" array
+set "./commands" object
+edit "./commands"
+set "./show" object
+edit "./show"
+set "./id" string "agp.forwarding.show"
+set "./help" string "Resolved forwarding entries."
+set "./parameters" array
+set "./binding" object
+edit "./binding"
+set "./kind" string "connected"
+set "./provider" string "json-http-get-v1"
+set "./capability" string "agp.forwarding"
+up
+set "./view" string "forwarding"
+up
+set "./ls" object
+edit "./ls"
+set "./id" string "agp.forwarding.ls"
+set "./help" string "Resolved forwarding entries."
+set "./parameters" array
+set "./binding" object
+edit "./binding"
+set "./kind" string "connected"
+set "./provider" string "json-http-get-v1"
+set "./capability" string "agp.forwarding"
+up
+set "./view" string "forwarding"
+up
+up
+up
+set "./resources" object
+edit "./resources"
+set "./parent" string "root"
+set "./help" string "Resource usage and observed high-water marks."
+set "./related" array
+set "./commands" object
+edit "./commands"
+set "./show" object
+edit "./show"
+set "./id" string "agp.resources.show"
+set "./help" string "Resource usage and observed high-water marks."
+set "./parameters" array
+set "./binding" object
+edit "./binding"
+set "./kind" string "connected"
+set "./provider" string "json-http-get-v1"
+set "./capability" string "agp.resources"
+up
+set "./view" string "resources"
+up
+set "./ls" object
+edit "./ls"
+set "./id" string "agp.resources.ls"
+set "./help" string "Resource usage and observed high-water marks."
+set "./parameters" array
+set "./binding" object
+edit "./binding"
+set "./kind" string "connected"
+set "./provider" string "json-http-get-v1"
+set "./capability" string "agp.resources"
+up
+set "./view" string "resources"
+up
+up
+up
+set "./counters" object
+edit "./counters"
+set "./parent" string "root"
+set "./help" string "Canonical operational counters."
+set "./related" array
+set "./commands" object
+edit "./commands"
+set "./show" object
+edit "./show"
+set "./id" string "agp.counters.show"
+set "./help" string "Canonical operational counters."
+set "./parameters" array
+set "./binding" object
+edit "./binding"
+set "./kind" string "connected"
+set "./provider" string "json-http-get-v1"
+set "./capability" string "agp.counters"
+up
+set "./view" string "counters"
+up
+set "./ls" object
+edit "./ls"
+set "./id" string "agp.counters.ls"
+set "./help" string "Canonical operational counters."
+set "./parameters" array
+set "./binding" object
+edit "./binding"
+set "./kind" string "connected"
+set "./provider" string "json-http-get-v1"
+set "./capability" string "agp.counters"
+up
+set "./view" string "counters"
+up
+up
+up
+up
+set "./mock_state" object
+set "./views" object
+edit "./views"
+set "./health" object
+edit "./health"
+set "./help" string "Node lifecycle, readiness, and identity."
+set "./rows" object
+edit "./rows"
+set "./op" string "literal"
+set "./value" array
+edit "./value"
+append . null
+up
+up
+set "./columns" array
+edit "./columns"
+append . object
+edit "./0"
+set "./id" string "node"
+set "./heading" string "NODE"
+set "./value" object
+edit "./value"
+set "./op" string "root"
+set "./path" array
+edit "./path"
+append . object
+edit "./0"
+set "./key" string "meta"
+up
+append . object
+edit "./1"
+set "./key" string "nodeId"
+up
+up
+up
+set "./format" object
+edit "./format"
+set "./kind" string "plain"
+up
+up
+append . object
+edit "./1"
+set "./id" string "state"
+set "./heading" string "STATE"
+set "./value" object
+edit "./value"
+set "./op" string "root"
+set "./path" array
+edit "./path"
+append . object
+edit "./0"
+set "./key" string "data"
+up
+append . object
+edit "./1"
+set "./key" string "lifecycle"
+up
+append . object
+edit "./2"
+set "./key" string "state"
+up
+up
+up
+set "./format" object
+edit "./format"
+set "./kind" string "plain"
+up
+up
+append . object
+edit "./2"
+set "./id" string "healthy"
+set "./heading" string "HEALTHY"
+set "./value" object
+edit "./value"
+set "./op" string "root"
+set "./path" array
+edit "./path"
+append . object
+edit "./0"
+set "./key" string "data"
+up
+append . object
+edit "./1"
+set "./key" string "healthy"
+up
+up
+up
+set "./format" object
+edit "./format"
+set "./kind" string "plain"
+up
+up
+append . object
+edit "./3"
+set "./id" string "ready"
+set "./heading" string "READY"
+set "./value" object
+edit "./value"
+set "./op" string "root"
+set "./path" array
+edit "./path"
+append . object
+edit "./0"
+set "./key" string "data"
+up
+append . object
+edit "./1"
+set "./key" string "ready"
+up
+up
+up
+set "./format" object
+edit "./format"
+set "./kind" string "plain"
+up
+up
+append . object
+edit "./4"
+set "./id" string "since"
+set "./heading" string "SINCE"
+set "./value" object
+edit "./value"
+set "./op" string "root"
+set "./path" array
+edit "./path"
+append . object
+edit "./0"
+set "./key" string "data"
+up
+append . object
+edit "./1"
+set "./key" string "lifecycle"
+up
+append . object
+edit "./2"
+set "./key" string "stateSince"
+up
+up
+up
+set "./format" object
+edit "./format"
+set "./kind" string "plain"
+up
+up
+up
+set "./require" object
+edit "./require"
+set "./op" string "and"
+set "./values" array
+edit "./values"
+append . object
+edit "./0"
+set "./op" string "eq"
+set "./left" object
+edit "./left"
+set "./op" string "root"
+set "./path" array
+edit "./path"
+append . object
+edit "./0"
+set "./key" string "apiVersion"
+up
+up
+up
+set "./right" object
+edit "./right"
+set "./op" string "literal"
+set "./value" string "agp.management/v1"
+up
+up
+append . object
+edit "./1"
+set "./op" string "eq"
+set "./left" object
+edit "./left"
+set "./op" string "root"
+set "./path" array
+edit "./path"
+append . object
+edit "./0"
+set "./key" string "kind"
+up
+up
+up
+set "./right" object
+edit "./right"
+set "./op" string "literal"
+set "./value" string "Health"
+up
+up
+append . object
+edit "./2"
+set "./op" string "is"
+set "./value" object
+edit "./value"
+set "./op" string "root"
+set "./path" array
+edit "./path"
+append . object
+edit "./0"
+set "./key" string "meta"
+up
+up
+up
+set "./type" string "object"
+up
+append . object
+edit "./3"
+set "./op" string "is"
+set "./value" object
+edit "./value"
+set "./op" string "root"
+set "./path" array
+edit "./path"
+append . object
+edit "./0"
+set "./key" string "meta"
+up
+append . object
+edit "./1"
+set "./key" string "nodeId"
+up
+up
+up
+set "./type" string "string"
+up
+append . object
+edit "./4"
+set "./op" string "is"
+set "./value" object
+edit "./value"
+set "./op" string "root"
+set "./path" array
+edit "./path"
+append . object
+edit "./0"
+set "./key" string "meta"
+up
+append . object
+edit "./1"
+set "./key" string "instanceId"
+up
+up
+up
+set "./type" string "string"
+up
+append . object
+edit "./5"
+set "./op" string "is"
+set "./value" object
+edit "./value"
+set "./op" string "root"
+set "./path" array
+edit "./path"
+append . object
+edit "./0"
+set "./key" string "meta"
+up
+append . object
+edit "./1"
+set "./key" string "capturedAt"
+up
+up
+up
+set "./type" string "string"
+up
+append . object
+edit "./6"
+set "./op" string "is"
+set "./value" object
+edit "./value"
+set "./op" string "root"
+set "./path" array
+edit "./path"
+append . object
+edit "./0"
+set "./key" string "meta"
+up
+append . object
+edit "./1"
+set "./key" string "revision"
+up
+up
+up
+set "./type" string "string"
+up
+append . object
+edit "./7"
+set "./op" string "is"
+set "./value" object
+edit "./value"
+set "./op" string "root"
+set "./path" array
+edit "./path"
+append . object
+edit "./0"
+set "./key" string "data"
+up
+up
+up
+set "./type" string "object"
+up
+append . object
+edit "./8"
+set "./op" string "is"
+set "./value" object
+edit "./value"
+set "./op" string "root"
+set "./path" array
+edit "./path"
+append . object
+edit "./0"
+set "./key" string "data"
+up
+append . object
+edit "./1"
+set "./key" string "lifecycle"
+up
+up
+up
+set "./type" string "object"
+up
+append . object
+edit "./9"
+set "./op" string "is"
+set "./value" object
+edit "./value"
+set "./op" string "root"
+set "./path" array
+edit "./path"
+append . object
+edit "./0"
+set "./key" string "data"
+up
+append . object
+edit "./1"
+set "./key" string "healthy"
+up
+up
+up
+set "./type" string "boolean"
+up
+append . object
+edit "./10"
+set "./op" string "is"
+set "./value" object
+edit "./value"
+set "./op" string "root"
+set "./path" array
+edit "./path"
+append . object
+edit "./0"
+set "./key" string "data"
+up
+append . object
+edit "./1"
+set "./key" string "ready"
+up
+up
+up
+set "./type" string "boolean"
+up
+up
+up
+up
+set "./snapshot" object
+edit "./snapshot"
+set "./help" string "Summary of one canonical operations capture; --json retains all sections."
+set "./rows" object
+edit "./rows"
+set "./op" string "literal"
+set "./value" array
+edit "./value"
+append . null
+up
+up
+set "./columns" array
+edit "./columns"
+append . object
+edit "./0"
+set "./id" string "node"
+set "./heading" string "NODE"
+set "./value" object
+edit "./value"
+set "./op" string "root"
+set "./path" array
+edit "./path"
+append . object
+edit "./0"
+set "./key" string "meta"
+up
+append . object
+edit "./1"
+set "./key" string "nodeId"
+up
+up
+up
+set "./format" object
+edit "./format"
+set "./kind" string "plain"
+up
+up
+append . object
+edit "./1"
+set "./id" string "revision"
+set "./heading" string "REVISION"
+set "./value" object
+edit "./value"
+set "./op" string "root"
+set "./path" array
+edit "./path"
+append . object
+edit "./0"
+set "./key" string "meta"
+up
+append . object
+edit "./1"
+set "./key" string "revision"
+up
+up
+up
+set "./format" object
+edit "./format"
+set "./kind" string "plain"
+up
+up
+append . object
+edit "./2"
+set "./id" string "state"
+set "./heading" string "STATE"
+set "./value" object
+edit "./value"
+set "./op" string "root"
+set "./path" array
+edit "./path"
+append . object
+edit "./0"
+set "./key" string "data"
+up
+append . object
+edit "./1"
+set "./key" string "lifecycle"
+up
+append . object
+edit "./2"
+set "./key" string "state"
+up
+up
+up
+set "./format" object
+edit "./format"
+set "./kind" string "plain"
+up
+up
+append . object
+edit "./3"
+set "./id" string "listener"
+set "./heading" string "LISTENER"
+set "./value" object
+edit "./value"
+set "./op" string "root"
+set "./path" array
+edit "./path"
+append . object
+edit "./0"
+set "./key" string "data"
+up
+append . object
+edit "./1"
+set "./key" string "listener"
+up
+append . object
+edit "./2"
+set "./key" string "state"
+up
+up
+up
+set "./format" object
+edit "./format"
+set "./kind" string "plain"
+up
+up
+append . object
+edit "./4"
+set "./id" string "endpoints"
+set "./heading" string "ENDPOINTS"
+set "./value" object
+edit "./value"
+set "./op" string "length"
+set "./input" object
+edit "./input"
+set "./op" string "root"
+set "./path" array
+edit "./path"
+append . object
+edit "./0"
+set "./key" string "data"
+up
+append . object
+edit "./1"
+set "./key" string "localEndpoints"
+up
+up
+up
+up
+set "./format" object
+edit "./format"
+set "./kind" string "plain"
+up
+up
+append . object
+edit "./5"
+set "./id" string "connections"
+set "./heading" string "CONNECTIONS"
+set "./value" object
+edit "./value"
+set "./op" string "length"
+set "./input" object
+edit "./input"
+set "./op" string "root"
+set "./path" array
+edit "./path"
+append . object
+edit "./0"
+set "./key" string "data"
+up
+append . object
+edit "./1"
+set "./key" string "connections"
+up
+up
+up
+up
+set "./format" object
+edit "./format"
+set "./kind" string "plain"
+up
+up
+append . object
+edit "./6"
+set "./id" string "routes"
+set "./heading" string "ROUTES"
+set "./value" object
+edit "./value"
+set "./op" string "length"
+set "./input" object
+edit "./input"
+set "./op" string "root"
+set "./path" array
+edit "./path"
+append . object
+edit "./0"
+set "./key" string "data"
+up
+append . object
+edit "./1"
+set "./key" string "selectedRoutes"
+up
+up
+up
+up
+set "./format" object
+edit "./format"
+set "./kind" string "plain"
+up
+up
+append . object
+edit "./7"
+set "./id" string "forwarding"
+set "./heading" string "FORWARDING"
+set "./value" object
+edit "./value"
+set "./op" string "length"
+set "./input" object
+edit "./input"
+set "./op" string "root"
+set "./path" array
+edit "./path"
+append . object
+edit "./0"
+set "./key" string "data"
+up
+append . object
+edit "./1"
+set "./key" string "forwarding"
+up
+up
+up
+up
+set "./format" object
+edit "./format"
+set "./kind" string "plain"
+up
+up
+up
+set "./require" object
+edit "./require"
+set "./op" string "and"
+set "./values" array
+edit "./values"
+append . object
+edit "./0"
+set "./op" string "eq"
+set "./left" object
+edit "./left"
+set "./op" string "root"
+set "./path" array
+edit "./path"
+append . object
+edit "./0"
+set "./key" string "apiVersion"
+up
+up
+up
+set "./right" object
+edit "./right"
+set "./op" string "literal"
+set "./value" string "agp.management/v1"
+up
+up
+append . object
+edit "./1"
+set "./op" string "eq"
+set "./left" object
+edit "./left"
+set "./op" string "root"
+set "./path" array
+edit "./path"
+append . object
+edit "./0"
+set "./key" string "kind"
+up
+up
+up
+set "./right" object
+edit "./right"
+set "./op" string "literal"
+set "./value" string "OperationsSnapshot"
+up
+up
+append . object
+edit "./2"
+set "./op" string "is"
+set "./value" object
+edit "./value"
+set "./op" string "root"
+set "./path" array
+edit "./path"
+append . object
+edit "./0"
+set "./key" string "meta"
+up
+up
+up
+set "./type" string "object"
+up
+append . object
+edit "./3"
+set "./op" string "is"
+set "./value" object
+edit "./value"
+set "./op" string "root"
+set "./path" array
+edit "./path"
+append . object
+edit "./0"
+set "./key" string "meta"
+up
+append . object
+edit "./1"
+set "./key" string "nodeId"
+up
+up
+up
+set "./type" string "string"
+up
+append . object
+edit "./4"
+set "./op" string "is"
+set "./value" object
+edit "./value"
+set "./op" string "root"
+set "./path" array
+edit "./path"
+append . object
+edit "./0"
+set "./key" string "meta"
+up
+append . object
+edit "./1"
+set "./key" string "instanceId"
+up
+up
+up
+set "./type" string "string"
+up
+append . object
+edit "./5"
+set "./op" string "is"
+set "./value" object
+edit "./value"
+set "./op" string "root"
+set "./path" array
+edit "./path"
+append . object
+edit "./0"
+set "./key" string "meta"
+up
+append . object
+edit "./1"
+set "./key" string "capturedAt"
+up
+up
+up
+set "./type" string "string"
+up
+append . object
+edit "./6"
+set "./op" string "is"
+set "./value" object
+edit "./value"
+set "./op" string "root"
+set "./path" array
+edit "./path"
+append . object
+edit "./0"
+set "./key" string "meta"
+up
+append . object
+edit "./1"
+set "./key" string "revision"
+up
+up
+up
+set "./type" string "string"
+up
+append . object
+edit "./7"
+set "./op" string "is"
+set "./value" object
+edit "./value"
+set "./op" string "root"
+set "./path" array
+edit "./path"
+append . object
+edit "./0"
+set "./key" string "data"
+up
+up
+up
+set "./type" string "object"
+up
+up
+up
+up
+set "./configuration" object
+edit "./configuration"
+set "./help" string "Effective redacted node configuration."
+set "./rows" object
+edit "./rows"
+set "./op" string "entries"
+set "./input" object
+edit "./input"
+set "./op" string "root"
+set "./path" array
+edit "./path"
+append . object
+edit "./0"
+set "./key" string "data"
+up
+append . object
+edit "./1"
+set "./key" string "effective"
+up
+up
+up
+up
+set "./columns" array
+edit "./columns"
+append . object
+edit "./0"
+set "./id" string "setting"
+set "./heading" string "SETTING"
+set "./value" object
+edit "./value"
+set "./op" string "row"
+set "./path" array
+edit "./path"
+append . object
+edit "./0"
+set "./key" string "key"
+up
+up
+up
+set "./format" object
+edit "./format"
+set "./kind" string "plain"
+up
+up
+append . object
+edit "./1"
+set "./id" string "value"
+set "./heading" string "VALUE"
+set "./value" object
+edit "./value"
+set "./op" string "row"
+set "./path" array
+edit "./path"
+append . object
+edit "./0"
+set "./key" string "value"
+up
+up
+up
+set "./format" object
+edit "./format"
+set "./kind" string "plain"
+up
+up
+up
+set "./require" object
+edit "./require"
+set "./op" string "and"
+set "./values" array
+edit "./values"
+append . object
+edit "./0"
+set "./op" string "eq"
+set "./left" object
+edit "./left"
+set "./op" string "root"
+set "./path" array
+edit "./path"
+append . object
+edit "./0"
+set "./key" string "apiVersion"
+up
+up
+up
+set "./right" object
+edit "./right"
+set "./op" string "literal"
+set "./value" string "agp.management/v1"
+up
+up
+append . object
+edit "./1"
+set "./op" string "eq"
+set "./left" object
+edit "./left"
+set "./op" string "root"
+set "./path" array
+edit "./path"
+append . object
+edit "./0"
+set "./key" string "kind"
+up
+up
+up
+set "./right" object
+edit "./right"
+set "./op" string "literal"
+set "./value" string "Configuration"
+up
+up
+append . object
+edit "./2"
+set "./op" string "is"
+set "./value" object
+edit "./value"
+set "./op" string "root"
+set "./path" array
+edit "./path"
+append . object
+edit "./0"
+set "./key" string "meta"
+up
+up
+up
+set "./type" string "object"
+up
+append . object
+edit "./3"
+set "./op" string "is"
+set "./value" object
+edit "./value"
+set "./op" string "root"
+set "./path" array
+edit "./path"
+append . object
+edit "./0"
+set "./key" string "meta"
+up
+append . object
+edit "./1"
+set "./key" string "nodeId"
+up
+up
+up
+set "./type" string "string"
+up
+append . object
+edit "./4"
+set "./op" string "is"
+set "./value" object
+edit "./value"
+set "./op" string "root"
+set "./path" array
+edit "./path"
+append . object
+edit "./0"
+set "./key" string "meta"
+up
+append . object
+edit "./1"
+set "./key" string "instanceId"
+up
+up
+up
+set "./type" string "string"
+up
+append . object
+edit "./5"
+set "./op" string "is"
+set "./value" object
+edit "./value"
+set "./op" string "root"
+set "./path" array
+edit "./path"
+append . object
+edit "./0"
+set "./key" string "meta"
+up
+append . object
+edit "./1"
+set "./key" string "capturedAt"
+up
+up
+up
+set "./type" string "string"
+up
+append . object
+edit "./6"
+set "./op" string "is"
+set "./value" object
+edit "./value"
+set "./op" string "root"
+set "./path" array
+edit "./path"
+append . object
+edit "./0"
+set "./key" string "meta"
+up
+append . object
+edit "./1"
+set "./key" string "revision"
+up
+up
+up
+set "./type" string "string"
+up
+append . object
+edit "./7"
+set "./op" string "is"
+set "./value" object
+edit "./value"
+set "./op" string "root"
+set "./path" array
+edit "./path"
+append . object
+edit "./0"
+set "./key" string "data"
+up
+up
+up
+set "./type" string "object"
+up
+append . object
+edit "./8"
+set "./op" string "is"
+set "./value" object
+edit "./value"
+set "./op" string "root"
+set "./path" array
+edit "./path"
+append . object
+edit "./0"
+set "./key" string "data"
+up
+append . object
+edit "./1"
+set "./key" string "raw"
+up
+up
+up
+set "./type" string "object"
+up
+append . object
+edit "./9"
+set "./op" string "is"
+set "./value" object
+edit "./value"
+set "./op" string "root"
+set "./path" array
+edit "./path"
+append . object
+edit "./0"
+set "./key" string "data"
+up
+append . object
+edit "./1"
+set "./key" string "effective"
+up
+up
+up
+set "./type" string "object"
+up
+append . object
+edit "./10"
+set "./op" string "is"
+set "./value" object
+edit "./value"
+set "./op" string "root"
+set "./path" array
+edit "./path"
+append . object
+edit "./0"
+set "./key" string "data"
+up
+append . object
+edit "./1"
+set "./key" string "redactedKeys"
+up
+up
+up
+set "./type" string "array"
+up
+up
+up
+up
+set "./endpoints" object
+edit "./endpoints"
+set "./help" string "Locally registered endpoints and binding identities."
+set "./rows" object
+edit "./rows"
+set "./op" string "root"
+set "./path" array
+edit "./path"
+append . object
+edit "./0"
+set "./key" string "items"
+up
+up
+up
+set "./columns" array
+edit "./columns"
+append . object
+edit "./0"
+set "./id" string "endpoint"
+set "./heading" string "ENDPOINT"
+set "./value" object
+edit "./value"
+set "./op" string "row"
+set "./path" array
+edit "./path"
+append . object
+edit "./0"
+set "./key" string "endpoint"
+up
+up
+up
+set "./format" object
+edit "./format"
+set "./kind" string "plain"
+up
+up
+append . object
+edit "./1"
+set "./id" string "binding"
+set "./heading" string "BINDING"
+set "./value" object
+edit "./value"
+set "./op" string "row"
+set "./path" array
+edit "./path"
+append . object
+edit "./0"
+set "./key" string "bindingId"
+up
+up
+up
+set "./format" object
+edit "./format"
+set "./kind" string "plain"
+up
+up
+append . object
+edit "./2"
+set "./id" string "active"
+set "./heading" string "ACTIVE"
+set "./value" object
+edit "./value"
+set "./op" string "row"
+set "./path" array
+edit "./path"
+append . object
+edit "./0"
+set "./key" string "active"
+up
+up
+up
+set "./format" object
+edit "./format"
+set "./kind" string "plain"
+up
+up
+append . object
+edit "./3"
+set "./id" string "registered_at"
+set "./heading" string "REGISTERED_AT"
+set "./value" object
+edit "./value"
+set "./op" string "row"
+set "./path" array
+edit "./path"
+append . object
+edit "./0"
+set "./key" string "registeredAt"
+up
+up
+up
+set "./format" object
+edit "./format"
+set "./kind" string "plain"
+up
+up
+up
+set "./require" object
+edit "./require"
+set "./op" string "and"
+set "./values" array
+edit "./values"
+append . object
+edit "./0"
+set "./op" string "eq"
+set "./left" object
+edit "./left"
+set "./op" string "root"
+set "./path" array
+edit "./path"
+append . object
+edit "./0"
+set "./key" string "apiVersion"
+up
+up
+up
+set "./right" object
+edit "./right"
+set "./op" string "literal"
+set "./value" string "agp.management/v1"
+up
+up
+append . object
+edit "./1"
+set "./op" string "eq"
+set "./left" object
+edit "./left"
+set "./op" string "root"
+set "./path" array
+edit "./path"
+append . object
+edit "./0"
+set "./key" string "kind"
+up
+up
+up
+set "./right" object
+edit "./right"
+set "./op" string "literal"
+set "./value" string "LocalEndpointList"
+up
+up
+append . object
+edit "./2"
+set "./op" string "is"
+set "./value" object
+edit "./value"
+set "./op" string "root"
+set "./path" array
+edit "./path"
+append . object
+edit "./0"
+set "./key" string "meta"
+up
+up
+up
+set "./type" string "object"
+up
+append . object
+edit "./3"
+set "./op" string "is"
+set "./value" object
+edit "./value"
+set "./op" string "root"
+set "./path" array
+edit "./path"
+append . object
+edit "./0"
+set "./key" string "meta"
+up
+append . object
+edit "./1"
+set "./key" string "nodeId"
+up
+up
+up
+set "./type" string "string"
+up
+append . object
+edit "./4"
+set "./op" string "is"
+set "./value" object
+edit "./value"
+set "./op" string "root"
+set "./path" array
+edit "./path"
+append . object
+edit "./0"
+set "./key" string "meta"
+up
+append . object
+edit "./1"
+set "./key" string "instanceId"
+up
+up
+up
+set "./type" string "string"
+up
+append . object
+edit "./5"
+set "./op" string "is"
+set "./value" object
+edit "./value"
+set "./op" string "root"
+set "./path" array
+edit "./path"
+append . object
+edit "./0"
+set "./key" string "meta"
+up
+append . object
+edit "./1"
+set "./key" string "capturedAt"
+up
+up
+up
+set "./type" string "string"
+up
+append . object
+edit "./6"
+set "./op" string "is"
+set "./value" object
+edit "./value"
+set "./op" string "root"
+set "./path" array
+edit "./path"
+append . object
+edit "./0"
+set "./key" string "meta"
+up
+append . object
+edit "./1"
+set "./key" string "revision"
+up
+up
+up
+set "./type" string "string"
+up
+append . object
+edit "./7"
+set "./op" string "is"
+set "./value" object
+edit "./value"
+set "./op" string "root"
+set "./path" array
+edit "./path"
+append . object
+edit "./0"
+set "./key" string "items"
+up
+up
+up
+set "./type" string "array"
+up
+up
+up
+up
+set "./connections" object
+edit "./connections"
+set "./columns" array
+edit "./columns"
+append . object
+edit "./0"
+set "./format" object
+edit "./format"
+set "./kind" string "plain"
+up
+set "./heading" string "SESSION_ID"
+set "./id" string "session_id"
+set "./value" object
+edit "./value"
+set "./op" string "coalesce"
+set "./skip_false" boolean true
+set "./values" array
+edit "./values"
+append . object
+edit "./0"
+set "./op" string "row"
+set "./path" array
+edit "./path"
+append . object
+edit "./0"
+set "./key" string "sessionId"
+up
+up
+up
+append . object
+edit "./1"
+set "./op" string "row"
+set "./path" array
+edit "./path"
+append . object
+edit "./0"
+set "./key" string "localSessionId"
+up
+up
+up
+up
+up
+up
+append . object
+edit "./1"
+set "./format" object
+edit "./format"
+set "./kind" string "plain"
+up
+set "./heading" string "REMOTE_NODE"
+set "./id" string "remote_node"
+set "./value" object
+edit "./value"
+set "./op" string "coalesce"
+set "./skip_false" boolean true
+set "./values" array
+edit "./values"
+append . object
+edit "./0"
+set "./op" string "row"
+set "./path" array
+edit "./path"
+append . object
+edit "./0"
+set "./key" string "remoteNodeId"
+up
+up
+up
+append . object
+edit "./1"
+set "./op" string "literal"
+set "./value" string "-"
+up
+up
+up
+up
+append . object
+edit "./2"
+set "./format" object
+edit "./format"
+set "./kind" string "plain"
+up
+set "./heading" string "DIRECTION"
+set "./id" string "direction"
+set "./value" object
+edit "./value"
+set "./op" string "row"
+set "./path" array
+edit "./path"
+append . object
+edit "./0"
+set "./key" string "direction"
+up
+up
+up
+up
+append . object
+edit "./3"
+set "./format" object
+edit "./format"
+set "./kind" string "plain"
+up
+set "./heading" string "STATE"
+set "./id" string "state"
+set "./value" object
+edit "./value"
+set "./op" string "row"
+set "./path" array
+edit "./path"
+append . object
+edit "./0"
+set "./key" string "state"
+up
+up
+up
+up
+append . object
+edit "./4"
+set "./format" object
+edit "./format"
+set "./fallback" string "-"
+set "./kind" string "duration_hms"
+up
+set "./heading" string "UPTIME"
+set "./id" string "uptime"
+set "./value" object
+edit "./value"
+set "./condition" object
+edit "./condition"
+set "./left" object
+edit "./left"
+set "./op" string "row"
+set "./path" array
+edit "./path"
+append . object
+edit "./0"
+set "./key" string "state"
+up
+up
+up
+set "./op" string "eq"
+set "./right" object
+edit "./right"
+set "./op" string "literal"
+set "./value" string "Established"
+up
+up
+set "./else" object
+edit "./else"
+set "./op" string "literal"
+set "./value" null
+up
+set "./op" string "if"
+set "./then" object
+edit "./then"
+set "./op" string "row"
+set "./path" array
+edit "./path"
+append . object
+edit "./0"
+set "./key" string "establishedDurationMs"
+up
+up
+up
+up
+up
+append . object
+edit "./5"
+set "./format" object
+edit "./format"
+set "./fallback" string "-"
+set "./kind" string "seconds_ceil"
+up
+set "./heading" string "TTL"
+set "./id" string "ttl"
+set "./value" object
+edit "./value"
+set "./input" object
+edit "./input"
+set "./op" string "row"
+set "./path" array
+edit "./path"
+append . object
+edit "./0"
+set "./key" string "timers"
+up
+up
+up
+set "./op" string "first"
+set "./path" array
+edit "./path"
+append . object
+edit "./0"
+set "./key" string "remainingMs"
+up
+up
+set "./where" object
+edit "./where"
+set "./op" string "and"
+set "./values" array
+edit "./values"
+append . object
+edit "./0"
+set "./left" object
+edit "./left"
+set "./op" string "item"
+set "./path" array
+edit "./path"
+append . object
+edit "./0"
+set "./key" string "name"
+up
+up
+up
+set "./op" string "eq"
+set "./right" object
+edit "./right"
+set "./op" string "literal"
+set "./value" string "hold"
+up
+up
+append . object
+edit "./1"
+set "./left" object
+edit "./left"
+set "./op" string "item"
+set "./path" array
+edit "./path"
+append . object
+edit "./0"
+set "./key" string "state"
+up
+up
+up
+set "./op" string "eq"
+set "./right" object
+edit "./right"
+set "./op" string "literal"
+set "./value" string "armed"
+up
+up
+up
+up
+up
+up
+append . object
+edit "./6"
+set "./format" object
+edit "./format"
+set "./kind" string "plain"
+up
+set "./heading" string "LAST_EVENT"
+set "./id" string "last_event"
+set "./value" object
+edit "./value"
+set "./op" string "row"
+set "./path" array
+edit "./path"
+append . object
+edit "./0"
+set "./key" string "lastTransition"
+up
+append . object
+edit "./1"
+set "./key" string "event"
+up
+up
+up
+up
+up
+set "./help" string "Display connection identities, states, supplied uptime and hold TTL."
+set "./require" object
+edit "./require"
+set "./op" string "and"
+set "./values" array
+edit "./values"
+append . object
+edit "./0"
+set "./op" string "eq"
+set "./left" object
+edit "./left"
+set "./op" string "root"
+set "./path" array
+edit "./path"
+append . object
+edit "./0"
+set "./key" string "apiVersion"
+up
+up
+up
+set "./right" object
+edit "./right"
+set "./op" string "literal"
+set "./value" string "agp.management/v1"
+up
+up
+append . object
+edit "./1"
+set "./op" string "eq"
+set "./left" object
+edit "./left"
+set "./op" string "root"
+set "./path" array
+edit "./path"
+append . object
+edit "./0"
+set "./key" string "kind"
+up
+up
+up
+set "./right" object
+edit "./right"
+set "./op" string "literal"
+set "./value" string "ConnectionList"
+up
+up
+append . object
+edit "./2"
+set "./op" string "is"
+set "./value" object
+edit "./value"
+set "./op" string "root"
+set "./path" array
+edit "./path"
+append . object
+edit "./0"
+set "./key" string "meta"
+up
+up
+up
+set "./type" string "object"
+up
+append . object
+edit "./3"
+set "./op" string "is"
+set "./value" object
+edit "./value"
+set "./op" string "root"
+set "./path" array
+edit "./path"
+append . object
+edit "./0"
+set "./key" string "meta"
+up
+append . object
+edit "./1"
+set "./key" string "nodeId"
+up
+up
+up
+set "./type" string "string"
+up
+append . object
+edit "./4"
+set "./op" string "is"
+set "./value" object
+edit "./value"
+set "./op" string "root"
+set "./path" array
+edit "./path"
+append . object
+edit "./0"
+set "./key" string "meta"
+up
+append . object
+edit "./1"
+set "./key" string "instanceId"
+up
+up
+up
+set "./type" string "string"
+up
+append . object
+edit "./5"
+set "./op" string "is"
+set "./value" object
+edit "./value"
+set "./op" string "root"
+set "./path" array
+edit "./path"
+append . object
+edit "./0"
+set "./key" string "meta"
+up
+append . object
+edit "./1"
+set "./key" string "capturedAt"
+up
+up
+up
+set "./type" string "string"
+up
+append . object
+edit "./6"
+set "./op" string "is"
+set "./value" object
+edit "./value"
+set "./op" string "root"
+set "./path" array
+edit "./path"
+append . object
+edit "./0"
+set "./key" string "meta"
+up
+append . object
+edit "./1"
+set "./key" string "revision"
+up
+up
+up
+set "./type" string "string"
+up
+append . object
+edit "./7"
+set "./op" string "is"
+set "./value" object
+edit "./value"
+set "./op" string "root"
+set "./path" array
+edit "./path"
+append . object
+edit "./0"
+set "./key" string "items"
+up
+up
+up
+set "./type" string "array"
+up
+up
+up
+set "./rows" object
+edit "./rows"
+set "./op" string "root"
+set "./path" array
+edit "./path"
+append . object
+edit "./0"
+set "./key" string "items"
+up
+up
+up
+up
+set "./advertisements" object
+edit "./advertisements"
+set "./help" string "Received advertisements and their source sessions."
+set "./rows" object
+edit "./rows"
+set "./op" string "root"
+set "./path" array
+edit "./path"
+append . object
+edit "./0"
+set "./key" string "items"
+up
+up
+up
+set "./columns" array
+edit "./columns"
+append . object
+edit "./0"
+set "./id" string "endpoint"
+set "./heading" string "ENDPOINT"
+set "./value" object
+edit "./value"
+set "./op" string "row"
+set "./path" array
+edit "./path"
+append . object
+edit "./0"
+set "./key" string "endpoint"
+up
+up
+up
+set "./format" object
+edit "./format"
+set "./kind" string "plain"
+up
+up
+append . object
+edit "./1"
+set "./id" string "origin_node"
+set "./heading" string "ORIGIN_NODE"
+set "./value" object
+edit "./value"
+set "./op" string "row"
+set "./path" array
+edit "./path"
+append . object
+edit "./0"
+set "./key" string "originNodeId"
+up
+up
+up
+set "./format" object
+edit "./format"
+set "./kind" string "plain"
+up
+up
+append . object
+edit "./2"
+set "./id" string "advertising_node"
+set "./heading" string "ADVERTISING_NODE"
+set "./value" object
+edit "./value"
+set "./op" string "row"
+set "./path" array
+edit "./path"
+append . object
+edit "./0"
+set "./key" string "advertisingNodeId"
+up
+up
+up
+set "./format" object
+edit "./format"
+set "./kind" string "plain"
+up
+up
+append . object
+edit "./3"
+set "./id" string "session"
+set "./heading" string "SESSION"
+set "./value" object
+edit "./value"
+set "./op" string "row"
+set "./path" array
+edit "./path"
+append . object
+edit "./0"
+set "./key" string "owningSessionId"
+up
+up
+up
+set "./format" object
+edit "./format"
+set "./kind" string "plain"
+up
+up
+append . object
+edit "./4"
+set "./id" string "path"
+set "./heading" string "PATH"
+set "./value" object
+edit "./value"
+set "./op" string "row"
+set "./path" array
+edit "./path"
+append . object
+edit "./0"
+set "./key" string "receivedPath"
+up
+up
+up
+set "./format" object
+edit "./format"
+set "./kind" string "join"
+set "./separator" string " -> "
+set "./fallback" string "-"
+up
+up
+append . object
+edit "./5"
+set "./id" string "revision"
+set "./heading" string "REVISION"
+set "./value" object
+edit "./value"
+set "./op" string "row"
+set "./path" array
+edit "./path"
+append . object
+edit "./0"
+set "./key" string "receivedRevision"
+up
+up
+up
+set "./format" object
+edit "./format"
+set "./kind" string "plain"
+up
+up
+up
+set "./require" object
+edit "./require"
+set "./op" string "and"
+set "./values" array
+edit "./values"
+append . object
+edit "./0"
+set "./op" string "eq"
+set "./left" object
+edit "./left"
+set "./op" string "root"
+set "./path" array
+edit "./path"
+append . object
+edit "./0"
+set "./key" string "apiVersion"
+up
+up
+up
+set "./right" object
+edit "./right"
+set "./op" string "literal"
+set "./value" string "agp.management/v1"
+up
+up
+append . object
+edit "./1"
+set "./op" string "eq"
+set "./left" object
+edit "./left"
+set "./op" string "root"
+set "./path" array
+edit "./path"
+append . object
+edit "./0"
+set "./key" string "kind"
+up
+up
+up
+set "./right" object
+edit "./right"
+set "./op" string "literal"
+set "./value" string "AdvertisementList"
+up
+up
+append . object
+edit "./2"
+set "./op" string "is"
+set "./value" object
+edit "./value"
+set "./op" string "root"
+set "./path" array
+edit "./path"
+append . object
+edit "./0"
+set "./key" string "meta"
+up
+up
+up
+set "./type" string "object"
+up
+append . object
+edit "./3"
+set "./op" string "is"
+set "./value" object
+edit "./value"
+set "./op" string "root"
+set "./path" array
+edit "./path"
+append . object
+edit "./0"
+set "./key" string "meta"
+up
+append . object
+edit "./1"
+set "./key" string "nodeId"
+up
+up
+up
+set "./type" string "string"
+up
+append . object
+edit "./4"
+set "./op" string "is"
+set "./value" object
+edit "./value"
+set "./op" string "root"
+set "./path" array
+edit "./path"
+append . object
+edit "./0"
+set "./key" string "meta"
+up
+append . object
+edit "./1"
+set "./key" string "instanceId"
+up
+up
+up
+set "./type" string "string"
+up
+append . object
+edit "./5"
+set "./op" string "is"
+set "./value" object
+edit "./value"
+set "./op" string "root"
+set "./path" array
+edit "./path"
+append . object
+edit "./0"
+set "./key" string "meta"
+up
+append . object
+edit "./1"
+set "./key" string "capturedAt"
+up
+up
+up
+set "./type" string "string"
+up
+append . object
+edit "./6"
+set "./op" string "is"
+set "./value" object
+edit "./value"
+set "./op" string "root"
+set "./path" array
+edit "./path"
+append . object
+edit "./0"
+set "./key" string "meta"
+up
+append . object
+edit "./1"
+set "./key" string "revision"
+up
+up
+up
+set "./type" string "string"
+up
+append . object
+edit "./7"
+set "./op" string "is"
+set "./value" object
+edit "./value"
+set "./op" string "root"
+set "./path" array
+edit "./path"
+append . object
+edit "./0"
+set "./key" string "items"
+up
+up
+up
+set "./type" string "array"
+up
+up
+up
+up
+set "./routes" object
+edit "./routes"
+set "./columns" array
+edit "./columns"
+append . object
+edit "./0"
+set "./format" object
+edit "./format"
+set "./kind" string "plain"
+up
+set "./heading" string "SELECTED"
+set "./id" string "selected"
+set "./value" object
+edit "./value"
+set "./condition" object
+edit "./condition"
+set "./input" object
+edit "./input"
+set "./op" string "root"
+set "./path" array
+edit "./path"
+append . object
+edit "./0"
+set "./key" string "selected"
+up
+up
+up
+set "./op" string "any"
+set "./where" object
+edit "./where"
+set "./left" object
+edit "./left"
+set "./op" string "item"
+set "./path" array
+edit "./path"
+append . object
+edit "./0"
+set "./key" string "routeId"
+up
+up
+up
+set "./op" string "eq"
+set "./right" object
+edit "./right"
+set "./op" string "row"
+set "./path" array
+edit "./path"
+append . object
+edit "./0"
+set "./key" string "routeId"
+up
+up
+up
+up
+up
+set "./else" object
+edit "./else"
+set "./op" string "literal"
+set "./value" string ""
+up
+set "./op" string "if"
+set "./then" object
+edit "./then"
+set "./op" string "literal"
+set "./value" string ">"
+up
+up
+up
+append . object
+edit "./1"
+set "./format" object
+edit "./format"
+set "./kind" string "plain"
+up
+set "./heading" string "ENDPOINT"
+set "./id" string "endpoint"
+set "./value" object
+edit "./value"
+set "./op" string "row"
+set "./path" array
+edit "./path"
+append . object
+edit "./0"
+set "./key" string "endpoint"
+up
+up
+up
+up
+append . object
+edit "./2"
+set "./format" object
+edit "./format"
+set "./kind" string "plain"
+up
+set "./heading" string "ROUTE_CLASS"
+set "./id" string "route_class"
+set "./value" object
+edit "./value"
+set "./op" string "row"
+set "./path" array
+edit "./path"
+append . object
+edit "./0"
+set "./key" string "routeClass"
+up
+up
+up
+up
+append . object
+edit "./3"
+set "./format" object
+edit "./format"
+set "./kind" string "plain"
+up
+set "./heading" string "LEARNED_KIND"
+set "./id" string "learned_kind"
+set "./value" object
+edit "./value"
+set "./op" string "row"
+set "./path" array
+edit "./path"
+append . object
+edit "./0"
+set "./key" string "learnedKind"
+up
+up
+up
+up
+append . object
+edit "./4"
+set "./format" object
+edit "./format"
+set "./kind" string "plain"
+up
+set "./heading" string "NEXT_HOP"
+set "./id" string "next_hop"
+set "./value" object
+edit "./value"
+set "./condition" object
+edit "./condition"
+set "./op" string "and"
+set "./values" array
+edit "./values"
+append . object
+edit "./0"
+set "./left" object
+edit "./left"
+set "./op" string "row"
+set "./path" array
+edit "./path"
+append . object
+edit "./0"
+set "./key" string "nextHop"
+up
+append . object
+edit "./1"
+set "./key" string "kind"
+up
+up
+up
+set "./op" string "eq"
+set "./right" object
+edit "./right"
+set "./op" string "literal"
+set "./value" string "local"
+up
+up
+append . object
+edit "./1"
+set "./op" string "is"
+set "./type" string "string"
+set "./value" object
+edit "./value"
+set "./op" string "row"
+set "./path" array
+edit "./path"
+append . object
+edit "./0"
+set "./key" string "nextHop"
+up
+append . object
+edit "./1"
+set "./key" string "bindingId"
+up
+up
+up
+up
+up
+up
+set "./else" object
+edit "./else"
+set "./condition" object
+edit "./condition"
+set "./op" string "and"
+set "./values" array
+edit "./values"
+append . object
+edit "./0"
+set "./left" object
+edit "./left"
+set "./op" string "row"
+set "./path" array
+edit "./path"
+append . object
+edit "./0"
+set "./key" string "nextHop"
+up
+append . object
+edit "./1"
+set "./key" string "kind"
+up
+up
+up
+set "./op" string "eq"
+set "./right" object
+edit "./right"
+set "./op" string "literal"
+set "./value" string "session"
+up
+up
+append . object
+edit "./1"
+set "./op" string "is"
+set "./type" string "string"
+set "./value" object
+edit "./value"
+set "./op" string "row"
+set "./path" array
+edit "./path"
+append . object
+edit "./0"
+set "./key" string "nextHop"
+up
+append . object
+edit "./1"
+set "./key" string "nodeId"
+up
+up
+up
+up
+append . object
+edit "./2"
+set "./op" string "is"
+set "./type" string "string"
+set "./value" object
+edit "./value"
+set "./op" string "row"
+set "./path" array
+edit "./path"
+append . object
+edit "./0"
+set "./key" string "nextHop"
+up
+append . object
+edit "./1"
+set "./key" string "owningSessionId"
+up
+up
+up
+up
+up
+up
+set "./else" object
+edit "./else"
+set "./op" string "literal"
+set "./value" string ""
+up
+set "./op" string "if"
+set "./then" object
+edit "./then"
+set "./op" string "concat"
+set "./values" array
+edit "./values"
+append . object
+edit "./0"
+set "./op" string "row"
+set "./path" array
+edit "./path"
+append . object
+edit "./0"
+set "./key" string "nextHop"
+up
+append . object
+edit "./1"
+set "./key" string "nodeId"
+up
+up
+up
+append . object
+edit "./1"
+set "./op" string "literal"
+set "./value" string "@"
+up
+append . object
+edit "./2"
+set "./op" string "row"
+set "./path" array
+edit "./path"
+append . object
+edit "./0"
+set "./key" string "nextHop"
+up
+append . object
+edit "./1"
+set "./key" string "owningSessionId"
+up
+up
+up
+up
+up
+up
+set "./op" string "if"
+set "./then" object
+edit "./then"
+set "./op" string "literal"
+set "./value" string "local"
+up
+up
+up
+append . object
+edit "./5"
+set "./format" object
+edit "./format"
+set "./kind" string "plain"
+up
+set "./heading" string "ORIGIN_NODE"
+set "./id" string "origin_node"
+set "./value" object
+edit "./value"
+set "./op" string "row"
+set "./path" array
+edit "./path"
+append . object
+edit "./0"
+set "./key" string "originNodeId"
+up
+up
+up
+up
+append . object
+edit "./6"
+set "./format" object
+edit "./format"
+set "./fallback" string ""
+set "./kind" string "join"
+set "./separator" string ">"
+up
+set "./heading" string "PATH"
+set "./id" string "path"
+set "./value" object
+edit "./value"
+set "./op" string "row"
+set "./path" array
+edit "./path"
+append . object
+edit "./0"
+set "./key" string "path"
+up
+up
+up
+up
+append . object
+edit "./7"
+set "./format" object
+edit "./format"
+set "./kind" string "plain"
+up
+set "./heading" string "ELIGIBLE"
+set "./id" string "eligible"
+set "./value" object
+edit "./value"
+set "./op" string "row"
+set "./path" array
+edit "./path"
+append . object
+edit "./0"
+set "./key" string "eligible"
+up
+up
+up
+up
+append . object
+edit "./8"
+set "./format" object
+edit "./format"
+set "./kind" string "plain"
+up
+set "./heading" string "REASON"
+set "./id" string "reason"
+set "./value" object
+edit "./value"
+set "./op" string "row"
+set "./path" array
+edit "./path"
+append . object
+edit "./0"
+set "./key" string "selectionReason"
+up
+up
+up
+up
+up
+set "./help" string "Display route candidates and supplied selected-route membership."
+set "./require" object
+edit "./require"
+set "./op" string "and"
+set "./values" array
+edit "./values"
+append . object
+edit "./0"
+set "./op" string "eq"
+set "./left" object
+edit "./left"
+set "./op" string "root"
+set "./path" array
+edit "./path"
+append . object
+edit "./0"
+set "./key" string "apiVersion"
+up
+up
+up
+set "./right" object
+edit "./right"
+set "./op" string "literal"
+set "./value" string "agp.management/v1"
+up
+up
+append . object
+edit "./1"
+set "./op" string "eq"
+set "./left" object
+edit "./left"
+set "./op" string "root"
+set "./path" array
+edit "./path"
+append . object
+edit "./0"
+set "./key" string "kind"
+up
+up
+up
+set "./right" object
+edit "./right"
+set "./op" string "literal"
+set "./value" string "RouteTable"
+up
+up
+append . object
+edit "./2"
+set "./op" string "is"
+set "./value" object
+edit "./value"
+set "./op" string "root"
+set "./path" array
+edit "./path"
+append . object
+edit "./0"
+set "./key" string "meta"
+up
+up
+up
+set "./type" string "object"
+up
+append . object
+edit "./3"
+set "./op" string "is"
+set "./value" object
+edit "./value"
+set "./op" string "root"
+set "./path" array
+edit "./path"
+append . object
+edit "./0"
+set "./key" string "meta"
+up
+append . object
+edit "./1"
+set "./key" string "nodeId"
+up
+up
+up
+set "./type" string "string"
+up
+append . object
+edit "./4"
+set "./op" string "is"
+set "./value" object
+edit "./value"
+set "./op" string "root"
+set "./path" array
+edit "./path"
+append . object
+edit "./0"
+set "./key" string "meta"
+up
+append . object
+edit "./1"
+set "./key" string "instanceId"
+up
+up
+up
+set "./type" string "string"
+up
+append . object
+edit "./5"
+set "./op" string "is"
+set "./value" object
+edit "./value"
+set "./op" string "root"
+set "./path" array
+edit "./path"
+append . object
+edit "./0"
+set "./key" string "meta"
+up
+append . object
+edit "./1"
+set "./key" string "capturedAt"
+up
+up
+up
+set "./type" string "string"
+up
+append . object
+edit "./6"
+set "./op" string "is"
+set "./value" object
+edit "./value"
+set "./op" string "root"
+set "./path" array
+edit "./path"
+append . object
+edit "./0"
+set "./key" string "meta"
+up
+append . object
+edit "./1"
+set "./key" string "revision"
+up
+up
+up
+set "./type" string "string"
+up
+append . object
+edit "./7"
+set "./op" string "is"
+set "./value" object
+edit "./value"
+set "./op" string "root"
+set "./path" array
+edit "./path"
+append . object
+edit "./0"
+set "./key" string "candidates"
+up
+up
+up
+set "./type" string "array"
+up
+append . object
+edit "./8"
+set "./op" string "is"
+set "./value" object
+edit "./value"
+set "./op" string "root"
+set "./path" array
+edit "./path"
+append . object
+edit "./0"
+set "./key" string "selected"
+up
+up
+up
+set "./type" string "array"
+up
+up
+up
+set "./rows" object
+edit "./rows"
+set "./op" string "root"
+set "./path" array
+edit "./path"
+append . object
+edit "./0"
+set "./key" string "candidates"
+up
+up
+up
+up
+set "./forwarding" object
+edit "./forwarding"
+set "./help" string "Resolved forwarding entries."
+set "./rows" object
+edit "./rows"
+set "./op" string "root"
+set "./path" array
+edit "./path"
+append . object
+edit "./0"
+set "./key" string "items"
+up
+up
+up
+set "./columns" array
+edit "./columns"
+append . object
+edit "./0"
+set "./id" string "endpoint"
+set "./heading" string "ENDPOINT"
+set "./value" object
+edit "./value"
+set "./op" string "row"
+set "./path" array
+edit "./path"
+append . object
+edit "./0"
+set "./key" string "endpoint"
+up
+up
+up
+set "./format" object
+edit "./format"
+set "./kind" string "plain"
+up
+up
+append . object
+edit "./1"
+set "./id" string "next_hop"
+set "./heading" string "NEXT_HOP"
+set "./value" object
+edit "./value"
+set "./condition" object
+edit "./condition"
+set "./op" string "and"
+set "./values" array
+edit "./values"
+append . object
+edit "./0"
+set "./left" object
+edit "./left"
+set "./op" string "row"
+set "./path" array
+edit "./path"
+append . object
+edit "./0"
+set "./key" string "nextHop"
+up
+append . object
+edit "./1"
+set "./key" string "kind"
+up
+up
+up
+set "./op" string "eq"
+set "./right" object
+edit "./right"
+set "./op" string "literal"
+set "./value" string "local"
+up
+up
+append . object
+edit "./1"
+set "./op" string "is"
+set "./type" string "string"
+set "./value" object
+edit "./value"
+set "./op" string "row"
+set "./path" array
+edit "./path"
+append . object
+edit "./0"
+set "./key" string "nextHop"
+up
+append . object
+edit "./1"
+set "./key" string "bindingId"
+up
+up
+up
+up
+up
+up
+set "./else" object
+edit "./else"
+set "./condition" object
+edit "./condition"
+set "./op" string "and"
+set "./values" array
+edit "./values"
+append . object
+edit "./0"
+set "./left" object
+edit "./left"
+set "./op" string "row"
+set "./path" array
+edit "./path"
+append . object
+edit "./0"
+set "./key" string "nextHop"
+up
+append . object
+edit "./1"
+set "./key" string "kind"
+up
+up
+up
+set "./op" string "eq"
+set "./right" object
+edit "./right"
+set "./op" string "literal"
+set "./value" string "session"
+up
+up
+append . object
+edit "./1"
+set "./op" string "is"
+set "./type" string "string"
+set "./value" object
+edit "./value"
+set "./op" string "row"
+set "./path" array
+edit "./path"
+append . object
+edit "./0"
+set "./key" string "nextHop"
+up
+append . object
+edit "./1"
+set "./key" string "nodeId"
+up
+up
+up
+up
+append . object
+edit "./2"
+set "./op" string "is"
+set "./type" string "string"
+set "./value" object
+edit "./value"
+set "./op" string "row"
+set "./path" array
+edit "./path"
+append . object
+edit "./0"
+set "./key" string "nextHop"
+up
+append . object
+edit "./1"
+set "./key" string "owningSessionId"
+up
+up
+up
+up
+up
+up
+set "./else" object
+edit "./else"
+set "./op" string "literal"
+set "./value" string ""
+up
+set "./op" string "if"
+set "./then" object
+edit "./then"
+set "./op" string "concat"
+set "./values" array
+edit "./values"
+append . object
+edit "./0"
+set "./op" string "row"
+set "./path" array
+edit "./path"
+append . object
+edit "./0"
+set "./key" string "nextHop"
+up
+append . object
+edit "./1"
+set "./key" string "nodeId"
+up
+up
+up
+append . object
+edit "./1"
+set "./op" string "literal"
+set "./value" string "@"
+up
+append . object
+edit "./2"
+set "./op" string "row"
+set "./path" array
+edit "./path"
+append . object
+edit "./0"
+set "./key" string "nextHop"
+up
+append . object
+edit "./1"
+set "./key" string "owningSessionId"
+up
+up
+up
+up
+up
+up
+set "./op" string "if"
+set "./then" object
+edit "./then"
+set "./op" string "literal"
+set "./value" string "local"
+up
+up
+set "./format" object
+edit "./format"
+set "./kind" string "plain"
+up
+up
+append . object
+edit "./2"
+set "./id" string "origin_node"
+set "./heading" string "ORIGIN_NODE"
+set "./value" object
+edit "./value"
+set "./op" string "row"
+set "./path" array
+edit "./path"
+append . object
+edit "./0"
+set "./key" string "originNodeId"
+up
+up
+up
+set "./format" object
+edit "./format"
+set "./kind" string "plain"
+up
+up
+append . object
+edit "./3"
+set "./id" string "route"
+set "./heading" string "ROUTE"
+set "./value" object
+edit "./value"
+set "./op" string "row"
+set "./path" array
+edit "./path"
+append . object
+edit "./0"
+set "./key" string "selectedRouteId"
+up
+up
+up
+set "./format" object
+edit "./format"
+set "./kind" string "plain"
+up
+up
+append . object
+edit "./4"
+set "./id" string "revision"
+set "./heading" string "REVISION"
+set "./value" object
+edit "./value"
+set "./op" string "row"
+set "./path" array
+edit "./path"
+append . object
+edit "./0"
+set "./key" string "resolvedAtRevision"
+up
+up
+up
+set "./format" object
+edit "./format"
+set "./kind" string "plain"
+up
+up
+up
+set "./require" object
+edit "./require"
+set "./op" string "and"
+set "./values" array
+edit "./values"
+append . object
+edit "./0"
+set "./op" string "eq"
+set "./left" object
+edit "./left"
+set "./op" string "root"
+set "./path" array
+edit "./path"
+append . object
+edit "./0"
+set "./key" string "apiVersion"
+up
+up
+up
+set "./right" object
+edit "./right"
+set "./op" string "literal"
+set "./value" string "agp.management/v1"
+up
+up
+append . object
+edit "./1"
+set "./op" string "eq"
+set "./left" object
+edit "./left"
+set "./op" string "root"
+set "./path" array
+edit "./path"
+append . object
+edit "./0"
+set "./key" string "kind"
+up
+up
+up
+set "./right" object
+edit "./right"
+set "./op" string "literal"
+set "./value" string "ForwardingList"
+up
+up
+append . object
+edit "./2"
+set "./op" string "is"
+set "./value" object
+edit "./value"
+set "./op" string "root"
+set "./path" array
+edit "./path"
+append . object
+edit "./0"
+set "./key" string "meta"
+up
+up
+up
+set "./type" string "object"
+up
+append . object
+edit "./3"
+set "./op" string "is"
+set "./value" object
+edit "./value"
+set "./op" string "root"
+set "./path" array
+edit "./path"
+append . object
+edit "./0"
+set "./key" string "meta"
+up
+append . object
+edit "./1"
+set "./key" string "nodeId"
+up
+up
+up
+set "./type" string "string"
+up
+append . object
+edit "./4"
+set "./op" string "is"
+set "./value" object
+edit "./value"
+set "./op" string "root"
+set "./path" array
+edit "./path"
+append . object
+edit "./0"
+set "./key" string "meta"
+up
+append . object
+edit "./1"
+set "./key" string "instanceId"
+up
+up
+up
+set "./type" string "string"
+up
+append . object
+edit "./5"
+set "./op" string "is"
+set "./value" object
+edit "./value"
+set "./op" string "root"
+set "./path" array
+edit "./path"
+append . object
+edit "./0"
+set "./key" string "meta"
+up
+append . object
+edit "./1"
+set "./key" string "capturedAt"
+up
+up
+up
+set "./type" string "string"
+up
+append . object
+edit "./6"
+set "./op" string "is"
+set "./value" object
+edit "./value"
+set "./op" string "root"
+set "./path" array
+edit "./path"
+append . object
+edit "./0"
+set "./key" string "meta"
+up
+append . object
+edit "./1"
+set "./key" string "revision"
+up
+up
+up
+set "./type" string "string"
+up
+append . object
+edit "./7"
+set "./op" string "is"
+set "./value" object
+edit "./value"
+set "./op" string "root"
+set "./path" array
+edit "./path"
+append . object
+edit "./0"
+set "./key" string "items"
+up
+up
+up
+set "./type" string "array"
+up
+up
+up
+up
+set "./resources" object
+edit "./resources"
+set "./help" string "Resource usage and observed high-water marks."
+set "./rows" object
+edit "./rows"
+set "./op" string "entries"
+set "./input" object
+edit "./input"
+set "./op" string "root"
+set "./path" array
+edit "./path"
+append . object
+edit "./0"
+set "./key" string "data"
+up
+append . object
+edit "./1"
+set "./key" string "gauges"
+up
+up
+up
+up
+set "./columns" array
+edit "./columns"
+append . object
+edit "./0"
+set "./id" string "resource"
+set "./heading" string "RESOURCE"
+set "./value" object
+edit "./value"
+set "./op" string "row"
+set "./path" array
+edit "./path"
+append . object
+edit "./0"
+set "./key" string "key"
+up
+up
+up
+set "./format" object
+edit "./format"
+set "./kind" string "plain"
+up
+up
+append . object
+edit "./1"
+set "./id" string "current"
+set "./heading" string "CURRENT"
+set "./value" object
+edit "./value"
+set "./op" string "row"
+set "./path" array
+edit "./path"
+append . object
+edit "./0"
+set "./key" string "value"
+up
+append . object
+edit "./1"
+set "./key" string "current"
+up
+up
+up
+set "./format" object
+edit "./format"
+set "./kind" string "plain"
+up
+up
+append . object
+edit "./2"
+set "./id" string "maximum"
+set "./heading" string "MAXIMUM"
+set "./value" object
+edit "./value"
+set "./op" string "row"
+set "./path" array
+edit "./path"
+append . object
+edit "./0"
+set "./key" string "value"
+up
+append . object
+edit "./1"
+set "./key" string "maximum"
+up
+up
+up
+set "./format" object
+edit "./format"
+set "./kind" string "plain"
+up
+up
+append . object
+edit "./3"
+set "./id" string "high_water"
+set "./heading" string "HIGH_WATER"
+set "./value" object
+edit "./value"
+set "./op" string "row"
+set "./path" array
+edit "./path"
+append . object
+edit "./0"
+set "./key" string "value"
+up
+append . object
+edit "./1"
+set "./key" string "highWater"
+up
+up
+up
+set "./format" object
+edit "./format"
+set "./kind" string "plain"
+up
+up
+up
+set "./require" object
+edit "./require"
+set "./op" string "and"
+set "./values" array
+edit "./values"
+append . object
+edit "./0"
+set "./op" string "eq"
+set "./left" object
+edit "./left"
+set "./op" string "root"
+set "./path" array
+edit "./path"
+append . object
+edit "./0"
+set "./key" string "apiVersion"
+up
+up
+up
+set "./right" object
+edit "./right"
+set "./op" string "literal"
+set "./value" string "agp.management/v1"
+up
+up
+append . object
+edit "./1"
+set "./op" string "eq"
+set "./left" object
+edit "./left"
+set "./op" string "root"
+set "./path" array
+edit "./path"
+append . object
+edit "./0"
+set "./key" string "kind"
+up
+up
+up
+set "./right" object
+edit "./right"
+set "./op" string "literal"
+set "./value" string "Resources"
+up
+up
+append . object
+edit "./2"
+set "./op" string "is"
+set "./value" object
+edit "./value"
+set "./op" string "root"
+set "./path" array
+edit "./path"
+append . object
+edit "./0"
+set "./key" string "meta"
+up
+up
+up
+set "./type" string "object"
+up
+append . object
+edit "./3"
+set "./op" string "is"
+set "./value" object
+edit "./value"
+set "./op" string "root"
+set "./path" array
+edit "./path"
+append . object
+edit "./0"
+set "./key" string "meta"
+up
+append . object
+edit "./1"
+set "./key" string "nodeId"
+up
+up
+up
+set "./type" string "string"
+up
+append . object
+edit "./4"
+set "./op" string "is"
+set "./value" object
+edit "./value"
+set "./op" string "root"
+set "./path" array
+edit "./path"
+append . object
+edit "./0"
+set "./key" string "meta"
+up
+append . object
+edit "./1"
+set "./key" string "instanceId"
+up
+up
+up
+set "./type" string "string"
+up
+append . object
+edit "./5"
+set "./op" string "is"
+set "./value" object
+edit "./value"
+set "./op" string "root"
+set "./path" array
+edit "./path"
+append . object
+edit "./0"
+set "./key" string "meta"
+up
+append . object
+edit "./1"
+set "./key" string "capturedAt"
+up
+up
+up
+set "./type" string "string"
+up
+append . object
+edit "./6"
+set "./op" string "is"
+set "./value" object
+edit "./value"
+set "./op" string "root"
+set "./path" array
+edit "./path"
+append . object
+edit "./0"
+set "./key" string "meta"
+up
+append . object
+edit "./1"
+set "./key" string "revision"
+up
+up
+up
+set "./type" string "string"
+up
+append . object
+edit "./7"
+set "./op" string "is"
+set "./value" object
+edit "./value"
+set "./op" string "root"
+set "./path" array
+edit "./path"
+append . object
+edit "./0"
+set "./key" string "data"
+up
+up
+up
+set "./type" string "object"
+up
+append . object
+edit "./8"
+set "./op" string "is"
+set "./value" object
+edit "./value"
+set "./op" string "root"
+set "./path" array
+edit "./path"
+append . object
+edit "./0"
+set "./key" string "data"
+up
+append . object
+edit "./1"
+set "./key" string "gauges"
+up
+up
+up
+set "./type" string "object"
+up
+up
+up
+up
+set "./counters" object
+edit "./counters"
+set "./help" string "Canonical operational counters."
+set "./rows" object
+edit "./rows"
+set "./op" string "entries"
+set "./input" object
+edit "./input"
+set "./op" string "root"
+set "./path" array
+edit "./path"
+append . object
+edit "./0"
+set "./key" string "data"
+up
+append . object
+edit "./1"
+set "./key" string "values"
+up
+up
+up
+up
+set "./columns" array
+edit "./columns"
+append . object
+edit "./0"
+set "./id" string "counter"
+set "./heading" string "COUNTER"
+set "./value" object
+edit "./value"
+set "./op" string "row"
+set "./path" array
+edit "./path"
+append . object
+edit "./0"
+set "./key" string "key"
+up
+up
+up
+set "./format" object
+edit "./format"
+set "./kind" string "plain"
+up
+up
+append . object
+edit "./1"
+set "./id" string "value"
+set "./heading" string "VALUE"
+set "./value" object
+edit "./value"
+set "./op" string "row"
+set "./path" array
+edit "./path"
+append . object
+edit "./0"
+set "./key" string "value"
+up
+up
+up
+set "./format" object
+edit "./format"
+set "./kind" string "plain"
+up
+up
+up
+set "./require" object
+edit "./require"
+set "./op" string "and"
+set "./values" array
+edit "./values"
+append . object
+edit "./0"
+set "./op" string "eq"
+set "./left" object
+edit "./left"
+set "./op" string "root"
+set "./path" array
+edit "./path"
+append . object
+edit "./0"
+set "./key" string "apiVersion"
+up
+up
+up
+set "./right" object
+edit "./right"
+set "./op" string "literal"
+set "./value" string "agp.management/v1"
+up
+up
+append . object
+edit "./1"
+set "./op" string "eq"
+set "./left" object
+edit "./left"
+set "./op" string "root"
+set "./path" array
+edit "./path"
+append . object
+edit "./0"
+set "./key" string "kind"
+up
+up
+up
+set "./right" object
+edit "./right"
+set "./op" string "literal"
+set "./value" string "Counters"
+up
+up
+append . object
+edit "./2"
+set "./op" string "is"
+set "./value" object
+edit "./value"
+set "./op" string "root"
+set "./path" array
+edit "./path"
+append . object
+edit "./0"
+set "./key" string "meta"
+up
+up
+up
+set "./type" string "object"
+up
+append . object
+edit "./3"
+set "./op" string "is"
+set "./value" object
+edit "./value"
+set "./op" string "root"
+set "./path" array
+edit "./path"
+append . object
+edit "./0"
+set "./key" string "meta"
+up
+append . object
+edit "./1"
+set "./key" string "nodeId"
+up
+up
+up
+set "./type" string "string"
+up
+append . object
+edit "./4"
+set "./op" string "is"
+set "./value" object
+edit "./value"
+set "./op" string "root"
+set "./path" array
+edit "./path"
+append . object
+edit "./0"
+set "./key" string "meta"
+up
+append . object
+edit "./1"
+set "./key" string "instanceId"
+up
+up
+up
+set "./type" string "string"
+up
+append . object
+edit "./5"
+set "./op" string "is"
+set "./value" object
+edit "./value"
+set "./op" string "root"
+set "./path" array
+edit "./path"
+append . object
+edit "./0"
+set "./key" string "meta"
+up
+append . object
+edit "./1"
+set "./key" string "capturedAt"
+up
+up
+up
+set "./type" string "string"
+up
+append . object
+edit "./6"
+set "./op" string "is"
+set "./value" object
+edit "./value"
+set "./op" string "root"
+set "./path" array
+edit "./path"
+append . object
+edit "./0"
+set "./key" string "meta"
+up
+append . object
+edit "./1"
+set "./key" string "revision"
+up
+up
+up
+set "./type" string "string"
+up
+append . object
+edit "./7"
+set "./op" string "is"
+set "./value" object
+edit "./value"
+set "./op" string "root"
+set "./path" array
+edit "./path"
+append . object
+edit "./0"
+set "./key" string "data"
+up
+up
+up
+set "./type" string "object"
+up
+append . object
+edit "./8"
+set "./op" string "is"
+set "./value" object
+edit "./value"
+set "./op" string "root"
+set "./path" array
+edit "./path"
+append . object
+edit "./0"
+set "./key" string "data"
+up
+append . object
+edit "./1"
+set "./key" string "values"
+up
+up
+up
+set "./type" string "object"
+up
+up
+up
+up
+up
+top
+commit
+save definition.json
+activate
+export-interface definition-interface.json

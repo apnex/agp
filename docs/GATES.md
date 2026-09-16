@@ -958,6 +958,8 @@ Other file names may be refined before implementation, but every primary contrac
 | AX7 | `test/e2e/independent-star-hub-endpoint.test.js` | Both independently started spokes learn the hub-local endpoint and deliver distinct JSON messages to its handler |
 | AX7 | `test/e2e/independent-star-duplicate-route.test.js` | Two spoke origins for one endpoint remain eligible while the hub selects one deterministic winner |
 | AX7 | `test/e2e/independent-star-cli-inspection.test.js` | Separate asynchronous CLI invocations inspect every live star management URL and expected endpoint |
+| AX7 | `rustcli/test/management-surface.test.js` | All ten HTTP resources and thirty native configured verbs preserve SDK responses and independently specified table cells |
+| AX7 | `rustcli/test/operator-shell.test.js` | Context shortcuts, endpoint selection, read-only continuation, and native HTTP failure statuses remain observable |
 | AX7 | `test/integration/secure-websocket-star.test.js` | A pre-shared-key star converges and transits JSON, and a peer holding a valid secret but claiming another node is denied on security evidence |
 | AX7 | `test/e2e/independent-line.test.js` | Independently started line processes prove symmetric multi-hop routing |
 | AX7 | `test/e2e/independent-restart-reconvergence.test.js` | A replaced WebSocket process rebuilds equivalent reachability with fresh adapter/session authority |

@@ -1,0 +1,12 @@
+formatted 3 file(s) through the sovereign rule tools.
+
+clean: 3 file(s), rule S13.
+
+clean: 3 file(s), rule S6.
+
+clean: 3 file(s), rule S10.
+
+clean: 3 file(s), rule S12.
+
+clean: 3 file(s), rule S8.
+docs: 3 file(s) clean against S6, S8, S10, S12, S13.

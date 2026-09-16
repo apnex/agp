@@ -35,6 +35,9 @@ npm run test:resilience
 npm run test:e2e
 ```
 
+Changes to `rustcli/` also require `npm run test:rustcli`, with Rust/Cargo and a sibling `cli` checkout.\
+The [native guide](rustcli/USE.md) explains configuration reconstruction and the live local consumer gate.
+
 Each workspace suite runs in its own test process.\
 When a change breaks several suites at once and you want the lowest broken layer rather than the full picture, stop at the first failing gate:
 ```bash

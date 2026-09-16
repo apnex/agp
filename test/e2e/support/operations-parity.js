@@ -3,7 +3,8 @@ import { fileURLToPath } from "node:url";
 import { promisify } from "node:util";
 
 const execute = promisify(execFile);
-const cli = fileURLToPath(new URL("../../../cli/agpctl", import.meta.url));
+const cli = process.env.AGP_TEST_CLI
+  ?? fileURLToPath(new URL("../../../cli/agpctl", import.meta.url));
 
 export const CONNECTION_COLUMNS = Object.freeze([
   "session_id",

@@ -49,6 +49,7 @@ An item that is `I4`/`P1` belongs early even though nobody feels it today, becau
 
 | ID | Candidate | Impact | Breach | Evidence | Status |
 |---|---|---|---|---|---|
+| `B42` | Integrate the configured Rust CLI across the complete management surface | `I3` | `P3` | [`MX8`](VERIFICATION.md#46-open-findings-from-sweeps), [consumer record](rustcli/INTEGRATION.md) | landed |
 | `B20` | Release expired label bindings, so a node can send more than 4096 messages in its life | `I1` | `P1` | [`MX5`](VERIFICATION.md#46-open-findings-from-sweeps) | landed |
 | `B21` | Stop discarding a rejectable promise on the inbound data path | `I1` | `P2` | [`MX6`](VERIFICATION.md#46-open-findings-from-sweeps) | landed |
 | `B22` | Measure throughput with each node in its own process | `I3` | `P3` | [`MX4`](VERIFICATION.md#46-open-findings-from-sweeps), [`VERIFICATION.md` section 4.9](VERIFICATION.md#49-chasing-a-timing-defect) | landed |
@@ -94,7 +95,11 @@ An item that is `I4`/`P1` belongs early even though nobody feels it today, becau
 
 ## Closed
 
-Nine milestones are complete and are kept here as one line each; their detail is in the record they cite.
+Ten milestones are complete and are kept here as one line each; their detail is in the record they cite.
+
+**Use one configured native CLI across management.**\
+`B42` supplies ten contexts, thirty verbs, and ten views in `rustcli/`, with [local live acceptance and installed terminal evidence](rustcli/INTEGRATION.md).\
+AGP supplies authored data; the shared Rust CLI owns transport, navigation, and rendering.
 
 **Stop the node dying.**\
 `B20` and `B21`, both `I1`, landed together because fixing the first reproduced the second within minutes.\

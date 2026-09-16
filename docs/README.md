@@ -15,6 +15,7 @@ Project-generalised documents are `UPPERCASE.md`; domain design contracts are `l
 | Understand what AGP is and run it | [`../README.md`](../README.md) |
 | Know whether it is safe to expose | [`SECURITY.md`](SECURITY.md) |
 | Change the code | [`CONTRIBUTING.md`](CONTRIBUTING.md) |
+| Use or verify the native configured CLI | [Native CLI](rustcli/USE.md), [integration record](rustcli/INTEGRATION.md) |
 | Write or move a test | [`TESTING.md`](TESTING.md) |
 | Know why a design choice was made, or what was confirmed as intent | [`DECISIONS.md`](DECISIONS.md) |
 | Decide what to work on next | [`BOARD.md`](BOARD.md) |

@@ -43,6 +43,7 @@
     "test:architecture": "node scripts/check-test-architecture.mjs",
     "test:packages": "npm run test --workspaces --if-present",
     "test:cli": "cli/test/run.sh",
+    "test:rustcli": "node rustcli/scripts/verify.mjs",
     "test:system": "node scripts/run-tests.mjs test",
     "test:gated": "node scripts/run-tests.mjs --fail-fast test",
     "test:integration": "node scripts/run-tests.mjs test/integration",

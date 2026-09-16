@@ -1,0 +1,14 @@
+[package]
+name = "agp-cli"
+version = "0.1.0"
+edition = "2024"
+description = "AGP management CLI configured on the programmable Rust CLI kernel"
+license = "MIT"
+publish = false
+
+[[bin]]
+name = "agp"
+path = "src/main.rs"
+
+[dependencies]
+programmable-cli = { path = "../../cli" }

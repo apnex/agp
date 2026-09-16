@@ -147,6 +147,7 @@ flowchart LR
     STATE --> SDK[SDK query/events]
     SDK --> HTTP[Management HTTP]
     HTTP --> CLI[agpctl]
+    HTTP --> NATIVE[Configured Rust agp CLI]
 ```
 
 No arrow permits an adapter to reconstruct canonical state or a session to inspect carrier identity.\
@@ -289,6 +290,7 @@ Packages are distribution boundaries, not declarations that all code inside a pa
 | `@agp/node` | Lifecycle composition, endpoints, sessions, forwarding, reverse dispositions | applications |
 | `@agp/management-http` | Sovereign HTTP response schemas and read-only projection of `OperationsReader` | operators |
 | `agpctl` | Read-only HTTP client and deterministic table/JSON rendering | operators |
+| `rustcli/agp` | Authored management contexts, verbs, response requirements, and views on the shared programmable Rust CLI runtime | operators |
 
 The implementation must preserve these sovereign internal modules:
 
@@ -313,6 +315,7 @@ The implementation must preserve these sovereign internal modules:
 | `management/projection` | Wrap one `OperationsReader` result in its exact HTTP contract |
 | `agpctl/http-driver` | Perform bounded read-only management requests |
 | `agpctl/templates` | Render validated response documents without routing logic |
+| `rustcli/spec` | Declare the complete HTTP management surface and operator defaults as reusable data |
 
 Internal module boundaries are not automatically public exports.\
 A stable surface is exported only where the consumer column demonstrates a consumer; tests import public contracts or same-module test seams, never another module's private implementation.
@@ -341,6 +344,7 @@ agpctl ───── read-only HTTP ─────-> @agp/management-http
 
 An arrow means "consumes."\
 The management adapter does not depend on node internals: an application supplies the public `OperationsReader`.\
+The native CLI consumes the same HTTP projection; the sibling CLI project owns transport, navigation, observation receipts, and table mechanics.\
 Adapters depend on public contracts only.\
 No package imports another package's `src/` or private symbol.
 

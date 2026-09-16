@@ -19,6 +19,7 @@ const SUITE_ROOTS = [
   "test/resilience",
   "test/e2e",
   "cli/test",
+  "rustcli/test",
   "packages",
 ];
 

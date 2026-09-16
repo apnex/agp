@@ -287,6 +287,16 @@ export AGP_MANAGEMENT_URL=http://127.0.0.1:47111
 ./cli/agpctl routes.list --json
 ```
 
+The [native Rust CLI](docs/rustcli/USE.md) covers all ten management resources with configured contexts and tables:
+```bash
+cargo build --locked --manifest-path rustcli/Cargo.toml
+./rustcli/target/debug/agp connections show
+./rustcli/target/debug/agp resources ls
+./rustcli/target/debug/agp tree
+```
+
+Building the native CLI requires a sibling `cli` checkout; its guide includes installation, authoring, and live-suite verification.
+
 ---
 
 ## Security posture

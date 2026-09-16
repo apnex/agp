@@ -53,3 +53,42 @@ jobs:
       # processes, so they run last and own their own cleanup assertions.
       - name: System suites
         run: npm run test:system
+
+  native-cli:
+    name: Configured Rust CLI and live AGP parity
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          path: agp
+      - name: Read the selected CLI source revision
+        id: kernel
+        shell: bash
+        run: |
+          revision=$(cat agp/rustcli/cli-revision)
+          [[ "$revision" =~ ^[0-9a-f]{40}$ ]]
+          echo "revision=$revision" >> "$GITHUB_OUTPUT"
+      - uses: actions/checkout@v5
+        with:
+          repository: apnex/cli
+          ref: ${{ steps.kernel.outputs.revision }}
+          path: cli
+      - uses: actions/setup-node@v5
+        with:
+          node-version-file: agp/.nvmrc
+          cache: npm
+          cache-dependency-path: agp/package-lock.json
+      - name: Activate the kernel's declared Rust toolchain
+        working-directory: cli
+        shell: bash
+        run: |
+          rustup show
+          toolchain=$(rustup show active-toolchain | cut -d ' ' -f 1)
+          echo "RUSTUP_TOOLCHAIN=$toolchain" >> "$GITHUB_ENV"
+      - name: Install AGP dependencies
+        working-directory: agp
+        run: npm ci
+      - name: Author, build, lint, and validate the live native consumer
+        working-directory: agp
+        run: npm run test:rustcli
