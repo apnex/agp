@@ -822,6 +822,7 @@ Other file names may be refined before implementation, but every primary contrac
 | AX0 | `test/conformance/markdown-link-integrity.test.js` | Every tracked markdown file resolves its local links and named anchors, so a document moving between directories cannot silently break references |
 | AX0 | `test/conformance/board-record.test.js` | The board and the record agree: every item is scored on two dimensions, cites a resolvable row, and every deferral carries a revival trigger |
 | AX0 | `test/conformance/coverage-register.test.js` | The coverage permutation register names only runnable tests, keeps every axis populated, and states a re-entry condition for each exclusion |
+| AX0 | `test/conformance/matrix-coverage.test.js` | Diagnostic cell coverage resolves to mechanisms, sources, and assertions; covering selection preserves declared keys without claiming all interactions |
 | AX0 | `test/conformance/verification-ownership-map.test.js` | Every gate-named test file in section 14 exists, no gate repeats one oracle, and each named file also carries suite ownership |
 | AX0 | `test/conformance/design-mrc.test.js` | Every exact normative design artifact carries one mechanics/rationale/consequence triad |
 | AX0 | `test/conformance/design-link-integrity.test.js` | Every local Markdown and trace design reference resolves to its exact file and anchor |

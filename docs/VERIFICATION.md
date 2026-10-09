@@ -699,20 +699,40 @@ The geometries, transports, and traffic drivers are declarative, so any combinat
 npm run test:matrix          # every legal loopback cell
 npm run test:matrix:all      # every carrier
 node scripts/run-matrix.mjs --deep --geometry=chain
+node scripts/run-matrix.mjs --transport=all --plan --json
+node scripts/run-matrix.mjs --transport=all --cover --json
 ```
 
 A sweep is a diagnostic instrument and deliberately not part of `npm test`.\
 A failing cell reports that a combination broke, not which layer owns it, and section 2.1 requires a failure to name its owning layer.\
 Use a sweep to find where to look, then reproduce what it found in a named file with a specific oracle.
 
-A cell asserts only what every geometry must satisfy: it converges, it delivers, nothing is duplicated, and reachability survives the traffic.\
+A cell asserts convergence and surviving reverse reachability, plus its traffic oracle: one expected payload, an exact ordered stream, or settled burst admissions with matching arrival count and no observed duplicates.\
 Shape-specific properties stay in named tests, because only a triangle test can assert that no exported path repeats a node and only a diamond test can assert an alternate candidate stays observable.
 
-Measured cost: 30 loopback cells in about 4 seconds, 70 cells across all carriers in about 9 seconds, and roughly two minutes deepened.
+[`matrix-coverage.json`](design/matrix-coverage.json) owns the dimensions, depth profiles, X3 exclusion, mechanism-exercise rules, and assertion definitions (`B3`).\
+`--plan --json` emits each legal cell's effective counts, matching rule IDs, exercised mechanisms, assertions, and coverage keys without opening a topology.\
+`--json` on an execution adds per-cell results and the assertions actually passed; a plan alone claims no execution.\
+The conformance gate resolves the declarations to the mechanism register, source files, and runner assertions.\
+A live cell also checks that its executed oracles match its declared assertions.
+
+`--cover` selects a deterministic, unweighted covering subset over single-axis values, mechanism IDs, and assertions in the requested space.\
+It removes individually redundant cells but does not claim a globally minimum set, every dimension interaction, or complete certification of any mechanism.\
+Mechanisms not exercised by the requested space are explicitly listed.\
+All full mechanism contracts remain owned by the named gates.\
+The ordinary sweep remains unchanged in breadth: 30 Loopback or 70 all-carrier legal cells.\
+The covering subset is opt-in, not a replacement for that sweep or `npm test`.
+
+Plans and execution share effective parameters.\
+`AGP_DEEPEN_CHAIN`, `AGP_DEEPEN_STREAM`, `AGP_DEEPEN_BURST`, and `AGP_DEEPEN_ROUTES` override the chosen profile; routes controls the moderate endpoint count per node.\
+Counts must be positive safe integers, a chain has at least three nodes, and the entire requested plan must fit the 256-route snapshot ceiling before execution begins.\
+Every matrix topology remains in-process; independent-process evidence belongs to the named equivalence and resilience tests.
+
+Historical measured cost: 30 loopback cells in about 4 seconds, 70 cells across all carriers in about 9 seconds, and roughly two minutes deepened.
 
 A sweep runs on demand and on no schedule, ruled by the director.\
-The measured cost is the reason: at nine seconds for every carrier there is nothing to select between, so choosing a cheaper covering subset would cost more to decide than to skip.\
-Cost data about cells is therefore not collected, and the item that would have collected it is held rather than built.\
+That historical cost informed the ruling not to build a persistent cost model (`B4`).\
+The runner reports elapsed time for an execution but collects no cost history and does not use timing to select cells; `B3` selects by declared coverage alone.\
 The trigger is sweep runtime becoming a felt cost, which is also the point at which a schedule would begin to earn its keep.
 
 ---

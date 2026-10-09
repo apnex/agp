@@ -1,177 +1,142 @@
 import assert from "node:assert/strict";
+import { readFile } from "node:fs/promises";
+import path from "node:path";
+import { fileURLToPath } from "node:url";
 
-import {
-  GEOMETRIES,
-  awaitConvergence,
-  buildGeometry,
-  deepen,
-} from "../test/support/geometry.js";
+import { GEOMETRIES, PROTOCOL_MAX_ROUTES_PER_SNAPSHOT, awaitConvergence, buildGeometry } from "../test/support/geometry.js";
 import { burstMessages, streamMessages } from "../test/support/traffic.js";
 import { eventually, selectedRoute } from "../test/support/uniform-topology.js";
+import {
+  collectMatrixCoverage, enumerateMatrixCells, readMatrixCoverage, resolveMatrixParameters, selectMatrixCover,
+} from "./matrix-coverage.mjs";
 
-// The matrix runner is a diagnostic instrument, not a gate.
-//
-// It sweeps the declared dimension space and reports which combinations hold.
-// It deliberately does not run in `npm test`: a failing cell says a combination
-// broke, not which layer owns it, and section 2.1 of VERIFICATION.md requires a
-// failure to name its owning layer. Use it to find where to look, then
-// reproduce what it found in a named file with a specific oracle.
-//
-// Usage:
-//   node scripts/run-matrix.mjs                    loopback sweep, defaults
-//   node scripts/run-matrix.mjs --transport=all    every carrier
-//   node scripts/run-matrix.mjs --deep             deepened values
-//   node scripts/run-matrix.mjs --geometry=chain   one geometry
+// A diagnostic instrument, not a correctness gate. Ordinary invocation still
+// runs every legal cell. --cover is explicitly a declared-coverage subset, not
+// all interactions; --plan --json inspects it without starting any nodes.
+export function parseMatrixOptions(argv) {
+  const options = { geometry: "all", transport: "loopback", deep: false, cover: false, plan: false, json: false };
+  const seen = new Set();
+  for (const value of argv) {
+    const match = /^--(geometry|transport)=(.+)$/u.exec(value);
+    const name = match?.[1] ?? value.slice(2);
+    if ((!match && !["--deep", "--cover", "--plan", "--json"].includes(value)) || seen.has(name)) {
+      throw new Error(`Unknown or repeated matrix option: ${value}`);
+    }
+    seen.add(name);
+    options[name] = match ? match[2] : true;
+  }
+  return options;
+}
 
-const argv = process.argv.slice(2);
-const flag = (name, fallback) => {
-  const found = argv.find((value) => value.startsWith(`--${name}=`));
-  return found === undefined ? fallback : found.slice(name.length + 3);
-};
-const deep = argv.includes("--deep");
-
-const GEOMETRY_SET = {
-  star: () => GEOMETRIES.star(3),
-  line: () => GEOMETRIES.line(),
-  triangle: () => GEOMETRIES.triangle(),
-  diamond: () => GEOMETRIES.diamond(),
-  chain: () => GEOMETRIES.chain(deepen("chain", deep ? 6 : 4)),
-};
-const TRAFFIC = ["single", "stream", "burst"];
-const ROUTES = { minimal: 1, moderate: deep ? 24 : 4 };
-
-const requestedGeometry = flag("geometry", "all");
-const requestedTransport = flag("transport", "loopback");
-const geometries = requestedGeometry === "all"
-  ? Object.keys(GEOMETRY_SET)
-  : [requestedGeometry];
-const transports = requestedTransport === "all"
-  ? ["loopback", "websocket", "websocket-psk"]
-  : [requestedTransport];
-
-const streamCount = deepen("stream", deep ? 200 : 20);
-const burstCount = deepen("burst", deep ? 200 : 20);
-
-/**
- * The invariant every geometry must satisfy, whatever its shape.
- *
- * Shape-specific properties stay in named tests: only a triangle test can
- * assert that no exported path repeats a node, and only a diamond test can
- * assert an alternate candidate stays observable. What a matrix cell proves is
- * that the combination converges, delivers, and stays bounded.
- */
-async function runCell({ geometry, transport, traffic, routes }) {
-  const deliveries = [];
-  const topology = await buildGeometry({
-    geometry: GEOMETRY_SET[geometry](),
-    transport,
-    endpointsPerNode: ROUTES[routes],
-    deliveries,
+export async function createMatrixPlan(options, env = process.env) {
+  const model = await readMatrixCoverage();
+  const parameters = resolveMatrixParameters(model, { deep: options.deep, env });
+  const cells = enumerateMatrixCells(model, options).map((cell) => {
+    const shape = GEOMETRIES[cell.geometry](cell.geometry === "chain" ? parameters.chain : undefined);
+    const endpointsPerNode = cell.routes === "minimal" ? 1 : parameters.routes;
+    const totalEndpoints = shape.nodes.length * endpointsPerNode;
+    if (totalEndpoints > PROTOCOL_MAX_ROUTES_PER_SNAPSHOT) {
+      throw new Error(`${cell.id} requires ${totalEndpoints} routes, above snapshot ceiling ${PROTOCOL_MAX_ROUTES_PER_SNAPSHOT}`);
+    }
+    return {
+      ...cell,
+      execution: {
+        nodes: shape.nodes.length, endpointsPerNode, totalEndpoints,
+        messageCount: cell.traffic === "single" ? 1 : parameters[cell.traffic], isolation: "in-process",
+      },
+    };
   });
-  try {
-    await awaitConvergence(topology);
+  const selected = options.cover ? selectMatrixCover(cells) : cells;
+  const register = await readFile(new URL("../docs/design/mechanisms.md", import.meta.url), "utf8");
+  const mechanisms = [...register.matchAll(/^\| (M\d{2}) \|/gmu)].map((match) => match[1]);
+  const exercised = new Set(cells.flatMap((cell) => cell.exercisedMechanisms));
+  return {
+    schemaVersion: 1, mode: options.plan ? "plan" : "execution", scope: model.scope,
+    selection: options.cover ? "declared-coverage-subset" : "full-legal-sweep",
+    requested: { geometry: options.geometry, transport: options.transport, deep: options.deep },
+    parameters, candidateCount: cells.length, selectedCount: selected.length,
+    targetCoverage: collectMatrixCoverage(cells), selectedCoverage: collectMatrixCoverage(selected),
+    mechanismsNotExercised: mechanisms.filter((id) => !exercised.has(id)),
+    exclusions: model.exclusions, rules: model.rules, assertionDefinitions: model.assertions, cells: selected,
+  };
+}
 
+async function executeMatrixCell(cell) {
+  const cleanups = [];
+  const passedAssertions = [];
+  const observed = (id) => passedAssertions.push(id);
+  const deliveries = [];
+  try {
+    const topology = await buildGeometry({
+      geometry: GEOMETRIES[cell.geometry](cell.execution.nodes), transport: cell.transport,
+      endpointsPerNode: cell.execution.endpointsPerNode, deliveries,
+      context: { after: (cleanup) => cleanups.push(cleanup) },
+    });
+    await awaitConvergence(topology);
     const from = topology.nodes[0];
     const target = topology.nodes.at(-1);
     const source = topology.endpoints[0];
     const destination = topology.endpoints.at(-1);
-    assert.notEqual(
-      selectedRoute(from, destination),
-      undefined,
-      "the far endpoint must be selected before traffic",
-    );
+    assert.notEqual(selectedRoute(from, destination), undefined, "far endpoint selected before traffic");
+    observed("convergence");
 
-    if (traffic === "single") {
-      const before = deliveries.length;
+    const count = cell.execution.messageCount;
+    if (cell.traffic === "single") {
       await from.send(source, destination, { cell: true });
-      await eventually(
-        () => deliveries.length > before,
-        "single delivery",
-        20_000,
-      );
-    } else if (traffic === "stream") {
-      const { arrived } = await streamMessages({
-        from, source, destination, count: streamCount, deliveries,
-      });
-      assert.deepEqual(
-        arrived,
-        Array.from({ length: streamCount }, (_, ordinal) => ordinal),
-        "stream order must be preserved",
-      );
+      await eventually(() => deliveries.some((entry) => entry.endpoint === destination), "single delivery", 20_000);
+      assert.deepEqual(deliveries.filter((entry) => entry.endpoint === destination).map((entry) => entry.payload), [{ cell: true }]);
+      observed("single-delivery");
+    } else if (cell.traffic === "stream") {
+      const { arrived } = await streamMessages({ from, source, destination, count, deliveries });
+      assert.deepEqual(arrived, Array.from({ length: count }, (_, ordinal) => ordinal), "stream order");
+      observed("stream-order");
+    } else if (cell.traffic === "burst") {
+      const { admitted, rejected, arrived } = await burstMessages({ from, source, destination, count, deliveries });
+      assert.ok(admitted.length > 0, "some concurrent sends must be admitted");
+      assert.equal(admitted.length + rejected.length, count, "every concurrent send settles");
+      assert.equal(arrived.length, admitted.length, "every admission has one observed delivery");
+      assert.equal(new Set(arrived).size, arrived.length, "no observed duplicates");
+      assert.ok(rejected.every(({ code }) => code === "QUEUE_FULL"), "only bounded admission refusals are expected");
+      observed("burst-accounting");
     } else {
-      const { admitted, rejected, arrived } = await burstMessages({
-        from, source, destination, count: burstCount, deliveries,
-      });
-      assert.equal(
-        admitted.length + rejected.length,
-        burstCount,
-        "every concurrent send must settle",
-      );
-      assert.equal(
-        new Set(arrived).size,
-        arrived.length,
-        "no admitted message may deliver twice",
-      );
+      throw new Error(`No matrix traffic driver for ${cell.traffic}`);
     }
-
-    // Reachability survives the traffic that just crossed it.
-    assert.notEqual(selectedRoute(target, source), undefined);
-    return { ok: true };
-  } finally {
-    for (const node of [...topology.nodes].reverse()) {
-      await node.stop().catch(() => undefined);
-    }
-  }
-}
-
-const cells = [];
-for (const transport of transports) {
-  for (const geometry of geometries) {
-    for (const traffic of TRAFFIC) {
-      for (const routes of Object.keys(ROUTES)) {
-        // Concurrency against a real carrier makes the oracle timing
-        // dependent, and the same bound is proved deterministically over
-        // Loopback. This is exclusion X3 in the register.
-        if (traffic === "burst" && transport !== "loopback") continue;
-        cells.push({ geometry, transport, traffic, routes });
-      }
-    }
-  }
-}
-
-process.stdout.write(
-  `matrix: ${cells.length} cells`
-    + ` | transports ${transports.join(",")}`
-    + ` | ${deep ? "deepened" : "default"}`
-    + ` | stream=${streamCount} burst=${burstCount} routes=${ROUTES.moderate}\n\n`,
-);
-
-const results = [];
-for (const cell of cells) {
-  const label = `${cell.transport}/${cell.geometry}/${cell.traffic}/${cell.routes}`;
-  const started = Date.now();
-  try {
-    await runCell(cell);
-    const ms = Date.now() - started;
-    results.push({ ...cell, ok: true, ms });
-    process.stdout.write(`PASS  ${label.padEnd(46)} ${ms}ms\n`);
+    assert.notEqual(selectedRoute(target, source), undefined, "reverse reachability survives traffic");
+    observed("surviving-route");
+    assert.deepEqual([...passedAssertions].sort(), [...cell.assertions].sort(), "declared assertions match executed oracles");
+    return { ok: true, passedAssertions };
   } catch (error) {
-    const ms = Date.now() - started;
-    results.push({ ...cell, ok: false, ms, error: error.message });
-    process.stdout.write(`FAIL  ${label.padEnd(46)} ${ms}ms  ${error.message}\n`);
+    return { ok: false, passedAssertions, error: error.message };
+  } finally {
+    for (const cleanup of cleanups.reverse()) await cleanup();
   }
 }
 
-const failed = results.filter(({ ok }) => !ok);
-const elapsed = results.reduce((total, { ms }) => total + ms, 0);
-process.stdout.write(
-  `\n${results.length - failed.length}/${results.length} cells passed`
-    + ` in ${(elapsed / 1000).toFixed(1)}s\n`,
-);
-if (failed.length > 0) {
-  process.stdout.write(
-    "\nA failing cell names a combination, not an owning layer.\n"
-      + "Reproduce it in a named test before treating it as a defect.\n",
-  );
+async function runMatrix() {
+  const options = parseMatrixOptions(process.argv.slice(2));
+  const plan = await createMatrixPlan(options);
+  if (options.plan) {
+    process.stdout.write(options.json ? `${JSON.stringify(plan, null, 2)}\n`
+      : `matrix plan: ${plan.selectedCount}/${plan.candidateCount} cells (${plan.selection})\n`
+        + `${plan.cells.map(({ id }) => id).join("\n")}\n`);
+    return;
+  }
+  if (!options.json) process.stdout.write(`matrix: ${plan.selectedCount}/${plan.candidateCount} cells (${plan.selection})\n`);
+  const results = [];
+  for (const cell of plan.cells) {
+    const started = Date.now();
+    const result = { id: cell.id, ...await executeMatrixCell(cell), ms: Date.now() - started };
+    results.push(result);
+    if (!options.json) {
+      process.stdout.write(`${result.ok ? "PASS" : "FAIL"}  ${cell.id.padEnd(46)} ${result.ms}ms${result.error ? `  ${result.error}` : ""}\n`);
+    }
+  }
+  const passed = results.filter(({ ok }) => ok).length;
+  if (options.json) process.stdout.write(`${JSON.stringify({ ...plan, passed, failed: results.length - passed, results }, null, 2)}\n`);
+  else process.stdout.write(`\n${passed}/${results.length} cells passed. Failures require a named owning-layer reproduction.\n`);
+  process.exitCode = passed === results.length ? 0 : 1;
 }
-process.exit(failed.length === 0 ? 0 : 1);
+
+if (process.argv[1] && path.resolve(process.argv[1]) === fileURLToPath(import.meta.url)) {
+  await runMatrix();
+}

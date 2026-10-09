@@ -1,0 +1,59 @@
+{
+  "schemaVersion": 1,
+  "scope": "Diagnostic in-process healthy-composition sweep. Mechanisms are exercised, not individually certified. Selection covers declared single-axis values, mechanism IDs and assertions, not every interaction.",
+  "dimensions": {
+    "geometry": ["star", "line", "triangle", "diamond", "chain"],
+    "transport": ["loopback", "websocket", "websocket-psk"],
+    "traffic": ["single", "stream", "burst"],
+    "routes": ["minimal", "moderate"]
+  },
+  "profiles": {
+    "default": { "chain": 4, "stream": 20, "burst": 20, "routes": 4 },
+    "deep": { "chain": 6, "stream": 200, "burst": 200, "routes": 24 }
+  },
+  "exclusions": [
+    {
+      "id": "X3",
+      "when": { "traffic": ["burst"], "transport": ["websocket", "websocket-psk"] },
+      "reason": "Concurrent bursts over real sockets have a timing-dependent oracle; bounded contention is covered over Loopback.",
+      "owner": "docs/VERIFICATION.md#48-excluded-combinations"
+    }
+  ],
+  "rules": [
+    {
+      "id": "healthy-session-and-forwarding",
+      "when": {},
+      "mechanisms": ["M01", "M02", "M03", "M04", "M05", "M10", "M13", "M14", "M15", "M18", "M19", "M20", "M25", "M30", "M33"],
+      "source": "test/support/geometry.js",
+      "reason": "Ordinary nodes negotiate sessions, propagate all endpoint routes and send through the production data path. Fault, tie-break and rejection branches are not certified here."
+    },
+    {
+      "id": "loopback-channel",
+      "when": { "transport": ["loopback"] },
+      "mechanisms": ["M32"],
+      "source": "packages/transport-loopback/src/fabric.ts",
+      "reason": "The production process-local fabric carries every packet; it declares receiver-capacity pacing rather than per-hop credit."
+    },
+    {
+      "id": "socket-channel",
+      "when": { "transport": ["websocket", "websocket-psk"] },
+      "mechanisms": ["M31", "M37"],
+      "source": "packages/node/src/session-controller.ts",
+      "reason": "WebSocket framing carries the packets and the controller enables receiver credit for a channel that can be outrun. This does not assert exhaustion or cross-process pacing."
+    },
+    {
+      "id": "protected-channel",
+      "when": { "transport": ["websocket-psk"] },
+      "mechanisms": ["M36"],
+      "source": "packages/transport-node-ws/src/security.ts",
+      "reason": "The geometry factory constructs node-keyed pre-shared-key channels; security rejection cases remain in adapter tests."
+    }
+  ],
+  "assertions": [
+    { "id": "convergence", "when": {}, "claim": "Every endpoint has a selected route at every node before traffic." },
+    { "id": "single-delivery", "when": { "traffic": ["single"] }, "claim": "One payload reaches the named destination with the expected content." },
+    { "id": "stream-order", "when": { "traffic": ["stream"] }, "claim": "Observed destination ordinals exactly match the offered ordered stream." },
+    { "id": "burst-accounting", "when": { "traffic": ["burst"] }, "claim": "At least one send is admitted; all sends settle; observed arrivals equal admissions without duplicates, and refusals are QUEUE_FULL." },
+    { "id": "surviving-route", "when": {}, "claim": "The destination still selects the source endpoint after traffic." }
+  ]
+}

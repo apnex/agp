@@ -2,6 +2,7 @@
 
 | File | Contract protected | Primary axis | Oracle |
 |---|---|---|---|
+| `matrix-coverage.test.js` | Matrix plans expose traceable exercise coverage without claiming certification | diagnostic coverage selection | dimension closure, mechanism/source resolution, exact coverage preservation, and executable plan counts |
 | `traceability-graph.test.js` | Ratified requirement authorities and design references resolve | intent graph | trace schema, authority set, and local targets |
 | `schema-catalog-composition.test.js` | Package-owned schemas compose without copied ownership | root schema catalog | paths, digests, owners, and validator loading |
 | `schema-listing-currency.test.js` | A design document that lists a schema directory lists exactly what is there | hand-written listings in contracts.md and sdk.md | whether a schema is registered, referenced, or correct |
