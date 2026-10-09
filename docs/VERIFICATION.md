@@ -316,12 +316,20 @@ A finding stays here until it is closed by a design decision or a regression tes
 | `MX5` | A node stopped sending permanently after `maxLabelBindings` originated messages, because the expiry sweep that releases a label binding was called from nowhere. | Closed, gated by `packages/node/test/contract/label-binding-expiry.test.js` |
 | `MX6` | An unhandled rejection on the inbound data path, from `dispatchData` discarding the result of `admitData` with `void`, ended the process. Reproduced once `MX5` was fixed and the sender could reach the receiver's refusal path. | Closed, gated by `packages/node/test/contract/inbound-dispatch-failure.test.js` |
 | `MX7` | Sustained send rate was bounded by `maxLabelBindings` divided by the correlation lifetime, about 136 messages a second at defaults against a burst ceiling near 2850. A label binding was released by a failure or by expiry and never by success, so a flow that never failed still filled the store. | Closed by `D23`, gated by `packages/node/test/contract/disposition-release.test.js`, measured by `scripts/sustained-rate.mjs` |
-| `MX4` | A node hop costs far more than the carrier beneath it: a raw WebSocket round trip is about 75 microseconds against roughly half a millisecond per message through a node pair. Unexplained, and not a breach of anything. | Open, opportunistic |
+| `MX4` | A node hop costs far more than the carrier beneath it: a raw WebSocket round trip is about 75 microseconds against roughly half a millisecond per message through a node pair. Unexplained, and not a breach of anything. | Held under `B19`; historical observation, not a current baseline. Re-triage on a measured opportunity or consumer cost |
 | `MX8` | The owner selected full native Rust CLI integration as the first consumer of the configurable CLI kernel; the shell surface at selection exposed only connections and routes. | Closed by `B42`; [integration record and live evidence](rustcli/INTEGRATION.md) |
 | `MX9` | The owner's first-use transcript exposed repetitive operator help, root navigation failures, and management configuration available only at launch. | Closed by `B43`; [operator results and live evidence](rustcli/OPERATOR.md) |
 | `MX10` | Zorg proposed that every failed disposition proves no handler received the attempt. At baseline `63938e7`, production Loopback probes on direct and three-node paths observed one handler invocation followed by `failed / NEXT_HOP_UNAVAILABLE` after channel loss. This is delivery uncertainty, not definite refusal. | Closed by `D31` and `B44`; gated by `test/resilience/delivery-certainty.test.js`, package disposition relay, surface, and schema tests |
 | `MX11` | Zorg identified that `timeoutMs` was validated but never enforced. The node can wait at its event-loop yield and serialized executor even though capacity reservation itself does not wait; cancellation also needed a check at admission rather than only on entry. | Closed by `D32` and `B45`; gated by `packages/node/test/contract/send-admission-deadline.test.js` |
 | `MX12` | Zorg's proposed request/reply layer needs the application correlation label on replies and dispositions. The SDK did not explain this composition. Zorg's opcall registry says not yet built, so its proposal is design evidence rather than a measured consumer integration. | Closed by `B46`; gated by the correlated request/reply in `packages/node/test/contract/disposition-surface.test.js` |
+| `MX13` | Zorg's derived capability reading called committed AGP fixes pending and uncommitted, while opcall's contract treated an outright refusal as retry safety without qualifying earlier unknown attempts of the invocation. | Closed by `B47`; committed consumer records now read AGP `4ae96f1` and retain attempt-level uncertainty. Section 4.12 records the downstream evidence; this is record reconciliation, not consumer acceptance |
+| `MX14` | AGP has regressions for uncertainty, bounded admission and correlation, but operation-call (formerly opcall) still has no runtime implementation. Those regressions cannot certify the real consumer's attempt pairing or outcome mapping. | Open, `B48`; `B47` is complete. Requires an implemented consumer, then the five acceptance cases now included in Zorg's proposed E6 |
+| `MX15` | Named event and barrier waits had neither a local deadline nor a test timeout; the system runner supplied no per-test bound. CI's 30-minute job timeout did not identify a missing event or guarantee cleanup. Original source witnesses remain in section 4.10. | Closed by `B35`; named waits, owned cleanup, runner defaults, and explicit missing-event/process regressions. Section 4.11 records the scope; no new AGP runtime defect is claimed |
+
+**Currency correction (2026-10-09):** `MX4` retains its original measurement, which predates subsequent optimisation decisions and cannot rank a present fix.\
+`MX12` retains the consumer location at assessment; Zorg later moved opcall to `apnex/opcall` and renamed its registry entry `CONTRACT.md`.\
+The contract still says not yet built.\
+Section 4.10 records the current evidence and the resulting priorities.
 
 `MX1` was reproducible and understood, and `D19` ratifies the mechanism that closed it.\
 `ws` emits every frame parsed from one TCP segment in a single turn, so a burst of small messages arrives faster than `pause()` can take effect and the configured bound is exceeded within one tick.\
@@ -815,6 +823,142 @@ An instrument that perturbs what it measures makes every number taken through it
 
 ---
 
+### 4.10 Board reconciliation
+
+**Status update:** this section retains the initial reconciliation and its pre-implementation source observations.\
+`B35` subsequently closed under section 4.11, and `B47` closed against committed consumer evidence under section 4.12.\
+The director requested no additional response; neither contact nor record reconciliation is consumer-acceptance evidence.
+
+Review date: 2026-10-09.\
+AGP baseline: `4ae96f17542a439021aaa92aa45436e3b35ea068`; `git ls-remote --heads origin main` returned the same revision.\
+Consumer sources: Zorg `8b8e9259d616bf42ebaaf1a9209d650259f0aab3` and opcall `4cc3626076bbb7538aa47c25de1341fbd18f1f04`, both clean at inspection.\
+These are source-state observations, not deployment or consumer-acceptance evidence.
+
+The review reconciles four input paths: current AGP contracts and source, the consumer's own proposal and current records, the history of earlier choices and rejected approaches, and the executable checks that constrain the claims.\
+Agreement among AGP-authored records alone is not independent consumer confirmation.
+
+| Input | What it establishes | What it does not establish |
+|---|---|---|
+| D31/D32, SDK contract, `send-admission.ts`, and delivery/correlation regressions | The three consumer fixes have implementation and named AGP proof obligations | That opcall consumes them correctly |
+| Zorg's original filing, current `upstream/agp-capabilities.md`, D16/D17, and opcall's `CONTRACT.md` | The consumer record still describes the fixes as pending; opcall is a separate, unbuilt component | A running integration or a newly reproduced AGP defect |
+| Commits `35c4cc5`, `da1a03a`, `6cdf503`, `d2174a2`, and `4ae96f1` | The register's trial, rejection of architecture bookkeeping, and subsequent landed work | That register maintenance caused a correctness improvement |
+| Record-integrity gates, coverage selector, named event waits, test runner and CI workflow | Structural checks, implemented coverage selection, and concrete gaps in test failure bounds | Prose correctness, a current performance baseline, or an observed hang |
+
+#### Corrections and prioritisation
+
+| Item | Before | Reconciled state and reason |
+|---|---|---|
+| `B40` | Landed row still named an architecture absorption extension | Landed as a spent-trigger gate; the extension was rejected in `da1a03a` |
+| `B41` | Held on `D40` or the already-landed architecture decision | Review performed below; provisionally held on future evidence, not the spent trigger |
+| `B4` | Cost-model deferral argued there was no covering subset worth selecting | Coverage-only selection is built under `B3`; cost modelling remains held until measured runtime justifies it |
+| `B25` | Cited `F08`, which actually defers cross-process Loopback | Cites the isolated geometry builder and child transport setup, which pass per-run PSK identities across processes, alongside section 4.6's measurements; remains landed |
+| `B19` | Only scheduled-looking open move, supported by an old cost comparison | Held as an opportunity, with fresh measurement and a concrete hypothesis required before implementation |
+| `B35` | Held until a hang, with an unsupported fixed count of six files | Open preventive work based on the named current-source witnesses below; the old hang trigger has not been observed |
+| `B47` | Consumer handoff absent from the board after AGP fixes landed | First consumer-facing move: reconcile the downstream contract reading and retry qualification with its owners |
+| `B48` | AGP tests and consumer acceptance not separately tracked | Open acceptance work, dependent on `B47` and implemented opcall; `B35` can proceed independently |
+
+Mesh, certificate/HTTP-authentication, route volume, geometry-test consolidation, and architecture splitting retain their existing triggers.\
+Zorg's current target is one hub and one client; it supplies no new requirement for those changes.\
+All records in AGP's trace graph are marked built, so no ratified-but-unbuilt structural decision presently fires the architecture-split trigger.\
+Readiness remains deferred until an implemented connect path demonstrates the need.\
+The three accepted Zorg requests stay closed, and the consumer-owned follow-up does not reopen their runtime fixes.
+
+#### Absorption-register review
+
+The `B40` trigger fired in `da1a03a`: architecture received a check on its existing maturity table, not another register.\
+That rejected extension is evidence against expanding per-decision bookkeeping by analogy alone.
+
+The vision register records actual purpose changes for D23 and D26, with D30 naming the intent amendment already carried by D26.\
+Those are real amendments, but three absorbed entries are not three independent benefits, and the record does not show that a separate register caused an amendment that would otherwise have been missed.\
+The gate proves that every decision has a disposition and a substantive-length reason; it cannot prove that the reason is right or that anyone used it in a scope decision.\
+The original ceremony predicate is not established either: the entries are not all not-applicable.
+
+Disposition: keep the register provisional, add no second register, and make no upstream promotion claim.\
+Folding the reasons into the existing traceability records remains the leading alternative, but this reconciliation supplies no measured benefit that warrants performing that migration now.\
+Re-triage at D40, before proposed reuse or expansion, or after a stale-purpose miss or conflicting duplicated reason.\
+The next review must distinguish useful scope reasoning from entry-filling, and assess whether preserving that reasoning in traceability removes a genuine maintenance cost.
+
+#### Bounded-failure witnesses
+
+`packages/node/test/contract/late-handler-settlement.test.js` awaits `started` and `returned` without a deadline.\
+The resilience tests `cross-dial-race`, `c2-reconnect-cross-dial`, `queue-saturation`, `c2-saturation-withdrawal`, and `handler-drain-race` await barrier arrivals without a local or test-level timeout.\
+`observer-pressure.test.js` similarly awaits `subscription.next()` without a bound.\
+These are named witnesses, not a claim that the repository contains exactly that many unbounded waits.
+
+`scripts/run-tests.mjs` invokes Node's test runner without a per-test timeout.\
+`.github/workflows/ci.yml` limits a job to 30 minutes, which bounds CI wall time but not local failure diagnosis.\
+In contrast, the newer send-admission and delivery-certainty regressions already declare test bounds, and disposition settlement has a bounded wait.\
+This is a source-established diagnostic gap; no missing-event experiment or recurring hang was observed in this reconciliation.\
+`B35` must prove bounded failure and cleanup with an absent event while retaining deterministic positive oracles, rather than merely adding timeout options and counting them.
+
+Reconciliation validation: all 47 conformance tests across 21 files pass, including board/record joins, link targets, architecture records, and vision dispositions.\
+Documentation style and `git diff --check` pass.\
+This review changes records only; it does not rerun or newly certify runtime behavior or consumer acceptance.
+
+---
+
+### 4.11 Bounded test failures
+
+Validation date: 2026-10-09.\
+`B35` changes test infrastructure and test commands, not production runtime code, protocol timing, or delivery semantics.
+
+Implementation commit: `d857f63ab5ef08a9a9cdd1e2cedbdba77b7e71b0`.
+
+One shared helper supplies named event deadlines and optional test-context cancellation, preserves successful values and source errors, and removes its timer and abort listener when settled.\
+The matching-event helper closes its owned subscription on success, failure, cancellation, or early stream termination; unrelated events do not renew its deadline.\
+Named barrier and stream waits in the node/core package tests and resilience suite use these helpers, with release/close/stop hooks installed before work can fail.\
+The isolated-node process harness also bounds acquisition and replies, observes child closure from construction, rejects outstanding requests on termination, and waits for graceful or forced exit before deleting its temporary configuration.\
+Normal package, CLI, and system commands supply Node's 120-second default test timeout.
+
+The new executable checks divide the proof by boundary:
+
+| Owner | Evidence | Observed result |
+|---|---|---|
+| `test/conformance/test-wait-bounds.test.js` | Value/error preservation, exact missing-event error, cancellation, invalid bounds, matching, total deadline, and stream termination | Seven cases pass; timer/listener and subscription cleanup asserted |
+| `test/resilience/test-wait-cleanup.test.js` | Actual cross-dial, saturation, and late-handler tests with one stimulus withheld; separate absent-event subscription check | Four cases pass; child tests fail by the expected event name, reach Stopped, and exit without the outer watchdog; subscriber capacity is reusable |
+| `test/e2e/test-process-wait-cleanup.test.js` | Missing readiness/reply, early exit, ignored stop, and healthy isolated WebSocket/plain and PSK delivery | Six cases pass; failed acquisition removes temporary configuration, ignored stop reaches observed forced exit, and owned PIDs are absent after cleanup |
+
+Each missing-event mutation asserts that its replacement lands exactly once; a cleanup witness then checks the node's public terminal state.\
+The first mutation run exposed a variable-shadowing error in two newly added witnesses; the witnesses were corrected and all three mutations then passed, without weakening the underlying tests.\
+Timeouts remain failure bounds: existing positive payload, event, route, counter, and lifecycle assertions are retained.
+
+Full validation: `npm test` exits zero with 434 passing tests, no failures, cancellations, or skips, including all five workspace suites across 71 files.\
+That command also passes the build, documentation style, and test-ownership checks; the ownership check reports 218 test files.\
+`npm run schemas:check`, `npm run architecture:check`, and `git diff --check` also exit zero.
+
+Limits: this is targeted coverage of the audited waits and shared harness, not proof that every possible asynchronous wait is locally named or that cleanup can recover a broken runtime.\
+Timer and test-runner deadlines require a responsive event loop; synchronous starvation still requires an external watchdog.\
+The missing-event children have a separate process watchdog and are required to exit before it acts.\
+No consumer integration, independent verification, deployment, or new throughput measurement is claimed.
+
+---
+
+### 4.12 Consumer handoff reconciled
+
+Review date: 2026-10-09.\
+`B47` and `MX13` are closed against committed downstream evidence, not an inferred result of contacting the consumer.
+
+| Requirement | Source inspected | Result |
+|---|---|---|
+| Read the implemented AGP baseline and retire pending-change claims | Zorg `f7374370071148ff9f41c815fc36eedaf4c9813f`, `upstream/agp-capabilities.md` | Names AGP `4ae96f1`, explains explicit unknown delivery and enforced pre-admission deadlines/cancellation, and states application-owned reply correlation |
+| Keep definite refusal scoped to its attempt | operation-call `32af328fd7f08f186e3db64f8709bd5c36e37e17`, `CONTRACT.md`, `VISION.md`, and decision D2 | Earlier attempts' uncertainty stands; repeat safety belongs to the effect owner's policy |
+| Confirm the consumer's record reconciliation | Zorg commit `23b540ae34ca507e18e0d3463b66d1d583206e9f`, retained in `upstream/agp-feedback.md` | Explicitly records B47 complete on the consumer side and B48 awaiting implementation |
+| Distinguish planned acceptance from observed behavior | Zorg's proposed `docs/DELTAS/DELTA-1.md`, criterion E6; operation-call's `src/index.ts` and contract-coverage test | All five AGP cases are planned, but the public implementation remains `export {}` and capability tests remain to-do; B48 stays open |
+
+The consumer checkout was renamed from `opcall` to `operation-call` during this closeout.\
+Both consumer worktrees then contained in-progress naming changes; the B47 proof above was read from their committed objects, excluding those edits.\
+Historical opcall references remain as authored; the live board uses the current checkout name.\
+No downstream file was changed and no additional response was sent.
+
+The remaining next move is `B48`, once operation-call's actual adapter and connect path exist.\
+Run the five cases against named consumer and AGP revisions and retain the observed outcomes; a planned E6 or an AGP-only regression is not a pass.\
+This closeout establishes no new runtime requirement and no reason to reopen a held mechanism.
+
+Reconciliation validation: all 54 conformance tests across 22 files pass, including board/record joins, link targets, and the consumer-handoff record references.\
+Documentation style, test ownership, and `git diff --check` pass; the earlier 434-test runtime validation is retained in section 4.11.
+
+---
+
 ## 5. Modular test architecture
 
 ### 5.1 Ownership layout
@@ -934,8 +1078,8 @@ Schema keyword cases may share a table; route miss, loop rejection, and queue sa
   hidden setup.
 - Exact JSON Pointer, failed keyword, semantic rule ID, error code, transition,
   and close outcome are asserted where applicable.
-- Manual clocks own protocol time. Wall-clock deadlines are used only at real
-  process/carrier boundaries as a test-harness failure bound.
+- Manual clocks own protocol time. Named wall-clock deadlines bound
+  test-harness event, barrier, and process waits; they never decide success.
 - A timeout is never the positive oracle; an event, callback, packet, state
   revision, or process record is.
 - System tests run in isolated clean processes. They do not share ports,

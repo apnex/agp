@@ -58,7 +58,7 @@ An item that is `I4`/`P1` belongs early even though nobody feels it today, becau
 | `B21` | Stop discarding a rejectable promise on the inbound data path | `I1` | `P2` | [`MX6`](VERIFICATION.md#46-open-findings-from-sweeps) | landed |
 | `B22` | Measure throughput with each node in its own process | `I3` | `P3` | [`MX4`](VERIFICATION.md#46-open-findings-from-sweeps), [`VERIFICATION.md` section 4.9](VERIFICATION.md#49-chasing-a-timing-defect) | landed |
 | `B24` | Give the equivalence line one declaration instead of two | `I4` | `P3` | [`VERIFICATION.md` section 4.9](VERIFICATION.md#49-chasing-a-timing-defect) | landed |
-| `B25` | Give pre-shared keys a cross-process key exchange so that carrier can be isolated too | `I4` | `P3` | [`F08`](design/mechanisms.md) | landed |
+| `B25` | Give pre-shared keys a cross-process key exchange so that carrier can be isolated too | `I4` | `P3` | [isolated geometry builder](../test/support/geometry.js), [child transport setup](../test/support/node-process.mjs), [`VERIFICATION.md` section 4.6](VERIFICATION.md#46-open-findings-from-sweeps) | landed |
 | `B23` | Build the disposition design that removes the sustained send ceiling | `I2` | `P3` | [`D23`](DECISIONS.md#d23---delivery-disposition), [`MX7`](VERIFICATION.md#46-open-findings-from-sweeps) | landed |
 | `B26` | Let a ratified decision be recorded before it is built | `I4` | `P2` | [`GATES.md` section 2](GATES.md#2-gate-ax0---intent-applicability-and-knowledge) | landed |
 | `B27` | Name a destination instance, not only an endpoint | `I3` | `P4` | [`D26`](DECISIONS.md#d26---destination-selection), [`destination-selection.md`](design/destination-selection.md) | landed |
@@ -70,7 +70,7 @@ An item that is `I4`/`P1` belongs early even though nobody feels it today, becau
 | `B18` | Explain the residual event-loop stalls under a stream | `I2` | `P3` | [`MX3`](VERIFICATION.md#46-open-findings-from-sweeps) | landed |
 | `B29` | Move per-message events off the operations stream | `I2` | `P3` | [`D24`](DECISIONS.md#d24---the-operations-stream-is-a-channel-not-a-ledger), [`MX3`](VERIFICATION.md#46-open-findings-from-sweeps) | landed |
 | `B30` | Stop traffic-rated session values advancing the canonical revision | `I3` | `P2` | [`D25`](DECISIONS.md#d25---a-revision-denotes-a-change-to-canonical-state), [`D10`](DECISIONS.md#d10---atomic-canonical-state) | landed |
-| `B19` | Take the per-hop cost against the carrier, opportunistically | `I4` | `P4` | [`MX4`](VERIFICATION.md#46-open-findings-from-sweeps) | open |
+| `B19` | Take the per-hop cost against the carrier, opportunistically | `I4` | `P4` | [`MX4`](VERIFICATION.md#46-open-findings-from-sweeps) | held |
 | `B15` | Decide credit by the carrier rather than by configuration | `I3` | `P2` | [`D29`](DECISIONS.md#d29---credit-the-carrier-that-can-be-outrun), [`D19`](DECISIONS.md#d19---per-hop-credit-flow-control) | landed |
 | `B2` | Reconcile the pause wording in `binding-websocket.md` with the code | `I4` | `P2` | [`MX1`](VERIFICATION.md#46-open-findings-from-sweeps) | landed |
 | `B12` | Split current and target architecture instants | `I4` | `P3` | [`ARCHITECTURE.md` section 12](ARCHITECTURE.md#12-owed-and-open) | held |
@@ -88,18 +88,26 @@ An item that is `I4`/`P1` belongs early even though nobody feels it today, becau
 | `B37` | Gate that a record citing a board item reaches the board | `I4` | `P2` | [`BOARD.md` section 1](BOARD.md#the-contract-between-board-and-record), [`ARCHITECTURE.md` section 1](ARCHITECTURE.md#1-status-and-authority) | landed |
 | `B33` | Gate that a ratified decision reaches the vision it changes | `I4` | `P2` | [`VISION.md`](../VISION.md#authority), [`DECISIONS.md`](DECISIONS.md) | landed |
 | `B34` | Give confirmed intent one subsection numbering | `I4` | `P2` | [`DECISIONS.md` section 2](DECISIONS.md#2-confirmed-intent) | landed |
-| `B35` | Bound the tests that await an event with no deadline | `I4` | `P4` | [`TESTING.md`](TESTING.md) | held |
+| `B35` | Bound the tests that await an event with no deadline | `I4` | `P4` | [`MX15`](VERIFICATION.md#46-open-findings-from-sweeps), [`TESTING.md`](TESTING.md#bounded-failure-reporting) | landed |
 | `B36` | Gate the self-consistency this board declares | `I4` | `P2` | [`BOARD.md` section 1](BOARD.md#the-contract-between-board-and-record) | landed |
 | `B38` | Catch a direction change that carries no decision number | `I4` | `P2` | [`VISION.md`](../VISION.md#authority), [`DECISIONS.md` section 2](DECISIONS.md#2-confirmed-intent) | landed |
 | `B39` | Reconcile the architecture with what has been built since it was written | `I4` | `P2` | [`ARCHITECTURE.md` section 1](ARCHITECTURE.md#1-status-and-authority) | landed |
-| `B40` | Extend absorption to the architecture, which owes the same duty | `I4` | `P2` | [`ARCHITECTURE.md` section 1](ARCHITECTURE.md#1-status-and-authority), [`DECISIONS.md`](DECISIONS.md) | landed |
+| `B40` | Reject spent architecture reopen triggers; do not add a second absorption register | `I4` | `P2` | [`ARCHITECTURE.md` section 1](ARCHITECTURE.md#1-status-and-authority), [reconciliation](VERIFICATION.md#410-board-reconciliation) | landed |
 | `B41` | Judge whether the absorption register is evidence or ceremony | `I4` | `P4` | [`vision-absorption.json`](design/vision-absorption.json), [`traceability.json`](design/traceability.json) | held |
+| `B47` | Reconcile the consumer handoff with landed AGP contracts and attempt-level retry certainty | `I3` | `P4` | [`MX13`](VERIFICATION.md#46-open-findings-from-sweeps), [consumer reconciliation](VERIFICATION.md#412-consumer-handoff-reconciled) | landed |
+| `B48` | Verify the implemented operation-call consumer against AGP's corrected contract | `I3` | `P4` | [`MX14`](VERIFICATION.md#46-open-findings-from-sweeps), [consumer acceptance cases](ZORG-RESPONSE.md#consumer-handoff) | open |
 
 ---
 
 ## Closed
 
-14 milestones are complete; their detail is in the record they cite.
+15 milestones are complete; their detail is in the record they cite.
+
+**Make missing-event failures diagnosable.**\
+`B35` closes M12 with named wait deadlines, cancellation-aware foreground waits, registered resource cleanup, and a default test-runner bound.\
+Missing-event mutations run the actual dial and handler tests and require both an attributable failure and stopped nodes.\
+Separate regressions cover subscription release and child readiness, IPC, exit, and forced termination; healthy process checks retain delivery over both WebSocket profiles.\
+The [verification record](VERIFICATION.md#411-bounded-test-failures) states the measured scope and the event-loop limitation; AGP runtime contracts are unchanged.
 
 **Make the records answer for each other.**\
 `B34`, `B39`, and `B11` close the remaining content work from M10.\
@@ -119,7 +127,9 @@ No cost model or schedule is introduced.
 
 **Make the consumer contract safe to compose.**\
 `B44`, `B45`, and `B46` distinguish uncertainty from refusal, enforce pre-admission cancellation, and verify application-owned request/reply correlation.\
-The [Zorg response](ZORG-RESPONSE.md) explains the corrected premises, retained boundaries, and coordinated peer upgrade requirement.
+The [Zorg response](ZORG-RESPONSE.md) explains the corrected premises, retained boundaries, and coordinated peer upgrade requirement.\
+`B47` closes the subsequent record handoff: Zorg now reads the landed baseline, and operation-call (formerly opcall) preserves earlier attempts' uncertainty.\
+The [consumer reconciliation](VERIFICATION.md#412-consumer-handoff-reconciled) records the downstream evidence; executable acceptance remains open under `B48`.
 
 **Configure management inside the operator shell.**\
 `B43` closes the first-use discovery and setup failures with compact help, root navigation, and explicitly saved endpoint selection.\
@@ -189,20 +199,23 @@ What they decided is in the record they cite, and what they cost is in the miles
 
 | Order | Item | Ready | Why here |
 |---|---|---|---|
-| 1 | `B19` | Opportunistic | No next single fix. Taken when a way is found, not scheduled |
+| 1 | `B48` | `B47` is complete; awaits an implemented operation-call adapter/connect path | Highest remaining integration value. Zorg's proposed Delta 1 includes all five acceptance cases as E6, but the consumer still exports no behavior. Run the real composition when available; AGP-only tests cannot close this item |
 
-Nothing is blocked, and nothing here depends on anything else here.
+`B48` is the only open move; its implementation dependency remains unmet in the recorded evidence.\
+Zorg and operation-call own that implementation; this board does not authorise building their call layer.\
+No additional consumer response is owed, and no held item's revival trigger was established by this reconciliation.\
+No open AGP runtime correctness defect was established by this reconciliation.
 
 ---
 
-## M9 - Opportunistic improvement
+## M11 - Establish consumer adoption
 
-Severity `P4`.\
-The [confirmed performance intent](DECISIONS.md#24-confirmed-performance-intent) sets no performance target and asks that opportunities be taken as they are found, so an item here earns its place by being found rather than by clearing a threshold.
+Severity `I3`/`P4`: adoption is unproved, not a breached AGP promise.\
+The implementation fixes and `B47` record handoff are complete; only the separate consumer acceptance evidence remains.
 
 | ID | Move | Note |
 |---|---|---|
-| `B19` | Reduce the per-hop cost against the carrier beneath it | `MX4`. Roughly half a millisecond per message through a node pair against a 75 microsecond carrier round trip. Nothing is breached and nothing obliges this, which is exactly why it is scored `P4` and taken only when a way is found |
+| `B48` | Exercise operation-call's actual composition against that baseline | `B47` is satisfied; consumer implementation is still required. Use the response's five acceptance cases, now also in Zorg's proposed E6, including an unknown earlier attempt followed by a definite refusal. Record both revisions and observed outcomes; do not substitute an AGP-only example |
 
 ---
 
@@ -215,17 +228,20 @@ Scored on the same scale, so not choosing them is visible.
 | `B5` | Full-mesh geometry and per-pair keying | `I3` | `P3` | A deployment that needs mesh. One key per node lets a single compromise forge every identity, so mesh needs a per-pair model first |
 | `B6` | Certificate and HTTP-authenticated profiles | `I3` | `P3` | Fresh intent. Pre-shared keys meet the stated requirement, which was confidentiality and peer authentication without certificate infrastructure |
 | `B7` | Route volume beyond 256 | `I3` | `P3` | A topology needing more than 256 routes. `D4` names deltas as the change required |
-| `B12` | Split current and target architecture instants | `I4` | `P3` | A decision that changes structure being ratified before it is built. `ARCHITECTURE.md` opens by saying there is no target-state companion because the two have not diverged, and that the split happens when they do rather than in anticipation. Nothing is ratified and unbuilt today, and `B26` gave such a record a home in the trace graph, so the trigger is further away than when this was filed |
-| `B4` | Cost model for matrix cells | `I4` | `P4` | Sweep runtime becoming a felt cost. Ruled on demand and on no schedule: every carrier sweeps in about nine seconds, so there is nothing to select between and a cheaper covering subset would cost more to decide than to skip |
+| `B12` | Split current and target architecture instants | `I4` | `P3` | A structural decision ratified before it is built. The trace graph currently records every requirement as built; `B47` and `B48` change no AGP structure. `B26` supplies the planned-state record when this trigger fires |
+| `B4` | Cost model for matrix cells | `I4` | `P4` | Measured sweep runtime becomes a felt cost that the existing coverage-only selector cannot address. `B3` already supplies that selector; historical timings are not a current cost model. Sweeps remain on demand and on no schedule |
 | `B8` | Named geometry tests onto shared builders | `I4` | `P4` | Duplication becoming a real maintenance cost. Their oracles are shape-specific, and rewriting a passing test to share a builder is a known way to weaken an assertion |
-| `B41` | Judge whether the absorption register is evidence or ceremony | `I4` | `P4` | `D40` being reached, or `B40` deciding whether the architecture gets a second register, whichever comes first. Evidence if it forces a vision amendment that would otherwise have shipped stale, or if a reason recorded in it is cited when a scope question is argued. Ceremony if every entry stays not-applicable, the gate only ever fails because an author forgot to fill it in, and nobody consults it. The register carries these terms itself, so the artifact states what would condemn it |
-| `B35` | Bound the tests that await an event with no deadline | `I4` | `P4` | A hang masking a real failure, or a suite timeout recurring. Six files await an event indefinitely, so a broken assertion presents as the suite stopping rather than as a test failing. `TESTING.md` states no rule about this, so nothing is breached and the cost is diagnostic time |
+| `B41` | Judge whether the absorption register is evidence or ceremony | `I4` | `P4` | Reviewed after the spent `B40` trigger: retain provisionally, do not expand. Re-triage at `D40`, before any proposed reuse or expansion, or on an observed stale-purpose miss or conflicting duplicated reason. The [review](VERIFICATION.md#410-board-reconciliation) records both the real amendments and the absence of proof that a separate register caused them; folding reasons into traceability remains the leading alternative |
+| `B19` | Reduce per-hop cost against the carrier | `I4` | `P4` | A source-backed optimisation hypothesis supported by fresh, clock-matched measurements under section 4.9 of the verification record, or a consumer showing felt cost. The old half-millisecond comparison predates later optimisations and is not a present baseline. No target or schedule is imposed |
 
 ---
 
 ## Decisions required
 
 None outstanding.
+
+Choosing the next move does not require a new AGP design ruling.\
+Consumer-owned work still needs its owner's agreement; a confirmed integration gap returns here for triage rather than authorising a readiness helper, RPC layer, or wire extension in advance.
 
 The sweep schedule was ruled on demand and on no schedule, and `B4` is held with the trigger that ruling implies.\
 Direction changes were ruled to carry a decision number always, which `D30` satisfies retrospectively and `record-integrity.test.js` now enforces.
