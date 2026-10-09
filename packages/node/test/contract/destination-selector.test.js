@@ -19,6 +19,20 @@ import {
 // one leaf always wins and a sender had no way to reach the other. That is the
 // fixture here, because a topology with one advertiser cannot fail this test.
 
+test("Given a local destination pinned to another node, when admission refuses the instance, then send rejects before any handler runs", async (t) => {
+  const node = createNode({ nodeId: "pin.local" });
+  let deliveries = 0;
+  t.after(() => node.stop());
+  await node.expose("local/source", async () => {});
+  await node.expose("local/service", async () => { deliveries += 1; });
+  await node.start();
+  await assert.rejects(node.send("local/source", "local/service", {}, {
+    destinationSelector: { originNodeId: "pin.other", mode: "pinned" },
+  }), { code: "INSTANCE_UNREACHABLE" });
+  await node.executor.quiesce();
+  assert.equal(deliveries, 0);
+});
+
 async function star(t) {
   const network = new MemoryPeerNetwork();
   const hub = createNode({

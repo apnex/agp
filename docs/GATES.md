@@ -910,7 +910,10 @@ Other file names may be refined before implementation, but every primary contrac
 | AX5 | `packages/node/test/contract/transit-route-miss.test.js` | Transit `NO_ROUTE` writes one direct-ingress error and zero onward data |
 | AX5 | `packages/node/test/contract/data-failure-precedence.test.js` | Every transit multi-failure case commits only the first ordered failure, at most one ingress error, and zero onward data writes |
 | AX5 | `packages/node/test/contract/direct-delivery-error.test.js` | Current-node failure constructs one exact hop-token error directly to ingress |
-| AX5 | `packages/node/test/contract/disposition-relay.test.js` | A valid transit binding relays to its exact recorded ingress while translating only the hop token, and an arriving batch is measured before any of it is applied |
+| AX5 | `packages/node/test/contract/disposition-relay.test.js` | Delivery, refusal, and uncertainty relay to the exact recorded ingress with denominators preserved, and an arriving batch is measured before any of it is applied |
+| AX5 | `packages/node/test/contract/send-admission-deadline.test.js` | Timeout and cancellation prevent queued admission, never undo committed delivery, and preserve long deadlines |
+| AX5 | `packages/core/test/unit/message-disposition-schema.test.js` | Closed SDK outcomes distinguish refusal from uncertainty and permit unsettled observations |
+| AX8 | `test/resilience/delivery-certainty.test.js` | Production Loopback direct and transit loss after handler invocation cannot claim non-delivery |
 | AX5 | `packages/node/test/contract/label-binding-exact-identity.test.js` | Local resolution, relay, and unreturnable disposition outcomes consult only exact label binding/controller state and perform zero destination-RIB lookups |
 | AX5 | `packages/node/test/contract/label-binding-consume-once.test.js` | The first valid matching outcome consumes its label binding; replay cannot deliver or relay a second outcome |
 | AX5 | `packages/node/test/contract/label-binding-refid.test.js` | A matching token with the wrong end-to-end `refId` is discarded without consuming the label binding |

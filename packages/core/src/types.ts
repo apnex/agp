@@ -11,6 +11,7 @@ import type {
   HostState,
   IdentityDenialCode,
   IneligibleReason,
+  MessageOutcomeKind,
   RouteExportSuppressionCode,
   SelectedReason,
   SessionEventCode,
@@ -27,6 +28,7 @@ export type {
   HostState,
   IdentityDenialCode,
   IneligibleReason,
+  MessageOutcomeKind,
   RouteExportSuppressionCode,
   SelectedReason,
   SessionEventCode,
@@ -781,7 +783,9 @@ export interface EndpointDeliveryContext {
 }
 
 export interface SendPolicy {
+  /** Application-owned attempt label; replies echo it explicitly and reports retain it. */
   readonly correlationId?: CorrelationId;
+  /** Monotonic admission deadline in milliseconds; expiry cannot revoke an admitted message. */
   readonly timeoutMs?: number;
   /**
    * Which advertiser of the destination this message is for.
@@ -798,13 +802,15 @@ export interface SendOptions extends SendPolicy {
   readonly signal?: AbortSignal;
 }
 
-/** One terminal thing that happened to a message, at one destination. */
-export interface MessageOutcome {
-  readonly kind: "delivered" | "failed";
-  readonly code?: DeliveryErrorCode;
-  readonly reason?: string;
-  readonly failedAtNodeId?: NodeId;
-}
+/** Delivery certainty for one destination; unknown never authorizes a safe retry. */
+export type MessageOutcome =
+  | { readonly kind: Exclude<MessageOutcomeKind, "failed"> }
+  | {
+      readonly kind: Extract<MessageOutcomeKind, "failed">;
+      readonly code: DeliveryErrorCode;
+      readonly reason: string;
+      readonly failedAtNodeId: NodeId;
+    };
 
 /**
  * What an origin knows about the fate of one message it sent.
@@ -819,7 +825,7 @@ export interface MessageDisposition {
   readonly correlationId?: CorrelationId;
   readonly source: EndpointName;
   readonly destination: EndpointName;
-  /** Terminal outcomes received so far, in arrival order. */
+  /** Terminal observations in arrival order; unknown is not a delivery refusal. */
   readonly outcomes: readonly MessageOutcome[];
   /** Destinations still owed. Zero with `settled` true means nothing is left. */
   readonly outstanding: number;
@@ -834,7 +840,7 @@ export interface MessageDisposition {
    */
   readonly total: number | undefined;
   /**
-   * Whether the origin will learn anything further about this message.
+   * Whether all expected observations arrived, including explicit unknown outcomes.
    *
    * False with a non-zero `outstanding` is a stall an application can see,
    * rather than one it has to infer from a timeout.

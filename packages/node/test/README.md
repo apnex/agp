@@ -22,21 +22,22 @@ Fixtures provide deterministic identities, clocks, and write ledgers only.
 | `contract/label-binding-consume-once.test.js` | An exact controller/token/refId label binding is consumable only once | Relay translation |
 | `contract/label-binding-exact-identity.test.js` | Reverse lookup uses exact retained controller identity and performs no RIB lookup | Destination forwarding |
 | `contract/label-binding-refid.test.js` | Wrong-refId error input cannot consume a matching token | Successful consumption |
-| `contract/disposition-relay.test.js` | Transit relay uses recorded ingress, translates only hop-local identity, compresses deliveries to runs, and measures an arriving batch before applying any of it | Direct current-hop failures, release under load |
+| `contract/disposition-relay.test.js` | Transit delivery, refusal, and uncertainty use recorded ingress, retain denominators, translate labels once, and measure a batch before applying any of it | Direct current-hop failures, release under load |
 | `contract/session-hold-ttl.test.js` | Public inbound hold TTL decreases with monotonic time without a revision | Outbound keepalive suppression |
 | `contract/session-id-pair-scope.test.js` | Equal six-hex IDs coexist for different peers, including accepted pre-identity controllers | Cross-dial winner selection |
 | `contract/label-binding-expiry.test.js` | Expiry is a working backstop when nothing reports back, so capacity is a bound on what is outstanding rather than a lifetime total | Release by disposition, relay |
-| `contract/destination-selector.test.js` | A message reaches the advertiser it names, a pin is refused only by the hop that would deliver, and the selector survives a hop that could not use it | Replication, and how a refusal is reported |
+| `contract/destination-selector.test.js` | A message reaches the advertiser it names, a local mismatch rejects before handler admission, and the selector survives a hop that could not use it | Replication and channel-loss uncertainty |
 | `contract/credit-carrier-declaration.test.js` | A carrier that promises to await receiver capacity is not credited and one that does not is, with absence treated as the protective answer | Whether the guarantee a carrier claims is true |
 | `contract/caller-loop-starvation.test.js` | A macrotask timer still fires while a caller sends in a tight await loop, so a caller cannot starve the deadlines the node runs on | How fast the node is, and what it validates |
 | `contract/outbound-wire-validity.test.js` | Every packet a node puts on the wire parses and is schema-valid, proven over real bytes from a converged pair under load and teardown | What a peer sends, which is validated on parse |
 | `contract/operator-stream-rate.test.js` | The operations stream stays lossless for a subscriber doing real work under traffic, the per-message stream still carries the detail, and anomalies stay with the operator | Which events exist, and their schema |
-| `contract/disposition-surface.test.js` | What an application is told about a message it sent, including an unknown denominator distinguished from a known one, the per-endpoint stream, and a next hop lost mid-flight | Wire shape, batching, relay |
+| `contract/disposition-surface.test.js` | SDK certainty, denominator and endpoint filtering, handler admission rather than processing success, and explicit request/reply correlation retained on both reports | Wire shape, batching, relay |
 | `contract/disposition-release.test.js` | A binding is released by a delivery and not only by a failure or expiry, and a full table evicts rather than refusing | Wire shape, batch composition |
 | `contract/inbound-dispatch-failure.test.js` | An inbound dispatch failure is diagnosed and terminates only its own session | Which failures reach the inbound path |
 | `contract/session-transition-emission.test.js` | The snapshot records every self-transition while the stream announces only those no other event reports | Keepalive suppression and hold timing |
 | `contract/session-keepalive-traffic.test.js` | Successful outbound traffic postpones keepalive emission while hold remains peer-driven | Hold-expiry teardown |
 | `contract/source-export-barrier.test.js` | Data fails closed until its exact source export is ACKed, with no hidden queue | Route-update exchange |
+| `contract/send-admission-deadline.test.js` | Deadline and cancellation prevent late queued delivery, never revoke admission, release timers, and tolerate fractional clocks, delayed callbacks, and long deadlines | End-to-end reply deadlines |
 | `contract/stop-drain.test.js` | Stop gates new work and cooperatively drains admitted handler work once | Deadline-expired late settlement |
 | `contract/transit-disabled.test.js` | Disabled transit returns one ingress error and writes zero onward data | Hop exhaustion |
 | `contract/transit-feasible-source.test.js` | Exact-ingress source feasibility authorizes asymmetric reverse selection | Strict selected-route RPF |

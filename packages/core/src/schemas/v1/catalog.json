@@ -83,6 +83,14 @@
       "sha256": "b85308c595a5ddf7e27fa2758d276673d9506c763d2296761b17e2c61ff590cb"
     },
     {
+      "id": "urn:agp:schema:v1:core:codes:message-outcome-kind",
+      "owner": "@agp/core",
+      "path": "codes/message-outcome-kind.schema.json",
+      "kind": "code",
+      "typescript": "MessageOutcomeKind",
+      "sha256": "f113423aa6af50d74a93f1cb1f46006ce5bd895d6b93397da3e084199373b860"
+    },
+    {
       "id": "urn:agp:schema:v1:core:codes:monotonic-domain",
       "owner": "@agp/core",
       "path": "codes/monotonic-domain.schema.json",
@@ -112,7 +120,7 @@
       "path": "codes/sdk-error-code.schema.json",
       "kind": "code",
       "typescript": "AgpErrorCode",
-      "sha256": "51e64408afee36a9ccea0cf99d84056d321a31995e951ea1a92aea5dcaa9bec4"
+      "sha256": "05db17eda973944009a77182ed8b3bc5eb3fcd3f63e8eb532e2802d5241fe980"
     },
     {
       "id": "urn:agp:schema:v1:core:codes:selected-reason",
@@ -1049,6 +1057,22 @@
       "kind": "sdk",
       "typescript": "IdentityAdmissionResult",
       "sha256": "a81671e6a81f45cc7feb1e4e226933eedc67bcd73412dbb0a5b664be2dd53986"
+    },
+    {
+      "id": "urn:agp:schema:v1:core:sdk:message-disposition",
+      "owner": "@agp/core",
+      "path": "sdk/message-disposition.schema.json",
+      "kind": "sdk",
+      "typescript": "MessageDisposition",
+      "sha256": "4803d4a390be038d96661bc45043e2c56bf441f0c34a3373312febcd9b96be3d"
+    },
+    {
+      "id": "urn:agp:schema:v1:core:sdk:message-outcome",
+      "owner": "@agp/core",
+      "path": "sdk/message-outcome.schema.json",
+      "kind": "sdk",
+      "typescript": "MessageOutcome",
+      "sha256": "307560d4518e4001ebc1d8938fcc2bbfe9bac47292ab1df85c051bdc21e8659a"
     },
     {
       "id": "urn:agp:schema:v1:core:sdk:route-admission-decision",

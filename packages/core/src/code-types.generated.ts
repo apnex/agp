@@ -1,12 +1,18 @@
 // Generated from the sovereign code schemas by scripts/generate-contracts.mjs.
 // DO NOT EDIT.
 
+export type MessageOutcomeKind =
+  | "delivered"
+  | "failed"
+  | "unknown";
+
 export type AgpErrorCode =
   | "CONFIG_INVALID"
   | "OPTIONS_INVALID"
   | "LIFECYCLE_INVALID"
   | "NOT_RUNNING"
   | "ABORTED"
+  | "TIMEOUT"
   | "ENDPOINT_INVALID"
   | "HANDLER_INVALID"
   | "ENDPOINT_ALREADY_EXPOSED"

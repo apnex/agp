@@ -60,6 +60,8 @@ packages/core/src/schemas/v1/sdk/
   endpoint-binding-info.schema.json
   endpoint-delivery-context.schema.json
   send-receipt.schema.json
+  message-outcome.schema.json
+  message-disposition.schema.json
   identity-admission-request.schema.json
   identity-admission-result.schema.json
   route-admission-request.schema.json
@@ -133,6 +135,23 @@ The signal is best effort.\
 A lost report leaves an application with neither outcome, so an application building reliable delivery on this still needs its own timeout, and a resolved disposition whose `settled` is false is exactly that case made visible rather than left to hang.\
 `total` is undefined while no outcome has arrived, which is a different statement from a total of one.\
 See [`D23`](../DECISIONS.md#d23---delivery-disposition).
+
+`MessageDisposition` and its per-destination `MessageOutcome` have sovereign schemas under `sdk/`.\
+Their outcome meanings are closed:
+
+| Outcome | What the consumer may conclude |
+|---|---|
+| `delivered` | The destination admitted the message to its handler; processing or an application effect is not confirmed |
+| `failed` | The message was refused before destination-handler admission; the code explains the refusal |
+| `unknown` | AGP can no longer determine delivery; the handler may already have run |
+| No outcome, an untracked message, or `settled: false` when waiting ends | Delivery remains unknown |
+
+`settled: true` closes AGP's tracking obligation, not the application's operation.\
+An explicit `unknown` is terminal and releases reverse-path state without inventing delivery evidence.\
+Session loss generates `unknown`; `NEXT_HOP_UNAVAILABLE` in a failed disposition is reserved for a refusal before forwarding.\
+A definite refusal applies only to this message attempt and says nothing about an earlier attempt whose outcome was unknown.\
+Applications own retry policy, invocation deduplication, and completion acknowledgements.\
+[`D31`](../DECISIONS.md#d31---preserve-delivery-certainty) records the amendment to the earlier two-outcome contract.
 
 `NodeDependencies` contains only injected capabilities: clock, randomness, identifier source, diagnostic sink, neutral peer transport bindings, identity admission, and route admission.\
 There are no hub or spoke transports, dependencies, factories, or role literals.\
@@ -377,15 +396,26 @@ No route miss, source failure, cancellation, timeout, or capacity rejection befo
 
 `options.destinationSelector` names which advertiser of the destination the message is for, and how hard a requirement that is.\
 Absent means any of them, which is what a destination name alone has always meant.\
-A pin yields that instance or a refusal and never a different instance, so it guards against misdelivery rather than guaranteeing reachability, and the refusal arrives as a disposition because the hop that refuses is not this one.\
+A pin yields that instance or a refusal and never a different instance, so it guards against misdelivery rather than guaranteeing reachability.\
+Local refusal rejects `send()`; refusal after forwarding arrives as a disposition.\
 See [`D26`](../DECISIONS.md#d26---destination-selection).
 
 `SendOptions.timeoutMs` bounds local admission and write reservation; it is not an end-to-end delivery deadline.\
+The monotonic deadline starts after input validation, before yielding or waiting for the node executor.\
+Expiry rejects with `TIMEOUT`, cancellation with `ABORTED`, and either prevents that queued send from being admitted later.\
+The guard is checked again immediately before the admission commit, so delayed timer callbacks cannot admit expired work.\
 `AbortSignal` has the same boundary.\
-Neither can revoke a message after `SendReceipt` is returned.
+Once admission commits, neither can revoke the message, even if the receipt's promise continuation has not yet run.\
+Runtime scheduling determines when a caller observes rejection; a blocked event loop cannot deliver a callback at an exact wall-clock instant.
 
 AGP v1 does not wait for source-route convergence inside `send()`.\
 A caller that receives `SOURCE_NOT_ADVERTISED` can observe per-peer export state and retry; no hidden pending-send queue is created.
+
+`SendOptions.correlationId` is an optional application-owned label carried unchanged through forwarding, handler delivery, the receipt, and the originating message's disposition.\
+It is the composition point for request and reply above AGP: a replying application copies the label into its own `send()` options.\
+AGP does not copy it into replies automatically, allocate it, enforce uniqueness, pair replies, or deduplicate effects.\
+A call layer may choose one label per attempt and retain its invocation identity across retries inside its own payload.\
+Replies and requests have distinct `messageId` values even when they share the correlation label.
 
 `SendReceipt`, owned by `urn:agp:schema:v1:core:sdk:send-receipt`, contains:
 ```ts
@@ -401,7 +431,8 @@ interface SendReceipt {
 
 The receipt proves local admission against the named selected route and revision.\
 It does not prove downstream receipt or handler completion.\
-A correlated failure received after admission appears through the operational event subscription and counters; it cannot retroactively reject an already resolved promise.
+A disposition received after admission appears through `disposition()`, `settled()`, or `dispositions()`; it cannot retroactively reject an already resolved send promise.\
+The operations plane carries aggregate failure counters, not one operational event per disposition.
 
 ### 5.4 Closed SDK failure domain
 
@@ -415,6 +446,7 @@ The enum is closed: inventing another code, passing through an adapter exception
 | `LIFECYCLE_INVALID` | The operation is not permitted in the node's current lifecycle state, excluding the send-only `NOT_RUNNING` case |
 | `NOT_RUNNING` | `send()` was called while the node was not `Running` |
 | `ABORTED` | Caller cancellation won before the operation's documented commit point |
+| `TIMEOUT` | The send admission deadline expired before commit; this attempt emitted no data and cannot be admitted later |
 | `ENDPOINT_INVALID` | A source, destination, or exposed endpoint failed the endpoint-name schema |
 | `HANDLER_INVALID` | `expose()` received a value that is not an endpoint-handler capability |
 | `ENDPOINT_ALREADY_EXPOSED` | `expose()` named an endpoint with an active local binding |
@@ -426,7 +458,7 @@ The enum is closed: inventing another code, passing through an adapter exception
 | `NO_ROUTE` | No usable selected destination route existed at admission |
 | `SOURCE_NOT_ADVERTISED` | Peer egress lacked an ACKed export of the exact source identity |
 | `NEXT_HOP_UNAVAILABLE` | The selected next hop/controller was unusable, including return-token exhaustion |
-| `INSTANCE_UNREACHABLE` | A message named a destination instance and reached a node that would have served it while not being that instance. It is distinct from `NO_ROUTE` because a moved instance and a withdrawn service call for opposite remedies. It reaches a sender as a disposition rather than as a rejected `send()`, since the hop that refuses is not the hop that admitted |
+| `INSTANCE_UNREACHABLE` | A pinned message would be served by the wrong instance. Local admission rejects `send()`; downstream refusal returns a disposition. Distinct from `NO_ROUTE` because an unavailable instance and a withdrawn endpoint have different remedies |
 | `QUEUE_FULL` | A required bounded handler, subscriber, label binding, or session-queue reservation was unavailable |
 | `TRANSPORT_FAILURE` | `start()` could not acquire an enabled listener or other transport facility required to commit `Running` |
 | `INTERNAL` | An injected port violated its contract or an AGP invariant failed; bounded public details do not expose the original exception |
@@ -444,7 +476,7 @@ Emission authority is also closed:
 | `node.stop` | `OPTIONS_INVALID`, `LIFECYCLE_INVALID`, `ABORTED`, `INTERNAL` |
 | `node.expose` | `LIFECYCLE_INVALID`, `ENDPOINT_INVALID`, `HANDLER_INVALID`, `ENDPOINT_ALREADY_EXPOSED`, `ENDPOINT_CAPACITY`, `INTERNAL` |
 | `binding.close` | `INTERNAL` only; ordinary repeated or stop-overlapping close is idempotent |
-| `node.send` | `OPTIONS_INVALID`, `NOT_RUNNING`, `ABORTED`, `ENDPOINT_INVALID`, `CORRELATION_INVALID`, `SOURCE_NOT_OWNED`, `PAYLOAD_NOT_JSON`, `MESSAGE_TOO_LARGE`, `NO_ROUTE`, `SOURCE_NOT_ADVERTISED`, `NEXT_HOP_UNAVAILABLE`, `QUEUE_FULL`, `INTERNAL` |
+| `node.send` | `OPTIONS_INVALID`, `NOT_RUNNING`, `ABORTED`, `TIMEOUT`, `ENDPOINT_INVALID`, `CORRELATION_INVALID`, `SOURCE_NOT_OWNED`, `PAYLOAD_NOT_JSON`, `MESSAGE_TOO_LARGE`, `NO_ROUTE`, `SOURCE_NOT_ADVERTISED`, `NEXT_HOP_UNAVAILABLE`, `INSTANCE_UNREACHABLE`, `QUEUE_FULL`, `INTERNAL` |
 | Any `OperationsReader` state query | `INTERNAL` only |
 | `operations.events` | `OPTIONS_INVALID`, `ABORTED`, `QUEUE_FULL`, `INTERNAL` |
 | `operations.messages` | `OPTIONS_INVALID`, `ABORTED`, `QUEUE_FULL`, `INTERNAL` |

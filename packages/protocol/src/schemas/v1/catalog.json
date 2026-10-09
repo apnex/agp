@@ -184,7 +184,7 @@
       "path": "wire/disposition-body.schema.json",
       "kind": "wire-body",
       "typescript": "DispositionBody",
-      "sha256": "3854d2456cfad5474f02036cd491db8f4bb56f89caa783e528cdad8f599552e8"
+      "sha256": "d4d32ec92854de5b066bd398084af65f2fe1e23413870efe40d5d4c456177a13"
     },
     {
       "id": "urn:agp:schema:v1:protocol:wire:disposition-message",

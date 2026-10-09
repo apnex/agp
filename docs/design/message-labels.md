@@ -1,5 +1,8 @@
 # Message labels and delivery disposition
 
+> **Amendment:** [`D31`](../DECISIONS.md#d31---preserve-delivery-certainty) distinguishes definite refusal from terminal uncertainty and changes session-loss reporting.\
+> The original D23 design below is preserved; current contracts are in [`sdk.md`](sdk.md) and [`protocol.md`](protocol.md).
+
 > **Status:** Ratified as `D23` and built.\
 > The per-message design is the state of the system. The per-flow design is recorded for comparison and is not built.
 

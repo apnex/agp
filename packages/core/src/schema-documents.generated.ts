@@ -231,6 +231,26 @@ export const coreSchemaDocumentsV1 = Object.freeze([
   },
   {
     "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "urn:agp:schema:v1:core:codes:message-outcome-kind",
+    "title": "AGP core message-outcome-kind",
+    "x-agp": {
+      "owner": "@agp/core",
+      "typescript": "MessageOutcomeKind",
+      "kind": "code",
+      "mechanics": "Sovereign message-outcome-kind data contract owned by @agp/core.",
+      "rationale": "One schema gives runtime validators and consumers one stable reasoning boundary.",
+      "consequence": "Accepting another shape would make canonical state or SDK interpretation ambiguous.",
+      "semanticRules": []
+    },
+    "type": "string",
+    "enum": [
+      "delivered",
+      "failed",
+      "unknown"
+    ]
+  },
+  {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
     "$id": "urn:agp:schema:v1:core:codes:monotonic-domain",
     "title": "AGP core monotonic-domain",
     "x-agp": {
@@ -317,6 +337,7 @@ export const coreSchemaDocumentsV1 = Object.freeze([
       "LIFECYCLE_INVALID",
       "NOT_RUNNING",
       "ABORTED",
+      "TIMEOUT",
       "ENDPOINT_INVALID",
       "HANDLER_INVALID",
       "ENDPOINT_ALREADY_EXPOSED",
@@ -5240,6 +5261,128 @@ export const coreSchemaDocumentsV1 = Object.freeze([
         "required": [
           "decision",
           "reasonCode"
+        ],
+        "additionalProperties": false
+      }
+    ]
+  },
+  {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "urn:agp:schema:v1:core:sdk:message-disposition",
+    "title": "AGP core message-disposition",
+    "x-agp": {
+      "owner": "@agp/core",
+      "typescript": "MessageDisposition",
+      "kind": "sdk",
+      "mechanics": "Sovereign message-disposition data contract owned by @agp/core.",
+      "rationale": "One schema gives runtime validators and consumers one stable reasoning boundary.",
+      "consequence": "Accepting another shape would make canonical state or SDK interpretation ambiguous.",
+      "semanticRules": []
+    },
+    "type": "object",
+    "properties": {
+      "messageId": {
+        "$ref": "urn:agp:schema:v1:protocol:common:message-id"
+      },
+      "correlationId": {
+        "$ref": "urn:agp:schema:v1:protocol:common:correlation-id"
+      },
+      "source": {
+        "$ref": "urn:agp:schema:v1:protocol:common:endpoint-name"
+      },
+      "destination": {
+        "$ref": "urn:agp:schema:v1:protocol:common:endpoint-name"
+      },
+      "outcomes": {
+        "type": "array",
+        "items": {
+          "$ref": "urn:agp:schema:v1:core:sdk:message-outcome"
+        }
+      },
+      "outstanding": {
+        "type": "integer",
+        "minimum": 0,
+        "maximum": 1024
+      },
+      "total": {
+        "type": "integer",
+        "minimum": 1,
+        "maximum": 1024
+      },
+      "settled": {
+        "type": "boolean"
+      }
+    },
+    "required": [
+      "messageId",
+      "source",
+      "destination",
+      "outcomes",
+      "outstanding",
+      "settled"
+    ],
+    "additionalProperties": false
+  },
+  {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "urn:agp:schema:v1:core:sdk:message-outcome",
+    "title": "AGP core message-outcome",
+    "x-agp": {
+      "owner": "@agp/core",
+      "typescript": "MessageOutcome",
+      "kind": "sdk",
+      "mechanics": "Sovereign message-outcome data contract owned by @agp/core.",
+      "rationale": "One schema gives runtime validators and consumers one stable reasoning boundary.",
+      "consequence": "Accepting another shape would make canonical state or SDK interpretation ambiguous.",
+      "semanticRules": []
+    },
+    "oneOf": [
+      {
+        "type": "object",
+        "properties": {
+          "kind": {
+            "const": "delivered"
+          }
+        },
+        "required": [
+          "kind"
+        ],
+        "additionalProperties": false
+      },
+      {
+        "type": "object",
+        "properties": {
+          "kind": {
+            "const": "failed"
+          },
+          "code": {
+            "$ref": "urn:agp:schema:v1:protocol:codes:delivery-error-code"
+          },
+          "reason": {
+            "type": "string",
+            "minLength": 1
+          },
+          "failedAtNodeId": {
+            "$ref": "urn:agp:schema:v1:protocol:common:node-id"
+          }
+        },
+        "required": [
+          "kind",
+          "code",
+          "reason",
+          "failedAtNodeId"
+        ],
+        "additionalProperties": false
+      },
+      {
+        "type": "object",
+        "properties": {
+          "kind": {
+            "const": "unknown"
+          }
+        },
+        "required": [
+          "kind"
         ],
         "additionalProperties": false
       }

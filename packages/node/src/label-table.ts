@@ -169,7 +169,7 @@ export class LabelTable {
    *
    * A failure echoes the end-to-end identity of the message it concerns, so
    * this path checks it and reports a mismatch as fatal. A delivery carries no
-   * identity to check and settles through `settleDelivered` instead: the label
+   * identity to check and settles through `settleLabelOutcome` instead: the label
    * is unique to one controller and consumed once, so it already names the
    * message, and a peer able to invent a label could equally supply an
    * identity that matched it. See D23.
@@ -183,8 +183,8 @@ export class LabelTable {
     return this.#settle(controller, token, nowMonotonicMs, refId);
   }
 
-  /** Settle a delivery against its binding. */
-  settleDelivered(
+  /** Settle a delivery or terminal uncertainty against its exact label binding. */
+  settleLabelOutcome(
     controller: ExactController,
     token: ReturnToken,
     nowMonotonicMs: number,

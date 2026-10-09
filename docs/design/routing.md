@@ -919,13 +919,15 @@ Entries are bounded by count and retained bytes and are discarded on node restar
 Session teardown:
 
 - removes label bindings whose ingress has become unreturnable;
-- converts label bindings whose egress failed into
-  `NEXT_HOP_UNAVAILABLE` where bounded control admission permits: a still-live
-  session ingress receives the outcome using the stored upstream token,
-  original message ID as `refId`, local node as `failedAtNodeId`, and canonical
-  reason; a local origin receives the equivalent local outcome using the
-  outbound token and no wire envelope; and
+- converts label bindings whose egress failed into `unknown` where bounded
+  control admission permits: a still-live session ingress receives an
+  uncertainty range using its stored upstream token, and a local origin
+  receives the equivalent local outcome without a wire envelope; and
 - removes every affected label binding exactly once.
+
+The message may already have reached its handler when the return path fails.\
+`NEXT_HOP_UNAVAILABLE` remains a definite pre-forwarding refusal; session loss never fabricates that certainty for admitted traffic.\
+[`D31`](../DECISIONS.md#d31---preserve-delivery-certainty) amends the earlier teardown rule.
 
 ### 10.4 Batching
 

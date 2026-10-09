@@ -37,6 +37,7 @@ import type {
 import type { DispositionEngine } from "./dispositions.js";
 import type { SerializedExecutor } from "./serialized-executor.js";
 import type { SessionWriter } from "./session-writer.js";
+import type { SendAdmissionGuard } from "./send-admission.js";
 
 export interface DataSessionController extends ExactController {
   readonly owner: ExactSessionOwner;
@@ -200,9 +201,10 @@ export class DataPlane {
     payload: JsonObject,
     correlationId?: CorrelationId,
     selector?: DestinationSelector,
+    admission?: SendAdmissionGuard,
   ): Promise<DataSendReceipt> {
     return this.#options.executor.run(() =>
-      this.#sendInExecutor(source, destination, payload, correlationId, selector));
+      this.#sendInExecutor(source, destination, payload, correlationId, selector, admission));
   }
 
   async receive(
@@ -430,7 +432,9 @@ export class DataPlane {
     payload: JsonObject,
     correlationId?: CorrelationId,
     selector?: DestinationSelector,
+    admission?: SendAdmissionGuard,
   ): DataSendReceipt {
+    admission?.check();
     const source = Object.freeze({
       endpoint: sourceEndpoint,
       originNodeId: this.#options.localNodeId,
@@ -459,6 +463,7 @@ export class DataPlane {
       throw new DataPlaneFailure(asLocalFailure(decision.code));
     }
 
+    admission?.commit();
     const acceptedAt = this.#options.wallTime();
     const revision = this.#options.commit.commit({
       kind: "message.accepted",

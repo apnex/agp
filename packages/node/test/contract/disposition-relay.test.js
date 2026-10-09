@@ -142,6 +142,43 @@ test("Given several bound labels, when their deliveries return, then the relayed
   });
 });
 
+test("Given a transit binding, when uncertainty returns, then it releases once and relays only uncertainty under the upstream label", () => {
+  const { ingress, egress, store, engine, bind } = scenario();
+  bind("data-1", "000000000000000b", "000000000000000a");
+  const message = {
+    agp: 1, plane: "control", type: "disposition", id: "unknown-1",
+    body: { unknown: [{ from: "000000000000000b", to: "000000000000000b" }] },
+  };
+  assert.deepEqual(engine.receive(egress, message).map(({ kind }) => kind), ["relayed"]);
+  assert.equal(store.usage().entries, 0);
+  assert.deepEqual(engine.receive(egress, message).map(({ kind }) => kind), ["discarded"]);
+  engine.flush(ingress);
+  assert.deepEqual(JSON.parse(ingress.controlWrites[0]).body, {
+    unknown: [{ from: "000000000000000a", to: "000000000000000a" }],
+  });
+  assert.equal(ingress.controlWrites.length, 1);
+});
+
+for (const kind of ["delivered", "unknown"]) {
+  test(`Given ${kind} outcomes with distinct denominators, when relayed, then compression preserves each denominator`, () => {
+    const { ingress, egress, engine, bind } = scenario();
+    bind("data-1", "0000000000000010", "0000000000000001");
+    bind("data-2", "0000000000000011", "0000000000000002");
+    engine.receive(egress, {
+      agp: 1, plane: "control", type: "disposition", id: "counts-1",
+      body: { [kind]: [
+        { from: "0000000000000010", to: "0000000000000010", destinations: 2 },
+        { from: "0000000000000011", to: "0000000000000011", destinations: 3 },
+      ] },
+    });
+    engine.flush(ingress);
+    assert.deepEqual(JSON.parse(ingress.controlWrites[0]).body, { [kind]: [
+      { from: "0000000000000001", to: "0000000000000001", destinations: 2 },
+      { from: "0000000000000002", to: "0000000000000002", destinations: 3 },
+    ] });
+  });
+}
+
 test("Given a range wider than the inbound bound, when it arrives, then nothing settles and the session is answered as a violation", () => {
   const { egress, store, engine, bind } = scenario();
   bind("data-1", "0000000000000010", "0000000000000001");

@@ -16,6 +16,7 @@ Shared fixtures arrange state only; they contain no assertions.
 | `unit/diagnostic-record-schema.test.js` | The sole core diagnostic record closes domain, severity, code, text, and extension boundaries | Sink scheduling and adapter diagnostics |
 | `unit/export-epoch-closure.test.js` | Binding withdrawal closes its ACKed source epoch before the successor export | Writer I/O and peer acknowledgement |
 | `unit/monotonic-domain-exhaustion.test.js` | Revision, event-sequence, and multi-delta counter exhaustion atomically become terminal failure without wrap | Node-native teardown side effects |
+| `unit/message-disposition-schema.test.js` | Closed delivery, refusal, and uncertainty outcomes and unsettled disposition records | Live reverse-path reporting |
 | `unit/operational-event-schema.test.js` | The generated closed event vocabulary accepts every canonical data variant and rejects legacy shapes | Live node event emission |
 | `unit/operations-reader.test.js` | One immutable operations capture is revision-consistent and canonically ordered | HTTP/CLI projection and live duration changes |
 | `unit/operations-time-materialization.test.js` | Uptime and hold TTL materialize from monotonic time without revising canonical state | Protocol timer scheduling |

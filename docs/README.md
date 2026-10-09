@@ -21,6 +21,7 @@ Project-generalised documents are `UPPERCASE.md`; domain design contracts are `l
 | Decide what to work on next | [`BOARD.md`](BOARD.md) |
 | Understand a protocol behavior | [`design/`](ARCHITECTURE.md) |
 | Know what proves a behavior correct | [`GATES.md`](GATES.md) |
+| Understand the response to Zorg's AGP filing proposal | [`ZORG-RESPONSE.md`](ZORG-RESPONSE.md) |
 
 ---
 

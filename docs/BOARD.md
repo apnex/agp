@@ -49,6 +49,9 @@ An item that is `I4`/`P1` belongs early even though nobody feels it today, becau
 
 | ID | Candidate | Impact | Breach | Evidence | Status |
 |---|---|---|---|---|---|
+| `B44` | Distinguish handler admission, definite refusal, and unknown delivery | `I1` | `P2` | [`MX10`](VERIFICATION.md#46-open-findings-from-sweeps), [`D31`](DECISIONS.md#d31---preserve-delivery-certainty) | landed |
+| `B45` | Enforce send timeout and cancellation without allowing a rejected queued send to deliver later | `I2` | `P2` | [`MX11`](VERIFICATION.md#46-open-findings-from-sweeps), [`D32`](DECISIONS.md#d32---bound-send-admission) | landed |
+| `B46` | Explain and verify application-owned correlation across request, reply, and dispositions | `I3` | `P4` | [`MX12`](VERIFICATION.md#46-open-findings-from-sweeps), [SDK contract](design/sdk.md#53-routed-send) | landed |
 | `B43` | Make native operator discovery and in-shell management setup usable | `I2` | `P3` | [`MX9`](VERIFICATION.md#46-open-findings-from-sweeps), [operator results](rustcli/OPERATOR.md) | landed |
 | `B42` | Integrate the configured Rust CLI across the complete management surface | `I3` | `P3` | [`MX8`](VERIFICATION.md#46-open-findings-from-sweeps), [consumer record](rustcli/INTEGRATION.md) | landed |
 | `B20` | Release expired label bindings, so a node can send more than 4096 messages in its life | `I1` | `P1` | [`MX5`](VERIFICATION.md#46-open-findings-from-sweeps) | landed |
@@ -96,7 +99,11 @@ An item that is `I4`/`P1` belongs early even though nobody feels it today, becau
 
 ## Closed
 
-Eleven milestones are complete and are kept here as one line each; their detail is in the record they cite.
+Twelve milestones are complete and are kept here as one line each; their detail is in the record they cite.
+
+**Make the consumer contract safe to compose.**\
+`B44`, `B45`, and `B46` distinguish uncertainty from refusal, enforce pre-admission cancellation, and verify application-owned request/reply correlation.\
+The [Zorg response](ZORG-RESPONSE.md) explains the corrected premises, retained boundaries, and coordinated peer upgrade requirement.
 
 **Configure management inside the operator shell.**\
 `B43` closes the first-use discovery and setup failures with compact help, root navigation, and explicitly saved endpoint selection.\

@@ -15,7 +15,7 @@ Each file owns one primary axis, creates no shared mutable state, and imports on
 |---|---|---|---|
 | `contract/schema-catalog.test.js` | Sovereign file/URN/owner/type/digest/reference composition and external-only root union | Package schema catalog and files | Wire sequencing, contextual path meaning, FSM behavior |
 | `contract/semantic-rule-catalog.test.js` | Exact package ownership and implementation/test anchors for protocol semantic rules | Package semantic-rule catalog | Semantic outcomes, core/node-owned registry entries |
-| `contract/valid-variants.test.js` | Schema-valid encode/decode preservation for exactly seven wire variants, including a disposition carrying both arms | `fixtures/valid-wire-messages.json` | Negative classification and contextual semantics |
+| `contract/valid-variants.test.js` | Schema-valid encode/decode preservation for exactly seven wire variants, including a disposition carrying all three outcomes | `fixtures/valid-wire-messages.json` | Negative classification and contextual semantics |
 | `contract/carrier-neutrality.test.js` | Packet codec and schema surfaces expose no concrete carrier semantics | Package root, codec source, and sovereign schema descriptions | WebSocket binary/close mapping and transport channel behavior |
 | `contract/closed-language.test.js` | Exact v1 code domains and removal of legacy/ambiguous object shapes | One valid fixture is cloned with one shape stimulus | Raw JSON grammar, identity admission, routing mutation |
 | `unit/open-identity.test.js` | `OPEN-IDENTITY-1` distinct/expected/admitted identity precedence | Valid OPEN body | Pair allocation, collision, timers |

@@ -709,6 +709,13 @@ add(
         description:
           "Labels whose messages were delivered, compressed to runs.",
       },
+      unknown: {
+        type: "array",
+        maxItems: 1024,
+        items: ref(ids.labelRange, "Run of labels whose delivery can no longer be determined."),
+        description:
+          "Terminal uncertainty: delivery may have occurred and repeating is not known safe.",
+      },
       failed: {
         type: "array",
         maxItems: 1024,
@@ -1133,6 +1140,7 @@ export interface LabelRange {
  */
 export interface DispositionBody {
   readonly delivered?: readonly LabelRange[];
+  readonly unknown?: readonly LabelRange[];
   readonly failed?: readonly DeliveryFailure[];
 }
 

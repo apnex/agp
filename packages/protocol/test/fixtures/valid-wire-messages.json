@@ -87,6 +87,12 @@
           "destinations": 3
         }
       ],
+      "unknown": [
+        {
+          "from": "000000000000000d",
+          "to": "000000000000000e"
+        }
+      ],
       "failed": [
         {
           "code": "NO_ROUTE",

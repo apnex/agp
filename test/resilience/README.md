@@ -16,6 +16,7 @@ Tests use named barriers and the local chaos transport's positive call ledger; a
 | `malformed-oversized-peer.test.js` | C1 invalid JSON and transport size rejection isolate only the offending session | No reconnect |
 | `cascading-withdrawal.test.js` | C1 origin loss cascades through a line while an unrelated route remains deliverable | No blocked successor export |
 | `handler-drain-race.test.js` | C1 stop revokes a held handler generation; late settlement cannot advance terminal state | No writer drain |
+| `delivery-certainty.test.js` | Production Loopback direct and transit channel loss after observed handler invocation returns explicit uncertainty | Handler completion and call retry policy |
 | `observer-pressure.test.js` | C1 a one-event subscriber overflow reports `observer.gap` without corrupting canonical state | No protocol pressure |
 | `c2-branch-outstanding-export.test.js` | C2 selected-branch death overlaps a blocked alternate successor export | No reconnect |
 | `c2-reconnect-cross-dial.test.js` | C2 link loss overlaps two simultaneous reconnect dials | No route withdrawal |

@@ -1384,6 +1384,30 @@
         "packages/node/test/contract/destination-selector.test.js"
       ],
       "integrationWitnesses": []
+    },
+    {
+      "requirementId": "D31",
+      "ratificationStatus": "ratified",
+      "implementation": "built",
+      "authorities": [{ "kind": "decision", "reference": "D31", "ratification": "ratified" }],
+      "designReferences": ["../DECISIONS.md#d31---preserve-delivery-certainty", "sdk.md", "protocol.md", "routing.md"],
+      "schemaIds": ["urn:agp:schema:v1:protocol:wire:disposition-body", "urn:agp:schema:v1:core:sdk:message-outcome", "urn:agp:schema:v1:core:sdk:message-disposition"],
+      "semanticRuleIds": [],
+      "owningGate": "AX5",
+      "owningTests": ["packages/node/test/contract/disposition-surface.test.js", "packages/node/test/contract/disposition-relay.test.js", "packages/core/test/unit/message-disposition-schema.test.js"],
+      "integrationWitnesses": ["test/resilience/delivery-certainty.test.js"]
+    },
+    {
+      "requirementId": "D32",
+      "ratificationStatus": "ratified",
+      "implementation": "built",
+      "authorities": [{ "kind": "decision", "reference": "D32", "ratification": "ratified" }],
+      "designReferences": ["../DECISIONS.md#d32---bound-send-admission", "sdk.md"],
+      "schemaIds": ["urn:agp:schema:v1:core:sdk:send-policy", "urn:agp:schema:v1:core:codes:sdk-error-code"],
+      "semanticRuleIds": [],
+      "owningGate": "AX5",
+      "owningTests": ["packages/node/test/contract/send-admission-deadline.test.js"],
+      "integrationWitnesses": []
     }
   ]
 }

@@ -389,11 +389,12 @@ It replaces `returnToken` with the newly allocated hop token and changes only `h
 
 ## 7. Correlated reverse dispositions
 
-One control message reports the fate of a message, whether that fate was delivery or failure.\
-A batch carries deliveries as inclusive ranges of labels and failures as individual entries:
+One control message reports delivery, definite refusal, or terminal uncertainty.\
+A batch carries deliveries and uncertainty as separate inclusive ranges of labels and refusals as individual entries:
 ```ts
 interface DispositionBody {
   delivered?: LabelRange[];
+  unknown?: LabelRange[];
   failed?: DeliveryFailure[];
 }
 
@@ -415,6 +416,7 @@ interface DeliveryFailure {
     | "SOURCE_NOT_ADVERTISED"
     | "TRANSIT_DISABLED"
     | "NEXT_HOP_UNAVAILABLE"
+    | "INSTANCE_UNREACHABLE"
     | "MESSAGE_TOO_LARGE"
     | "QUEUE_FULL";
   refId: MessageId;
@@ -435,8 +437,18 @@ The canonical locally generated `reason` text is closed:
 | `SOURCE_NOT_ADVERTISED` | `source route not acknowledged by egress` |
 | `TRANSIT_DISABLED` | `transit disabled` |
 | `NEXT_HOP_UNAVAILABLE` | `selected next hop unavailable` |
+| `INSTANCE_UNREACHABLE` | `named destination instance unreachable` |
 | `MESSAGE_TOO_LARGE` | `message exceeds egress receive limit` |
 | `QUEUE_FULL` | `required bounded capacity unavailable` |
+
+Every entry in `failed` proves refusal before destination-handler admission.\
+`NEXT_HOP_UNAVAILABLE` here means the selected next hop could not admit forwarding, not that an already forwarded message was lost.\
+When a session disappears while its forwarded messages await reports, their outcomes are `unknown`: delivery may have occurred.\
+An uncertainty range uses the same exact-controller label authority as a delivery range and conveys no end-to-end processing claim.\
+All three outcome kinds count toward the same inbound batch limit and release each matching reverse binding once.\
+Relays preserve the outcome kind and destination count while translating labels.\
+Missing reports remain unknown to the application even if no explicit uncertainty can return.\
+See [`D31`](../DECISIONS.md#d31---preserve-delivery-certainty).
 
 Dispositions never perform a RIB lookup.
 
@@ -484,8 +496,8 @@ The relay envelope receives a fresh hop-local `id`.
 If a label binding or ingress session has expired, the error is discarded as unreturnable and cannot recurse.
 
 If the expected egress controller terminates, each affected label binding is consumed exactly once.\
-A still-live session ingress receives a locally generated `NEXT_HOP_UNAVAILABLE` with a fresh envelope `id`, original data envelope ID as `refId`, stored `upstreamReturnToken` as `returnToken`, local node as `failedAtNodeId`, the canonical reason above, and no `extensions`.\
-A local ingress publishes the equivalent local failure using its `outboundReturnToken`; it does not emit another wire envelope.\
+A still-live session ingress receives terminal `unknown` in a disposition batch under the stored `upstreamReturnToken`, not a failure asserting non-delivery.\
+A local ingress publishes the equivalent `unknown` outcome for its original message; it does not emit another wire envelope.\
 Failure to reserve bounded control capacity makes the result unreturnable rather than recursive.
 
 Route-miss behavior is therefore:

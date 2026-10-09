@@ -1,5 +1,6 @@
 import assert from "node:assert/strict";
 import test from "node:test";
+import { validateCoreSchema } from "@agp/core";
 import { createNode } from "../../dist/index.js";
 import {
   eventually,
@@ -14,7 +15,7 @@ import {
 // per message, which is why the detail rides its own stream and the operations
 // plane is left carrying counters.
 //
-// Unknown is represented by no outcome having arrived yet, and never by the
+// Unknown is explicit after session loss, or inferred from a missing outcome, never by the
 // absence of a field on the wire: the wire forbids spelling a denominator of
 // one, so absence there means one rather than unknown.
 
@@ -36,10 +37,11 @@ async function settledWithin(node, messageId, ms = 5_000) {
   ]);
   clearTimeout(timer);
   assert.notEqual(result, expired, `no disposition settled within ${ms}ms`);
+  assert.equal(validateCoreSchema("urn:agp:schema:v1:core:sdk:message-disposition", result).ok, true);
   return result;
 }
 
-async function converged(t, disposition = { debounceMs: 0 }) {
+async function converged(t, disposition = { debounceMs: 0 }, handlers = {}) {
   const network = new MemoryPeerNetwork();
   const listener = createNode({
     nodeId: "node.sink",
@@ -58,8 +60,8 @@ async function converged(t, disposition = { debounceMs: 0 }) {
   t.after(async () => {
     await Promise.allSettled([dialer.stop(), listener.stop()]);
   });
-  await listener.expose("sink/service", async () => {});
-  await dialer.expose("origin/source", async () => {});
+  await listener.expose("sink/service", handlers.request ?? (async () => {}));
+  await dialer.expose("origin/source", handlers.reply ?? (async () => {}));
   await dialer.expose("origin/other", async () => {});
   await listener.start();
   await dialer.start();
@@ -74,6 +76,35 @@ async function converged(t, disposition = { debounceMs: 0 }) {
   }, "route and ACKed source export");
   return { dialer, listener };
 }
+
+test("Given a request with attempt correlation, when the application echoes it in a reply, then both reports retain the label and distinct message identities", { timeout: 5_000 }, async (t) => {
+  const received = Promise.withResolvers();
+  const replySent = Promise.withResolvers();
+  let listener;
+  const pair = await converged(t, { debounceMs: 0 }, {
+    async request(payload, context) {
+      try {
+        replySent.resolve(await listener.send("sink/service", context.delivery.source.endpoint,
+          { answer: payload.question }, { correlationId: context.delivery.correlationId }));
+      } catch (error) { replySent.reject(error); }
+    },
+    async reply(payload, context) { received.resolve({ payload, context }); },
+  });
+  listener = pair.listener;
+  await eventually(() => listener.operations.routeExports().items.some(
+    ({ endpoint, state }) => endpoint === "sink/service" && state === "acked"), "reply source export");
+  const requestReceipt = await pair.dialer.send("origin/source", "sink/service",
+    { question: "example" }, { correlationId: "attempt-1" });
+  const [replyReceipt, reply] = await Promise.all([replySent.promise, received.promise]);
+  assert.deepEqual(reply.payload, { answer: "example" });
+  assert.equal(reply.context.delivery.correlationId, "attempt-1");
+  assert.notEqual(requestReceipt.messageId, replyReceipt.messageId);
+  for (const [node, receipt] of [[pair.dialer, requestReceipt], [listener, replyReceipt]]) {
+    const disposition = await settledWithin(node, receipt.messageId);
+    assert.equal(disposition.correlationId, "attempt-1");
+    assert.deepEqual(disposition.outcomes, [{ kind: "delivered" }]);
+  }
+});
 
 test("Given a message that is delivered, when its disposition returns, then the sender is told it settled and how many destinations owed it", async (t) => {
   const { dialer } = await converged(t);
@@ -90,6 +121,17 @@ test("Given a message that is delivered, when its disposition returns, then the 
   // the codec turned that absence into a number exactly once.
   assert.equal(settled.total, 1);
   assert.deepEqual(settled.outcomes, [{ kind: "delivered" }]);
+});
+
+test("Given a handler that throws, when delivery is reported, then delivered does not claim processing success", async (t) => {
+  let invoked = false;
+  const { dialer } = await converged(t, { debounceMs: 0 }, {
+    async request() { invoked = true; throw new Error("application processing failed"); },
+  });
+  const receipt = await dialer.send("origin/source", "sink/service", {});
+  const disposition = await settledWithin(dialer, receipt.messageId);
+  assert.equal(invoked, true);
+  assert.deepEqual(disposition.outcomes, [{ kind: "delivered" }]);
 });
 
 test("Given a message whose outcome has not arrived, when the sender reads it, then the total is unknown rather than assumed to be one", async (t) => {
@@ -166,10 +208,5 @@ test("Given a peer that goes away with a message in flight, when the binding die
   const settled = await settledWithin(dialer, receipt.messageId);
   assert.equal(settled.settled, true);
   assert.equal(settled.outstanding, 0);
-  assert.deepEqual(settled.outcomes, [{
-    kind: "failed",
-    code: "NEXT_HOP_UNAVAILABLE",
-    reason: "selected next hop unavailable",
-    failedAtNodeId: "node.origin",
-  }]);
+  assert.deepEqual(settled.outcomes, [{ kind: "unknown" }]);
 });

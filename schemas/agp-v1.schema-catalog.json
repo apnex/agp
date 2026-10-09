@@ -97,6 +97,11 @@
       "sha256": "b85308c595a5ddf7e27fa2758d276673d9506c763d2296761b17e2c61ff590cb"
     },
     {
+      "id": "urn:agp:schema:v1:core:codes:message-outcome-kind",
+      "path": "packages/core/src/schemas/v1/codes/message-outcome-kind.schema.json",
+      "sha256": "f113423aa6af50d74a93f1cb1f46006ce5bd895d6b93397da3e084199373b860"
+    },
+    {
       "id": "urn:agp:schema:v1:core:codes:monotonic-domain",
       "path": "packages/core/src/schemas/v1/codes/monotonic-domain.schema.json",
       "sha256": "953bfd898eca16ced677af16d7053aa81215f2ea3a7abe2d8c04e6c4ac370799"
@@ -114,7 +119,7 @@
     {
       "id": "urn:agp:schema:v1:core:codes:sdk-error-code",
       "path": "packages/core/src/schemas/v1/codes/sdk-error-code.schema.json",
-      "sha256": "51e64408afee36a9ccea0cf99d84056d321a31995e951ea1a92aea5dcaa9bec4"
+      "sha256": "05db17eda973944009a77182ed8b3bc5eb3fcd3f63e8eb532e2802d5241fe980"
     },
     {
       "id": "urn:agp:schema:v1:core:codes:selected-reason",
@@ -702,6 +707,16 @@
       "sha256": "a81671e6a81f45cc7feb1e4e226933eedc67bcd73412dbb0a5b664be2dd53986"
     },
     {
+      "id": "urn:agp:schema:v1:core:sdk:message-disposition",
+      "path": "packages/core/src/schemas/v1/sdk/message-disposition.schema.json",
+      "sha256": "4803d4a390be038d96661bc45043e2c56bf441f0c34a3373312febcd9b96be3d"
+    },
+    {
+      "id": "urn:agp:schema:v1:core:sdk:message-outcome",
+      "path": "packages/core/src/schemas/v1/sdk/message-outcome.schema.json",
+      "sha256": "307560d4518e4001ebc1d8938fcc2bbfe9bac47292ab1df85c051bdc21e8659a"
+    },
+    {
       "id": "urn:agp:schema:v1:core:sdk:route-admission-decision",
       "path": "packages/core/src/schemas/v1/sdk/route-admission-decision.schema.json",
       "sha256": "8d0ff713e286ddf5f4caa7daa7d086b6e25335358fe92b1cbca029bf8d0f6270"
@@ -914,7 +929,7 @@
     {
       "id": "urn:agp:schema:v1:protocol:wire:disposition-body",
       "path": "packages/protocol/src/schemas/v1/wire/disposition-body.schema.json",
-      "sha256": "3854d2456cfad5474f02036cd491db8f4bb56f89caa783e528cdad8f599552e8"
+      "sha256": "d4d32ec92854de5b066bd398084af65f2fe1e23413870efe40d5d4c456177a13"
     },
     {
       "id": "urn:agp:schema:v1:protocol:wire:disposition-message",

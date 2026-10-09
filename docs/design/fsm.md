@@ -324,8 +324,8 @@ Every terminal path uses the same idempotent order:
 4. in one routing transaction remove its Adj-RIB-In, recompute selected
    alternatives/FIB/exports, invalidate its Adj-RIB-Out, remove label bindings
    whose ingress became unusable, and convert label bindings whose egress failed
-   into bounded direct `NEXT_HOP_UNAVAILABLE` results where return ingress is
-   still usable;
+   into bounded direct `unknown` dispositions where return ingress is still
+   usable, because session loss cannot establish non-delivery (`D31`);
 5. stop protocol timers and close/abort the neutral channel within a finite
    deadline, treating returned or subsequently observed terminal evidence as
    cleanup evidence only;

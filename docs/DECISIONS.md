@@ -55,6 +55,8 @@ Two renames since affect how these records read, and neither changes what any of
 | D28 | Let the event loop turn regardless of how a caller drives the node | Measurement + `MX2` + explicit stakeholder direction | Ratified |
 | D29 | Credit a carrier that can be outrun, and only that | Measurement + `MX1` + explicit stakeholder direction | Ratified |
 | D30 | Admit the candidate routing table as a data-path gate, where a message names the instance it is for | Amended `Q1(b)` + explicit stakeholder direction | Ratified |
+| D31 | Preserve definite refusal and terminal uncertainty as distinct delivery outcomes | Zorg feedback + measured behavior + owner-authorized implementation | Ratified |
+| D32 | Enforce send timeout and cancellation at the admission commit boundary | Existing SDK contract + owner-authorized implementation | Ratified |
 
 ---
 
@@ -737,6 +739,8 @@ Suppressing an announcement for a real change of state would hide a session leav
 
 ### D23 - Delivery disposition
 
+**Amendment:** [`D31`](#d31---preserve-delivery-certainty) adds terminal uncertainty and changes session-loss reporting; the original decision below is preserved.
+
 **Mechanics.**\
 Every message a node forwards acquires a reverse-path binding, and that binding is released when a disposition for it returns, whether the disposition reports delivery or failure.\
 Expiry remains as a backstop, and reaching capacity evicts the oldest binding rather than refusing new work, configurably, so a reverse-path concern can never stop the data plane.
@@ -1068,6 +1072,54 @@ A direction change recorded only as prose inside an intent table is invisible to
 
 Numbering it retrospectively rewrites nothing that was ratified.\
 It gives an existing ruling the reference the rest of the corpus needs in order to cite it.
+
+---
+
+### D31 - Preserve delivery certainty
+
+**Mechanics.**\
+The owner authorized appropriate implementation in response to Zorg's proposal and explicitly selected correctness and quality in scope over minimizing the change.\
+`MessageOutcome` distinguishes `delivered`, `failed`, and `unknown`.\
+Delivery means handler admission; failure means refusal before that admission; unknown means AGP cannot establish delivery.\
+Session loss produces unknown on the wire and at the origin, including after a handler ran.\
+Label-only uncertainty uses a separate `unknown` range array in the disposition, with the same exact-controller authority, limits, denominator preservation, and consume-once rule as delivery.\
+Tracking may finish without learning delivery, so `settled: true` is not a processing or non-delivery guarantee.\
+The two public SDK disposition records now carry sovereign schemas.
+
+This is an in-place wire-contract change under `D2`: every peer in a topology must be upgraded together.\
+An older peer cannot decode the new uncertainty arm and must not be treated as compatible.\
+There is no change to routing responsibility, retry ownership, or application acknowledgements.
+
+**Rationale.**\
+A production Loopback probe observed the destination handler run once and then received `failed / NEXT_HOP_UNAVAILABLE` after channel loss, on both a direct connection and a three-node chain.\
+Zorg's proposed safe-repeat inference would therefore be false.\
+Documenting one failure code as ambiguous would preserve an outcome vocabulary that obliges every consumer to rediscover which failures are not failures.\
+Explicit uncertainty makes the distinction available directly, while preserving known pre-forwarding `NEXT_HOP_UNAVAILABLE` as a definite refusal.
+
+**Consequence.**\
+Reporting uncertainty as non-delivery can cause an application to repeat an effect already applied.\
+Reporting handler completion would exceed AGP's observation boundary.\
+Tests observe handler invocation before losing the channel and require unknown at the origin; correlation remains an application-owned label rather than a call-pairing service.
+
+### D32 - Bound send admission
+
+**Mechanics.**\
+`SendOptions.timeoutMs` begins a monotonic deadline after validation and before executor or event-loop waits.\
+Timeout rejects with `TIMEOUT`, cancellation with `ABORTED`; the first observed cancellation cause wins.\
+A retained admission guard rejects promptly and prevents the queued command from admitting work later.\
+The guard checks again immediately before commit and releases its timer and abort subscription when admission commits or the operation ends.\
+No cancellation can undo a committed admission, including before the receipt continuation runs.\
+Timer delays round fractional remaining time upward to whole milliseconds and split large deadlines into representable intervals without shortening the requested bound.
+
+**Rationale.**\
+The SDK already promised an admission bound, but the option was only validated.\
+The node's yield and serialized executor provide real waits before admission even though capacity reservation itself does not wait.\
+Removing the option would withdraw a declared and example-consumed contract; racing a timer alone would let a rejected send take effect later.
+
+**Consequence.**\
+A caller timeout without an admission guard leaves a queued send alive after the caller was told it failed.\
+Treating this deadline as an end-to-end deadline would imply revocation AGP cannot perform.\
+Bounded regression tests block the executor, observe rejection, release the queue, and verify that no cancelled payload arrives.
 
 ---
 

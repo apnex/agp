@@ -103,6 +103,7 @@ add("common", "event-sequence", string(unsigned64Decimal));
 add("common", "counter-value", string(unsigned64Decimal));
 
 const codeSets = {
+  "message-outcome-kind": ["delivered", "failed", "unknown"],
   "host-state": ["Created", "Starting", "Running", "Stopping", "Stopped", "Failed"],
   "host-failure-code": [
     "START_FAILED", "LISTENER_TERMINAL",
@@ -131,7 +132,7 @@ const codeSets = {
   "connection-state": ["Idle", "Connect", "Active", "OpenSent", "OpenConfirm", "Established"],
   "sdk-error-code": [
     "CONFIG_INVALID", "OPTIONS_INVALID", "LIFECYCLE_INVALID", "NOT_RUNNING",
-    "ABORTED", "ENDPOINT_INVALID", "HANDLER_INVALID",
+    "ABORTED", "TIMEOUT", "ENDPOINT_INVALID", "HANDLER_INVALID",
     "ENDPOINT_ALREADY_EXPOSED", "ENDPOINT_CAPACITY", "CORRELATION_INVALID",
     "SOURCE_NOT_OWNED", "PAYLOAD_NOT_JSON", "MESSAGE_TOO_LARGE", "NO_ROUTE",
     "SOURCE_NOT_ADVERTISED", "NEXT_HOP_UNAVAILABLE", "INSTANCE_UNREACHABLE", "QUEUE_FULL",
@@ -311,6 +312,26 @@ add("sdk", "send-receipt", closed({
   selectedRouteId: ref(core("common", "route-id")),
   nextHop: ref(core("operations", "next-hop")),
 }, ["messageId", "acceptedAt", "operationsRevision", "selectedRouteId", "nextHop"]));
+add("sdk", "message-outcome", {
+  oneOf: codeSets["message-outcome-kind"].map((kind) => closed({
+    kind: { const: kind },
+    ...(kind === "failed" ? {
+      code: ref(protocol("codes", "delivery-error-code")),
+      reason: string({ minLength: 1 }),
+      failedAtNodeId: ref(protocol("common", "node-id")),
+    } : {}),
+  })),
+});
+add("sdk", "message-disposition", closed({
+  messageId: ref(protocol("common", "message-id")),
+  correlationId: ref(protocol("common", "correlation-id")),
+  source: ref(protocol("common", "endpoint-name")),
+  destination: ref(protocol("common", "endpoint-name")),
+  outcomes: { type: "array", items: ref(core("sdk", "message-outcome")) },
+  outstanding: integer({ minimum: 0, maximum: 1024 }),
+  total: integer({ minimum: 1, maximum: 1024 }),
+  settled: bool,
+}, ["messageId", "source", "destination", "outcomes", "outstanding", "settled"]));
 add("sdk", "identity-admission-request", closed({
   localNodeId: ref(protocol("common", "node-id")),
   remoteNodeId: ref(protocol("common", "node-id")),
@@ -912,6 +933,7 @@ function generatedCodeTypes(sets) {
   // `route-reason-code` exactly while carrying a different name, and why
   // checking for duplicates by name found nothing.
   const exported = {
+    "message-outcome-kind": "MessageOutcomeKind",
     "sdk-error-code": "AgpErrorCode",
     "session-event-code": "SessionEventCode",
     "connection-state": "ConnectionState",

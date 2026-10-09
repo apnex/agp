@@ -174,6 +174,7 @@ export interface LabelRange {
  */
 export interface DispositionBody {
   readonly delivered?: readonly LabelRange[];
+  readonly unknown?: readonly LabelRange[];
   readonly failed?: readonly DeliveryFailure[];
 }
 

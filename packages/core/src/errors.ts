@@ -4,6 +4,7 @@ import type { AgpErrorCode } from "./types.js";
 
 const RETRYABLE_CODES: ReadonlySet<AgpErrorCode> = new Set([
   "NOT_RUNNING",
+  "TIMEOUT",
   "SOURCE_NOT_ADVERTISED",
   "NEXT_HOP_UNAVAILABLE",
   "INSTANCE_UNREACHABLE",

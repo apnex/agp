@@ -1,0 +1,65 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:agp:schema:v1:core:sdk:message-outcome",
+  "title": "AGP core message-outcome",
+  "x-agp": {
+    "owner": "@agp/core",
+    "typescript": "MessageOutcome",
+    "kind": "sdk",
+    "mechanics": "Sovereign message-outcome data contract owned by @agp/core.",
+    "rationale": "One schema gives runtime validators and consumers one stable reasoning boundary.",
+    "consequence": "Accepting another shape would make canonical state or SDK interpretation ambiguous.",
+    "semanticRules": []
+  },
+  "oneOf": [
+    {
+      "type": "object",
+      "properties": {
+        "kind": {
+          "const": "delivered"
+        }
+      },
+      "required": [
+        "kind"
+      ],
+      "additionalProperties": false
+    },
+    {
+      "type": "object",
+      "properties": {
+        "kind": {
+          "const": "failed"
+        },
+        "code": {
+          "$ref": "urn:agp:schema:v1:protocol:codes:delivery-error-code"
+        },
+        "reason": {
+          "type": "string",
+          "minLength": 1
+        },
+        "failedAtNodeId": {
+          "$ref": "urn:agp:schema:v1:protocol:common:node-id"
+        }
+      },
+      "required": [
+        "kind",
+        "code",
+        "reason",
+        "failedAtNodeId"
+      ],
+      "additionalProperties": false
+    },
+    {
+      "type": "object",
+      "properties": {
+        "kind": {
+          "const": "unknown"
+        }
+      },
+      "required": [
+        "kind"
+      ],
+      "additionalProperties": false
+    }
+  ]
+}

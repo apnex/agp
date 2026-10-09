@@ -1,7 +1,6 @@
 import { randomBytes, randomUUID } from "node:crypto";
 
 import {
-  AGP_V1_DELIVERY_ERROR_REASONS,
   AGP_V1_LIMITS,
   encodeAgpPacket,
   isCorrelationId,
@@ -94,6 +93,7 @@ import {
 import { OriginOutstanding } from "./outstanding.js";
 import { CoreDataRoutingAdapter } from "./routing-adapter.js";
 import { SerializedExecutor } from "./serialized-executor.js";
+import { SendAdmissionGuard } from "./send-admission.js";
 import {
   PeerController,
   epochKey,
@@ -418,7 +418,7 @@ export class NodeImpl implements AgpNode, SessionHost {
               reason: outcome.failure.reason,
               failedAtNodeId: outcome.failure.failedAtNodeId,
             })
-            : Object.freeze({ kind: "delivered" }),
+            : Object.freeze({ kind: outcome.kind }),
           destinations,
         );
       },
@@ -609,41 +609,46 @@ export class NodeImpl implements AgpNode, SessionHost {
     if (options.signal?.aborted) {
       throw new AgpError("ABORTED", "node.send", "send aborted");
     }
-    await this.#yieldIfLoopStarved();
-    try {
-      const receipt = await this.#dataPlane.send(
-        source,
-        destination,
-        payload,
-        options.correlationId,
-        options.destinationSelector,
-      );
-      this.#outstanding.open({
-        messageId: receipt.messageId,
-        ...(receipt.correlationId === undefined
-          ? {}
-          : { correlationId: receipt.correlationId }),
-        source,
-        destination,
-      });
-      if (receipt.nextHop.kind === "local") {
-        // A message that never left the node has already reached its endpoint,
-        // and no binding exists to carry a disposition back for it. Settling it
-        // here keeps the surface uniform: a caller does not have to know
-        // whether its destination happened to be local.
-        this.#outstanding.settle(
-          receipt.messageId,
-          Object.freeze({ kind: "delivered" }),
-          1,
+    const admission = options.timeoutMs === undefined && options.signal === undefined
+      ? undefined
+      : new SendAdmissionGuard(this.clock, options.timeoutMs, options.signal);
+    const send = async (): Promise<SendReceipt> => {
+      await this.#yieldIfLoopStarved();
+      admission?.check();
+      try {
+        const receipt = await this.#dataPlane.send(
+          source,
+          destination,
+          payload,
+          options.correlationId,
+          options.destinationSelector,
+          admission,
         );
+        this.#outstanding.open({
+          messageId: receipt.messageId,
+          ...(receipt.correlationId === undefined
+            ? {}
+            : { correlationId: receipt.correlationId }),
+          source,
+          destination,
+        });
+        if (receipt.nextHop.kind === "local") {
+          // Local admission needs no reverse label binding to report delivery.
+          this.#outstanding.settle(
+            receipt.messageId,
+            Object.freeze({ kind: "delivered" }),
+            1,
+          );
+        }
+        return receipt;
+      } catch (error) {
+        if (error instanceof DataPlaneFailure) {
+          throw new AgpError(error.code, "node.send", error.message);
+        }
+        throw error;
       }
-      return receipt;
-    } catch (error) {
-      if (error instanceof DataPlaneFailure) {
-        throw new AgpError(error.code, "node.send", error.message);
-      }
-      throw error;
-    }
+    };
+    return admission === undefined ? await send() : await admission.waitFor(send);
   }
 
   /**
@@ -923,10 +928,7 @@ export class NodeImpl implements AgpNode, SessionHost {
         this.#outstanding.settle(
           binding.messageId,
           Object.freeze({
-            kind: "failed",
-            code: "NEXT_HOP_UNAVAILABLE",
-            reason: AGP_V1_DELIVERY_ERROR_REASONS.NEXT_HOP_UNAVAILABLE,
-            failedAtNodeId: this.nodeId,
+            kind: "unknown",
           }),
           1,
         );

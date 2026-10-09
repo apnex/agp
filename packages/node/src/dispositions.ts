@@ -46,7 +46,7 @@ export const DEFAULT_DISPOSITION_BATCH: DispositionBatchPolicy = Object.freeze({
 });
 
 export type DispositionOutcome =
-  | { readonly kind: "delivered"; readonly token: ReturnToken }
+  | { readonly kind: "delivered" | "unknown"; readonly token: ReturnToken }
   | { readonly kind: "failed"; readonly failure: DeliveryFailure };
 
 export type SettledOutcome =
@@ -79,9 +79,15 @@ export interface DispositionEngineOptions {
   ) => void;
 }
 
+interface LabelOutcome {
+  readonly token: ReturnToken;
+  readonly destinations: number;
+}
+
 interface PendingBatch {
   readonly controller: ExactController;
-  readonly delivered: ReturnToken[];
+  readonly delivered: LabelOutcome[];
+  readonly unknown: LabelOutcome[];
   readonly failed: DeliveryFailure[];
   timer: Cancellable | undefined;
 }
@@ -108,8 +114,13 @@ export class DispositionEngine {
    * filled the table and capped the node at capacity divided by the retention
    * window. See MX7.
    */
-  reportDelivered(ingress: ExactController, token: ReturnToken): void {
-    this.#enqueue(ingress, (batch) => batch.delivered.push(token));
+  reportDelivered(ingress: ExactController, token: ReturnToken, destinations = 1): void {
+    this.#enqueue(ingress, (batch) => batch.delivered.push({ token, destinations }));
+  }
+
+  /** Report terminal delivery uncertainty, without asserting non-delivery. */
+  reportUnknown(ingress: ExactController, token: ReturnToken, destinations = 1): void {
+    this.#enqueue(ingress, (batch) => batch.unknown.push({ token, destinations }));
   }
 
   reportFailed(ingress: ExactController, failure: DeliveryFailure): void {
@@ -146,22 +157,15 @@ export class DispositionEngine {
   ): void {
     for (const binding of lost) {
       if (!binding.ingress.isLive()) continue;
-      this.reportFailed(
-        binding.ingress,
-        this.#localFailure(
-          "NEXT_HOP_UNAVAILABLE",
-          binding.messageId,
-          binding.upstreamReturnToken,
-        ),
-      );
+      this.reportUnknown(binding.ingress, binding.upstreamReturnToken);
     }
   }
 
   /**
    * Apply an arriving batch, outcome by outcome.
    *
-   * Each outcome settles its own binding, so a batch that mixes deliveries and
-   * failures needs no ordering rule between them.
+   * Each outcome settles its own binding, so delivery, refusal, and uncertainty
+   * share the same authority and consume-once rule.
    */
   receive(
     egress: ExactController,
@@ -172,10 +176,12 @@ export class DispositionEngine {
       return Object.freeze([Object.freeze({ kind: "invalid-ref" } as const)]);
     }
     const settled: SettledOutcome[] = [];
-    for (const range of message.body.delivered ?? []) {
-      const destinations = destinationsOf(range);
-      for (const token of expandLabelRange(range)) {
-        settled.push(this.#settleDelivered(egress, token, destinations));
+    for (const kind of ["delivered", "unknown"] as const) {
+      for (const range of message.body[kind] ?? []) {
+        const destinations = destinationsOf(range);
+        for (const token of expandLabelRange(range)) {
+          settled.push(this.#settleLabelOutcome(egress, token, destinations, kind));
+        }
       }
     }
     for (const failure of message.body.failed ?? []) {
@@ -196,7 +202,7 @@ export class DispositionEngine {
     const limit = BigInt(this.#options.batch.maximumInboundOutcomes);
     let outcomes = BigInt((message.body.failed ?? []).length);
     if (outcomes > limit) return false;
-    for (const range of message.body.delivered ?? []) {
+    for (const range of [...message.body.delivered ?? [], ...message.body.unknown ?? []]) {
       const width = labelRangeWidth(range);
       if (width === undefined) return false;
       outcomes += width;
@@ -224,12 +230,13 @@ export class DispositionEngine {
     this.#pending.delete(controller.identity);
   }
 
-  #settleDelivered(
+  #settleLabelOutcome(
     egress: ExactController,
     token: ReturnToken,
     destinations: number,
+    kind: "delivered" | "unknown",
   ): SettledOutcome {
-    const lookup = this.#options.labelBindings.settleDelivered(
+    const lookup = this.#options.labelBindings.settleLabelOutcome(
       egress,
       token,
       this.#options.monotonicNow(),
@@ -239,7 +246,7 @@ export class DispositionEngine {
     }
     if (lookup.labelBinding.ingress.kind === "local") {
       const outcome = Object.freeze({
-        kind: "delivered",
+        kind,
         token,
       } as const);
       this.#options.publishLocal(lookup.labelBinding, outcome, destinations);
@@ -256,10 +263,9 @@ export class DispositionEngine {
     }
     // The label is translated to the one the upstream hop knows. Relaying the
     // downstream label instead would name a binding that peer never made.
-    this.reportDelivered(
-      ingress,
-      lookup.labelBinding.ingress.upstreamReturnToken,
-    );
+    const upstreamToken = lookup.labelBinding.ingress.upstreamReturnToken;
+    if (kind === "delivered") this.reportDelivered(ingress, upstreamToken, destinations);
+    else this.reportUnknown(ingress, upstreamToken, destinations);
     return Object.freeze({ kind: "relayed", ingress });
   }
 
@@ -314,11 +320,11 @@ export class DispositionEngine {
   ): void {
     let batch = this.#pending.get(controller.identity);
     if (batch === undefined) {
-      batch = { controller, delivered: [], failed: [], timer: undefined };
+      batch = { controller, delivered: [], unknown: [], failed: [], timer: undefined };
       this.#pending.set(controller.identity, batch);
     }
     add(batch);
-    const outcomes = batch.delivered.length + batch.failed.length;
+    const outcomes = batch.delivered.length + batch.unknown.length + batch.failed.length;
     if (outcomes >= this.#options.batch.maximumOutcomes) {
       this.#send(batch);
       return;
@@ -339,10 +345,11 @@ export class DispositionEngine {
     batch.timer?.cancel();
     batch.timer = undefined;
     this.#pending.delete(batch.controller.identity);
-    if (batch.delivered.length === 0 && batch.failed.length === 0) return;
+    if (batch.delivered.length === 0 && batch.unknown.length === 0 && batch.failed.length === 0) return;
     if (!batch.controller.isLive()) return;
 
-    const delivered = compressLabels(batch.delivered);
+    const delivered = compressOutcomeLabels(batch.delivered);
+    const unknown = compressOutcomeLabels(batch.unknown);
     const message: DispositionMessage = Object.freeze({
       agp: 1,
       plane: "control",
@@ -350,6 +357,7 @@ export class DispositionEngine {
       id: this.#options.nextMessageId(),
       body: Object.freeze({
         ...(delivered.length === 0 ? {} : { delivered }),
+        ...(unknown.length === 0 ? {} : { unknown }),
         ...(batch.failed.length === 0
           ? {}
           : { failed: Object.freeze([...batch.failed]) }),
@@ -375,6 +383,21 @@ export class DispositionEngine {
       reason: AGP_V1_DELIVERY_ERROR_REASONS[code],
     }) as DeliveryFailure;
   }
+}
+
+/** Compress only labels with the same destination count, retaining the reported denominator. */
+function compressOutcomeLabels(outcomes: readonly LabelOutcome[]): readonly LabelRange[] {
+  const byDestinations = new Map<number, ReturnToken[]>();
+  for (const { token, destinations } of outcomes) {
+    const tokens = byDestinations.get(destinations) ?? [];
+    tokens.push(token);
+    byDestinations.set(destinations, tokens);
+  }
+  return Object.freeze([...byDestinations].flatMap(([destinations, tokens]) =>
+    compressLabels(tokens).map((range) => Object.freeze({
+      ...range,
+      ...(destinations === 1 ? {} : { destinations }),
+    }))));
 }
 
 /**
