@@ -145,8 +145,8 @@ test("Given the milestones, when each is read, then no landed item is presented 
     ["One", 1], ["Two", 2], ["Three", 3], ["Four", 4], ["Five", 5], ["Six", 6],
     ["Seven", 7], ["Eight", 8], ["Nine", 9], ["Ten", 10], ["Eleven", 11], ["Twelve", 12],
   ]);
-  const stated = words.get(declared[1]);
-  assert.notEqual(stated, undefined, `closed count "${declared[1]}" is not a word this gate knows`);
+  const stated = /^\d+$/u.test(declared[1]) ? Number(declared[1]) : words.get(declared[1]);
+  assert.notEqual(stated, undefined, `closed count "${declared[1]}" is neither a number nor a known word`);
   const present = (closed?.match(/^\*\*.+\*\*\\$/gmu) ?? []).length;
   if (stated !== present) {
     problems.push(`closed section says ${declared[1]} milestones and carries ${present}`);

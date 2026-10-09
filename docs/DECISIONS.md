@@ -62,6 +62,10 @@ Two renames since affect how these records read, and neither changes what any of
 
 ## 2. Confirmed intent
 
+**Editorial correction (`B34`):** subsection numbers now follow document order.\
+Performance intent was the first 2.5 and is now 2.4; governing principles were 2.4 and are now 2.5; anti-goals were the second 2.5 and are now 2.6.\
+The recorded intent text is unchanged.
+
 Every decision below realizes intent that was confirmed by the project owner before design began.\
 That intent is recorded here rather than in a separate survey artifact, so a reader reaches the authority from the decision it authorizes.
 
@@ -126,7 +130,7 @@ The AGP control plane has no knowledge of, and no responsibility for, how a chan
 
 The target scale is small and known: fewer than twenty nodes, in star and line topologies.
 
-### 2.5 Confirmed performance intent
+### 2.4 Confirmed performance intent
 
 There is no performance target, and the absence is deliberate rather than an omission awaiting a number.\
 The standard is that AGP should be excellent, and that opportunities to improve it are taken as they are found.
@@ -138,7 +142,7 @@ And an opportunity found is not deferred for want of a threshold to justify it, 
 This does not license slowness that breaks something else.\
 A cost that moves a deadline, exhausts a bound, or blocks the loop another obligation runs on is a correctness fault wearing a performance costume, and it is scored as the fault it is rather than as the number it presents.
 
-### 2.4 Governing principles
+### 2.5 Governing principles
 
 Three principles anchor the design and outrank convenience:
 
@@ -149,7 +153,7 @@ Three principles anchor the design and outrank convenience:
 - **Loop-safe selected-route propagation.** Operational views expose that same
   state rather than reconstructing it independently.
 
-### 2.5 Confirmed anti-goals
+### 2.6 Confirmed anti-goals
 
 These were excluded at intent capture, not discovered later.\
 Their re-entry conditions are held in [`design/mechanisms.md`](design/mechanisms.md) as `F01` through `F07`.

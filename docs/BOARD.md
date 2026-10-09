@@ -74,8 +74,8 @@ An item that is `I4`/`P1` belongs early even though nobody feels it today, becau
 | `B15` | Decide credit by the carrier rather than by configuration | `I3` | `P2` | [`D29`](DECISIONS.md#d29---credit-the-carrier-that-can-be-outrun), [`D19`](DECISIONS.md#d19---per-hop-credit-flow-control) | landed |
 | `B2` | Reconcile the pause wording in `binding-websocket.md` with the code | `I4` | `P2` | [`MX1`](VERIFICATION.md#46-open-findings-from-sweeps) | landed |
 | `B12` | Split current and target architecture instants | `I4` | `P3` | [`ARCHITECTURE.md` section 12](ARCHITECTURE.md#12-owed-and-open) | held |
-| `B3` | Machine-readable cell to mechanism mapping | `I4` | `P3` | [`VERIFICATION.md` section 4](VERIFICATION.md#4-coverage-register) | open |
-| `B13` | Generate the package and dependency tables from the manifests | `I4` | `P3` | [`ARCHITECTURE.md` section 12](ARCHITECTURE.md#12-owed-and-open) | open |
+| `B3` | Machine-readable cell to mechanism mapping | `I4` | `P3` | [`VERIFICATION.md` section 4](VERIFICATION.md#4-coverage-register) | landed |
+| `B13` | Generate the package and dependency tables from the manifests | `I4` | `P3` | [`ARCHITECTURE.md` section 7](ARCHITECTURE.md#7-package-and-module-composition) | landed |
 | `B4` | Cost model for matrix cells | `I4` | `P4` | [`VERIFICATION.md` section 4.7](VERIFICATION.md#47-matrix-execution) | held |
 | `B5` | Full-mesh geometry and per-pair keying | `I3` | `P3` | [`X1`](VERIFICATION.md#48-excluded-combinations), [`F07`](design/mechanisms.md) | held |
 | `B6` | Certificate and HTTP-authenticated WebSocket profiles | `I3` | `P3` | [`F07`](design/mechanisms.md) | held |
@@ -84,14 +84,14 @@ An item that is `I4`/`P1` belongs early even though nobody feels it today, becau
 | `B10` | Author an enduring intent statement for AGP | `I4` | `P3` | [`ARCHITECTURE.md` section 10](ARCHITECTURE.md#10-scope-boundary), [`DECISIONS.md` section 2](DECISIONS.md#2-confirmed-intent) | landed |
 | `B31` | Generate the code unions that are currently written twice | `I4` | `P2` | [`D3`](DECISIONS.md#d3---sovereign-contracts), [`sdk.md` section 3.1](design/sdk.md#31-schema-backed-dtos) | landed |
 | `B32` | Give a closed domain a schema that is as closed as its type | `I3` | `P2` | [`D3`](DECISIONS.md#d3---sovereign-contracts), [`contracts.md` section 6](design/contracts.md#61-configuration) | landed |
-| `B11` | Reconcile the scope boundary with the `F` series it is forked with | `I4` | `P2` | [`ARCHITECTURE.md` section 10](ARCHITECTURE.md#10-scope-boundary), [`F07`](design/mechanisms.md) | open |
+| `B11` | Reconcile the scope boundary with the `F` series it is forked with | `I4` | `P2` | [`ARCHITECTURE.md` section 10](ARCHITECTURE.md#10-scope-boundary), [`F07`](design/mechanisms.md) | landed |
 | `B37` | Gate that a record citing a board item reaches the board | `I4` | `P2` | [`BOARD.md` section 1](BOARD.md#the-contract-between-board-and-record), [`ARCHITECTURE.md` section 1](ARCHITECTURE.md#1-status-and-authority) | landed |
 | `B33` | Gate that a ratified decision reaches the vision it changes | `I4` | `P2` | [`VISION.md`](../VISION.md#authority), [`DECISIONS.md`](DECISIONS.md) | landed |
-| `B34` | Give confirmed intent one subsection numbering | `I4` | `P2` | [`DECISIONS.md` section 2](DECISIONS.md#2-confirmed-intent) | open |
+| `B34` | Give confirmed intent one subsection numbering | `I4` | `P2` | [`DECISIONS.md` section 2](DECISIONS.md#2-confirmed-intent) | landed |
 | `B35` | Bound the tests that await an event with no deadline | `I4` | `P4` | [`TESTING.md`](TESTING.md) | held |
 | `B36` | Gate the self-consistency this board declares | `I4` | `P2` | [`BOARD.md` section 1](BOARD.md#the-contract-between-board-and-record) | landed |
 | `B38` | Catch a direction change that carries no decision number | `I4` | `P2` | [`VISION.md`](../VISION.md#authority), [`DECISIONS.md` section 2](DECISIONS.md#2-confirmed-intent) | landed |
-| `B39` | Reconcile the architecture with what has been built since it was written | `I4` | `P2` | [`ARCHITECTURE.md` section 1](ARCHITECTURE.md#1-status-and-authority) | open |
+| `B39` | Reconcile the architecture with what has been built since it was written | `I4` | `P2` | [`ARCHITECTURE.md` section 1](ARCHITECTURE.md#1-status-and-authority) | landed |
 | `B40` | Extend absorption to the architecture, which owes the same duty | `I4` | `P2` | [`ARCHITECTURE.md` section 1](ARCHITECTURE.md#1-status-and-authority), [`DECISIONS.md`](DECISIONS.md) | landed |
 | `B41` | Judge whether the absorption register is evidence or ceremony | `I4` | `P4` | [`vision-absorption.json`](design/vision-absorption.json), [`traceability.json`](design/traceability.json) | held |
 
@@ -99,7 +99,23 @@ An item that is `I4`/`P1` belongs early even though nobody feels it today, becau
 
 ## Closed
 
-Twelve milestones are complete and are kept here as one line each; their detail is in the record they cite.
+14 milestones are complete; their detail is in the record they cite.
+
+**Make the records answer for each other.**\
+`B34`, `B39`, and `B11` close the remaining content work from M10.\
+Confirmed intent had repeated and out-of-order subsection numbers; they are now unique without changing the recorded intent.\
+The architecture's D19-era authority and processing account had not followed the built admission, disposition, observation, and credit decisions.\
+Its paths now describe the built system and point at actual modules, with future-facing reopen triggers.\
+Its duplicated deferral list is replaced by the vision and mechanism-register owners, including the already-built pre-shared-key profile.\
+Structural gates protect numbering, module homes, and scope references; source review still owns prose correctness.
+
+**Record what the system already knows about itself.**\
+`B13` and `B3` close M8.\
+Package and dependency tables were hand-maintained despite being derivable; they now regenerate from workspace manifests, with full-content drift and mutation checks.\
+The trace graph linked requirements to tests but not matrix dimension values.\
+The [coverage declaration](design/matrix-coverage.json) now makes that mapping executable, with JSON plans/results and an opt-in deterministic covering subset.\
+The subset preserves declared exercise coverage, not every interaction or every mechanism's full contract; the full sweep and named gates remain distinct.\
+No cost model or schedule is introduced.
 
 **Make the consumer contract safe to compose.**\
 `B44`, `B45`, and `B46` distinguish uncertainty from refusal, enforce pre-admission cancellation, and verify application-owned request/reply correlation.\
@@ -173,47 +189,16 @@ What they decided is in the record they cite, and what they cost is in the miles
 
 | Order | Item | Ready | Why here |
 |---|---|---|---|
-| 1 | `B34` | Yes | Small, and the gates now hold the board still while it is edited |
-| 2 | `B39`, `B11` | Yes | Both are the architecture disagreeing with another record, and both need reading rather than mechanism |
-| 3 | `B13`, `B3` | Yes | Record work. `B3` selects a covering subset by coverage rather than by cost, now that cost data is not being collected |
-| 4 | `B19` | Opportunistic | No next single fix. Taken when a way is found, not scheduled |
+| 1 | `B19` | Opportunistic | No next single fix. Taken when a way is found, not scheduled |
 
 Nothing is blocked, and nothing here depends on anything else here.
-
----
-
-## M10 - Make the records answer for each other
-
-Severity `P2`.\
-Each of these is a record stating something that is not true, rather than a record that is merely incomplete, which is why they sit above `M8`.
-
-The gates this milestone opened with have landed, and a fourth landed after one of them was found to rest on a coincidence rather than a mechanism.\
-What remains is the content a gate cannot judge: `B34` is a numbering an author must choose, and `B11` is two lists of deferrals that have to be read against each other.
-
-| ID | Move | Note |
-|---|---|---|
-| `B39` | Reconcile the architecture with what has been built since it was written | `ARCHITECTURE.md` opens by saying it describes AGP as it is built and proved today. Eleven decisions have been ratified and built since, and it names one of them, added this session. Section 8 is marked Approved against the reopen trigger `D19` credit admission lands in the send path; `B1` landed that credit and section 8 does not mention it, so a trigger fired and the section it governs never moved |
-| `B34` | Give confirmed intent one subsection numbering | `DECISIONS.md` numbers two different sections `2.5` and orders them `2.3`, `2.5`, `2.4`, `2.5`. `BOARD.md` cites section 2.5 for the performance intent, and that citation is ambiguous by number rather than wrong |
-| `B11` | Reconcile the scope boundary with the `F` series it is forked with | Section 10 lists what is included and deferred, and the `F` series lists deferred mechanisms with their re-entry conditions, so a deferral is written twice and section 10 is marked provisional because of it. Editorial work with its own risk: the two lists have to be read against each other before either can be cut |
-
----
-
-## M8 - Record what the system already knows about itself
-
-Severity `P3`.\
-Grouped by severity rather than theme, so two unrelated subjects sit together because they cost the same to leave unwritten.
-
-| ID | Move | Note |
-|---|---|---|
-| `B3` | Declare which mechanisms each matrix cell exercises | Makes a minimal covering subset computable rather than editorial. `traceability.json` links requirements to tests but not to dimension values |
-| `B13` | Generate the package and dependency tables from the manifests | Both are derivable and hand-maintained. `contracts.md` carried three stale paths for months, and section 10 is still forked with the `F` series, so the fault class is observed rather than theoretical |
 
 ---
 
 ## M9 - Opportunistic improvement
 
 Severity `P4`.\
-Confirmed intent section 2.5 sets no performance target and asks that opportunities be taken as they are found, so an item here earns its place by being found rather than by clearing a threshold.
+The [confirmed performance intent](DECISIONS.md#24-confirmed-performance-intent) sets no performance target and asks that opportunities be taken as they are found, so an item here earns its place by being found rather than by clearing a threshold.
 
 | ID | Move | Note |
 |---|---|---|

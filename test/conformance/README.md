@@ -2,6 +2,8 @@
 
 | File | Contract protected | Primary axis | Oracle |
 |---|---|---|---|
+| `architecture-record.test.js` | Current architecture and intent references retain one meaning | architecture record currency | unique subsection numbers and current decision coverage |
+| `package-composition.test.js` | Manifest-owned composition generates complete architecture views | derived package structure | byte parity, source/output mutation detection, and marker integrity |
 | `matrix-coverage.test.js` | Matrix plans expose traceable exercise coverage without claiming certification | diagnostic coverage selection | dimension closure, mechanism/source resolution, exact coverage preservation, and executable plan counts |
 | `traceability-graph.test.js` | Ratified requirement authorities and design references resolve | intent graph | trace schema, authority set, and local targets |
 | `schema-catalog-composition.test.js` | Package-owned schemas compose without copied ownership | root schema catalog | paths, digests, owners, and validator loading |

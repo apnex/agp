@@ -20,6 +20,9 @@ The changes are implemented in AGP; verification results are tracked under `MX10
 | Streaming claim in F10 | Corrected now; streaming does not inherently require new wire semantics | Validate application sequencing/completion in the consumer |
 | Mission-kit C1 capability omissions | Separate registry-owner work, not an AGP runtime request | Update the registry from the current AGP contract; no registry change is claimed here |
 
+AGP's architecture and scope records now match the implementation; package composition is generated and diagnostic matrix coverage is explicit.\
+These record changes add no call-layer responsibilities to the kernel.
+
 ---
 
 ## Delivery certainty
@@ -115,6 +118,9 @@ This is an implementation response, not a published release or completed consume
 The complete `npm test` run passes: build, documentation, test architecture, every package, CLI, and all five system suites.\
 The system run includes independent-process WebSocket and production Loopback examples, carrier equivalence, and the direct and transit delivery-uncertainty regressions.\
 `npm run schemas:check` and `git diff --check` also pass.
+
+The record-work checks include manifest/output mutation detection and matrix declaration/selection integrity.\
+Both 70-cell full sweeps (default and deepened) and the five-cell declared-coverage subset pass; these diagnostic results supplement rather than replace the named gates.
 
 Deadline coverage includes queued expiry and abort, delayed callbacks, cancellation after commit, timer cleanup, the production clock, and long deadlines.\
 These results verify AGP's implementation; they do not claim an installed deployment or a completed Zorg integration.
