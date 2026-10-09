@@ -1,5 +1,6 @@
 import assert from "node:assert/strict";
 import test from "node:test";
+import { waitForTestEvent } from "../../../../test/support/test-waits.js";
 import { validateCoreSchema } from "@agp/core";
 import { createNode } from "../../dist/index.js";
 import {
@@ -27,16 +28,7 @@ import {
  * which is worse than a red test because nothing reports it.
  */
 async function settledWithin(node, messageId, ms = 5_000) {
-  let timer;
-  const expired = Symbol("expired");
-  const result = await Promise.race([
-    node.settled(messageId),
-    new Promise((resolve) => {
-      timer = setTimeout(() => resolve(expired), ms);
-    }),
-  ]);
-  clearTimeout(timer);
-  assert.notEqual(result, expired, `no disposition settled within ${ms}ms`);
+  const result = await waitForTestEvent(node.settled(messageId), `disposition ${messageId} settled`, { timeoutMs: ms });
   assert.equal(validateCoreSchema("urn:agp:schema:v1:core:sdk:message-disposition", result).ok, true);
   return result;
 }
@@ -77,7 +69,7 @@ async function converged(t, disposition = { debounceMs: 0 }, handlers = {}) {
   return { dialer, listener };
 }
 
-test("Given a request with attempt correlation, when the application echoes it in a reply, then both reports retain the label and distinct message identities", { timeout: 5_000 }, async (t) => {
+test("Given a request with attempt correlation, when the application echoes it in a reply, then both reports retain the label and distinct message identities", { timeout: 10_000 }, async (t) => {
   const received = Promise.withResolvers();
   const replySent = Promise.withResolvers();
   let listener;
@@ -95,7 +87,8 @@ test("Given a request with attempt correlation, when the application echoes it i
     ({ endpoint, state }) => endpoint === "sink/service" && state === "acked"), "reply source export");
   const requestReceipt = await pair.dialer.send("origin/source", "sink/service",
     { question: "example" }, { correlationId: "attempt-1" });
-  const [replyReceipt, reply] = await Promise.all([replySent.promise, received.promise]);
+  const [replyReceipt, reply] = await waitForTestEvent(Promise.all([replySent.promise, received.promise]),
+    "correlated reply sent and received", { signal: t.signal });
   assert.deepEqual(reply.payload, { answer: "example" });
   assert.equal(reply.context.delivery.correlationId, "attempt-1");
   assert.notEqual(requestReceipt.messageId, replyReceipt.messageId);
@@ -155,6 +148,7 @@ test("Given a message whose outcome has not arrived, when the sender reads it, t
 test("Given a stream filtered to one endpoint, when two endpoints send, then only that endpoint's dispositions arrive", async (t) => {
   const { dialer } = await converged(t);
   const stream = dialer.dispositions({ source: "origin/source" });
+  t.after(() => stream.close());
 
   const wanted = dialer.send("origin/source", "sink/service", { a: 3 });
   const unwanted = dialer.send("origin/other", "sink/service", { a: 4 });
@@ -167,12 +161,11 @@ test("Given a stream filtered to one endpoint, when two endpoints send, then onl
       if (seen.length === 1) break;
     }
   })();
-  // Closing on a deadline, so a stream that never yields fails the assertion
-  // below instead of hanging the run.
-  const guard = setTimeout(() => stream.close(), 5_000);
-  await reader;
-  clearTimeout(guard);
-  stream.close();
+  try {
+    await waitForTestEvent(reader, "filtered disposition arrives", { signal: t.signal });
+  } finally {
+    stream.close();
+  }
 
   assert.equal(seen.length, 1);
   assert.equal(seen[0].messageId, wantedReceipt.messageId);

@@ -1,5 +1,6 @@
 import assert from "node:assert/strict";
 import test from "node:test";
+import { waitForTestEvent } from "../../../../test/support/test-waits.js";
 
 import {
   operations,
@@ -8,9 +9,10 @@ import { validateCoreSchema } from "../../dist/index.js";
 
 const EVENT_SCHEMA_ID = "urn:agp:schema:v1:core:event:operational-event";
 
-test("given authoritative admitted identity, when the attempt ends, then one pair-scoped session.closed event carries the exact local pair key and no pre-identity fields", async () => {
+test("given authoritative admitted identity, when the attempt ends, then one pair-scoped session.closed event carries the exact local pair key and no pre-identity fields", async (context) => {
   const store = operations();
   const subscription = store.events();
+  context.after(() => subscription.close());
   store.commit({
     events: [{
       kind: "session.closed",
@@ -24,7 +26,7 @@ test("given authoritative admitted identity, when the attempt ends, then one pai
     }],
   });
 
-  const observed = await subscription.next();
+  const observed = await waitForTestEvent(subscription.next(), "session.closed event", { signal: context.signal });
   assert.equal(observed.done, false);
   assert.equal(observed.value.kind, "session.closed");
   assert.deepEqual(observed.value.data, {

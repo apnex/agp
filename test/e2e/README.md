@@ -4,6 +4,7 @@ These files own only behavior crossing SDK, management HTTP, CLI, or independent
 
 | File | Contract protected | Primary oracle | Explicit non-overlap |
 |---|---|---|---|
+| `test-process-wait-cleanup.test.js` | Isolated-node IPC preserves normal delivery and bounds missing readiness/replies and ignored shutdown | receipt/arrival, named failures, observed exit, absent PIDs, and removed temporary configuration | No route-selection or carrier-security policy |
 | `operations-frozen-parity.test.js` | One frozen capture is identical through SDK, HTTP, CLI JSON, and deterministic tables | exact response and row equality | No live time progression or process topology |
 | `operations-live-time-bounds.test.js` | Live uptime and hold TTL remain bounded across independently sampled surfaces and advance in one-second display steps | bracketed monotonic bounds | No frozen exact-time equality or multi-node routing |
 | `independent-star-multi-endpoint.test.js` | Three copies of one uniform child executable populate every RIB and deliver every uniquely owned leaf endpoint in both directions | selected paths, ACKed source exports, and handler deliveries | No hub-local delivery, duplicate-route policy, CLI presentation, or teardown fault |

@@ -1,5 +1,6 @@
 import assert from "node:assert/strict";
 import test from "node:test";
+import { waitForTestEvent } from "../../../../test/support/test-waits.js";
 import {
   OPERATIONAL_EVENT_KINDS,
   validateCoreSchema,
@@ -46,6 +47,11 @@ test("given a live uniform-node lifecycle with routing and data activity, when i
     (async () => { for await (const event of subscription) observed.push(event); })(),
     (async () => { for await (const event of messages) observed.push(event); })(),
   ]);
+  context.after(() => {
+    subscription.close();
+    messages.close();
+    return waitForTestEvent(collecting, "operational schema collectors close");
+  });
 
   await listener.expose("events/source", () => undefined);
   await listener.expose("events/success", () => undefined);
@@ -114,7 +120,7 @@ test("given a live uniform-node lifecycle with routing and data activity, when i
     "session close event",
   );
   await listener.stop();
-  await collecting;
+  await waitForTestEvent(collecting, "operational schema streams end after stop", { signal: context.signal });
 
   const vocabulary = new Set(OPERATIONAL_EVENT_KINDS);
   for (const event of observed) {

@@ -1,5 +1,6 @@
 import assert from "node:assert/strict";
 import test from "node:test";
+import { waitForTestEvent } from "../../../../test/support/test-waits.js";
 
 import { createNode } from "../../dist/index.js";
 import {
@@ -8,7 +9,7 @@ import {
   eventually,
 } from "../support/controlled-transport.js";
 
-test("given competing read-terminal and write-failure outcomes, when one controller incarnation tears down, then exactly one disposition releases its channel and event", async () => {
+test("given competing read-terminal and write-failure outcomes, when one controller incarnation tears down, then exactly one disposition releases its channel and event", async (context) => {
   const transport = new ControlledListenerTransport("latch.listener");
   const node = createNode({
     nodeId: "latch.listener",
@@ -19,6 +20,14 @@ test("given competing read-terminal and write-failure outcomes, when one control
   const collecting = (async () => {
     for await (const event of events) observed.push(event);
   })();
+  context.after(async () => {
+    events.close();
+    try {
+      await waitForTestEvent(collecting, "transport disposition collector closes");
+    } finally {
+      await waitForTestEvent(node.stop({ drainTimeoutMs: 0 }), "transport disposition node cleanup");
+    }
+  });
   await node.start();
 
   const channel = new ControlledChannel({ holdWrites: true });
@@ -38,7 +47,7 @@ test("given competing read-terminal and write-failure outcomes, when one control
     "single controller release",
   );
   await node.stop();
-  await collecting;
+  await waitForTestEvent(collecting, "transport disposition stream ends after stop", { signal: context.signal });
 
   assert.equal(channel.closeCalls, 1);
   assert.equal(channel.abortCalls, 0);
@@ -50,12 +59,13 @@ test("given competing read-terminal and write-failure outcomes, when one control
   );
 });
 
-test("given packets accepted before local close, when protocol authority is revoked, then the sole reader drains them to terminal before transport release", async () => {
+test("given packets accepted before local close, when protocol authority is revoked, then the sole reader drains them to terminal before transport release", async (context) => {
   const transport = new ControlledListenerTransport("drain.listener");
   const node = createNode({
     nodeId: "drain.listener",
     listen: { transportRef: "drain.listener" },
   }, { transport: transport.port() });
+  context.after(() => waitForTestEvent(node.stop({ drainTimeoutMs: 0 }), "transport drain node cleanup"));
   await node.start();
 
   const channel = new ControlledChannel({

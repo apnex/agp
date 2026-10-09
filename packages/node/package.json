@@ -33,7 +33,7 @@
   },
   "scripts": {
     "build": "tsc -b",
-    "test": "npm run build && node --test --test-concurrency=1 test/unit/*.test.js test/contract/*.test.js"
+    "test": "npm run build && node --test --test-concurrency=1 --test-timeout=120000 test/unit/*.test.js test/contract/*.test.js"
   },
   "dependencies": {
     "@agp/core": "0.1.0",

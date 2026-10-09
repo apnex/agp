@@ -1,5 +1,6 @@
 import assert from "node:assert/strict";
 import test from "node:test";
+import { waitForTestEvent } from "../support/test-waits.js";
 import { ChaosNetwork } from "./support/chaos-network.js";
 import {
   createChaosNode,
@@ -17,11 +18,12 @@ test("Given a one-event observer buffer over canonical node state, when three en
   });
   context.after(() => stopAll(node));
   const subscription = node.operations.events({ bufferSize: 1 });
+  context.after(() => subscription.close());
 
   await node.expose("observer/one", () => undefined);
   await node.expose("observer/two", () => undefined);
   await node.expose("observer/three", () => undefined);
-  const observed = await subscription.next();
+  const observed = await waitForTestEvent(subscription.next(), "observer gap event", { signal: context.signal });
   subscription.close();
   const snapshot = node.operations.snapshot();
 

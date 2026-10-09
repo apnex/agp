@@ -37,7 +37,7 @@
     "generate": "node scripts/generate-contracts.mjs",
     "generate:check": "node scripts/generate-contracts.mjs --check",
     "build": "npm run generate:check && tsc -b",
-    "test": "npm run build && node --test --test-concurrency=1 test/unit/*.test.js test/contract/*.test.js"
+    "test": "npm run build && node --test --test-concurrency=1 --test-timeout=120000 test/unit/*.test.js test/contract/*.test.js"
   },
   "dependencies": {
     "ajv": "^8.17.1"

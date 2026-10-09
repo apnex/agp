@@ -1,5 +1,6 @@
 import assert from "node:assert/strict";
 import test from "node:test";
+import { waitForTestEvent } from "../../../../test/support/test-waits.js";
 import { createNode } from "../../dist/index.js";
 import {
   eventually,
@@ -60,13 +61,18 @@ async function converged(t) {
 }
 
 /** A subscriber doing real work: it yields the loop for every event. */
-function readWhileWorking(subscription, seen) {
-  return (async () => {
+function readWhileWorking(t, subscription, seen) {
+  const reading = (async () => {
     for await (const event of subscription) {
       seen.push(event);
       await new Promise((resolve) => setImmediate(resolve));
     }
   })();
+  t.after(() => {
+    subscription.close();
+    return waitForTestEvent(reading, "operator workload collector cleanup");
+  });
+  return reading;
 }
 
 function lost(seen) {
@@ -85,7 +91,7 @@ test("Given an operator subscriber doing real work, when a stream crosses the no
   // The smallest buffer the contract allows a consumer to pick. Before the
   // split this lost a burst's worth of events at any size.
   const subscription = listener.operations.events({ bufferSize: 1 });
-  const reader = readWhileWorking(subscription, seen);
+  const reader = readWhileWorking(t, subscription, seen);
 
   for (let ordinal = 0; ordinal < BURST; ordinal += 1) {
     await dialer.send("origin/source", "sink/service", { ordinal });
@@ -96,7 +102,7 @@ test("Given an operator subscriber doing real work, when a stream crosses the no
     "every message arrives",
   );
   subscription.close();
-  await reader;
+  await waitForTestEvent(reader, "operator stream closes", { signal: t.signal });
 
   assert.equal(lost(seen), 0n, "an operator stream must not drop under traffic");
   assert.equal(
@@ -119,7 +125,7 @@ test("Given a consumer that asks for per-message detail, when a stream crosses t
   // Sized for the burst, because this stream is traffic-rated by construction
   // and its consumer knows that. That is the whole point of separating it.
   const subscription = listener.operations.messages({ bufferSize: 4096 });
-  const reader = readWhileWorking(subscription, seen);
+  const reader = readWhileWorking(t, subscription, seen);
 
   for (let ordinal = 0; ordinal < BURST; ordinal += 1) {
     await dialer.send("origin/source", "sink/service", { ordinal });
@@ -133,7 +139,7 @@ test("Given a consumer that asks for per-message detail, when a stream crosses t
     20_000,
   );
   subscription.close();
-  await reader;
+  await waitForTestEvent(reader, "per-message stream closes", { signal: t.signal });
 
   assert.equal(lost(seen), 0n);
   assert.equal(
@@ -153,8 +159,8 @@ test("Given a delivery that fails, when it is reported, then the anomaly stays w
   const events = dialer.operations.events({ bufferSize: 256 });
   const messages = dialer.operations.messages({ bufferSize: 256 });
   const readers = [
-    readWhileWorking(events, operator),
-    readWhileWorking(messages, perMessage),
+    readWhileWorking(t, events, operator),
+    readWhileWorking(t, messages, perMessage),
   ];
 
   // A rate set by how often something goes wrong is a rate an operator wants,
@@ -171,7 +177,7 @@ test("Given a delivery that fails, when it is reported, then the anomaly stays w
   );
   events.close();
   messages.close();
-  await Promise.all(readers);
+  await waitForTestEvent(Promise.all(readers), "anomaly streams close", { signal: t.signal });
 
   assert.equal(
     operator.some(({ kind }) => PER_MESSAGE.has(kind)),

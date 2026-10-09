@@ -5,6 +5,7 @@ Tests use named barriers and the local chaos transport's positive call ledger; a
 
 | File | Owned injection and invariant | Explicit non-overlap |
 |---|---|---|
+| `test-wait-cleanup.test.js` | Withheld arrivals in actual tests fail by event name and run registered cleanup; missing stream events release subscriber capacity | No AGP delivery or timing-policy change |
 | `selected-branch-loss.test.js` | C1 selected transit death promotes the observable diamond alternate with one data path | No outstanding export |
 | `route-update-ack-loss.test.js` | C1 one dropped update or ACK reaches finite teardown, reconnect, and full-snapshot recovery | No write rejection |
 | `write-close-failure.test.js` | C1 one rejected write or close releases reservations and completes bounded teardown | No frame loss |
@@ -28,6 +29,8 @@ Support ownership:
   rules, dial barriers, raw injection, and immutable positive ledger.
 - `support/fixture.js` supplies uniform-node configuration, deterministic IDs,
   named barriers, and positive operations/delivery waiters.
+- `../support/test-waits.js` supplies named failure bounds and closes owned
+  matching-event subscriptions; it contains no success assertions.
 - `support/raw-peer.js` supplies a schema-valid protocol peer used only to
   inject input that a conforming uniform node would never originate.
 

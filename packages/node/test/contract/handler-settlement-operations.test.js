@@ -1,5 +1,6 @@
 import assert from "node:assert/strict";
 import test from "node:test";
+import { nextTestEvent } from "../../../../test/support/test-waits.js";
 
 import { createNode } from "../../dist/index.js";
 
@@ -19,13 +20,15 @@ test("given successful and failed local handlers, when each settles, then its ex
   // stays where an operator is already watching.
   const events = node.operations.events({ bufferSize: 16 });
   const messages = node.operations.messages({ bufferSize: 16 });
+  context.after(() => { events.close(); messages.close(); });
 
   const completedReceipt = await node.send(
     "handler/source",
     "handler/success",
     { outcome: "completed" },
   );
-  const completed = await nextKind(messages, "handler.completed");
+  const completed = await nextTestEvent(messages, (event) => event.kind === "handler.completed",
+    "handler.completed", { signal: context.signal });
   assert.equal(completed.subjectId, completedReceipt.messageId);
 
   const failedReceipt = await node.send(
@@ -33,7 +36,8 @@ test("given successful and failed local handlers, when each settles, then its ex
     "handler/failure",
     { outcome: "failed" },
   );
-  const failed = await nextKind(events, "handler.failed");
+  const failed = await nextTestEvent(events, (event) => event.kind === "handler.failed",
+    "handler.failed", { signal: context.signal });
   assert.equal(failed.subjectId, failedReceipt.messageId);
 
   const counters = node.operations.counters().values;
@@ -42,27 +46,3 @@ test("given successful and failed local handlers, when each settles, then its ex
   await events.return();
   await messages.return();
 });
-
-/**
- * Read until an expected kind arrives, but never without a deadline.
- *
- * A subscription that never yields it would otherwise stall the run instead of
- * failing it, and a hanging gate reports nothing at all.
- */
-async function nextKind(subscription, expected, ms = 5_000) {
-  const expired = Symbol("expired");
-  let timer;
-  const deadline = new Promise((resolve) => {
-    timer = setTimeout(() => resolve(expired), ms);
-  });
-  try {
-    for (;;) {
-      const result = await Promise.race([subscription.next(), deadline]);
-      assert.notEqual(result, expired, `no ${expected} within ${ms}ms`);
-      assert.equal(result.done, false, `events ended before ${expected}`);
-      if (result.value.kind === expected) return result.value;
-    }
-  } finally {
-    clearTimeout(timer);
-  }
-}

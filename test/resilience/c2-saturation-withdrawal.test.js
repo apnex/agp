@@ -1,12 +1,12 @@
 import assert from "node:assert/strict";
 import test from "node:test";
+import { nextTestEvent, waitForTestEvent } from "../support/test-waits.js";
 import { ChaosNetwork } from "./support/chaos-network.js";
 import {
   barrier,
   createChaosNode,
   expose,
   listen,
-  nextEvent,
   peer,
   stopAll,
   waitForSnapshot,
@@ -44,17 +44,13 @@ test("Given a held final handler slot and an ACKed remote binding, when exact sa
     "ACKed remote route",
   );
   const subscription = node.operations.messages();
-  const completed = nextEvent(
-    subscription,
-    (event) => event.kind === "handler.completed",
-    "occupied handler completion",
-  );
+  context.after(() => subscription.close());
   const occupying = await node.send(
     "c2saturation/source",
     "c2saturation/blocked",
     { phase: "occupy" },
   );
-  await occupied.reached;
+  await waitForTestEvent(occupied.reached, "withdrawal saturation handler entered", { signal: context.signal });
   const ledgerBarrier = network.ledger.at(-1)?.sequence ?? 0;
 
   const withdrawing = remoteBinding.close();
@@ -77,8 +73,8 @@ test("Given a held final handler slot and an ACKed remote binding, when exact sa
     "withdrawal during saturation",
   );
   occupied.release();
-  const completion = await completed;
-  subscription.close();
+  const completion = await nextTestEvent(subscription,
+    (event) => event.kind === "handler.completed", "occupied handler completion", { signal: context.signal });
   const withdrawalFrame = network.entries("delivered", {
     from: "c2saturation.remote",
     to: "c2saturation.node",

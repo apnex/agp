@@ -1,11 +1,11 @@
 import assert from "node:assert/strict";
 import test from "node:test";
+import { nextTestEvent } from "../support/test-waits.js";
 import { ChaosNetwork } from "./support/chaos-network.js";
 import {
   createChaosNode,
   expose,
   listen,
-  nextEvent,
   peer,
   stopAll,
   waitForDelivery,
@@ -46,20 +46,15 @@ test("Given a converged three-node line and a source limited to the last usable 
   );
 
   const subscription = source.operations.events();
-  const failed = nextEvent(
-    subscription,
-    (event) =>
-      event.kind === "message.failed"
-      && event.data.code === "HOP_LIMIT_EXCEEDED",
-    "correlated hop failure",
-  );
+  context.after(() => subscription.close());
   const receipt = await source.send(
     "hop/source",
     "hop/destination",
     { proof: "exhaust" },
   );
-  const failure = await failed;
-  subscription.close();
+  const failure = await nextTestEvent(subscription,
+    (event) => event.kind === "message.failed" && event.data.code === "HOP_LIMIT_EXCEEDED",
+    "correlated hop failure", { signal: context.signal });
   await destination.send(
     "hop/destination",
     "hop/source",

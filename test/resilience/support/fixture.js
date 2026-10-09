@@ -1,4 +1,5 @@
 import { createNode } from "@agp/node";
+import { waitForTestEvent } from "../../support/test-waits.js";
 
 export function createChaosNode(network, description) {
   const listenerRef = description.listen === undefined
@@ -175,13 +176,6 @@ export function waitForDelivery(deliveries, count, description, attempts) {
   );
 }
 
-export async function nextEvent(subscription, predicate, description) {
-  for await (const event of subscription) {
-    if (predicate(event)) return event;
-  }
-  throw new Error(`event stream ended before ${description}`);
-}
-
 export function selectedRoute(node, endpoint) {
   return node.operations.snapshot().selectedRoutes.find(
     (route) => route.endpoint === endpoint,
@@ -199,11 +193,13 @@ export function establishedWith(node, remoteNodeId) {
 }
 
 export async function stopAll(...nodes) {
-  await Promise.allSettled(
+  const results = await Promise.allSettled(
     nodes.filter(Boolean).reverse().map((node) =>
-      node.stop({ drainTimeoutMs: 250 })
+      waitForTestEvent(node.stop({ drainTimeoutMs: 250 }), "resilience node cleanup")
     ),
   );
+  const failures = results.filter(({ status }) => status === "rejected").map(({ reason }) => reason);
+  if (failures.length) throw new AggregateError(failures, "Resilience node cleanup failed");
 }
 
 class DeterministicIdSource {

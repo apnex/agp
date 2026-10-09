@@ -58,6 +58,28 @@ A broad table covering unrelated error families must be split.
 
 ---
 
+## Bounded failure reporting
+
+Use [`waitForTestEvent`](../test/support/test-waits.js) for event and barrier promises and `nextTestEvent` for an owned matching-event subscription.\
+The shared default is five seconds; a failure names the awaited event.\
+Pass the test context's signal to foreground waits; cleanup must run even after that signal is cancelled.\
+Matching-event waits use one total deadline, not a fresh deadline for each unrelated event, and close their subscription on every exit.
+
+Register cleanup as resources are acquired: release held handlers and barriers, close subscriptions, and await node or process shutdown.\
+A rejected wait does not cancel its underlying work; the resource owner still owes that cleanup.\
+The isolated-node harness bounds readiness and graceful shutdown at five seconds, IPC requests at sixty seconds, and observed forced exit at two seconds; failed acquisition also reaps its child and removes its temporary configuration.
+
+Normal package, CLI, and system test commands supply Node's 120-second default test timeout as a backstop.\
+These are cooperative event-loop deadlines, not protection against synchronous code that blocks timers; CI's whole-job timeout remains a separate backstop.\
+An explicit test timeout may override the default.
+
+Exercise the missing-event path explicitly: a passing healthy test or a timeout option alone does not prove cleanup.\
+The conformance wait tests, resilience missing-event mutations, and E2E process-wait tests own distinct parts of that proof.\
+Keep protocol clocks and positive event/state assertions deterministic; wall-clock timeout is only the failure bound, never evidence of success.\
+The tracked work is `B35` on the [board](BOARD.md#triage-ledger).
+
+---
+
 ## Required ownership README
 
 Each package test directory and each workspace suite (`conformance`, `integration`, `topology`, `resilience`, and `e2e`) contains an ownership table with:

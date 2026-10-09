@@ -1,11 +1,11 @@
 import assert from "node:assert/strict";
 import test from "node:test";
+import { nextTestEvent } from "../support/test-waits.js";
 import { ChaosNetwork } from "./support/chaos-network.js";
 import {
   createChaosNode,
   expose,
   listen,
-  nextEvent,
   peer,
   stopAll,
   waitForSnapshot,
@@ -94,19 +94,15 @@ test("Given one established physical connection, when its exact orderly carrier 
     "owned route before close",
   );
   const subscription = hub.operations.events();
-  const closed = nextEvent(
-    subscription,
-    (event) => event.kind === "session.closed",
-    "session close with carrier terminal",
-  );
+  context.after(() => subscription.close());
   const ruleId = network.fault("fail-close", {
     from: "close.leaf",
     to: "close.hub",
   });
 
   const report = await leaf.stop({ drainTimeoutMs: 25 });
-  const closedEvent = await closed;
-  subscription.close();
+  const closedEvent = await nextTestEvent(subscription,
+    (event) => event.kind === "session.closed", "session close with carrier terminal", { signal: context.signal });
   const purged = await waitForSnapshot(
     hub,
     (snapshot) =>

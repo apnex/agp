@@ -1,5 +1,6 @@
 import assert from "node:assert/strict";
 import test from "node:test";
+import { waitForTestEvent } from "../support/test-waits.js";
 import { ChaosNetwork } from "./support/chaos-network.js";
 import {
   createChaosNode,
@@ -21,12 +22,16 @@ test("Given two identical listening nodes with reciprocal adjacencies, when both
     listen: listen(13502),
     peers: [peer("b-a", "cross.a", 13501)],
   });
-  context.after(() => stopAll(higher, lower));
   const dialBarrier = network.dialBarrier(2);
-  const starting = Promise.all([lower.start(), higher.start()]);
-  assert.equal(await dialBarrier.reached, 2);
+  context.after(() => {
+    dialBarrier.release();
+    return stopAll(higher, lower);
+  });
+  const starting = Promise.allSettled([lower.start(), higher.start()]);
+  assert.equal(await waitForTestEvent(dialBarrier.reached, "both reciprocal dials at barrier", { signal: context.signal }), 2);
   dialBarrier.release();
-  await starting;
+  const started = await waitForTestEvent(starting, "reciprocal nodes started", { signal: context.signal });
+  for (const result of started) if (result.status === "rejected") throw result.reason;
 
   const [atLower, atHigher] = await Promise.all([
     waitForSnapshot(

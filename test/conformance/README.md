@@ -2,6 +2,7 @@
 
 | File | Contract protected | Primary axis | Oracle |
 |---|---|---|---|
+| `test-wait-bounds.test.js` | Test-harness waits preserve results and fail within a named bound | deadline, cancellation, and event matching | exact error/result, timer/listener release, and subscription closure |
 | `architecture-record.test.js` | Current architecture and intent references retain one meaning | architecture record currency | unique subsection numbers and current decision coverage |
 | `package-composition.test.js` | Manifest-owned composition generates complete architecture views | derived package structure | byte parity, source/output mutation detection, and marker integrity |
 | `matrix-coverage.test.js` | Matrix plans expose traceable exercise coverage without claiming certification | diagnostic coverage selection | dimension closure, mechanism/source resolution, exact coverage preservation, and executable plan counts |

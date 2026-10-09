@@ -1,8 +1,9 @@
 import assert from "node:assert/strict";
 import test from "node:test";
 import { createNode } from "../../dist/index.js";
+import { waitForTestEvent } from "../../../../test/support/test-waits.js";
 
-test("Given a handler held beyond the stop deadline, when its revoked binding settles late, then its signal is aborted and terminal operations cannot advance", async () => {
+test("Given a handler held beyond the stop deadline, when its revoked binding settles late, then its signal is aborted and terminal operations cannot advance", async (context) => {
   const node = createNode({ nodeId: "late-handler.local" });
   let markStarted;
   let release;
@@ -15,6 +16,10 @@ test("Given a handler held beyond the stop deadline, when its revoked binding se
   });
   const returned = new Promise((resolve) => {
     markReturned = resolve;
+  });
+  context.after(() => {
+    release();
+    return waitForTestEvent(node.stop({ drainTimeoutMs: 0 }), "late handler node cleanup");
   });
   let handlerSignal;
 
@@ -31,7 +36,7 @@ test("Given a handler held beyond the stop deadline, when its revoked binding se
     "late-handler/destination",
     { held: true },
   );
-  await started;
+  await waitForTestEvent(started, "late handler started", { signal: context.signal });
 
   await node.stop({ drainTimeoutMs: 0 });
   const terminal = node.operations.snapshot();
@@ -39,7 +44,7 @@ test("Given a handler held beyond the stop deadline, when its revoked binding se
   assert.equal(terminal.lifecycle.state, "Stopped");
 
   release();
-  await returned;
+  await waitForTestEvent(returned, "late handler returned", { signal: context.signal });
   await new Promise((resolve) => setImmediate(resolve));
   await node.executor.quiesce();
   const afterLateSettlement = node.operations.snapshot();

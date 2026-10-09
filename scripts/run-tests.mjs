@@ -80,7 +80,7 @@ function run(files) {
   return new Promise((resolve) => {
     const child = spawn(
       process.execPath,
-      ["--test", "--test-concurrency=1", ...files],
+      ["--test", "--test-concurrency=1", "--test-timeout=120000", ...files],
       { stdio: "inherit" },
     );
     child.once("exit", (code, signal) => {

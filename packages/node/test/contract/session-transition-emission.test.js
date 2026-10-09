@@ -1,5 +1,6 @@
 import assert from "node:assert/strict";
 import test from "node:test";
+import { waitForTestEvent } from "../../../../test/support/test-waits.js";
 import { ManualClock } from "@agp/core";
 import { createNode } from "../../dist/index.js";
 import {
@@ -67,17 +68,22 @@ async function converge(dialer, listener) {
  * asked across two surfaces: the delivery is reported, and the session is not
  * also reported as having stayed where it was.
  */
-function collect(node) {
+function collect(t, node) {
   const operator = [];
   const perMessage = [];
   const events = node.operations.events();
   const messages = node.operations.messages();
-  void (async () => {
+  const operatorReader = (async () => {
     for await (const event of events) operator.push(event.kind);
   })();
-  void (async () => {
+  const messageReader = (async () => {
     for await (const event of messages) perMessage.push(event.kind);
   })();
+  t.after(() => {
+    events.close();
+    messages.close();
+    return waitForTestEvent(Promise.all([operatorReader, messageReader]), "transition collectors close");
+  });
   return { operator, perMessage };
 }
 
@@ -90,7 +96,7 @@ test("Given an Established session, when a data message is delivered, then the s
   });
   await converge(dialer, listener);
 
-  const { operator, perMessage } = collect(listener);
+  const { operator, perMessage } = collect(t, listener);
   await dialer.send("dialer/source", "listener/service", { ordinal: 1 });
   await eventually(
     () => perMessage.includes("handler.completed"),
@@ -138,7 +144,7 @@ test("Given an idle session, when a keepalive is processed, then the self-transi
   });
   await converge(dialer, listener);
 
-  const { operator } = collect(listener);
+  const { operator } = collect(t, listener);
   // A keepalive carries no delivery, so a withheld transition would leave an
   // idle but healthy session silent. The keepalive timer bounds this rate.
   clock.advanceBy(10_000);

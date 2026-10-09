@@ -1,12 +1,12 @@
 import assert from "node:assert/strict";
 import test from "node:test";
+import { nextTestEvent, waitForTestEvent } from "../support/test-waits.js";
 import { ChaosNetwork } from "./support/chaos-network.js";
 import {
   barrier,
   createChaosNode,
   expose,
   listen,
-  nextEvent,
   peer,
   stopAll,
   waitForSnapshot,
@@ -41,18 +41,14 @@ test("Given the sole local handler reservation is held at a named barrier, when 
     "initial peer readiness",
   );
   const subscription = node.operations.messages();
-  const completed = nextEvent(
-    subscription,
-    (event) => event.kind === "handler.completed",
-    "held handler completion",
-  );
+  context.after(() => subscription.close());
 
   const first = await node.send(
     "saturation/source",
     "saturation/blocked",
     { slot: "occupy" },
   );
-  await occupied.reached;
+  await waitForTestEvent(occupied.reached, "saturation handler entered", { signal: context.signal });
   await assert.rejects(
     node.send(
       "saturation/source",
@@ -72,8 +68,8 @@ test("Given the sole local handler reservation is held at a named barrier, when 
     "control route under handler saturation",
   );
   occupied.release();
-  const completion = await completed;
-  subscription.close();
+  const completion = await nextTestEvent(subscription,
+    (event) => event.kind === "handler.completed", "held handler completion", { signal: context.signal });
 
   assert.equal(completion.subjectId, first.messageId);
   assert.equal(responsive.connections.length, 1);

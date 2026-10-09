@@ -1,5 +1,6 @@
 import assert from "node:assert/strict";
 import test from "node:test";
+import { waitForTestEvent } from "../support/test-waits.js";
 import { ChaosNetwork } from "./support/chaos-network.js";
 import {
   barrier,
@@ -33,7 +34,7 @@ test("Given an admitted handler held beyond a zero-duration drain deadline, when
     "drain/destination",
     { phase: "held" },
   );
-  await occupied.reached;
+  await waitForTestEvent(occupied.reached, "late handler entered", { signal: context.signal });
 
   const report = await node.stop({ drainTimeoutMs: 0 });
   const terminal = node.operations.snapshot();
@@ -42,7 +43,7 @@ test("Given an admitted handler held beyond a zero-duration drain deadline, when
   assert.equal(report.operationsRevision, terminal.revision);
 
   occupied.release();
-  await returned.reached;
+  await waitForTestEvent(returned.reached, "late handler returned", { signal: context.signal });
   await new Promise((resolve) => setImmediate(resolve));
   await node.executor.quiesce();
   const afterLateSettlement = node.operations.snapshot();

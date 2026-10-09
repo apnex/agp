@@ -1,5 +1,6 @@
 import assert from "node:assert/strict";
 import test from "node:test";
+import { waitForTestEvent } from "../../../../test/support/test-waits.js";
 
 import {
   ManualClock,
@@ -28,12 +29,13 @@ test("given the last ordinary revision, when an ordinary mutation would consume 
   assert.deepEqual(store.endpoints().items, []);
 });
 
-test("given the maximum event sequence, when a transaction needs one more event, then no event or proposed state escapes and observation completes on the terminal snapshot", async () => {
+test("given the maximum event sequence, when a transaction needs one more event, then no event or proposed state escapes and observation completes on the terminal snapshot", async (context) => {
   const store = operations({
     revision: 41n,
     eventSequence: MAX,
   });
   const events = store.events();
+  context.after(() => events.close());
 
   const snapshot = store.commit({
     localEndpoints: [endpoint()],
@@ -46,7 +48,8 @@ test("given the maximum event sequence, when a transaction needs one more event,
     domain: "event-sequence",
   });
   assert.deepEqual(snapshot.localEndpoints, []);
-  assert.deepEqual(await events.next(), { done: true, value: undefined });
+  assert.deepEqual(await waitForTestEvent(events.next(), "exhausted event stream closes", { signal: context.signal }),
+    { done: true, value: undefined });
 });
 
 test("given a counter near its unsigned-64 limit, when one transaction supplies a multi-unit overflowing delta, then the counter is retained and all other proposed mutations are discarded", () => {

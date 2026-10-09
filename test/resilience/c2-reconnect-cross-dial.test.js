@@ -1,5 +1,6 @@
 import assert from "node:assert/strict";
 import test from "node:test";
+import { waitForTestEvent } from "../support/test-waits.js";
 import { ChaosNetwork } from "./support/chaos-network.js";
 import {
   createChaosNode,
@@ -23,14 +24,21 @@ test("Given a canonical reciprocal session with both adjacencies suppressed or s
     listen: listen(14302),
     peers: [peer("b-a", "c2dial.a", 14301)],
   });
-  context.after(() => stopAll(higher, lower));
+  let firstBarrier;
+  let reconnectBarrier;
+  context.after(() => {
+    firstBarrier?.release();
+    reconnectBarrier?.release();
+    return stopAll(higher, lower);
+  });
   await expose(lower, ["c2dial/lower"]);
   await expose(higher, ["c2dial/higher"]);
-  const firstBarrier = network.dialBarrier(2);
-  const starting = Promise.all([lower.start(), higher.start()]);
-  await firstBarrier.reached;
+  firstBarrier = network.dialBarrier(2);
+  const starting = Promise.allSettled([lower.start(), higher.start()]);
+  await waitForTestEvent(firstBarrier.reached, "initial reciprocal dials at barrier", { signal: context.signal });
   firstBarrier.release();
-  await starting;
+  const started = await waitForTestEvent(starting, "initial reciprocal nodes started", { signal: context.signal });
+  for (const result of started) if (result.status === "rejected") throw result.reason;
   const [firstLower, firstHigher] = await Promise.all([
     waitForSnapshot(
       lower,
@@ -46,7 +54,7 @@ test("Given a canonical reciprocal session with both adjacencies suppressed or s
   const firstLowerSession = firstLower.connections[0].sessionId;
   const firstHigherSession = firstHigher.connections[0].sessionId;
 
-  const reconnectBarrier = network.dialBarrier(2);
+  reconnectBarrier = network.dialBarrier(2);
   network.forceLink("c2dial.a", "c2dial.b", "C2_RECONNECT");
   await eventually(
     () => network.entries("dial-barrier-reached").length === 4,

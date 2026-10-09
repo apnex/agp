@@ -1,5 +1,6 @@
 import assert from "node:assert/strict";
 import test from "node:test";
+import { waitForTestEvent } from "../../../../test/support/test-waits.js";
 
 import {
   operations,
@@ -9,9 +10,10 @@ import { validateCoreSchema } from "../../dist/index.js";
 const DATA_SCHEMA_ID =
   "urn:agp:schema:v1:core:event:connection-preidentity-closed-data";
 
-test("given an attempt without identity authority, when it ends, then one remote-free preidentity event exposes only its reserved local ID, derived direction, reason, and neutral terminal", async () => {
+test("given an attempt without identity authority, when it ends, then one remote-free preidentity event exposes only its reserved local ID, derived direction, reason, and neutral terminal", async (context) => {
   const store = operations();
   const subscription = store.events();
+  context.after(() => subscription.close());
   store.commit({
     events: [{
       kind: "connection.preidentity-closed",
@@ -25,7 +27,7 @@ test("given an attempt without identity authority, when it ends, then one remote
     }],
   });
 
-  const observed = await subscription.next();
+  const observed = await waitForTestEvent(subscription.next(), "connection.preidentity-closed event", { signal: context.signal });
   assert.equal(observed.done, false);
   assert.equal(observed.value.kind, "connection.preidentity-closed");
   assert.deepEqual(observed.value.data, {
