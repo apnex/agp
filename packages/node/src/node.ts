@@ -138,6 +138,14 @@ export interface AgpNode {
     payload: JsonObject,
     options?: SendOptions,
   ): Promise<SendReceipt>;
+  /** Read a sent message's disposition; undefined means it is not tracked. */
+  disposition(messageId: MessageId): MessageDisposition | undefined;
+  /** Await the end of best-effort tracking, not application processing success. */
+  settled(messageId: MessageId): Promise<MessageDisposition | undefined>;
+  /** Stream dispositions, optionally by source endpoint; close to unsubscribe. */
+  dispositions(
+    options?: { readonly source?: EndpointName },
+  ): AsyncIterable<MessageDisposition> & { close(): void };
 }
 
 interface EffectiveConfig {

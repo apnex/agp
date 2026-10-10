@@ -1,8 +1,9 @@
 # `@agp/node` test ownership
 
-Contract tests exercise public runtime capabilities or exact-controller boundaries.\
+Contract tests exercise public runtime capabilities, public TypeScript declarations, or exact-controller boundaries.\
 The unit test owns one sovereign allocator.\
-Fixtures provide deterministic identities, clocks, and write ledgers only.
+Runtime fixtures provide deterministic identities, clocks, and write ledgers.\
+The compile-only disposition consumer resolves built public package declarations without executing a node.
 
 | Test file | Primary contract | Explicit non-goal |
 |---|---|---|
@@ -32,6 +33,7 @@ Fixtures provide deterministic identities, clocks, and write ledgers only.
 | `contract/outbound-wire-validity.test.js` | Every packet a node puts on the wire parses and is schema-valid, proven over real bytes from a converged pair under load and teardown | What a peer sends, which is validated on parse |
 | `contract/operator-stream-rate.test.js` | The operations stream stays lossless for a subscriber doing real work under traffic, the per-message stream still carries the detail, and anomalies stay with the operator | Which events exist, and their schema |
 | `contract/disposition-surface.test.js` | SDK certainty, denominator and endpoint filtering, handler admission rather than processing success, and explicit request/reply correlation retained on both reports | Wire shape, batching, relay |
+| `contract/disposition-types.test.js` | A TypeScript consumer of public package exports can use the factory and `AgpNode` disposition methods with exact signatures, optional source filtering, asynchronous iteration, and explicit closure; invalid calls fail compilation | Runtime delivery semantics and wire shape |
 | `contract/disposition-release.test.js` | A binding is released by a delivery and not only by a failure or expiry, and a full table evicts rather than refusing | Wire shape, batch composition |
 | `contract/inbound-dispatch-failure.test.js` | An inbound dispatch failure is diagnosed and terminates only its own session | Which failures reach the inbound path |
 | `contract/session-transition-emission.test.js` | The snapshot records every self-transition while the stream announces only those no other event reports | Keepalive suppression and hold timing |
