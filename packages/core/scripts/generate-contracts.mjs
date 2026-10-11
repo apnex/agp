@@ -231,7 +231,7 @@ for (const name of ["identity-admission-policy", "route-admission-policy"]) {
 add("configuration", "timers", closed(Object.fromEntries([
   "holdTimeMs", "openTimeoutMs", "identityAdmissionTimeoutMs",
   "routeAdmissionTimeoutMs", "routeWriteTimeoutMs", "routeAckTimeoutMs",
-  "transportWriteTimeoutMs", "transportCloseTimeoutMs",
+  "transportConnectTimeoutMs", "transportWriteTimeoutMs", "transportCloseTimeoutMs",
 ].map((name) => [name, integer({ minimum: 0, maximum: 9007199254740991 })])), []));
 add("configuration", "limits", closed(Object.fromEntries([
   "receiveLimitBytes", "maxRoutesPerSnapshot", "maxPathLength", "maxHopCount",

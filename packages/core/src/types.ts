@@ -651,6 +651,8 @@ export interface TimerConfig {
   readonly routeAdmissionTimeoutMs?: number;
   readonly routeWriteTimeoutMs?: number;
   readonly routeAckTimeoutMs?: number;
+  /** Outbound channel acquisition deadline in milliseconds; defaults to 10,000. */
+  readonly transportConnectTimeoutMs?: number;
   readonly transportWriteTimeoutMs?: number;
   readonly transportCloseTimeoutMs?: number;
 }

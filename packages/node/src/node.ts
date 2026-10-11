@@ -91,6 +91,7 @@ import {
   DispositionEngine,
 } from "./dispositions.js";
 import { OriginOutstanding } from "./outstanding.js";
+import { OutboundAcquisition } from "./outbound-acquisition.js";
 import { CoreDataRoutingAdapter } from "./routing-adapter.js";
 import { SerializedExecutor } from "./serialized-executor.js";
 import { SendAdmissionGuard } from "./send-admission.js";
@@ -158,6 +159,7 @@ interface EffectiveConfig {
   readonly holdTimeMs: number;
   readonly openTimeoutMs: number;
   readonly routeAckTimeoutMs: number;
+  readonly transportConnectTimeoutMs: number;
   readonly transportWriteTimeoutMs: number;
   readonly transportCloseTimeoutMs: number;
   readonly receiveLimitBytes: number;
@@ -247,6 +249,7 @@ export class NodeImpl implements AgpNode, SessionHost {
   readonly #sessionEvidence = new Map<string, SessionEvidence>();
   readonly #adjacencyAttempts = new Map<string, number>();
   readonly #adjacencyTimers = new Map<string, { cancel(): void }>();
+  readonly #outboundAcquisitions = new Map<string, OutboundAcquisition>();
   #listener?: TransportListenerPort;
   #listenerTerminal?: TransportListenerTerminal;
   readonly #listenerWatchAbort = new AbortController();
@@ -1249,6 +1252,7 @@ export class NodeImpl implements AgpNode, SessionHost {
       await this.executor.run(() => {
         if (this.#hostState === "Failed") return;
         this.#hostState = "Failed";
+        this.#cancelOutboundAcquisitions();
         const snapshot = this.#operations.commit({
           lifecycle: {
             state: "Failed",
@@ -1278,6 +1282,7 @@ export class NodeImpl implements AgpNode, SessionHost {
     await this.executor.run(() => {
       if (this.#hostState === "Stopped" && this.#stopped !== undefined) return;
       this.#hostState = "Stopping";
+      this.#cancelOutboundAcquisitions();
       const bindings = this.#endpoints.closeAll();
       for (const binding of bindings) {
         const mutation = this.#routing.removeLocal(binding.bindingId);
@@ -1294,8 +1299,6 @@ export class NodeImpl implements AgpNode, SessionHost {
         localEndpoints: [],
       });
     });
-    for (const timer of this.#adjacencyTimers.values()) timer.cancel();
-    this.#adjacencyTimers.clear();
     const drain = Promise.all([
       ...[...this.#controllers.values()].map((controller) =>
         controller.writer.drain()),
@@ -1369,6 +1372,7 @@ export class NodeImpl implements AgpNode, SessionHost {
         return;
       }
       this.#hostState = "Failed";
+      this.#cancelOutboundAcquisitions();
       failControllers = true;
       const snapshot = this.#operations.commit({
         lifecycle: {
@@ -1426,37 +1430,100 @@ export class NodeImpl implements AgpNode, SessionHost {
 
   async #dial(peer: PeerConfig): Promise<void> {
     if (this.#hostState !== "Starting" && this.#hostState !== "Running") return;
+    if (this.#outboundAcquisitions.has(peer.adjacencyId)
+      || this.#hasDialController(peer.adjacencyId)) return;
     const capability = this.#targetCapabilities.get(peer.adjacencyId);
     if (capability === undefined) return;
+    const attempt = new OutboundAcquisition(this.clock, this.#config.transportConnectTimeoutMs);
+    this.#outboundAcquisitions.set(peer.adjacencyId, attempt);
+    let adopted = false;
+    let failure: { readonly error: unknown } | undefined;
     try {
       const channel = await capability.connect({
         channel: this.#config.channelLimits,
-      }, new AbortController().signal);
-      await this.#createController(
-        channel,
-        { kind: "dial", adjacencyId: peer.adjacencyId },
-        peer.expectedNodeId,
-      );
-      this.#adjacencyAttempts.set(peer.adjacencyId, 0);
+      }, attempt.signal);
+      const adoption = await this.executor.run(() => {
+        if (this.#outboundAcquisitions.get(peer.adjacencyId) !== attempt
+          || (this.#hostState !== "Starting" && this.#hostState !== "Running")) {
+          attempt.cancel();
+        }
+        if (!attempt.adopt()) {
+          channel.abort(attempt.abortIntent ?? {
+            kind: "forced-stop", code: "STALE_ACQUISITION",
+          });
+          failure = { error: attempt.signal.reason };
+          return undefined;
+        }
+        try {
+          // Construction/registration happens in this turn; start queues its own
+          // FSM turn, so never await it while holding the serialized executor.
+          const starting = this.#createController(
+            channel,
+            { kind: "dial", adjacencyId: peer.adjacencyId },
+            peer.expectedNodeId,
+          );
+          adopted = true;
+          this.#outboundAcquisitions.delete(peer.adjacencyId);
+          this.#adjacencyAttempts.set(peer.adjacencyId, 0);
+          return { starting };
+        } catch (error) {
+          channel.abort({ kind: "invariant", code: "CONTROLLER_CREATION_FAILED" });
+          throw error;
+        }
+      });
+      if (adoption !== undefined) await adoption.starting;
     } catch (error) {
-      this.#scheduleDial(peer);
-      const diagnostic = this.#captureDiagnostic(
-        this.#operations.currentRevision,
-        "transport",
-        "warning",
-        isTransportOperationError(error)
-          ? error.code
-          : "CONNECT_FAILED",
-      );
-      this.#emitDiagnostic(
-        diagnostic,
-        isTransportOperationError(error) ? error.cause : error,
-      );
+      failure = { error };
+    } finally {
+      attempt.finish();
+      let diagnostic: DiagnosticRecord | undefined;
+      await this.executor.run(() => {
+        // Keep cancelled native work reserved until connect settles. A stale
+        // completion cannot clear a replacement's ownership or arrange retry.
+        if (!adopted) {
+          if (this.#outboundAcquisitions.get(peer.adjacencyId) !== attempt) return;
+          this.#outboundAcquisitions.delete(peer.adjacencyId);
+        }
+        if (failure === undefined
+          || (this.#hostState !== "Starting" && this.#hostState !== "Running")) return;
+        // Once adopted, only the controller's release path owns reconnect.
+        if (!adopted) this.#scheduleDial(peer);
+        const error = failure.error;
+        const snapshot = this.#operations.commit({
+          adjacencies: this.#adjacencySnapshots(),
+          incrementCounters: { "transport.error": 1 },
+        });
+        diagnostic = this.#captureDiagnostic(
+          snapshot.revision, "transport", "warning",
+          attempt.abortIntent?.kind === "deadline"
+            ? "CONNECT_TIMEOUT"
+            : isTransportOperationError(error) ? error.code : "CONNECT_FAILED",
+        );
+      });
+      if (diagnostic !== undefined && failure !== undefined) {
+        const error = failure.error;
+        this.#emitDiagnostic(diagnostic, isTransportOperationError(error) ? error.cause : error);
+      }
     }
+  }
+
+  #cancelOutboundAcquisitions(): void {
+    for (const timer of this.#adjacencyTimers.values()) timer.cancel();
+    this.#adjacencyTimers.clear();
+    for (const attempt of this.#outboundAcquisitions.values()) attempt.cancel();
+  }
+
+  #hasDialController(adjacencyId: string): boolean {
+    return [...this.#controllers.values()].some((controller) =>
+      controller.state.acquisition.kind === "dial"
+      && controller.state.acquisition.adjacencyId === adjacencyId);
   }
 
   #scheduleDial(peer: PeerConfig): void {
     if (this.#hostState !== "Running" && this.#hostState !== "Starting") return;
+    if (this.#outboundAcquisitions.has(peer.adjacencyId)
+      || this.#adjacencyTimers.has(peer.adjacencyId)
+      || this.#hasDialController(peer.adjacencyId)) return;
     const policy = peer.reconnect ?? {
       enabled: true,
       initialDelayMs: 250,
@@ -1470,17 +1537,15 @@ export class NodeImpl implements AgpNode, SessionHost {
       Math.floor(policy.initialDelayMs * (policy.multiplier ?? 2) ** attempt),
     );
     this.#adjacencyAttempts.set(peer.adjacencyId, attempt + 1);
-    this.#adjacencyTimers.get(peer.adjacencyId)?.cancel();
-    this.#adjacencyTimers.set(
-      peer.adjacencyId,
-      this.clock.schedule(delay, () => {
-        this.#adjacencyTimers.delete(peer.adjacencyId);
-        void this.#dial(peer);
-      }),
-    );
+    const timer = this.clock.schedule(delay, () => {
+      if (this.#adjacencyTimers.get(peer.adjacencyId) !== timer) return;
+      this.#adjacencyTimers.delete(peer.adjacencyId);
+      void this.#dial(peer);
+    });
+    this.#adjacencyTimers.set(peer.adjacencyId, timer);
   }
 
-  async #createController(
+  #createController(
     channel: TransportChannelPort,
     acquisition: import("@agp/core").Acquisition,
     expectedNodeId?: NodeId,
@@ -1522,7 +1587,10 @@ export class NodeImpl implements AgpNode, SessionHost {
         at: now,
       },
     });
-    await controller.start();
+    return controller.start().catch((error: unknown) => {
+      controller.terminate("TransportFailed");
+      throw error;
+    });
   }
 
   #localOpen(sessionId: SessionId): OpenBody {
@@ -2008,6 +2076,10 @@ function resolveConfig(config: NodeConfig): EffectiveConfig {
     routeAckTimeoutMs: positive(
       config.timers?.routeAckTimeoutMs ?? 10_000,
       "timers.routeAckTimeoutMs",
+    ),
+    transportConnectTimeoutMs: positive(
+      config.timers?.transportConnectTimeoutMs ?? 10_000,
+      "timers.transportConnectTimeoutMs",
     ),
     transportWriteTimeoutMs: positive(
       config.timers?.transportWriteTimeoutMs ?? 10_000,

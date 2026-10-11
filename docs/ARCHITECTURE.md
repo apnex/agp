@@ -112,7 +112,7 @@ Four concerns cut across all of them rather than belonging to any one:
 |---|---|---|
 | Identity and admission | Who a peer is permitted to claim to be | `IdentityAdmissionPort`, OPEN |
 | Resource governance | What may be consumed, locally and by a peer | `core/bounded.ts`, `core/credit.ts`, `node/session-writer.ts`; `D19` as amended by `D29` |
-| Time and liveness | Deadlines, keepalive, hold, retry | `core/fsm.ts`, `node/session-controller.ts`, `node/send-admission.ts` |
+| Time and liveness | Deadlines, keepalive, hold, retry | `core/fsm.ts`, `node/session-controller.ts`, `node/send-admission.ts`, `node/outbound-acquisition.ts` |
 | Observability | What the system reports about itself | `core/operations.ts`, `core/latency.ts`, `node/outstanding.ts` |
 
 Separability is the claim, and it is testable: a carrier is replaced without touching routing, and a management surface is added without the kernel knowing.\
@@ -325,6 +325,7 @@ The production module homes below carry these concerns; paths are relative to `p
 | `core/src/operations.ts` | Commit and project immutable canonical state revisions |
 | `core/src/credit.ts` | Track receiver grants and sender spending |
 | `node/src/node.ts` | Compose the one-shot node lifecycle and its public API |
+| `node/src/outbound-acquisition.ts` | Own one outbound acquisition's cancellation and monotonic deadline until node adoption |
 | `node/src/endpoint-registry.ts`, `node/src/handler-ledger.ts` | Hold endpoint bindings and bounded handler execution authority |
 | `node/src/data-plane.ts`, `node/src/send-admission.ts` | Resolve forwarding and enforce pre-commit cancellation |
 | `node/src/session-writer.ts` | Bound ordered writes and pace them against peer credit |

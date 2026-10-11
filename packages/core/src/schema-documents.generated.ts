@@ -1142,6 +1142,11 @@ export const coreSchemaDocumentsV1 = Object.freeze([
         "minimum": 0,
         "maximum": 9007199254740991
       },
+      "transportConnectTimeoutMs": {
+        "type": "integer",
+        "minimum": 0,
+        "maximum": 9007199254740991
+      },
       "transportWriteTimeoutMs": {
         "type": "integer",
         "minimum": 0,

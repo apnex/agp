@@ -246,6 +246,15 @@ Backoff is deterministic, monotonic-clock driven, and saturating-there is no jit
 Every `NodeConfig.peers[].adjacencyId` is unique within the node by exact string equality.\
 A duplicate violates `PEER-ADJACENCY-UNIQUENESS-1` and fails `createNode()` synchronously with `CONFIG_INVALID` before any reference is resolved or transport capability is invoked.
 
+`NodeConfig.timers.transportConnectTimeoutMs` bounds outbound channel acquisition; it defaults to 10,000 milliseconds and must be a positive safe integer.\
+It is separate from `openTimeoutMs`, which governs the subsequent AGP OPEN exchange.\
+The node supplies the connect cancellation signal, checks current-attempt ownership and elapsed monotonic time before session adoption, and cancels pending attempts on stop or host failure.\
+A completed channel rejected at that boundary is aborted without creating a session; an adopted channel is owned by its session and no longer by the acquisition signal.
+
+Each adjacency retains at most one unsettled connect call, including after cancellation; reconnect waits for that call to settle and then follows the configured backoff.\
+This bounds replacement attempts, not the cleanup time of an injected transport that fails to honour cancellation.\
+The shared transport contract remains responsible for native release; this correction neither establishes browser cleanup guarantees nor changes credential admission.
+
 The node also derives the exact neutral receive limits supplied to every resolved channel capability:
 ```text
 maxPacketBytes      = limits.receiveLimitBytes

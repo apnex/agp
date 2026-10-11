@@ -45,6 +45,7 @@ The compile-only disposition consumer resolves built public package declarations
 | `contract/transit-feasible-source.test.js` | Exact-ingress source feasibility authorizes asymmetric reverse selection | Strict selected-route RPF |
 | `contract/transit-route-miss.test.js` | Feasible transit with no destination returns one direct `NO_ROUTE` | Local route miss |
 | `contract/transport-disposition-latch.test.js` | Competing terminal causes release once, while accepted packets drain after protocol revocation | Carrier buffering implementation |
+| `contract/outbound-acquisition-lifecycle.test.js` | Node-owned connect deadlines and cancellation, exact adoption, retained pending cleanup, single retry disposition and timer release | Credential admission, browser-native bounds and live-key policy |
 | `contract/diagnostic-sink.test.js` | Diagnostics are frozen closed captures with the raw cause kept separate, and a hostile sink cannot alter canonical state | Adapter-owned diagnostic content |
 | `contract/listener-terminal-lifecycle.test.js` | Unexpected listener loss reaches node lifecycle exactly once and never leaves a listening node behind a dead listener | Carrier reason for the terminal |
 | `contract/transport-reference-composition.test.js` | Opaque listener and target references resolve once by kind without leaking capability authority into kernel state | Binding-specific address syntax |

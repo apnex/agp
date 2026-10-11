@@ -328,7 +328,7 @@
       "path": "configuration/timers.schema.json",
       "kind": "configuration",
       "typescript": "Timers",
-      "sha256": "7c0b82b87da361f31345477dac19c301b40c15d64cd4d0d15f64286fcf5ba17a"
+      "sha256": "f6a6b5788b4f501b53f92c03d47f6e4b65d3add16755d3e1a0eb042000149e78"
     },
     {
       "id": "urn:agp:schema:v1:core:configuration:transit-config",
