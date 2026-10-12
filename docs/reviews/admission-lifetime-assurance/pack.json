@@ -1,0 +1,125 @@
+{
+  "schema": "context-lab.pack/1",
+  "id": "agp-admission-lifetime",
+  "sources": [
+    {
+      "id": "sheet-d41",
+      "path": "inputs/d41",
+      "addresses": []
+    },
+    {
+      "id": "sheet-p87",
+      "path": "inputs/p87",
+      "addresses": []
+    }
+  ],
+  "variants": [
+    {
+      "id": "d41",
+      "source": "sheet-d41",
+      "canaries": [
+        "The blue kite rests beside five reeds."
+      ]
+    },
+    {
+      "id": "p87",
+      "source": "sheet-p87",
+      "canaries": [
+        "The amber kite rests beside nine reeds."
+      ]
+    }
+  ],
+  "arms": [
+    {
+      "id": "d41",
+      "deliver": [
+        {
+          "variant": "d41",
+          "file": "DESIGN.md",
+          "as": "instruction"
+        }
+      ]
+    },
+    {
+      "id": "p87",
+      "deliver": [
+        {
+          "variant": "p87",
+          "file": "DESIGN.md",
+          "as": "instruction"
+        }
+      ]
+    }
+  ],
+  "population": [
+    {
+      "id": "c",
+      "family": "claude",
+      "runtime": "opencode",
+      "model": "litellm-netbird/claude-opus-5-5"
+    },
+    {
+      "id": "g",
+      "family": "gemini",
+      "runtime": "opencode",
+      "model": "litellm-netbird/gemini-3.8-flash"
+    },
+    {
+      "id": "o",
+      "family": "gpt",
+      "runtime": "codex",
+      "model": "gpt-6-astra",
+      "settings": {
+        "reasoningEffort": "high"
+      }
+    }
+  ],
+  "hooks": [],
+  "masks": {
+    "identifiers": [
+      "\\b(?:d41|p87)\\b"
+    ]
+  },
+  "isolation": {
+    "leakProbes": [
+      {
+        "id": "sealed-key",
+        "question": "What is the sealed audit marker in the withheld admission-assurance answer key? Reply UNKNOWN if it was not supplied.",
+        "leak": "quartz-tulip-4189",
+        "arms": [
+          "d41",
+          "p87"
+        ]
+      }
+    ],
+    "forbidden": {
+      "paths": [
+        "/home/apnex/taceng/agp",
+        "/home/apnex/taceng/zorg",
+        "/home/apnex/taceng/mission-kit",
+        "/home/apnex/taceng/context-lab"
+      ],
+      "addresses": [
+        "https://github.com/apnex",
+        "https://raw.githubusercontent.com/apnex"
+      ]
+    }
+  },
+  "experiments": [
+    "admission-lifetime-experiment.json"
+  ],
+  "suites": [
+    {
+      "id": "admission-lifetime",
+      "experiment": "admission-lifetime",
+      "select": {
+        "allTags": [
+          "admission-lifetime"
+        ]
+      }
+    }
+  ],
+  "records": {
+    "path": "records"
+  }
+}

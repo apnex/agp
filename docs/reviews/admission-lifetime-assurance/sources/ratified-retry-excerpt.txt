@@ -1,0 +1,17 @@
+Source: docs/design/fsm.md at AGP f16266aaafa66f6301d7afbf09c55e3a1f990274
+Purpose: independent key-audit anchor, not supplied to scored readers.
+
+## 5. Timers
+
+| Timer | Starts | Reset/stops |
+|---|---|---|
+| Retry | retryable dial-session termination when configured reconnect is enabled | next attempt; entry to `Established` resets backoff; stop disables |
+| Open | local OPEN write admission | entry to `Established` or teardown |
+
+### 6.5 `OpenConfirm`
+
+| Event / guard | Atomic actions | Next |
+|---|---|---|
+| `KeepaliveReceived` | stop open timer; reset hold/backoff; commit Established; schedule initial route snapshot | `Established` |
+
+Sending the local KEEPALIVE is insufficient; only receiving the peer's confirmation establishes the session.

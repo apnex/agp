@@ -1,0 +1,56 @@
+{
+  "schema": "agp.admission-assurance-inputs/1",
+  "recordedDate": "2026-10-12",
+  "agpSource": "f16266aaafa66f6301d7afbf09c55e3a1f990274",
+  "guidanceSource": "0fa9f7f3a795aa6d80edbf2fdeb8f36880e6c47c",
+  "evaluatorSource": "6e6d0a92965a15ec473c661887b2b9c5037fedcf",
+  "evaluatorCheckout": "/tmp/agp-admission-assurance.A3BdFx/context-lab",
+  "populationSource": "mission-kit docs/evals/context-lab/pack.json at guidanceSource",
+  "inputs": [
+    {
+      "arm": "d41",
+      "role": "predecessor",
+      "sourceFile": "sources/frozen-r2.txt",
+      "sourceSha256": "b89a3328ae7cd41feb38a498b75b16fe06d47f232d9c09dffe42542438f005fb",
+      "readerFile": "inputs/d41/DESIGN.md",
+      "readerSha256": "3396fc788a6907a0ba81b142ce2a904035fcf9ce0694f100e2e5e51c1d4db040"
+    },
+    {
+      "arm": "p87",
+      "role": "candidate",
+      "sourceFile": "sources/frozen-r3.txt",
+      "sourceSha256": "6ccf9ba0e7d94b83897fade8f865fe3fb1328db292d92cce4d5cc85bc28fc2f2",
+      "readerFile": "inputs/p87/DESIGN.md",
+      "readerSha256": "c8c86304e408a9b5b0a335e66ec9cc3530659ca1e6265e1d618137d0f42bf332"
+    }
+  ],
+  "blindingProjection": "Keep Authority and scope through Alternatives and consequences inclusive; remove three source-checkpoint prose lines and Markdown link destinations; use identical neutral introduction; omit Review gate and handoff plus Revision history. No substantive retained-body changes.",
+  "controlProbes": [
+    "Q01",
+    "Q02",
+    "Q03",
+    "Q04",
+    "Q05",
+    "Q06",
+    "Q07",
+    "Q09",
+    "Q10",
+    "Q11",
+    "Q12"
+  ],
+  "changedProbe": "Q08",
+  "selection": {
+    "quote": "continue as recommended",
+    "scope": "Complete public-contract direction for final assurance only; no final adoption or implementation."
+  },
+  "consent": {
+    "owner": "director",
+    "material": "Frozen AGP design text and synthetic reasoning scenarios; no live peer or real user data.",
+    "scope": "Fresh-reader comparison and independent assurance under the selected direction."
+  },
+  "limits": [
+    "Reader inputs are mechanism projections, not the omitted review/history metadata.",
+    "Three readers per arm: one per model family, not repeated trials per family.",
+    "No implementation, browser, deployment, security or scale claim."
+  ]
+}
