@@ -1,7 +1,11 @@
 # Admission lifetime fresh-reader preregistration
 
-Status: proposed measurement, before independent key audit or any scored reader.\
+Status: amended before scoring after the first independent key audit; bounded recheck pending.\
 Tier 3: the comparison design and decision rule are judgments, not observations.
+
+Correction checkpoint (2026-10-12): the [first audit](key-audit-01.txt) found the original packet unready for scoring.\
+The [pre-execution amendment](admission-assurance-amendment-01.md) specifies corrected delivery, scoring scope and validity rules; it governs where it refines this original preregistration.\
+No scored answers existed when the amendment was written; the frozen source and reader documents remain unchanged.
 
 ## Selection and authority
 

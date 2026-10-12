@@ -1,0 +1,63 @@
+FAIL — the packet at `5e2265e45c247e86bf9f76c6797342ac66f66e41` is not ready for scoring. The substantive keys are largely grounded, but the judge-visible Q08 key leaks version identity. Scoring scope and several validity rules also need clarification before readers run.
+
+This is a measurement-packet verdict, not technical design adoption or implementation verification. I did not answer the probes, launch readers, run AGP, edit files or spawn agents.
+
+References below are relative to `docs/reviews/admission-lifetime-assurance/` at that commit:
+
+- K: [admission-lifetime-probes.json](/home/apnex/taceng/agp/docs/reviews/admission-lifetime-assurance/admission-lifetime-probes.json)
+- A: [admission-assurance-preregistration.md](/home/apnex/taceng/agp/docs/reviews/admission-lifetime-assurance/admission-assurance-preregistration.md)
+- E: [admission-lifetime-experiment.json](/home/apnex/taceng/agp/docs/reviews/admission-lifetime-assurance/admission-lifetime-experiment.json)
+- D: [inputs/d41/DESIGN.md](/home/apnex/taceng/agp/docs/reviews/admission-lifetime-assurance/inputs/d41/DESIGN.md)
+- P: [inputs/p87/DESIGN.md](/home/apnex/taceng/agp/docs/reviews/admission-lifetime-assurance/inputs/p87/DESIGN.md)
+- N: [sources/ratified-retry-excerpt.txt](/home/apnex/taceng/agp/docs/reviews/admission-lifetime-assurance/sources/ratified-retry-excerpt.txt)
+
+### Required corrections
+
+| Finding | Evidence | Necessary correction |
+|---|---|---|
+| Judge-visible version leakage | K:113 identifies “revision 2’s satisfaction-reset instruction”; K:121 labels the candidate source. A:42 promises judges no source-version names, and E:26 says they do not know the version. | Remove revision/order/candidate/control labels from everything delivered to judges. Describe the conflicting instruction without identifying its arm or chronology. Retain provenance in an auditor-only record. Verify the actual judge prompt before scoring. |
+| Mandatory key content is not cleanly separated from background | K:20 and the repeated rubric require every required decision while exempting unasked implementation detail. Several keys nevertheless include unasked branches or obligations; examples are recorded below. | Mark required scoring atoms explicitly, or remove ancillary clauses from the mandatory key. Do not leave judges to infer which clauses may be omitted. Preserve the existing exemption for unasked details. |
+| Some question boundaries need tightening | Q06 asks about revision/capture time across both nodes, but its key specifies those semantics principally for numerical terminal capture. Q08 does not explicitly supply reconnect/budget eligibility, while the source qualifies retry waiting as “when allowed.” K:85,92,113,120; D:241,295,303,306; P:243,300,308,311. | Narrow Q06’s metadata subquestion to the numerical-terminal case, or explicitly accept the ordinary-case detail as unspecified. Make Q08’s existing reconnect guards explicit; do not demand unconditional redial/backoff or an exact next attempt number. |
+| Validity and gate dispositions remain underspecified | A:58 defines a quotation cap; A:73 names isolation/delivery/key-order invalidity; A:74 forbids retrospective key rewriting; A:84 invokes a majority hedge. E:48 requires votes for every “answered” probe. | Before execution, specify the dispositions below so missing responses or adverse evidence cannot be handled opportunistically. |
+
+The final row needs four concrete rules:
+
+1. Distinguish reader failures from infrastructure failures. Missing answers score 0 under the existing rubric; malformed or missing quotations cap otherwise-safe answers at 1. Neither should silently become an infrastructure retry. Define treatment of reader-caused truncation and answer-format errors.
+2. Account for all 72 reader/probe outcomes and 144 cross-family votes, including missing-answer outcomes, or explicitly document the equivalent deterministic handling.
+3. Define “majority hedge” as a fixed denominator and unit, preferably at least two of three readers within an arm/probe. Investigate predecessor findings too; the already-identified predecessor Q08 defect must not automatically become an unresolved candidate defect.
+4. If a substantive key, question, delivery or scoring defect is discovered after responses exist, require independent substantiation and give the affected measurement no gate verdict. Preserve it as exploratory evidence; do not retrospectively repair the key and claim a preregistered result.
+
+### Per-probe audit
+
+“Supported” below concerns key grounding and question fairness, not reader performance.
+
+| Probe | Finding and exact references |
+|---|---|
+| Q01 | Supported. Lifetime, reservation and uninvoked-permit distinctions are directly supplied. K:15; D:83,85,91,106,120; P:84,86,92,107,121. |
+| Q02 | Supported. Application-time authority checks and retained-result accounting are explicit. K:29; D:87,105,110,114; P:88,106,111,115. |
+| Q03 | Supported. Ordering, drain-barrier and sole-reader requirements are explicit in both arms. K:43; D:128,134,142,143,146,148,150; P:129,135,143,144,147,149,151. |
+| Q04 | Substantively supported, but clarify scoring scope. The scenario does not ask the empty-eligible-subset branch or a complete pre-invocation validation checklist. Treat these as supporting detail unless added to the question. Also scope “no consumed revision” to the rejected route transaction, not all possible cleanup/terminal publications. K:57,64; D:54,55,56,329,334,388; P:55,56,57,334,339,393. |
+| Q05 | Supported. Ownership and ordered handoff are directly specified. Preserve the distinction between owned synchronous detachment/disposal inside the turn and external abort/transport cleanup afterward; “cleanup outside” must not erase the former. K:71; D:321,330,350,351,352,356,360; P:326,335,355,356,357,361,365. |
+| Q06 | Core key supported; metadata question needs the scope correction above. Empty connection/adjacency/routing projections are true supporting context, not an expressly requested resource-query decision. K:85,92; D:295,303,304,305,306,362; P:300,308,309,310,311,367. |
+| Q07 | Supported. Keep pre-acquisition waiting distinct from an actual invocation-reservation refusal: the initial wait does not manufacture a session event or token. An answer need not emit `AdmissionCapacityExceeded` merely because initial capacity is unavailable. K:99,106; D:183,200,232,235,245,246; P:184,201,233,236,247,248. |
+| Q08 | Normative success-phase requirement is supported by N:8,15,17; the candidate supplies exact-winner/idempotency detail at P:241,242,243,250,252. The predecessor instruction at D:248 conflicts with the normative success phase. Remove the judge-label leak, retain conditional reconnect eligibility, and treat already-established adoption as ancillary because that separate branch is not asked. K:113,120,121. |
+| Q09 | Supported. Public options, compatibility, process-local authority and migration boundaries are supplied. K:127; D:272,273,274,275,276,281,285,286,395; P:277,278,279,280,281,286,290,291,401. |
+| Q10 | Supported except for mandatory-scope risk: the instruction about removing Zorg’s wrapper is unasked and should be ancillary. The remaining scope limits are supplied. K:141,148; D:24,25,26,94,95,166,181,286,397; P:24,25,26,95,96,167,182,291,403. |
+| Q11 | Supported. Accepted-controller versus configured-dial retry behavior is additional detail not expressly asked; do not penalize its omission. K:155,162; D:183,184,204,378,379; P:184,185,205,383,384. |
+| Q12 | Supported. Accept the supplied wording that there is no new event-loop-scheduling guarantee as grounding the scheduling limitation. Do not require readers to reproduce the more explicit “progressing host event loop” wording found only in omitted handoff text: frozen-r2:469 and frozen-r3:476. K:169; D:152,153,154,155,266; P:153,154,155,156,271. |
+
+### Checks that passed
+
+Measured by read-only comparison:
+
+- Both raw-source hashes and both reader-input hashes match the manifest.
+- Each retained reader body exactly matches the declared projection: three checkpoint lines removed, link destinations removed, and no other retained-body changes.
+- The neutral introductions match; the retained history-bearing correction notices occur in both arms and do not themselves disclose relative version order.
+- All twelve question copies in `task` match their property questions, with unique headings.
+- The arm differences concern retry-success semantics; the eleven declared controls have their necessary source support in both arms.
+
+The six-cell, three-family population is adequate for the explicitly bounded descriptive comparison, not statistical generalization; A:38 and A:43 say this correctly. Conservative cross-family scoring, per-control comparisons, tie preference and authority limits are also appropriately declared at A:57,60,81,82,83,87.
+
+The packet correctly treats faithful repetition of the predecessor’s bad instruction as document inadequacy rather than reader misconduct: A:53,54 and E:26. Preserve that distinction in the recorded reasons and final interpretation. Q08 can measure normative implementation adequacy; its low predecessor score must not be reported as proof of poor reading.
+
+Correct and freeze the measurement packet, then obtain a bounded independent recheck before any scored reader runs.
