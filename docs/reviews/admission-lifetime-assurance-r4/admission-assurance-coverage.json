@@ -1,0 +1,278 @@
+{
+  "schema": "agp.admission-assurance-coverage/1",
+  "purpose": "Let a cold implementer decide authority, resource ownership, ordering, teardown, operational meaning, recovery and migration from the supplied text without importing unwritten intent.",
+  "controls": [
+    "A01",
+    "A02",
+    "A03",
+    "A08",
+    "A13",
+    "A14",
+    "A16",
+    "A17",
+    "A18",
+    "A19",
+    "A20",
+    "A21",
+    "A22",
+    "A23",
+    "A24"
+  ],
+  "clarifications": [
+    "A04",
+    "A05",
+    "A06",
+    "A07",
+    "A09",
+    "A10",
+    "A11",
+    "A12",
+    "A15"
+  ],
+  "probes": [
+    {
+      "id": "A01",
+      "job": "Retained work",
+      "classification": "control",
+      "sections": [
+        "Three lifetimes",
+        "Admission sequence and invariants"
+      ],
+      "comparison": "Both documents explicitly separate uninvoked, unsettled and settled-retained reservations; no new implementation detail is required."
+    },
+    {
+      "id": "A02",
+      "job": "Exact continuation authority",
+      "classification": "control",
+      "sections": [
+        "Admission sequence and invariants",
+        "Three lifetimes"
+      ],
+      "comparison": "The complete exact-owner guard and stale success/failure symmetry are present in both inputs."
+    },
+    {
+      "id": "A03",
+      "job": "Application callbacks and serialized work",
+      "classification": "control",
+      "sections": [
+        "Admission sequence and invariants",
+        "Runtime terminal preflight and commit handoff"
+      ],
+      "comparison": "Both inputs state callback placement, owned-data preparation and the no-asynchronous-gap final guard."
+    },
+    {
+      "id": "A04",
+      "job": "Application-time expiry ownership",
+      "classification": "clarification",
+      "sections": [
+        "Admission sequence and invariants",
+        "Runtime terminal preflight and commit handoff"
+      ],
+      "comparison": "The predecessor requires final guards and rejects expired results but leaves result-discovered expiry ownership and equality less explicit; assess all its text, not an assumed absence."
+    },
+    {
+      "id": "A05",
+      "job": "Absolute timer selection",
+      "classification": "clarification",
+      "sections": [
+        "Admission sequence and invariants",
+        "Timers and resource limits"
+      ],
+      "comparison": "Both inputs preserve monotonic checks and earlier OPEN; only the clarification expressly supplies the tie and shared timer selector."
+    },
+    {
+      "id": "A06",
+      "job": "Configured whole-teardown budget",
+      "classification": "clarification",
+      "sections": [
+        "Ordered input and teardown",
+        "Timers and resource limits",
+        "Public surface and migration choices"
+      ],
+      "comparison": "The predecessor specifies one terminal-origin budget but not which configuration supplies it; the candidate names the source and migration cost."
+    },
+    {
+      "id": "A07",
+      "job": "Detached cleanup and first cause",
+      "classification": "clarification",
+      "sections": [
+        "Ordered input and teardown",
+        "One node owned terminal sequence"
+      ],
+      "comparison": "The predecessor detaches bounded cleanup but does not spell out existing deadline transfer or later per-send first-cause precedence."
+    },
+    {
+      "id": "A08",
+      "job": "FIFO drain and bounded ownership",
+      "classification": "control",
+      "sections": [
+        "Ordered input and teardown"
+      ],
+      "comparison": "Both inputs have the same drain/barrier and reservation-transfer mechanism."
+    },
+    {
+      "id": "A09",
+      "job": "Terminal semantic disposal and transport evidence",
+      "classification": "clarification",
+      "sections": [
+        "Ordered input and teardown",
+        "Three lifetimes"
+      ],
+      "comparison": "The clarification expressly applies semantic disposal to every terminal cause; the predecessor's FIFO/no-effects and resource distinctions remain relevant and may support a correct inference if grounded."
+    },
+    {
+      "id": "A10",
+      "job": "Empty eligible route batch",
+      "classification": "clarification",
+      "sections": [
+        "Source baseline and related path",
+        "Admission sequence and invariants"
+      ],
+      "comparison": "Both validate exactly the eligible subset including empty; the clarification makes the invocation duty explicit. A fully grounded derivation from the predecessor's action rules is acceptable."
+    },
+    {
+      "id": "A11",
+      "job": "Current fault versus policy denial",
+      "classification": "clarification",
+      "sections": [
+        "Source baseline and related path",
+        "Runtime terminal preflight and commit handoff",
+        "Acceptance obligations"
+      ],
+      "comparison": "Both provide atomicity and nonfatal explicit denial; the clarification expressly carries current-fault treatment into the supplied text."
+    },
+    {
+      "id": "A12",
+      "job": "Capacity at route commit",
+      "classification": "clarification",
+      "sections": [
+        "Source baseline and related path",
+        "Acceptance obligations"
+      ],
+      "comparison": "Both require final RIB capacity and atomicity; the clarification explicitly carries the CAPACITY outcome and distinction from evaluation-pool refusal."
+    },
+    {
+      "id": "A13",
+      "job": "Global terminal integration",
+      "classification": "control",
+      "sections": [
+        "Runtime terminal preflight and commit handoff",
+        "One node owned terminal sequence"
+      ],
+      "comparison": "This shared terminal prerequisite and queued-stop rule are unchanged controls."
+    },
+    {
+      "id": "A14",
+      "job": "Frozen resource capture",
+      "classification": "control",
+      "sections": [
+        "Terminal accounting recommendation",
+        "One node owned terminal sequence"
+      ],
+      "comparison": "The complete immutable last-known capture rule is common to both inputs."
+    },
+    {
+      "id": "A15",
+      "job": "Ordinary-stop observation revisions",
+      "classification": "clarification",
+      "sections": [
+        "Public surface and migration choices",
+        "Terminal accounting recommendation"
+      ],
+      "comparison": "Both allow stopped cleanup accounting; the clarification spells out the ordinary revision/query metadata connection."
+    },
+    {
+      "id": "A16",
+      "job": "Initial capacity eligibility",
+      "classification": "control",
+      "sections": [
+        "Capacity wait lifecycle and projection"
+      ],
+      "comparison": "This is the unchanged initial-wait duty, asked independently of repeat history."
+    },
+    {
+      "id": "A17",
+      "job": "Repeat capacity wait and stale notification",
+      "classification": "control",
+      "sections": [
+        "Capacity wait lifecycle and projection"
+      ],
+      "comparison": "The repeat scenario is separate from initial eligibility; the same stale-notification and remembered-pool rules exist in both."
+    },
+    {
+      "id": "A18",
+      "job": "Established winner and retry history",
+      "classification": "control",
+      "sections": [
+        "Capacity wait lifecycle and projection"
+      ],
+      "comparison": "Already-established adoption and establishment-only reset are explicitly unchanged; no exact next-attempt arithmetic is required."
+    },
+    {
+      "id": "A19",
+      "job": "Normal identity outcome versus local refusal",
+      "classification": "control",
+      "sections": [
+        "Timers and resource limits",
+        "Acceptance obligations"
+      ],
+      "comparison": "These healthy/refusal classifications are explicit in both inputs."
+    },
+    {
+      "id": "A20",
+      "job": "Provider compatibility and shared seam",
+      "classification": "control",
+      "sections": [
+        "Mechanics and ownership",
+        "Public surface and migration choices"
+      ],
+      "comparison": "Optional second argument and schema separation are common; the exact supplied-options object shape is not required by this control."
+    },
+    {
+      "id": "A21",
+      "job": "Cancellation authority and hidden work",
+      "classification": "control",
+      "sections": [
+        "Three lifetimes",
+        "Public surface and migration choices"
+      ],
+      "comparison": "Both inputs expressly retain provider responsibility and end evaluation-signal authority."
+    },
+    {
+      "id": "A22",
+      "job": "Limits of finite budgets",
+      "classification": "control",
+      "sections": [
+        "Authority and scope",
+        "Timers and resource limits",
+        "Acceptance obligations"
+      ],
+      "comparison": "Scope and resource-bound exclusions are common controls; no exact deployment budget is asked."
+    },
+    {
+      "id": "A23",
+      "job": "Absorption and implementation scope",
+      "classification": "control",
+      "sections": [
+        "Runtime terminal preflight and commit handoff",
+        "Public surface and migration choices"
+      ],
+      "comparison": "Both inputs require all-publication inventory and coordinated surfaces, without a generic new transaction framework."
+    },
+    {
+      "id": "A24",
+      "job": "Opening lifetime through confirmation",
+      "classification": "control",
+      "sections": [
+        "Timers and resource limits",
+        "Source baseline and related path"
+      ],
+      "comparison": "The same opening-phase invariant is explicit in both designs."
+    }
+  ],
+  "limits": [
+    "The new scenarios share design duties with the original assay but no original question/answer is reused; they are prospective, not held-out from this preparer's knowledge.",
+    "Scores are not directly comparable to the earlier compound twelve-question instrument.",
+    "No runtime behavior, exhaustive interleaving coverage or implementation certification is measured."
+  ]
+}

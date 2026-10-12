@@ -1,0 +1,49 @@
+{
+  "id": "admission-clarity",
+  "declaredStatus": "result",
+  "scenarios": [
+    "admission-clarity-probes.json"
+  ],
+  "factors": {
+    "arms": [
+      "m42",
+      "x19"
+    ],
+    "population": [
+      "c",
+      "g",
+      "o"
+    ]
+  },
+  "runsPerCell": 1,
+  "phases": [
+    {
+      "id": "answer",
+      "session": "new"
+    }
+  ],
+  "instructions": "You are a fresh implementer reasoning from the single proposed admission-lifetime design supplied in your instructions. It is not an implemented or adopted contract. Use only that document and the questions. Do not browse, follow links, read repositories or other files, infer the version, execute the design, send traffic, or edit anything except the answer file. The scenarios are static comprehension questions, not runtime tests. The local shell may be used only to write that file. Separate document-supported decisions from guesses, missing rules and conflicts; do not silently repair the design. Answer every explicitly asked decision. Normally 60-120 words per heading plus short decisive source excerpts is enough, but completeness governs. Copy excerpts exactly as contiguous supplied-design text (including Markdown punctuation), each as QUOTE: followed by a JSON string on its own line. Scenario text and your own explanation are not source support. Do not quote irrelevant passages merely to fill a quota.",
+  "judgeInstructions": "Judge only the supplied question, required decisions, rubric and answer. Do not infer document order, reader identity or source version. Evaluate each explicitly numbered required decision and do not require unasked detail. Grounding may use several short excerpts whose combined stated premises entail the decision; no exact preferred wording or one-quote-per-clause rule applies. Distinguish wrong decisions, omitted decisions and missing decisive support using the rubric's reason tags plus a concrete explanation. Honest missing-authority reports are safe incompleteness, not invented unsafe behavior, and cannot receive 2. A faithful quotation of an unsafe instruction is document inadequacy, not reader invention. Intended scope exclusions are not hedges. Do not add outside AGP knowledge or infer unquoted source contents.",
+  "judging": {
+    "judges": [
+      "c",
+      "g",
+      "o"
+    ],
+    "guessGroups": {
+      "sheetA": [
+        "m42"
+      ],
+      "sheetB": [
+        "x19"
+      ]
+    },
+    "outcomesPerPrompt": 6
+  },
+  "variation": {
+    "difference": 0.3333333333333333,
+    "scope": "property"
+  },
+  "default": "Ties favour the predecessor; no superiority on a tie. Apply the separate frozen project gate and do not reinterpret any earlier verdict.",
+  "notes": "Prospective preparation only: no registration or model execution authorized in this turn. Twenty-four independent answer headings, six reader cells, 144 expected answers, 288 expected cross-family vote slots. Author criteria and arm mapping stay withheld. Same evaluator and population pins as the prior experiment; no prior answers/readers reused. Original FAIL remains unchanged."
+}

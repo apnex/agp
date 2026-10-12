@@ -1,0 +1,83 @@
+{
+  "schema": "agp.admission-assurance-inputs/2",
+  "recordedDate": "2026-10-12",
+  "selection": {
+    "quote": "continue",
+    "scope": "Prepare fresh assurance questions and independently reviewed criteria; no scored execution, ratification, implementation or publication."
+  },
+  "agpPreparationHead": "e8fe9c789e82ec396abe61bd2c567f0cfd9c9b44",
+  "agpRuntimeSource": "f16266aaafa66f6301d7afbf09c55e3a1f990274",
+  "guidanceSource": "45a0fc205a4820fcc60e8eb1799d2b6d788eb7dc",
+  "evaluatorSource": "6e6d0a92965a15ec473c661887b2b9c5037fedcf",
+  "populationSource": "Unchanged population entries from the original committed AGP assurance pack, originally drawn from mission-kit 0fa9f7f3a795aa6d80edbf2fdeb8f36880e6c47c.",
+  "inputs": [
+    {
+      "arm": "m42",
+      "role": "candidate",
+      "sourceFile": "sources/frozen-r4.txt",
+      "sourceSha256": "082b2c704dfdc3338283f3733732388a15fbffec5d1f28bf78313bad884b97b4",
+      "readerFile": "inputs/m42/DESIGN.md",
+      "readerSha256": "822c1f92287b53c59cbc9ca26743bd1b2b73693fc8e994c11d206d04af31bae9"
+    },
+    {
+      "arm": "x19",
+      "role": "predecessor",
+      "sourceFile": "sources/frozen-r3.txt",
+      "sourceSha256": "6ccf9ba0e7d94b83897fade8f865fe3fb1328db292d92cce4d5cc85bc28fc2f2",
+      "readerFile": "inputs/x19/DESIGN.md",
+      "readerSha256": "605dc6181909bc66532d120e07b2a69c59dea3286ca690ce718a0583c033200a"
+    }
+  ],
+  "projection": {
+    "implementation": "project-admission-input.mjs",
+    "retained": "Included/Excluded table through Alternatives and consequences, excluding only the three source-checkpoint provenance lines and Markdown link destinations.",
+    "replacement": "Identical neutral title, proposal/purpose/baseline distinction, common intent and authority introduction for both inputs.",
+    "omitted": "History-bearing introduction and authority-selection prose; Review gate and handoff; Revision history. Link labels and all retained mechanism wording remain unchanged.",
+    "limit": "Measures projected mechanism/contract comprehension, not review/history metadata or linked contract lookup."
+  },
+  "controls": [
+    "A01",
+    "A02",
+    "A03",
+    "A08",
+    "A13",
+    "A14",
+    "A16",
+    "A17",
+    "A18",
+    "A19",
+    "A20",
+    "A21",
+    "A22",
+    "A23",
+    "A24"
+  ],
+  "clarifications": [
+    "A04",
+    "A05",
+    "A06",
+    "A07",
+    "A09",
+    "A10",
+    "A11",
+    "A12",
+    "A15"
+  ],
+  "expected": {
+    "readerCells": 6,
+    "answerHeadings": 24,
+    "readerProbeOutcomes": 144,
+    "crossFamilyVoteSlots": 288
+  },
+  "consent": {
+    "owner": "director",
+    "material": "Frozen AGP proposal text and synthetic static reasoning scenarios; no live peer, credential or user data.",
+    "scope": "Preparation and independent key/readiness audit only in this turn. Future model execution requires a separate director selection."
+  },
+  "limits": [
+    "Original assurance inputs, key, answers, scores and FAIL remain frozen.",
+    "The author saw the earlier findings; this is a prospective regression/clarity assessment, not an untouched held-out evaluation or statistical generalization.",
+    "The two documents have different lengths as part of their authored content; no causal attribution to a particular sentence or word count is claimed.",
+    "Runtime isolation/model availability remains unmeasured until the separate execution step."
+  ]
+}

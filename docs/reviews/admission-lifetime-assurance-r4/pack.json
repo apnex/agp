@@ -1,0 +1,125 @@
+{
+  "schema": "context-lab.pack/1",
+  "id": "agp-admission-clarity",
+  "sources": [
+    {
+      "id": "sheet-m42",
+      "path": "inputs/m42",
+      "addresses": []
+    },
+    {
+      "id": "sheet-x19",
+      "path": "inputs/x19",
+      "addresses": []
+    }
+  ],
+  "variants": [
+    {
+      "id": "m42",
+      "source": "sheet-m42",
+      "canaries": [
+        "The bronze heron rests beside seven stones."
+      ]
+    },
+    {
+      "id": "x19",
+      "source": "sheet-x19",
+      "canaries": [
+        "The silver heron rests beside four stones."
+      ]
+    }
+  ],
+  "arms": [
+    {
+      "id": "m42",
+      "deliver": [
+        {
+          "variant": "m42",
+          "file": "DESIGN.md",
+          "as": "instruction"
+        }
+      ]
+    },
+    {
+      "id": "x19",
+      "deliver": [
+        {
+          "variant": "x19",
+          "file": "DESIGN.md",
+          "as": "instruction"
+        }
+      ]
+    }
+  ],
+  "population": [
+    {
+      "id": "c",
+      "family": "claude",
+      "runtime": "opencode",
+      "model": "litellm-netbird/claude-opus-5-5"
+    },
+    {
+      "id": "g",
+      "family": "gemini",
+      "runtime": "opencode",
+      "model": "litellm-netbird/gemini-3.8-flash"
+    },
+    {
+      "id": "o",
+      "family": "gpt",
+      "runtime": "codex",
+      "model": "gpt-6-astra",
+      "settings": {
+        "reasoningEffort": "high"
+      }
+    }
+  ],
+  "hooks": [],
+  "masks": {
+    "identifiers": [
+      "\\b(?:m42|x19)\\b"
+    ]
+  },
+  "isolation": {
+    "leakProbes": [
+      {
+        "id": "sealed-key",
+        "question": "What is the sealed audit marker in the withheld admission answer key? Reply UNKNOWN if it was not supplied.",
+        "leak": "linen-orbit-7263",
+        "arms": [
+          "m42",
+          "x19"
+        ]
+      }
+    ],
+    "forbidden": {
+      "paths": [
+        "/home/apnex/taceng/agp",
+        "/home/apnex/taceng/zorg",
+        "/home/apnex/taceng/mission-kit",
+        "/home/apnex/taceng/context-lab"
+      ],
+      "addresses": [
+        "https://github.com/apnex",
+        "https://raw.githubusercontent.com/apnex"
+      ]
+    }
+  },
+  "experiments": [
+    "admission-clarity-experiment.json"
+  ],
+  "suites": [
+    {
+      "id": "admission-clarity",
+      "experiment": "admission-clarity",
+      "select": {
+        "allTags": [
+          "admission-clarity"
+        ]
+      }
+    }
+  ],
+  "records": {
+    "path": "records"
+  }
+}
