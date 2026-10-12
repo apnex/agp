@@ -1,0 +1,305 @@
+AGP B53 ADMISSION-LIFETIME REVISION 4: INDEPENDENT DESIGN REVIEW
+
+Verdict: PASS -- technical design-completeness gate only.
+Dedicated M7 verdict: PASS -- scoped axiom alignment, with the implementation and absorption guardrails below.
+No remaining material design blocker was found in this bounded static pass.
+Neither verdict is public adoption, implementation approval, fresh-reader assurance, runtime verification, B53 closure, or a production/browser claim.
+The frozen fresh-reader assurance result remains FAIL and was not regraded.
+
+IDENTITY, CONDITION, AND INPUT INTEGRITY
+
+Reviewer: /root/admission_r4_review, an explicitly requested independent non-author reviewer.
+Date: 2026-10-12, Australia/Melbourne; completion checkpoint measured at 2026-10-12 06:26:36 UTC.
+Target: docs/reviews/admission-lifetime-correction-r4.md, all 612 lines read, plus the complete difference from revision 3.
+Target SHA-256 measured before and after source review:
+082b2c704dfdc3338283f3733732388a15fbffec5d1f28bf78313bad884b97b4
+Revision 3 SHA-256 measured before and after source review:
+6ccf9ba0e7d94b83897fade8f865fe3fb1328db292d92cce4d5cc85bc28fc2f2
+
+Gate condition, fixed by the target at lines 557-559:
+The complete revision can be implemented without inventing correctness-critical authority, ordering, budget, or resource semantics, and the two clarification choices preserve the earlier handoffs and selected product direction.
+Judge: this non-author reviewer.
+The PASS is a reasoned conclusion from the source and design reads below, not a measurement of implemented behavior or an inference from a previous PASS.
+
+Measured source identity:
+- Initial local HEAD: 5b04712035b68277d0d608989d3baab491275e38.
+- Final local HEAD: 45fbd5e252e7185eddca8aa658c8d66c2e2f5de0.
+- The parent committed the unchanged target during review; its content hash did not change.
+- A final diff from f16266aaafa66f6301d7afbf09c55e3a1f990274 showed no changes under packages/ or in the FSM, transport, operations, routing, SDK, and axiom-map contracts used here.
+- The controller and core FSM have no file diff between Zorg's reported 1723c9d10870806f9e84630085110f35c1f8077b and the source checkpoint f16266aaafa66f6301d7afbf09c55e3a1f990274.
+- Unrelated/mixed working-tree documentation was preserved; its presence was not treated as implementation evidence.
+
+Guidance provenance:
+Read /home/apnex/taceng/AGENTS.md, fetched the current mission-kit INDEX, and independently verified the clean local mission-kit main against remote main at 45a0fc205a4820fcc60e8eb1799d2b6d788eb7dc.
+Read W10, M1, M7, R3, E7, E8, W22, the current axiom charter, and applicable style guidance.
+For the product audit, read docs/design/axioms.md and A3/A4/A8/A9/A14 at its existing pinned source 5026604d3ef695651c21b24bd78410c7fec04b58.
+The product pin was not changed or replaced by current delivery guidance.
+Measured axiom-map SHA-256: 26564a9ac5678f296150e736de2ac0b0e0f43ae3429053e4c3c3cb0325b0c29b.
+
+References below are AGP-relative unless absolute or a URL; line references identify the source read, not executed observations.
+
+WHY THE TWO CLOSURE ITEMS PASS
+
+1. Result application owns discovered expiry; it does not wait for timer delivery.
+
+Failure hypothesis: a provider settles while timely, but its result reaches application after admission or OPEN expiry; an absent timer callback permits stale identity retention, collision effects, route mutation, or ACK authority, or leaves cleanup awaiting a second callback.
+Disposition: rejected at design level.
+R4 lines 152-179 require application-time comparison, equality-as-expired, and one serialized expiry path shared by timer and result input.
+The current exact result commits the appropriate expiry in that turn, while stale owners/tokens have only disposal authority.
+If preparation crosses a deadline, lines 159-161 discard both the ordinary plan and its unconsumed permit, then prepare and preflight expiry without result effects.
+Lines 176-179 retain numeric-terminal replacement priority and separate work-reservation disposal from session expiry.
+The later callback cannot produce another expiry, cancellation, teardown, or refund.
+
+Failure hypothesis: delayed callback order chooses the later identity/OPEN boundary, or an early timer wake expires a still-valid admission.
+Disposition: rejected at design level.
+R4 lines 165-170 select the earlier elapsed absolute bound, choose OPEN on equality, use that selector for both timer inputs and result guards, and rearm positive remainders on early wakes.
+An expired OPEN bound before invocation revokes the uninvoked permit without calling the provider.
+After identity commit, OPEN retains distinct authority through confirmation; the consumed admission token cannot cancel it.
+This preserves docs/design/fsm.md lines 173-178, 233-244, and 246-257, including confirmation with hold disabled.
+It does not import a credential-redemption clock or silently redesign hold-timer precedence.
+
+Mechanism grounding:
+packages/node/src/session-controller.ts lines 571-636 currently await identity and call retainIdentity before dispatching IdentityAdmissionResolved; lines 658-715 do the analogous route wait and pending-route assignment.
+packages/core/src/fsm.ts lines 371-436 and 545-629 show successful-token checks alongside unguarded admission-fault/expiry branches.
+R4's action-only invocation, before-all-effects guards, complete prospective plans, and reducer defense in depth address these different ownership points, not merely the final reducer call.
+The ECMAScript PerformPromiseThen operation independently distinguishes promise settlement from queued reaction execution; therefore a timely settled promise is not evidence of timely application.
+
+2. The close setting supplies one actively enforced terminal-to-cleanup budget.
+
+Failure hypothesis: notification write, a send ahead of it, close, or the terminal drain consumes an unbounded interval, or receives a fresh close-only allowance after earlier waiting.
+Disposition: rejected at design level.
+R4 lines 212-245 anchor one absolute deadline at terminal-cause commit, retain it through all owned phases, arm its wake before waiting, and recheck at phase entry.
+Deadline observation commits forced-cleanup intent once, then stops the writer and directly aborts the channel outside the executor even if a preceding promise remains pending.
+The guard survives close resolution until FIFO terminal observation and owned cleanup finish.
+All started promises remain observed; provider settlement is not joined.
+
+Failure hypothesis: per-send and teardown deadlines race, manufacture a second terminal cause, extend the budget, or rewrite the transport's first terminal.
+Disposition: rejected at design level.
+R4 lines 229-245 distinguish a write failure that can initially claim the controller latch from a later write expiry that can only force earlier cleanup.
+Both-expired observations enforce cleanup once while preserving the committed cause.
+A pre-existing transport terminal remains immutable even if a later abort is requested.
+The separate transport contract still forbids initiating close concurrently with a send: docs/design/transport-contract.md lines 565-571.
+The implementation must preserve that inherited constraint while using the independent abort guard; a notification's resolution is not by itself proof that no later send is active.
+
+Failure hypothesis: numeric node terminalization cancels the cleanup mechanism with the ordinary runtime gate, or detachment restarts its budget.
+Disposition: rejected at design level.
+R4 lines 236-241 retain exact cleanup-generation authority after detachment, preserve an existing deadline, and assign a first deadline at the detachment commit for a controller first terminated there.
+Lines 465-477 detach ordinary authority synchronously and run cleanup afterward without operations publication, retry, or restoration authority.
+Thus cleanup is authorized separately from admission effects; closing the ordinary gate does not strand the reader.
+StopPolicy.drainTimeoutMs is explicitly not repurposed as this budget or a global node-stop bound.
+
+Failure hypothesis: a teardown deadline is presented as a proof of physical release or precise host scheduling.
+Disposition: rejected at design level.
+R4 lines 215, 245, 298-300, and 520-521 retain the conforming-transport/progressing-host boundary.
+The transport contract at lines 757-805 makes abort synchronous logical authority, preserves accepted FIFO evidence before terminal, and distinguishes subsequent native-release faults from the committed terminal.
+Node's documented delay coercion and callback scheduling limits support the draft's monotonic checks, positive-remainder rounding, oversized-delay chunking, and stale-generation checks; they do not certify browser cleanup.
+
+WHOLE-DESIGN AND INHERITED-RULE CHALLENGES
+
+3. Terminal semantic disposal versus transport evidence.
+Failure hypothesis: disposing a continuation queue refunds provider work, discards transport evidence, or permits queued credit/hold/provider effects after fatal teardown.
+Disposition: rejected at design level by R4 lines 185-210 and 247-250.
+The semantic queue's ownership is separate from the transport ring and already-started evaluation records.
+Every terminal cause disposes the semantic backlog; the same sole reader drains accepted packets/rejection evidence through terminal without protocol effects.
+docs/design/fsm.md lines 244, 303-306, and 317-339 revoke semantic authority; docs/design/transport-contract.md lines 617-656 and 788-805 preserve read evidence.
+This is not permission to cancel the sole read early or to retain a dead connection merely for provider accounting.
+
+4. FIFO at result/drain joins.
+Failure hypothesis: a new arrival overtakes an older queued command at a drain yield, or dequeued work moves to an unbounded executor/promise queue.
+Disposition: rejected at design level by R4 lines 185-196.
+The barrier remains through draining, there is one drain owner, and the queue opens only in the serialized empty/no-pending/no-drain observation.
+The head retains its reservation during dispatch and transfers only to another bounded owner before dequeue.
+Bounded batches must actually permit timer/other-session progress; merely appending further microtasks would not establish that property.
+packages/node/src/serialized-executor.ts lines 5-28 is a promise-tail serializer, not proof of bounded submission or fairness.
+This is a verification guardrail already expressed by R4 lines 188 and 502, not a newly chosen public scheduling contract.
+
+5. Route faults, explicit denials, static rejection, and final RIB capacity.
+Failure hypothesis: malformed provider data is mistaken for a normal POLICY denial; copying the present validator requires decisions for statically rejected routes; or capacity frozen at invocation becomes stale before commit.
+Disposition: rejected at design level by R4 lines 68-84 and 509.
+docs/design/fsm.md lines 264-267 and 295-306 distinguish current port faults from tuple-keyed denials.
+docs/design/routing.md lines 375-447 defines static LOOP/PATH_TOO_LONG, nonfatal POLICY/CAPACITY, canonical admission after subtracting the old session set, and one atomic replacement before ACK.
+R4 preserves those semantics and explicitly changes the current source's validation split: packages/core/src/routing.ts lines 419-468 currently validates policy against all routes before static rejection; lines 495-497 mutate before node operations publication.
+A current malformed/thrown result uses AdmissionFaulted/INTERNAL_ERROR, with no ACK for its uncommitted proposal; an elapsed current result uses expiry; a stale outcome has neither authority.
+The complete result and final available capacity precede consumed revision, RIB replacement, export consequences, and ACK permission.
+
+6. Empty route-policy batch.
+Failure hypothesis: an empty policy-eligible subset skips the port or reserves no work despite the authorized admission action.
+Disposition: rejected at design level by R4 lines 74-78.
+docs/design/fsm.md line 264 invokes the batch for a valid expected snapshot and has no empty-subset exemption; lines 298-301 require exactly the decisions for the eligible tuples.
+The request/result schemas admit empty arrays: packages/core/src/schemas/v1/sdk/route-admission-request.schema.json lines 31-36 and route-admission-result.schema.json lines 16-21.
+Thus one reserved invocation with empty inputs and an empty decisions list is coherent; the resulting revision/rejections still commit atomically.
+This may consume finite work even for an all-statically-rejected snapshot, but that is an explicit chosen behavior, not an unspecified optimization.
+
+7. Finite work conservation and cancellation.
+Failure hypothesis: timeout, abort notification, session removal, stop, or a settled-but-not-disposed result returns a slot and permits unlimited replacement work.
+Disposition: rejected at design level by R4 lines 106-122, 126-148, 269-287, and 384-403.
+Uninvoked revoked permits can release immediately; invoked work releases only after settlement plus retained-data disposal.
+Identity and route have separate node-wide pools, results awaiting application still count, and late observers retain bounded accounting rather than controller/channel authority.
+DOM abort is a cooperative signal with synchronous abort steps/event delivery, not forcible promise termination; the draft keeps application callback execution outside the executor and does not refund on that signal alone.
+Provider descendant work hidden behind a settled wrapper remains provider/host-owned.
+A never-settling provider can exhaust its finite pool for the instance lifetime; fairness, CPU preemption, arbitrary provider-memory containment, and recovery by mere object replacement are not promised.
+
+8. Stopped revisions versus numerical terminal capture.
+Failure hypothesis: late stopped-node cleanup silently changes gauges without revision, or numeric exhaustion zeros unfinished work, refreshes its capture time, or allows later public changes.
+Disposition: rejected at design level by R4 lines 391-408 and 465-481.
+docs/design/operations.md lines 177-230 requires one revision per canonical mutation, no revision for queries, and an immutable numerical terminal capture.
+Ordinary stopped cleanup uses that ordinary revision rule without reopening lifecycle or streams.
+Numerical replacement captures actual retained work after detachment, freezes values/revision/time together, and permits only private later disposal.
+The source discrepancy is real: packages/core/src/operations.ts lines 476-503 zeros gauges and marks the store terminal, while lines 683-695 take a fresh wall timestamp on queries.
+R4 explicitly calls for repair rather than claiming the existing store already meets this proposal.
+The unchanged StopReport remains the original stop-operation result, not a promise that every later cleanup gauge uses its revision.
+
+9. Runtime terminal authority and all publication sites.
+Failure hypothesis: routing/collision state mutates, then OperationsStore replaces only the publication, leaving a live node behind a Failed snapshot.
+Disposition: rejected at design level by R4 lines 435-484.
+The complete pure plan, projection/numeric preflight, one-use permit, final exact-owner/deadline guard, infallible installation, and tagged outcomes precede post-commit effects.
+Collision-loser consequences are included in the same plan; no recursive publishing install action, mutation-then-rollback, or provider callback is allowed there.
+One node-owned terminal sequence closes all invocation/adoption/retry authority before cleanup and snapshot capture.
+Source examples confirm why the scope includes non-admission publications: packages/node/src/node.ts lines 778-820, 844-860, and 1610-1632 mutate identity/routing or close export epochs before/around an operations commit; packages/core/src/operations.ts lines 275-281 currently returns store-only terminal replacement.
+The inventory at R4 lines 483-484 is load-bearing and must cover every live publication and associated mutation, not a few admission call sites.
+No generic public transaction framework is earned or required.
+
+10. Capacity wait, collision winner loss, and retry history.
+Failure hypothesis: a capacity notification itself authorizes acquisition, produces duplicate retry owners, resets backoff, inherits an obsolete refusing pool, or leaves a dead winner projected as active.
+Disposition: rejected at design level by the complete R4 transition table at lines 308-356.
+The level check and waiter registration share a turn; release notifications coalesce; invocation still reserves atomically.
+The first configured attempt is distinguished from repeat eligibility when reconnect is disabled.
+Backoff remains its actual timer; capacity-only waits fabricate neither retryAt nor a session token.
+Winner ownership suppresses competing dials without resetting failure history; only the exact current Established success resets it.
+The added loss row clears the exact winner before applying the closed reconnect disposition once, while stale winner loss is inert.
+Remembered refusing pools end at the named actual-acquisition/satisfaction/terminal boundaries, not arbitrary notification arrival.
+This preserves docs/design/fsm.md lines 30-37, 95-97, 151-174, 250, and 343-346.
+The source's early resets remain repairs to perform, not precedent: packages/core/src/fsm.ts lines 938-994 and packages/node/src/node.ts lines 1465-1468.
+The existing timer/controller-derived projection at node.ts lines 1887-1911 cannot simply remain alongside the proposed supervisor owner.
+
+11. Options shape and public compatibility.
+Failure hypothesis: the new signal becomes a required provider migration, enters serializable request/result data, or survives as authority over an established session.
+Disposition: rejected at design level by R4 lines 365-382.
+Both port methods receive an optional second argument; a supplied AdmissionEvaluationOptions contains readonly signal: AbortSignal; AGP supplies it consistently.
+The signal's authority ends with the pending evaluation, not credential validity or established-session lifetime.
+docs/design/sdk.md lines 221-240 and the current public types are the baseline one-request capability contracts.
+The added process-local options do not alter wire messages or schema-backed request/result DTOs.
+The design still requires provider/export inventory and public-entry-point compilation before adoption; this reviewer did not repeat the earlier reported compile check and does not upgrade it to runtime compatibility evidence.
+
+12. Source-grounded compatibility of the reused setting.
+Failure hypothesis: the phrase 'accepted value domain' silently asserts that structural schema and createNode already agree, or permits zero to disable the new total cleanup guard.
+Disposition: no unresolved runtime budget choice in R4; record and reconcile the concrete representation discrepancy during contract absorption.
+Measured: packages/core/src/schemas/v1/configuration/timers.schema.json lines 56-60 permits integer zero; packages/node/src/node.ts lines 2088-2091 and 2351-2355 rejects zero via positive().
+R4 line 257 explicitly selects finite positive safe integers for these limits, matching the effective factory behavior, and lines 415-430 require compatibility inventory and explicit semantic migration.
+Schema acceptance alone is not factory acceptance: docs/design/sdk.md lines 272-285 separately requires contextual rules; its transportConnectTimeoutMs rule at lines 249-252 is positive even though that timer also has structural minimum zero.
+Therefore the bounded runtime choice is already positive, not 'zero means no guard'.
+Do not report schema/runtime alignment as measured or preserve this mismatch silently when absorbing the new close-setting contract.
+Recommended wording polish: say 'effective createNode accepted domain of positive safe integers' instead of an unqualified 'accepted value domain', and record how the structural schema/contextual rule will express that same public meaning.
+This is not evidence that a working zero-timeout deployment is being broken; no such deployment was observed or implied by the schema alone.
+
+13. Per-send enforcement is not established by configuration resolution.
+Failure hypothesis: because transportWriteTimeoutMs is resolved, the new cleanup guard composes with an already-enforced per-send deadline without further work.
+Disposition: rejected as an implementation assumption, not a defect left open by the design.
+packages/node/src/node.ts lines 2084-2091 resolves write/close values, but controller construction at lines 1555-1569 passes only the close value, and packages/node/src/session-writer.ts lines 265-295 passes its stop signal to send without a per-send deadline there.
+docs/design/transport-contract.md lines 608-609 and 830-846 already assigns the per-send bound to the writer.
+R4 lines 62, 243-244, and 419-430 expressly denies that resolution proves enforcement and requires both boundaries and both non-default precedence orders to be verified.
+Implementing only total teardown while claiming current per-send enforcement would violate the draft's own acceptance gate.
+
+MATERIAL FINDINGS, DELTAS, AND OPTIONAL POLISH
+
+Necessary design fixes for the stated technical gate: none found in this pass.
+No prior technical PASS was used to reach that conclusion, and no failed reader answer was rescored.
+
+Required later work, not waived by PASS:
+- Absorb the selected cancellation/options, local events, pool capacities, gauge meanings, timer defaults, capacity reasons, and changed close-timeout interval together through the sovereign contract/type/schema/catalog boundaries.
+- Explicitly reconcile the schema/contextual positive-domain distinction above; zero must not silently disable or redefine the selected finite guard.
+- Inventory every runtime operations publication and every pre-publication mutation before closing the terminal integration prerequisite.
+- Establish actual per-send enforcement, total cleanup enforcement, bounded continuation ownership, and exact cleanup/admission generation guards in implementation verification.
+- Retain separate public adoption, fresh-reader assurance, implementation verification, and consumer-acceptance gates.
+
+Optional polish: qualify the effective-domain phrase identified in item 12 and carry the same explanation into migration guidance.
+This wording improvement does not substitute for the required contract absorption, nor require changing the already-explicit positive runtime policy.
+No architectural rewrite, additional public telemetry domain, or mandatory provider migration is recommended by this review.
+
+DEDICATED M7 AXIOM-ALIGNMENT RECORD
+
+Scope: the near-final R4 proposal at the measured hash, not AGP-wide conformance.
+Verdict: PASS with the following mapped guardrails.
+This is a separate alignment judgment after source establishment; the axioms were not used to infer the source's current behavior.
+
+A3 -- load-bearing, package/module composition scope.
+Alignment: core remains the pure FSM/routing/numeric owner; node owns runtime commit/terminal authority; the session owns exact incarnation and ordered reader/cleanup; ledgers own retained work; one supervisor owns scheduling; transports retain their existing terminal/resource contract.
+Tension: all-publication preflight has a broad integration radius and could become a second controller or generic transaction framework.
+Resolution/guardrail: factor prospective operations through existing owners and declared interfaces; no core callback into node-private ledgers, duplicate routing validator, second retry loop, or carrier-specific admission engine.
+Closeout hook: publication-site inventory plus boundary/package tests must show every effect-bearing site uses the same terminal gate.
+
+A4 -- load-bearing, AGP design/contract/operations artifact scope.
+Alignment: authority, cleanup, and provider work remain distinct; capacity reasons are truthful; an ended connection is not a work-accounting surrogate; numeric-terminal counts retain their capture time; prior drafts, verdicts, and the failed assurance record remain intact.
+Tension: 'pending' connection evidence, last-known gauges, current capacity reasons, and effective configuration can be mistaken for live authority or physical-release proof.
+Resolution/guardrail: preserve the exact projection meanings and metadata, carry the zero-domain discrepancy into absorption, and do not collapse reported consumer behavior into reproduced measurements.
+Closeout hook: aggregate/focused capture equality, ordinary stopped revisions, terminal frozen captures, and reader behavior across SDK/HTTP/CLI.
+
+A8 -- load-bearing, AGP verification-graph scope.
+Alignment: the proposal distinguishes authored requirements from implemented behavior and keeps independent design review, public-surface agreement, fresh-reader assurance, and runtime verification separate.
+Tension: a technical PASS or a local draft commit could be reported as implementation readiness or as erasing the earlier assurance FAIL.
+Resolution/guardrail: this verdict applies only to the frozen design; no implementation approval until the remaining required gates are satisfied or a director records an explicit override of a failed gate without renaming it PASS.
+Closeout hook: preserve exact content identities and each gate's condition, judge, verdict, and limits; B53 remains open pending actual correction and verification.
+
+A9 -- supporting, AGP's declared sandbox-derived partial scope only.
+Alignment: R4 supplies falsifiable lifecycle/resource predicates and normal conforming traffic controls, including elapsed result application, stale generations, final-guard expiry, deadline orderings, terminal detachment, and pool conservation.
+Tension: source review or future deterministic local checks could be broadened into native/browser release or production fidelity claims.
+Resolution/guardrail: verification must report the exact executed boundary and retain progressing-host/conforming-transport assumptions; no production or full A9 certificate follows here.
+Closeout hook: later scoped verifier results must distinguish logical authority, observed terminal evidence, work settlement/disposal, and any separately owned physical release observation.
+
+A14 -- supporting, AGP's declared finding-lifecycle subset only.
+Alignment: the proposal fixes the shared identity/route lifetime cause and its lower publication/retry dependencies rather than requiring every consumer to carry a private workaround.
+Tension: broad cleanup or portability work could displace the bounded correction, or the consumer wrapper could be removed before verified replacement exists.
+Resolution/guardrail: keep authentication/redemption, browser portability, scale tuning, packet depth, and unrelated replay policy outside B53; retain Zorg's wrapper and provider responsibilities until an explicit verified migration.
+Closeout hook: capture remaining implementation findings under their actual owners and verify recurrence predicates before B53 closure; no full A14 attention/payback claim is made.
+
+Layered application:
+- Intent/public authority: common semantics, truthful resources, recovery without invented delivery certainty; drafting/review is not ratification.
+- Protocol/FSM/routing: exact current continuation authority, ordered semantic effects, atomic route/revision/ACK, establishment-only retry reset.
+- Runtime composition: one coordinator/runtime terminal barrier, separate detached cleanup authority, finite work ledgers, one supervisor.
+- Transport/host: preserve immutable first-terminal/FIFO contracts, active finite deadlines, cooperative cancellation, and physical-release limits.
+- Operations/evidence: one ordinary revision per cleanup mutation or one frozen numeric-terminal capture; provenance and prior FAIL remain visible.
+
+Product exclusions: A1, A2, A5, A6, A7, A10, A11, A12, and A13 were not activated as AGP product obligations.
+A0 remains the existing product map's lineage context, not selective conformance.
+Director interaction and independent review use delivery-process guidance without importing agent-system axioms into this deterministic library.
+Accepted deviations: none requested or inferred by this review.
+
+SOURCE-FAMILY PROVENANCE AND LIMITS
+
+Family 1 -- AGP source/contracts/history, counted as one family.
+Read the complete R4 and its complete R3 difference; the full FSM contract; the applicable transport send/read/lifecycle/deadline sections; operations state/revision/terminal rules; routing validation/capacity/atomicity rules; SDK provider/configuration/lifecycle rules; source controller/writer/core FSM/routing/operations/node paths; the existing bounded primitives and executor; and outbound-acquisition history at f16266aaafa66f6301d7afbf09c55e3a1f990274.
+Read the full shared-transport intent envelope and adoption recommendation for authority boundaries, not as proof of implementation.
+Prior review R3 and author triage were read as lineage and challenge inputs, not independent proof of this target.
+
+Family 2 -- independent consumer report.
+Read /home/apnex/taceng/zorg/upstream/agp-build-questions.md in full.
+The long-retained pending connection and ten-minute observation are Zorg's attributed report at lines 8-23; no reproduction was executed here.
+Its bounded admission wrapper is a consumer consequence, not AGP runtime verification or evidence of hidden-provider-work release.
+The separate packet-depth question remains outside this correction.
+
+Family 3 -- DOM abort model.
+Primary source read: https://dom.spec.whatwg.org/#aborting-ongoing-activities (including signal-abort steps and API use).
+Constraint used: abort communicates cancellation intent and runs observer code; it is not built-in forcible promise termination.
+It supports callback placement and the no-refund-on-abort boundary, not AGP cleanup certification.
+
+Family 4 -- ECMAScript promise reactions.
+Primary source read: https://tc39.es/ecma262/multipage/control-abstraction-objects.html#sec-performpromisethen
+Constraint used: fulfilled/rejected promises enqueue reaction jobs; settlement and serialized application are distinct moments.
+It supports final authority/deadline checks, not a timing measurement of AGP.
+
+Family 5 -- Node timer behavior.
+Primary source read: https://nodejs.org/api/timers.html#settimeoutcallback-delay-args
+Constraint used: callback timing/order is not exact, large/small delays are coerced, and nonintegral delays are truncated.
+It supports monotonic elapsed checks, chunking, upward rounding of positive remainders, and stale-generation guards, not an exact wall-clock teardown or browser guarantee.
+
+Five input families are not five independent reviewers.
+All dynamic behavior conclusions in this report are design arguments; the measurements were file contents, hashes, source diffs, history, and guidance identity.
+No runtime test, reproduction, vulnerability-triggering input, model experiment, compile check, repository edit, commit/push, or Zorg message was performed by this reviewer.
+No subagent was used.
+The only write by this reviewer is this requested plain-text artifact.
+
+NEXT ACTION
+
+Preserve this review verbatim beside the frozen R4 identity, carry the compatibility note and guardrails forward, and keep the old assurance FAIL unchanged.
+The next authorized decision is whether to prepare separately reviewed prospective assurance/contract absorption under the selected direction, not to implement or close B53 on this PASS.
+Any new reader comparison needs its own preregistration, fresh questions/readers, and independently reviewed decision criteria; none was run or authorized by this review.
