@@ -1,0 +1,11 @@
+PASS — the corrected packet at `c4d9a1275bd31702be41efad06f841fdcd620cab` is ready for the preregistered measurement workflow. No remaining necessary fixes found.
+
+The bounded recheck confirms:
+
+- Required versus ancillary decisions are explicit. The Q04–Q08 and Q10–Q12 corrections address the original fairness findings, including Q07’s distinction between omitting event detail and inventing a session event. [Corrected keys](/home/apnex/taceng/agp/docs/reviews/admission-lifetime-assurance/admission-lifetime-probes.json:57)
+- Q06’s metadata question is narrowed; Q08 supplies reconnect/budget eligibility. All twelve task/question copies match exactly, with unique headings. [Questions](/home/apnex/taceng/agp/docs/reviews/admission-lifetime-assurance/admission-lifetime-probes.json:92)
+- The amendment fixes missing-answer accounting, quotation caps, behavior versus infrastructure failures, expected vote slots, hedge denominators and independently substantiated post-response measurement defects. Its precedence is explicit. [Validity rules](/home/apnex/taceng/agp/docs/reviews/admission-lifetime-assurance/admission-assurance-amendment-01.md:29), [precedence](/home/apnex/taceng/agp/docs/reviews/admission-lifetime-assurance/admission-assurance-preregistration.md:7)
+- I checked all 24 actual rendered prompt records: they contain the committed questions, keys, rubrics and judge instructions, anonymous placeholders and no source-version, arm-order or reader-identity disclosure. They cover all twelve probes and 144 fixture answer slots. These remain capture-only fixtures, not scored evidence. [Preview log](/tmp/agp-admission-assurance.A3BdFx/judge-prompt-preview-corrected.log:1)
+- All four frozen source/input hashes still match the unchanged manifest. The evaluator checkout is at the declared `6e6d0a92965a15ec473c661887b2b9c5037fedcf`, with no tracked core-source changes.
+
+This PASS concerns measurement readiness only. It does not establish runtime isolation, reader performance, the eventual assurance-gate result, design adoption or implementation correctness. I performed only read-only checks and launched no readers or experiments.

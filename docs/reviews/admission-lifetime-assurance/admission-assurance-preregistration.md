@@ -1,6 +1,6 @@
 # Admission lifetime fresh-reader preregistration
 
-Status: amended before scoring after the first independent key audit; bounded recheck pending.\
+Status: amended before scoring; [independent recheck](key-audit-02.txt) passes measurement readiness.\
 Tier 3: the comparison design and decision rule are judgments, not observations.
 
 Correction checkpoint (2026-10-12): the [first audit](key-audit-01.txt) found the original packet unready for scoring.\

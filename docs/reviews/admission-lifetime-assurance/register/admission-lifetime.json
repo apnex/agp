@@ -1,0 +1,11 @@
+{
+  "experiment": "admission-lifetime",
+  "records": [
+    {
+      "experiment": "admission-lifetime",
+      "hash": "1ce9e430ede08cb0c06b15e1dd5289f4d13ea61392206a4887e4689c688e1eab",
+      "recordedAt": "2026-10-12T03:20:21.147Z",
+      "declaredStatus": "result"
+    }
+  ]
+}
