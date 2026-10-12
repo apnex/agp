@@ -1,0 +1,48 @@
+FAIL — the preregistered assurance gate is not met. This is a failure of the measured grounding/completeness criteria, not proof that the candidate mechanism is defective.
+
+I performed read-only review. I did not change scores, answer probes, launch models, rerun readers or edit files.
+
+### Validity and accounting
+
+The measurement remains usable under the frozen rules:
+
+- All six reader cells are first-attempt, core-valid outcomes; all nine isolation checks passed. The frozen questions/key and source inputs remain unchanged.
+- I independently reconciled all 72 answers, 72 blinded units and 144 expected cross-family vote slots against raw records—not merely the accounting aid.
+- All 24 actual judge prompts contain the frozen questions, keys, rubrics and anonymous answer text, without arm/version/reader provenance. Every published vote and reason matches an accepted reply.
+- There were **25 judge replies, not 24 tools-off replies**. Batch `o.6` first used a tool; its six scores were discarded. The attempted directory listing returned only an empty invocation-directory path. A fresh tools-off replacement supplied the retained votes. This follows the pinned evaluator’s discard-and-repair procedure. [Judge record](/home/apnex/taceng/agp/docs/reviews/admission-lifetime-assurance/records/2026-10-12-032023-admission-lifetime/judging/admission-lifetime.answer.answers.o.6.json:4), [retained events](/home/apnex/taceng/agp/docs/reviews/admission-lifetime-assurance/judge-o-06-rejected-events.jsonl:4), [procedure](/tmp/agp-admission-assurance.A3BdFx/context-lab/packages/core/src/judge-panel.ts:199)
+- Reader `p87.g` was not instruction-compliant: it attempted the unavailable instruction-file read, used write tools and read its own answer file. The outside read was denied; no additional source material was obtained. Its retained answers match the written file. This does not establish an isolation breach or justify dropping/retrying the reader under the declared rules. [Raw events](/home/apnex/taceng/agp/docs/reviews/admission-lifetime-assurance/reader-p87-g-events.jsonl:3), [validity rules](/home/apnex/taceng/agp/docs/reviews/admission-lifetime-assurance/admission-assurance-amendment-01.md:35)
+
+### Frozen numerical disposition
+
+Scores below are in reader order `c, g, o`, after the lower-vote rule and exact-quote cap.
+
+| Probe | Predecessor | Candidate |
+|---|---|---|
+| Q01 | 2,1,2 | 1,2,1 |
+| Q02 | 1,1,1 | 1,1,1 |
+| Q03 | 2,1,2 | 1,1,1 |
+| Q04 | 1,0,2 | 1,1,1 |
+| Q05 | 1,1,1 | 1,1,1 |
+| Q06 | 2,1,2 | 2,1,2 |
+| Q07 | 1,1,1 | 1,1,1 |
+| Q08 | 1,0,1 | 1,1,2 |
+| Q09 | 1,1,1 | 1,1,1 |
+| Q10 | 1,1,2 | 1,1,1 |
+| Q11 | 1,1,2 | 1,1,1 |
+| Q12 | 1,1,1 | 2,1,1 |
+
+The candidate has five 2s, thirty-one 1s and no 0s. Only Q06 meets the required two-of-three grounded successes. Controls regress on Q01, Q03, Q10 and Q11. These independently violate the [predeclared gate](/home/apnex/taceng/agp/docs/reviews/admission-lifetime-assurance/admission-assurance-preregistration.md:85).
+
+All 15 exact-quote caps reconcile with the raw source bytes: nine predecessor and six candidate outcomes. Only three caps reduce an otherwise-lower-vote 2: `d41.g/Q01`, `p87.g/Q04`, `p87.g/Q12`. Markdown punctuation and hard-break backslashes are not whitespace; removing them fails the frozen matching rule. Those penalties must remain, but are not mechanism defects.
+
+### Interpretation and substantive validity
+
+I found no independently substantiated key, question, delivery or scoring defect requiring a **no-gate-verdict** disposition under amendment line 49. The adverse scores nevertheless require restrained interpretation:
+
+- Many 1s reflect missing supporting excerpts or omitted required detail despite substantively safe decisions. Q02 is especially scope-sensitive: repeated penalties concern explicit treatment of the final-reducer-only check, not demonstrated permission for stale effects. The judges differ on whether the executor-check wording establishes that requirement. Retain that disagreement; do not translate it into a demonstrated authority-guard defect. [Q02 key](/home/apnex/taceng/agp/docs/reviews/admission-lifetime-assurance/admission-lifetime-probes.json:29), [contrasting reasons](/home/apnex/taceng/agp/docs/reviews/admission-lifetime-assurance/records/2026-10-12-032023-admission-lifetime/judging/votes.json:103)
+- The predecessor’s Q08 problem is document inadequacy against the explicitly distinguished normative success boundary. Its unsafe response faithfully repeats the supplied early-reset instruction; the two other readers identify unresolved authority. This is not evidence of reader misconduct. Candidate readers preserve history through OpenConfirm, but two lose full credit on the required ownership detail. [Q08 key](/home/apnex/taceng/agp/docs/reviews/admission-lifetime-assurance/admission-lifetime-probes.json:113), [faithful unsafe response finding](/home/apnex/taceng/agp/docs/reviews/admission-lifetime-assurance/records/2026-10-12-032023-admission-lifetime/judging/votes.json:1343)
+- I inspected complete OBSERVATIONS in both arms. The predecessor has a majority Q08 hedge; the candidate has no majority hedge about a required decision. Candidate concerns about queued input are constrained by its explicit sole-reader/FIFO/no-protocol-effects text. Unspecified numerical settings, detailed fault mappings, ordinary-stop metadata and pending adoption or implementation work must not be silently converted into required-answer failures. They remain follow-up questions or acknowledged scope limits. [Candidate ordering text](/home/apnex/taceng/agp/docs/reviews/admission-lifetime-assurance/inputs/p87/DESIGN.md:143)
+
+The small sample and conservative, quote-intensive rubric support a bounded assurance failure—not a causal claim that the retry correction damaged unchanged mechanisms, nor implementation verification.
+
+Next action: preserve this run and all scores unchanged, report the failed assurance gate to the director, and separate answer-grounding deficiencies from genuine document ambiguities before proposing further work. Any revised design or substantive measurement repair needs a new preregistration and fresh questions/readers; no retrospective regrade or selective rerun. Adoption, implementation and B53 closure remain unauthorized by this result.

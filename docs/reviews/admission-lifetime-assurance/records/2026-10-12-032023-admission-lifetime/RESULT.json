@@ -1,0 +1,788 @@
+{
+  "run": "2026-10-12-032023-admission-lifetime",
+  "status": "result",
+  "arms": [
+    "d41",
+    "p87"
+  ],
+  "members": [
+    "c",
+    "g",
+    "o"
+  ],
+  "properties": [
+    {
+      "scenario": "admission-lifetime",
+      "property": "q01",
+      "byArm": {
+        "d41": {
+          "mean": 2,
+          "of": 3,
+          "incomplete": 0
+        },
+        "p87": {
+          "mean": 1.6666666666666667,
+          "of": 3,
+          "incomplete": 0
+        }
+      },
+      "byArmMember": {
+        "d41": {
+          "c": {
+            "mean": 2,
+            "of": 1,
+            "incomplete": 0
+          },
+          "g": {
+            "mean": 2,
+            "of": 1,
+            "incomplete": 0
+          },
+          "o": {
+            "mean": 2,
+            "of": 1,
+            "incomplete": 0
+          }
+        },
+        "p87": {
+          "c": {
+            "mean": 1.5,
+            "of": 1,
+            "incomplete": 0
+          },
+          "g": {
+            "mean": 2,
+            "of": 1,
+            "incomplete": 0
+          },
+          "o": {
+            "mean": 1.5,
+            "of": 1,
+            "incomplete": 0
+          }
+        }
+      },
+      "agreement": {
+        "agree": 4,
+        "of": 6
+      }
+    },
+    {
+      "scenario": "admission-lifetime",
+      "property": "q02",
+      "byArm": {
+        "d41": {
+          "mean": 1.1666666666666667,
+          "of": 3,
+          "incomplete": 0
+        },
+        "p87": {
+          "mean": 1,
+          "of": 3,
+          "incomplete": 0
+        }
+      },
+      "byArmMember": {
+        "d41": {
+          "c": {
+            "mean": 1.5,
+            "of": 1,
+            "incomplete": 0
+          },
+          "g": {
+            "mean": 1,
+            "of": 1,
+            "incomplete": 0
+          },
+          "o": {
+            "mean": 1,
+            "of": 1,
+            "incomplete": 0
+          }
+        },
+        "p87": {
+          "c": {
+            "mean": 1,
+            "of": 1,
+            "incomplete": 0
+          },
+          "g": {
+            "mean": 1,
+            "of": 1,
+            "incomplete": 0
+          },
+          "o": {
+            "mean": 1,
+            "of": 1,
+            "incomplete": 0
+          }
+        }
+      },
+      "agreement": {
+        "agree": 5,
+        "of": 6
+      }
+    },
+    {
+      "scenario": "admission-lifetime",
+      "property": "q03",
+      "byArm": {
+        "d41": {
+          "mean": 1.6666666666666667,
+          "of": 3,
+          "incomplete": 0
+        },
+        "p87": {
+          "mean": 1.1666666666666667,
+          "of": 3,
+          "incomplete": 0
+        }
+      },
+      "byArmMember": {
+        "d41": {
+          "c": {
+            "mean": 2,
+            "of": 1,
+            "incomplete": 0
+          },
+          "g": {
+            "mean": 1,
+            "of": 1,
+            "incomplete": 0
+          },
+          "o": {
+            "mean": 2,
+            "of": 1,
+            "incomplete": 0
+          }
+        },
+        "p87": {
+          "c": {
+            "mean": 1,
+            "of": 1,
+            "incomplete": 0
+          },
+          "g": {
+            "mean": 1,
+            "of": 1,
+            "incomplete": 0
+          },
+          "o": {
+            "mean": 1.5,
+            "of": 1,
+            "incomplete": 0
+          }
+        }
+      },
+      "agreement": {
+        "agree": 5,
+        "of": 6
+      }
+    },
+    {
+      "scenario": "admission-lifetime",
+      "property": "q04",
+      "byArm": {
+        "d41": {
+          "mean": 1.5,
+          "of": 3,
+          "incomplete": 0
+        },
+        "p87": {
+          "mean": 1.5,
+          "of": 3,
+          "incomplete": 0
+        }
+      },
+      "byArmMember": {
+        "d41": {
+          "c": {
+            "mean": 1.5,
+            "of": 1,
+            "incomplete": 0
+          },
+          "g": {
+            "mean": 1,
+            "of": 1,
+            "incomplete": 0
+          },
+          "o": {
+            "mean": 2,
+            "of": 1,
+            "incomplete": 0
+          }
+        },
+        "p87": {
+          "c": {
+            "mean": 1.5,
+            "of": 1,
+            "incomplete": 0
+          },
+          "g": {
+            "mean": 2,
+            "of": 1,
+            "incomplete": 0
+          },
+          "o": {
+            "mean": 1,
+            "of": 1,
+            "incomplete": 0
+          }
+        }
+      },
+      "agreement": {
+        "agree": 3,
+        "of": 6
+      }
+    },
+    {
+      "scenario": "admission-lifetime",
+      "property": "q05",
+      "byArm": {
+        "d41": {
+          "mean": 1.1666666666666667,
+          "of": 3,
+          "incomplete": 0
+        },
+        "p87": {
+          "mean": 1,
+          "of": 3,
+          "incomplete": 0
+        }
+      },
+      "byArmMember": {
+        "d41": {
+          "c": {
+            "mean": 1,
+            "of": 1,
+            "incomplete": 0
+          },
+          "g": {
+            "mean": 1,
+            "of": 1,
+            "incomplete": 0
+          },
+          "o": {
+            "mean": 1.5,
+            "of": 1,
+            "incomplete": 0
+          }
+        },
+        "p87": {
+          "c": {
+            "mean": 1,
+            "of": 1,
+            "incomplete": 0
+          },
+          "g": {
+            "mean": 1,
+            "of": 1,
+            "incomplete": 0
+          },
+          "o": {
+            "mean": 1,
+            "of": 1,
+            "incomplete": 0
+          }
+        }
+      },
+      "agreement": {
+        "agree": 5,
+        "of": 6
+      }
+    },
+    {
+      "scenario": "admission-lifetime",
+      "property": "q06",
+      "byArm": {
+        "d41": {
+          "mean": 1.8333333333333333,
+          "of": 3,
+          "incomplete": 0
+        },
+        "p87": {
+          "mean": 1.8333333333333333,
+          "of": 3,
+          "incomplete": 0
+        }
+      },
+      "byArmMember": {
+        "d41": {
+          "c": {
+            "mean": 2,
+            "of": 1,
+            "incomplete": 0
+          },
+          "g": {
+            "mean": 1.5,
+            "of": 1,
+            "incomplete": 0
+          },
+          "o": {
+            "mean": 2,
+            "of": 1,
+            "incomplete": 0
+          }
+        },
+        "p87": {
+          "c": {
+            "mean": 2,
+            "of": 1,
+            "incomplete": 0
+          },
+          "g": {
+            "mean": 1.5,
+            "of": 1,
+            "incomplete": 0
+          },
+          "o": {
+            "mean": 2,
+            "of": 1,
+            "incomplete": 0
+          }
+        }
+      },
+      "agreement": {
+        "agree": 4,
+        "of": 6
+      }
+    },
+    {
+      "scenario": "admission-lifetime",
+      "property": "q07",
+      "byArm": {
+        "d41": {
+          "mean": 1.5,
+          "of": 3,
+          "incomplete": 0
+        },
+        "p87": {
+          "mean": 1.3333333333333333,
+          "of": 3,
+          "incomplete": 0
+        }
+      },
+      "byArmMember": {
+        "d41": {
+          "c": {
+            "mean": 1.5,
+            "of": 1,
+            "incomplete": 0
+          },
+          "g": {
+            "mean": 1.5,
+            "of": 1,
+            "incomplete": 0
+          },
+          "o": {
+            "mean": 1.5,
+            "of": 1,
+            "incomplete": 0
+          }
+        },
+        "p87": {
+          "c": {
+            "mean": 1.5,
+            "of": 1,
+            "incomplete": 0
+          },
+          "g": {
+            "mean": 1,
+            "of": 1,
+            "incomplete": 0
+          },
+          "o": {
+            "mean": 1.5,
+            "of": 1,
+            "incomplete": 0
+          }
+        }
+      },
+      "agreement": {
+        "agree": 1,
+        "of": 6
+      }
+    },
+    {
+      "scenario": "admission-lifetime",
+      "property": "q08",
+      "byArm": {
+        "d41": {
+          "mean": 0.6666666666666666,
+          "of": 3,
+          "incomplete": 0
+        },
+        "p87": {
+          "mean": 1.6666666666666667,
+          "of": 3,
+          "incomplete": 0
+        }
+      },
+      "byArmMember": {
+        "d41": {
+          "c": {
+            "mean": 1,
+            "of": 1,
+            "incomplete": 0
+          },
+          "g": {
+            "mean": 0,
+            "of": 1,
+            "incomplete": 0
+          },
+          "o": {
+            "mean": 1,
+            "of": 1,
+            "incomplete": 0
+          }
+        },
+        "p87": {
+          "c": {
+            "mean": 1.5,
+            "of": 1,
+            "incomplete": 0
+          },
+          "g": {
+            "mean": 1.5,
+            "of": 1,
+            "incomplete": 0
+          },
+          "o": {
+            "mean": 2,
+            "of": 1,
+            "incomplete": 0
+          }
+        }
+      },
+      "agreement": {
+        "agree": 4,
+        "of": 6
+      }
+    },
+    {
+      "scenario": "admission-lifetime",
+      "property": "q09",
+      "byArm": {
+        "d41": {
+          "mean": 1.3333333333333333,
+          "of": 3,
+          "incomplete": 0
+        },
+        "p87": {
+          "mean": 1.1666666666666667,
+          "of": 3,
+          "incomplete": 0
+        }
+      },
+      "byArmMember": {
+        "d41": {
+          "c": {
+            "mean": 1.5,
+            "of": 1,
+            "incomplete": 0
+          },
+          "g": {
+            "mean": 1,
+            "of": 1,
+            "incomplete": 0
+          },
+          "o": {
+            "mean": 1.5,
+            "of": 1,
+            "incomplete": 0
+          }
+        },
+        "p87": {
+          "c": {
+            "mean": 1,
+            "of": 1,
+            "incomplete": 0
+          },
+          "g": {
+            "mean": 1,
+            "of": 1,
+            "incomplete": 0
+          },
+          "o": {
+            "mean": 1.5,
+            "of": 1,
+            "incomplete": 0
+          }
+        }
+      },
+      "agreement": {
+        "agree": 3,
+        "of": 6
+      }
+    },
+    {
+      "scenario": "admission-lifetime",
+      "property": "q10",
+      "byArm": {
+        "d41": {
+          "mean": 1.5,
+          "of": 3,
+          "incomplete": 0
+        },
+        "p87": {
+          "mean": 1.3333333333333333,
+          "of": 3,
+          "incomplete": 0
+        }
+      },
+      "byArmMember": {
+        "d41": {
+          "c": {
+            "mean": 1.5,
+            "of": 1,
+            "incomplete": 0
+          },
+          "g": {
+            "mean": 1,
+            "of": 1,
+            "incomplete": 0
+          },
+          "o": {
+            "mean": 2,
+            "of": 1,
+            "incomplete": 0
+          }
+        },
+        "p87": {
+          "c": {
+            "mean": 1.5,
+            "of": 1,
+            "incomplete": 0
+          },
+          "g": {
+            "mean": 1,
+            "of": 1,
+            "incomplete": 0
+          },
+          "o": {
+            "mean": 1.5,
+            "of": 1,
+            "incomplete": 0
+          }
+        }
+      },
+      "agreement": {
+        "agree": 3,
+        "of": 6
+      }
+    },
+    {
+      "scenario": "admission-lifetime",
+      "property": "q11",
+      "byArm": {
+        "d41": {
+          "mean": 1.5,
+          "of": 3,
+          "incomplete": 0
+        },
+        "p87": {
+          "mean": 1.3333333333333333,
+          "of": 3,
+          "incomplete": 0
+        }
+      },
+      "byArmMember": {
+        "d41": {
+          "c": {
+            "mean": 1.5,
+            "of": 1,
+            "incomplete": 0
+          },
+          "g": {
+            "mean": 1,
+            "of": 1,
+            "incomplete": 0
+          },
+          "o": {
+            "mean": 2,
+            "of": 1,
+            "incomplete": 0
+          }
+        },
+        "p87": {
+          "c": {
+            "mean": 1.5,
+            "of": 1,
+            "incomplete": 0
+          },
+          "g": {
+            "mean": 1,
+            "of": 1,
+            "incomplete": 0
+          },
+          "o": {
+            "mean": 1.5,
+            "of": 1,
+            "incomplete": 0
+          }
+        }
+      },
+      "agreement": {
+        "agree": 3,
+        "of": 6
+      }
+    },
+    {
+      "scenario": "admission-lifetime",
+      "property": "q12",
+      "byArm": {
+        "d41": {
+          "mean": 1.3333333333333333,
+          "of": 3,
+          "incomplete": 0
+        },
+        "p87": {
+          "mean": 1.6666666666666667,
+          "of": 3,
+          "incomplete": 0
+        }
+      },
+      "byArmMember": {
+        "d41": {
+          "c": {
+            "mean": 1.5,
+            "of": 1,
+            "incomplete": 0
+          },
+          "g": {
+            "mean": 1,
+            "of": 1,
+            "incomplete": 0
+          },
+          "o": {
+            "mean": 1.5,
+            "of": 1,
+            "incomplete": 0
+          }
+        },
+        "p87": {
+          "c": {
+            "mean": 2,
+            "of": 1,
+            "incomplete": 0
+          },
+          "g": {
+            "mean": 2,
+            "of": 1,
+            "incomplete": 0
+          },
+          "o": {
+            "mean": 1,
+            "of": 1,
+            "incomplete": 0
+          }
+        }
+      },
+      "agreement": {
+        "agree": 4,
+        "of": 6
+      }
+    }
+  ],
+  "totals": {
+    "d41": 17.166666666666668,
+    "p87": 16.666666666666668
+  },
+  "excluded": [],
+  "absent": [],
+  "guesses": {
+    "right": 0,
+    "all": 0,
+    "byGuess": {},
+    "baseRate": null
+  },
+  "unreachable": [
+    "admission-lifetime.p87.g.1"
+  ],
+  "cellValues": {
+    "admission-lifetime.d41.c.1": {
+      "q01": 2,
+      "q02": 1.5,
+      "q03": 2,
+      "q04": 1.5,
+      "q05": 1,
+      "q06": 2,
+      "q07": 1.5,
+      "q08": 1,
+      "q09": 1.5,
+      "q10": 1.5,
+      "q11": 1.5,
+      "q12": 1.5
+    },
+    "admission-lifetime.d41.g.1": {
+      "q01": 2,
+      "q02": 1,
+      "q03": 1,
+      "q04": 1,
+      "q05": 1,
+      "q06": 1.5,
+      "q07": 1.5,
+      "q08": 0,
+      "q09": 1,
+      "q10": 1,
+      "q11": 1,
+      "q12": 1
+    },
+    "admission-lifetime.d41.o.1": {
+      "q01": 2,
+      "q02": 1,
+      "q03": 2,
+      "q04": 2,
+      "q05": 1.5,
+      "q06": 2,
+      "q07": 1.5,
+      "q08": 1,
+      "q09": 1.5,
+      "q10": 2,
+      "q11": 2,
+      "q12": 1.5
+    },
+    "admission-lifetime.p87.c.1": {
+      "q01": 1.5,
+      "q02": 1,
+      "q03": 1,
+      "q04": 1.5,
+      "q05": 1,
+      "q06": 2,
+      "q07": 1.5,
+      "q08": 1.5,
+      "q09": 1,
+      "q10": 1.5,
+      "q11": 1.5,
+      "q12": 2
+    },
+    "admission-lifetime.p87.g.1": {
+      "q01": 2,
+      "q02": 1,
+      "q03": 1,
+      "q04": 2,
+      "q05": 1,
+      "q06": 1.5,
+      "q07": 1,
+      "q08": 1.5,
+      "q09": 1,
+      "q10": 1,
+      "q11": 1,
+      "q12": 2
+    },
+    "admission-lifetime.p87.o.1": {
+      "q01": 1.5,
+      "q02": 1,
+      "q03": 1.5,
+      "q04": 1,
+      "q05": 1,
+      "q06": 2,
+      "q07": 1.5,
+      "q08": 2,
+      "q09": 1.5,
+      "q10": 1.5,
+      "q11": 1.5,
+      "q12": 1
+    }
+  }
+}

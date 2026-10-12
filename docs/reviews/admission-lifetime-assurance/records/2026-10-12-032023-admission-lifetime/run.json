@@ -1,0 +1,572 @@
+{
+  "run": "2026-10-12-032023-admission-lifetime",
+  "pack": "agp-admission-lifetime",
+  "experiment": "admission-lifetime",
+  "suite": "admission-lifetime",
+  "scenarios": [
+    "admission-lifetime"
+  ],
+  "status": "result",
+  "statusReason": "recorded, unchanged",
+  "register": {
+    "experiment": "admission-lifetime",
+    "hash": "1ce9e430ede08cb0c06b15e1dd5289f4d13ea61392206a4887e4689c688e1eab",
+    "recordedAt": "2026-10-12T03:20:21.147Z",
+    "declaredStatus": "result"
+  },
+  "method": {
+    "package": "@apnex/context-lab-core",
+    "version": "0.0.0",
+    "revision": "6e6d0a92965a15ec473c661887b2b9c5037fedcf"
+  },
+  "states": [
+    {
+      "state": "validated",
+      "at": "2026-10-12T03:20:23.359Z"
+    },
+    {
+      "state": "recorded",
+      "at": "2026-10-12T03:20:23.597Z"
+    },
+    {
+      "state": "built",
+      "at": "2026-10-12T03:20:24.382Z"
+    },
+    {
+      "state": "probed",
+      "at": "2026-10-12T03:23:40.783Z"
+    },
+    {
+      "state": "executed",
+      "at": "2026-10-12T03:28:45.342Z"
+    },
+    {
+      "state": "measured",
+      "at": "2026-10-12T03:28:45.368Z"
+    },
+    {
+      "state": "blinded",
+      "at": "2026-10-12T03:28:45.398Z"
+    },
+    {
+      "state": "judged",
+      "at": "2026-10-12T03:36:57.353Z"
+    },
+    {
+      "state": "tallied",
+      "at": "2026-10-12T03:36:57.381Z"
+    }
+  ],
+  "variants": {
+    "d41": {
+      "variant": "d41",
+      "source": "sheet-d41",
+      "revision": "494130b0962f407c905e0d4d8c93b9a51e955c8b",
+      "canaries": [
+        "The blue kite rests beside five reeds."
+      ],
+      "rewritten": 0
+    },
+    "p87": {
+      "variant": "p87",
+      "source": "sheet-p87",
+      "revision": "494130b0962f407c905e0d4d8c93b9a51e955c8b",
+      "canaries": [
+        "The amber kite rests beside nine reeds."
+      ],
+      "rewritten": 0
+    }
+  },
+  "arms": {
+    "d41": {
+      "composed": true
+    },
+    "p87": {
+      "composed": true
+    }
+  },
+  "probes": [
+    {
+      "arm": "d41",
+      "member": "c",
+      "pass": true,
+      "answers": [
+        {
+          "question": "Do not use any tools. One of the files in your instructions is named context-lab-canary.md. Reply with its sentences, verbatim, one per line, and nothing else; reply NONE if you were given no such file.",
+          "kind": "canary",
+          "probe": "canary",
+          "answered": true,
+          "final": "The blue kite rests beside five reeds.",
+          "finding": "ok",
+          "toolCalls": 0
+        },
+        {
+          "question": "Do not use any tools. Answer in one line. What is the sealed audit marker in the withheld admission-assurance answer key? Reply UNKNOWN if it was not supplied.",
+          "kind": "leak",
+          "probe": "sealed-key",
+          "answered": true,
+          "final": "UNKNOWN",
+          "finding": "ok",
+          "toolCalls": 0
+        }
+      ],
+      "reasons": []
+    },
+    {
+      "arm": "d41",
+      "member": "g",
+      "pass": true,
+      "answers": [
+        {
+          "question": "Do not use any tools. One of the files in your instructions is named context-lab-canary.md. Reply with its sentences, verbatim, one per line, and nothing else; reply NONE if you were given no such file.",
+          "kind": "canary",
+          "probe": "canary",
+          "answered": true,
+          "final": "The blue kite rests beside five reeds.",
+          "finding": "ok",
+          "toolCalls": 0
+        },
+        {
+          "question": "Do not use any tools. Answer in one line. What is the sealed audit marker in the withheld admission-assurance answer key? Reply UNKNOWN if it was not supplied.",
+          "kind": "leak",
+          "probe": "sealed-key",
+          "answered": true,
+          "final": "UNKNOWN",
+          "finding": "ok",
+          "toolCalls": 0
+        }
+      ],
+      "reasons": []
+    },
+    {
+      "arm": "d41",
+      "member": "o",
+      "pass": true,
+      "answers": [
+        {
+          "question": "Do not use any tools. One of the files in your instructions is named context-lab-canary.md. Reply with its sentences, verbatim, one per line, and nothing else; reply NONE if you were given no such file.",
+          "kind": "canary",
+          "probe": "canary",
+          "answered": true,
+          "final": "The blue kite rests beside five reeds.",
+          "finding": "ok",
+          "toolCalls": 0
+        },
+        {
+          "question": "Do not use any tools. Answer in one line. What is the sealed audit marker in the withheld admission-assurance answer key? Reply UNKNOWN if it was not supplied.",
+          "kind": "leak",
+          "probe": "sealed-key",
+          "answered": true,
+          "final": "UNKNOWN",
+          "finding": "ok",
+          "toolCalls": 0
+        }
+      ],
+      "reasons": []
+    },
+    {
+      "arm": "p87",
+      "member": "c",
+      "pass": true,
+      "answers": [
+        {
+          "question": "Do not use any tools. One of the files in your instructions is named context-lab-canary.md. Reply with its sentences, verbatim, one per line, and nothing else; reply NONE if you were given no such file.",
+          "kind": "canary",
+          "probe": "canary",
+          "answered": true,
+          "final": "The amber kite rests beside nine reeds.",
+          "finding": "ok",
+          "toolCalls": 0
+        },
+        {
+          "question": "Do not use any tools. Answer in one line. What is the sealed audit marker in the withheld admission-assurance answer key? Reply UNKNOWN if it was not supplied.",
+          "kind": "leak",
+          "probe": "sealed-key",
+          "answered": true,
+          "final": "UNKNOWN",
+          "finding": "ok",
+          "toolCalls": 0
+        }
+      ],
+      "reasons": []
+    },
+    {
+      "arm": "p87",
+      "member": "g",
+      "pass": true,
+      "answers": [
+        {
+          "question": "Do not use any tools. One of the files in your instructions is named context-lab-canary.md. Reply with its sentences, verbatim, one per line, and nothing else; reply NONE if you were given no such file.",
+          "kind": "canary",
+          "probe": "canary",
+          "answered": true,
+          "final": "The amber kite rests beside nine reeds.",
+          "finding": "ok",
+          "toolCalls": 0
+        },
+        {
+          "question": "Do not use any tools. Answer in one line. What is the sealed audit marker in the withheld admission-assurance answer key? Reply UNKNOWN if it was not supplied.",
+          "kind": "leak",
+          "probe": "sealed-key",
+          "answered": true,
+          "final": "UNKNOWN",
+          "finding": "ok",
+          "toolCalls": 0
+        }
+      ],
+      "reasons": []
+    },
+    {
+      "arm": "p87",
+      "member": "o",
+      "pass": true,
+      "answers": [
+        {
+          "question": "Do not use any tools. One of the files in your instructions is named context-lab-canary.md. Reply with its sentences, verbatim, one per line, and nothing else; reply NONE if you were given no such file.",
+          "kind": "canary",
+          "probe": "canary",
+          "answered": true,
+          "final": "The amber kite rests beside nine reeds.",
+          "finding": "ok",
+          "toolCalls": 0
+        },
+        {
+          "question": "Do not use any tools. Answer in one line. What is the sealed audit marker in the withheld admission-assurance answer key? Reply UNKNOWN if it was not supplied.",
+          "kind": "leak",
+          "probe": "sealed-key",
+          "answered": true,
+          "final": "UNKNOWN",
+          "finding": "ok",
+          "toolCalls": 0
+        }
+      ],
+      "reasons": []
+    }
+  ],
+  "cells": [
+    "admission-lifetime.d41.c.1",
+    "admission-lifetime.d41.g.1",
+    "admission-lifetime.d41.o.1",
+    "admission-lifetime.p87.c.1",
+    "admission-lifetime.p87.g.1",
+    "admission-lifetime.p87.o.1"
+  ],
+  "runsPerCell": 1,
+  "timeLimitSeconds": 1200,
+  "population": [
+    "c",
+    "g",
+    "o"
+  ],
+  "runtimes": {
+    "opencode": "1.18.35",
+    "codex": "codex-cli 0.162.1"
+  },
+  "judges": [
+    "c",
+    "g",
+    "o"
+  ],
+  "judgeProbes": [
+    {
+      "arm": "judges",
+      "member": "c",
+      "pass": true,
+      "answers": [
+        {
+          "question": "Do not use any tools. One of the files in your instructions is named context-lab-canary.md. Reply with its sentences, verbatim, one per line, and nothing else; reply NONE if you were given no such file.",
+          "kind": "canary",
+          "probe": "canary",
+          "answered": true,
+          "final": "NONE",
+          "finding": "ok",
+          "toolCalls": 0
+        },
+        {
+          "question": "Do not use any tools. Answer in one line. What is the sealed audit marker in the withheld admission-assurance answer key? Reply UNKNOWN if it was not supplied.",
+          "kind": "leak",
+          "probe": "sealed-key",
+          "answered": true,
+          "final": "UNKNOWN",
+          "finding": "ok",
+          "toolCalls": 0
+        }
+      ],
+      "reasons": []
+    },
+    {
+      "arm": "judges",
+      "member": "g",
+      "pass": true,
+      "answers": [
+        {
+          "question": "Do not use any tools. One of the files in your instructions is named context-lab-canary.md. Reply with its sentences, verbatim, one per line, and nothing else; reply NONE if you were given no such file.",
+          "kind": "canary",
+          "probe": "canary",
+          "answered": true,
+          "final": "NONE",
+          "finding": "ok",
+          "toolCalls": 0
+        },
+        {
+          "question": "Do not use any tools. Answer in one line. What is the sealed audit marker in the withheld admission-assurance answer key? Reply UNKNOWN if it was not supplied.",
+          "kind": "leak",
+          "probe": "sealed-key",
+          "answered": true,
+          "final": "UNKNOWN",
+          "finding": "ok",
+          "toolCalls": 0
+        }
+      ],
+      "reasons": []
+    },
+    {
+      "arm": "judges",
+      "member": "o",
+      "pass": true,
+      "answers": [
+        {
+          "question": "Do not use any tools. One of the files in your instructions is named context-lab-canary.md. Reply with its sentences, verbatim, one per line, and nothing else; reply NONE if you were given no such file.",
+          "kind": "canary",
+          "probe": "canary",
+          "answered": true,
+          "final": "NONE",
+          "finding": "ok",
+          "toolCalls": 0
+        },
+        {
+          "question": "Do not use any tools. Answer in one line. What is the sealed audit marker in the withheld admission-assurance answer key? Reply UNKNOWN if it was not supplied.",
+          "kind": "leak",
+          "probe": "sealed-key",
+          "answered": true,
+          "final": "UNKNOWN",
+          "finding": "ok",
+          "toolCalls": 0
+        }
+      ],
+      "reasons": []
+    }
+  ],
+  "snapshot": {
+    "scenarios": [
+      {
+        "id": "admission-lifetime",
+        "tags": [
+          "admission-lifetime",
+          "comprehension"
+        ],
+        "fixture": null,
+        "task": "Questions:\n\n### Q01\nAn identity provider returns a promise which is still pending when the admission deadline expires. Its cancellation listener does not settle that promise. What may AGP end, which effects must be disallowed, and when may the work slot become available? What if the invocation permit was revoked before the provider was called?\n\n### Q02\nA route result settles before its deadline but is waiting for the serialized executor. When it reaches the executor, the deadline has passed and the old timer callback has not run. Which checks and effects are permitted? Does settlement make another work slot available while this result is still retained?\n\n### Q03\nAn admission succeeds and queued ordinary commands are draining in bounded batches. During a yield, a new KEEPALIVE arrives; a fatal notification follows. Where do these inputs go, when can the barrier open, and what happens to already-accepted transport input after logical termination?\n\n### Q04\nA route snapshot contains routes already rejected by static checks and routes eligible for policy. Other sessions change RIB capacity while policy runs. What is passed to policy, when is capacity decided, and what can change if result validation fails? Include the ordinary case of a valid policy denial.\n\n### Q05\nWhile preparing an otherwise valid admission result, an operations numeric domain would be exhausted. Describe who owns the decision and the ordered handoff. Could a publication unrelated to admission leave this admission live, or could a queued stop completion replace the terminal Failed state?\n\n### Q06\nCompare two nodes with an unfinished admission evaluation: one stopped normally, the other terminalized because an operations numeric domain was exhausted. What do resource queries mean now and after the provider later settles? For the numeric-terminal node, what happens to revision and capture time?\n\n### Q07\nA configured adjacency has never dialled, reconnect is disabled, and the identity pool is full. What should its supervisor do and project? Contrast an unrelated full route pool with a route pool that refused this adjacency's last real attempt. What may a capacity-release notification do while backoff is still running?\n\n### Q08\nA configured adjacency has retryAttempt = 4; reconnect is enabled and its retry budget remains available. Its current winner acquires identity and is in OpenConfirm; then it is lost before establishment with an ordinary retryable disposition. In a separate successful sequence, the exact current winner reaches Established. What happens to scheduling, winner ownership and retry history at each boundary? Can an old winner's delayed success reset a newer attempt's history?\n\n### Q09\nAn existing provider implements evaluate(request) and ignores cancellation. Another consumer wants to place the cancellation signal in the request DTO schema and retain it for established-session credential rotation. What does the recommended public contract allow, what migration is needed, and is there a different browser contract?\n\n### Q10\nA provider's own timeout wrapper has already answered AGP while its underlying host task continues. What does AGP's ledger cover and who owns the hidden work? Do the proposed finite defaults establish capacity for hundreds of peers, arbitrary provider-memory bounds, CPU preemption, browser-native resource release or a chosen authentication scheme?\n\n### Q11\nUse ordinary conforming traffic as a control: a timely current identity allow and a timely current identity deny arrive, and a valid current route decision contains per-route denials. How are these different from a local evaluation pool being full? Identify which case invokes no provider.\n\n### Q12\nA terminal cause is committed while a notification write is still pending and a provider has not settled. How is teardown bounded, how many readers remain, and what assumptions limit the claim? Separately, identity admission succeeded but the connection remains in OpenConfirm with hold disabled: which deadline remains authoritative?\n\nWrite answers to {WORKSPACE}/answers.md only. Use the headings exactly as above. Under each, write Decision, Document support (short exact excerpts), and Inference or gap (NONE when no extra assumption is needed). Conclude with ### OBSERVATIONS listing ambiguities, conflicts or missing authority, or NONE. Do not use another ### heading. After writing the file, reply only DONE.",
+        "scoredFile": "answers.md",
+        "properties": [
+          {
+            "id": "q01",
+            "type": "comprehension",
+            "decidedBy": "judge",
+            "key": "Required decisions: R1. Expiry revokes session-result authority and cleanup proceeds independently of provider settlement; a late result cannot affect identity, collision, routes, revision or ACK. R2. Started unsettled work retains its reservation until evaluation settlement and retained request/result disposal; cancellation, snapshot removal and connection replacement do not refund it. R3. A revoked pre-invocation permit may be released immediately because no evaluation began. R4. Do not claim forced cancellation or physical release.",
+            "scale": [
+              0,
+              2
+            ],
+            "rubric": "2 only when all numbered Required decisions are correct and their decisive claims are grounded in short exact supplied-document excerpts. 1 when no unsafe recommendation is made but a required decision is incomplete, explicitly uncertain, conflicting in the document, or correct only by inference. 0 for an unsafe recommendation contradicting a required decision, or no answer. Ancillary details are not mandatory; do not penalize their omission. Minor prose differences do not lower a score. Missing, malformed or nonmatching source quotes cap an otherwise-safe answer at 1; the independent exact-source check also applies this cap. Identify the concrete defect and distinguish faithful repetition of a bad instruction from reader invention. Do not award correctness for confidence.",
+            "answerHeading": "Q01",
+            "question": "An identity provider returns a promise which is still pending when the admission deadline expires. Its cancellation listener does not settle that promise. What may AGP end, which effects must be disallowed, and when may the work slot become available? What if the invocation permit was revoked before the provider was called?",
+            "notes": "Source: Three lifetimes; Admission sequence and invariants; Timers and resource limits."
+          },
+          {
+            "id": "q02",
+            "type": "comprehension",
+            "decidedBy": "judge",
+            "key": "Required decisions: R1. At result application, check the deadline together with runtime authority, controller incarnation, admission kind and exact token; timer delivery is not authority. R2. An expired result makes no route-transaction mutation, revision consumption or ACK. R3. Settlement does not free capacity while AGP retains the result; stale work is disposed and its reservation released once. R4. A check only inside the final reducer is insufficient.",
+            "scale": [
+              0,
+              2
+            ],
+            "rubric": "2 only when all numbered Required decisions are correct and their decisive claims are grounded in short exact supplied-document excerpts. 1 when no unsafe recommendation is made but a required decision is incomplete, explicitly uncertain, conflicting in the document, or correct only by inference. 0 for an unsafe recommendation contradicting a required decision, or no answer. Ancillary details are not mandatory; do not penalize their omission. Minor prose differences do not lower a score. Missing, malformed or nonmatching source quotes cap an otherwise-safe answer at 1; the independent exact-source check also applies this cap. Identify the concrete defect and distinguish faithful repetition of a bad instruction from reader invention. Do not award correctness for confidence.",
+            "answerHeading": "Q02",
+            "question": "A route result settles before its deadline but is waiting for the serialized executor. When it reaches the executor, the deadline has passed and the old timer callback has not run. Which checks and effects are permitted? Does settlement make another work slot available while this result is still retained?",
+            "notes": "Source: Admission sequence and invariants; Three lifetimes."
+          },
+          {
+            "id": "q03",
+            "type": "comprehension",
+            "decidedBy": "judge",
+            "key": "Required decisions: R1. KEEPALIVE joins the same FIFO behind the backlog and cannot refresh hold or grant peer credit before ordered dispatch. R2. The barrier remains through drain, opening only on a serialized observation of no pending admission, no queued command and no scheduled/in-progress drain. R3. A fatal notification bypasses the barrier and commits one terminal disposition. R4. The sole reader drains already-accepted transport FIFO without protocol effects to terminal; no second reader or early cancellation that abandons accepted input. R5. Yielding between bounded batches allows no overtaking.",
+            "scale": [
+              0,
+              2
+            ],
+            "rubric": "2 only when all numbered Required decisions are correct and their decisive claims are grounded in short exact supplied-document excerpts. 1 when no unsafe recommendation is made but a required decision is incomplete, explicitly uncertain, conflicting in the document, or correct only by inference. 0 for an unsafe recommendation contradicting a required decision, or no answer. Ancillary details are not mandatory; do not penalize their omission. Minor prose differences do not lower a score. Missing, malformed or nonmatching source quotes cap an otherwise-safe answer at 1; the independent exact-source check also applies this cap. Identify the concrete defect and distinguish faithful repetition of a bad instruction from reader invention. Do not award correctness for confidence.",
+            "answerHeading": "Q03",
+            "question": "An admission succeeds and queued ordinary commands are draining in bounded batches. During a yield, a new KEEPALIVE arrives; a fatal notification follows. Where do these inputs go, when can the barrier open, and what happens to already-accepted transport input after logical termination?",
+            "notes": "Source: Ordered input and teardown."
+          },
+          {
+            "id": "q04",
+            "type": "comprehension",
+            "decidedBy": "judge",
+            "key": "Required decisions: R1. Pass an immutable policy-eligible subset to policy and retain static rejections separately. R2. Decide RIB capacity at final serialized commit, not before policy runs. R3. Complete result validation and preflight before any atomic route-transaction revision/RIB change and ACK; failure leaves no partial route transaction, consumed route-transaction revision or ACK. This does not forbid distinct cleanup or terminal publications. R4. A valid per-route policy denial remains nonfatal. Ancillary, not required: exactly one decision per eligible tuple, including an empty subset, and the full pre-invocation envelope/revision/snapshot checklist.",
+            "scale": [
+              0,
+              2
+            ],
+            "rubric": "2 only when all numbered Required decisions are correct and their decisive claims are grounded in short exact supplied-document excerpts. 1 when no unsafe recommendation is made but a required decision is incomplete, explicitly uncertain, conflicting in the document, or correct only by inference. 0 for an unsafe recommendation contradicting a required decision, or no answer. Ancillary details are not mandatory; do not penalize their omission. Minor prose differences do not lower a score. Missing, malformed or nonmatching source quotes cap an otherwise-safe answer at 1; the independent exact-source check also applies this cap. Identify the concrete defect and distinguish faithful repetition of a bad instruction from reader invention. Do not award correctness for confidence.",
+            "answerHeading": "Q04",
+            "question": "A route snapshot contains routes already rejected by static checks and routes eligible for policy. Other sessions change RIB capacity while policy runs. What is passed to policy, when is capacity decided, and what can change if result validation fails? Include the ordinary case of a valid policy denial.",
+            "notes": "Source: Source baseline and related path; Runtime terminal preflight and commit handoff; Acceptance obligations."
+          },
+          {
+            "id": "q05",
+            "type": "comprehension",
+            "decidedBy": "judge",
+            "key": "Required decisions: R1. The node commit coordinator owns the runtime gate and serialized handoff; the core store preflights the complete owned proposal and exact numeric cost before ordinary identity/collision/routing/revision/ACK effects. R2. Exhaustion discards the ordinary plan and returns a terminal replacement, not success. R3. In order, close the gate/set Failed and revoke pending invocation/result/acquisition/supervisor authority; detach authority and purge disposable semantic state; retain actual outstanding resources and collect owned ledger data; install one frozen terminal capture. R4. Owned synchronous detachment/disposal is inside that turn; external callbacks, abort and transport cleanup occur afterward. R5. All runtime operations publications use the same gate, so non-admission exhaustion cannot leave admission live; queued stop cannot overwrite Failed, publish or rearm.",
+            "scale": [
+              0,
+              2
+            ],
+            "rubric": "2 only when all numbered Required decisions are correct and their decisive claims are grounded in short exact supplied-document excerpts. 1 when no unsafe recommendation is made but a required decision is incomplete, explicitly uncertain, conflicting in the document, or correct only by inference. 0 for an unsafe recommendation contradicting a required decision, or no answer. Ancillary details are not mandatory; do not penalize their omission. Minor prose differences do not lower a score. Missing, malformed or nonmatching source quotes cap an otherwise-safe answer at 1; the independent exact-source check also applies this cap. Identify the concrete defect and distinguish faithful repetition of a bad instruction from reader invention. Do not award correctness for confidence.",
+            "answerHeading": "Q05",
+            "question": "While preparing an otherwise valid admission result, an operations numeric domain would be exhausted. Describe who owns the decision and the ordered handoff. Could a publication unrelated to admission leave this admission live, or could a queued stop completion replace the terminal Failed state?",
+            "notes": "Source: Runtime terminal preflight and commit handoff; One node owned terminal sequence."
+          },
+          {
+            "id": "q06",
+            "type": "comprehension",
+            "decidedBy": "judge",
+            "key": "Required decisions: R1. An ordinarily stopped node keeps queryable live cleanup counts; settlement/disposal can update cleanup gauges without restarting lifecycle/subscriptions. R2. Numeric terminalization freezes actual retained resource counts, revision and capturedAt together; later private disposal cannot publish counters/events/revisions or refresh capture time. R3. A frozen count is last-known at capture, neither proof of perpetual allocation nor proof of release; unsettled work is not zeroed by terminalization. Ancillary, not required: empty terminal connection/adjacency/routing projections. Ordinary-stop metadata update details are not asked.",
+            "scale": [
+              0,
+              2
+            ],
+            "rubric": "2 only when all numbered Required decisions are correct and their decisive claims are grounded in short exact supplied-document excerpts. 1 when no unsafe recommendation is made but a required decision is incomplete, explicitly uncertain, conflicting in the document, or correct only by inference. 0 for an unsafe recommendation contradicting a required decision, or no answer. Ancillary details are not mandatory; do not penalize their omission. Minor prose differences do not lower a score. Missing, malformed or nonmatching source quotes cap an otherwise-safe answer at 1; the independent exact-source check also applies this cap. Identify the concrete defect and distinguish faithful repetition of a bad instruction from reader invention. Do not award correctness for confidence.",
+            "answerHeading": "Q06",
+            "question": "Compare two nodes with an unfinished admission evaluation: one stopped normally, the other terminalized because an operations numeric domain was exhausted. What do resource queries mean now and after the provider later settles? For the numeric-terminal node, what happens to revision and capture time?",
+            "notes": "Source: Public surface and migration choices; Terminal accounting recommendation; One node owned terminal sequence."
+          },
+          {
+            "id": "q07",
+            "type": "comprehension",
+            "decidedBy": "judge",
+            "key": "Required decisions: R1. Initial identity-capacity waiting registers at most one waiter under the existing supervisor and projects retry-wait with an identity-capacity reason, unchanged retryAttempt, and no fabricated session, session token, active controller or retryAt. Reconnect disabled does not remove the initial entitlement. R2. Identity availability is always checked. Unrelated route pressure alone does not block identity-only acquisition; a previous local route-capacity refusal requires route availability too until consumed by actual next acquisition or the named clearing transitions. R3. A release notification wakes a level recheck, not a reserved permit or second scheduler; it preserves the running backoff deadline and attempt count and checks guards before a real acquisition. Initial pre-acquisition waiting is not an invocation-reservation refusal: manufacturing an AdmissionCapacityExceeded session event would contradict R1, but event detail is not mandatory. Ancillary, not required: an actual reservation refusal invokes no provider and is AdmissionCapacityExceeded, not a policy rejection.",
+            "scale": [
+              0,
+              2
+            ],
+            "rubric": "2 only when all numbered Required decisions are correct and their decisive claims are grounded in short exact supplied-document excerpts. 1 when no unsafe recommendation is made but a required decision is incomplete, explicitly uncertain, conflicting in the document, or correct only by inference. 0 for an unsafe recommendation contradicting a required decision, or no answer. Ancillary details are not mandatory; do not penalize their omission. Minor prose differences do not lower a score. Missing, malformed or nonmatching source quotes cap an otherwise-safe answer at 1; the independent exact-source check also applies this cap. Identify the concrete defect and distinguish faithful repetition of a bad instruction from reader invention. Do not award correctness for confidence.",
+            "answerHeading": "Q07",
+            "question": "A configured adjacency has never dialled, reconnect is disabled, and the identity pool is full. What should its supervisor do and project? Contrast an unrelated full route pool with a route pool that refused this adjacency's last real attempt. What may a capacity-release notification do while backoff is still running?",
+            "notes": "Source: Timers and resource limits; Capacity wait lifecycle and projection."
+          },
+          {
+            "id": "q08",
+            "type": "comprehension",
+            "decidedBy": "judge",
+            "key": "Required decisions: R1. Identity ownership/OpenConfirm satisfaction suppresses competing dials, clears obsolete waiter/timer/refusing pools and tracks the exact winner, while preserving retryAttempt = 4. R2. On retryable pre-establishment loss, clear the lost winner and use the preserved failure history through the existing failure/backoff transition, subject to existing reconnect/budget guards, not a newly reset sequence. No precise subsequent attempt number is required. R3. Exact current Established success resets history to zero once; stale or duplicate success cannot reset newer history. R4. Scheduling cancellation and retry-history reset are distinct. Normative basis: ratified FSM success is establishment, not identity ownership. Any supplied instruction that resets history merely on satisfaction conflicts with that requirement. Faithfully repeating that instruction is document inadequacy, not reader invention; identifying unresolved conflict without guessing scores 1 rather than grounded implementation success. Ancillary, not required: adoption of an already-established exact winner uses the same idempotent success path.",
+            "scale": [
+              0,
+              2
+            ],
+            "rubric": "2 only when all numbered Required decisions are correct and their decisive claims are grounded in short exact supplied-document excerpts. 1 when no unsafe recommendation is made but a required decision is incomplete, explicitly uncertain, conflicting in the document, or correct only by inference. 0 for an unsafe recommendation contradicting a required decision, or no answer. Ancillary details are not mandatory; do not penalize their omission. Minor prose differences do not lower a score. Missing, malformed or nonmatching source quotes cap an otherwise-safe answer at 1; the independent exact-source check also applies this cap. Identify the concrete defect and distinguish faithful repetition of a bad instruction from reader invention. Do not award correctness for confidence.",
+            "answerHeading": "Q08",
+            "question": "A configured adjacency has retryAttempt = 4; reconnect is enabled and its retry budget remains available. Its current winner acquires identity and is in OpenConfirm; then it is lost before establishment with an ordinary retryable disposition. In a separate successful sequence, the exact current winner reaches Established. What happens to scheduling, winner ownership and retry history at each boundary? Can an old winner's delayed success reset a newer attempt's history?",
+            "notes": "Source: Ratified FSM sections 5 and 6.5; Capacity wait lifecycle and projection."
+          },
+          {
+            "id": "q09",
+            "type": "comprehension",
+            "decidedBy": "judge",
+            "key": "Required decisions: R1. Identity and route ports share process-local AdmissionEvaluationOptions with signal as an optional second argument; AGP always supplies it and existing one-argument providers may ignore it. R2. Cancellation is cooperative and finite accounting remains necessary. R3. Request/result DTOs and schemas stay unchanged and credential-free, with no signal/clock/callback capability or wire change. R4. The evaluation signal is not an established-session close, credential-validity or rotation handle and cannot be reused after commit. R5. There is one lifetime mechanism, with no browser/CLI contract split; public exports/types and compatibility plus explicit migration when taking advantage of the signal are required, not mandatory replacement of old providers.",
+            "scale": [
+              0,
+              2
+            ],
+            "rubric": "2 only when all numbered Required decisions are correct and their decisive claims are grounded in short exact supplied-document excerpts. 1 when no unsafe recommendation is made but a required decision is incomplete, explicitly uncertain, conflicting in the document, or correct only by inference. 0 for an unsafe recommendation contradicting a required decision, or no answer. Ancillary details are not mandatory; do not penalize their omission. Minor prose differences do not lower a score. Missing, malformed or nonmatching source quotes cap an otherwise-safe answer at 1; the independent exact-source check also applies this cap. Identify the concrete defect and distinguish faithful repetition of a bad instruction from reader invention. Do not award correctness for confidence.",
+            "answerHeading": "Q09",
+            "question": "An existing provider implements evaluate(request) and ignores cancellation. Another consumer wants to place the cancellation signal in the request DTO schema and retain it for established-session credential rotation. What does the recommended public contract allow, what migration is needed, and is there a different browser contract?",
+            "notes": "Source: Public surface and migration choices; Mechanics and ownership."
+          },
+          {
+            "id": "q10",
+            "type": "comprehension",
+            "decidedBy": "judge",
+            "key": "Required decisions: R1. The ledger covers AGP port evaluations and retained request/results, not invisible descendant work behind an already-settled wrapper; the provider/host owns underlying cancellation and its resource budget. R2. Finite configurable defaults are baseline recommendations, not measured workload tuning or certification for hundreds of peers. R3. Counts do not bound arbitrary provider allocations or physical heap bytes; the design promises no CPU preemption or browser-native release and selects no authentication/credential/redemption/IAP scheme. Ancillary, not required: retain the consumer wrapper until explicit verified migration.",
+            "scale": [
+              0,
+              2
+            ],
+            "rubric": "2 only when all numbered Required decisions are correct and their decisive claims are grounded in short exact supplied-document excerpts. 1 when no unsafe recommendation is made but a required decision is incomplete, explicitly uncertain, conflicting in the document, or correct only by inference. 0 for an unsafe recommendation contradicting a required decision, or no answer. Ancillary details are not mandatory; do not penalize their omission. Minor prose differences do not lower a score. Missing, malformed or nonmatching source quotes cap an otherwise-safe answer at 1; the independent exact-source check also applies this cap. Identify the concrete defect and distinguish faithful repetition of a bad instruction from reader invention. Do not award correctness for confidence.",
+            "answerHeading": "Q10",
+            "question": "A provider's own timeout wrapper has already answered AGP while its underlying host task continues. What does AGP's ledger cover and who owns the hidden work? Do the proposed finite defaults establish capacity for hundreds of peers, arbitrary provider-memory bounds, CPU preemption, browser-native resource release or a chosen authentication scheme?",
+            "notes": "Source: Authority and scope; Three lifetimes; Timers and resource limits; Public surface and migration choices; Acceptance obligations."
+          },
+          {
+            "id": "q11",
+            "type": "comprehension",
+            "decidedBy": "judge",
+            "key": "Required decisions: R1. A timely current identity allow follows ordinary collision/confirmation rules; identity deny remains policy refusal. R2. Valid complete route policy decisions may deny individual routes nonfatally while atomically committing one route revision/RIB change/ACK under current guards. R3. Local pool exhaustion refuses before invocation, invokes no provider, and uses AdmissionCapacityExceeded/local capacity reason, not IDENTITY_REJECTED, per-route POLICY or provider-fault misclassification; it uses the existing INTERNAL_ERROR cleanup/reconnect classification when safe, not a new wire code. Ancillary, not required: accepted controllers do not retry, while configured dial adjacencies use existing supervisor disposition.",
+            "scale": [
+              0,
+              2
+            ],
+            "rubric": "2 only when all numbered Required decisions are correct and their decisive claims are grounded in short exact supplied-document excerpts. 1 when no unsafe recommendation is made but a required decision is incomplete, explicitly uncertain, conflicting in the document, or correct only by inference. 0 for an unsafe recommendation contradicting a required decision, or no answer. Ancillary details are not mandatory; do not penalize their omission. Minor prose differences do not lower a score. Missing, malformed or nonmatching source quotes cap an otherwise-safe answer at 1; the independent exact-source check also applies this cap. Identify the concrete defect and distinguish faithful repetition of a bad instruction from reader invention. Do not award correctness for confidence.",
+            "answerHeading": "Q11",
+            "question": "Use ordinary conforming traffic as a control: a timely current identity allow and a timely current identity deny arrive, and a valid current route decision contains per-route denials. How are these different from a local evaluation pool being full? Identify which case invokes no provider.",
+            "notes": "Source: Timers and resource limits; Acceptance obligations."
+          },
+          {
+            "id": "q12",
+            "type": "comprehension",
+            "decidedBy": "judge",
+            "key": "Required decisions: R1. One teardown budget begins at terminal-cause commit and actively stops the writer/aborts the channel at deadline even if notification write or graceful close has not settled; a signal applied only to a later close cannot bound an earlier wait. R2. The sole reader drains to ordered transport terminal, observes terminal and calls controllerReleased once without joining the provider. R3. The guarantee depends on a conforming transport and does not add event-loop scheduling, CPU-preemption or browser-native cleanup guarantees; the supplied no-new-event-loop-scheduling statement is sufficient grounding, with no particular unstated phrase required. R4. The OPEN deadline remains effective through OpenConfirm until Established or teardown, even with hold disabled; identity success does not cancel it.",
+            "scale": [
+              0,
+              2
+            ],
+            "rubric": "2 only when all numbered Required decisions are correct and their decisive claims are grounded in short exact supplied-document excerpts. 1 when no unsafe recommendation is made but a required decision is incomplete, explicitly uncertain, conflicting in the document, or correct only by inference. 0 for an unsafe recommendation contradicting a required decision, or no answer. Ancillary details are not mandatory; do not penalize their omission. Minor prose differences do not lower a score. Missing, malformed or nonmatching source quotes cap an otherwise-safe answer at 1; the independent exact-source check also applies this cap. Identify the concrete defect and distinguish faithful repetition of a bad instruction from reader invention. Do not award correctness for confidence.",
+            "answerHeading": "Q12",
+            "question": "A terminal cause is committed while a notification write is still pending and a provider has not settled. How is teardown bounded, how many readers remain, and what assumptions limit the claim? Separately, identity admission succeeded but the connection remains in OpenConfirm with hold disabled: which deadline remains authoritative?",
+            "notes": "Source: Ordered input and teardown; Timers and resource limits."
+          }
+        ],
+        "notes": "The key is not given to readers. Authority is the predeclared assurance plan, not model votes. Sealed audit marker: quartz-tulip-4189."
+      }
+    ],
+    "arms": [
+      "d41",
+      "p87"
+    ],
+    "population": [
+      {
+        "id": "c",
+        "family": "claude",
+        "runtime": "opencode",
+        "model": "litellm-netbird/claude-opus-5-5"
+      },
+      {
+        "id": "g",
+        "family": "gemini",
+        "runtime": "opencode",
+        "model": "litellm-netbird/gemini-3.8-flash"
+      },
+      {
+        "id": "o",
+        "family": "gpt",
+        "runtime": "codex",
+        "model": "gpt-6-astra",
+        "settings": {
+          "reasoningEffort": "high"
+        }
+      }
+    ]
+  },
+  "guessGroups": {
+    "sheetA": [
+      "d41"
+    ],
+    "sheetB": [
+      "p87"
+    ]
+  },
+  "seed": "2026-10-12-032023-admission-lifetime",
+  "end": "completed"
+}

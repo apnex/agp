@@ -1,0 +1,2597 @@
+{
+  "scope": "Mechanical accounting only; semantic grounds, observations and the independent gate review remain necessary",
+  "run": "2026-10-12-032023-admission-lifetime",
+  "populationOrder": [
+    "c",
+    "g",
+    "o"
+  ],
+  "outcomes": 72,
+  "voteSlots": 144,
+  "castVotes": 144,
+  "missingAnswers": 0,
+  "quoteCaps": 15,
+  "complete": true,
+  "candidateThresholdsMet": false,
+  "noControlRegression": false,
+  "strictImprovement": true,
+  "table": [
+    {
+      "property": "q01",
+      "predecessor": [
+        2,
+        1,
+        2
+      ],
+      "candidate": [
+        1,
+        2,
+        1
+      ],
+      "control": true,
+      "predecessorSum": 5,
+      "candidateSum": 4
+    },
+    {
+      "property": "q02",
+      "predecessor": [
+        1,
+        1,
+        1
+      ],
+      "candidate": [
+        1,
+        1,
+        1
+      ],
+      "control": true,
+      "predecessorSum": 3,
+      "candidateSum": 3
+    },
+    {
+      "property": "q03",
+      "predecessor": [
+        2,
+        1,
+        2
+      ],
+      "candidate": [
+        1,
+        1,
+        1
+      ],
+      "control": true,
+      "predecessorSum": 5,
+      "candidateSum": 3
+    },
+    {
+      "property": "q04",
+      "predecessor": [
+        1,
+        0,
+        2
+      ],
+      "candidate": [
+        1,
+        1,
+        1
+      ],
+      "control": true,
+      "predecessorSum": 3,
+      "candidateSum": 3
+    },
+    {
+      "property": "q05",
+      "predecessor": [
+        1,
+        1,
+        1
+      ],
+      "candidate": [
+        1,
+        1,
+        1
+      ],
+      "control": true,
+      "predecessorSum": 3,
+      "candidateSum": 3
+    },
+    {
+      "property": "q06",
+      "predecessor": [
+        2,
+        1,
+        2
+      ],
+      "candidate": [
+        2,
+        1,
+        2
+      ],
+      "control": true,
+      "predecessorSum": 5,
+      "candidateSum": 5
+    },
+    {
+      "property": "q07",
+      "predecessor": [
+        1,
+        1,
+        1
+      ],
+      "candidate": [
+        1,
+        1,
+        1
+      ],
+      "control": true,
+      "predecessorSum": 3,
+      "candidateSum": 3
+    },
+    {
+      "property": "q08",
+      "predecessor": [
+        1,
+        0,
+        1
+      ],
+      "candidate": [
+        1,
+        1,
+        2
+      ],
+      "control": false,
+      "predecessorSum": 2,
+      "candidateSum": 4
+    },
+    {
+      "property": "q09",
+      "predecessor": [
+        1,
+        1,
+        1
+      ],
+      "candidate": [
+        1,
+        1,
+        1
+      ],
+      "control": true,
+      "predecessorSum": 3,
+      "candidateSum": 3
+    },
+    {
+      "property": "q10",
+      "predecessor": [
+        1,
+        1,
+        2
+      ],
+      "candidate": [
+        1,
+        1,
+        1
+      ],
+      "control": true,
+      "predecessorSum": 4,
+      "candidateSum": 3
+    },
+    {
+      "property": "q11",
+      "predecessor": [
+        1,
+        1,
+        2
+      ],
+      "candidate": [
+        1,
+        1,
+        1
+      ],
+      "control": true,
+      "predecessorSum": 4,
+      "candidateSum": 3
+    },
+    {
+      "property": "q12",
+      "predecessor": [
+        1,
+        1,
+        1
+      ],
+      "candidate": [
+        2,
+        1,
+        1
+      ],
+      "control": true,
+      "predecessorSum": 3,
+      "candidateSum": 4
+    }
+  ],
+  "observations": [
+    {
+      "cell": "admission-lifetime.d41.c.1",
+      "text": "- **Retry reset timing:** satisfaction begins at identity ownership and \"applies the existing successful-attempt reset\". This conflicts in effect with keeping retry history through OpenConfirm, because it is unclear whether a loss before establishment backs off from a reset count.\n- **Route expiry:** it is not stated whether a route-admission expiry or invalid result is always session-fatal, or which reason it reports.\n- **Empty eligible subset:** the document does not say whether the provider is invoked when the policy-eligible subset is empty.\n- **RIB capacity at commit:** the outcome when RIB capacity is insufficient at the final commit is unspecified.\n- **Queued commands and fatal input:** the treatment of queued commands that arrived before a bypassing fatal input is ambiguous (\"preserve already-observed FIFO transport evidence\"). Discarding queued work is stated explicitly only for overflow.\n- **Missing values and definitions:** no teardown budget value is given. \"Only if safe\" for the `INTERNAL_ERROR` notification is undefined.\n- **Pending agreement:** the proposed events, gauge keys, capacity settings, reason strings, signal option and frozen terminal capture all still need contract agreement. The runtime-gate prerequisite also needs a publication inventory that has not been done.\n- **Gap from current behaviour:** the current `#commitMonotonicExhaustion` and `#capture` behaviour contradicts the recommended terminal accounting, so implementing the recommendation is a behaviour change."
+    },
+    {
+      "cell": "admission-lifetime.d41.g.1",
+      "text": "- In Q08, the design specifies that `satisfied` adjacency state is entered when an attempt gains canonical identity ownership in OpenConfirm, which also applies the successful-attempt reset (\"Satisfaction applies the existing successful-attempt reset\"). If that winner is subsequently lost before reaching Established, the document specifies applying the reconnect disposition and backoff once, but does not explicitly state whether `retryAttempt` increments from 0 or retains its pre-satisfaction count.\n- The document explicitly acknowledges a conflict between the proposed terminal accounting recommendation (freezing the final capture with nonzero unresolved evaluations) and the observed `OperationsStore.#commitMonotonicExhaustion` implementation (which zeros resource gauges), noting that this proposal requires explicit contract agreement and cannot be satisfied by the existing implementation without changes.\n- Cancellation and physical cleanup remain cooperative: the document notes that AGP cannot preempt synchronous CPU loops or guarantee native memory reclamation within the existing callback and event-loop model without external process/worker isolation."
+    },
+    {
+      "cell": "admission-lifetime.d41.o.1",
+      "text": "- All answers describe this proposed design. It explicitly disclaims implementation verification and final adoption. New capacity settings, defaults, events, gauges, cancellation options, adjacency-field meanings and terminal-accounting semantics still require the stated coordinated contract work.\n- Retry-history authority is the principal unresolved scenario detail. The table makes canonical identity ownership sufficient for satisfaction during OpenConfirm, then says satisfaction applies an undefined existing successful-attempt reset. It does not separately define the Established boundary, the reset's numeric value or retry increment arithmetic. Preserving 4 until Established or asserting a particular next retryAttempt would import missing rules.\n- Operational exhaustion requires an internal runtime repair, not merely an admission wrapper: every live publication and its preceding mutations must be inventoried and coordinated. The design's reported current independent terminalization, gauge zeroing and fresh capture timestamps conflict with its proposed terminal behavior; these are acknowledged baseline defects, not verified corrections.\n- The teardown claim depends on the existing conforming transport terminal contract and execution making progress. The document supplies neither a numerical teardown-budget default nor proof of any implementation's conformance. Exact malformed-result fault mapping and existing reconnect arithmetic are also not reproduced in the supplied text.\n- The design supplies no measured peer-capacity claim or authority over hidden provider tasks, arbitrary provider memory, CPU preemption, browser-native release or authentication choices. Its logical accounting and frozen terminal capture must not be interpreted as evidence that physical resources have been released."
+    },
+    {
+      "cell": "admission-lifetime.p87.c.1",
+      "text": "- The design is proposed, not adopted. The new events (`AdmissionCapacityExceeded`, `ContinuationQueueOverflow`), gauges, `lastReason` values, evaluation-limit settings and frozen terminal capture all require contract, schema and documentation agreement.\n- The duration and configuration of the teardown budget are unspecified.\n- The fate of queued commands after a fatal notification is not stated; discarding them is explicit only for overflow. \"preserve already-observed FIFO transport evidence\" is undefined.\n- If the deadline is found to have passed at result application before the timer fires, the document does not say who commits the expiry transition.\n- Route admission leaves three dispositions unspecified: an invalid result, insufficient RIB capacity at the final commit, and whether the provider is invoked for an empty eligible subset.\n- The document does not say whether updating cleanup gauges on a stopped node creates new operations revisions.\n- Capacity defaults reference other settings whose values are not given.\n- Q07's scenario combines \"never dialled, reconnect disabled\" with a prior route refusal and a running backoff. Those states cannot coexist under the document's rules.\n- The runtime-terminal integration depends on a publication inventory that has not been done. The document says admission must not be certified until it is.\n- A second instruction file contained the unrelated sentence \"The amber kite rests beside nine reeds.\" It has no design content, so it was not used."
+    },
+    {
+      "cell": "admission-lifetime.p87.g.1",
+      "text": "NONE"
+    },
+    {
+      "cell": "admission-lifetime.p87.o.1",
+      "text": "- All answers describe the supplied proposal. Its status expressly withholds implementation verification and final adoption.\n\nQUOTE: \"Status: proposed design, not implementation verification or final adoption.\"\n\n- Public cancellation options, evaluation limits/defaults, gauge keys, local events and capacity-wait projection meanings need the coordinated reviews or contract agreement identified in the document. The completed survey is not approval of a particular provider-work limit. This exercise supplies none of that missing adoption authority.\n\nQUOTE: \"Its socket-overlap choice is not treated as approval of a particular provider-work limit.\"\nQUOTE: \"These are proposed semantic clarifications of existing fields, not an added public state or field; they still need contract agreement and checks of every operations reader.\"\n\n- Numeric-terminal accounting requires an explicit contract clarification and runtime-wide integration. The document itself identifies existing zeroed gauges, refreshed capture timestamps and independent store terminalization as incompatible with its recommendation. These are stated repair requirements, not facts verified here.\n\nQUOTE: \"It still needs explicit agreement on the terminal operations contract: releasing logical effect authority must not be described as releasing unfinished provider work.\"\n\n- The review refinements resolve the document's described earlier alternatives: static eligibility precedes policy, the barrier remains through drain yields, actual reservation release triggers capacity re-evaluation, and only exact establishment resets retry history. They should not be flattened into the superseded behavior. Exact retry-delay calculation, numeric teardown duration and detailed invalid-result wire dispositions are not supplied here; no external contract was consulted to fill them in."
+    }
+  ],
+  "rows": [
+    {
+      "cell": "admission-lifetime.d41.c.1",
+      "arm": "d41",
+      "member": "c",
+      "property": "q01",
+      "validity": {
+        "valid": true
+      },
+      "state": "valid",
+      "score": 2,
+      "disposition": "lower cross-family vote with exact-quote cap",
+      "quoteCheck": {
+        "count": 7,
+        "cap": 2,
+        "defects": []
+      },
+      "slots": [
+        {
+          "judge": "g",
+          "value": 2,
+          "status": "cast",
+          "reason": "All required decisions concerning deadline expiry, provider independence, slot retention, and pre-invocation permit revocation are correct and well-grounded in direct document quotes."
+        },
+        {
+          "judge": "o",
+          "value": 2,
+          "status": "cast",
+          "reason": "Exact quotations support authority revocation, independent cleanup, prohibited stale effects, reservation retention through settlement and disposal, immediate pre-invocation release and cooperative cancellation limits; the terminal-reason gap does not hedge a required decision."
+        }
+      ]
+    },
+    {
+      "cell": "admission-lifetime.d41.c.1",
+      "arm": "d41",
+      "member": "c",
+      "property": "q02",
+      "validity": {
+        "valid": true
+      },
+      "state": "valid",
+      "score": 1,
+      "disposition": "lower cross-family vote with exact-quote cap",
+      "quoteCheck": {
+        "count": 6,
+        "cap": 2,
+        "defects": []
+      },
+      "slots": [
+        {
+          "judge": "g",
+          "value": 1,
+          "status": "cast",
+          "reason": "The answer correctly addresses executor checks, prohibited effects, and retained capacity, but leaves required decision R4 regarding the insufficiency of checking only in the reducer unaddressed."
+        },
+        {
+          "judge": "o",
+          "value": 2,
+          "status": "cast",
+          "reason": "The quoted \"short executor turn\" establishes application-time authority checks beyond a final-reducer-only check, while \"Accounting and disposal only\" and \"capacity remains reserved\" support effect suppression and retention until disposal; uncertainty about terminal disposition is ancillary."
+        }
+      ]
+    },
+    {
+      "cell": "admission-lifetime.d41.c.1",
+      "arm": "d41",
+      "member": "c",
+      "property": "q03",
+      "validity": {
+        "valid": true
+      },
+      "state": "valid",
+      "score": 2,
+      "disposition": "lower cross-family vote with exact-quote cap",
+      "quoteCheck": {
+        "count": 6,
+        "cap": 2,
+        "defects": []
+      },
+      "slots": [
+        {
+          "judge": "g",
+          "value": 2,
+          "status": "cast",
+          "reason": "All required decisions are correctly identified and grounded in exact document excerpts."
+        },
+        {
+          "judge": "o",
+          "value": 2,
+          "status": "cast",
+          "reason": "The quoted instructions support FIFO ordering without early effects, the serialized barrier-opening condition, terminal bypass and sole-reader draining; its stated uncertainty concerns queued semantic disposal rather than the required transport-draining decision."
+        }
+      ]
+    },
+    {
+      "cell": "admission-lifetime.d41.c.1",
+      "arm": "d41",
+      "member": "c",
+      "property": "q04",
+      "validity": {
+        "valid": true
+      },
+      "state": "valid",
+      "score": 1,
+      "disposition": "lower cross-family vote with exact-quote cap",
+      "quoteCheck": {
+        "count": 5,
+        "cap": 2,
+        "defects": []
+      },
+      "slots": [
+        {
+          "judge": "g",
+          "value": 2,
+          "status": "cast",
+          "reason": "All required decisions are correctly stated and supported by exact document excerpts."
+        },
+        {
+          "judge": "o",
+          "value": 1,
+          "status": "cast",
+          "reason": "The excerpts support the immutable subset, final-commit capacity decision, revision/RIB protection and nonfatal denials, but neither the decision nor its quotations explicitly establishes that failed validation produces no ACK."
+        }
+      ]
+    },
+    {
+      "cell": "admission-lifetime.d41.c.1",
+      "arm": "d41",
+      "member": "c",
+      "property": "q05",
+      "validity": {
+        "valid": true
+      },
+      "state": "valid",
+      "score": 1,
+      "disposition": "lower cross-family vote with exact-quote cap",
+      "quoteCheck": {
+        "count": 6,
+        "cap": 2,
+        "defects": []
+      },
+      "slots": [
+        {
+          "judge": "g",
+          "value": 1,
+          "status": "cast",
+          "reason": "The answer covers runtime gate ownership, terminal sequence ordering, and cross-operation protection, but omits the execution timing requirement distinguishing in-turn synchronous detachment from subsequent external callbacks and transport cleanup."
+        },
+        {
+          "judge": "o",
+          "value": 1,
+          "status": "cast",
+          "reason": "The answer correctly grounds terminal replacement and the shared gate, but omits complete-proposal exact-cost preflight, the full authority-revocation and ledger handoff, and synchronous disposal before external cleanup."
+        }
+      ]
+    },
+    {
+      "cell": "admission-lifetime.d41.c.1",
+      "arm": "d41",
+      "member": "c",
+      "property": "q06",
+      "validity": {
+        "valid": true
+      },
+      "state": "valid",
+      "score": 2,
+      "disposition": "lower cross-family vote with exact-quote cap",
+      "quoteCheck": {
+        "count": 4,
+        "cap": 2,
+        "defects": []
+      },
+      "slots": [
+        {
+          "judge": "g",
+          "value": 2,
+          "status": "cast",
+          "reason": "All required decisions regarding live stopped gauges, frozen terminalized state, and last-known counts are correctly stated and supported by direct document excerpts."
+        },
+        {
+          "judge": "o",
+          "value": 2,
+          "status": "cast",
+          "reason": "The quotations support live cleanup accounting after ordinary stop, frozen counts/revision/capture time after numeric terminalization, and last-known counts despite later private disposal; the implementation-status caveat does not hedge these decisions."
+        }
+      ]
+    },
+    {
+      "cell": "admission-lifetime.d41.c.1",
+      "arm": "d41",
+      "member": "c",
+      "property": "q07",
+      "validity": {
+        "valid": true
+      },
+      "state": "valid",
+      "score": 1,
+      "disposition": "lower cross-family vote with exact-quote cap",
+      "quoteCheck": {
+        "count": 6,
+        "cap": 2,
+        "defects": []
+      },
+      "slots": [
+        {
+          "judge": "g",
+          "value": 2,
+          "status": "cast",
+          "reason": "All required decisions regarding supervisor waiter registration, retry-wait projection, route refusal contrasts, and capacity release notifications during backoff are correct and fully grounded in exact document excerpts."
+        },
+        {
+          "judge": "o",
+          "value": 1,
+          "status": "cast",
+          "reason": "The answer safely grounds initial waiting and preservation of backoff, but omits the route-refusal memory's consumption or clearing rules and guard checks before acquisition; its reconnect scope distinction is not a hedge."
+        }
+      ]
+    },
+    {
+      "cell": "admission-lifetime.d41.c.1",
+      "arm": "d41",
+      "member": "c",
+      "property": "q08",
+      "validity": {
+        "valid": true
+      },
+      "state": "valid",
+      "score": 1,
+      "disposition": "lower cross-family vote with exact-quote cap",
+      "quoteCheck": {
+        "count": 6,
+        "cap": 2,
+        "defects": []
+      },
+      "slots": [
+        {
+          "judge": "g",
+          "value": 1,
+          "status": "cast",
+          "reason": "The answer correctly identifies an unresolved document conflict regarding whether retry history resets at satisfaction versus establishment and derives stale success only by inference, which caps the score at 1."
+        },
+        {
+          "judge": "o",
+          "value": 1,
+          "status": "cast",
+          "reason": "The answer identifies the conflicting instruction \"Satisfaction applies the existing successful-attempt reset\" without endorsing an unsafe reset, but leaves history preservation, establishment-only reset and stale-success rejection unresolved or inferred."
+        }
+      ]
+    },
+    {
+      "cell": "admission-lifetime.d41.c.1",
+      "arm": "d41",
+      "member": "c",
+      "property": "q09",
+      "validity": {
+        "valid": true
+      },
+      "state": "valid",
+      "score": 1,
+      "disposition": "lower cross-family vote with exact-quote cap",
+      "quoteCheck": {
+        "count": 6,
+        "cap": 2,
+        "defects": []
+      },
+      "slots": [
+        {
+          "judge": "g",
+          "value": 2,
+          "status": "cast",
+          "reason": "All required decisions regarding the optional evaluation signal, schema immutability, scope limitation, and migration expectations are correct and fully grounded in direct source quotes."
+        },
+        {
+          "judge": "o",
+          "value": 1,
+          "status": "cast",
+          "reason": "The answer safely addresses cancellation, schemas, session scope and compatibility, but its shared optional-second-argument contract and explicit migration claims lack decisive supporting quotations."
+        }
+      ]
+    },
+    {
+      "cell": "admission-lifetime.d41.c.1",
+      "arm": "d41",
+      "member": "c",
+      "property": "q10",
+      "validity": {
+        "valid": true
+      },
+      "state": "valid",
+      "score": 1,
+      "disposition": "lower cross-family vote with exact-quote cap",
+      "quoteCheck": {
+        "count": 6,
+        "cap": 2,
+        "defects": []
+      },
+      "slots": [
+        {
+          "judge": "g",
+          "value": 2,
+          "status": "cast",
+          "reason": "All required decisions regarding ledger scope, host task ownership, and the non-applicability of the finite defaults to peer capacity, provider memory, CPU preemption, browser-native cleanup, and authentication schemes are correct and fully grounded."
+        },
+        {
+          "judge": "o",
+          "value": 1,
+          "status": "cast",
+          "reason": "The excerpts ground provider ownership and the limits of defaults, but do not ground the required coverage of retained request/results or the claimed disposal-dependent slot release."
+        }
+      ]
+    },
+    {
+      "cell": "admission-lifetime.d41.c.1",
+      "arm": "d41",
+      "member": "c",
+      "property": "q11",
+      "validity": {
+        "valid": true
+      },
+      "state": "valid",
+      "score": 1,
+      "disposition": "lower cross-family vote with exact-quote cap",
+      "quoteCheck": {
+        "count": 5,
+        "cap": 2,
+        "defects": []
+      },
+      "slots": [
+        {
+          "judge": "g",
+          "value": 2,
+          "status": "cast",
+          "reason": "All required decisions distinguishing conforming traffic outcomes from local evaluation pool exhaustion are correctly answered and supported by exact document excerpts."
+        },
+        {
+          "judge": "o",
+          "value": 1,
+          "status": "cast",
+          "reason": "The answer safely states all three decisions, but its route quotation supports only nonfatal denials and does not ground the required atomic revision/RIB change/ACK under current guards."
+        }
+      ]
+    },
+    {
+      "cell": "admission-lifetime.d41.c.1",
+      "arm": "d41",
+      "member": "c",
+      "property": "q12",
+      "validity": {
+        "valid": true
+      },
+      "state": "valid",
+      "score": 1,
+      "disposition": "lower cross-family vote with exact-quote cap",
+      "quoteCheck": {
+        "count": 5,
+        "cap": 2,
+        "defects": []
+      },
+      "slots": [
+        {
+          "judge": "g",
+          "value": 2,
+          "status": "cast",
+          "reason": "All required decisions are correctly addressed and grounded in exact document excerpts."
+        },
+        {
+          "judge": "o",
+          "value": 1,
+          "status": "cast",
+          "reason": "The teardown and OPEN-deadline decisions are supported, but the quoted reader text does not establish that the sole reader drains to ordered transport terminal."
+        }
+      ]
+    },
+    {
+      "cell": "admission-lifetime.d41.g.1",
+      "arm": "d41",
+      "member": "g",
+      "property": "q01",
+      "validity": {
+        "valid": true
+      },
+      "state": "valid",
+      "score": 1,
+      "disposition": "lower cross-family vote with exact-quote cap",
+      "quoteCheck": {
+        "count": 6,
+        "cap": 1,
+        "defects": [
+          {
+            "line": "QUOTE: \"There must be no stale path to retainIdentity, collision termination, #pendingRoute, route replacement, revision consumption or ACK enqueue.\"",
+            "valid": true,
+            "matches": false
+          }
+        ]
+      },
+      "slots": [
+        {
+          "judge": "c",
+          "value": 2,
+          "status": "cast",
+          "reason": "All four decisions are correct and grounded in exact excerpts: authority is revoked and cleanup proceeds without joining the provider, every listed stale effect is barred, the slot frees only on settlement plus disposal, and a revoked pre-invocation permit is released immediately; the answer claims only cooperative cancellation, never forced cancellation or physical release."
+        },
+        {
+          "judge": "o",
+          "value": 2,
+          "status": "cast",
+          "reason": "The quoted evidence supports independent cleanup, denial of stale effects, reservation retention through settlement and disposal, and immediate release before invocation, without claiming forced cancellation or physical release."
+        }
+      ]
+    },
+    {
+      "cell": "admission-lifetime.d41.g.1",
+      "arm": "d41",
+      "member": "g",
+      "property": "q02",
+      "validity": {
+        "valid": true
+      },
+      "state": "valid",
+      "score": 1,
+      "disposition": "lower cross-family vote with exact-quote cap",
+      "quoteCheck": {
+        "count": 4,
+        "cap": 1,
+        "defects": [
+          {
+            "line": "QUOTE: \"An evaluation can finish before its serialized result is applied. Its capacity remains reserved while that result is waiting, preventing an unbounded queue of settled results behind the executor.\"",
+            "valid": true,
+            "matches": false
+          }
+        ]
+      },
+      "slots": [
+        {
+          "judge": "c",
+          "value": 1,
+          "status": "cast",
+          "reason": "R1–R3 are correct and grounded: the quotes show the executor rechecks authority, controller, kind, token and deadline without relying on the timer, that no import, revision or ACK occurs, and that capacity stays reserved while the result waits; but R4 (a check only inside the final reducer is insufficient) is never addressed, and the added claims that the timer is cancelled and the session target detached are the reader's own unquoted additions, not faithful repetition."
+        },
+        {
+          "judge": "o",
+          "value": 1,
+          "status": "cast",
+          "reason": "The quotations support application-time authority checks, prohibited expired-result effects, and retained capacity, but the answer leaves the insufficiency of a final-reducer-only check and exactly-once reservation release unstated."
+        }
+      ]
+    },
+    {
+      "cell": "admission-lifetime.d41.g.1",
+      "arm": "d41",
+      "member": "g",
+      "property": "q03",
+      "validity": {
+        "valid": true
+      },
+      "state": "valid",
+      "score": 1,
+      "disposition": "lower cross-family vote with exact-quote cap",
+      "quoteCheck": {
+        "count": 5,
+        "cap": 2,
+        "defects": []
+      },
+      "slots": [
+        {
+          "judge": "c",
+          "value": 1,
+          "status": "cast",
+          "reason": "R2–R5 are correct and quoted (barrier stays engaged through drain, fatal notification bypasses it, accepted transport input drains through the sole reader without protocol effects, ordinary arrivals join the FIFO throughout); but the decisive R1 claim that a queued KEEPALIVE cannot refresh hold is not supported by any quote, and the answer never says it cannot grant peer credit before ordered dispatch."
+        },
+        {
+          "judge": "o",
+          "value": 1,
+          "status": "cast",
+          "reason": "The decisions are safe, but the FIFO quotations do not establish the required prohibition on hold refresh or peer credit before ordered dispatch."
+        }
+      ]
+    },
+    {
+      "cell": "admission-lifetime.d41.g.1",
+      "arm": "d41",
+      "member": "g",
+      "property": "q04",
+      "validity": {
+        "valid": true
+      },
+      "state": "valid",
+      "score": 0,
+      "disposition": "lower cross-family vote with exact-quote cap",
+      "quoteCheck": {
+        "count": 4,
+        "cap": 1,
+        "defects": [
+          {
+            "line": "QUOTE: \"Before invocation, validate the envelope, exact next revision and canonical snapshot, then prepare the immutable policy-eligible subset and retain static rejections separately. Validate the result against exactly that subset, including an empty subset.\"",
+            "valid": true,
+            "matches": false
+          }
+        ]
+      },
+      "slots": [
+        {
+          "judge": "c",
+          "value": 2,
+          "status": "cast",
+          "reason": "All four required decisions are correct and grounded in quotes: the immutable policy-eligible subset with static rejections kept separately, capacity computed at final serialized commit, no revision or routing change until preparation succeeds (the ACK is tied to the atomic change), and nonfatal per-route denials."
+        },
+        {
+          "judge": "o",
+          "value": 0,
+          "status": "cast",
+          "reason": "The prohibition on any live-state change would also forbid permitted cleanup or terminal publications, an implementation-adequacy failure reflecting the quoted blanket revision/routing restriction rather than wholly invented behavior."
+        }
+      ]
+    },
+    {
+      "cell": "admission-lifetime.d41.g.1",
+      "arm": "d41",
+      "member": "g",
+      "property": "q05",
+      "validity": {
+        "valid": true
+      },
+      "state": "valid",
+      "score": 1,
+      "disposition": "lower cross-family vote with exact-quote cap",
+      "quoteCheck": {
+        "count": 4,
+        "cap": 1,
+        "defects": [
+          {
+            "line": "QUOTE: \"On preflight exhaustion, discard the ordinary plan and enter the node-owned terminal sequence below; return replaced-by-terminal with its frozen capture, not success. None of the rejected transaction's ordinary effects occurs.\"",
+            "valid": true,
+            "matches": false
+          },
+          {
+            "line": "QUOTE: \"A stop or listener-failure continuation already queued must observe the terminal gate and must not overwrite Failed with Stopping or Stopped, generate another revision, or rearm an adjacency.\"",
+            "valid": true,
+            "matches": false
+          }
+        ]
+      },
+      "slots": [
+        {
+          "judge": "c",
+          "value": 1,
+          "status": "cast",
+          "reason": "Ownership, discarding the plan for a terminal replacement, publications outside admission, and queued-stop behavior are correct and quoted, but R3's ordered sequence (revoke, detach/purge, retain resources/collect ledger, frozen capture) and R4's in-turn synchronous disposal versus later external cleanup are missing."
+        },
+        {
+          "judge": "o",
+          "value": 1,
+          "status": "cast",
+          "reason": "The answer supports coordinator ownership and terminal replacement but omits the ordered revocation, detachment, resource retention and ledger collection, plus the separation of synchronous disposal from later external cleanup."
+        }
+      ]
+    },
+    {
+      "cell": "admission-lifetime.d41.g.1",
+      "arm": "d41",
+      "member": "g",
+      "property": "q06",
+      "validity": {
+        "valid": true
+      },
+      "state": "valid",
+      "score": 1,
+      "disposition": "lower cross-family vote with exact-quote cap",
+      "quoteCheck": {
+        "count": 3,
+        "cap": 1,
+        "defects": [
+          {
+            "line": "QUOTE: \"Freeze its resource values, revision and capturedAt together; subsequent aggregate and focused queries return that same terminal capture, not a new timestamp on old counts.\"",
+            "valid": true,
+            "matches": false
+          }
+        ]
+      },
+      "slots": [
+        {
+          "judge": "c",
+          "value": 1,
+          "status": "cast",
+          "reason": "R1 and R2 are correct and grounded, and unresolved evaluations staying nonzero is quoted, but R3 is incomplete: the answer never says a frozen count is a last-known capture that proves neither perpetual allocation nor release."
+        },
+        {
+          "judge": "o",
+          "value": 2,
+          "status": "cast",
+          "reason": "The quotations support live cleanup gauges after ordinary stop and frozen counts, revision and capturedAt after numeric terminalization, while possible later private release explains why frozen counts represent the terminal capture."
+        }
+      ]
+    },
+    {
+      "cell": "admission-lifetime.d41.g.1",
+      "arm": "d41",
+      "member": "g",
+      "property": "q07",
+      "validity": {
+        "valid": true
+      },
+      "state": "valid",
+      "score": 1,
+      "disposition": "lower cross-family vote with exact-quote cap",
+      "quoteCheck": {
+        "count": 4,
+        "cap": 1,
+        "defects": [
+          {
+            "line": "QUOTE: \"desired remains true while the configured relationship is wanted; initial capacity waiting does not consume its initial-attempt entitlement. reconnect.enabled = false prevents repeat attempts, not the initial configured attempt or its pre-acquisition capacity wait.\"",
+            "valid": true,
+            "matches": false
+          }
+        ]
+      },
+      "slots": [
+        {
+          "judge": "c",
+          "value": 2,
+          "status": "cast",
+          "reason": "Correctly grounds one coalesced identity-capacity waiter projecting retry-wait without fabricated session, token, controller or retryAt, the retained initial entitlement despite reconnect disabled, identity-always versus refusal-conditioned route checks, and release as a level recheck that keeps the deadline and attempt count; omitting the refusal-clearing transitions and the explicit guard recheck is minor and not unsafe."
+        },
+        {
+          "judge": "o",
+          "value": 1,
+          "status": "cast",
+          "reason": "The answer safely describes capacity waiting but leaves the route requirement's clearing conditions unspecified and supplies no quote grounding the required retry-wait projection fields."
+        }
+      ]
+    },
+    {
+      "cell": "admission-lifetime.d41.g.1",
+      "arm": "d41",
+      "member": "g",
+      "property": "q08",
+      "validity": {
+        "valid": true
+      },
+      "state": "valid",
+      "score": 0,
+      "disposition": "lower cross-family vote with exact-quote cap",
+      "quoteCheck": {
+        "count": 4,
+        "cap": 2,
+        "defects": []
+      },
+      "slots": [
+        {
+          "judge": "c",
+          "value": 0,
+          "status": "cast",
+          "reason": "It recommends applying the successful-attempt reset on OpenConfirm satisfaction, contradicting R1/R2's preserved retryAttempt = 4 and establishment-based success; this faithfully repeats a supplied instruction (document inadequacy, not reader invention), it only partially flags the resulting ambiguity, and it omits the exact-Established single reset (R3) and the distinction between scheduling cancellation and history reset (R4)."
+        },
+        {
+          "judge": "o",
+          "value": 0,
+          "status": "cast",
+          "reason": "Resetting history at OpenConfirm satisfaction violates preservation until exact-current establishment, faithfully repeating the quoted unsafe instruction rather than inventing it, and the acknowledged ambiguity leaves subsequent retry history unresolved."
+        }
+      ]
+    },
+    {
+      "cell": "admission-lifetime.d41.g.1",
+      "arm": "d41",
+      "member": "g",
+      "property": "q09",
+      "validity": {
+        "valid": true
+      },
+      "state": "valid",
+      "score": 1,
+      "disposition": "lower cross-family vote with exact-quote cap",
+      "quoteCheck": {
+        "count": 4,
+        "cap": 1,
+        "defects": [
+          {
+            "line": "QUOTE: \"Recommendation: add one shared process-local AdmissionEvaluationOptions with a signal capability as an optional second parameter to both ports' evaluate methods.\"",
+            "valid": true,
+            "matches": false
+          },
+          {
+            "line": "QUOTE: \"Keep the request and result DTOs unchanged and credential-free, and keep clocks, callback handles and cancellation authority out of their schemas. There is no wire change.\"",
+            "valid": true,
+            "matches": false
+          }
+        ]
+      },
+      "slots": [
+        {
+          "judge": "c",
+          "value": 1,
+          "status": "cast",
+          "reason": "It makes no unsafe recommendation and grounds the optional second argument, unchanged credential-free DTOs, the signal not being a session or credential handle, and no browser/CLI split, but it omits R2 (cooperative cancellation with finite accounting still necessary), omits that AGP always supplies the options, and its migration and one-argument compatibility claims are unquoted."
+        },
+        {
+          "judge": "o",
+          "value": 1,
+          "status": "cast",
+          "reason": "The answer safely describes the optional argument and DTO and lifecycle boundaries, but omits AGP always supplying it, cooperative cancellation with finite accounting, and explicit migration for providers adopting the signal, while compatibility claims lack quoted support."
+        }
+      ]
+    },
+    {
+      "cell": "admission-lifetime.d41.g.1",
+      "arm": "d41",
+      "member": "g",
+      "property": "q10",
+      "validity": {
+        "valid": true
+      },
+      "state": "valid",
+      "score": 1,
+      "disposition": "lower cross-family vote with exact-quote cap",
+      "quoteCheck": {
+        "count": 4,
+        "cap": 2,
+        "defects": []
+      },
+      "slots": [
+        {
+          "judge": "c",
+          "value": 1,
+          "status": "cast",
+          "reason": "Ledger scope, provider ownership and the defaults not being workload measurements are correct and quoted, but the claims that no authentication scheme is selected and that physical heap is not bounded have no supporting quote, so a decisive part of R3 is ungrounded and the score is capped at 1."
+        },
+        {
+          "judge": "o",
+          "value": 1,
+          "status": "cast",
+          "reason": "The decisions are safe, but the excerpts do not establish the claimed absence of an authentication scheme or bounds on arbitrary allocations and physical heap bytes."
+        }
+      ]
+    },
+    {
+      "cell": "admission-lifetime.d41.g.1",
+      "arm": "d41",
+      "member": "g",
+      "property": "q11",
+      "validity": {
+        "valid": true
+      },
+      "state": "valid",
+      "score": 1,
+      "disposition": "lower cross-family vote with exact-quote cap",
+      "quoteCheck": {
+        "count": 4,
+        "cap": 1,
+        "defects": [
+          {
+            "line": "QUOTE: \"At capacity, refuse before provider invocation and report proposed AdmissionCapacityExceeded, not IDENTITY_REJECTED or a per-route POLICY denial.\"",
+            "valid": true,
+            "matches": false
+          }
+        ]
+      },
+      "slots": [
+        {
+          "judge": "c",
+          "value": 1,
+          "status": "cast",
+          "reason": "Allow/deny handling, nonfatal route denials and pre-invocation AdmissionCapacityExceeded with zero provider calls are correct and quoted, but the INTERNAL_ERROR cleanup classification and the absence of a new wire code are not supported by any quote (the claim that it is 'an internal error disposition' is unquoted), so R3 is only partially grounded."
+        },
+        {
+          "judge": "o",
+          "value": 1,
+          "status": "cast",
+          "reason": "The answer correctly distinguishes policy outcomes from capacity refusal, but its internal-error disposition lacks quoted support for the required existing INTERNAL_ERROR cleanup/reconnect classification when safe."
+        }
+      ]
+    },
+    {
+      "cell": "admission-lifetime.d41.g.1",
+      "arm": "d41",
+      "member": "g",
+      "property": "q12",
+      "validity": {
+        "valid": true
+      },
+      "state": "valid",
+      "score": 1,
+      "disposition": "lower cross-family vote with exact-quote cap",
+      "quoteCheck": {
+        "count": 4,
+        "cap": 1,
+        "defects": [
+          {
+            "line": "QUOTE: \"Start one teardown budget when the terminal cause commits. The deadline actively stops the writer and aborts the channel even if notification write or graceful close has not settled; a signal passed only to a later close() call cannot bound an earlier wait.\"",
+            "valid": true,
+            "matches": false
+          },
+          {
+            "line": "QUOTE: \"The OPEN timer remains armed until Established or teardown; admission success cannot leave an unlimited confirmation phase when hold is zero.\"",
+            "valid": true,
+            "matches": false
+          }
+        ]
+      },
+      "slots": [
+        {
+          "judge": "c",
+          "value": 1,
+          "status": "cast",
+          "reason": "R1, R3 and R4 are correct and grounded with exact quotes, but R2 is incomplete: the answer has the sole reader drain to terminal and stop, yet never says it observes terminal and calls controllerReleased once without joining the provider, an omission rather than an unsafe recommendation."
+        },
+        {
+          "judge": "o",
+          "value": 1,
+          "status": "cast",
+          "reason": "The answer grounds active teardown, sole-reader draining, transport assumptions and the OPEN deadline, but omits calling controllerReleased exactly once without joining the unsettled provider."
+        }
+      ]
+    },
+    {
+      "cell": "admission-lifetime.d41.o.1",
+      "arm": "d41",
+      "member": "o",
+      "property": "q01",
+      "validity": {
+        "valid": true
+      },
+      "state": "valid",
+      "score": 2,
+      "disposition": "lower cross-family vote with exact-quote cap",
+      "quoteCheck": {
+        "count": 4,
+        "cap": 2,
+        "defects": []
+      },
+      "slots": [
+        {
+          "judge": "c",
+          "value": 2,
+          "status": "cast",
+          "reason": "The answer correctly and with quotes covers revoked authority with no stale effects, reservation retained until settlement and disposal, and immediate release of a pre-invocation revoked permit; it describes cancellation only as cooperative and makes no claim of forced cancellation or physical release."
+        },
+        {
+          "judge": "g",
+          "value": 2,
+          "status": "cast",
+          "reason": "The answer correctly resolves all required decisions regarding expiry effects, slot retention until settlement/disposal, and immediate release of pre-invocation revocations, with direct source quotes."
+        }
+      ]
+    },
+    {
+      "cell": "admission-lifetime.d41.o.1",
+      "arm": "d41",
+      "member": "o",
+      "property": "q02",
+      "validity": {
+        "valid": true
+      },
+      "state": "valid",
+      "score": 1,
+      "disposition": "lower cross-family vote with exact-quote cap",
+      "quoteCheck": {
+        "count": 4,
+        "cap": 2,
+        "defects": []
+      },
+      "slots": [
+        {
+          "judge": "c",
+          "value": 1,
+          "status": "cast",
+          "reason": "No unsafe recommendation, and the deadline recheck and retained-capacity points are grounded. However, R2 (no route mutation, revision consumption or ACK) and the single release on disposal are unquoted. The authority/controller/token checks are grounded only via a reducer defence-in-depth quote, and R4 (a reducer-only check is insufficient) is never explicitly stated."
+        },
+        {
+          "judge": "g",
+          "value": 1,
+          "status": "cast",
+          "reason": "The answer correctly handles executor checks, prohibited effects, and retained capacity, but omits required decision R4 regarding the insufficiency of checking only in the reducer."
+        }
+      ]
+    },
+    {
+      "cell": "admission-lifetime.d41.o.1",
+      "arm": "d41",
+      "member": "o",
+      "property": "q03",
+      "validity": {
+        "valid": true
+      },
+      "state": "valid",
+      "score": 2,
+      "disposition": "lower cross-family vote with exact-quote cap",
+      "quoteCheck": {
+        "count": 4,
+        "cap": 2,
+        "defects": []
+      },
+      "slots": [
+        {
+          "judge": "c",
+          "value": 2,
+          "status": "cast",
+          "reason": "All five decisions are correct and supported by short exact quotes: same-FIFO queuing with no pre-dispatch hold refresh, a barrier that opens only on the serialized empty observation, terminal bypass, sole-reader drain with no second reader, and 'throughout' for no overtaking across yields."
+        },
+        {
+          "judge": "g",
+          "value": 2,
+          "status": "cast",
+          "reason": "All required decisions are correctly stated and supported by exact source quotations."
+        }
+      ]
+    },
+    {
+      "cell": "admission-lifetime.d41.o.1",
+      "arm": "d41",
+      "member": "o",
+      "property": "q04",
+      "validity": {
+        "valid": true
+      },
+      "state": "valid",
+      "score": 2,
+      "disposition": "lower cross-family vote with exact-quote cap",
+      "quoteCheck": {
+        "count": 5,
+        "cap": 2,
+        "defects": []
+      },
+      "slots": [
+        {
+          "judge": "c",
+          "value": 2,
+          "status": "cast",
+          "reason": "All four required decisions are correct and quoted: immutable eligible subset with separate static rejections, capacity decided at final serialized commit, no revision or routing change before complete preparation, and nonfatal denials with one atomic change and ACK; the note that fault classification is unspecified is a scope limit, not a hedge."
+        },
+        {
+          "judge": "g",
+          "value": 2,
+          "status": "cast",
+          "reason": "All required decisions covering policy subset filtering, commit-time capacity evaluation, transaction validation, and nonfatal denials are correct and grounded in exact quotes."
+        }
+      ]
+    },
+    {
+      "cell": "admission-lifetime.d41.o.1",
+      "arm": "d41",
+      "member": "o",
+      "property": "q05",
+      "validity": {
+        "valid": true
+      },
+      "state": "valid",
+      "score": 1,
+      "disposition": "lower cross-family vote with exact-quote cap",
+      "quoteCheck": {
+        "count": 4,
+        "cap": 2,
+        "defects": []
+      },
+      "slots": [
+        {
+          "judge": "c",
+          "value": 1,
+          "status": "cast",
+          "reason": "Ownership, the shared publication gate and the queued-stop rule are correct and grounded, and the ordered handoff described matches the key, but the quotes do not support the terminal-replacement result, the ordered close/revoke/purge/retain/capture sequence, or the split between inside-turn disposal and later external cleanup, so R2-R4 are ungrounded and capped at 1."
+        },
+        {
+          "judge": "g",
+          "value": 2,
+          "status": "cast",
+          "reason": "All required decisions are correctly addressed and grounded in matching document quotations."
+        }
+      ]
+    },
+    {
+      "cell": "admission-lifetime.d41.o.1",
+      "arm": "d41",
+      "member": "o",
+      "property": "q06",
+      "validity": {
+        "valid": true
+      },
+      "state": "valid",
+      "score": 2,
+      "disposition": "lower cross-family vote with exact-quote cap",
+      "quoteCheck": {
+        "count": 4,
+        "cap": 2,
+        "defects": []
+      },
+      "slots": [
+        {
+          "judge": "c",
+          "value": 2,
+          "status": "cast",
+          "reason": "Live cleanup gauges after ordinary stop, the joint freeze of counts, revision and capturedAt with no later publication, and the nonzero last-known (not live or released) semantics are all correct and quoted exactly; the recommendation-status note is a scope limit, not a hedge."
+        },
+        {
+          "judge": "g",
+          "value": 2,
+          "status": "cast",
+          "reason": "All required decisions are accurately answered and supported by exact document quotations."
+        }
+      ]
+    },
+    {
+      "cell": "admission-lifetime.d41.o.1",
+      "arm": "d41",
+      "member": "o",
+      "property": "q07",
+      "validity": {
+        "valid": true
+      },
+      "state": "valid",
+      "score": 1,
+      "disposition": "lower cross-family vote with exact-quote cap",
+      "quoteCheck": {
+        "count": 3,
+        "cap": 2,
+        "defects": []
+      },
+      "slots": [
+        {
+          "judge": "c",
+          "value": 1,
+          "status": "cast",
+          "reason": "No unsafe recommendation and the reconnect-disabled entitlement, unrelated route pressure and backoff-preservation points are grounded, but key R1 projection decisions are unquoted: one waiter, unchanged retryAttempt, no retryAt, no session token. R2 clearing semantics are also unquoted, and R3 does not ground the claim that a wake is a level recheck rather than a reserved permit."
+        },
+        {
+          "judge": "g",
+          "value": 2,
+          "status": "cast",
+          "reason": "All required decisions regarding initial capacity waiting under disabled reconnect, route pool differentiation, and release notifications during backoff are correctly stated and grounded in document excerpts."
+        }
+      ]
+    },
+    {
+      "cell": "admission-lifetime.d41.o.1",
+      "arm": "d41",
+      "member": "o",
+      "property": "q08",
+      "validity": {
+        "valid": true
+      },
+      "state": "valid",
+      "score": 1,
+      "disposition": "lower cross-family vote with exact-quote cap",
+      "quoteCheck": {
+        "count": 5,
+        "cap": 2,
+        "defects": []
+      },
+      "slots": [
+        {
+          "judge": "c",
+          "value": 1,
+          "status": "cast",
+          "reason": "Faithfully quotes the supplied 'Satisfaction applies the existing successful-attempt reset' instruction, which conflicts with establishment-only reset, so this is document inadequacy rather than reader invention; the answer flags the conflict without guessing, but cannot ground preservation of retryAttempt = 4 or an Established-only reset, and supports stale-success exclusion only by inference."
+        },
+        {
+          "judge": "g",
+          "value": 1,
+          "status": "cast",
+          "reason": "The answer correctly identifies the document's unresolved conflict between satisfaction-time and establishment-time retry history reset without guessing, which caps the score at 1."
+        }
+      ]
+    },
+    {
+      "cell": "admission-lifetime.d41.o.1",
+      "arm": "d41",
+      "member": "o",
+      "property": "q09",
+      "validity": {
+        "valid": true
+      },
+      "state": "valid",
+      "score": 1,
+      "disposition": "lower cross-family vote with exact-quote cap",
+      "quoteCheck": {
+        "count": 5,
+        "cap": 2,
+        "defects": []
+      },
+      "slots": [
+        {
+          "judge": "c",
+          "value": 1,
+          "status": "cast",
+          "reason": "The decisions are correct and mostly grounded, including AGP always supplying the options and no browser/CLI split, but its R2 claim that the work ledger provides lifetime safety when cancellation is ignored and its R4 no-reuse-after-commit claim are not supported by any quote; the adoption-outstanding note is a scope limit, not a hedge."
+        },
+        {
+          "judge": "g",
+          "value": 2,
+          "status": "cast",
+          "reason": "All required decisions are correctly addressed and supported by exact quotations from the document."
+        }
+      ]
+    },
+    {
+      "cell": "admission-lifetime.d41.o.1",
+      "arm": "d41",
+      "member": "o",
+      "property": "q10",
+      "validity": {
+        "valid": true
+      },
+      "state": "valid",
+      "score": 2,
+      "disposition": "lower cross-family vote with exact-quote cap",
+      "quoteCheck": {
+        "count": 5,
+        "cap": 2,
+        "defects": []
+      },
+      "slots": [
+        {
+          "judge": "c",
+          "value": 2,
+          "status": "cast",
+          "reason": "Correctly limits the ledger to AGP port evaluations and retained results, assigns hidden work to the provider/host, calls the defaults review recommendations rather than measurements or capacity for hundreds of peers, and excludes allocation bounds, CPU preemption, browser-native cleanup and any authentication scheme, with each point backed by a supporting quote."
+        },
+        {
+          "judge": "g",
+          "value": 2,
+          "status": "cast",
+          "reason": "All required decisions regarding AGP ledger coverage, baseline default recommendations, and non-assumptions about resource bounds and authentication schemes are correctly stated and supported by direct quotes."
+        }
+      ]
+    },
+    {
+      "cell": "admission-lifetime.d41.o.1",
+      "arm": "d41",
+      "member": "o",
+      "property": "q11",
+      "validity": {
+        "valid": true
+      },
+      "state": "valid",
+      "score": 2,
+      "disposition": "lower cross-family vote with exact-quote cap",
+      "quoteCheck": {
+        "count": 4,
+        "cap": 2,
+        "defects": []
+      },
+      "slots": [
+        {
+          "judge": "c",
+          "value": 2,
+          "status": "cast",
+          "reason": "All three required decisions are correct and supported by exact quotes: allow follows collision and confirmation rules while deny stays a policy refusal, per-route denials are nonfatal within one atomic revision and ACK, and pool exhaustion refuses before invocation with AdmissionCapacityExceeded under the existing INTERNAL_ERROR disposition rather than IDENTITY_REJECTED, POLICY or a provider fault, with no provider invoked."
+        },
+        {
+          "judge": "g",
+          "value": 2,
+          "status": "cast",
+          "reason": "All required decisions distinguishing conforming allow/deny and route policy from pre-invocation capacity exhaustion, including invocation omission and INTERNAL_ERROR cleanup disposition, are correct and fully grounded."
+        }
+      ]
+    },
+    {
+      "cell": "admission-lifetime.d41.o.1",
+      "arm": "d41",
+      "member": "o",
+      "property": "q12",
+      "validity": {
+        "valid": true
+      },
+      "state": "valid",
+      "score": 1,
+      "disposition": "lower cross-family vote with exact-quote cap",
+      "quoteCheck": {
+        "count": 5,
+        "cap": 2,
+        "defects": []
+      },
+      "slots": [
+        {
+          "judge": "c",
+          "value": 1,
+          "status": "cast",
+          "reason": "R1, R3 and R4 are correct and grounded with exact quotes, and R2's single controllerReleased call independent of provider work is quoted, but the sole reader draining accepted transport input to ordered terminal is unquoted and 'exactly one reader' is inferred only from the possessive 'the reader's'; no unsafe instruction or reader invention."
+        },
+        {
+          "judge": "g",
+          "value": 2,
+          "status": "cast",
+          "reason": "All required decisions regarding teardown budget, single reader drain, transport assumptions, and OPEN deadline persistence are fully addressed and grounded in exact quotes."
+        }
+      ]
+    },
+    {
+      "cell": "admission-lifetime.p87.c.1",
+      "arm": "p87",
+      "member": "c",
+      "property": "q01",
+      "validity": {
+        "valid": true
+      },
+      "state": "valid",
+      "score": 1,
+      "disposition": "lower cross-family vote with exact-quote cap",
+      "quoteCheck": {
+        "count": 6,
+        "cap": 2,
+        "defects": []
+      },
+      "slots": [
+        {
+          "judge": "g",
+          "value": 2,
+          "status": "cast",
+          "reason": "All required decisions on deadline expiry, slot retention, and revoked pre-invocation permits are fully answered and supported by exact quotes."
+        },
+        {
+          "judge": "o",
+          "value": 1,
+          "status": "cast",
+          "reason": "The answer safely retains unsettled work and permits immediate pre-invocation release, but its quotations do not establish settlement plus retained request/result disposal as the required condition for refunding an invoked work slot."
+        }
+      ]
+    },
+    {
+      "cell": "admission-lifetime.p87.c.1",
+      "arm": "p87",
+      "member": "c",
+      "property": "q02",
+      "validity": {
+        "valid": true
+      },
+      "state": "valid",
+      "score": 1,
+      "disposition": "lower cross-family vote with exact-quote cap",
+      "quoteCheck": {
+        "count": 5,
+        "cap": 2,
+        "defects": []
+      },
+      "slots": [
+        {
+          "judge": "g",
+          "value": 1,
+          "status": "cast",
+          "reason": "Required decision R4 is omitted because the answer does not address the insufficiency of checking only inside the final reducer."
+        },
+        {
+          "judge": "o",
+          "value": 1,
+          "status": "cast",
+          "reason": "The answer safely covers application checks, expired-result effects and retained capacity, but does not establish or ground R4 that checking only inside the final reducer is insufficient."
+        }
+      ]
+    },
+    {
+      "cell": "admission-lifetime.p87.c.1",
+      "arm": "p87",
+      "member": "c",
+      "property": "q03",
+      "validity": {
+        "valid": true
+      },
+      "state": "valid",
+      "score": 1,
+      "disposition": "lower cross-family vote with exact-quote cap",
+      "quoteCheck": {
+        "count": 5,
+        "cap": 2,
+        "defects": []
+      },
+      "slots": [
+        {
+          "judge": "g",
+          "value": 1,
+          "status": "cast",
+          "reason": "Required decision R4 is incomplete because the response and its quotations omit the prohibition against adding a second reader or using early read cancellation."
+        },
+        {
+          "judge": "o",
+          "value": 1,
+          "status": "cast",
+          "reason": "FIFO ordering, barrier opening and fatal bypass are grounded, but the answer explicitly treats post-fatal KEEPALIVE inertness as an inference and leaves preservation of accepted transport input uncertain."
+        }
+      ]
+    },
+    {
+      "cell": "admission-lifetime.p87.c.1",
+      "arm": "p87",
+      "member": "c",
+      "property": "q04",
+      "validity": {
+        "valid": true
+      },
+      "state": "valid",
+      "score": 1,
+      "disposition": "lower cross-family vote with exact-quote cap",
+      "quoteCheck": {
+        "count": 5,
+        "cap": 2,
+        "defects": []
+      },
+      "slots": [
+        {
+          "judge": "g",
+          "value": 2,
+          "status": "cast",
+          "reason": "All required decisions regarding passing the immutable policy-eligible subset, serialized RIB capacity commit, preflight/validation failure atomicity, and nonfatal per-route denials are correct and fully grounded."
+        },
+        {
+          "judge": "o",
+          "value": 1,
+          "status": "cast",
+          "reason": "The excerpts support the eligible subset, final-commit capacity, atomic preparation and nonfatal denials, but the answer does not establish the required prohibition on an ACK when validation fails."
+        }
+      ]
+    },
+    {
+      "cell": "admission-lifetime.p87.c.1",
+      "arm": "p87",
+      "member": "c",
+      "property": "q05",
+      "validity": {
+        "valid": true
+      },
+      "state": "valid",
+      "score": 1,
+      "disposition": "lower cross-family vote with exact-quote cap",
+      "quoteCheck": {
+        "count": 6,
+        "cap": 2,
+        "defects": []
+      },
+      "slots": [
+        {
+          "judge": "g",
+          "value": 1,
+          "status": "cast",
+          "reason": "The answer correctly identifies the core coordinator and terminal sequence but omits the timing of post-turn external callbacks and transport cleanup, and lacks quotations for the full handoff sequence."
+        },
+        {
+          "judge": "o",
+          "value": 1,
+          "status": "cast",
+          "reason": "The answer safely describes terminal replacement but omits the required ordering of synchronous detachment/disposal inside the coordinator turn and external callbacks, abort, and transport cleanup afterward."
+        }
+      ]
+    },
+    {
+      "cell": "admission-lifetime.p87.c.1",
+      "arm": "p87",
+      "member": "c",
+      "property": "q06",
+      "validity": {
+        "valid": true
+      },
+      "state": "valid",
+      "score": 2,
+      "disposition": "lower cross-family vote with exact-quote cap",
+      "quoteCheck": {
+        "count": 4,
+        "cap": 2,
+        "defects": []
+      },
+      "slots": [
+        {
+          "judge": "g",
+          "value": 2,
+          "status": "cast",
+          "reason": "All required decisions comparing normally stopped and numeric-terminal query semantics and frozen state are correctly answered and grounded in exact excerpts."
+        },
+        {
+          "judge": "o",
+          "value": 2,
+          "status": "cast",
+          "reason": "The excerpts ground live ordinary-stop cleanup and frozen last-known terminal accounting; the contract-agreement caveat distinguishes proposed behavior from current implementation without hedging the required decisions."
+        }
+      ]
+    },
+    {
+      "cell": "admission-lifetime.p87.c.1",
+      "arm": "p87",
+      "member": "c",
+      "property": "q07",
+      "validity": {
+        "valid": true
+      },
+      "state": "valid",
+      "score": 1,
+      "disposition": "lower cross-family vote with exact-quote cap",
+      "quoteCheck": {
+        "count": 7,
+        "cap": 2,
+        "defects": []
+      },
+      "slots": [
+        {
+          "judge": "g",
+          "value": 2,
+          "status": "cast",
+          "reason": "All required decisions regarding capacity waiting, pool contrast, and capacity-release wake behavior are correct and supported by exact document excerpts."
+        },
+        {
+          "judge": "o",
+          "value": 1,
+          "status": "cast",
+          "reason": "The answer grounds initial waiting and backoff preservation but leaves the local route-refusal requirement's persistence and guards before actual acquisition incomplete; its scenario scope distinction is not a hedge."
+        }
+      ]
+    },
+    {
+      "cell": "admission-lifetime.p87.c.1",
+      "arm": "p87",
+      "member": "c",
+      "property": "q08",
+      "validity": {
+        "valid": true
+      },
+      "state": "valid",
+      "score": 1,
+      "disposition": "lower cross-family vote with exact-quote cap",
+      "quoteCheck": {
+        "count": 6,
+        "cap": 2,
+        "defects": []
+      },
+      "slots": [
+        {
+          "judge": "g",
+          "value": 2,
+          "status": "cast",
+          "reason": "The answer correctly details supervisor behavior across identity acquisition, pre-establishment loss, and established success, properly distinguishing scheduling cancellation from history reset with full quote grounding."
+        },
+        {
+          "judge": "o",
+          "value": 1,
+          "status": "cast",
+          "reason": "The answer grounds preserved retry history and the exact-current Established reset, but leaves clearing the lost winner's ownership implicit in the backoff transition."
+        }
+      ]
+    },
+    {
+      "cell": "admission-lifetime.p87.c.1",
+      "arm": "p87",
+      "member": "c",
+      "property": "q09",
+      "validity": {
+        "valid": true
+      },
+      "state": "valid",
+      "score": 1,
+      "disposition": "lower cross-family vote with exact-quote cap",
+      "quoteCheck": {
+        "count": 6,
+        "cap": 2,
+        "defects": []
+      },
+      "slots": [
+        {
+          "judge": "g",
+          "value": 1,
+          "status": "cast",
+          "reason": "The answer correctly addresses public contract, schema constraints, migration, and browser parity, but lacks source quote grounding for the required decision that finite accounting remains necessary when cancellation is ignored."
+        },
+        {
+          "judge": "o",
+          "value": 1,
+          "status": "cast",
+          "reason": "The answer is safe, but its quotations do not ground cooperative cancellation with finite accounting, post-commit nonreuse, or the required public exports/types and explicit migration for signal adoption."
+        }
+      ]
+    },
+    {
+      "cell": "admission-lifetime.p87.c.1",
+      "arm": "p87",
+      "member": "c",
+      "property": "q10",
+      "validity": {
+        "valid": true
+      },
+      "state": "valid",
+      "score": 1,
+      "disposition": "lower cross-family vote with exact-quote cap",
+      "quoteCheck": {
+        "count": 7,
+        "cap": 2,
+        "defects": []
+      },
+      "slots": [
+        {
+          "judge": "g",
+          "value": 2,
+          "status": "cast",
+          "reason": "All required decisions covering ledger scope, host task ownership, and the absence of scale, memory, preemption, browser cleanup, or authentication guarantees are correctly stated and well-grounded."
+        },
+        {
+          "judge": "o",
+          "value": 1,
+          "status": "cast",
+          "reason": "The answer correctly assigns hidden work to the provider, but its excerpts do not ground the provider's cancellation and resource-budget ownership or coverage of retained requests/results."
+        }
+      ]
+    },
+    {
+      "cell": "admission-lifetime.p87.c.1",
+      "arm": "p87",
+      "member": "c",
+      "property": "q11",
+      "validity": {
+        "valid": true
+      },
+      "state": "valid",
+      "score": 1,
+      "disposition": "lower cross-family vote with exact-quote cap",
+      "quoteCheck": {
+        "count": 4,
+        "cap": 2,
+        "defects": []
+      },
+      "slots": [
+        {
+          "judge": "g",
+          "value": 2,
+          "status": "cast",
+          "reason": "All required decisions contrasting ordinary control flows with pre-invocation capacity refusals are fully addressed and supported by exact document excerpts."
+        },
+        {
+          "judge": "o",
+          "value": 1,
+          "status": "cast",
+          "reason": "R1 and R3 are supported, but R2's nonfatal per-route denials and atomic revision/RIB/ACK commit lack supporting quoted text."
+        }
+      ]
+    },
+    {
+      "cell": "admission-lifetime.p87.c.1",
+      "arm": "p87",
+      "member": "c",
+      "property": "q12",
+      "validity": {
+        "valid": true
+      },
+      "state": "valid",
+      "score": 2,
+      "disposition": "lower cross-family vote with exact-quote cap",
+      "quoteCheck": {
+        "count": 5,
+        "cap": 2,
+        "defects": []
+      },
+      "slots": [
+        {
+          "judge": "g",
+          "value": 2,
+          "status": "cast",
+          "reason": "All required decisions are correctly addressed and fully grounded in exact quotations from the document."
+        },
+        {
+          "judge": "o",
+          "value": 2,
+          "status": "cast",
+          "reason": "The quotations ground active teardown enforcement from terminal commit, one reader's release independent of provider settlement, the transport and scheduling limits, and the OPEN deadline continuing through OpenConfirm."
+        }
+      ]
+    },
+    {
+      "cell": "admission-lifetime.p87.g.1",
+      "arm": "p87",
+      "member": "g",
+      "property": "q01",
+      "validity": {
+        "valid": true
+      },
+      "state": "valid",
+      "score": 2,
+      "disposition": "lower cross-family vote with exact-quote cap",
+      "quoteCheck": {
+        "count": 5,
+        "cap": 2,
+        "defects": []
+      },
+      "slots": [
+        {
+          "judge": "c",
+          "value": 2,
+          "status": "cast",
+          "reason": "Grounds expiry revoking authority with cleanup that does not join the provider, no late identity, collision, route or ACK effect, reservation release only on settlement and disposal, and immediate release for a pre-invocation revoked permit, while claiming only cooperative cancellation; omitting snapshot removal is minor."
+        },
+        {
+          "judge": "o",
+          "value": 2,
+          "status": "cast",
+          "reason": "The excerpts ground independent cleanup, prohibition of every stale protocol effect, reservation release \"exactly once\" upon eventual settlement and disposal, and immediate release before invocation, while cancellation is explicitly cooperative."
+        }
+      ]
+    },
+    {
+      "cell": "admission-lifetime.p87.g.1",
+      "arm": "p87",
+      "member": "g",
+      "property": "q02",
+      "validity": {
+        "valid": true
+      },
+      "state": "valid",
+      "score": 1,
+      "disposition": "lower cross-family vote with exact-quote cap",
+      "quoteCheck": {
+        "count": 4,
+        "cap": 1,
+        "defects": [
+          {
+            "line": "QUOTE: \"An evaluation can finish before its serialized result is applied. Its capacity remains reserved while that result is waiting, preventing an unbounded queue of settled results behind the executor.\"",
+            "valid": true,
+            "matches": false
+          }
+        ]
+      },
+      "slots": [
+        {
+          "judge": "c",
+          "value": 1,
+          "status": "cast",
+          "reason": "The answer correctly and with supporting quotes covers the application-time checks of deadline, authority, controller, kind and token, the bar on route mutation, revision and ACK, and continued reservation while the result is retained, but it never addresses R4 (a check only inside the final reducer is insufficient), so a required decision is missing."
+        },
+        {
+          "judge": "o",
+          "value": 1,
+          "status": "cast",
+          "reason": "The executor checks and expired-result restrictions are supported, but the quotations do not ground disposal and exactly-once reservation release, and exactly-once release is not stated."
+        }
+      ]
+    },
+    {
+      "cell": "admission-lifetime.p87.g.1",
+      "arm": "p87",
+      "member": "g",
+      "property": "q03",
+      "validity": {
+        "valid": true
+      },
+      "state": "valid",
+      "score": 1,
+      "disposition": "lower cross-family vote with exact-quote cap",
+      "quoteCheck": {
+        "count": 4,
+        "cap": 2,
+        "defects": []
+      },
+      "slots": [
+        {
+          "judge": "c",
+          "value": 1,
+          "status": "cast",
+          "reason": "R2–R5 are correct and grounded with exact quotes, and nothing unsafe is recommended; but R1 is incomplete because the answer never states that a queued KEEPALIVE cannot refresh hold or grant peer credit before ordered dispatch."
+        },
+        {
+          "judge": "o",
+          "value": 1,
+          "status": "cast",
+          "reason": "The answer grounds FIFO ordering, barrier release and terminal draining, but omits the required prohibition on queued KEEPALIVE refreshing hold or granting peer credit."
+        }
+      ]
+    },
+    {
+      "cell": "admission-lifetime.p87.g.1",
+      "arm": "p87",
+      "member": "g",
+      "property": "q04",
+      "validity": {
+        "valid": true
+      },
+      "state": "valid",
+      "score": 1,
+      "disposition": "lower cross-family vote with exact-quote cap",
+      "quoteCheck": {
+        "count": 4,
+        "cap": 1,
+        "defects": [
+          {
+            "line": "QUOTE: \"Before invocation, validate the envelope, exact next revision and canonical snapshot, then prepare the immutable policy-eligible subset and retain static rejections separately. Validate the result against exactly that subset, including an empty subset.\"",
+            "valid": true,
+            "matches": false
+          }
+        ]
+      },
+      "slots": [
+        {
+          "judge": "c",
+          "value": 2,
+          "status": "cast",
+          "reason": "All four required decisions are correct (eligible subset with separate static rejections, capacity at final serialized commit, no revision/routing change or ACK before complete preparation, nonfatal per-route denial) and each is grounded in exact short quotes."
+        },
+        {
+          "judge": "o",
+          "value": 2,
+          "status": "cast",
+          "reason": "All four required decisions are supported by the quoted immutable-subset, final-commit capacity, complete-preparation and nonfatal-denial instructions."
+        }
+      ]
+    },
+    {
+      "cell": "admission-lifetime.p87.g.1",
+      "arm": "p87",
+      "member": "g",
+      "property": "q05",
+      "validity": {
+        "valid": true
+      },
+      "state": "valid",
+      "score": 1,
+      "disposition": "lower cross-family vote with exact-quote cap",
+      "quoteCheck": {
+        "count": 4,
+        "cap": 2,
+        "defects": []
+      },
+      "slots": [
+        {
+          "judge": "c",
+          "value": 1,
+          "status": "cast",
+          "reason": "Correctly and safely grounds ownership, preflight, terminal replacement, the shared gate for unrelated publications and queued stop not overwriting Failed, but it omits R4's split between owned synchronous detachment inside the turn and external callbacks, abort and transport cleanup afterward, and its R3 ordering and authority revocation are not grounded by quotes."
+        },
+        {
+          "judge": "o",
+          "value": 1,
+          "status": "cast",
+          "reason": "The answer safely describes terminal replacement but omits the required ordering of synchronous detachment/disposal before external callbacks and cleanup, and its quotations do not ground the complete terminal sequence."
+        }
+      ]
+    },
+    {
+      "cell": "admission-lifetime.p87.g.1",
+      "arm": "p87",
+      "member": "g",
+      "property": "q06",
+      "validity": {
+        "valid": true
+      },
+      "state": "valid",
+      "score": 1,
+      "disposition": "lower cross-family vote with exact-quote cap",
+      "quoteCheck": {
+        "count": 4,
+        "cap": 2,
+        "defects": []
+      },
+      "slots": [
+        {
+          "judge": "c",
+          "value": 1,
+          "status": "cast",
+          "reason": "Ordinary-stop live gauges and the joint freeze of counts, revision and capturedAt are correct and grounded, but the answer never says a frozen count is last-known at capture rather than proof of perpetual allocation or of release, and its phrase 'perpetually return' leaves R3 incomplete, though it does correctly keep unsettled work nonzero."
+        },
+        {
+          "judge": "o",
+          "value": 2,
+          "status": "cast",
+          "reason": "The excerpts support live ordinary-stop cleanup, frozen numeric-terminal counts and metadata, and unresolved counts that can persist in the snapshot despite later private release."
+        }
+      ]
+    },
+    {
+      "cell": "admission-lifetime.p87.g.1",
+      "arm": "p87",
+      "member": "g",
+      "property": "q07",
+      "validity": {
+        "valid": true
+      },
+      "state": "valid",
+      "score": 1,
+      "disposition": "lower cross-family vote with exact-quote cap",
+      "quoteCheck": {
+        "count": 4,
+        "cap": 1,
+        "defects": [
+          {
+            "line": "QUOTE: \"Immediately before local acquisition, check identity-pool availability and any pool that caused that adjacency's prior local capacity refusal. Route-pool pressure alone does not prohibit an unrelated identity-only phase; a route-capacity refusal parks that affected adjacency on route capacity as well.\"",
+            "valid": true,
+            "matches": false
+          }
+        ]
+      },
+      "slots": [
+        {
+          "judge": "c",
+          "value": 1,
+          "status": "cast",
+          "reason": "Safe, and its quotes support the single waiter, retry-wait projection, the reconnect-disabled entitlement and backoff deadline preservation, but R2 omits when a prior route refusal stops requiring route capacity (actual next acquisition or the named clearing transitions), and the 'identity-and-route-admission-capacity' reason string has no supporting quote (an ungrounded detail, not a faithfully repeated bad instruction)."
+        },
+        {
+          "judge": "o",
+          "value": 1,
+          "status": "cast",
+          "reason": "The answer safely distinguishes initial identity waiting from local route refusal but does not establish that the remembered route requirement persists until actual acquisition consumes it or a named clearing transition occurs."
+        }
+      ]
+    },
+    {
+      "cell": "admission-lifetime.p87.g.1",
+      "arm": "p87",
+      "member": "g",
+      "property": "q08",
+      "validity": {
+        "valid": true
+      },
+      "state": "valid",
+      "score": 1,
+      "disposition": "lower cross-family vote with exact-quote cap",
+      "quoteCheck": {
+        "count": 3,
+        "cap": 2,
+        "defects": []
+      },
+      "slots": [
+        {
+          "judge": "c",
+          "value": 2,
+          "status": "cast",
+          "reason": "Satisfaction preserving retryAttempt=4 while clearing waiter, timer and pools, pre-establishment loss using preserved history via backoff, an exact-Established reset to zero once with stale or duplicate success inert, and distinct cancellation versus reset are all correct and grounded in exact table excerpts; the added unquoted retryAttempt=5 is an inference on a non-required detail and does not contradict the key."
+        },
+        {
+          "judge": "o",
+          "value": 1,
+          "status": "cast",
+          "reason": "The answer grounds preserved history, backoff and exact-winner success reset, but does not explicitly establish that retryable loss clears the lost winner's ownership."
+        }
+      ]
+    },
+    {
+      "cell": "admission-lifetime.p87.g.1",
+      "arm": "p87",
+      "member": "g",
+      "property": "q09",
+      "validity": {
+        "valid": true
+      },
+      "state": "valid",
+      "score": 1,
+      "disposition": "lower cross-family vote with exact-quote cap",
+      "quoteCheck": {
+        "count": 4,
+        "cap": 1,
+        "defects": [
+          {
+            "line": "QUOTE: \"The signal owns only that pending evaluation; it is not an established-session close handle or a live credential-validity signal. Once a current result commits, later session events cannot reuse that evaluation's cancellation authority.\"",
+            "valid": true,
+            "matches": false
+          },
+          {
+            "line": "QUOTE: \"Keep the request and result DTOs unchanged and credential-free, and keep clocks, callback handles and cancellation authority out of their schemas. There is no wire change.\"",
+            "valid": true,
+            "matches": false
+          }
+        ]
+      },
+      "slots": [
+        {
+          "judge": "c",
+          "value": 1,
+          "status": "cast",
+          "reason": "The options/signal parameter, unchanged DTOs, no session-rotation reuse and no browser split are correct and quoted, but R2 (cancellation is cooperative and finite accounting remains necessary) is omitted, and AGP always supplying the signal and the public exports/types are not addressed; this is an omission, not an unsafe recommendation."
+        },
+        {
+          "judge": "o",
+          "value": 1,
+          "status": "cast",
+          "reason": "The answer omits AGP always supplying the options and the requirement for cooperative cancellation with continued finite accounting, and calling the signal itself optional introduces ambiguity."
+        }
+      ]
+    },
+    {
+      "cell": "admission-lifetime.p87.g.1",
+      "arm": "p87",
+      "member": "g",
+      "property": "q10",
+      "validity": {
+        "valid": true
+      },
+      "state": "valid",
+      "score": 1,
+      "disposition": "lower cross-family vote with exact-quote cap",
+      "quoteCheck": {
+        "count": 4,
+        "cap": 1,
+        "defects": [
+          {
+            "line": "QUOTE: \"The ledger measures AGP port evaluations, not invisible descendant tasks started by a provider. A provider that answers from its own timeout race while leaving external work running still owns that work's cancellation and resource budget; its answered promise is not evidence of physical resource release.\"",
+            "valid": true,
+            "matches": false
+          }
+        ]
+      },
+      "slots": [
+        {
+          "judge": "c",
+          "value": 1,
+          "status": "cast",
+          "reason": "The ledger scope, hidden-work ownership and scope exclusions are correct and grounded, but the claim that the defaults are not capacity for hundreds of peers has no supporting quote (nothing quoted says the defaults are recommendations rather than workload measurements), so R2 holds only by inference."
+        },
+        {
+          "judge": "o",
+          "value": 1,
+          "status": "cast",
+          "reason": "The answer safely assigns hidden work to the provider and describes scope limits, but does not ground finite defaults as baseline recommendations rather than measured tuning or certification for hundreds of peers."
+        }
+      ]
+    },
+    {
+      "cell": "admission-lifetime.p87.g.1",
+      "arm": "p87",
+      "member": "g",
+      "property": "q11",
+      "validity": {
+        "valid": true
+      },
+      "state": "valid",
+      "score": 1,
+      "disposition": "lower cross-family vote with exact-quote cap",
+      "quoteCheck": {
+        "count": 4,
+        "cap": 2,
+        "defects": []
+      },
+      "slots": [
+        {
+          "judge": "c",
+          "value": 1,
+          "status": "cast",
+          "reason": "Identity allow/deny, nonfatal per-route denials, and pre-invocation AdmissionCapacityExceeded with no provider call are correct and quoted, but the INTERNAL_ERROR cleanup/reconnect classification in R3 has no supporting quote and omits the 'when safe, not a new wire code' qualification."
+        },
+        {
+          "judge": "o",
+          "value": 1,
+          "status": "cast",
+          "reason": "The answer correctly distinguishes policy outcomes from refusal before provider invocation, but its quotations do not support the asserted INTERNAL_ERROR cleanup/reconnect classification or establish current guards for route commitment."
+        }
+      ]
+    },
+    {
+      "cell": "admission-lifetime.p87.g.1",
+      "arm": "p87",
+      "member": "g",
+      "property": "q12",
+      "validity": {
+        "valid": true
+      },
+      "state": "valid",
+      "score": 1,
+      "disposition": "lower cross-family vote with exact-quote cap",
+      "quoteCheck": {
+        "count": 5,
+        "cap": 1,
+        "defects": [
+          {
+            "line": "QUOTE: \"The teardown deadline must cover every wait it owns; reader completion cannot depend on provider settlement.\"",
+            "valid": true,
+            "matches": false
+          },
+          {
+            "line": "QUOTE: \"Start one teardown budget when the terminal cause commits. The deadline actively stops the writer and aborts the channel even if notification write or graceful close has not settled; a signal passed only to a later `close()` call cannot bound an earlier wait.\"",
+            "valid": true,
+            "matches": false
+          },
+          {
+            "line": "QUOTE: \"Observe the reader's final terminal and call `controllerReleased` once, independently of provider work. This relies on the existing conforming transport terminal contract, not a new promise of event-loop scheduling or browser-native release.\"",
+            "valid": true,
+            "matches": false
+          },
+          {
+            "line": "QUOTE: \"Preserve the outer opening deadline through `OpenConfirm`, including when negotiated hold is zero.\"",
+            "valid": true,
+            "matches": false
+          }
+        ]
+      },
+      "slots": [
+        {
+          "judge": "c",
+          "value": 2,
+          "status": "cast",
+          "reason": "All four decisions are correct and grounded: the teardown budget actively stops the writer and aborts the channel regardless of the pending write, and the sole reader calls controllerReleased once independently of provider work; reliance on the conforming transport without new event-loop or browser-native promises and OPEN timer persistence through OpenConfirm with hold zero are both quoted exactly."
+        },
+        {
+          "judge": "o",
+          "value": 2,
+          "status": "cast",
+          "reason": "The answer and quotations support an actively enforced teardown budget, sole-reader terminal handling with controllerReleased once independently of provider settlement, the transport and scheduling limits, and OPEN deadline persistence through OpenConfirm."
+        }
+      ]
+    },
+    {
+      "cell": "admission-lifetime.p87.o.1",
+      "arm": "p87",
+      "member": "o",
+      "property": "q01",
+      "validity": {
+        "valid": true
+      },
+      "state": "valid",
+      "score": 1,
+      "disposition": "lower cross-family vote with exact-quote cap",
+      "quoteCheck": {
+        "count": 3,
+        "cap": 2,
+        "defects": []
+      },
+      "slots": [
+        {
+          "judge": "c",
+          "value": 1,
+          "status": "cast",
+          "reason": "Safe, with no forced-cancellation claim, and it correctly covers cleanup without joining and immediate release of a revoked pre-invocation permit, but the claim that late results cannot affect identity, collision, routes, revision or ACK is unquoted, and the non-refund cases (cancellation, snapshot removal, connection replacement) are not addressed or grounded."
+        },
+        {
+          "judge": "g",
+          "value": 2,
+          "status": "cast",
+          "reason": "The answer accurately addresses all required decisions on session cleanup independence, disallowed effects, slot retention pending settlement, and pre-invocation permit revocation, supported by exact quotes."
+        }
+      ]
+    },
+    {
+      "cell": "admission-lifetime.p87.o.1",
+      "arm": "p87",
+      "member": "o",
+      "property": "q02",
+      "validity": {
+        "valid": true
+      },
+      "state": "valid",
+      "score": 1,
+      "disposition": "lower cross-family vote with exact-quote cap",
+      "quoteCheck": {
+        "count": 3,
+        "cap": 2,
+        "defects": []
+      },
+      "slots": [
+        {
+          "judge": "c",
+          "value": 1,
+          "status": "cast",
+          "reason": "It correctly grounds deadline rechecking at application, no revision/RIB/ACK from an expired result, and reservation held until disposal with a single release, but it does not address R4 (a check only inside the final reducer is insufficient)."
+        },
+        {
+          "judge": "g",
+          "value": 1,
+          "status": "cast",
+          "reason": "The answer correctly identifies the necessary deadline and incarnation checks, prohibited route mutations, and work slot retention rules, but omits the required decision that checking only inside the final reducer is insufficient."
+        }
+      ]
+    },
+    {
+      "cell": "admission-lifetime.p87.o.1",
+      "arm": "p87",
+      "member": "o",
+      "property": "q03",
+      "validity": {
+        "valid": true
+      },
+      "state": "valid",
+      "score": 1,
+      "disposition": "lower cross-family vote with exact-quote cap",
+      "quoteCheck": {
+        "count": 3,
+        "cap": 2,
+        "defects": []
+      },
+      "slots": [
+        {
+          "judge": "c",
+          "value": 1,
+          "status": "cast",
+          "reason": "All five decisions are stated correctly with no unsafe advice, but several decisive claims are unquoted: KEEPALIVE cannot refresh hold before dispatch, the single terminal disposition, and no second reader or early cancellation; this caps the otherwise-safe answer at 1."
+        },
+        {
+          "judge": "g",
+          "value": 2,
+          "status": "cast",
+          "reason": "All required decisions regarding FIFO queuing, barrier opening criteria, terminal bypass, and post-termination transport draining are correctly answered and supported by exact quotations."
+        }
+      ]
+    },
+    {
+      "cell": "admission-lifetime.p87.o.1",
+      "arm": "p87",
+      "member": "o",
+      "property": "q04",
+      "validity": {
+        "valid": true
+      },
+      "state": "valid",
+      "score": 1,
+      "disposition": "lower cross-family vote with exact-quote cap",
+      "quoteCheck": {
+        "count": 4,
+        "cap": 2,
+        "defects": []
+      },
+      "slots": [
+        {
+          "judge": "c",
+          "value": 1,
+          "status": "cast",
+          "reason": "Safe and substantively correct, but the decisive R1 claim (immutable policy-eligible subset with static rejections retained separately) is not supported by its quote, and the no-ACK-on-failure claim also lacks a supporting excerpt, so grounding caps it at 1."
+        },
+        {
+          "judge": "g",
+          "value": 1,
+          "status": "cast",
+          "reason": "Required decision R1 lacks matching source quote grounding for passing an immutable policy-eligible subset and retaining static rejections separately, capping the score at 1."
+        }
+      ]
+    },
+    {
+      "cell": "admission-lifetime.p87.o.1",
+      "arm": "p87",
+      "member": "o",
+      "property": "q05",
+      "validity": {
+        "valid": true
+      },
+      "state": "valid",
+      "score": 1,
+      "disposition": "lower cross-family vote with exact-quote cap",
+      "quoteCheck": {
+        "count": 3,
+        "cap": 2,
+        "defects": []
+      },
+      "slots": [
+        {
+          "judge": "c",
+          "value": 1,
+          "status": "cast",
+          "reason": "No unsafe recommendation, and the answer correctly grounds the node/core ownership split (R1) and the requirement that all publications use the same gate with stop unable to overwrite Failed (R5); but the decisive R2–R4 claims are unsupported by any quote: discarding the plan for a terminal replacement, the ordered revoke/detach/purge/retain/capture handoff, and external cleanup occurring after the turn."
+        },
+        {
+          "judge": "g",
+          "value": 1,
+          "status": "cast",
+          "reason": "The required decisions are correctly stated, but decisive claims regarding plan discard, ordered handoff steps, and execution boundaries lack supporting source quotations."
+        }
+      ]
+    },
+    {
+      "cell": "admission-lifetime.p87.o.1",
+      "arm": "p87",
+      "member": "o",
+      "property": "q06",
+      "validity": {
+        "valid": true
+      },
+      "state": "valid",
+      "score": 2,
+      "disposition": "lower cross-family vote with exact-quote cap",
+      "quoteCheck": {
+        "count": 3,
+        "cap": 2,
+        "defects": []
+      },
+      "slots": [
+        {
+          "judge": "c",
+          "value": 2,
+          "status": "cast",
+          "reason": "The answer correctly and with quotes covers live cleanup gauges on an ordinarily stopped node, frozen values with revision and capturedAt at numeric terminalization, and last-known semantics that are neither proof of allocation nor of release; the note that a contract agreement is needed is an intended scope limit, not a hedge."
+        },
+        {
+          "judge": "g",
+          "value": 2,
+          "status": "cast",
+          "reason": "The answer accurately contrasts live queryable cleanup on ordinary stops with frozen resource captures and immutable timestamps on numeric terminalization, grounded in exact quotes."
+        }
+      ]
+    },
+    {
+      "cell": "admission-lifetime.p87.o.1",
+      "arm": "p87",
+      "member": "o",
+      "property": "q07",
+      "validity": {
+        "valid": true
+      },
+      "state": "valid",
+      "score": 1,
+      "disposition": "lower cross-family vote with exact-quote cap",
+      "quoteCheck": {
+        "count": 3,
+        "cap": 2,
+        "defects": []
+      },
+      "slots": [
+        {
+          "judge": "c",
+          "value": 1,
+          "status": "cast",
+          "reason": "The decisions are substantively correct with no unsafe recommendation, but decisive claims are unquoted: R1's projection details (retry-wait, identity reason, unchanged retryAttempt, no retryAt or active controller), and R3's level-recheck-not-permit behaviour and guard checks before a real acquisition."
+        },
+        {
+          "judge": "g",
+          "value": 2,
+          "status": "cast",
+          "reason": "All required decisions are correctly stated and supported by direct source text quotations."
+        }
+      ]
+    },
+    {
+      "cell": "admission-lifetime.p87.o.1",
+      "arm": "p87",
+      "member": "o",
+      "property": "q08",
+      "validity": {
+        "valid": true
+      },
+      "state": "valid",
+      "score": 2,
+      "disposition": "lower cross-family vote with exact-quote cap",
+      "quoteCheck": {
+        "count": 4,
+        "cap": 2,
+        "defects": []
+      },
+      "slots": [
+        {
+          "judge": "c",
+          "value": 2,
+          "status": "cast",
+          "reason": "Grounds every required decision: satisfaction clears waiter, timer and refusing pools while preserving retryAttempt = 4; pre-establishment loss uses preserved history; only exact current establishment resets once while stale or duplicate success cannot; scheduling cancellation is kept distinct from history reset."
+        },
+        {
+          "judge": "g",
+          "value": 2,
+          "status": "cast",
+          "reason": "All required decisions regarding dial suppression, preserved retry history on pre-establishment loss, reset on exact establishment, and distinguishing scheduling from history reset are correctly answered and grounded in quoted source text."
+        }
+      ]
+    },
+    {
+      "cell": "admission-lifetime.p87.o.1",
+      "arm": "p87",
+      "member": "o",
+      "property": "q09",
+      "validity": {
+        "valid": true
+      },
+      "state": "valid",
+      "score": 1,
+      "disposition": "lower cross-family vote with exact-quote cap",
+      "quoteCheck": {
+        "count": 4,
+        "cap": 2,
+        "defects": []
+      },
+      "slots": [
+        {
+          "judge": "c",
+          "value": 1,
+          "status": "cast",
+          "reason": "R1, R3, R4 and R5 are correct and largely grounded (optional supplied signal, unchanged credential-free DTOs, signal not a session or credential handle, no browser/CLI split); but the decisive R2 claims that cancellation is cooperative and that finite accounting remains necessary are asserted without any supporting quote, and the closing note about the API not yet being adopted is a legitimate scope limit, not a hedge."
+        },
+        {
+          "judge": "g",
+          "value": 2,
+          "status": "cast",
+          "reason": "All required decisions regarding the evaluation signal contract, schema preservation, and migration are correctly addressed and grounded in exact quotes."
+        }
+      ]
+    },
+    {
+      "cell": "admission-lifetime.p87.o.1",
+      "arm": "p87",
+      "member": "o",
+      "property": "q10",
+      "validity": {
+        "valid": true
+      },
+      "state": "valid",
+      "score": 1,
+      "disposition": "lower cross-family vote with exact-quote cap",
+      "quoteCheck": {
+        "count": 4,
+        "cap": 2,
+        "defects": []
+      },
+      "slots": [
+        {
+          "judge": "c",
+          "value": 1,
+          "status": "cast",
+          "reason": "Ledger scope, the defaults-are-recommendations point and the no-authentication-scheme point are correct and grounded, but provider/host ownership of hidden-work cancellation and budget is asserted without supporting quote. The quote about 'proving arbitrary provider allocations freed' does not directly ground the claim that counts do not bound provider memory."
+        },
+        {
+          "judge": "g",
+          "value": 2,
+          "status": "cast",
+          "reason": "All required decisions are correctly stated and grounded in exact document excerpts."
+        }
+      ]
+    },
+    {
+      "cell": "admission-lifetime.p87.o.1",
+      "arm": "p87",
+      "member": "o",
+      "property": "q11",
+      "validity": {
+        "valid": true
+      },
+      "state": "valid",
+      "score": 1,
+      "disposition": "lower cross-family vote with exact-quote cap",
+      "quoteCheck": {
+        "count": 3,
+        "cap": 2,
+        "defects": []
+      },
+      "slots": [
+        {
+          "judge": "c",
+          "value": 2,
+          "status": "cast",
+          "reason": "Grounds the allow/deny control behaviour, nonfatal per-route denials with one atomic revision and ACK, and local-capacity refusal before any provider invocation reported as AdmissionCapacityExceeded rather than IDENTITY_REJECTED or POLICY; the INTERNAL_ERROR cleanup claim is correct but unquoted, a minor gap."
+        },
+        {
+          "judge": "g",
+          "value": 1,
+          "status": "cast",
+          "reason": "While safe and conceptually correct, the answer lacks a supporting source quote for the required decision that capacity refusals follow existing INTERNAL_ERROR cleanup rather than misreporting a provider fault."
+        }
+      ]
+    },
+    {
+      "cell": "admission-lifetime.p87.o.1",
+      "arm": "p87",
+      "member": "o",
+      "property": "q12",
+      "validity": {
+        "valid": true
+      },
+      "state": "valid",
+      "score": 1,
+      "disposition": "lower cross-family vote with exact-quote cap",
+      "quoteCheck": {
+        "count": 4,
+        "cap": 2,
+        "defects": []
+      },
+      "slots": [
+        {
+          "judge": "c",
+          "value": 1,
+          "status": "cast",
+          "reason": "R1, R2 and R4 are correct and grounded by exact quotes, and R3's transport and scheduling assumptions are stated correctly, but no supporting excerpt is quoted for R3 (e.g. the no-new-event-loop-scheduling statement), so the decisive assumption claim is ungrounded and the score is capped at 1."
+        },
+        {
+          "judge": "g",
+          "value": 1,
+          "status": "cast",
+          "reason": "All required decisions are safe and correct, but the answer lacks source quotations grounding the limiting execution and transport assumptions."
+        }
+      ]
+    }
+  ]
+}

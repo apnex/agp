@@ -1,0 +1,1014 @@
+{
+  "seed": "2026-10-12-032023-admission-lifetime",
+  "units": [
+    {
+      "id": "u0001",
+      "cell": "admission-lifetime.d41.g.1",
+      "scenario": "admission-lifetime",
+      "arm": "d41",
+      "member": "g",
+      "family": "gemini",
+      "properties": [
+        "q07"
+      ],
+      "phase": "answer",
+      "text": "--- ANSWER ---\nDecision\nFor a never-dialled adjacency with `reconnect.enabled = false` and a full identity pool, the supervisor must register one coalesced capacity waiter and project `state = retry-wait` with `lastReason = identity-admission-capacity`, no `retryAt`, unchanged `retryAttempt`, and no `activeControllerId`, keeping `desired = true`. An unrelated full route pool does not block acquisition because identity is the only initial requirement; however, if the route pool refused this adjacency's prior attempt, the remembered refusing-pool set requires route capacity as well, parking the adjacency. While backoff is running, a capacity-release notification recomputes pool levels and clears the waiter if no pools block, but it cannot increment attempts, advance `retryAttempt`, or restart or cancel the running backoff timer.\n\nDocument support\nQUOTE: \"Register one waiter; no attempt, session token or backoff is manufactured\"\nQUOTE: \"desired remains true while the configured relationship is wanted; initial capacity waiting does not consume its initial-attempt entitlement. reconnect.enabled = false prevents repeat attempts, not the initial configured attempt or its pre-acquisition capacity wait.\"\nQUOTE: \"At eligibility checks, identity capacity is always required; route capacity is required only when that set includes a local route-capacity refusal.\"\nQUOTE: \"Recompute levels; keep the original deadline and attempt count; remove waiter if no pool currently blocks\"\n\nInference or gap\nNONE\n",
+      "blindedAt": "2026-10-12T03:28:45.394Z"
+    },
+    {
+      "id": "u0002",
+      "cell": "admission-lifetime.p87.o.1",
+      "scenario": "admission-lifetime",
+      "arm": "p87",
+      "member": "o",
+      "family": "gpt",
+      "properties": [
+        "q05"
+      ],
+      "phase": "answer",
+      "text": "--- ANSWER ---\n**Decision**\n\nThe node owns runtime authority and the serialized commit coordinator; OperationsStore owns exact numeric preflight and capture installation. Preparation must describe the complete change without live mutations. Store preflight returns exhaustion evidence instead of an ordinary permit. The coordinator discards the admission plan: no identity retention, collision termination, route/revision mutation or ACK/export dispatch from that plan occurs.\n\nWithin the replacement turn, the node closes the gate, sets host authority to Failed and invalidates admission, acquisition, supervisor and ordinary-intent authority. It detaches live bindings and routing/controller authority, purges semantic queues and transfers required cleanup. It releases uninvoked permits and disposable results, retaining genuinely unfinished work. It then supplies the actual retained-resource projection to the store, which installs one frozen terminal capture with the reserved numeric rule, last valid counters and no ordinary events, and completes subscriptions. Abort delivery and bounded cleanup follow outside the executor.\n\nEvery runtime publication must use this gate. Unrelated exhaustion therefore revokes admission too, and a queued stop completion cannot overwrite Failed.\n\n**Document support**\n\nQUOTE: \"The node owns one authoritative runtime gate and the serialized commit coordinator; the core owns pure transition/routing preparation and numeric-domain preflight.\"\nQUOTE: \"All runtime operations publications must reach this coordinator, including ones outside admission\"\nQUOTE: \"must not overwrite `Failed` with `Stopping` or `Stopped`, generate another revision, or rearm an adjacency.\"\n\n**Inference or gap**\n\nThis integration is explicitly a required repair prerequisite, not a capability verified by the document.\n",
+      "blindedAt": "2026-10-12T03:28:45.394Z"
+    },
+    {
+      "id": "u0003",
+      "cell": "admission-lifetime.d41.c.1",
+      "scenario": "admission-lifetime",
+      "arm": "d41",
+      "member": "c",
+      "family": "claude",
+      "properties": [
+        "q10"
+      ],
+      "phase": "answer",
+      "text": "--- ANSWER ---\nA provider's own timeout wrapper has already answered AGP while its underlying host task continues. What does AGP's ledger cover and who owns the hidden work? Do the proposed finite defaults establish capacity for hundreds of peers, arbitrary provider-memory bounds, CPU preemption, browser-native resource release or a chosen authentication scheme?\n\n**Decision:** The ledger counts only AGP's own port evaluations. Once the wrapper's promise has answered and AGP disposes of the result, that evaluation's slot can be released. The underlying host task still belongs to the provider, which owns its cancellation and resource budget. The answer is not evidence that the task's resources were released. The defaults are recommendations for review and are derived from existing settings; they are not measurements. They establish none of the listed properties. They bound counts, not provider allocations or heap. CPU preemption, worker or process isolation and browser-native release are out of scope or not claimed. The authentication scheme is explicitly not changed.\n\n**Document support:**\nQUOTE: \"The ledger measures AGP port evaluations, not invisible descendant tasks started by a provider.\"\nQUOTE: \"A provider that answers from its own timeout race while leaving external work running still owns that work's cancellation and resource budget; its answered promise is not evidence of physical resource release.\"\nQUOTE: \"These defaults are recommendations for review, not existing runtime behaviour or workload measurements.\"\nQUOTE: \"these counts do not claim to bound a provider's arbitrary allocations or physical JavaScript heap bytes.\"\nQUOTE: \"No in-process acceptance claim includes stopping synchronous infinite computation, proving arbitrary provider allocations freed, or proving browser-native cleanup.\"\nQUOTE: \"The fixed outcome is bounded session admission and teardown, not a new authentication scheme.\"\n\n**Inference or gap:** The document gives no numeric values for `maxPendingHandshakes` or `maxSessions`. Whether hundreds of peers would fit is therefore undetermined.\n",
+      "blindedAt": "2026-10-12T03:28:45.394Z"
+    },
+    {
+      "id": "u0004",
+      "cell": "admission-lifetime.d41.g.1",
+      "scenario": "admission-lifetime",
+      "arm": "d41",
+      "member": "g",
+      "family": "gemini",
+      "properties": [
+        "q02"
+      ],
+      "phase": "answer",
+      "text": "--- ANSWER ---\nDecision\nWhen the settled route result reaches the executor, the executor must recheck the runtime authority gate, controller identity, admission kind, exact token, and deadline validity. Because the deadline has expired, the executor must reject the result regardless of whether the old timer callback has run: authority is revoked, the timer cancelled, and the session effect target detached. No route import, route replacement, revision consumption, or ACK enqueue effects are permitted; only work accounting and disposal actions remain possible. Settlement alone does not make another work slot available while the result is retained behind the executor; capacity remains reserved until AGP applies or disposes the retained work and releases the reservation.\n\nDocument support\nQUOTE: \"Route the prepared completion through a short executor turn that checks the runtime authority gate, controller identity, admission kind, token and deadline; prepare all identity/collision or route effects, preflight the complete transaction and apply only its committed outcome.\"\nQUOTE: \"Deadline validity is checked again at result application, not inferred from whether the timer callback has run.\"\nQUOTE: \"An evaluation can finish before its serialized result is applied. Its capacity remains reserved while that result is waiting, preventing an unbounded queue of settled results behind the executor.\"\nQUOTE: \"Expired or revoked evaluations cannot acquire identity, displace a winner, import routes, consume a revision or enqueue an ACK\"\n\nInference or gap\nNONE\n",
+      "blindedAt": "2026-10-12T03:28:45.394Z"
+    },
+    {
+      "id": "u0005",
+      "cell": "admission-lifetime.d41.o.1",
+      "scenario": "admission-lifetime",
+      "arm": "d41",
+      "member": "o",
+      "family": "gpt",
+      "properties": [
+        "q11"
+      ],
+      "phase": "answer",
+      "text": "--- ANSWER ---\n**Decision**\n\nA timely, exact-current identity allow follows ordinary identity ownership, collision and confirmation rules; it does not skip OpenConfirm or automatically establish the session. A timely current identity deny remains a policy refusal. Both are provider outcomes whose effects require current authority, valid deadlines and successful transaction preflight.\n\nA complete valid current route decision containing per-route denials is also ordinary policy behavior. Denied routes remain nonfatal, and the complete prepared result produces one atomic revision/RIB change and one ACK, subject to final capacity and transaction checks.\n\nLocal evaluation-pool exhaustion is a resource refusal before provider invocation. It generates the proposed exact-kind/token AdmissionCapacityExceeded terminal event, records the refusing local pool for supervisor eligibility, and follows admission-fault cleanup and the existing INTERNAL_ERROR reconnect disposition. It must not be represented as IDENTITY_REJECTED, a per-route POLICY denial or a provider fault. This capacity-refusal case invokes no provider; the three control outcomes described above arise from an evaluation.\n\n**Document support**\n\nQUOTE: \"Allow follows normal collision and confirmation rules; deny remains a policy refusal\"\nQUOTE: \"Complete valid allow/deny decisions cause one atomic revision/RIB change and one ACK; per-route denials remain nonfatal\"\nQUOTE: \"At capacity, refuse before provider invocation and report proposed `AdmissionCapacityExceeded`, not `IDENTITY_REJECTED` or a per-route `POLICY` denial.\"\nQUOTE: \"Its terminal effects follow the existing admission-fault cleanup and `INTERNAL_ERROR` reconnect disposition, but do not misreport a provider fault when no provider was called.\"\n\n**Inference or gap**\n\nNONE.\n",
+      "blindedAt": "2026-10-12T03:28:45.394Z"
+    },
+    {
+      "id": "u0006",
+      "cell": "admission-lifetime.d41.c.1",
+      "scenario": "admission-lifetime",
+      "arm": "d41",
+      "member": "c",
+      "family": "claude",
+      "properties": [
+        "q02"
+      ],
+      "phase": "answer",
+      "text": "--- ANSWER ---\nA route result settles before its deadline but is waiting for the serialized executor. When it reaches the executor, the deadline has passed and the old timer callback has not run. Which checks and effects are permitted? Does settlement make another work slot available while this result is still retained?\n\n**Decision:** In the executor turn, AGP checks the runtime gate, the controller identity, the admission kind, the token and the deadline. Deadline validity is checked again here; it is not inferred from whether the timer callback has run. Because the deadline has passed, the result has no authority. There is no RIB change, no revision consumption, no `#pendingRoute` assignment and no ACK. The only things still permitted are accounting and disposal. Settlement does not free a slot. The reservation remains while the settled result waits to be applied or disposed of, and it is released only when AGP disposes of the result. Capacity waiters are notified on that actual release, not on settlement.\n\n**Document support:**\nQUOTE: \"Route the prepared completion through a short executor turn that checks the runtime authority gate, controller identity, admission kind, token and deadline\"\nQUOTE: \"Deadline validity is checked again at result application, not inferred from whether the timer callback has run.\"\nQUOTE: \"Accounting and disposal only; no identity, collision, route or ACK effect\"\nQUOTE: \"Its capacity remains reserved while that result is waiting, preventing an unbounded queue of settled results behind the executor.\"\nQUOTE: \"Settlement may leave a result awaiting application/disposal and therefore no free slot.\"\nQUOTE: \"a settled-but-retained result cannot enable another invocation\"\n\n**Inference or gap:** It is an inference that this executor turn also handles the expiry as a terminal disposition (revocation and cleanup) rather than the later timer callback. The document requires the same token guard for expiry but does not say which path wins. It also does not say whether a route-admission expiry always ends the session.\n",
+      "blindedAt": "2026-10-12T03:28:45.394Z"
+    },
+    {
+      "id": "u0007",
+      "cell": "admission-lifetime.p87.c.1",
+      "scenario": "admission-lifetime",
+      "arm": "p87",
+      "member": "c",
+      "family": "claude",
+      "properties": [
+        "q04"
+      ],
+      "phase": "answer",
+      "text": "--- ANSWER ---\n**Decision:** Before invocation, AGP validates the envelope, the exact next revision and the canonical snapshot. It keeps static rejections separately and passes only the immutable subset of routes eligible for policy. The result must contain exactly one decision per requested tuple, even when the subset is empty. RIB capacity is computed at the final serialized commit, not reserved at proposal time, because other sessions may change it meanwhile. If preparation or validation fails, neither the controller revision nor routing state changes, and no partial routing state remains. A complete, valid result that includes per-route denials is ordinary. It produces one atomic revision/RIB change and one ACK, and the denials are not fatal.\n\n**Document support:**\nQUOTE: \"Before invocation, validate the envelope, exact next revision and canonical snapshot, then prepare the immutable policy-eligible subset and retain static rejections separately.\"\nQUOTE: \"Validate the result against exactly that subset, including an empty subset.\"\nQUOTE: \"Compute available RIB capacity at the final serialized commit, because other sessions may change it while policy runs; do not reserve a stale global-capacity answer in the initial proposal.\"\nQUOTE: \"Neither the controller revision nor routing state may change until that complete preparation succeeds.\"\nQUOTE: \"Complete valid allow/deny decisions cause one atomic revision/RIB change and one ACK; per-route denials remain nonfatal\"\n\n**Inference or gap:** Three points are not specified:\n- the session disposition after an invalid result (treating it as an admission fault is an inference);\n- what happens if capacity is insufficient at commit;\n- whether the provider is still invoked when the eligible subset is empty.\n",
+      "blindedAt": "2026-10-12T03:28:45.394Z"
+    },
+    {
+      "id": "u0008",
+      "cell": "admission-lifetime.p87.o.1",
+      "scenario": "admission-lifetime",
+      "arm": "p87",
+      "member": "o",
+      "family": "gpt",
+      "properties": [
+        "q02"
+      ],
+      "phase": "answer",
+      "text": "--- ANSWER ---\n**Decision**\n\nSettlement before the deadline does not authorize application after it. The completion turn must check the runtime gate, exact controller/incarnation, admission kind, token and monotonic deadline. The elapsed deadline defeats authority even though the timer callback has not run. AGP may perform guarded expiry/terminal handling and dispose the result, but may not install routes, change the controller revision, mutate the RIB or enqueue an ACK from that expired result. Timer generations and exact tokens also prevent a delayed callback from acting on a newer evaluation.\n\nThe work reservation remains occupied while the settled result awaits application or disposal. Settlement alone therefore creates no available slot. Since the provider has settled, disposal of the retained work can release the reservation exactly once; result application is not required for that release.\n\n**Document support**\n\nQUOTE: \"Deadline validity is checked again at result application, not inferred from whether the timer callback has run.\"\nQUOTE: \"Its capacity remains reserved while that result is waiting, preventing an unbounded queue of settled results behind the executor.\"\nQUOTE: \"On eventual provider settlement, dispose the retained work and release its reservation exactly once; stale success and stale failure have the same lack of authority.\"\n\n**Inference or gap**\n\nNONE.\n",
+      "blindedAt": "2026-10-12T03:28:45.394Z"
+    },
+    {
+      "id": "u0009",
+      "cell": "admission-lifetime.d41.c.1",
+      "scenario": "admission-lifetime",
+      "arm": "d41",
+      "member": "c",
+      "family": "claude",
+      "properties": [
+        "q07"
+      ],
+      "phase": "answer",
+      "text": "--- ANSWER ---\nA configured adjacency has never dialled, reconnect is disabled, and the identity pool is full. What should its supervisor do and project? Contrast an unrelated full route pool with a route pool that refused this adjacency's last real attempt. What may a capacity-release notification do while backoff is still running?\n\n**Decision:**\n- **Supervisor action:** register one waiter. No attempt, session token or backoff is created. The initial attempt is still allowed, because disabling reconnect only prevents repeat attempts.\n- **Projection:** `retry-wait` with reason `identity-admission-capacity`, no `retryAt`, no `activeControllerId`, `retryAttempt` unchanged and `desired` still true.\n- **Unrelated full route pool:** it does not block the identity-only phase. The route pool is required only when this adjacency's last real attempt was refused locally for route capacity. In that case the adjacency also waits on route capacity, and the reason becomes `route-admission-capacity`, or the combined value if both pools block.\n- **Release during backoff:** a notification only recomputes the pool levels. It keeps the original deadline and attempt count, removes the waiter if no pool blocks any more, and never starts an attempt or restarts the backoff.\n\n**Document support:**\nQUOTE: \"Register one waiter; no attempt, session token or backoff is manufactured\"\nQUOTE: \"`retry-wait`, capacity reason, no `retryAt`, no `activeControllerId`; `retryAttempt` unchanged\"\nQUOTE: \"`reconnect.enabled = false` prevents repeat attempts, not the initial configured attempt or its pre-acquisition capacity wait.\"\nQUOTE: \"At eligibility checks, identity capacity is always required; route capacity is required only when that set includes a local route-capacity refusal.\"\nQUOTE: \"Recompute levels; keep the original deadline and attempt count; remove waiter if no pool currently blocks\"\nQUOTE: \"Capacity wakes neither increment reconnect attempts nor restart an already-running backoff\"\n\n**Inference or gap:** A never-dialled adjacency has no remembered refusing pool, and with reconnect disabled a real ended attempt leads to `terminal` (\"Clear waiter, timer and remembered pools; do not redial\"). So the route-refusal and backoff contrasts apply only to an adjacency where repeat attempts are enabled, not to this one.\n",
+      "blindedAt": "2026-10-12T03:28:45.394Z"
+    },
+    {
+      "id": "u0010",
+      "cell": "admission-lifetime.p87.g.1",
+      "scenario": "admission-lifetime",
+      "arm": "p87",
+      "member": "g",
+      "family": "gemini",
+      "properties": [
+        "q03"
+      ],
+      "phase": "answer",
+      "text": "--- ANSWER ---\nDecision:\nDuring a drain yield, an arriving ordinary wire command like KEEPALIVE joins the per-session FIFO continuation queue in arrival order. A fatal notification, being a terminal input, bypasses the continuation barrier and FIFO queue, directly invoking the single terminal disposition. The continuation barrier does not open immediately after result commit or during drain yields; it remains engaged throughout draining and opens only in the serialized turn that observes no pending admission, no queued command, and no scheduled or in-progress drain. Once logical release/termination occurs, any already-accepted transport input is drained without protocol effects through the sole reader until the transport terminal, after which the reader stops.\n\nDocument support:\nQUOTE: \"New ordinary arrivals join the same FIFO throughout; terminal commands still bypass it.\"\nQUOTE: \"Fatal notification, invalid input, transport rejection or terminal | Bypass the barrier and use the one terminal disposition; preserve already-observed FIFO transport evidence\"\nQUOTE: \"The barrier instead remains engaged through draining and opens only in the serialized turn that observes no pending admission, no queued command and no scheduled/in-progress drain.\"\nQUOTE: \"Packet read after logical release | Drain without protocol effects until the transport terminal, then stop the sole reader\"\n\nInference or gap:\nNONE\n",
+      "blindedAt": "2026-10-12T03:28:45.395Z"
+    },
+    {
+      "id": "u0011",
+      "cell": "admission-lifetime.d41.g.1",
+      "scenario": "admission-lifetime",
+      "arm": "d41",
+      "member": "g",
+      "family": "gemini",
+      "properties": [
+        "q04"
+      ],
+      "phase": "answer",
+      "text": "--- ANSWER ---\nDecision\nBefore invocation, AGP passes to policy only the immutable policy-eligible subset of routes, having validated the envelope, exact next revision, and canonical snapshot, while retaining static rejections (such as LOOP and PATH_TOO_LONG) separately. Policy must evaluate and return decisions for that exact subset. Available RIB capacity is not reserved upfront; it is computed at the final serialized commit because concurrent sessions may alter capacity while policy executes. If result validation fails, no live state can change: controller revision is not consumed, no routing state or RIB mutation occurs, and no ACK is enqueued. In the ordinary case of a valid policy denial, complete allow/deny decisions result in one atomic revision/RIB change and one ACK, where per-route denials remain nonfatal.\n\nDocument support\nQUOTE: \"Before invocation, validate the envelope, exact next revision and canonical snapshot, then prepare the immutable policy-eligible subset and retain static rejections separately. Validate the result against exactly that subset, including an empty subset.\"\nQUOTE: \"Compute available RIB capacity at the final serialized commit, because other sessions may change it while policy runs; do not reserve a stale global-capacity answer in the initial proposal.\"\nQUOTE: \"Neither the controller revision nor routing state may change until that complete preparation succeeds.\"\nQUOTE: \"Complete valid allow/deny decisions cause one atomic revision/RIB change and one ACK; per-route denials remain nonfatal\"\n\nInference or gap\nNONE\n",
+      "blindedAt": "2026-10-12T03:28:45.395Z"
+    },
+    {
+      "id": "u0012",
+      "cell": "admission-lifetime.d41.c.1",
+      "scenario": "admission-lifetime",
+      "arm": "d41",
+      "member": "c",
+      "family": "claude",
+      "properties": [
+        "q12"
+      ],
+      "phase": "answer",
+      "text": "--- ANSWER ---\nA terminal cause is committed while a notification write is still pending and a provider has not settled. How is teardown bounded, how many readers remain, and what assumptions limit the claim? Separately, identity admission succeeded but the connection remains in OpenConfirm with hold disabled: which deadline remains authoritative?\n\n**Decision:** A single teardown budget starts when the terminal cause commits. When it expires, AGP actively stops the writer and aborts the channel, even if the notification write or graceful close is still pending. Passing a signal only to a later `close()` call would not bound the earlier wait. Exactly one reader remains. It drains to the transport terminal, and `controllerReleased` is then called once, without waiting for the provider. The claim depends on the existing transport terminal contract. It promises nothing about event-loop scheduling or browser-native release. For the second case, the outer OPEN deadline remains authoritative. It stays armed through OpenConfirm until Established or teardown, including when hold is zero.\n\n**Document support:**\nQUOTE: \"Start one teardown budget when the terminal cause commits.\"\nQUOTE: \"The deadline actively stops the writer and aborts the channel even if notification write or graceful close has not settled; a signal passed only to a later `close()` call cannot bound an earlier wait.\"\nQUOTE: \"Observe the reader's final terminal and call `controllerReleased` once, independently of provider work.\"\nQUOTE: \"This relies on the existing conforming transport terminal contract, not a new promise of event-loop scheduling or browser-native release.\"\nQUOTE: \"The OPEN timer remains armed until `Established` or teardown; admission success cannot leave an unlimited confirmation phase when hold is zero.\"\n\n**Inference or gap:** The document specifies no teardown budget value. It also does not say what happens if a transport that does not conform never delivers its terminal after the abort.\n",
+      "blindedAt": "2026-10-12T03:28:45.395Z"
+    },
+    {
+      "id": "u0013",
+      "cell": "admission-lifetime.p87.g.1",
+      "scenario": "admission-lifetime",
+      "arm": "p87",
+      "member": "g",
+      "family": "gemini",
+      "properties": [
+        "q12"
+      ],
+      "phase": "answer",
+      "text": "--- ANSWER ---\nDecision:\nTeardown is bounded by starting one teardown budget when the terminal cause commits. The teardown deadline actively stops the writer and aborts the channel even if notification write or graceful close has not settled, covering every wait it owns rather than waiting indefinitely for notification writes or provider settlement. Exactly one sole reader remains throughout; it drains already-accepted transport input until the transport terminal and stops. This relies on the conforming transport terminal contract, without assuming event-loop scheduling guarantees or browser-native physical release. Separately, when identity admission succeeds and the connection enters `OpenConfirm` with hold disabled, the outer OPEN protocol timer deadline remains authoritative until establishment or teardown.\n\nDocument support:\nQUOTE: \"The teardown deadline must cover every wait it owns; reader completion cannot depend on provider settlement.\"\nQUOTE: \"Start one teardown budget when the terminal cause commits. The deadline actively stops the writer and aborts the channel even if notification write or graceful close has not settled; a signal passed only to a later `close()` call cannot bound an earlier wait.\"\nQUOTE: \"Observe the reader's final terminal and call `controllerReleased` once, independently of provider work. This relies on the existing conforming transport terminal contract, not a new promise of event-loop scheduling or browser-native release.\"\nQUOTE: \"Preserve the outer opening deadline through `OpenConfirm`, including when negotiated hold is zero.\"\nQUOTE: \"The OPEN timer remains armed until `Established` or teardown; admission success cannot leave an unlimited confirmation phase when hold is zero.\"\n\nInference or gap:\nNONE\n",
+      "blindedAt": "2026-10-12T03:28:45.395Z"
+    },
+    {
+      "id": "u0014",
+      "cell": "admission-lifetime.p87.o.1",
+      "scenario": "admission-lifetime",
+      "arm": "p87",
+      "member": "o",
+      "family": "gpt",
+      "properties": [
+        "q11"
+      ],
+      "phase": "answer",
+      "text": "--- ANSWER ---\n**Decision**\n\nA timely, current identity allow follows normal identity retention, collision and confirmation rules; it is not automatically establishment or permission to displace any winner. A timely, current identity deny remains a policy refusal. Both are provider outcomes, subject to the same current-token, deadline and runtime-authority guards.\n\nA valid, timely, current route result may deny individual routes without terminating the session. Complete allow/deny decisions for the requested eligible subset produce one atomic revision/RIB change and one ACK after final preparation and capacity checks.\n\nA full local evaluation pool is different: AGP refuses before calling the provider and reports proposed `AdmissionCapacityExceeded` for the exact current admission kind/token. It must not label this `IDENTITY_REJECTED`, a per-route `POLICY` denial or a provider fault. Cleanup follows admission-fault terminal behavior with existing `INTERNAL_ERROR` reconnect disposition; configured dial retries remain subject to eligibility and local capacity waiting, while accepted controllers do not retry. The full-pool case invokes no provider.\n\n**Document support**\n\nQUOTE: \"Allow follows normal collision and confirmation rules; deny remains a policy refusal\"\nQUOTE: \"Complete valid allow/deny decisions cause one atomic revision/RIB change and one ACK; per-route denials remain nonfatal\"\nQUOTE: \"At capacity, refuse before provider invocation and report proposed `AdmissionCapacityExceeded`, not `IDENTITY_REJECTED` or a per-route `POLICY` denial.\"\n\n**Inference or gap**\n\nNONE.\n",
+      "blindedAt": "2026-10-12T03:28:45.395Z"
+    },
+    {
+      "id": "u0015",
+      "cell": "admission-lifetime.d41.c.1",
+      "scenario": "admission-lifetime",
+      "arm": "d41",
+      "member": "c",
+      "family": "claude",
+      "properties": [
+        "q08"
+      ],
+      "phase": "answer",
+      "text": "--- ANSWER ---\nA configured adjacency has retryAttempt = 4; reconnect is enabled and its retry budget remains available. Its current winner acquires identity and is in OpenConfirm; then it is lost before establishment with an ordinary retryable disposition. In a separate successful sequence, the exact current winner reaches Established. What happens to scheduling, winner ownership and retry history at each boundary? Can an old winner's delayed success reset a newer attempt's history?\n\n**Decision:**\n- **Identity acquired:** the adjacency becomes `satisfied`, and the winning controller is tracked as `activeControllerId`. The waiter, the backoff and the remembered pools are cleared. The connection state, not the adjacency state, distinguishes OpenConfirm from Established.\n- **Loss before establishment:** the existing reconnect disposition and backoff apply once. The adjacency enters `retry-wait` with a real `retryAt`, identity capacity is re-evaluated and no refusing pools are inherited. Only this real-failure/backoff transition changes `retryAttempt`.\n- **Established:** the same winner stays tracked with no new scheduling.\n- **Retry history:** the document says \"Satisfaction applies the existing successful-attempt reset\", and satisfaction begins when identity ownership is gained. It does not say whether `retryAttempt` = 4 resets in OpenConfirm (so a pre-establishment loss starts backing off from zero) or only at Established.\n- **Old winner:** a stale winner's loss is explicitly inert. By inference, an old winner's delayed success has no exact-token or generation authority, so it should not reset a newer attempt's history.\n\n**Document support:**\nQUOTE: \"Clear waiter, backoff and remembered refusing pools; track the winning controller even if inbound; ordinary collision cleanup remains separate\"\nQUOTE: \"`satisfied`, actual winning `activeControllerId`, no capacity reason or `retryAt`; the connection state distinguishes confirmation from Established\"\nQUOTE: \"Satisfaction applies the existing successful-attempt reset.\"\nQUOTE: \"Apply the existing reconnect disposition/backoff once; re-evaluate identity capacity, with no inherited refusing-pool set from the old loser\"\nQUOTE: \"stale winner loss is inert\"\nQUOTE: \"Only the existing real-failure/backoff transition changes `retryAttempt`\"\n\n**Inference or gap:** It is ambiguous when the reset happens relative to OpenConfirm. Stale success is covered only by the general exact-token rules.\n",
+      "blindedAt": "2026-10-12T03:28:45.395Z"
+    },
+    {
+      "id": "u0016",
+      "cell": "admission-lifetime.d41.o.1",
+      "scenario": "admission-lifetime",
+      "arm": "d41",
+      "member": "o",
+      "family": "gpt",
+      "properties": [
+        "q12"
+      ],
+      "phase": "answer",
+      "text": "--- ANSWER ---\n**Decision**\n\nCommit of the terminal cause starts one teardown budget. Its deadline actively stops the writer and aborts the channel even while notification write or graceful close remains pending; merely passing a signal to a later close call cannot bound the earlier write. Revoke admission authority and request cancellation without awaiting provider settlement.\n\nExactly one reader remains. It awaits channel reads and short dispatch turns, drains accepted transport evidence without post-release protocol effects, observes final terminal, then ends. Owned cleanup leads to controllerReleased exactly once, independently of the provider's unfinished work reservation. The claim relies on a conforming transport's terminal/resource-release contract and runnable synchronous provider code; it does not promise CPU preemption, event-loop scheduling bounds or browser-native physical release.\n\nSeparately, identity success must not cancel the outer OPEN deadline. It remains armed throughout OpenConfirm until Established or teardown, even with negotiated hold zero. An admission success therefore cannot leave confirmation indefinitely open; the earlier applicable OPEN deadline remains effective.\n\n**Document support**\n\nQUOTE: \"Start one teardown budget when the terminal cause commits.\"\nQUOTE: \"The deadline actively stops the writer and aborts the channel even if notification write or graceful close has not settled; a signal passed only to a later `close()` call cannot bound an earlier wait.\"\nQUOTE: \"Observe the reader's final terminal and call `controllerReleased` once, independently of provider work.\"\nQUOTE: \"This relies on the existing conforming transport terminal contract, not a new promise of event-loop scheduling or browser-native release.\"\nQUOTE: \"The OPEN timer remains armed until `Established` or teardown; admission success cannot leave an unlimited confirmation phase when hold is zero.\"\n\n**Inference or gap**\n\nNONE about the obligations. The document does not supply a numerical teardown-budget default or independently establish that a particular transport conforms.\n",
+      "blindedAt": "2026-10-12T03:28:45.395Z"
+    },
+    {
+      "id": "u0017",
+      "cell": "admission-lifetime.p87.c.1",
+      "scenario": "admission-lifetime",
+      "arm": "p87",
+      "member": "c",
+      "family": "claude",
+      "properties": [
+        "q11"
+      ],
+      "phase": "answer",
+      "text": "--- ANSWER ---\n**Decision:**\n- **Timely current allow:** Proceeds through normal collision and confirmation rules.\n- **Timely current deny:** Remains a policy refusal.\n- **Valid route decision with per-route denials:** Commits one atomic revision/RIB change and one ACK, and the denials are not fatal.\n- **Local pool full:** AGP refuses before invocation with the proposed `AdmissionCapacityExceeded`. This is not `IDENTITY_REJECTED`, a per-route `POLICY` denial or a provider fault. It follows the admission-fault cleanup and the `INTERNAL_ERROR` reconnect disposition: bounded retry for configured dial adjacencies, none for accepted controllers.\n\nOnly the pool-full case invokes no provider. The three control cases each invoke a provider.\n\n**Document support:**\nQUOTE: \"Allow follows normal collision and confirmation rules; deny remains a policy refusal\"\nQUOTE: \"At capacity, refuse before provider invocation and report proposed `AdmissionCapacityExceeded`, not `IDENTITY_REJECTED` or a per-route `POLICY` denial.\"\nQUOTE: \"Its terminal effects follow the existing admission-fault cleanup and `INTERNAL_ERROR` reconnect disposition, but do not misreport a provider fault when no provider was called.\"\nQUOTE: \"with existing bounded retry for configured dial adjacencies and no retry for accepted controllers\"\n\n**Inference or gap:** The document does not name the wire code for an identity deny. Assuming `IDENTITY_REJECTED` is an inference from the contrast it draws with capacity refusal.\n",
+      "blindedAt": "2026-10-12T03:28:45.395Z"
+    },
+    {
+      "id": "u0018",
+      "cell": "admission-lifetime.d41.g.1",
+      "scenario": "admission-lifetime",
+      "arm": "d41",
+      "member": "g",
+      "family": "gemini",
+      "properties": [
+        "q06"
+      ],
+      "phase": "answer",
+      "text": "--- ANSWER ---\nDecision\nFor the normally stopped node, resource queries remain live and queryable: gauges accurately reflect unresolved evaluations, and when the provider later settles, private disposal updates cleanup gauges without reopening lifecycle or event subscriptions. For the numeric-terminal node, `OperationsStore` does not live-update gauges; it captures the remaining work ledger at terminal replacement, freezing resource values, revision, and `capturedAt` together. Unresolved evaluations remain nonzero in that frozen snapshot. When the provider later settles, private disposal releases internal reservations, but revision, `capturedAt`, and public resource query captures remain permanently frozen at the terminal values without publishing new events, counters, or timestamps.\n\nDocument support\nQUOTE: \"Ordinary stopped instances remain queryable: later settlement may update cleanup gauges without reopening the lifecycle or event subscriptions.\"\nQUOTE: \"Freeze its resource values, revision and capturedAt together; subsequent aggregate and focused queries return that same terminal capture, not a new timestamp on old counts.\"\nQUOTE: \"Outstanding provider evaluations remain nonzero at that capture when unresolved; later private disposal can release internal reservations but cannot publish a new revision, event or counter.\"\n\nInference or gap\nNONE\n",
+      "blindedAt": "2026-10-12T03:28:45.395Z"
+    },
+    {
+      "id": "u0019",
+      "cell": "admission-lifetime.p87.o.1",
+      "scenario": "admission-lifetime",
+      "arm": "p87",
+      "member": "o",
+      "family": "gpt",
+      "properties": [
+        "q06"
+      ],
+      "phase": "answer",
+      "text": "--- ANSWER ---\n**Decision**\n\nOn a normally stopped node, removing connections or requesting abort does not refund unfinished evaluations. Resource queries remain live accounting: evaluations include outstanding work and retained results, while revoked-unsettled gauges identify revoked work whose provider has not settled. Later settlement and actual disposal may update cleanup gauges without reopening lifecycle or event subscriptions.\n\nOn numeric-domain terminalization, authority detachment first releases only actually disposable work. The final terminal snapshot captures any still-unfinished evaluation reservations as nonzero, separately from the contracted empty connection, adjacency and routing projections. Queries thereafter report that immutable, last-known capture, not current allocation or proof that cleanup finished. Later settlement may privately release reservations but cannot publish revisions, events, counters or changed resource values.\n\nThe numeric-terminal node freezes revision and capture time together with its values. Both aggregate and focused queries return that same capture; resampling wall time would falsely freshen old counts.\n\n**Document support**\n\nQUOTE: \"Ordinary stopped instances remain queryable: later settlement may update cleanup gauges without reopening the lifecycle or event subscriptions.\"\nQUOTE: \"Freeze its resource values, revision and `capturedAt` together; subsequent aggregate and focused queries return that same terminal capture, not a new timestamp on old counts.\"\nQUOTE: \"The final count is last-known at the terminal capture, not a live promise that resources remain allocated or that cleanup has finished.\"\n\n**Inference or gap**\n\nThis terminal-accounting recommendation needs explicit contract agreement; it is not established current behavior.\n",
+      "blindedAt": "2026-10-12T03:28:45.395Z"
+    },
+    {
+      "id": "u0020",
+      "cell": "admission-lifetime.d41.g.1",
+      "scenario": "admission-lifetime",
+      "arm": "d41",
+      "member": "g",
+      "family": "gemini",
+      "properties": [
+        "q11"
+      ],
+      "phase": "answer",
+      "text": "--- ANSWER ---\nDecision\nConforming timely identity allow/deny decisions and valid route decisions (including nonfatal per-route denials) are genuine policy outcomes resulting from completed provider invocations. Allow proceeds to collision handling and OpenConfirm; identity deny and route rejections apply nonfatal or policy denial semantics, consuming one atomic revision and ACK for route decisions. In contrast, local evaluation pool exhaustion detects capacity limits prior to external dispatch, terminating the attempt immediately with `AdmissionCapacityExceeded` (an internal error disposition) without policy denial results or provider faults. Capacity exhaustion invokes zero providers, whereas conforming allow and deny decisions always require provider invocation.\n\nDocument support\nQUOTE: \"Allow follows normal collision and confirmation rules; deny remains a policy refusal\"\nQUOTE: \"Complete valid allow/deny decisions cause one atomic revision/RIB change and one ACK; per-route denials remain nonfatal\"\nQUOTE: \"At capacity, refuse before provider invocation and report proposed AdmissionCapacityExceeded, not IDENTITY_REJECTED or a per-route POLICY denial.\"\nQUOTE: \"Illegal wire state, stale controller, stop or exhausted capacity causes zero provider invocations\"\n\nInference or gap\nNONE\n",
+      "blindedAt": "2026-10-12T03:28:45.395Z"
+    },
+    {
+      "id": "u0021",
+      "cell": "admission-lifetime.d41.c.1",
+      "scenario": "admission-lifetime",
+      "arm": "d41",
+      "member": "c",
+      "family": "claude",
+      "properties": [
+        "q04"
+      ],
+      "phase": "answer",
+      "text": "--- ANSWER ---\nA route snapshot contains routes already rejected by static checks and routes eligible for policy. Other sessions change RIB capacity while policy runs. What is passed to policy, when is capacity decided, and what can change if result validation fails? Include the ordinary case of a valid policy denial.\n\n**Decision:** Before invocation, AGP validates the envelope, the exact next revision and the canonical snapshot. It then prepares an immutable subset of policy-eligible routes, keeping static rejections such as `LOOP` and `PATH_TOO_LONG` separately. Policy receives only that subset and must return exactly one decision per requested tuple. Available RIB capacity is computed at the final serialized commit, not reserved when the proposal is made. If preparation or validation fails, neither the controller revision nor routing state changes, and no partial routing state is left. A complete, valid result containing per-route denials is ordinary. It produces one atomic revision and RIB change and one ACK, and the denials are not fatal.\n\n**Document support:**\nQUOTE: \"Before invocation, validate the envelope, exact next revision and canonical snapshot, then prepare the immutable policy-eligible subset and retain static rejections separately.\"\nQUOTE: \"Validate the result against exactly that subset, including an empty subset.\"\nQUOTE: \"Compute available RIB capacity at the final serialized commit, because other sessions may change it while policy runs; do not reserve a stale global-capacity answer in the initial proposal.\"\nQUOTE: \"Neither the controller revision nor routing state may change until that complete preparation succeeds.\"\nQUOTE: \"Complete valid allow/deny decisions cause one atomic revision/RIB change and one ACK; per-route denials remain nonfatal\"\n\n**Inference or gap:** The document does not say what happens when capacity at commit is insufficient, or which session disposition follows an invalid result (it is presumably the admission-fault path). It also does not say whether the provider is invoked when the eligible subset is empty.\n",
+      "blindedAt": "2026-10-12T03:28:45.395Z"
+    },
+    {
+      "id": "u0022",
+      "cell": "admission-lifetime.d41.g.1",
+      "scenario": "admission-lifetime",
+      "arm": "d41",
+      "member": "g",
+      "family": "gemini",
+      "properties": [
+        "q03"
+      ],
+      "phase": "answer",
+      "text": "--- ANSWER ---\nDecision\nThe newly arrived KEEPALIVE command enters the session's bounded FIFO continuation queue in arrival order behind the backlog; it has no protocol effect and cannot refresh the hold timer while queued. The fatal notification bypasses the continuation barrier and FIFO queue, immediately triggering the session's single terminal disposition. The continuation barrier cannot open during yields; it opens only in a serialized turn observing no pending admission, no queued commands, and no scheduled or in-progress drain. Following logical termination, queued semantic commands are discarded, while already-accepted transport input is drained without protocol effects until the transport terminal is reached, after which the sole reader stops.\n\nDocument support\nQUOTE: \"While admission is pending or its backlog is draining, later ordinary wire commands enter the existing contract's per-session FIFO continuation queue, bounded by both original packet bytes and message count.\"\nQUOTE: \"The barrier instead remains engaged through draining and opens only in the serialized turn that observes no pending admission, no queued command and no scheduled/in-progress drain.\"\nQUOTE: \"New ordinary arrivals join the same FIFO throughout; terminal commands still bypass it.\"\nQUOTE: \"Bypass the barrier and use the one terminal disposition; preserve already-observed FIFO transport evidence\"\nQUOTE: \"Drain without protocol effects until the transport terminal, then stop the sole reader\"\n\nInference or gap\nNONE\n",
+      "blindedAt": "2026-10-12T03:28:45.395Z"
+    },
+    {
+      "id": "u0023",
+      "cell": "admission-lifetime.p87.c.1",
+      "scenario": "admission-lifetime",
+      "arm": "p87",
+      "member": "c",
+      "family": "claude",
+      "properties": [
+        "q02"
+      ],
+      "phase": "answer",
+      "text": "--- ANSWER ---\n**Decision:** The executor turn checks five things: the runtime authority gate, the controller identity, the admission kind, the token and the deadline. The deadline is checked again at this point. It is not inferred from whether the timer callback has run. Because the deadline has passed, the result has no authority. Only accounting and disposal are allowed: no route preparation, RIB change, revision or ACK. Settlement does not free a slot. The reservation stays held while the result waits and is released only once the result is disposed of. A settled result that is still retained cannot enable another invocation.\n\n**Document support:**\nQUOTE: \"Route the prepared completion through a short executor turn that checks the runtime authority gate, controller identity, admission kind, token and deadline\"\nQUOTE: \"Deadline validity is checked again at result application, not inferred from whether the timer callback has run.\"\nQUOTE: \"Accounting and disposal only; no identity, collision, route or ACK effect\"\nQUOTE: \"Its capacity remains reserved while that result is waiting, preventing an unbounded queue of settled results behind the executor.\"\nQUOTE: \"a settled-but-retained result cannot enable another invocation\"\n\n**Inference or gap:** The document does not say whether the turn that finds the deadline passed should commit the expiry/terminal transition itself or leave it to the delayed timer callback. Either way, the result has no effect authority.\n",
+      "blindedAt": "2026-10-12T03:28:45.395Z"
+    },
+    {
+      "id": "u0024",
+      "cell": "admission-lifetime.p87.o.1",
+      "scenario": "admission-lifetime",
+      "arm": "p87",
+      "member": "o",
+      "family": "gpt",
+      "properties": [
+        "q01"
+      ],
+      "phase": "answer",
+      "text": "--- ANSWER ---\n**Decision**\n\nUnder the proposal, AGP may end admission result authority and complete session cleanup without waiting for the pending provider promise. It revokes authority, cancels the admission timer, detaches the session-effect target and requests cancellation outside the executor. Cancellation does not prove settlement. Late success or failure cannot retain identity, displace a collision winner, import routes, consume a route revision or enqueue an ACK; only accounting and disposal remain authorized.\n\nThe started evaluation continues consuming its pool slot until it settles and AGP disposes its retained request/result. If it never settles, the slot remains occupied for the node instance's remaining lifetime. In contrast, revoking an invocation permit before calling the provider permits immediate release: no evaluation began, and the provider must not be invoked.\n\n**Document support**\n\nQUOTE: \"On expiry or terminal disposition, revoke authority first, cancel its timer, detach its effect target and request cooperative cancellation outside the executor; proceed with session cleanup without joining the provider.\"\nQUOTE: \"A reservation whose invocation permit is revoked before the provider is called can be released immediately.\"\nQUOTE: \"If a provider never settles, its slot stays occupied for that node instance's remaining lifetime.\"\n\n**Inference or gap**\n\nNONE. These are proposed lifetime rules, not evidence of implementation or adoption.\n",
+      "blindedAt": "2026-10-12T03:28:45.395Z"
+    },
+    {
+      "id": "u0025",
+      "cell": "admission-lifetime.p87.g.1",
+      "scenario": "admission-lifetime",
+      "arm": "p87",
+      "member": "g",
+      "family": "gemini",
+      "properties": [
+        "q08"
+      ],
+      "phase": "answer",
+      "text": "--- ANSWER ---\nDecision:\nWhen an attempt with `retryAttempt = 4` gains identity ownership or is satisfied by another winner in `OpenConfirm`, dialing suppression occurs: the supervisor clears the waiter and pending retry timer, tracks the winning controller ID, projects `state = satisfied`, clears capacity reasons and `retryAt`, but preserves accumulated retry history (`retryAttempt = 4`). When this winner is lost before establishment with an ordinary retryable disposition, the supervisor applies reconnect backoff once, incrementing retry history using the preserved failure count (`retryAttempt = 5`), transitions to `retry-wait`, arms a backoff timer, and projects `retryAt`. In the separate successful sequence, when the exact current winner reaches `Established`, the supervisor confirms the winner, maintains dial suppression, projects `state = satisfied`, and resets retry history once (`retryAttempt = 0`). An old winner's delayed success cannot reset a newer attempt's history; duplicate or stale success notifications are inert.\n\nDocument support:\nQUOTE: \"Current attempt gains canonical identity ownership or another exact winner in `OpenConfirm` satisfies the adjacency | Clear waiter, pending retry timer and remembered refusing pools, but preserve accumulated retry history; track the winning controller even if inbound; ordinary collision cleanup remains separate | `satisfied`, actual winning `activeControllerId`, no capacity reason or `retryAt`; the connection state remains `OpenConfirm`, and `retryAttempt` is unchanged\"\nQUOTE: \"Exact satisfying winner is lost | Apply the existing reconnect disposition/backoff once; a winner lost before establishment uses preserved failure history, while a successfully established winner uses the history reset at its success; re-evaluate identity capacity without the old loser's refusing-pool set | `retry-wait` when allowed, reason and `retryAt` as above; stale winner loss is inert\"\nQUOTE: \"Exact current winner enters `Established`, or an already-established exact winner is adopted | Confirm current winner/incarnation, apply the successful reset once for that success, and keep dial suppression; stale or duplicate success notifications cannot reset newer history | `satisfied`, exact winning `activeControllerId`, no capacity reason or `retryAt`; `retryAttempt = 0`\"\n\nInference or gap:\nNONE\n",
+      "blindedAt": "2026-10-12T03:28:45.395Z"
+    },
+    {
+      "id": "u0026",
+      "cell": "admission-lifetime.p87.o.1",
+      "scenario": "admission-lifetime",
+      "arm": "p87",
+      "member": "o",
+      "family": "gpt",
+      "properties": [
+        "q07"
+      ],
+      "phase": "answer",
+      "text": "--- ANSWER ---\n**Decision**\n\nThe never-dialled adjacency retains its initial-attempt entitlement despite reconnect being disabled. Its sole supervisor registers one capacity waiter without creating an attempt, session token or backoff. It projects `retry-wait`, `desired = true`, `lastReason = identity-admission-capacity`, unchanged `retryAttempt`, and neither `retryAt` nor `activeControllerId`.\n\nAn unrelated full route pool does not block an identity-only initial phase. A local route-capacity refusal from this adjacency's most recent real attempt additionally requires route availability before its next acquisition; identity availability is always required. Depending on current levels, the reason is identity, route, or combined admission capacity. However, with reconnect disabled, an ended real attempt gets no repeat attempt: that terminal transition clears waiting state and remembered pools.\n\nFor an adjacency allowed to retry, a release notification during backoff recomputes capacity and removes the waiter if unblocked. It neither starts early, increments attempts nor restarts the timer. The real deadline and `retryAt` remain; capacity reason takes precedence while blocked, otherwise the prior terminal cause is shown.\n\n**Document support**\n\nQUOTE: \"`reconnect.enabled = false` prevents repeat attempts, not the initial configured attempt or its pre-acquisition capacity wait.\"\nQUOTE: \"Route-pool pressure alone does not prohibit an unrelated identity-only phase; a route-capacity refusal parks that affected adjacency on route capacity as well.\"\nQUOTE: \"Capacity wakes neither increment reconnect attempts nor restart an already-running backoff\"\n\n**Inference or gap**\n\nThe prior-refusal comparison is a separate history from the never-dialled scenario; repeat waiting additionally requires reconnect eligibility.\n",
+      "blindedAt": "2026-10-12T03:28:45.395Z"
+    },
+    {
+      "id": "u0027",
+      "cell": "admission-lifetime.d41.o.1",
+      "scenario": "admission-lifetime",
+      "arm": "d41",
+      "member": "o",
+      "family": "gpt",
+      "properties": [
+        "q06"
+      ],
+      "phase": "answer",
+      "text": "--- ANSWER ---\n**Decision**\n\nAfter normal stop, unfinished evaluations remain accounted for even after their connections disappear. Resource queries remain live for cleanup accounting. Later settlement and disposal can release reservations and update gauges without reopening node lifecycle or event subscriptions. A cancellation request alone cannot reduce unfinished-work usage.\n\nFor operations numeric exhaustion, the final capture includes actual retained reservations after authority detachment and disposal of whatever can already be disposed. Unresolved evaluations therefore remain nonzero. The capture is a last-known terminal observation, not a continuing claim that those resources remain allocated. Later settlement may release private reservations, but cannot change public gauges, counters, events or revision.\n\nBoth aggregate and focused queries return the same frozen terminal capture. Its revision and capturedAt freeze together with its resource values; queries must not attach fresh timestamps to old counts. This distinguishes terminal capture from ordinary stopped-node telemetry.\n\n**Document support**\n\nQUOTE: \"Ordinary stopped instances remain queryable: later settlement may update cleanup gauges without reopening the lifecycle or event subscriptions.\"\nQUOTE: \"Freeze its resource values, revision and `capturedAt` together; subsequent aggregate and focused queries return that same terminal capture, not a new timestamp on old counts.\"\nQUOTE: \"Outstanding provider evaluations remain nonzero at that capture when unresolved; later private disposal can release internal reservations but cannot publish a new revision, event or counter.\"\nQUOTE: \"The final count is last-known at the terminal capture, not a live promise that resources remain allocated or that cleanup has finished.\"\n\n**Inference or gap**\n\nThe terminal-accounting behavior is a recommendation requiring explicit contract agreement. The document describes current zeroing and fresh timestamp sampling as incompatible with it, not as completed repairs.\n",
+      "blindedAt": "2026-10-12T03:28:45.395Z"
+    },
+    {
+      "id": "u0028",
+      "cell": "admission-lifetime.p87.c.1",
+      "scenario": "admission-lifetime",
+      "arm": "p87",
+      "member": "c",
+      "family": "claude",
+      "properties": [
+        "q09"
+      ],
+      "phase": "answer",
+      "text": "--- ANSWER ---\n**Decision:** The recommendation is an optional second parameter on both ports' `evaluate` methods: a process-local `AdmissionEvaluationOptions` carrying a `signal`. AGP always supplies it.\n- **Existing provider:** `evaluate(request)` may ignore it and still type-check. The work ledger still bounds that ignored work.\n- **Consumer's proposal:** Placing the signal in the request DTO schema is not allowed. Keeping it for established-session credential rotation is also not allowed, because the signal owns only that pending evaluation and loses authority once the result commits. Credential and PSK rotation are out of scope.\n- **Migration:** None is required for existing providers. Before adoption, providers must be inventoried, one-argument and cancellation-aware implementations compiled, and the schema checked for leakage. Any use of the signal is an explicit consumer migration.\n\nThere is no wire change and no separate browser contract. This remains a recommendation that still needs public-type review.\n\n**Document support:**\nQUOTE: \"add one shared process-local `AdmissionEvaluationOptions` with a `signal` capability as an optional second parameter to both ports' `evaluate` methods.\"\nQUOTE: \"AGP always supplies it; existing one-argument implementations may ignore it.\"\nQUOTE: \"The signal owns only that pending evaluation; it is not an established-session close handle or a live credential-validity signal.\"\nQUOTE: \"Keep the request and result DTOs unchanged and credential-free, and keep clocks, callback handles and cancellation authority out of their schemas.\"\nQUOTE: \"Before adopting the recommendation, inventory providers through the public packages, compile existing one-argument implementations and a cancellation-aware implementation, and confirm the options do not leak into request schemas.\"\nQUOTE: \"Current providers still type-check; new options remain process-local; no protocol-schema change or browser/CLI policy split\"\n\n**Inference or gap:** NONE\n",
+      "blindedAt": "2026-10-12T03:28:45.395Z"
+    },
+    {
+      "id": "u0029",
+      "cell": "admission-lifetime.p87.g.1",
+      "scenario": "admission-lifetime",
+      "arm": "p87",
+      "member": "g",
+      "family": "gemini",
+      "properties": [
+        "q06"
+      ],
+      "phase": "answer",
+      "text": "--- ANSWER ---\nDecision:\nFor an ordinarily stopped node with an unfinished admission evaluation, resource queries reflect live accounting. When its provider later settles, private disposal releases the internal reservation and updates the cleanup resource gauges without reopening the lifecycle or event subscriptions. For the node terminalized by operations numeric domain exhaustion, queries immediately and perpetually return the immutable terminal snapshot captured at exhaustion, where unfinished evaluations remain nonzero. When its provider later settles, internal reservations may be released privately, but no new revision, event, or counter can be published. For the numeric-terminal node, the revision, resource values, and `capturedAt` timestamp freeze together at the terminal capture; subsequent aggregate and focused queries return that identical captured timestamp and revision without resending wall time.\n\nDocument support:\nQUOTE: \"Ordinary stopped instances remain queryable: later settlement may update cleanup gauges without reopening the lifecycle or event subscriptions.\"\nQUOTE: \"Freeze its resource values, revision and `capturedAt` together; subsequent aggregate and focused queries return that same terminal capture, not a new timestamp on old counts.\"\nQUOTE: \"Outstanding provider evaluations remain nonzero at that capture when unresolved; later private disposal can release internal reservations but cannot publish a new revision, event or counter.\"\nQUOTE: \"The current implementation's `#capture` samples wall time afresh even after terminal failure; preserving gauges without freezing that metadata would not implement this recommendation.\"\n\nInference or gap:\nNONE\n",
+      "blindedAt": "2026-10-12T03:28:45.395Z"
+    },
+    {
+      "id": "u0030",
+      "cell": "admission-lifetime.p87.c.1",
+      "scenario": "admission-lifetime",
+      "arm": "p87",
+      "member": "c",
+      "family": "claude",
+      "properties": [
+        "q05"
+      ],
+      "phase": "answer",
+      "text": "--- ANSWER ---\n**Decision:** The node commit coordinator and its single runtime gate own the decision. Core owners only prepare pure proposals. OperationsStore runs the exact numeric preflight and returns either a one-use permit or evidence of exhaustion. It does not publish anything or change the lifecycle. On exhaustion, the ordinary plan is discarded, so the admission has no ordinary effects, and the node-owned terminal sequence runs in the same turn:\n1. Close the gate, set the host to `Failed` and invalidate every permit and generation.\n2. Detach authority and purge queues without publishing.\n3. Release only uninvoked or disposable work.\n4. Pass the immutable retained-resource values to the store.\n5. Install one frozen terminal capture and complete event subscriptions.\n\nThe call returns `replaced-by-terminal`. A publication unrelated to admission cannot leave this admission live, because every runtime publication must pass through the same coordinator. A stop completion already queued must observe the gate and cannot replace `Failed`.\n\n**Document support:**\nQUOTE: \"The node owns one authoritative runtime gate and the serialized commit coordinator; the core owns pure transition/routing preparation and numeric-domain preflight.\"\nQUOTE: \"The store does not publish or change lifecycle; failed semantic preparation is not numerical exhaustion\"\nQUOTE: \"On preflight exhaustion, discard the ordinary plan and enter the node-owned terminal sequence below; return `replaced-by-terminal` with its frozen capture, not success\"\nQUOTE: \"Close the runtime gate and set host authority to `Failed`\"\nQUOTE: \"All runtime operations publications must reach this coordinator, including ones outside admission, so an unrelated counter/event/revision exhaustion revokes admission and acquisition authority too.\"\nQUOTE: \"A stop or listener-failure continuation already queued must observe the terminal gate and must not overwrite `Failed` with `Stopping` or `Stopped`, generate another revision, or rearm an adjacency.\"\n\n**Inference or gap:** This is a required prerequisite, not current behaviour. The document's baseline says the current `OperationsStore.commit` can terminalize after node routing has already mutated. The guarantee holds only after every live publication has been inventoried and routed through the coordinator.\n",
+      "blindedAt": "2026-10-12T03:28:45.395Z"
+    },
+    {
+      "id": "u0031",
+      "cell": "admission-lifetime.p87.o.1",
+      "scenario": "admission-lifetime",
+      "arm": "p87",
+      "member": "o",
+      "family": "gpt",
+      "properties": [
+        "q10"
+      ],
+      "phase": "answer",
+      "text": "--- ANSWER ---\n**Decision**\n\nAGP's ledger accounts for evaluations made through its admission ports and the requests/results AGP retains. If a provider's timeout wrapper answers while a descendant host task continues, AGP may eventually release its evaluation reservation after settlement and disposal. That release does not prove the descendant task stopped. The provider or its host owns that task's cancellation and resource budget.\n\nThe recommended finite defaults bound counts of retained evaluations and bounded logical inputs; they do not demonstrate capacity for hundreds of peers. Identity evaluations default to resolved `maxPendingHandshakes`, route evaluations to resolved `maxSessions`, with independent configuration. No workload measurements establish their adequacy.\n\nThey also provide no arbitrary provider-memory bound, CPU preemption or browser-native release guarantee. Synchronous blocking requires host-owned isolation beyond this correction. Nor does the proposal choose an authentication scheme: credentials, rotation, redemption and issuer policy are excluded. Its fixed outcome concerns bounded admission/session lifetime and honest unfinished-work accounting.\n\n**Document support**\n\nQUOTE: \"The ledger measures AGP port evaluations, not invisible descendant tasks started by a provider.\"\nQUOTE: \"These defaults are recommendations for review, not existing runtime behaviour or workload measurements.\"\nQUOTE: \"No in-process acceptance claim includes stopping synchronous infinite computation, proving arbitrary provider allocations freed, or proving browser-native cleanup.\"\nQUOTE: \"The fixed outcome is bounded session admission and teardown, not a new authentication scheme.\"\n\n**Inference or gap**\n\nPeer-scale suitability requires information absent here, including workload and chosen resolved capacities.\n",
+      "blindedAt": "2026-10-12T03:28:45.395Z"
+    },
+    {
+      "id": "u0032",
+      "cell": "admission-lifetime.d41.o.1",
+      "scenario": "admission-lifetime",
+      "arm": "d41",
+      "member": "o",
+      "family": "gpt",
+      "properties": [
+        "q10"
+      ],
+      "phase": "answer",
+      "text": "--- ANSWER ---\n**Decision**\n\nAGP's ledger counts its port evaluations and retained requests/results, including settled results awaiting disposal. Once the provider's timeout wrapper answers and AGP disposes the retained evaluation data, that reservation may be released even though the provider's hidden host task continues. That hidden work remains the provider/host's cancellation and resource-budget responsibility. The answered promise is not physical-release evidence.\n\nThe proposed finite defaults establish bounded logical evaluation counts and input retention, not measured capacity for hundreds of peers. Defaults derive from other resolved limits and remain recommendations. They cannot bound arbitrary provider allocations, preempt synchronous CPU-blocking code, guarantee event-loop scheduling or prove browser-native resource release. Host-owned isolation is needed for stronger enforcement against hostile synchronous work.\n\nNo authentication scheme is chosen. The correction concerns admission lifetime after channel acquisition and explicitly excludes credential format, PSK rotation, redemption location, IAP and issuer policy. The prior socket-overlap choice is not approval of a provider-work limit.\n\n**Document support**\n\nQUOTE: \"The ledger measures AGP port evaluations, not invisible descendant tasks started by a provider.\"\nQUOTE: \"A provider that answers from its own timeout race while leaving external work running still owns that work's cancellation and resource budget; its answered promise is not evidence of physical resource release.\"\nQUOTE: \"These defaults are recommendations for review, not existing runtime behaviour or workload measurements.\"\nQUOTE: \"No in-process acceptance claim includes stopping synchronous infinite computation, proving arbitrary provider allocations freed, or proving browser-native cleanup.\"\nQUOTE: \"The fixed outcome is bounded session admission and teardown, not a new authentication scheme.\"\n\n**Inference or gap**\n\nA workload-capacity claim would require measurements and workload assumptions absent from the document.\n",
+      "blindedAt": "2026-10-12T03:28:45.395Z"
+    },
+    {
+      "id": "u0033",
+      "cell": "admission-lifetime.p87.g.1",
+      "scenario": "admission-lifetime",
+      "arm": "p87",
+      "member": "g",
+      "family": "gemini",
+      "properties": [
+        "q10"
+      ],
+      "phase": "answer",
+      "text": "--- ANSWER ---\nDecision:\nAGP's node work ledger measures and accounts strictly for AGP port evaluations (outstanding evaluation permits and retained request/result data awaiting disposal); it does not cover invisible descendant host tasks started by a provider. The provider/host owns the hidden work, including its resource budget and cancellation. The proposed finite configuration defaults do not establish capacity for hundreds of peers (route evaluations default to `maxSessions` and identity evaluations default to `maxPendingHandshakes`), nor do they establish arbitrary provider memory bounds, CPU preemption, browser-native resource release, or a chosen authentication scheme; these are all explicitly excluded from the design's scope and mechanics.\n\nDocument support:\nQUOTE: \"The ledger measures AGP port evaluations, not invisible descendant tasks started by a provider. A provider that answers from its own timeout race while leaving external work running still owns that work's cancellation and resource budget; its answered promise is not evidence of physical resource release.\"\nQUOTE: \"The fixed outcome is bounded session admission and teardown, not a new authentication scheme.\"\nQUOTE: \"Unfinished admission work, refusal at capacity and operational accounting | Worker/process isolation, arbitrary provider memory containment or CPU preemption\"\nQUOTE: \"Sole-reader progress, bounded continuation storage and terminal cleanup | New carrier, browser physical-release guarantees or runtime portability\"\n\nInference or gap:\nNONE\n",
+      "blindedAt": "2026-10-12T03:28:45.395Z"
+    },
+    {
+      "id": "u0034",
+      "cell": "admission-lifetime.p87.c.1",
+      "scenario": "admission-lifetime",
+      "arm": "p87",
+      "member": "c",
+      "family": "claude",
+      "properties": [
+        "q12"
+      ],
+      "phase": "answer",
+      "text": "--- ANSWER ---\n**Decision:** One teardown budget starts when the terminal cause commits. Its deadline actively stops the writer and aborts the channel even while the notification write or close is still pending. The single reader continues to the transport terminal, and AGP then calls `controllerReleased` once. This does not depend on provider settlement, and the provider's slot stays reserved.\n\nThe claim depends on a conforming transport terminal contract. It promises nothing about event-loop scheduling or browser-native release.\n\nIn the OpenConfirm case, the outer OPEN deadline stays authoritative. The OPEN timer remains armed until Established or teardown, even with hold disabled.\n\n**Document support:**\nQUOTE: \"Start one teardown budget when the terminal cause commits.\"\nQUOTE: \"The deadline actively stops the writer and aborts the channel even if notification write or graceful close has not settled; a signal passed only to a later `close()` call cannot bound an earlier wait.\"\nQUOTE: \"Observe the reader's final terminal and call `controllerReleased` once, independently of provider work.\"\nQUOTE: \"This relies on the existing conforming transport terminal contract, not a new promise of event-loop scheduling or browser-native release.\"\nQUOTE: \"The OPEN timer remains armed until `Established` or teardown; admission success cannot leave an unlimited confirmation phase when hold is zero.\"\n\n**Inference or gap:** The document gives no value or setting for the teardown budget. It also does not specify the outcome if a nonconforming transport never delivers its terminal after an abort.\n",
+      "blindedAt": "2026-10-12T03:28:45.395Z"
+    },
+    {
+      "id": "u0035",
+      "cell": "admission-lifetime.d41.c.1",
+      "scenario": "admission-lifetime",
+      "arm": "d41",
+      "member": "c",
+      "family": "claude",
+      "properties": [
+        "q03"
+      ],
+      "phase": "answer",
+      "text": "--- ANSWER ---\nAn admission succeeds and queued ordinary commands are draining in bounded batches. During a yield, a new KEEPALIVE arrives; a fatal notification follows. Where do these inputs go, when can the barrier open, and what happens to already-accepted transport input after logical termination?\n\n**Decision:** The KEEPALIVE joins the tail of the same FIFO. It has no protocol effect and does not refresh the hold timer until ordered dispatch reaches it, and it cannot overtake the backlog. The fatal notification bypasses the barrier and triggers the single terminal disposition. The barrier stays engaged throughout draining. It opens only in the serialized turn that sees no pending admission, no queued command and no scheduled or in-progress drain, so here it never opens before termination. After logical release, the sole reader keeps draining packets the transport has already accepted, without protocol effects, until the transport terminal arrives. Then it stops. AGP does not add a second reader or cancel the read early.\n\n**Document support:**\nQUOTE: \"New ordinary arrivals join the same FIFO throughout; terminal commands still bypass it.\"\nQUOTE: \"Queue in arrival order; no protocol effect or hold-timer refresh before ordered dispatch\"\nQUOTE: \"The barrier instead remains engaged through draining and opens only in the serialized turn that observes no pending admission, no queued command and no scheduled/in-progress drain.\"\nQUOTE: \"Bypass the barrier and use the one terminal disposition; preserve already-observed FIFO transport evidence\"\nQUOTE: \"Drain without protocol effects until the transport terminal, then stop the sole reader\"\nQUOTE: \"a second reader or an early read cancellation is not the correction.\"\n\n**Inference or gap:** The document explicitly says to discard queued semantic work only for `ContinuationQueueOverflow`. It is an inference that the queued KEEPALIVE and backlog become inert after a fatal notification (\"An admitted packet may become semantically inert after a session-fatal event\"). The document also does not define what \"preserve already-observed FIFO transport evidence\" means for queued commands that came before the fatal one.\n",
+      "blindedAt": "2026-10-12T03:28:45.395Z"
+    },
+    {
+      "id": "u0036",
+      "cell": "admission-lifetime.p87.c.1",
+      "scenario": "admission-lifetime",
+      "arm": "p87",
+      "member": "c",
+      "family": "claude",
+      "properties": [
+        "q06"
+      ],
+      "phase": "answer",
+      "text": "--- ANSWER ---\n**Decision:**\n- **Normally stopped node:** It keeps live accounting and stays queryable. The gauges count the outstanding work and the revoked work whose provider has not settled. Later settlement may update those cleanup gauges, but it does not reopen the lifecycle or event subscriptions.\n- **Numeric-terminal node:** The final capture records the ledger after detachment, so unresolved work remains nonzero. Resource values, revision and `capturedAt` are frozen together, and every aggregate or focused query returns that same capture. The count is last-known at capture time, not live. When the provider later settles, private disposal may release internal reservations. It cannot publish a new revision, event, counter or timestamp.\n\n**Document support:**\nQUOTE: \"Ordinary stopped instances remain queryable: later settlement may update cleanup gauges without reopening the lifecycle or event subscriptions.\"\nQUOTE: \"Freeze its resource values, revision and `capturedAt` together; subsequent aggregate and focused queries return that same terminal capture, not a new timestamp on old counts.\"\nQUOTE: \"later private disposal can release internal reservations but cannot publish a new revision, event or counter\"\nQUOTE: \"The final count is last-known at the terminal capture, not a live promise that resources remain allocated or that cleanup has finished.\"\n\n**Inference or gap:** The document does not say whether gauge updates on a stopped node produce new operations revisions. The numeric-terminal behaviour needs explicit contract agreement. The document notes that the current implementation zeros gauges and samples wall time afresh.\n",
+      "blindedAt": "2026-10-12T03:28:45.395Z"
+    },
+    {
+      "id": "u0037",
+      "cell": "admission-lifetime.p87.o.1",
+      "scenario": "admission-lifetime",
+      "arm": "p87",
+      "member": "o",
+      "family": "gpt",
+      "properties": [
+        "q12"
+      ],
+      "phase": "answer",
+      "text": "--- ANSWER ---\n**Decision**\n\nThe teardown budget starts when the single terminal cause commits, covering the pending notification write, graceful close and terminal drain. At its deadline, AGP actively stops the writer and aborts the channel even if those waits have not settled. Merely passing a signal to a later `close()` call cannot bound an earlier notification write.\n\nExactly one reader continues. It awaits channel reads and short dispatch turns, drains accepted transport evidence without protocol effects after logical release, observes the final terminal and permits `controllerReleased` exactly once. Cleanup does not join the provider; revoked unfinished work retains its reservation independently.\n\nThis boundedness assumes the existing conforming transport terminal contract and cooperative availability of execution. It does not promise event-loop scheduling, preemption of synchronous infinite provider code or browser-native release.\n\nSeparately, identity success in OpenConfirm must not cancel the outer OPEN deadline. That opening timer remains armed until Established or teardown, including when negotiated hold is zero; admission success cannot create unlimited confirmation time.\n\n**Document support**\n\nQUOTE: \"Start one teardown budget when the terminal cause commits.\"\nQUOTE: \"The deadline actively stops the writer and aborts the channel even if notification write or graceful close has not settled\"\nQUOTE: \"Observe the reader's final terminal and call `controllerReleased` once, independently of provider work.\"\nQUOTE: \"The OPEN timer remains armed until `Established` or teardown; admission success cannot leave an unlimited confirmation phase when hold is zero.\"\n\n**Inference or gap**\n\nThe document does not supply a numeric teardown budget here; the boundedness claim is conditional on its stated transport and execution assumptions.\n",
+      "blindedAt": "2026-10-12T03:28:45.395Z"
+    },
+    {
+      "id": "u0038",
+      "cell": "admission-lifetime.d41.g.1",
+      "scenario": "admission-lifetime",
+      "arm": "d41",
+      "member": "g",
+      "family": "gemini",
+      "properties": [
+        "q05"
+      ],
+      "phase": "answer",
+      "text": "--- ANSWER ---\nDecision\nThe node commit coordinator owns the serialized runtime gate and publication decision, while the core owns pure proposal preparation and OperationsStore preflight. During preflight, OperationsStore detects domain exhaustion and returns exhaustion evidence; the coordinator discards the proposed plan and executes the node-owned terminal replacement, returning `replaced-by-terminal` with a frozen capture and setting host authority to `Failed`. A publication unrelated to admission cannot leave admission live, because all runtime operations publications must pass through this coordinator, and exhaustion revokes all runtime admission and acquisition authority. Furthermore, an already-queued stop continuation cannot overwrite `Failed` with `Stopping` or `Stopped`, nor can it emit new revisions or rearm adjacencies.\n\nDocument support\nQUOTE: \"The node owns one authoritative runtime gate and the serialized commit coordinator; the core owns pure transition/routing preparation and numeric-domain preflight.\"\nQUOTE: \"On preflight exhaustion, discard the ordinary plan and enter the node-owned terminal sequence below; return replaced-by-terminal with its frozen capture, not success. None of the rejected transaction's ordinary effects occurs.\"\nQUOTE: \"All runtime operations publications must reach this coordinator, including ones outside admission, so an unrelated counter/event/revision exhaustion revokes admission and acquisition authority too.\"\nQUOTE: \"A stop or listener-failure continuation already queued must observe the terminal gate and must not overwrite Failed with Stopping or Stopped, generate another revision, or rearm an adjacency.\"\n\nInference or gap\nNONE\n",
+      "blindedAt": "2026-10-12T03:28:45.395Z"
+    },
+    {
+      "id": "u0039",
+      "cell": "admission-lifetime.d41.o.1",
+      "scenario": "admission-lifetime",
+      "arm": "d41",
+      "member": "o",
+      "family": "gpt",
+      "properties": [
+        "q07"
+      ],
+      "phase": "answer",
+      "text": "--- ANSWER ---\n**Decision**\n\nThe sole existing supervisor registers one coalesced waiter and projects retry-wait, desired true, reason identity-admission-capacity, no retryAt and no activeControllerId. It manufactures no attempt, session token or backoff; retryAttempt stays unchanged. Reconnect disabled still permits the initial attempt and its capacity wait. Once eligible, an actual acquisition start consumes that initial entitlement.\n\nAn unrelated full route pool does not block an identity-only start. A local route-capacity refusal from this adjacency's last real attempt makes route availability an additional prerequisite alongside identity availability. The remembered refusing pools persist through capacity fluctuations/backoff until actual acquisition, satisfaction or terminal cleanup clears them. Remote refusal cannot add a local pool. With reconnect disabled, an ended real attempt instead receives terminal disposition, not a repeat capacity wait.\n\nDuring an otherwise permitted running backoff, actual slot release triggers a level recheck and waiter update. It cannot increment retryAttempt, restart backoff or dial before the deadline. Capacity reason takes projection precedence while retryAt retains the real timer deadline; when capacity clears, show the prior terminal cause.\n\n**Document support**\n\nQUOTE: \"`reconnect.enabled = false` prevents repeat attempts, not the initial configured attempt or its pre-acquisition capacity wait.\"\nQUOTE: \"Route-pool pressure alone does not prohibit an unrelated identity-only phase; a route-capacity refusal parks that affected adjacency on route capacity as well.\"\nQUOTE: \"Capacity wakes neither increment reconnect attempts nor restart an already-running backoff, and stop removes all wait records.\"\n\n**Inference or gap**\n\nNONE. These projection semantics remain proposed contract clarifications.\n",
+      "blindedAt": "2026-10-12T03:28:45.395Z"
+    },
+    {
+      "id": "u0040",
+      "cell": "admission-lifetime.p87.g.1",
+      "scenario": "admission-lifetime",
+      "arm": "p87",
+      "member": "g",
+      "family": "gemini",
+      "properties": [
+        "q02"
+      ],
+      "phase": "answer",
+      "text": "--- ANSWER ---\nDecision:\nWhen a settled route result arrives at the executor after the deadline has elapsed, the executor must recheck the runtime authority gate, controller identity, admission kind, exact token, and deadline validity. Because the deadline has expired, deadline validity fails; the fact that the old timer callback has not run does not grant authority. No route effects are permitted: route replacement, `#pendingRoute`, route revision consumption, RIB changes, and route ACK enqueue are disallowed. Settlement does not make another work slot available while the result is still retained waiting for serialized application or disposal; provider-work reservation remains consumed until AGP actually disposes of the retained work and releases the reservation.\n\nDocument support:\nQUOTE: \"Route the prepared completion through a short executor turn that checks the runtime authority gate, controller identity, admission kind, token and deadline; prepare all identity/collision or route effects, preflight the complete transaction and apply only its committed outcome.\"\nQUOTE: \"Deadline validity is checked again at result application, not inferred from whether the timer callback has run.\"\nQUOTE: \"An evaluation can finish before its serialized result is applied. Its capacity remains reserved while that result is waiting, preventing an unbounded queue of settled results behind the executor.\"\nQUOTE: \"There must be no stale path to `retainIdentity`, collision termination, `#pendingRoute`, route replacement, revision consumption or ACK enqueue.\"\n\nInference or gap:\nNONE\n",
+      "blindedAt": "2026-10-12T03:28:45.395Z"
+    },
+    {
+      "id": "u0041",
+      "cell": "admission-lifetime.p87.c.1",
+      "scenario": "admission-lifetime",
+      "arm": "p87",
+      "member": "c",
+      "family": "claude",
+      "properties": [
+        "q08"
+      ],
+      "phase": "answer",
+      "text": "--- ANSWER ---\n**Decision:**\n- **Identity acquired, in OpenConfirm:** The supervisor becomes `satisfied` and tracks the winner's `activeControllerId`. It clears the waiter, the pending retry timer and the remembered refusing pools. Retry history is preserved, so `retryAttempt` stays 4.\n- **Loss before establishment:** The existing reconnect disposition/backoff applies once, using that preserved history. The projection is `retry-wait` with `retryAt` for the real timer.\n- **Exact current winner reaches Established:** The supervisor confirms the winner and incarnation, resets once to `retryAttempt = 0` and keeps dial suppression.\n\nChannel adoption and identity victory never reset history. A delayed success from an old winner is stale and cannot reset a newer attempt's history.\n\n**Document support:**\nQUOTE: \"Clear waiter, pending retry timer and remembered refusing pools, but preserve accumulated retry history\"\nQUOTE: \"the connection state remains `OpenConfirm`, and `retryAttempt` is unchanged\"\nQUOTE: \"a winner lost before establishment uses preserved failure history\"\nQUOTE: \"Confirm current winner/incarnation, apply the successful reset once for that success, and keep dial suppression; stale or duplicate success notifications cannot reset newer history\"\nQUOTE: \"`satisfied`, exact winning `activeControllerId`, no capacity reason or `retryAt`; `retryAttempt = 0`\"\nQUOTE: \"remove the node's channel-adoption reset when consolidating this path\"\n\n**Inference or gap:** The document does not state that `retryAttempt` becomes 5 after the loss. That follows from \"Only the existing real-failure/backoff transition increments `retryAttempt`\" combined with the existing backoff rules.\n",
+      "blindedAt": "2026-10-12T03:28:45.395Z"
+    },
+    {
+      "id": "u0042",
+      "cell": "admission-lifetime.p87.c.1",
+      "scenario": "admission-lifetime",
+      "arm": "p87",
+      "member": "c",
+      "family": "claude",
+      "properties": [
+        "q07"
+      ],
+      "phase": "answer",
+      "text": "--- ANSWER ---\n**Decision:** The supervisor registers one capacity waiter and manufactures no attempt, session token or backoff. It projects `retry-wait` with `lastReason` `identity-admission-capacity`, no `retryAt` and no `activeControllerId`. `retryAttempt` is unchanged and `desired` stays true. Disabling reconnect does not prevent the initial attempt or this wait.\n\nAn unrelated full route pool does not block it, because identity capacity is always required but route capacity is required only after a local route refusal. If the route pool refused this adjacency's last real attempt, route capacity is also required. The reason could then be `identity-and-route-admission-capacity`.\n\nWhile backoff is running, a capacity-release notification may only recompute levels and remove the waiter if nothing still blocks. It keeps the original deadline, attempt count and `retryAt`, and it neither starts an attempt nor restarts the backoff.\n\n**Document support:**\nQUOTE: \"Register one waiter; no attempt, session token or backoff is manufactured\"\nQUOTE: \"`retry-wait`, capacity reason, no `retryAt`, no `activeControllerId`; `retryAttempt` unchanged\"\nQUOTE: \"`reconnect.enabled = false` prevents repeat attempts, not the initial configured attempt or its pre-acquisition capacity wait.\"\nQUOTE: \"At eligibility checks, identity capacity is always required; route capacity is required only when that set includes a local route-capacity refusal.\"\nQUOTE: \"Route-pool pressure alone does not prohibit an unrelated identity-only phase; a route-capacity refusal parks that affected adjacency on route capacity as well.\"\nQUOTE: \"Recompute levels; keep the original deadline and attempt count; remove waiter if no pool currently blocks\"\nQUOTE: \"Capacity wakes neither increment reconnect attempts nor restart an already-running backoff\"\n\n**Inference or gap:** The scenario conflicts with itself. An adjacency that has never dialled has no last real attempt and no backoff. With reconnect disabled, a real refused attempt leads to `terminal` with no redial. The route-refusal and backoff cases therefore apply only to a different adjacency with reconnect enabled.\n",
+      "blindedAt": "2026-10-12T03:28:45.395Z"
+    },
+    {
+      "id": "u0043",
+      "cell": "admission-lifetime.p87.c.1",
+      "scenario": "admission-lifetime",
+      "arm": "p87",
+      "member": "c",
+      "family": "claude",
+      "properties": [
+        "q01"
+      ],
+      "phase": "answer",
+      "text": "--- ANSWER ---\n**Decision:** At expiry, AGP may end the evaluation's result authority. It may also run session cleanup without waiting for the provider. It first revokes authority, cancels the timer and detaches the effect target. It then asks for cooperative cancellation outside the executor. The late result may not cause any identity, collision, route, revision or ACK effect. Once invoked, the work slot stays reserved after expiry, abort or the end of the session. It becomes available only when the provider actually settles and AGP disposes of the retained request and result. If the provider never settles, the slot stays occupied for the rest of the node's life. If the invocation permit was revoked before the provider was called, no evaluation began, so the reservation can be released immediately.\n\n**Document support:**\nQUOTE: \"On expiry or terminal disposition, revoke authority first, cancel its timer, detach its effect target and request cooperative cancellation outside the executor; proceed with session cleanup without joining the provider.\"\nQUOTE: \"There must be no stale path to `retainIdentity`, collision termination, `#pendingRoute`, route replacement, revision consumption or ACK enqueue.\"\nQUOTE: \"After invocation, no reset merely because the session ended or the abort signal fired\"\nQUOTE: \"Cancellation communicates a request; it cannot force an arbitrary promise to settle (DOM abort model).\"\nQUOTE: \"If a provider never settles, its slot stays occupied for that node instance's remaining lifetime.\"\nQUOTE: \"A reservation whose invocation permit is revoked before the provider is called can be released immediately.\"\n\n**Inference or gap:** The document does not say which terminal event or reason code identity expiry produces. It says only that expiry is recorded \"through canonical transition/terminal events\".\n",
+      "blindedAt": "2026-10-12T03:28:45.395Z"
+    },
+    {
+      "id": "u0044",
+      "cell": "admission-lifetime.d41.c.1",
+      "scenario": "admission-lifetime",
+      "arm": "d41",
+      "member": "c",
+      "family": "claude",
+      "properties": [
+        "q09"
+      ],
+      "phase": "answer",
+      "text": "--- ANSWER ---\nAn existing provider implements evaluate(request) and ignores cancellation. Another consumer wants to place the cancellation signal in the request DTO schema and retain it for established-session credential rotation. What does the recommended public contract allow, what migration is needed, and is there a different browser contract?\n\n**Decision:** The recommendation, which is not yet adopted, adds an optional, process-local second parameter, `AdmissionEvaluationOptions`, with a `signal`. AGP always passes it, and one-argument providers may ignore it. The ledger still accounts for any provider that ignores it. The signal must not go into the request or result DTO schemas. It covers only the one pending evaluation, so it cannot be a close handle for an established session or a credential-validity signal. Credential and PSK rotation are out of scope. Existing providers need no migration. Before adoption, the providers must be inventoried and both forms compiled, and the check must confirm that the options do not leak into the schemas. Any consumer that uses the signal does so through its own explicit migration. There is no separate browser contract.\n\n**Document support:**\nQUOTE: \"AGP always supplies it; existing one-argument implementations may ignore it.\"\nQUOTE: \"The signal owns only that pending evaluation; it is not an established-session close handle or a live credential-validity signal.\"\nQUOTE: \"Keep the request and result DTOs unchanged and credential-free, and keep clocks, callback handles and cancellation authority out of their schemas.\"\nQUOTE: \"an ignored signal still requires the work ledger\"\nQUOTE: \"Before adopting the recommendation, inventory providers through the public packages, compile existing one-argument implementations and a cancellation-aware implementation, and confirm the options do not leak into request schemas.\"\nQUOTE: \"no protocol-schema change or browser/CLI policy split\"\n\n**Inference or gap:** NONE\n",
+      "blindedAt": "2026-10-12T03:28:45.395Z"
+    },
+    {
+      "id": "u0045",
+      "cell": "admission-lifetime.d41.o.1",
+      "scenario": "admission-lifetime",
+      "arm": "d41",
+      "member": "o",
+      "family": "gpt",
+      "properties": [
+        "q05"
+      ],
+      "phase": "answer",
+      "text": "--- ANSWER ---\n**Decision**\n\nThe node owns runtime authority and the serialized coordinator; OperationsStore supplies exact preflight and exhaustion evidence, not independent live-node terminalization. Prepare complete owned prospective states, projections, costs and intents without ordinary mutation. If preflight exhausts a domain, discard that plan and return terminal replacement, never admission success.\n\nIn that serialized turn: close the runtime gate and set Failed; invalidate admission, acquisition, supervisor and ordinary-intent authority; detach live bindings and controller/directory/routing authority and purge semantic queues without publication; release uninvoked permits and disposable settled results while retaining unfinished-work reservations; gather actual retained-resource values; install one immutable terminal capture under the reserved numeric rule, with last valid counters, no ordinary events, and completed subscriptions. Cooperative abort and bounded cleanup follow outside the executor.\n\nEvery runtime publication must use this gate, so unrelated exhaustion also revokes admission. A queued stop completion cannot overwrite Failed, publish another revision or restart an adjacency.\n\n**Document support**\n\nQUOTE: \"The node owns one authoritative runtime gate and the serialized commit coordinator; the core owns pure transition/routing preparation and numeric-domain preflight.\"\nQUOTE: \"All runtime operations publications must reach this coordinator, including ones outside admission, so an unrelated counter/event/revision exhaustion revokes admission and acquisition authority too.\"\nQUOTE: \"None of the rejected transaction's ordinary effects occurs\"\nQUOTE: \"A stop or listener-failure continuation already queued must observe the terminal gate and must not overwrite `Failed` with `Stopping` or `Stopped`, generate another revision, or rearm an adjacency.\"\n\n**Inference or gap**\n\nNONE about the required handoff. The document expressly requires an implementation-wide publication inventory before this prerequisite can be certified.\n",
+      "blindedAt": "2026-10-12T03:28:45.395Z"
+    },
+    {
+      "id": "u0046",
+      "cell": "admission-lifetime.d41.o.1",
+      "scenario": "admission-lifetime",
+      "arm": "d41",
+      "member": "o",
+      "family": "gpt",
+      "properties": [
+        "q04"
+      ],
+      "phase": "answer",
+      "text": "--- ANSWER ---\n**Decision**\n\nBefore invocation, validate the envelope, exact next revision and canonical snapshot. Pass policy an immutable subset containing only routes not statically rejected; retain static rejections separately. Validate the result for exactly one decision per requested tuple in that subset, including when the subset is empty. The document rejects simply extracting the old all-input-routes validator unchanged.\n\nDetermine available RIB capacity at final serialized commit, accounting for other sessions' intervening changes. Initial preparation cannot reserve an earlier capacity answer. Complete validation and transaction preflight precede changing controller revision, routing state or issuing an ACK. Invalid result preparation cannot partially import routes or consume the revision; any authorized fault cleanup is separate from those forbidden ordinary effects.\n\nA valid policy denial is an ordinary per-route outcome, not a malformed result or session-fatal rejection. A complete valid decision set, including denials, produces one atomic revision/RIB update and one ACK.\n\n**Document support**\n\nQUOTE: \"Before invocation, validate the envelope, exact next revision and canonical snapshot, then prepare the immutable policy-eligible subset and retain static rejections separately.\"\nQUOTE: \"Validate the result against exactly that subset, including an empty subset.\"\nQUOTE: \"Compute available RIB capacity at the final serialized commit, because other sessions may change it while policy runs; do not reserve a stale global-capacity answer in the initial proposal.\"\nQUOTE: \"Neither the controller revision nor routing state may change until that complete preparation succeeds.\"\nQUOTE: \"Complete valid allow/deny decisions cause one atomic revision/RIB change and one ACK; per-route denials remain nonfatal\"\n\n**Inference or gap**\n\nNONE for these decisions; the exact invalid-result fault classification is not specified here.\n",
+      "blindedAt": "2026-10-12T03:28:45.395Z"
+    },
+    {
+      "id": "u0047",
+      "cell": "admission-lifetime.p87.g.1",
+      "scenario": "admission-lifetime",
+      "arm": "p87",
+      "member": "g",
+      "family": "gemini",
+      "properties": [
+        "q11"
+      ],
+      "phase": "answer",
+      "text": "--- ANSWER ---\nDecision:\nIn ordinary conforming traffic, an identity allow admits the peer following collision and confirmation rules, an identity deny results in a policy refusal ending the attempt, and route decisions with per-route denials are nonfatal, generating an atomic revision/RIB change and an ACK. In all three ordinary conforming cases, a provider is invoked. Conversely, when a local evaluation pool is full (capacity exceeded), AGP refuses the attempt before provider invocation, reporting proposed `AdmissionCapacityExceeded`. No provider is invoked, no policy-denial result is produced, and the refusal is not misreported as an `IDENTITY_REJECTED` or per-route `POLICY` denial. Instead, it triggers local admission-fault cleanup and an `INTERNAL_ERROR` reconnect disposition while recording the refusing pool for supervisor eligibility.\n\nDocument support:\nQUOTE: \"Timely identity result | Allow follows normal collision and confirmation rules; deny remains a policy refusal\"\nQUOTE: \"Timely route result | Complete valid allow/deny decisions cause one atomic revision/RIB change and one ACK; per-route denials remain nonfatal\"\nQUOTE: \"At capacity, refuse before provider invocation and report proposed `AdmissionCapacityExceeded`, not `IDENTITY_REJECTED` or a per-route `POLICY` denial.\"\nQUOTE: \"`AdmissionCapacityExceeded` | Exact current admission kind/token; terminate once; retain which local pool refused for supervisor eligibility; no provider invocation or policy-denial result\"\n\nInference or gap:\nNONE\n",
+      "blindedAt": "2026-10-12T03:28:45.395Z"
+    },
+    {
+      "id": "u0048",
+      "cell": "admission-lifetime.p87.g.1",
+      "scenario": "admission-lifetime",
+      "arm": "p87",
+      "member": "g",
+      "family": "gemini",
+      "properties": [
+        "q07"
+      ],
+      "phase": "answer",
+      "text": "--- ANSWER ---\nDecision:\nFor an initial configured adjacency that has never dialed, `reconnect.enabled = false` prevents repeat attempts but does not bar the initial attempt. When the identity pool is full, the supervisor registers one coalesced capacity waiter and projects `state = retry-wait`, with `lastReason = identity-admission-capacity`, no `retryAt` (since no backoff timer is armed), no `activeControllerId`, and `retryAttempt` unchanged. An unrelated full route pool has no effect because route capacity is required only if the adjacency's prior attempt ended in a local route-capacity refusal; initial eligibility requires identity capacity alone. But if the route pool refused the last attempt, both pools block and the projected reason is `identity-and-route-admission-capacity`. While backoff is running, a capacity-release notification recomputes pool levels and clears the waiter if no pool currently blocks, but it cannot start acquisition, increment attempts, or restart/advance the backoff deadline; the original `retryAt` and deadline remain intact.\n\nDocument support:\nQUOTE: \"Initial acquisition eligible, identity pool full | Register one waiter; no attempt, session token or backoff is manufactured | `retry-wait`, capacity reason, no `retryAt`, no `activeControllerId`; `retryAttempt` unchanged\"\nQUOTE: \"`reconnect.enabled = false` prevents repeat attempts, not the initial configured attempt or its pre-acquisition capacity wait.\"\nQUOTE: \"Immediately before local acquisition, check identity-pool availability and any pool that caused that adjacency's prior local capacity refusal. Route-pool pressure alone does not prohibit an unrelated identity-only phase; a route-capacity refusal parks that affected adjacency on route capacity as well.\"\nQUOTE: \"Backoff running and capacity releases | Recompute levels; keep the original deadline and attempt count; remove waiter if no pool currently blocks | `retry-wait`; capacity reason if still blocked, otherwise prior terminal cause; original `retryAt`\"\n\nInference or gap:\nNONE\n",
+      "blindedAt": "2026-10-12T03:28:45.395Z"
+    },
+    {
+      "id": "u0049",
+      "cell": "admission-lifetime.p87.g.1",
+      "scenario": "admission-lifetime",
+      "arm": "p87",
+      "member": "g",
+      "family": "gemini",
+      "properties": [
+        "q09"
+      ],
+      "phase": "answer",
+      "text": "--- ANSWER ---\nDecision:\nThe recommended public contract adds one shared process-local `AdmissionEvaluationOptions` with an optional `signal` capability as an optional second parameter to `evaluate(request, options?)`. Placing the cancellation signal into the request DTO schema is prohibited; request and result DTOs remain unchanged, credential-free, and schema-free of clocks or cancellation handles. Retaining the signal for established-session credential rotation is disallowed because the signal owns solely that pending evaluation and cannot be reused after commitment. Existing one-argument providers require zero migration; they remain fully backward-compatible and type-check without edits. Adopting cancellation awareness is an explicit optional migration. There is no split or different browser contract; browser/CLI policy splits are explicitly avoided.\n\nDocument support:\nQUOTE: \"Recommendation: add one shared process-local `AdmissionEvaluationOptions` with a `signal` capability as an optional second parameter to both ports' `evaluate` methods.\"\nQUOTE: \"The signal owns only that pending evaluation; it is not an established-session close handle or a live credential-validity signal. Once a current result commits, later session events cannot reuse that evaluation's cancellation authority.\"\nQUOTE: \"Keep the request and result DTOs unchanged and credential-free, and keep clocks, callback handles and cancellation authority out of their schemas. There is no wire change.\"\nQUOTE: \"Current providers still type-check; new options remain process-local; no protocol-schema change or browser/CLI policy split\"\n\nInference or gap:\nNONE\n",
+      "blindedAt": "2026-10-12T03:28:45.395Z"
+    },
+    {
+      "id": "u0050",
+      "cell": "admission-lifetime.d41.g.1",
+      "scenario": "admission-lifetime",
+      "arm": "d41",
+      "member": "g",
+      "family": "gemini",
+      "properties": [
+        "q10"
+      ],
+      "phase": "answer",
+      "text": "--- ANSWER ---\nDecision\nAGP's ledger accounts strictly for AGP port evaluations and their retained request/result inputs, not hidden descendant tasks spawned by external providers. The provider owns all hidden tasks and their resource/cancellation budgets; an early promise return does not prove native resource release. Proposed finite defaults (such as `maxPendingHandshakes` and `maxSessions`) bound only node-level concurrency and continuation storage; they do not establish capacity for hundreds of peers, do not constrain arbitrary provider memory allocations or physical JavaScript heap usage, provide no CPU preemption against synchronous provider execution, offer no browser-native release guarantees, and do not mandate any specific authentication scheme.\n\nDocument support\nQUOTE: \"The ledger measures AGP port evaluations, not invisible descendant tasks started by a provider.\"\nQUOTE: \"A provider that answers from its own timeout race while leaving external work running still owns that work's cancellation and resource budget; its answered promise is not evidence of physical resource release.\"\nQUOTE: \"These defaults are recommendations for review, not existing runtime behaviour or workload measurements.\"\nQUOTE: \"No in-process acceptance claim includes stopping synchronous infinite computation, proving arbitrary provider allocations freed, or proving browser-native cleanup.\"\n\nInference or gap\nNONE\n",
+      "blindedAt": "2026-10-12T03:28:45.395Z"
+    },
+    {
+      "id": "u0051",
+      "cell": "admission-lifetime.p87.o.1",
+      "scenario": "admission-lifetime",
+      "arm": "p87",
+      "member": "o",
+      "family": "gpt",
+      "properties": [
+        "q03"
+      ],
+      "phase": "answer",
+      "text": "--- ANSWER ---\n**Decision**\n\nThe new KEEPALIVE joins the same bounded continuation FIFO behind older commands, even during a drain yield. It cannot refresh the hold timer or apply any other protocol effect before ordered dispatch. The fatal notification bypasses this barrier and competes through the single terminal disposition; it does not wait behind the KEEPALIVE.\n\nAdmission success alone does not open the barrier. It stays engaged throughout draining and opens only in a serialized turn observing no pending admission, no queued command and no scheduled/in-progress drain. Processing a queued command that starts another admission suspends the drain again.\n\nOn logical termination, queued semantic work becomes inert/disposable. The sole reader nevertheless drains already-accepted transport input in FIFO order until the transport terminal, without protocol effects. Neither a second reader nor early read cancellation substitutes for that drain. Continuation reservations and returned transport capacity remain distinct accounting obligations.\n\n**Document support**\n\nQUOTE: \"New ordinary arrivals join the same FIFO throughout; terminal commands still bypass it.\"\nQUOTE: \"opens only in the serialized turn that observes no pending admission, no queued command and no scheduled/in-progress drain.\"\nQUOTE: \"Drain without protocol effects until the transport terminal, then stop the sole reader\"\n\n**Inference or gap**\n\nNONE.\n",
+      "blindedAt": "2026-10-12T03:28:45.395Z"
+    },
+    {
+      "id": "u0052",
+      "cell": "admission-lifetime.p87.o.1",
+      "scenario": "admission-lifetime",
+      "arm": "p87",
+      "member": "o",
+      "family": "gpt",
+      "properties": [
+        "q09"
+      ],
+      "phase": "answer",
+      "text": "--- ANSWER ---\n**Decision**\n\nThe recommended contract adds shared, process-local `AdmissionEvaluationOptions`, containing a signal, as an optional second argument to both admission ports' `evaluate` methods. AGP always supplies it. An existing `evaluate(request)` implementation may continue ignoring cancellation; the finite work ledger remains necessary regardless of cooperation.\n\nThe signal belongs only to that pending evaluation. It cannot be placed in the request DTO schema or retained as established-session credential-rotation authority. A committed result ends the evaluation's cancellation authority for later session events. Request/result DTOs remain unchanged and credential-free, and no wire change is proposed.\n\nBefore adoption, providers must be inventoried through public packages, existing one-argument implementations and a cancellation-aware implementation must compile, and schema separation must be checked. Consumers choosing to use the signal migrate explicitly; the design does not itself authorize downstream edits. There is no browser-specific policy contract.\n\n**Document support**\n\nQUOTE: \"AGP always supplies it; existing one-argument implementations may ignore it.\"\nQUOTE: \"The signal owns only that pending evaluation; it is not an established-session close handle or a live credential-validity signal.\"\nQUOTE: \"Keep the request and result DTOs unchanged and credential-free, and keep clocks, callback handles and cancellation authority out of their schemas.\"\nQUOTE: \"no protocol-schema change or browser/CLI policy split\"\n\n**Inference or gap**\n\nThe optional signature is a recommendation requiring public type/export review and compatibility checks, not an adopted API.\n",
+      "blindedAt": "2026-10-12T03:28:45.395Z"
+    },
+    {
+      "id": "u0053",
+      "cell": "admission-lifetime.p87.g.1",
+      "scenario": "admission-lifetime",
+      "arm": "p87",
+      "member": "g",
+      "family": "gemini",
+      "properties": [
+        "q05"
+      ],
+      "phase": "answer",
+      "text": "--- ANSWER ---\nDecision:\nThe node owns the authoritative runtime gate and the serialized commit coordinator, while the core OperationsStore owns numeric-domain preflight and projection validation. The ordered handoff proceeds: node gathers bounded proposals without mutating live state; OperationsStore preflights projection and numeric cost; on preflight exhaustion, OperationsStore returns exhaustion evidence without publishing. The coordinator rechecks runtime authority, discards the ordinary plan, and executes the serialized terminal sequence: setting host authority to `Failed`, invalidating node generations and permits, detaching live controllers and authority, purging releasable state, retaining actual post-detachment resources, installing a frozen terminal capture, and returning `replaced-by-terminal`. An unrelated publication cannot leave this admission live, because all runtime publications must reach this coordinator and close the runtime gate on exhaustion. A queued stop completion cannot overwrite or replace `Failed` with `Stopping` or `Stopped`.\n\nDocument support:\nQUOTE: \"The node owns one authoritative runtime gate and the serialized commit coordinator; the core owns pure transition/routing preparation and numeric-domain preflight.\"\nQUOTE: \"On preflight exhaustion, discard the ordinary plan and enter the node-owned terminal sequence below; return `replaced-by-terminal` with its frozen capture, not success\"\nQUOTE: \"All runtime operations publications must reach this coordinator, including ones outside admission, so an unrelated counter/event/revision exhaustion revokes admission and acquisition authority too.\"\nQUOTE: \"A stop or listener-failure continuation already queued must observe the terminal gate and must not overwrite `Failed` with `Stopping` or `Stopped`, generate another revision, or rearm an adjacency.\"\n\nInference or gap:\nNONE\n",
+      "blindedAt": "2026-10-12T03:28:45.395Z"
+    },
+    {
+      "id": "u0054",
+      "cell": "admission-lifetime.d41.c.1",
+      "scenario": "admission-lifetime",
+      "arm": "d41",
+      "member": "c",
+      "family": "claude",
+      "properties": [
+        "q11"
+      ],
+      "phase": "answer",
+      "text": "--- ANSWER ---\nUse ordinary conforming traffic as a control: a timely current identity allow and a timely current identity deny arrive, and a valid current route decision contains per-route denials. How are these different from a local evaluation pool being full? Identify which case invokes no provider.\n\n**Decision:** All three control cases invoke a provider and return a timely, current result.\n- **Identity allow:** proceeds through the normal collision and confirmation rules.\n- **Identity deny:** remains a policy refusal.\n- **Route denials:** produce one atomic revision, one RIB change and one ACK, and the denials are not fatal.\n\nA full local pool is different. AGP refuses before invoking any provider and reports the proposed `AdmissionCapacityExceeded`, not an identity rejection, a per-route policy denial or a provider fault. That event follows the existing admission-fault cleanup and the `INTERNAL_ERROR` reconnect disposition: configured dial adjacencies get the existing bounded retry, and accepted controllers get none. Only the full-pool case invokes zero providers.\n\n**Document support:**\nQUOTE: \"Allow follows normal collision and confirmation rules; deny remains a policy refusal\"\nQUOTE: \"per-route denials remain nonfatal\"\nQUOTE: \"At capacity, refuse before provider invocation and report proposed `AdmissionCapacityExceeded`, not `IDENTITY_REJECTED` or a per-route `POLICY` denial.\"\nQUOTE: \"Its terminal effects follow the existing admission-fault cleanup and `INTERNAL_ERROR` reconnect disposition, but do not misreport a provider fault when no provider was called.\"\nQUOTE: \"Illegal wire state, stale controller, stop or exhausted capacity causes zero provider invocations\"\n\n**Inference or gap:** `AdmissionCapacityExceeded` is a proposed event. It needs coordinated changes to the FSM, the schema and the documentation.\n",
+      "blindedAt": "2026-10-12T03:28:45.395Z"
+    },
+    {
+      "id": "u0055",
+      "cell": "admission-lifetime.d41.o.1",
+      "scenario": "admission-lifetime",
+      "arm": "d41",
+      "member": "o",
+      "family": "gpt",
+      "properties": [
+        "q03"
+      ],
+      "phase": "answer",
+      "text": "--- ANSWER ---\n**Decision**\n\nThe new KEEPALIVE joins the same bounded FIFO behind older ordinary commands during the drain yield. It cannot refresh the hold timer or apply a credit grant before ordered dispatch. The fatal notification bypasses that barrier and enters the single terminal-disposition path; queued semantic work is discarded when terminal authority wins.\n\nAbsent termination, the barrier opens only in the serialized turn observing no pending admission, no queued command and no scheduled or in-progress drain. Admission success or a yield is insufficient. Dispatch prepares the queue head without releasing its reservation; dequeue follows disposal or transfer to another bounded owner.\n\nAfter logical termination, the sole reader continues draining already-accepted transport input without protocol effects until transport terminal, then stops. Bypassing the semantic queue does not authorize abandoning accepted FIFO transport evidence or creating a second reader.\n\n**Document support**\n\nQUOTE: \"The barrier instead remains engaged through draining and opens only in the serialized turn that observes no pending admission, no queued command and no scheduled/in-progress drain.\"\nQUOTE: \"New ordinary arrivals join the same FIFO throughout; terminal commands still bypass it.\"\nQUOTE: \"Queue in arrival order; no protocol effect or hold-timer refresh before ordered dispatch\"\nQUOTE: \"An admitted packet may become semantically inert after a session-fatal event, but the transport's already-accepted FIFO must still be drained; a second reader or an early read cancellation is not the correction.\"\n\n**Inference or gap**\n\nNONE.\n",
+      "blindedAt": "2026-10-12T03:28:45.395Z"
+    },
+    {
+      "id": "u0056",
+      "cell": "admission-lifetime.d41.g.1",
+      "scenario": "admission-lifetime",
+      "arm": "d41",
+      "member": "g",
+      "family": "gemini",
+      "properties": [
+        "q01"
+      ],
+      "phase": "answer",
+      "text": "--- ANSWER ---\nDecision\nAGP may end the admission attempt immediately and proceed with session cleanup without awaiting or joining the provider. All session effects from the evaluation must be disallowed: identity retention (`retainIdentity`), collision termination of a competing session, setting `#pendingRoute`, route replacement, route import, consuming an FSM or route revision, and enqueuing an ACK. Stale success and stale failure possess the identical lack of authority. The work slot becomes available only upon eventual provider settlement and disposal of retained work; if the provider never settles, its slot stays occupied for the remainder of that node instance's lifetime. If the invocation permit was revoked before calling the provider, the reservation is released immediately because no external evaluation began.\n\nDocument support\nQUOTE: \"AGP should end an admission attempt without waiting for the provider to finish, while continuing to account for unfinished provider work.\"\nQUOTE: \"On expiry or terminal disposition, revoke authority first, cancel its timer, detach its effect target and request cooperative cancellation outside the executor; proceed with session cleanup without joining the provider.\"\nQUOTE: \"There must be no stale path to retainIdentity, collision termination, #pendingRoute, route replacement, revision consumption or ACK enqueue.\"\nQUOTE: \"On eventual provider settlement, dispose the retained work and release its reservation exactly once; stale success and stale failure have the same lack of authority.\"\nQUOTE: \"If a provider never settles, its slot stays occupied for that node instance's remaining lifetime.\"\nQUOTE: \"A reservation whose invocation permit is revoked before the provider is called can be released immediately.\"\n\nInference or gap\nNONE\n",
+      "blindedAt": "2026-10-12T03:28:45.395Z"
+    },
+    {
+      "id": "u0057",
+      "cell": "admission-lifetime.d41.c.1",
+      "scenario": "admission-lifetime",
+      "arm": "d41",
+      "member": "c",
+      "family": "claude",
+      "properties": [
+        "q06"
+      ],
+      "phase": "answer",
+      "text": "--- ANSWER ---\nCompare two nodes with an unfinished admission evaluation: one stopped normally, the other terminalized because an operations numeric domain was exhausted. What do resource queries mean now and after the provider later settles? For the numeric-terminal node, what happens to revision and capture time?\n\n**Decision:** On the normally stopped node, the gauges are live accounting. The unfinished evaluation counts as outstanding, and as revoked-but-unsettled. When the provider later settles, the cleanup gauges may update, but the lifecycle and event subscriptions do not reopen. On the numeric-terminal node, the final capture keeps the unresolved reservation as a nonzero last-known count. That count is neither a claim that the resources are still allocated nor proof that cleanup finished. Resource values, revision and `capturedAt` are frozen together, and every later aggregate or focused query returns the same capture. When the provider settles, AGP may release the private reservation, but it publishes no new revision, event, counter or timestamp.\n\n**Document support:**\nQUOTE: \"Ordinary stopped instances remain queryable: later settlement may update cleanup gauges without reopening the lifecycle or event subscriptions.\"\nQUOTE: \"Freeze its resource values, revision and `capturedAt` together; subsequent aggregate and focused queries return that same terminal capture, not a new timestamp on old counts.\"\nQUOTE: \"Outstanding provider evaluations remain nonzero at that capture when unresolved; later private disposal can release internal reservations but cannot publish a new revision, event or counter.\"\nQUOTE: \"The final count is last-known at the terminal capture, not a live promise that resources remain allocated or that cleanup has finished.\"\n\n**Inference or gap:** This is a recommendation that still \"needs explicit agreement on the terminal operations contract\". Today, `#capture` resamples wall time and the exhaustion path zeros the gauges.\n",
+      "blindedAt": "2026-10-12T03:28:45.395Z"
+    },
+    {
+      "id": "u0058",
+      "cell": "admission-lifetime.d41.o.1",
+      "scenario": "admission-lifetime",
+      "arm": "d41",
+      "member": "o",
+      "family": "gpt",
+      "properties": [
+        "q01"
+      ],
+      "phase": "answer",
+      "text": "--- ANSWER ---\n**Decision**\n\nUnder the proposal, AGP may end the admission attempt and complete session cleanup without waiting for the provider. Expiry revokes result authority first, cancels the admission timer, detaches the effect target and requests cooperative cancellation outside the executor. The still-pending promise has no authority to retain identity, displace a collision winner, change routes or revisions, or enqueue an ACK. Late success and late failure are equally inert for session effects.\n\nBecause invocation occurred, expiry and an ineffective cancellation listener do not refund the work slot. It becomes available only after evaluation settlement and disposal of AGP's retained request/result. If the provider never settles, it remains occupied for that node instance's lifetime. In contrast, revocation before invocation permits immediate release: no evaluation started, and the revoked permit cannot authorize a call.\n\n**Document support**\n\nQUOTE: \"AGP should end an admission attempt without waiting for the provider to finish, while continuing to account for unfinished provider work.\"\nQUOTE: \"There must be no stale path to `retainIdentity`, collision termination, `#pendingRoute`, route replacement, revision consumption or ACK enqueue.\"\nQUOTE: \"On eventual provider settlement, dispose the retained work and release its reservation exactly once; stale success and stale failure have the same lack of authority.\"\nQUOTE: \"A reservation whose invocation permit is revoked before the provider is called can be released immediately.\"\n\n**Inference or gap**\n\nNONE. These are proposed obligations, not evidence of implemented behavior.\n",
+      "blindedAt": "2026-10-12T03:28:45.395Z"
+    },
+    {
+      "id": "u0059",
+      "cell": "admission-lifetime.p87.o.1",
+      "scenario": "admission-lifetime",
+      "arm": "p87",
+      "member": "o",
+      "family": "gpt",
+      "properties": [
+        "q08"
+      ],
+      "phase": "answer",
+      "text": "--- ANSWER ---\n**Decision**\n\nWhen the exact winner acquires canonical identity in OpenConfirm, the supervisor records that winner and projects `satisfied` with its actual controller ID. It clears the capacity waiter, retry timer and remembered refusing pools, suppressing further dialing. It preserves `retryAttempt = 4`: identity ownership, channel adoption and collision satisfaction do not establish success.\n\nIf that exact winner is lost before establishment, the supervisor applies the ordinary retryable disposition/backoff once using the preserved failure history. The real failure transition advances the configured retry progression; capacity observations cannot do so. It rechecks identity capacity without carrying the old loser's refusing-pool set and projects the actual retry wait, reason and any live timer. Stale winner-loss notifications are inert.\n\nIn the separate successful sequence, reaching Established resets retry history to zero once, only after confirming the exact current winner/incarnation. The supervisor remains satisfied and suppresses dialing. An old winner's delayed success, or duplicate success, cannot reset newer history.\n\n**Document support**\n\nQUOTE: \"Clear waiter, pending retry timer and remembered refusing pools, but preserve accumulated retry history\"\nQUOTE: \"a winner lost before establishment uses preserved failure history\"\nQUOTE: \"Only an exact current establishment success resets that history, as required by the ratified timer and FSM rules.\"\nQUOTE: \"stale or duplicate success notifications cannot reset newer history\"\n\n**Inference or gap**\n\nThe document supplies no numeric backoff formula; the delay after the retryable loss cannot be calculated from it alone.\n",
+      "blindedAt": "2026-10-12T03:28:45.395Z"
+    },
+    {
+      "id": "u0060",
+      "cell": "admission-lifetime.d41.g.1",
+      "scenario": "admission-lifetime",
+      "arm": "d41",
+      "member": "g",
+      "family": "gemini",
+      "properties": [
+        "q12"
+      ],
+      "phase": "answer",
+      "text": "--- ANSWER ---\nDecision\nTeardown is bounded by an active teardown budget starting when the terminal cause commits; it actively aborts channel operations and stops the writer without waiting indefinitely for pending notification writes or reader closure. Exactly one sole reader exists throughout; upon logical release, it drains remaining transport input without protocol effects until the transport terminal, then stops. This teardown guarantee relies strictly on the conforming transport terminal contract, not on browser-native release or event-loop scheduling guarantees. When identity admission succeeds with hold disabled, the outer OPEN timer remains authoritative through `OpenConfirm` until `Established` or teardown, ensuring zero hold cannot produce an unbounded confirmation wait.\n\nDocument support\nQUOTE: \"Start one teardown budget when the terminal cause commits. The deadline actively stops the writer and aborts the channel even if notification write or graceful close has not settled; a signal passed only to a later close() call cannot bound an earlier wait.\"\nQUOTE: \"Drain without protocol effects until the transport terminal, then stop the sole reader\"\nQUOTE: \"This relies on the existing conforming transport terminal contract, not a new promise of event-loop scheduling or browser-native release.\"\nQUOTE: \"The OPEN timer remains armed until Established or teardown; admission success cannot leave an unlimited confirmation phase when hold is zero.\"\n\nInference or gap\nNONE\n",
+      "blindedAt": "2026-10-12T03:28:45.395Z"
+    },
+    {
+      "id": "u0061",
+      "cell": "admission-lifetime.p87.c.1",
+      "scenario": "admission-lifetime",
+      "arm": "p87",
+      "member": "c",
+      "family": "claude",
+      "properties": [
+        "q03"
+      ],
+      "phase": "answer",
+      "text": "--- ANSWER ---\n**Decision:** The KEEPALIVE joins the tail of the same FIFO, behind the backlog. It has no protocol effect and does not refresh the hold timer until its ordered dispatch. The fatal notification bypasses the barrier and goes to the single terminal disposition. The barrier opens only in a serialized turn that observes three things together: no pending admission, no queued command and no scheduled or running drain. After the fatal event the session ends, so the barrier never opens normally. Input the transport has already accepted must still be drained by the one reader, without protocol effects, until the transport terminal. The reader then stops.\n\n**Document support:**\nQUOTE: \"New ordinary arrivals join the same FIFO throughout; terminal commands still bypass it.\"\nQUOTE: \"Queue in arrival order; no protocol effect or hold-timer refresh before ordered dispatch\"\nQUOTE: \"The barrier instead remains engaged through draining and opens only in the serialized turn that observes no pending admission, no queued command and no scheduled/in-progress drain.\"\nQUOTE: \"Bypass the barrier and use the one terminal disposition; preserve already-observed FIFO transport evidence\"\nQUOTE: \"Drain without protocol effects until the transport terminal, then stop the sole reader\"\n\n**Inference or gap:** Discarding queued semantic work is stated explicitly only for `ContinuationQueueOverflow`. That a queued KEEPALIVE becomes inert after a fatal notification is an inference from \"semantically inert after a session-fatal event\". The meaning of \"preserve already-observed FIFO transport evidence\" is not defined.\n",
+      "blindedAt": "2026-10-12T03:28:45.395Z"
+    },
+    {
+      "id": "u0062",
+      "cell": "admission-lifetime.p87.g.1",
+      "scenario": "admission-lifetime",
+      "arm": "p87",
+      "member": "g",
+      "family": "gemini",
+      "properties": [
+        "q04"
+      ],
+      "phase": "answer",
+      "text": "--- ANSWER ---\nDecision:\nBefore provider invocation, static validation separates envelope, exact next revision, and canonical snapshot checks, retaining static rejections (such as LOOP or PATH_TOO_LONG) separately. Only the immutable policy-eligible subset—excluding statically rejected routes—is passed to the route policy provider. Available RIB capacity is not reserved up-front or decided from a stale snapshot; it is computed and decided at the final serialized commit. If result validation fails (or complete preparation fails), neither the controller revision nor the routing state may change; no partial routing state, revision consumption, or ACK enqueue occurs. In the ordinary case of a valid policy denial, complete valid allow/deny decisions cause one atomic revision and RIB change and one ACK; per-route denials remain nonfatal.\n\nDocument support:\nQUOTE: \"Before invocation, validate the envelope, exact next revision and canonical snapshot, then prepare the immutable policy-eligible subset and retain static rejections separately. Validate the result against exactly that subset, including an empty subset.\"\nQUOTE: \"Compute available RIB capacity at the final serialized commit, because other sessions may change it while policy runs; do not reserve a stale global-capacity answer in the initial proposal.\"\nQUOTE: \"Neither the controller revision nor routing state may change until that complete preparation succeeds.\"\nQUOTE: \"Complete valid allow/deny decisions cause one atomic revision/RIB change and one ACK; per-route denials remain nonfatal\"\n\nInference or gap:\nNONE\n",
+      "blindedAt": "2026-10-12T03:28:45.395Z"
+    },
+    {
+      "id": "u0063",
+      "cell": "admission-lifetime.d41.c.1",
+      "scenario": "admission-lifetime",
+      "arm": "d41",
+      "member": "c",
+      "family": "claude",
+      "properties": [
+        "q01"
+      ],
+      "phase": "answer",
+      "text": "--- ANSWER ---\nAn identity provider returns a promise which is still pending when the admission deadline expires. Its cancellation listener does not settle that promise. What may AGP end, which effects must be disallowed, and when may the work slot become available? What if the invocation permit was revoked before the provider was called?\n\n**Decision:** When the deadline expires, AGP revokes the result's authority, cancels the timer, detaches the effect target and sends a cooperative cancellation request outside the executor. It then runs session cleanup without waiting for the provider. It may end the admission attempt and the session, but not the provider's work. A later result, whether success or failure, cannot retain identity, terminate a collision loser, set a pending route, replace routes, consume a revision or enqueue an ACK. The slot stays reserved after the abort signal and after the session ends. It is released exactly once, only when the provider settles and AGP disposes of the retained work. If the provider never settles, the slot stays occupied for the rest of that node instance's life. If the invocation permit was revoked before the provider was called, no evaluation started, so AGP can release the reservation immediately.\n\n**Document support:**\nQUOTE: \"On expiry or terminal disposition, revoke authority first, cancel its timer, detach its effect target and request cooperative cancellation outside the executor; proceed with session cleanup without joining the provider.\"\nQUOTE: \"Cancellation communicates a request; it cannot force an arbitrary promise to settle (DOM abort model).\"\nQUOTE: \"There must be no stale path to `retainIdentity`, collision termination, `#pendingRoute`, route replacement, revision consumption or ACK enqueue.\"\nQUOTE: \"After invocation, no reset merely because the session ended or the abort signal fired\"\nQUOTE: \"On eventual provider settlement, dispose the retained work and release its reservation exactly once; stale success and stale failure have the same lack of authority.\"\nQUOTE: \"If a provider never settles, its slot stays occupied for that node instance's remaining lifetime.\"\nQUOTE: \"A reservation whose invocation permit is revoked before the provider is called can be released immediately.\"\n\n**Inference or gap:** The document does not say which terminal reason or notification an identity-admission expiry produces. It only says the reducer's expiry branch is token-checked.\n",
+      "blindedAt": "2026-10-12T03:28:45.395Z"
+    },
+    {
+      "id": "u0064",
+      "cell": "admission-lifetime.d41.o.1",
+      "scenario": "admission-lifetime",
+      "arm": "d41",
+      "member": "o",
+      "family": "gpt",
+      "properties": [
+        "q08"
+      ],
+      "phase": "answer",
+      "text": "--- ANSWER ---\n**Decision**\n\nAt canonical identity ownership, the table calls the adjacency satisfied even in OpenConfirm. It clears waiter, backoff and refusing pools and tracks the exact winning controller, including an inbound winner. Scheduling is suppressed while that winner satisfies the adjacency. The text also attaches the existing successful-attempt reset to satisfaction, so it does not clearly preserve retryAttempt = 4 through confirmation.\n\nIf that exact winner is lost before establishment, apply the existing retryable disposition/backoff once, clear any old loser's refusing-pool inheritance and re-evaluate identity capacity. No replacement starts during owned cleanup. The resulting numeric retryAttempt cannot be derived from this document: it does not define the referenced reset or backoff arithmetic. Under a conventional reset-to-zero interpretation, the loss would be counted after that reset, but that is an inference.\n\nIn the separate Established sequence, the current winner remains the satisfied owner. The document supplies no separate Established-only retry-history rule. A stale old winner's delayed success cannot change the current owner's history; exact-winner/current-attempt authority is required.\n\n**Document support**\n\nQUOTE: \"Current attempt gains canonical identity ownership or another exact winner satisfies the adjacency\"\nQUOTE: \"`satisfied`, actual winning `activeControllerId`, no capacity reason or `retryAt`; the connection state distinguishes confirmation from Established\"\nQUOTE: \"Satisfaction applies the existing successful-attempt reset.\"\nQUOTE: \"Apply the existing reconnect disposition/backoff once; re-evaluate identity capacity, with no inherited refusing-pool set from the old loser\"\nQUOTE: \"stale winner loss is inert\"\n\n**Inference or gap**\n\nRetry reset timing is under-specified relative to establishment: literal satisfaction wording places it at identity ownership, while “existing successful-attempt reset” is undefined here. An Established-only reset, its numeric value and the precise next attempt count cannot be silently supplied. Stale success exclusion follows exact-owner authority; the table names stale loss explicitly but lacks a separate delayed-success history transition.\n",
+      "blindedAt": "2026-10-12T03:28:45.395Z"
+    },
+    {
+      "id": "u0065",
+      "cell": "admission-lifetime.p87.c.1",
+      "scenario": "admission-lifetime",
+      "arm": "p87",
+      "member": "c",
+      "family": "claude",
+      "properties": [
+        "q10"
+      ],
+      "phase": "answer",
+      "text": "--- ANSWER ---\n**Decision:** The ledger covers only AGP port evaluations, from reservation to settlement and disposal. Once the wrapper's promise answers, AGP may release the slot after disposal. The hidden host task belongs to the provider, which owns its cancellation and resource budget. An answered promise is not evidence that resources were physically released.\n\nThe defaults are proposals for review, not measurements. The document establishes none of the following:\n- capacity for hundreds of peers;\n- bounds on arbitrary provider memory or the JavaScript heap;\n- CPU preemption;\n- browser-native resource release;\n- a chosen authentication scheme.\n\n**Document support:**\nQUOTE: \"The ledger measures AGP port evaluations, not invisible descendant tasks started by a provider.\"\nQUOTE: \"its answered promise is not evidence of physical resource release\"\nQUOTE: \"These defaults are recommendations for review, not existing runtime behaviour or workload measurements.\"\nQUOTE: \"these counts do not claim to bound a provider's arbitrary allocations or physical JavaScript heap bytes\"\nQUOTE: \"Worker/process isolation, arbitrary provider memory containment or CPU preemption\"\nQUOTE: \"No in-process acceptance claim includes stopping synchronous infinite computation, proving arbitrary provider allocations freed, or proving browser-native cleanup.\"\nQUOTE: \"The fixed outcome is bounded session admission and teardown, not a new authentication scheme.\"\n\n**Inference or gap:** The defaults derive from `maxPendingHandshakes`, `maxSessions` and the transport limits, but the document gives no numeric values for these. Any peer count is therefore unsupported.\n",
+      "blindedAt": "2026-10-12T03:28:45.395Z"
+    },
+    {
+      "id": "u0066",
+      "cell": "admission-lifetime.d41.g.1",
+      "scenario": "admission-lifetime",
+      "arm": "d41",
+      "member": "g",
+      "family": "gemini",
+      "properties": [
+        "q09"
+      ],
+      "phase": "answer",
+      "text": "--- ANSWER ---\nDecision\nThe recommended public contract adds an optional process-local `AdmissionEvaluationOptions` containing an AbortSignal as a second parameter to `evaluate(request, options?)`. It strictly forbids placing cancellation handles, clocks, or credentials into the request DTO schema and forbids retaining the signal for post-admission session lifecycle or credential rotation; the signal governs only that pending evaluation. Migration requires public type export review and compatibility checks; existing one-argument providers continue to type-check and run without changes by ignoring the signal. There is no separate browser contract: the design mandates no protocol-schema change and no browser/CLI policy split.\n\nDocument support\nQUOTE: \"Recommendation: add one shared process-local AdmissionEvaluationOptions with a signal capability as an optional second parameter to both ports' evaluate methods.\"\nQUOTE: \"The signal owns only that pending evaluation; it is not an established-session close handle or a live credential-validity signal.\"\nQUOTE: \"Keep the request and result DTOs unchanged and credential-free, and keep clocks, callback handles and cancellation authority out of their schemas. There is no wire change.\"\nQUOTE: \"no protocol-schema change or browser/CLI policy split\"\n\nInference or gap\nNONE\n",
+      "blindedAt": "2026-10-12T03:28:45.395Z"
+    },
+    {
+      "id": "u0067",
+      "cell": "admission-lifetime.p87.o.1",
+      "scenario": "admission-lifetime",
+      "arm": "p87",
+      "member": "o",
+      "family": "gpt",
+      "properties": [
+        "q04"
+      ],
+      "phase": "answer",
+      "text": "--- ANSWER ---\n**Decision**\n\nBefore invoking policy, AGP validates the envelope, exact next revision and canonical snapshot. It prepares an immutable subset containing only routes eligible for policy, retaining static rejections separately. Policy must return exactly one decision per requested tuple for that subset, including the empty-subset case; statically rejected routes do not require policy decisions.\n\nAvailable RIB capacity is determined at the final serialized commit, accounting for other sessions' intervening changes. Initial preparation must not reserve a stale global-capacity answer. Complete result validation and preparation precede any controller revision or routing mutation. Failed validation therefore permits no partial route replacement, revision consumption or success ACK; any failure handling remains subject to current authority.\n\nA valid policy denial is an ordinary per-route outcome, not a session-fatal error. A timely, current, completely valid allow/deny result produces the specified single atomic revision/RIB change and one ACK, with denied routes rejected accordingly.\n\n**Document support**\n\nQUOTE: \"Validate the result against exactly that subset, including an empty subset.\"\nQUOTE: \"Compute available RIB capacity at the final serialized commit, because other sessions may change it while policy runs; do not reserve a stale global-capacity answer in the initial proposal.\"\nQUOTE: \"Neither the controller revision nor routing state may change until that complete preparation succeeds.\"\nQUOTE: \"per-route denials remain nonfatal\"\n\n**Inference or gap**\n\nThe document does not specify the exact wire disposition for each invalid-result shape; it does specify the atomicity and authority constraints above.\n",
+      "blindedAt": "2026-10-12T03:28:45.395Z"
+    },
+    {
+      "id": "u0068",
+      "cell": "admission-lifetime.d41.g.1",
+      "scenario": "admission-lifetime",
+      "arm": "d41",
+      "member": "g",
+      "family": "gemini",
+      "properties": [
+        "q08"
+      ],
+      "phase": "answer",
+      "text": "--- ANSWER ---\nDecision\nWhen the current winner gains canonical identity ownership in OpenConfirm, the supervisor clears backoff, capacity waiters, and remembered refusing pools, sets state to `satisfied` tracking `activeControllerId`, and applies the successful-attempt reset. If lost before establishment with a retryable disposition, the supervisor applies the reconnect disposition and backoff once, clears the winner, enters `retry-wait` with an armed `retryAt`, and re-evaluates identity capacity with no inherited refusing pools. In the successful sequence reaching Established, the connection state reflects Established while adjacency satisfaction persists. An old winner's delayed success cannot reset a newer attempt's history because stale outcomes lack authority under exact token and controller guards.\n\nDocument support\nQUOTE: \"Clear waiter, backoff and remembered refusing pools; track the winning controller even if inbound; ordinary collision cleanup remains separate\"\nQUOTE: \"Apply the existing reconnect disposition/backoff once; re-evaluate identity capacity, with no inherited refusing-pool set from the old loser\"\nQUOTE: \"Satisfaction applies the existing successful-attempt reset.\"\nQUOTE: \"stale success and stale failure have the same lack of authority\"\n\nInference or gap\nThe document defines that `satisfied` adjacency state is entered when an attempt gains canonical identity ownership (during OpenConfirm), which also applies the successful-attempt reset. It is ambiguous whether losing an attempt during OpenConfirm increments `retryAttempt` from 0 or resumes from pre-satisfaction history.\n",
+      "blindedAt": "2026-10-12T03:28:45.395Z"
+    },
+    {
+      "id": "u0069",
+      "cell": "admission-lifetime.d41.o.1",
+      "scenario": "admission-lifetime",
+      "arm": "d41",
+      "member": "o",
+      "family": "gpt",
+      "properties": [
+        "q02"
+      ],
+      "phase": "answer",
+      "text": "--- ANSWER ---\n**Decision**\n\nSettlement before the deadline does not authorize application after it. The serialized completion turn must check the runtime authority gate, exact controller, admission kind and token, and the current monotonic deadline. The missing timer callback does not extend authority. With the deadline passed, the result cannot commit route replacement, consume a revision or enqueue an ACK. Expiry/revocation and accounting/disposal remain permitted; any expiry event must obey the same exact-token guard so it cannot terminate a newer admission.\n\nThe retained result still occupies its evaluation slot while waiting for application or disposal. Settlement alone therefore cannot enable another invocation. Once the expired settled result is actually disposed, its reservation can be released exactly once.\n\n**Document support**\n\nQUOTE: \"Deadline validity is checked again at result application, not inferred from whether the timer callback has run.\"\nQUOTE: \"Promise settlement only queues continuation work; it does not establish that AGP already applied the result (ECMAScript promise reactions).\"\nQUOTE: \"Its capacity remains reserved while that result is waiting, preventing an unbounded queue of settled results behind the executor.\"\nQUOTE: \"The reducer also rejects mismatched admission fault and expiry tokens as defence in depth.\"\n\n**Inference or gap**\n\nNONE.\n",
+      "blindedAt": "2026-10-12T03:28:45.395Z"
+    },
+    {
+      "id": "u0070",
+      "cell": "admission-lifetime.d41.o.1",
+      "scenario": "admission-lifetime",
+      "arm": "d41",
+      "member": "o",
+      "family": "gpt",
+      "properties": [
+        "q09"
+      ],
+      "phase": "answer",
+      "text": "--- ANSWER ---\n**Decision**\n\nThe recommendation adds a shared process-local AdmissionEvaluationOptions as an optional second evaluate parameter, carrying signal. AGP always supplies it. Existing evaluate(request) implementations may ignore it and need no mandatory cancellation migration; the work ledger still provides lifetime safety when cancellation is ignored. Cancellation-aware consumers would explicitly adopt the second argument.\n\nPutting signal in the request DTO schema or keeping it as an established-session credential-rotation capability violates the proposed boundary. Request/result DTOs remain unchanged and credential-free. Signal belongs only to the pending evaluation, and later session events cannot reuse its cancellation authority after a current result commits. Credential-validity and rotation policy are outside this correction.\n\nBefore adoption, inventory providers through public packages and compile both existing one-argument and cancellation-aware implementations; check exports/types and absence of schema leakage. The document requires common compatibility without a browser/CLI policy split, not a separate browser admission contract.\n\n**Document support**\n\nQUOTE: \"Recommendation: add one shared process-local `AdmissionEvaluationOptions` with a `signal` capability as an optional second parameter to both ports' `evaluate` methods.\"\nQUOTE: \"AGP always supplies it; existing one-argument implementations may ignore it.\"\nQUOTE: \"The signal owns only that pending evaluation; it is not an established-session close handle or a live credential-validity signal.\"\nQUOTE: \"Keep the request and result DTOs unchanged and credential-free, and keep clocks, callback handles and cancellation authority out of their schemas.\"\nQUOTE: \"Current providers still type-check; new options remain process-local; no protocol-schema change or browser/CLI policy split\"\n\n**Inference or gap**\n\nNONE about the recommendation. Adoption and compatibility verification remain outstanding; the optional signature is not an already-adopted public contract.\n",
+      "blindedAt": "2026-10-12T03:28:45.395Z"
+    },
+    {
+      "id": "u0071",
+      "cell": "admission-lifetime.d41.c.1",
+      "scenario": "admission-lifetime",
+      "arm": "d41",
+      "member": "c",
+      "family": "claude",
+      "properties": [
+        "q05"
+      ],
+      "phase": "answer",
+      "text": "--- ANSWER ---\nWhile preparing an otherwise valid admission result, an operations numeric domain would be exhausted. Describe who owns the decision and the ordered handoff. Could a publication unrelated to admission leave this admission live, or could a queued stop completion replace the terminal Failed state?\n\n**Decision:** The node owns the runtime gate and the commit coordinator. The core supplies pure preparation and numeric preflight, and the OperationsStore validates and returns either a permit or exhaustion evidence. The order is: prepare, preflight, final guard, then commit. On exhaustion, the coordinator discards the ordinary plan and returns `replaced-by-terminal`, so none of that transaction's effects occur. The node-owned terminal sequence then runs:\n1. Close the gate and set `Failed`.\n2. Detach authority.\n3. Release disposable work.\n4. Gather the retained resources.\n5. Install one frozen capture.\n\nAn unrelated publication cannot leave the admission live, because every runtime publication goes through the same coordinator and gate. A queued stop completion must observe the gate and cannot overwrite `Failed`.\n\n**Document support:**\nQUOTE: \"The node owns one authoritative runtime gate and the serialized commit coordinator; the core owns pure transition/routing preparation and numeric-domain preflight.\"\nQUOTE: \"On preflight exhaustion, discard the ordinary plan and enter the node-owned terminal sequence below; return `replaced-by-terminal` with its frozen capture, not success\"\nQUOTE: \"None of the rejected transaction's ordinary effects occurs\"\nQUOTE: \"All runtime operations publications must reach this coordinator, including ones outside admission, so an unrelated counter/event/revision exhaustion revokes admission and acquisition authority too.\"\nQUOTE: \"A stop or listener-failure continuation already queued must observe the terminal gate and must not overwrite `Failed` with `Stopping` or `Stopped`, generate another revision, or rearm an adjacency.\"\nQUOTE: \"This is a required internal repair prerequisite of the admission correction, not a claim that the current OperationsStore already gates the runtime.\"\n\n**Inference or gap:** None of this is current behaviour. It also depends on an inventory of every live publication, which the document requires but has not done.\n",
+      "blindedAt": "2026-10-12T03:28:45.395Z"
+    },
+    {
+      "id": "u0072",
+      "cell": "admission-lifetime.p87.g.1",
+      "scenario": "admission-lifetime",
+      "arm": "p87",
+      "member": "g",
+      "family": "gemini",
+      "properties": [
+        "q01"
+      ],
+      "phase": "answer",
+      "text": "--- ANSWER ---\nDecision:\nWhen an admission deadline expires while an identity provider's promise remains pending and unsettled by cancellation, AGP may end result authority and proceed with session cleanup without awaiting provider settlement. AGP must revoke result authority first, cancel its admission timer, detach the effect target, and request cooperative cancellation outside the executor. All identity, collision, route, or ACK effects must be disallowed, specifically barring `retainIdentity` and collision termination. The work slot remains reserved and does not become available at expiry, connection replacement, or session end; it becomes available only when the evaluation actually settles and AGP disposes of the retained work. Conversely, if the invocation permit was revoked before the provider was called, no evaluation began, so its reservation can be released immediately.\n\nDocument support:\nQUOTE: \"On expiry or terminal disposition, revoke authority first, cancel its timer, detach its effect target and request cooperative cancellation outside the executor; proceed with session cleanup without joining the provider.\"\nQUOTE: \"Current result commits, deadline expires, or session/node revokes it | Accounting and disposal only; no identity, collision, route or ACK effect\"\nQUOTE: \"There must be no stale path to `retainIdentity`, collision termination, `#pendingRoute`, route replacement, revision consumption or ACK enqueue.\"\nQUOTE: \"On eventual provider settlement, dispose the retained work and release its reservation exactly once; stale success and stale failure have the same lack of authority.\"\nQUOTE: \"A reservation whose invocation permit is revoked before the provider is called can be released immediately.\"\n\nInference or gap:\nNONE\n",
+      "blindedAt": "2026-10-12T03:28:45.395Z"
+    }
+  ],
+  "absent": []
+}
