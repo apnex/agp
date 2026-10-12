@@ -1,0 +1,284 @@
+ADMISSION CLARIFICATION R4: BOUNDED KEY / READINESS AUDIT
+
+Verdict: FAIL -- the frozen instrument is not yet fit to proceed to separately authorized scored execution.
+Yield: all 24 question/key pairs and both complete reader inputs reviewed; one necessary pre-execution accounting correction; no packet edit, scored answer, valid vote, model run, isolation probe, AGP runtime test, or adoption decision produced.
+
+The failure is in the prospective measurement contract, not a finding that the proposed admission design fails its technical gate.
+The original fresh-reader assurance FAIL remains unchanged and was not regraded.
+This is the requested non-author, separate-context key/readiness review, not model-family-independent scored assurance, an additional vote on the design, or runtime verification.
+
+IDENTITY AND SCOPE
+
+[MEASURED] Reviewer: /root/admission_r4_key_audit.
+[MEASURED] Audit checkpoint: 2026-10-12 11:29:02 UTC.
+[MEASURED] AGP HEAD at entry and final verification: e9fc08b9c340c11e4f094408ca298dbe28419127.
+[MEASURED] Target: docs/reviews/admission-lifetime-assurance-r4/ at that commit, exactly 14 files.
+[MEASURED] Target Git tree: 1f408908eed81185d38d972f7d73461354b0bfef.
+[MEASURED] Each target worktree file was compared byte-for-byte with its committed blob, and its SHA-256 was measured below.
+No target file differs from the frozen commit.
+Unrelated pre-existing worktree changes were left untouched.
+
+The falsifiable readiness condition is that the frozen questions and key fairly measure the declared implementation decisions from the two supplied inputs, with preserved projection, withheld answer key/order provenance, and an unambiguous accounting/validity/gate contract that can be carried by the pinned public evaluator without inventing votes or silently changing criteria after responses exist.
+This audit applies that condition only to the preparation packet.
+It does not authorize experiment registration or execution.
+
+Reference abbreviations used below:
+
+- P: docs/reviews/admission-lifetime-assurance-r4/ at the frozen AGP commit.
+- Q: P/admission-clarity-probes.json.
+- X: P/inputs/x19/DESIGN.md, the predecessor input, all 426 lines read.
+- M: P/inputs/m42/DESIGN.md, the candidate input, all 525 lines read.
+- C: /tmp/agp-admission-assurance-r4-prep.HwH4LK/context-lab/ at 6e6d0a92965a15ec473c661887b2b9c5037fedcf.
+- V: /tmp/agp-admission-clarity-preview.ZWSuuA/.
+
+[MEASURED] The evaluator checkout has the stated exact HEAD and no tracked or untracked source changes reported by git status.
+Its public built exports were used only for read-only pack/prompt checks, not for execution.
+The declared build/install history is author evidence; this audit did not rebuild the evaluator or independently certify its runtimes.
+
+GUIDANCE AND LINEAGE
+
+[MEASURED] Read /home/apnex/taceng/AGENTS.md and the complete mission-kit INDEX at preparation pin 45a0fc205a4820fcc60e8eb1799d2b6d788eb7dc.
+Read M2, W9, R3, E7, E8, RU1, C2, A8, and the applicable method/role/domain/work-type and style guidance from that pin.
+K3 was inspected for routing; its whole-project adoption/feature-audit procedure is not this bounded instrument audit and was not invoked.
+No product axiom map or historical guidance pin was changed.
+
+[MEASURED] The local mission-kit HEAD was 3e8659e7ac7fa2ce78b197b61150c7811b775da8 during this audit, not the supplied preparation pin.
+The measured diff from the preparation pin changes only docs/evals/context-lab/register/aa.json and docs/evals/context-lab/register/handoff.json.
+There is no guidance/skill delta affecting this audit.
+The parent separately reported checking the current remote-main identity; this auditor did not perform a second remote-main check.
+
+[MEASURED] Read the prior admission-assurance-preregistration.md, admission-assurance-result.md, and admission-assurance-findings-triage.md in docs/reviews/admission-lifetime-assurance/ as lineage, not as answers or authority to alter that result.
+The old result explicitly preserves its FAIL and separates it from technical review (result lines 3-7, 79-84).
+The triage calls for prospective questions and distinguishes missing support from absent design rules (triage lines 24-26, 103-111).
+The separate R4 technical review's scope and exact target identity were inspected as lineage, not inherited as this audit's verdict (docs/reviews/admission-lifetime-independent-review-r4.txt:3-22).
+
+[MEASURED] The new raw R3 equals the old packet's frozen R3 and the standalone R3 draft byte-for-byte.
+The new raw R4 equals the standalone R4 draft byte-for-byte.
+The old assurance directory has no diff from the audit's AGP commit; its tree is f399ece937693149078bc6ae055d7b29f1cfa221.
+No earlier answer or score was edited or reinterpreted.
+
+NECESSARY FINDING
+
+| ID | Severity and disposition | Exact evidence | Consequence |
+|---|---|---|---|
+| KR-01 | Medium; necessary pre-execution correction | P/admission-assurance-preregistration.md:105-115 and :132-138; P/admission-clarity-experiment.json:18-24; C/packages/core/src/run-conductor.ts:353-377; C/packages/core/src/blinder.ts:100-124; C/packages/core/src/tally.ts:66-76 | The stated behavior-failure accounting does not unambiguously match this single-phase evaluator run. A retained answer file is not necessarily a judge-eligible answer. |
+
+KR-01: distinguish retained raw material from a valid completed phase before freezing behavior-failure accounting.
+
+[MEASURED] The experiment declares one new-session answer phase, not one phase per heading (experiment lines 18-24).
+The preregistration says every present answer needs two valid other-family votes (line 107), says runner-classified behavior failure must retain and score reached material while unreached answers are zero (line 112), and gives no verdict when a present answer lacks required valid votes (line 114).
+The gate requires six measurement-usable outcomes and complete accounting (lines 132-138).
+
+[MEASURED] The pinned evaluator snapshots a phase's workspace even when that phase fails for behavior (C/packages/core/src/episode.ts:235-253).
+It can therefore retain a partial or complete answers.md in scoredFile.content (C/packages/core/src/run-conductor.ts:368-371).
+But the same conductor marks properties from the behavior-failed phase ended, copies only valid-phase material into phaseOutcomes, and parses answer headings only for properties whose phase state is valid (lines 353-377).
+The blinder admits only valid-phase properties to the judge population (C/packages/core/src/blinder.ts:102-124).
+The tally assigns the bottom score to ended properties; only already-valid earlier phases retain judged scores (C/packages/core/src/tally.ts:69-76).
+The existing evaluator tests distinguish those cases (C/packages/core/test/episode.test.ts:78-95).
+For this one-phase pack, there is no earlier valid phase from which to retain a judged answer.
+
+[ASSESSMENT] A reader can finish writing some headings and then have a behavior-classified timeout, context overflow, or no final message.
+The file is retained, but no headings from that failed phase become judged units under this pinned runner.
+The packet presently permits materially different interpretations: score the raw present headings under line 112, use the runner's all-ended zeroes, or call missing votes invalid under line 114.
+Those interpretations change whether the comparison is scored FAIL or has no verdict.
+This is not an unrun isolation prerequisite or an adverse-score problem; it is an unresolved prospective accounting rule.
+
+Required correction, before any responses exist:
+
+- Define present/reached/judge-eligible in terms of the pinned phase-state contract, and explicitly state the disposition of a retained file from this experiment's behavior-failed sole phase.
+- The smallest seam-preserving correction is to state that such a phase has 24 ended outcomes at the bottom score, with 48 explicit not-cast vote slots, no retry, and any saved text retained only as raw/exploratory material, not salvaged as valid judged answers.
+- Scope the two-vote requirement and missing-vote no-verdict rule to judge-eligible present answers; distinguish behavior-failure zeroes from missing headings in a valid phase and from unresolved infrastructure/isolation failure.
+- If scoring partial raw work is actually desired instead, specify and audit that different public-seam workflow prospectively. Do not add post-response author rescue judgments, fabricate votes, fork the runner, or silently alter the phase definition.
+- Preserve this audit and the frozen target; make any correction in a new pre-execution commit and perform the bounded recheck required by preregistration line 150.
+
+No model invocation or synthetic failing reader was needed to establish this finding.
+It follows from the exact experiment shape and the pinned source's phase/answer/accounting boundary.
+
+QUESTION / KEY AUDIT COVERAGE
+
+[MEASURED] Read the complete task string and all 24 question, key, rubric, and auditor-note entries.
+Every entry has two numbered core decisions; task questions match the separate question fields.
+The controls/clarifications in the manifest and coverage map partition all headings into 15 controls and 9 clarifications.
+The following table records source reconciliation, not reader answers, expected scores, or scored votes.
+Line ranges refer to the exact frozen inputs, not the source contracts that readers will not receive.
+
+| Heading; key/question lines in Q | Source reconciliation in X and M | Instrument assessment |
+|---|---|---|
+| A01; 15/22 | X:79-103; M:87-111 | Fair control: both contain the distinct retained-work conditions asked. |
+| A02; 29/36 | X:79-85, 97-113; M:87-93, 105-121 | Fair control: the exact-owner guard and stale-outcome handling are common, not identity-name inference. |
+| A03; 43/50 | X:97-117, 325-339; M:105-125, 419-433 | Fair control: placement and owned-data premises are common; the final asynchronous guard is expressly ancillary in the key. |
+| A04; 57/64 | X:101-113, 331; M:129-156, 425 | Candidate key is grounded. Predecessor final guards are present; the additional equality/transition-ownership choice must not be imported from an undelivered contract. |
+| A05; 71/78 | X:167, 263-266; M:129-147, 335-338 | Candidate key is grounded. Predecessor monotonic/earlier-OPEN premises remain relevant, without presupposing an explicit equal-deadline selector. |
+| A06; 85/92 | X:148-151, 165-177; M:189-218, 240, 390-408 | The numeric setting and migration question is explicit. The predecessor supplies a terminal-origin budget but does not name that budget's setting; no external configuration lookup can supply reader support. |
+| A07; 99/106 | X:148-156, 350-360; M:196-218, 444-454 | Candidate precedence/transfer text grounds the key. Predecessor detached-cleanup and single-budget text must be considered rather than dismissed. |
+| A08; 113/120 | X:123-145; M:162-184 | Fair control: the asked drain/FIFO/transfer decisions are common; extra barrier-opening detail is marked ancillary. |
+| A09; 127/134 | X:79-85, 130-150, 196-200, 350-358; M:169-187, 268-269, 444-452 | Candidate text is explicit. Predecessor semantic inertness, disposal/transfer and provider-reservation premises can be combined; clarification classification is not a preassigned predecessor shortfall. |
+| A10; 141/148 | X:34, 49-53, 97-103, 388; M:51-61, 105-111, 486 | Candidate text is explicit. Predecessor invocation sequence plus eligible-subset/result validation supports a legitimate combined-premise argument; the key does not require a single empty-invocation sentence. |
+| A11; 155/162 | X:49-53, 329-344, 378-388; M:57-61, 423-437, 473-486 | Current-fault and valid-denial cases are separately asked. Candidate key is grounded; predecessor atomicity and nonfatal-denial support must not be discarded because some fault detail is less explicit. Wire-code spelling is ancillary. |
+| A12; 169/176 | X:52-53, 379, 388; M:54-61, 486 | Candidate key is grounded and the final-capacity question is asked. Predecessor final-capacity/atomicity premises exist, while the explicit rejection classification is new carried text. |
+| A13; 183/190 | X:320-360; M:414-454 | Fair control: the shared publication/terminal boundary and queued-stop constraint are common. |
+| A14; 197/204 | X:302-311, 350-364; M:376-385, 444-458 | Fair control: both provide immutable capture metadata and the limits of its interpretation. |
+| A15; 211/218 | X:295-310, 364; M:368-380, 458 | Candidate metadata rule is grounded. Predecessor live stopped accounting is present; its uncarried per-mutation/query rule must not be filled from outside the input. |
+| A16; 225/232 | X:213-249; M:285-321 | Fair control: initial eligibility is separate from repeat history, and the requested projection/pool distinctions are common. |
+| A17; 239/246 | X:213-259; M:285-331 | Fair control: repeat eligibility, stale notifications, and refusing-pool lifetime are common. Additional projection/arithmetic details are ancillary. |
+| A18; 253/260 | X:236-248; M:308-320 | Fair control: the asked established-winner/reset distinction is common. It does not make the candidate's additional lost-winner wording an unasked requirement. |
+| A19; 267/274 | X:179-201, 378; M:251-273, 472 | Fair control: all three classifications have common support. The key's wire cleanup elaboration is ancillary. |
+| A20; 281/288 | X:71-73, 272-286, 396; M:79-81, 344-359, 494 | Fair control: the shared optional-argument/schema boundary is common. The candidate-only exact options object shape is not demanded. |
+| A21; 295/302 | X:90-91, 272-276; M:98-99, 344-349 | Fair control: the hidden-work and signal-authority boundaries are common and separately asked. |
+| A22; 309/316 | X:18-24, 162-177, 398-399; M:18-24, 233-249, 408, 497-498 | Fair control: the existing recommendation/measurement distinction supports the defaults question in both inputs; no peer-scale certification is presumed. |
+| A23; 323/330 | X:199, 285-286, 313-323, 366-367; M:271, 358-359, 387-388, 414-417, 460-461 | Fair control: common integration and coordinated public-surface duties support the asked scope. Candidate-only timer-migration details are not silently added to this control. |
+| A24; 337/344 | X:39, 263-266; M:40, 335-338 | Fair control: both contain the same opening-lifetime requirement. |
+
+[ASSESSMENT] No material wrong-key finding was established in this pass.
+The central required decisions are asked and grounded in M; the 15 controls have sufficient support in X without candidate-only detail.
+The clarifications are comparison roles, not predictions that X must lose them.
+In particular, A09 and A10 must accept valid derivation from multiple X premises; an auditor-note label cannot override the evidence a reader actually provides.
+The global rules explicitly allow that derivation and prohibit requiring the candidate's wording (preregistration lines 84-87; experiment line 26; every Q rubric).
+
+[ASSESSMENT] Several keys include explanatory material beyond the narrow scenario, but the explicit prohibition on ancillary or unasked requirements governs it.
+Examples are A05's general earlier-deadline case and timer-rearm elaboration (Q:71 versus :78), A07's exact cleanup-generation wording (Q:99 versus :106), and A19's collision/confirmation elaboration (Q:267 versus :274).
+Their omission cannot independently lower a score when the actually asked decision is complete and grounded.
+Optional improvement: move such contextual clauses under an explicit Ancillary label, as other entries already do.
+This is not a new demand on readers or a basis to relax the required source-grounding rule.
+If a later judge downgrades solely for unasked detail, inspect that as a possible substantive scoring defect under the existing validity rule, not as a new design defect or an excuse to manufacture a favorable vote.
+
+PROJECTION AND BLINDING
+
+[MEASURED] The projection function is pure and identical for both sources (P/project-admission-input.mjs:4-16).
+Independently of that function, I reconstructed the declared retained body line-by-line, removed exactly the three source-checkpoint prose lines plus their blank separator, removed only Markdown link destinations, and compared it with each reader body's bytes.
+Both comparisons matched.
+The 5 input tests were rerun and passed; they check raw/reader hashes, projection equality, landed mutations and the missing-boundary rejection (P/admission-input.test.mjs:12-38).
+Those tests alone cannot judge whether an omission was semantically fair, which is why both full reader inputs and omitted source boundaries were also read.
+
+[ASSESSMENT] The common replacement introduction preserves proposal status, the source-observation/proposed-requirement distinction, the shared purpose, and the common non-authentication boundary.
+The omitted opening selection/history and trailing review/history material discloses version order and verdicts.
+The retained sections keep the mechanism, owned-resource, configuration, API, prerequisite and acceptance text.
+Some common historical editing labels remain in the body (for example X:48, :128 and M:49, :167); they do not disclose which of the two arms is earlier or supply an earlier verdict.
+Both inputs still contain source-baseline descriptions, clearly labeled as such at line 5.
+No linked contract is silently treated as delivered evidence.
+The stated limit is appropriately a projected-text test, not cross-document navigation or full historical-artifact comprehension (preregistration lines 41-50; manifest lines 31-36).
+
+[MEASURED] No raw arm name, revision-3/4 designation, URL or source commit is present in the neutral inputs under the packet's disclosure check.
+Their lengths differ; that is openly retained, not an experimentally isolated factor.
+The population entries exactly equal the original committed assurance pack's entries; there is one new session per family per arm and no continuation phase.
+
+[MEASURED] I independently parsed all 48 actual capture-only judge records in V/preview-records/judging/.
+Every record has an empty replies array and the explicit capture-only failure string, not an accepted score.
+The records contain 288 synthetic answer slots: 12 per heading overall, distributed over 16 prompt records per judge profile.
+For every delivered section, its question, key and rubric match the frozen property and auditor-only notes are absent.
+No tested arm/mapping/order identifiers or sealed-key marker appear in the judge prompt strings.
+The raw exemplar V/preview-records/judging/admission-clarity.answer.answers.c.1.json shows the actual question/key/rubric blocks, generic answer labels, and placeholder content.
+
+[MEASURED] Both captured reader prompt files are byte-identical, with SHA-256 e1db4c345f68e47ca3f42641bb16cded145f3effc9fed4fb0dde61f503e78a15.
+They contain common instructions, all 24 questions, and the answer-file instruction, without the property keys or auditor notes (V/reader-prompt-m42.txt:1-77).
+They match the experiment instruction plus task with the workspace placeholder substituted.
+I also compared the public legacy promptFor and current episode phasePrompt outputs for this exact one-phase/no-note/no-trap experiment: they match.
+The source of that equality is C/packages/core/src/phase-driver.ts:13-15 and C/packages/core/src/episode.ts:125-130.
+
+What this rendering evidence does not establish:
+
+- The captured reader prompt is not the supplied DESIGN.md or the full runtime instruction delivery. P/verify-admission-packet.mjs:57 passes an empty on-request view to promptFor; actual design delivery is declared separately in pack.json:32-52.
+- The synthetic units were constructed directly (verifier lines 69-80), bypassing real reader answer extraction, phase-failure handling and actual response masking. This is why the preview did not exercise KR-01.
+- Empty replies and null fixture slots are not reader outcomes or votes; the capture implementation intentionally throws before any model response (verifier lines 84-103).
+- Regex disclosure checks cannot prove that a model cannot infer document identity from semantic content, differing length, answer style, or outside prior knowledge. No such guarantee is claimed.
+- No canary delivery, filesystem/network isolation, cold-session freshness, model availability, complete response handling, semantic judging reliability or end-to-end run provenance was measured here.
+
+[ASSESSMENT] The prompt capture uses existing exported pack/prompt/judge seams, not a copied evaluator.
+The key/question split is real in the captured strings; the case descriptions cue topics but do not disclose the hidden answer-key clauses or the arm mapping.
+Questions and settings are fixed across arms, and source grounding is required, so a correct guess from a leading-looking scenario is not alone a grounded success.
+
+SCORING, VALIDITY, AND GATE CONSISTENCY
+
+[ASSESSMENT] Apart from KR-01, the declared scoring and adjudication rules are coherent for valid completed answer phases:
+
+- The 0/1/2 distinction measures safe implementation completeness, not mere fidelity to a defective or incomplete document. Safe acknowledged absence scores at most 1, not 0; wrong required decisions or absent answers are 0 (preregistration lines 78-87).
+- Several exact excerpts may jointly entail a decision. There is no quotation quota, preferred wording, one-quote-per-clause demand, or permission to import unquoted contracts (lines 74-87; experiment lines 25-26).
+- The conservative result is the lower other-family score, then a downward-only exact-quotation cap. Whitespace-only normalization, every submitted excerpt, and separate semantic entailment are all explicit (lines 89-96).
+- Exact quotation is not semantic support. The raw answer/input relation must be checked independently of the model judges; plausible quotations and successful parsing are not enough.
+- Diagnostic tags retain wrong decision, omission, support and hedge distinctions. Missing/malformed tags stay raw and unknown until a non-author gives a reason-based classification; that process changes neither scores nor votes (lines 93-96).
+- Six reader cells, 144 outcome slots and 288 other-family vote slots are predeclared. Missing answers in a valid phase are deterministic zeroes with not-cast slots; present judge-eligible answers need both votes. KR-01 is the required exception-boundary repair, not permission to reduce the denominator.
+- Other-family exclusion is implemented by the pinned judge assignment (C/packages/core/src/judge-panel.ts:38-40). The panel uses fresh empty workspaces and tools-off invocations, and rejects tool-using judge replies (lines 199-213). Those are source observations, not proof of later execution.
+- The pinned panel may request missing/invalid judge outputs up to three prompts, retaining replies (judge-panel.ts:199-221); that is distinct from the reader-cell one-rerun rule (run-conductor.ts:321-348). Diagnostic-tag repair alone must not trigger another judge request under the packet's own rule.
+- Valid poor performance cannot be retried, reweighted or edited toward PASS. Invalid required measurement inputs yield no gate verdict; an independently established substantive post-response instrument defect requires a prospective new comparison, not retroactive rescoring (preregistration lines 109-116).
+- A majority hedge is at least two readers in one arm/heading uncertain about an asked decision. Intended scope exclusions are not hedges. Both arms' answers, observations and vote reasons must be read, and the supplied text must be investigated before blaming the key (lines 118-121). A predecessor-only limit is not automatically a candidate ambiguity.
+- The project gate is not the evaluator's mean-vote tally. It requires candidate per-heading completeness with no zero, control-by-control non-regression, a strict improvement somewhere, and no unresolved material candidate/comparison ambiguity or instrument defect (lines 127-141). Gains cannot offset a regressing control; an all-tie comparison cannot establish improvement.
+
+The same profile serving as a reader in one new session and as a judge in another does not mean it judges its own family's outcome; the assignment code excludes that family.
+It also does not make three families a calibrated independent statistical population.
+The packet correctly calls this a small descriptive comparison and acknowledges that its author saw earlier findings, that the questions are prospective rather than untouched held-out evidence, and that the new 24-heading scores cannot be compared numerically with the prior compound instrument (preregistration lines 31-32, 57-59, 98-99).
+
+OPTIONAL IMPROVEMENTS, NOT ADDITIONAL BLOCKERS
+
+1. Mark the few explanatory key clauses identified above explicitly ancillary. The existing no-unasked-detail rule already controls them; do not enlarge the reader task to make an accidental demand scoreable.
+2. Name reader-cell retry and judge-output repair separately in the validity table. The pinned code already distinguishes them, and the current requirement to use that contract prevents author-selected retries.
+3. Before execution, make the project accounting implementation fail closed on all expected slot identities, raw-answer/input quote comparisons, missing votes, and diagnostic unknowns. This is implementation of the frozen rule, not a substitute gate or a reason to alter the thresholds.
+
+No favorable-result tuning, alternate reviewer vote, or redesign of the admission mechanism is recommended.
+
+FUTURE EXECUTION PREREQUISITES
+
+These are not failures merely because they are unrun in a preparation-only task:
+
+1. Preserve this audit, correct KR-01 in a separate prospective commit, identify that exact packet, and obtain the bounded non-author recheck before scoring.
+2. Obtain the separate director execution selection. Preparation permission is not model-run, registration or isolation-probe permission (preregistration lines 6-8, 147-154; manifest lines 72-81).
+3. Verify the final frozen inputs, evaluator revision/build, declared model profiles and common run settings; record the selected time limits, seed and six-way parallelism. Availability and runtime isolation cannot be inferred from these static checks.
+4. Register the final experiment through the public evaluator seam and require its actual reader-arm/runtime and judge isolation/delivery probes to pass. Inspect the actual delivered instruction material and retained run provenance, not just the synthetic question prompts.
+5. Execute the whole preregistered comparison without selective outcome retries, preserve every attempt and raw answer/vote/observation, and apply only the bounded retry rules appropriate to each stage.
+6. Replay the evaluator's tally and separately produce complete project conservative accounting, quote-fidelity and semantic-support diagnostics, including absent/ended/not-cast slots under the corrected rule.
+7. Have a non-author reviewer examine the raw record and apply the project gate. No technical, public-contract, runtime, browser, scale, authentication, adoption or B53 closure claim follows automatically from that result.
+
+INDEPENDENT CHECKS PERFORMED
+
+[MEASURED] The following completed successfully in this audit:
+
+- Byte equality of all 14 worktree files to their frozen commit blobs; manifest source/reader hashes; separate retained-body projection reconstruction for both inputs.
+- Five input tests via node --test docs/reviews/admission-lifetime-assurance-r4/admission-input.test.mjs.
+- Seven existing document tests via node --test test/conformance/board-record.test.js test/conformance/markdown-link-integrity.test.js.
+- Read-only public checkPack for this packet, and public phasePrompt/promptFor equality for its exact declared experiment.
+- Independent reconciliation of the two reader captures and 48 judge capture records, including 288 placeholder slots and 12 occurrences per heading.
+- Exact equality of population entries to the original committed pack and no identical question field strings between the old and new scenarios.
+- Byte equality of raw R3 to its prior source/standalone draft and raw R4 to its standalone draft; no diff in the old assurance directory or new packet from the frozen audit commit.
+
+The seven document tests check board/link/anchor consistency in the working tree, not question fairness, projection semantics, complete delivery, or scoring validity.
+Passing them does not contradict KR-01.
+No evaluator execution/conformance test that would invoke isolation, models, traffic, or a vulnerability-triggering input was run.
+
+MEASURED FILE IDENTITIES
+
+Paths below are relative to P; values are SHA-256.
+
+admission-assurance-coverage.json
+5a01bd2687d5c40736bd86a34b5d6413ce0ca34f063d218a22760acc836f77f4
+admission-assurance-preregistration.md
+45a8a5c0800f652d4181b693be37a5961263d877483de0cce7c731d7ac34f1c9
+admission-clarity-experiment.json
+6a9a7cc08570ed3af675dafacba5c99c4f7d11137eb90a7d4b0f54268022f9a6
+admission-clarity-probes.json
+5c36906b1a6b2c63e9815695163b816c9386d614c1dd4f4e06fa096da0b2a247
+admission-input-manifest.json
+8a35376cd4ab9075c5788c79203e727eaef654b202b678dd787093e71364e9cf
+admission-input.test.mjs
+0d26b8dc797d29fbdd5a497034e4b0d0f9ee1008e948ba24b5a1528a6fea2378
+check-admission-input.mjs
+989a89ff7e9be6313585a43e50b1de3e1fea55f7611c60cbb27ee2a7f8c0e293
+inputs/m42/DESIGN.md
+822c1f92287b53c59cbc9ca26743bd1b2b73693fc8e994c11d206d04af31bae9
+inputs/x19/DESIGN.md
+605dc6181909bc66532d120e07b2a69c59dea3286ca690ce718a0583c033200a
+pack.json
+6d9133bc7574ae1be9d57b7e987c2050337ae42bd4ad7072c70a9204dfa5092d
+project-admission-input.mjs
+408b994da025f9a8c21822166f492cfbe2b2b61d1b0b33cc175aa6d1da4d7573
+sources/frozen-r3.txt
+6ccf9ba0e7d94b83897fade8f865fe3fb1328db292d92cce4d5cc85bc28fc2f2
+sources/frozen-r4.txt
+082b2c704dfdc3338283f3733732388a15fbffec5d1f28bf78313bad884b97b4
+verify-admission-packet.mjs
+a736899ef3d658153c74c978ce1e1d6ec7230a6abcb8931cf163ceb2a6f8b91c
+
+FINAL DISPOSITION
+
+FAIL for fitness of the exact frozen instrument to proceed to separately authorized execution, solely pending KR-01's necessary prospective accounting correction.
+The other reviewed instrument properties above do not erase that defect and are not scored assurance results.
+One bounded audit pass is complete; no alternate vote or favorable-result iteration was performed.
+The packet, original assurance FAIL, runtime, public contract, and unrelated working-tree work remain unchanged by this auditor.
