@@ -1,0 +1,91 @@
+{
+  "schema": "agp.admission-runtime-amendment-author-checks/1",
+  "recordedAtUtc": "2026-10-16T05:57:37.784Z",
+  "scope": "Author evidence for the prospective runtime version amendment only; not independent readiness or a live compatibility result.",
+  "authority": {
+    "selection": "continue, amend",
+    "delta": "expectedRuntimeVersions.opencode: 1.19.0 -> 1.19.2",
+    "excluded": [
+      "Models, provider, population, questions, keys, scoring, retries and evaluator revision changes",
+      "Shared runtime/operator configuration changes",
+      "AGP implementation, contract ratification, publication, Zorg messages and B53 closure"
+    ]
+  },
+  "identity": {
+    "command": "node --input-type=module <<'NODE'\nimport assert from 'node:assert/strict';\nimport fs from 'node:fs';\nimport path from 'node:path';\nimport { execFileSync } from 'node:child_process';\nimport { createHash } from 'node:crypto';\nimport { pathToFileURL } from 'node:url';\nconst packet='docs/reviews/admission-lifetime-assurance-r4';\nconst coreRoot='/tmp/agp-admission-resume.9mKplT/context-lab';\nconst base=execFileSync('git',['rev-parse','HEAD'],{encoding:'utf8'}).trim();\nassert.equal(base,'03b22aebb9c154721d1d352a7841ea0f128e5056');\nconst config=JSON.parse(fs.readFileSync(path.join(packet,'admission-execution-config.json')));\nconst oldConfig=JSON.parse(execFileSync('git',['show',base+':'+packet+'/admission-execution-config.json'],{encoding:'utf8'}));\nconst changed=structuredClone(oldConfig);\nchanged.expectedRuntimeVersions.opencode='1.19.2';\nassert.deepEqual(config,changed);\nconst paths=execFileSync('git',['ls-tree','-r','--name-only',base,'--',packet],{encoding:'utf8'}).trim().split('\\n');\nconst unchanged=paths.filter(p=>p!==packet+'/admission-execution-config.json');\nfor(const p of unchanged) assert.ok(fs.readFileSync(p).equals(execFileSync('git',['show',base+':'+p])),p);\nconst oldRoot='docs/reviews/admission-lifetime-assurance';\nconst oldPaths=execFileSync('git',['ls-tree','-r','--name-only',base,'--',oldRoot],{encoding:'utf8'}).trim().split('\\n');\nfor(const p of oldPaths) assert.ok(fs.readFileSync(p).equals(execFileSync('git',['show',base+':'+p])),p);\nconst evaluatorRevision=execFileSync('git',['-C',coreRoot,'rev-parse','HEAD'],{encoding:'utf8'}).trim();\nassert.equal(evaluatorRevision,config.evaluatorRevision);\nassert.equal(execFileSync('git',['-C',coreRoot,'status','--porcelain'],{encoding:'utf8'}).trim(),'');\nconst core=await import(pathToFileURL(path.join(coreRoot,'packages/core/dist/src/index.js')));\nconst checked=await core.checkPack(path.resolve(packet));\nassert.ok(checked.ok,JSON.stringify(checked.defects));\nconst adapters={opencode:core.opencodeAdapter({operatorConfig:path.resolve(packet,config.providerConfig)}),codex:core.codexAdapter()};\nconst versions={opencode:adapters.opencode.version(),codex:adapters.codex.version(),bubblewrap:execFileSync('bwrap',['--version'],{encoding:'utf8'}).trim()};\nassert.deepEqual(versions,config.expectedRuntimeVersions);\nconst profiles=checked.loaded.pack.population.map(member=>({id:member.id,runtime:member.runtime,filesystem:adapters[member.runtime].filesystem,refusal:adapters[member.runtime].refuse({member,arm:core.EMPTY_ARM,workspace:'/unused',work:'/unused',prompt:'',mode:adapters[member.runtime].modes[0],tools:'off',timeLimitSeconds:config.timeLimitSeconds})}));\nfor(const p of profiles){assert.equal(p.filesystem,'sandboxed');assert.equal(p.refusal,null);}\nconst sha=p=>createHash('sha256').update(fs.readFileSync(p)).digest('hex');\nconst credentialPresent=Boolean(process.env.LITELLM_NETBIRD_API_KEY);\nassert.ok(credentialPresent);\nconst experiment=checked.loaded.experiments.get(config.suite).experiment;\nassert.equal(core.recordHistory(checked.loaded,experiment.id).length,0);\nassert.equal(fs.existsSync(path.join(packet,checked.loaded.pack.records.path)),false);\nconsole.log(JSON.stringify({recordedAt:new Date().toISOString(),base,evaluatorRoot:coreRoot,evaluatorRevision,evaluatorClean:true,packValid:true,change:{field:'expectedRuntimeVersions.opencode',from:oldConfig.expectedRuntimeVersions.opencode,to:config.expectedRuntimeVersions.opencode,otherConfigValuesUnchanged:true},packetFilesBefore:paths.length,unchangedPriorPacketFiles:unchanged.length,unchangedOriginalAssuranceFiles:oldPaths.length,versions,profiles,selectedProviderCredentialPresent:credentialPresent,hashes:{executionConfig:sha(path.join(packet,'admission-execution-config.json')),providerConfig:sha(path.join(packet,config.providerConfig)),priorStop:sha(path.join(packet,'admission-execution-preflight-02.json')),priorReview:sha(path.join(packet,'admission-provider-readiness-05.txt')),sharedOperatorConfig:sha('/home/apnex/.config/opencode/opencode.json')},registerPresent:false,recordsPresent:false,modelCalls:0,scope:'Author static/version checks only; no live compatibility or assurance verdict'},null,2));\nNODE",
+    "cwd": "/home/apnex/taceng/agp",
+    "result": {
+      "chunk_id": "707ab8",
+      "wall_time_seconds": 0.634210764,
+      "exit_code": 0,
+      "original_token_count": 423,
+      "output": "{\n  \"recordedAt\": \"2026-10-16T05:57:37.784Z\",\n  \"base\": \"03b22aebb9c154721d1d352a7841ea0f128e5056\",\n  \"evaluatorRoot\": \"/tmp/agp-admission-resume.9mKplT/context-lab\",\n  \"evaluatorRevision\": \"6e6d0a92965a15ec473c661887b2b9c5037fedcf\",\n  \"evaluatorClean\": true,\n  \"packValid\": true,\n  \"change\": {\n    \"field\": \"expectedRuntimeVersions.opencode\",\n    \"from\": \"1.19.0\",\n    \"to\": \"1.19.2\",\n    \"otherConfigValuesUnchanged\": true\n  },\n  \"packetFilesBefore\": 38,\n  \"unchangedPriorPacketFiles\": 37,\n  \"unchangedOriginalAssuranceFiles\": 57,\n  \"versions\": {\n    \"opencode\": \"1.19.2\",\n    \"codex\": \"codex-cli 0.162.1\",\n    \"bubblewrap\": \"bubblewrap 0.4.1\"\n  },\n  \"profiles\": [\n    {\n      \"id\": \"c\",\n      \"runtime\": \"opencode\",\n      \"filesystem\": \"sandboxed\",\n      \"refusal\": null\n    },\n    {\n      \"id\": \"g\",\n      \"runtime\": \"opencode\",\n      \"filesystem\": \"sandboxed\",\n      \"refusal\": null\n    },\n    {\n      \"id\": \"o\",\n      \"runtime\": \"codex\",\n      \"filesystem\": \"sandboxed\",\n      \"refusal\": null\n    }\n  ],\n  \"selectedProviderCredentialPresent\": true,\n  \"hashes\": {\n    \"executionConfig\": \"c0122a30db551238bbe1d362977b3938b62f911a06e45b8057515ed625af94c4\",\n    \"providerConfig\": \"98668a42f2fb4e913b07a539b40df560d7cf6051dfe15226602e2f22cd37e7b0\",\n    \"priorStop\": \"0b947c1959a44fd40348805861b873e9b55d7f3219857610029e49e52c5d7a11\",\n    \"priorReview\": \"bbb6e33d4c34c601d09e0d899638a976a41a44dd533e59c13b0c01084e27cba6\",\n    \"sharedOperatorConfig\": \"3d50767fea0cf4305e62d9baeca99edf7d1fa14281eebb320084cffd2d9e7f64\"\n  },\n  \"registerPresent\": false,\n  \"recordsPresent\": false,\n  \"modelCalls\": 0,\n  \"scope\": \"Author static/version checks only; no live compatibility or assurance verdict\"\n}\n"
+    }
+  },
+  "build": {
+    "command": "npm run build",
+    "cwd": "/tmp/agp-admission-resume.9mKplT/context-lab",
+    "result": {
+      "chunk_id": "c5bbf0",
+      "wall_time_seconds": 0.014637193,
+      "exit_code": 0,
+      "original_token_count": 11,
+      "output": "\n> @apnex/context-lab@0.0.0 build\n> tsc -b\n\n"
+    }
+  },
+  "staticTests": {
+    "command": "AGP_ADMISSION_EVALUATOR_ROOT=/tmp/agp-admission-resume.9mKplT/context-lab node --test admission-input.test.mjs admission-comparison-accounting.test.mjs admission-judgment-replay.test.mjs admission-execution-receipt.test.mjs",
+    "cwd": "/home/apnex/taceng/agp/docs/reviews/admission-lifetime-assurance-r4",
+    "start": {
+      "chunk_id": "f00e15",
+      "wall_time_seconds": 1.001139504,
+      "session_id": 60575,
+      "original_token_count": 552,
+      "output": "✔ Admission accounting preserves all identities and does not issue its own gate verdict (30.171439ms)\n✔ Admission missing null, undefined and blank answers become explicit uncast zeroes (62.974731ms)\n✔ Admission valid phase with no answer file accounts for all twenty-four missing answers (13.883472ms)\n✔ Admission ended sole phase ignores retained partial or complete raw answers (28.670415ms)\n✔ Admission predecessor behavior failure does not automatically fail candidate thresholds (10.272478ms)\n✔ Admission invalid required evidence takes precedence over numerical failure (11.732931ms)\n✔ Admission accounting rejects missing or duplicate cells, probes, votes and invalid provenance (271.381394ms)\n✔ Admission unresolved infrastructure/isolation or incomplete phase never becomes a reader zero (21.346224ms)\n✔ Admission accounting accepts one infrastructure retry but not a behavior retry (21.559584ms)\n✔ Admission minimum-vote and quote caps are downward-only and inspect every excerpt (20.930429ms)\n✔ Admission diagnostic formatting cannot invalidate or improve an accepted score (13.282962ms)\n✔ Admission ties and each individual control regression are not averaged away (21.511215ms)\n✔ Admission accounting requires replay bound to the actual raw replies and derived votes (50.039603ms)\n✔ Admission probe and reader raw evidence cannot be replaced by favorable labels (93.983778ms)\n✔ Admission probe check preserves the pinned allowance for unanswered non-canary questions (2.579554ms)\n✔ Admission execution receipt binds complete reviewed Git inventory and readiness identity (59.375262ms)\n✔ Admission receipt rejects omitted coverage, wrong identities and unreviewed file/config changes (573.660456ms)\n✔ Admission input identities match both whole sources and their exact projections (4.386013ms)\n✔ Admission source mutation is rejected before its projection can be trusted (1.910389ms)\n✔ Admission reader mutation is rejected at its content identity boundary (0.933487ms)\n✔ A rehashed but substantively changed reader copy still fails projection fidelity (2.789613ms)\n✔ Admission projection fails closed when its history boundary is absent (0.363824ms)\n"
+    },
+    "completion": {
+      "chunk_id": "e69cae",
+      "wall_time_seconds": 0.000006954,
+      "exit_code": 0,
+      "original_token_count": 138,
+      "output": "✔ Admission public-panel replay binds first prompts, member identities, scores and reasons (72.223312ms)\n✔ Admission public-panel replay preserves pending-only completion and retained failure (135.271103ms)\n✔ Admission public-panel replay reconciles every job across all 144 units and 288 slots (1554.490558ms)\n✔ Admission public-panel replay rejects changed, missing, unparseable or misassigned raw judgments (275.865729ms)\nℹ tests 26\nℹ suites 0\nℹ pass 26\nℹ fail 0\nℹ cancelled 0\nℹ skipped 0\nℹ todo 0\nℹ duration_ms 2132.344888\n"
+    }
+  },
+  "captureOnlyRendering": {
+    "command": "node docs/reviews/admission-lifetime-assurance-r4/verify-admission-packet.mjs /tmp/agp-admission-resume.9mKplT/context-lab",
+    "cwd": "/home/apnex/taceng/agp",
+    "result": {
+      "chunk_id": "11005b",
+      "wall_time_seconds": 0.290972577,
+      "exit_code": 0,
+      "original_token_count": 108,
+      "output": "{\n  \"status\": \"PASS: author packet and prompt checks only; no reader or judge model invoked\",\n  \"evaluatorRevision\": \"6e6d0a92965a15ec473c661887b2b9c5037fedcf\",\n  \"evaluatorCheckout\": \"/tmp/agp-admission-resume.9mKplT/context-lab\",\n  \"previewRecords\": \"/tmp/agp-admission-clarity-preview.xX2uDG\",\n  \"prompts\": 48,\n  \"probes\": 24,\n  \"controls\": 15,\n  \"readerPromptCopies\": 2,\n  \"fixtureUnits\": 144,\n  \"nullFixtureVoteSlots\": 288\n}\n"
+    }
+  },
+  "docs": {
+    "command": "tools/check-docs.sh docs/reviews/admission-lifetime-assurance-r4/admission-runtime-amendment-01.md",
+    "result": {
+      "chunk_id": "e95ad1",
+      "wall_time_seconds": 0.000011246,
+      "exit_code": 0,
+      "original_token_count": 49,
+      "output": "\nclean: 1 file(s), rule S13.\n\nclean: 1 file(s), rule S6.\n\nclean: 1 file(s), rule S10.\n\nclean: 1 file(s), rule S12.\n\nclean: 1 file(s), rule S8.\ndocs: 1 file(s) clean against S6, S8, S10, S12, S13.\n"
+    }
+  },
+  "whitespace": {
+    "command": "git diff --check",
+    "result": {
+      "chunk_id": "1c0206",
+      "wall_time_seconds": 0.000014755,
+      "exit_code": 0,
+      "original_token_count": 0,
+      "output": ""
+    }
+  },
+  "notClaimed": [
+    "Independent readiness",
+    "Live runtime compatibility, delivery or isolation",
+    "Backend equivalence or availability",
+    "Scored performance or completed-measurement verdict"
+  ]
+}

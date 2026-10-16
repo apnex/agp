@@ -8,7 +8,7 @@
   "timeLimitSeconds": 1200,
   "judgeTimeLimitSeconds": 900,
   "expectedRuntimeVersions": {
-    "opencode": "1.19.0",
+    "opencode": "1.19.2",
     "codex": "codex-cli 0.162.1",
     "bubblewrap": "bubblewrap 0.4.1"
   },
