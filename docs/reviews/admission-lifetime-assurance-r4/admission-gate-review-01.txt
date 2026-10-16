@@ -1,0 +1,211 @@
+ADMISSION CLARIFICATION R4: INDEPENDENT COMPLETED-MEASUREMENT REVIEW
+
+Tier 3: independent completed-measurement judgment, 2026-10-16 UTC.
+Reviewed checkpoint: 327a5f303a54f940c1b0dfbd057fb10d72800553
+Execution checkpoint: d1632ef02acd34c0460426185242174f7896a463
+Run: records/2026-10-16-060526-admission-clarity
+Verdict: NO VERDICT — a substantive accepted scoring defect invalidates this comparison as gate evidence; its unchanged numerical conditions are not met.
+
+BOUNDED PLAN (written before the evidence review)
+
+1. Read the preregistration and accounting/provider/runtime amendments, keys/coverage and both complete assigned inputs.
+2. Read all 96 eligible answers, all 192 accepted reasons, all 32 raw judge replies and both arms' observations; inspect exact quotations, semantic coverage and majority hedges.
+3. Verify exact source/evidence identity, all attempts and nine probe profiles, behavior-ended provenance and complete intended-slot accounting; independently replay only retained evidence using the pinned public API and scratch outputs.
+4. Record measurement validity and each of the five frozen conditions separately, then the resulting PASS/FAIL or NO VERDICT, without changing scores, inputs or old records.
+
+Vocabulary: valid, behavior-ended, incomplete, quote fidelity, semantic support,
+control regression, material ambiguity, no verdict, intended judge slots.
+Look for missing or contradictory provenance, ungrounded accepted reasons,
+candidate/comparison ambiguity, majority hedges and reduced denominators.
+Park design repair, retrospective regrading, salvaging ended text, backend/client
+cause inference, model reruns, AGP runtime/fault reproduction and publication.
+
+INDEPENDENCE AND COVERAGE
+
+I am the non-author reviewer, not a scored reader or judge. I previously reviewed
+the bounded replay and runtime-configuration corrections; those readiness reviews
+were not a completed-measurement verdict. No delegation was used.
+
+Following research-artefacts, I kept source rules, measured reconciliation and
+analytical judgment separate. I read the complete preregistration, accounting,
+provider and runtime amendments, all 24 keys/rubrics and coverage entries, both
+complete assigned designs (m42 candidate: 525 lines; x19 predecessor: 426 lines),
+all 96 eligible answers, all 192 accepted reasons, all 32 retained raw job replies,
+every observation, and the retained attempt/probe/receipt evidence. This was not
+a review of tags or totals alone. No answer, vote, key or threshold was changed.
+
+DECISIVE VALIDITY FINDING: ACCEPTED SCORE CONTRADICTS THE FROZEN RULE
+
+Evidence identity: m42/c A16, blinded unit u0065, Gemini judge job
+admission-clarity.answer.answers.g.15, raw item a3. The accepted score is 1;
+the other-family vote is 2. Its complete reason is:
+
+"DECISION=correct; COVERAGE=complete; SUPPORT=supported; HEDGE=yes; the core
+decisions are correct and quoted, but the response hedges by treating retry-wait
+projection as a recommendation rather than an adopted contract."
+
+The actual answer explicitly decides all required matters: valid initial waiting,
+no fabricated attempt/timer, unchanged retryAttempt despite disabled reconnect,
+identity capacity required, and unrelated route pressure not blocking it. Five
+exact matching excerpts supply those rules. Its final statement that retry-wait
+is a recommendation, not an adopted contract, is accurate: candidate DESIGN.md
+line 3 says "Status: proposed behavior, not adopted or implemented." and line 291
+expressly begins "Recommendation: reuse" for this projection. The predecessor
+has the same status and recommendation. The question does not require adoption.
+The answer's separately inferred lastReason spelling is not an A16 requirement.
+
+This is not merely a malformed diagnostic, disputed quotation, or close judgment
+of entailment. The reason acknowledges correct, complete, supported decisions
+and supplies an impermissible scope/status statement as its sole penalty basis.
+Preregistration lines 87-93 restrict score 1 to a required-decision deficiency
+or quote cap and exclude unasked detail; line 125 defines a hedge by uncertainty
+about a required decision and excludes intended scope exclusions. The retained
+A16 decision expresses no such uncertainty. Diagnostic classification here is
+correct/complete/supported, with no required-decision hedge; the vote stays 1.
+
+The defect is material: that accepted minimum supplies the recorded A16 control
+regression (3 versus 4) and removes the candidate's second score 2 at that heading.
+It is not cured by the independent behavior-zero failure elsewhere. The frozen
+post-response scoring-defect clause (line 121) says the affected comparison has
+no gate verdict; it has no exception for a comparison already failing another
+condition. I therefore do not substitute the other judge, repair the score,
+drop A16, or present a supposedly valid binary FAIL. Preserve the entire run as
+exploratory evidence for this gate. Any correction/replacement measurement would
+need a separately authorized prospective process, not retrospective rescoring.
+
+OTHER SEMANTIC AND AMBIGUITY FINDINGS
+
+- Behavior failure is distinct from this scoring defect. Both Gemini reader
+  attempts exited 0 with empty final messages, no answer file, no tools, no
+  filter/provider error and a completed common outcome. The pinned classifier
+  independently reproduces "behaviour: the agent ended with no message". Their
+  two-event streams report finish reason length, zero visible output and 27146
+  (m42) / 25330 (x19) reasoning tokens. Those observations establish neither a
+  backend limit nor a client defect. The amended rule retains all 48 ended-phase
+  zero outcomes and all 96 explicit not-cast slots; no salvage or retry applies.
+- Quote fidelity: 359 submitted answer excerpts were checked (179 candidate,
+  180 predecessor). All candidate excerpts match. One x19/o A04 excerpt adds a
+  final period after "asynchronous boundary", absent from the source table cell.
+  It is valid JSON but nonmatching, already capped at 1; both original votes are
+  also 1, so the cap changes no score. No eligible answer lacks a quote and none
+  has malformed quote JSON. The one additional OBSERVATIONS quotation also matches.
+- Coverage/support is not quote fidelity. A17 m42/c states the identity-pool
+  requirement without quoting it; A23 m42/c omits provider compatibility and
+  m42/o asserts it without its decisive excerpt. These explain support/coverage
+  concerns, not absent rules in the candidate: both supplied designs contain the
+  relevant rules. The recorded regressions do not establish mechanism defects.
+- I inspected the other reason disagreements, including A01 disposal timing,
+  A08 the transfer-moment caveat, x19 A09/A10 combined-premise derivation, and
+  A13/A17/A21/A23 excerpt sufficiency. They are not interchangeable with wrong
+  decisions or source gaps. In particular, x19/o A10 rejects the shortcut using
+  the stated sequence; its Claude reason demands an explicit no-exemption quote
+  although grounded derivation is allowed. These cautions reinforce limits on
+  interpreting score differences; the A16 finding alone establishes invalidity.
+  All 24 votes with a malformed diagnostic field remain preserved; I used their
+  actual prose, not unknown tags, in the semantic/hedge findings below.
+- No candidate heading has two readers uncertain about a required decision.
+  Gemini's absence is not a hedge and does not shrink the three-reader denominator.
+  m42/c A15 does qualify the required query-time conclusion; m42/o does not.
+  The complete candidate supplies live stopped accounting, one revision increment
+  for the gauge mutation, no query increment and fresh query capture time. Its
+  distinction from numeric-terminal freezing also answers the claimed conflict.
+- Candidate observations about survivor-selection order (A12), the full later
+  implementation inventory (A23), or unreproduced OPEN action details (A24) do
+  not withhold the asked decisions. The establishment-qualified winner-reset
+  text resolves the apparent adoption/reset conflict; numeric detached cleanup
+  is expressly covered. No separate material candidate ambiguity in the asked
+  decisions was independently established by these observations.
+- In x19, both actual readers qualify required decisions at A04/A05/A06/A11/A12/
+  A15: equality/synchronous expiry, tie selection, the configured teardown budget,
+  invalid-result terminal classification, RIB-shortage disposition, and ordinary
+  gauge revision respectively. These are predecessor-only support limitations,
+  not candidate defects. An explicitly acknowledged derivation or unasked detail
+  in A07/A09/A10 is not automatically another majority hedge. The numerical gains
+  cannot be promoted to a validated causal claim about the clarification.
+
+THE FIVE FROZEN CONDITIONS, SEPARATELY
+
+1. Reader dispositions/full accounting: MET under the accounting amendment.
+   Six attempts, four valid answer phases and two behavior-ended phases are all
+   accounted. There are 144 outcomes and 288 intended slots: 192 cast and 96
+   "not cast: ended phase". There are no unresolved infrastructure/isolation
+   outcomes or missing required eligible-answer votes. Semantic scoring validity
+   is the separate condition-5 defect, not an invented missing-record defect.
+2. Candidate thresholds: NUMERICALLY NOT MET. Every heading includes its Gemini
+   behavior zero, violating the no-zero requirement. A01/A08/A15/A16/A17/A23 also
+   lack two score-2 outcomes. The preserved candidate census is 41 twos, 7 ones,
+   24 zeroes; predecessor is 26 twos, 22 ones, 24 zeroes. Nothing is regraded.
+3. Each control non-regressing: NUMERICALLY NOT MET. A08/A16/A17 are 3 versus 4;
+   A23 is 2 versus 3. These four recorded regressions cannot be offset by gains.
+4. At least one strict improvement: NUMERICALLY MET in the retained table.
+   All nine clarification headings and controls A13/A21 have larger candidate
+   sums: 11 improvements, 4 regressions and 9 ties across 24 headings.
+5. No unresolved ambiguity/substantive measurement defect: NOT MET. The accepted
+   A16 scope penalty is a substantive scoring defect. The frozen invalidity rule
+   requires NO VERDICT, not PASS, rescoring, or a valid-measurement FAIL. Numerical
+   failure and ended-phase zeros remain explicitly recorded despite that limit.
+
+MEASURED PROVENANCE AND NO-MODEL RECONCILIATION
+
+Independent checks at 2026-10-16T06:28:26.519Z (tool output 1f597d, exit 0):
+- HEAD is the reviewed evidence commit; all 92 committed packet files match its
+  Git blobs, and all 40 execution-checkpoint files match the receipt and Git.
+- Evaluator /tmp/agp-admission-resume.9mKplT/context-lab is clean at
+  6e6d0a92965a15ec473c661887b2b9c5037fedcf. Public checkPack passes. Receipt issues
+  are empty; registration hash is
+  21eff1aeafa1d667413e2678f16064fbbe39b9417f1758c149b3540660aac10c.
+- The receipt binds readiness-06 hash
+  8b6a3d99e13e31357bf15d040eba45afebe2d9f60949768d92b2163156244f76,
+  preserved in 8e2abcc53bef3b233ce9097b1464f44b6ef105ba before execution. Recorded
+  OpenCode 1.19.2, Codex 0.162.1 and bubblewrap 0.4.1 match the amended config.
+- Registration precedes receipt and run validation. All six reader and three
+  judge profile probes have their exact canary/leak questions, expected canaries
+  or NONE, UNKNOWN leak responses, zero tool calls and no failure reasons. The
+  recorded probed stage precedes scored execution; the frozen public invocation
+  wrapper enforces that nine-profile gate. No unresolved delivery/isolation gap
+  was found within those preregistered checks; this is not arbitrary attestation.
+- All six raw phase outcomes/prompts/classifications reconcile; valid saved
+  snapshot files exactly match the retained scored files and public extraction.
+  The two ended snapshots have no answer file. All six sessions are distinct/new.
+- Public blind replay matches all 96 units (ignoring only generated timestamps),
+  with zero absent-answer records. Public serial judge replay reconciles the
+  exact inventory and entire prompt/replies/failure record of all 32 jobs and
+  all 32 replies, reproducing all 192 votes with zero issues/model calls.
+  Evidence identity: 7ef9a3d83dbb7dd5d4439dee7a74ad07254cb589067fdd9a4b6bc227cbf046e2.
+  Scratch: /tmp/agp-admission-judge-replay.Hyt9Mm.
+- Pure accounting is deep-equal to retained ADMISSION-ACCOUNTING.json: complete,
+  zero mechanical issues, 144 outcomes, 288 slots, 192 cast/96 ended-not-cast.
+  This agreement proves record reconciliation, not semantic scoring correctness.
+- Public tallyRun was run only on a scratch copy, producing byte-identical
+  RESULT.json and RESULT.md. Scratch: /tmp/agp-admission-independent-tally.KFHG4m.
+  SHA-256 respectively:
+  54d5e9ef4d4de5eb9d180a61b4ffaa4858d26a44e7faeee65895fb0e6401b3af
+  df0740219e9959b2febf581eb4a95b21bb70d4722da06ed42afe3acfb7b51404.
+- Both committed Gemini event copies match their original event paths byte for
+  byte. SHA-256 m42: f4c2468ca2d60bb9902a315ffad0dbd3008c9e79e0e4680e5435872c3d851c5a;
+  x19: 0b915ddb4ca1f6968c5801c7c45a41986b6fd22cbeb26520a8fc3a1ccfda0bba.
+- Supplemental retained-invocation checks at 06:32:16.181Z (5c62ef, exit 0) verify
+  both actual variant files and each of the six actual delivered designs/canaries
+  against the frozen inputs. All four OpenCode invocation provider blocks match
+  the frozen provider block; both Codex developer instructions match exactly and
+  retain high reasoning effort/disabled web search. No new invocation was made.
+
+The author record's original supplemental status=='uncast' diagnostic printed
+zero because that status does not exist. Its appended correction and this direct
+census agree on 192 cast and 96 "not cast: ended phase". The actual accounting
+was already correct; that diagnostic typo is not the validity finding above.
+
+BOUNDARIES AND PRESERVATION
+
+Only this new report was written in the repository. The independent replay used
+the pinned public parser/blinder/judge panel/classifier/tally and frozen pure
+accountant, with retained replies and scratch output only. It did not call the
+writing analyzer on the frozen run. No new synthetic candidate, exploit input,
+AGP fault case, model run, score, configuration, source change, commit or delegation
+was made. Full frozen evidence was checked unchanged after replay.
+
+The prior readiness verdicts and historical FAILs remain verbatim. This finding
+does not retroactively turn static readiness into a guarantee of judge accuracy,
+or infer a backend/runtime cause from the Gemini stops. It neither ratifies the
+design nor verifies AGP implementation, browser/scale/authentication behavior,
+closes B53, authorizes publication or sends anything to Zorg.
