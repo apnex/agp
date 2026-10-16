@@ -1,0 +1,165 @@
+INDEPENDENT STATIC PREPARATION RECHECK
+Tier 3 analytical judgment, 2026-10-17 Australia/Melbourne.
+Reviewed checkpoint: 725d616d836c5e3336d169fc8069c4075790a4ec
+Verdict: PASS - STATIC PREPARATION readiness, bounded by G1-G6; no live qualification or execution authority.
+
+IDENTITY AND INDEPENDENCE
+
+Reviewer: `/root/admission_job_boundary_review`, non-author of the correction,
+not a calibration/assurance reader or scored judge. I authored the earlier
+independent reviews, not the policy, fixtures or implementation. No delegation.
+This is a bounded recheck of PR-01 from `readiness-review-01.txt`, its actual
+correction and necessary preservation/capture checks, not a new whole-evaluator
+audit. Research-artefacts discipline keeps author claims, measured checks and
+semantic judgment distinct; the existing design/M7 review and G1-G6 remain the
+scope under mission-kit `7c059b15eda7a92f0462c79e740fb5f14c20dbce`.
+
+Direct parent `4a61bb63fb16aa19b4f48b8885130baf5b546a67` preserves the first
+FAIL and its full independent output. Both were byte-verified unchanged.
+The failed implementation target remains `bd95232aae3c22a8aaad965c5507080a1d601faa`;
+this PASS does not alter that verdict or any historical assurance result.
+
+Bounded plan (before correction source/test review)
+
+1. Read the complete correction note and changed policy, fixtures, tests and
+   README; compare the exact delta against the failed target and G1-G6.
+2. Independently assess the mixed-decision semantic case and aggregate precedence,
+   including continued rejection of nonzero credit and unchanged raw fields.
+3. Run the inspected no-model preparation/accounting checks, retain full output,
+   and reconcile the complete second capture against fresh output and the first.
+4. Verify unchanged runtime profile, public test, design, prior reports/captures
+   and frozen packet; record exact-target PASS/FAIL with PREP-L1/L2/L3 retained.
+
+Vocabulary: aggregate precedence, wrong decision, material conflict, raw vote,
+static preparation, live qualification. Look for a widened score allowance,
+hidden prior-record rewrite, changed dispatch or lost identity/payload fields.
+Park: calibration/assurance reading, model/provider/probe/conductor invocation,
+runtime fault reproduction, upstream changes, implementation edits and commits.
+
+PR-01 CORRECTION AND SEMANTIC JUDGMENT
+
+I read the complete correction note, revised policy and checker, all eight
+literal development cases, changed tests, README delta and retained red/green
+output. The code change is narrow: `admission-scoring-policy.mjs:30-32` states
+wrong-decision precedence while retaining a separate conflict; line 81 permits
+aggregate `wrong` or `withheld` for conflict. Lines 70-73 still require an actual
+wrong-decision tag/issue association and score zero for any wrong decision.
+The full-credit predicate and all other diagnostic constraints are unchanged.
+
+The new `wrong-with-separate-conflict` case is semantically warranted:
+
+- R1 says thirty days despite the source's explicit seven-day period; it is
+  wrong, so the aggregate must remain zero.
+- The per-case source states both that renewal is forbidden and that one renewal
+  is permitted, with no rule choosing between them. The answer explicitly withholds
+  R2 because of that material conflict. `HEDGE=yes` and the conflict issue are apt.
+- All three quoted excerpts match that per-case source. Their fidelity does not
+  make the thirty-day conclusion correct. A correct report of R2's conflict does
+  not offset R1's wrong decision or justify score 1/2.
+
+The deliberately conflicting source is development material, not an approved
+live assurance key. This review assesses its declared diagnostic distinction;
+it does not certify how future models will grade it. The other seven cases and
+their expected dispositions are unchanged and remain as assessed in review 01.
+
+Independent pure checks used the literal new case against both exact versions:
+the old policy was imported in memory from Git, without editing a checkout.
+
+- Old score 0: exactly `unresolved conflict must withhold a decision`.
+- Corrected score 0: no mechanical issues; original score/reason unchanged.
+- Corrected score 1: `wrong decision or no answer requires zero`.
+- Corrected score 2: both the full-credit contradiction and requires-zero issues.
+
+The existing new guard also rejects changing aggregate `wrong` to `withheld`
+while retaining the wrong-decision issue. Thus the repair removes the demonstrated
+false positive without admitting favorable credit or hiding the second deficiency.
+PR-01 is resolved at this target; no remaining static-preparation blocker found.
+
+MEASURED TESTS AND COMPLETE CAPTURE
+
+Independent run: 27/27 tests passed (12 preparation, 15 existing pure accounting),
+after reading the changed tests and verifying unchanged integration/accounting
+surfaces. Full command/output and the independent old/new semantic-record checks
+are retained in `readiness-review-02-test-output.txt`. The author's red-before
+and 40-test green-after record was read, not substituted for this independent run;
+its 13 board/record checks were not repeated here.
+
+The unchanged integration test verified all 128 tracked evaluator export files
+against `0c0ab1f0248ef0cbb21885d7d6af76586d8a1b68`, rebuilt with
+`npm run build -- --force` (`tsc -b --force`), then used the public index.
+Export: `/tmp/agp-evaluation-preparation.5Lswpq/context-lab`.
+Read-only cache: `/home/apnex/taceng/context-lab`, clean at that revision.
+Independent fresh capture: `/tmp/agp-evaluation-static-checks.CbCe5c/capture-only-evidence.json`.
+
+The retained second payload decodes to 2,252,141 bytes, SHA256:
+2945c82c888e6f486bd4bc466dd09081c515dcbed882076d2ef4081f203e7435
+Its entire object equals the independent fresh capture after normalizing only
+the two temporary panel records-directory paths in prompts. Compared with the
+first payload, the only differences are the delivered policy, its SHA256 and
+those paths. All fixtures, blinded identities, raw synthetic replies, public
+jobs, original votes, uncast entries and build provenance otherwise agree.
+The corrected policy string's SHA256 is:
+9689179537ec49d6a18de4e4a66f7e3eda1861e2e217d8a54fa979a4605054e0
+
+Fixture       Cells  Present  Absent  Cast  Uncast  Intended  Jobs/replies
+Complete          6      144       0   288       0       288         48/48
+Missing reader    6      120      24   240      48       288         40/40
+
+Every present unit still has exactly two other-family votes. All jobs retain one
+reply, zero tools, null error and no failure; all invocations are tools-off.
+Complete member/mode counts: c attachment 16, g attachment 16, o stdin 16.
+Missing-reader counts: c attachment 12, g attachment 16, o stdin 12.
+All 528 original score/reason pairs and 48 absent null/uncast slots are unchanged.
+Repeated library headings remain identity/volume checks, not independent
+comprehension questions, representative reader behavior or live calibration.
+The mixed semantic case is checked by the pure fixture/guard, not by model calls.
+
+PRESERVATION AND EXACT IDENTITIES
+
+All sixteen committed preparation files match the target Git blobs, and HEAD
+remained the target. Compared with the failed target, runtime profile, public
+integration test, design, runtime findings, pre-build review, first author output
+and first compressed capture are unchanged. The entire frozen assurance packet
+also has no commit delta. The prior independent FAIL/report output are exact
+matches to their preservation commit. No sibling or mission-kit mutation occurred.
+
+Changed source SHA256 identities:
+
+- `admission-scoring-policy.mjs`:
+  c92a6540eb1b4d01d84225e4abcd7e7c19800904e95888081bd4592f3c3d20fb
+- `admission-scoring-policy.test.mjs`:
+  70e1de3e0fb7f2d2b1ee6c28d5d35d03e0c985d99bf352fceeaed801540b399d
+- `admission-scoring-cases.json`:
+  cb5a4f9416ab8673535b66260159672fcfef0a6be4d6772d75cdc0ef9e5a2436
+- `mixed-decision-correction.md`:
+  a11daa8f378f9bc05cad17497f9631cab5fa6ab105bdf7c73766001fd376667b
+- `author-test-output-02.txt`:
+  d220224334400e15ce383b32231580fbd6673de4c7fa3708891803ecf5c91d68
+
+CONTINUING GUARDRAILS AND LIMITATIONS
+
+G1/G2: evaluate diagnostics on original raw votes before aggregation/quote caps;
+never change, erase or retry a vote to repair it. Clean diagnostics still cannot
+establish semantic truth. Both full-credit and penalized judgments require
+independent question/answer/source review; post-response substantive defects
+still follow the frozen invalidation rule.
+G3: real missing/ended outcomes remain deterministic zeroes with explicit uncast
+slots, not invented votes; population, denominators and conservative caps remain.
+G4/G5: capture-only public blinding/panel checks do not qualify conductor phases,
+probes, real attachment/stdin delivery, sandbox isolation or provider behavior.
+No provider-capable invocation, registration, model experiment or source edit
+was performed by this review. Only this report and owned output file were added.
+G6: the test cap is not a live selection; calls/cost remain zero and live cap,
+client-request and backend-budget observations remain unselected/unmeasured.
+
+PREP-L1 remains a live-adoption blocker: the candidate's probe retry and final-only
+returned-attempt accounting require a compatible reviewed upstream solution.
+PREP-L2 still requires a separate finite-budget diagnostic/calibration decision,
+sanitized observation method, exact caps, frozen unrelated cases and stop rules,
+plus representative reader-volume/file-writing evidence. PREP-L3 still requires
+later qualification, audited new questions and fresh sessions before any separately
+authorized assurance comparison. No original Gemini termination cause is inferred.
+
+This PASS certifies static preparation only. It does not select a runtime pin
+for live use, waive any live blocker, authorize calls, ratify AGP, verify its
+implementation, close B53, publish, commit/push, or send anything to Zorg.

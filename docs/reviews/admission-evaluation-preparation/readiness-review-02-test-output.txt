@@ -1,0 +1,169 @@
+Independent static preparation recheck: full output
+Reviewed checkpoint: 725d616d836c5e3336d169fc8069c4075790a4ec
+Command:
+AGP_PREPARATION_CORE_ROOT=/tmp/agp-evaluation-preparation.5Lswpq/context-lab AGP_PREPARATION_SOURCE_REPO=/home/apnex/taceng/context-lab node --test docs/reviews/admission-evaluation-preparation/admission-scoring-policy.test.mjs docs/reviews/admission-evaluation-preparation/admission-public-interface.test.mjs docs/reviews/admission-lifetime-assurance-r4/admission-comparison-accounting.test.mjs
+Exit code: 0
+
+{"evidence":"/tmp/agp-evaluation-static-checks.CbCe5c/capture-only-evidence.json","synthetic":true,"modelCalls":0,"evaluatorRevision":"0c0ab1f0248ef0cbb21885d7d6af76586d8a1b68","publicPanelJobs":[48,40],"castVotes":[288,240],"uncastSlots":[0,48]}
+✔ Admission public panel preserves all 144 synthetic outcomes and 288 cross-family vote identities (386.323677ms)
+✔ Admission public blinder leaves missing answers uncast with complete 288-slot accounting (305.319404ms)
+✔ Admission runtime preparation inspects only public setting refusal and sanitized declared routes (1.227455ms)
+✔ Admission preparation retains complete synthetic capture records with explicit provenance (7.388781ms)
+✔ Admission policy explicitly separates proposed status from required-decision uncertainty (0.850347ms)
+✔ Admission diagnostic fixtures cover full credit, status, omission, support, uncertainty, conflict, wrong and absent (2.702914ms)
+✔ Admission checker detects score/reason contradictions in both favorable and unfavorable directions (0.332305ms)
+✔ Admission checker refuses malformed diagnostics without dropping or rewriting the original (0.299415ms)
+✔ Admission negative fixtures prove required-ID and issue-tag checks discriminate (0.244266ms)
+✔ Admission clean diagnostics do not establish semantic validity or approve a vote (0.183183ms)
+✔ Admission wrong-decision precedence retains a different required conflict without raising zero (0.299848ms)
+✔ Admission unrelated semantic cases preserve literal expected distinctions for independent review (0.724495ms)
+✔ Admission accounting preserves all identities and does not issue its own gate verdict (24.217713ms)
+✔ Admission missing null, undefined and blank answers become explicit uncast zeroes (55.154916ms)
+✔ Admission valid phase with no answer file accounts for all twenty-four missing answers (10.07883ms)
+✔ Admission ended sole phase ignores retained partial or complete raw answers (22.256179ms)
+✔ Admission predecessor behavior failure does not automatically fail candidate thresholds (10.133199ms)
+✔ Admission invalid required evidence takes precedence over numerical failure (10.550879ms)
+✔ Admission accounting rejects missing or duplicate cells, probes, votes and invalid provenance (245.835554ms)
+✔ Admission unresolved infrastructure/isolation or incomplete phase never becomes a reader zero (17.949731ms)
+✔ Admission accounting accepts one infrastructure retry but not a behavior retry (18.209475ms)
+✔ Admission minimum-vote and quote caps are downward-only and inspect every excerpt (23.17004ms)
+✔ Admission diagnostic formatting cannot invalidate or improve an accepted score (17.848767ms)
+✔ Admission ties and each individual control regression are not averaged away (31.319537ms)
+✔ Admission accounting requires replay bound to the actual raw replies and derived votes (60.405702ms)
+✔ Admission probe and reader raw evidence cannot be replaced by favorable labels (94.230403ms)
+✔ Admission probe check preserves the pinned allowance for unanswered non-canary questions (2.676376ms)
+ℹ tests 27
+ℹ suites 0
+ℹ pass 27
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 3188.245938
+
+Independent pure-check and full payload comparison
+Old policy imported in memory from bd95232 via git show; no checkout edits.
+The literal wrong-with-separate-conflict case was checked against old score0
+and current scores0/1/2; all original fields were asserted unchanged.
+Complete payload02 was compared with the independent fresh capture after only
+per-run temporary records-directory path normalization. It was also compared
+with payload01 after reversing only the declared policy text and policy hash.
+Exit code: 0
+
+{
+  "mixedCaseBefore": {
+    "original": {
+      "score": 0,
+      "reason": "DECISION=wrong; COVERAGE=complete; SUPPORT=partial; HEDGE=yes; REQUIRED=R1,R2; ISSUE=wrong-decision,support,conflict; WHY=R1 contradicts its seven-day source while R2 is withheld because the two quoted renewal rules conflict."
+    },
+    "issues": [
+      "unresolved conflict must withhold a decision"
+    ],
+    "diagnostics": {
+      "decision": "wrong",
+      "coverage": "complete",
+      "support": "partial",
+      "hedge": "yes",
+      "required": "R1,R2",
+      "issue": "wrong-decision,support,conflict",
+      "why": "R1 contradicts its seven-day source while R2 is withheld because the two quoted renewal rules conflict."
+    }
+  },
+  "mixedCaseAfter": [
+    {
+      "original": {
+        "score": 0,
+        "reason": "DECISION=wrong; COVERAGE=complete; SUPPORT=partial; HEDGE=yes; REQUIRED=R1,R2; ISSUE=wrong-decision,support,conflict; WHY=R1 contradicts its seven-day source while R2 is withheld because the two quoted renewal rules conflict."
+      },
+      "issues": [],
+      "diagnostics": {
+        "decision": "wrong",
+        "coverage": "complete",
+        "support": "partial",
+        "hedge": "yes",
+        "required": "R1,R2",
+        "issue": "wrong-decision,support,conflict",
+        "why": "R1 contradicts its seven-day source while R2 is withheld because the two quoted renewal rules conflict."
+      }
+    },
+    {
+      "original": {
+        "score": 1,
+        "reason": "DECISION=wrong; COVERAGE=complete; SUPPORT=partial; HEDGE=yes; REQUIRED=R1,R2; ISSUE=wrong-decision,support,conflict; WHY=R1 contradicts its seven-day source while R2 is withheld because the two quoted renewal rules conflict."
+      },
+      "issues": [
+        "wrong decision or no answer requires zero"
+      ],
+      "diagnostics": {
+        "decision": "wrong",
+        "coverage": "complete",
+        "support": "partial",
+        "hedge": "yes",
+        "required": "R1,R2",
+        "issue": "wrong-decision,support,conflict",
+        "why": "R1 contradicts its seven-day source while R2 is withheld because the two quoted renewal rules conflict."
+      }
+    },
+    {
+      "original": {
+        "score": 2,
+        "reason": "DECISION=wrong; COVERAGE=complete; SUPPORT=partial; HEDGE=yes; REQUIRED=R1,R2; ISSUE=wrong-decision,support,conflict; WHY=R1 contradicts its seven-day source while R2 is withheld because the two quoted renewal rules conflict."
+      },
+      "issues": [
+        "full credit contradicts the diagnostic fields",
+        "wrong decision or no answer requires zero"
+      ],
+      "diagnostics": {
+        "decision": "wrong",
+        "coverage": "complete",
+        "support": "partial",
+        "hedge": "yes",
+        "required": "R1,R2",
+        "issue": "wrong-decision,support,conflict",
+        "why": "R1 contradicts its seven-day source while R2 is withheld because the two quoted renewal rules conflict."
+      }
+    }
+  ]
+}
+{
+  "decodedOldSha256": "0c38179e7f6d26a7dbd0871effb6abc7388926f6d08ff5175ab690cbb3f00544",
+  "decodedNewSha256": "2945c82c888e6f486bd4bc466dd09081c515dcbed882076d2ef4081f203e7435",
+  "decodedNewBytes": 2252141,
+  "policySha256": "9689179537ec49d6a18de4e4a66f7e3eda1861e2e217d8a54fa979a4605054e0",
+  "verifiedExportFiles": 128,
+  "buildCommand": "npm run build -- --force",
+  "buildOutput": "\n> @apnex/context-lab@0.0.0 build\n> tsc -b --force\n\n",
+  "fullSecondCaptureEqualsFreshAfterTemporaryRecordsPathNormalization": true,
+  "onlyFirstToSecondPayloadChanges": "delivered policy, policy hash, and two temporary records paths",
+  "runs": [
+    {
+      "cells": 6,
+      "present": 144,
+      "absent": 0,
+      "votes": 288,
+      "uncast": 0,
+      "jobs": 48,
+      "replies": 48,
+      "modes": {
+        "c/attachment/off": 16,
+        "g/attachment/off": 16,
+        "o/stdin/off": 16
+      }
+    },
+    {
+      "cells": 6,
+      "present": 120,
+      "absent": 24,
+      "votes": 240,
+      "uncast": 48,
+      "jobs": 40,
+      "replies": 40,
+      "modes": {
+        "c/attachment/off": 12,
+        "g/attachment/off": 16,
+        "o/stdin/off": 12
+      }
+    }
+  ]
+}
+
