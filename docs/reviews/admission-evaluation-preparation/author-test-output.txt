@@ -1,0 +1,51 @@
+Command:
+AGP_PREPARATION_CORE_ROOT=/tmp/agp-evaluation-preparation.5Lswpq/context-lab AGP_PREPARATION_SOURCE_REPO=/home/apnex/taceng/context-lab node --test docs/reviews/admission-evaluation-preparation/admission-scoring-policy.test.mjs docs/reviews/admission-evaluation-preparation/admission-public-interface.test.mjs docs/reviews/admission-lifetime-assurance-r4/admission-comparison-accounting.test.mjs test/conformance/board-record.test.js test/conformance/record-integrity.test.js test/conformance/architecture-record.test.js
+
+{"evidence":"/tmp/agp-evaluation-static-checks.bnw3jN/capture-only-evidence.json","synthetic":true,"modelCalls":0,"evaluatorRevision":"0c0ab1f0248ef0cbb21885d7d6af76586d8a1b68","publicPanelJobs":[48,40],"castVotes":[288,240],"uncastSlots":[0,48]}
+✔ Admission public panel preserves all 144 synthetic outcomes and 288 cross-family vote identities (569.767138ms)
+✔ Admission public blinder leaves missing answers uncast with complete 288-slot accounting (427.108314ms)
+✔ Admission runtime preparation inspects only public setting refusal and sanitized declared routes (1.975851ms)
+✔ Admission preparation retains complete synthetic capture records with explicit provenance (9.676609ms)
+✔ Admission policy explicitly separates proposed status from required-decision uncertainty (1.235697ms)
+✔ Admission diagnostic fixtures cover full credit, status, omission, support, uncertainty, conflict, wrong and absent (4.190633ms)
+✔ Admission checker detects score/reason contradictions in both favorable and unfavorable directions (0.474043ms)
+✔ Admission checker refuses malformed diagnostics without dropping or rewriting the original (0.482563ms)
+✔ Admission negative fixtures prove required-ID and issue-tag checks discriminate (0.423842ms)
+✔ Admission clean diagnostics do not establish semantic validity or approve a vote (0.260366ms)
+✔ Admission unrelated semantic cases preserve literal expected distinctions for independent review (1.079697ms)
+✔ Admission accounting preserves all identities and does not issue its own gate verdict (53.086927ms)
+✔ Admission missing null, undefined and blank answers become explicit uncast zeroes (71.780916ms)
+✔ Admission valid phase with no answer file accounts for all twenty-four missing answers (14.159292ms)
+✔ Admission ended sole phase ignores retained partial or complete raw answers (31.079886ms)
+✔ Admission predecessor behavior failure does not automatically fail candidate thresholds (14.544563ms)
+✔ Admission invalid required evidence takes precedence over numerical failure (12.498367ms)
+✔ Admission accounting rejects missing or duplicate cells, probes, votes and invalid provenance (304.287663ms)
+✔ Admission unresolved infrastructure/isolation or incomplete phase never becomes a reader zero (23.493109ms)
+✔ Admission accounting accepts one infrastructure retry but not a behavior retry (20.6964ms)
+✔ Admission minimum-vote and quote caps are downward-only and inspect every excerpt (28.378813ms)
+✔ Admission diagnostic formatting cannot invalidate or improve an accepted score (14.923462ms)
+✔ Admission ties and each individual control regression are not averaged away (27.280884ms)
+✔ Admission accounting requires replay bound to the actual raw replies and derived votes (66.190715ms)
+✔ Admission probe and reader raw evidence cannot be replaced by favorable labels (130.751592ms)
+✔ Admission probe check preserves the pinned allowance for unanswered non-canary questions (6.313383ms)
+✔ Given the confirmed intent record, when its numbered subsections are read, then every number is unique and ordered (9.338465ms)
+✔ Given the reconciled architecture, when its current paths and scope owners are resolved, then none points at a fictional module or a forked deferred list (10.559333ms)
+✔ Given the triage ledger, when each candidate is read, then it is scored on both dimensions and cites a record (7.152446ms)
+✔ Given every record cited by the board, when the link is resolved, then the target and its anchor exist (131.726646ms)
+✔ Given the held section, when each item is read, then it is scored and carries a revival trigger (0.944303ms)
+✔ Given the decisions required, when each is read, then it names exactly what it blocks (1.124671ms)
+✔ Given every board identifier, when the ledger and milestones are compared, then neither contains an item the other omits (1.539844ms)
+✔ Given every board item, when its ledger status is compared with where it sits, then the board does not disagree with itself about its state (13.672047ms)
+✔ Given the milestones, when each is read, then no landed item is presented as a live move and the closed count matches the closed set (9.047592ms)
+✔ Given every record that cites a board item, when the citation is resolved, then the item exists on the board (46.415924ms)
+✔ Given the architecture maturity table, when a reopen trigger is read, then it names a condition that has not already happened (3.880732ms)
+✔ Given confirmed intent, when a row says it was amended, then it names the decision that amended it (1.021087ms)
+✔ Given every ratified decision, when it is checked against the vision, then it has been absorbed or explicitly ruled not to change purpose (1.119395ms)
+ℹ tests 39
+ℹ suites 0
+ℹ pass 39
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 5339.634451

@@ -1,0 +1,52 @@
+{
+  "purpose": "Author-authored unrelated development cases for independent policy review; not model observations or hidden assurance questions",
+  "document": "Draft policy, not adopted or implemented.\nA book on the reserve shelf is loaned for seven days.\nRenewals are not allowed for reserve books.\n",
+  "question": "For a reserve book, what is the loan period and may it be renewed?",
+  "key": "Required decisions: R1. The loan period is seven days. R2. Renewal is not allowed.",
+  "requiredDecisionIds": ["R1", "R2"],
+  "cases": [
+    {
+      "id": "complete",
+      "answer": "Reserve books are loaned for seven days and cannot be renewed.\nQUOTE: \"A book on the reserve shelf is loaned for seven days.\"\nQUOTE: \"Renewals are not allowed for reserve books.\"",
+      "expectedRawScore": 2,
+      "reason": "DECISION=correct; COVERAGE=complete; SUPPORT=supported; HEDGE=no; REQUIRED=none; ISSUE=none; WHY=Both required decisions are correct and grounded."
+    },
+    {
+      "id": "accurate-status",
+      "answer": "Reserve books are loaned for seven days and cannot be renewed; this is proposed behavior, not an adopted service rule.\nQUOTE: \"A book on the reserve shelf is loaned for seven days.\"\nQUOTE: \"Renewals are not allowed for reserve books.\"",
+      "expectedRawScore": 2,
+      "reason": "DECISION=correct; COVERAGE=complete; SUPPORT=supported; HEDGE=no; REQUIRED=none; ISSUE=none; WHY=Both decisions are grounded and the accurate adoption caveat changes neither."
+    },
+    {
+      "id": "status-with-required-uncertainty",
+      "answer": "The loan period is seven days; because this is only a proposal I cannot decide whether reserve books may be renewed.\nQUOTE: \"A book on the reserve shelf is loaned for seven days.\"\nQUOTE: \"Renewals are not allowed for reserve books.\"",
+      "expectedRawScore": 1,
+      "reason": "DECISION=withheld; COVERAGE=complete; SUPPORT=supported; HEDGE=yes; REQUIRED=R2; ISSUE=uncertainty; WHY=Despite quoting the rule the answer explicitly withholds the asked renewal decision."
+    },
+    {
+      "id": "omitted-decision",
+      "answer": "The loan period is seven days.\nQUOTE: \"A book on the reserve shelf is loaned for seven days.\"",
+      "expectedRawScore": 1,
+      "reason": "DECISION=correct; COVERAGE=incomplete; SUPPORT=supported; HEDGE=no; REQUIRED=R2; ISSUE=omission; WHY=The answer does not address the required renewal decision."
+    },
+    {
+      "id": "unsupported-decision",
+      "answer": "The loan period is seven days and renewal is not allowed.\nQUOTE: \"A book on the reserve shelf is loaned for seven days.\"",
+      "expectedRawScore": 1,
+      "reason": "DECISION=correct; COVERAGE=complete; SUPPORT=partial; HEDGE=no; REQUIRED=R2; ISSUE=support; WHY=The supplied excerpt does not support the renewal decision."
+    },
+    {
+      "id": "wrong-decision",
+      "answer": "The loan period is thirty days and renewal is not allowed.\nQUOTE: \"A book on the reserve shelf is loaned for seven days.\"\nQUOTE: \"Renewals are not allowed for reserve books.\"",
+      "expectedRawScore": 0,
+      "reason": "DECISION=wrong; COVERAGE=complete; SUPPORT=partial; HEDGE=no; REQUIRED=R1; ISSUE=wrong-decision,support; WHY=The thirty-day decision contradicts both the key and its quoted seven-day rule."
+    },
+    {
+      "id": "absent-answer",
+      "answer": null,
+      "expectedRawScore": null,
+      "expectedOutcomeScore": 0,
+      "expectedVoteStatus": "not cast: missing answer"
+    }
+  ]
+}

@@ -1,0 +1,22 @@
+{
+  "schema": "agp.admission-evaluation-preparation/1",
+  "purpose": "Static development evidence only; not a registered experiment or execution profile",
+  "evaluatorRevision": "0c0ab1f0248ef0cbb21885d7d6af76586d8a1b68",
+  "evaluatorAdoptedForLiveUse": false,
+  "liveCallsMaximum": 0,
+  "liveCostMaximum": 0,
+  "liveReplyCap": null,
+  "clientRequestObservation": null,
+  "backendBudgetObservation": null,
+  "frozenPopulationSource": "../admission-lifetime-assurance-r4/pack.json",
+  "frozenWallLimitsSource": "../admission-lifetime-assurance-r4/admission-execution-config.json",
+  "sanitizedProviderSource": "../admission-lifetime-assurance-r4/admission-provider-config.json",
+  "runtimeCompatibility": "runtime-compatibility.md",
+  "liveBlockers": [
+    "Select and qualify a compatible evaluator revision without silently accepting new retry policy or losing attempt accounting",
+    "Select sanitized request observation and finite diagnostic/calibration call and cost ceilings",
+    "Select explicit live caps only with the actual route/budget observation method",
+    "Freeze independently reviewed unrelated calibration cases, expected outcomes and stop conditions",
+    "Qualify representative reader volume, visible/reasoning-token accounting and answer-file production"
+  ]
+}

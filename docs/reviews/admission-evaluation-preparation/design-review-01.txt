@@ -1,0 +1,257 @@
+ADMISSION EVALUATION PREPARATION: INDEPENDENT DESIGN AND M7 REVIEW
+
+Tier 3: independent analytical judgment, 2026-10-17 Australia/Melbourne.
+Design verdict: PASS for bounded static preparation, with the guardrails below.
+M7 verdict: PASS for that same preparation scope, not live qualification.
+
+IDENTITY AND INDEPENDENCE
+
+Work: selected admission-evaluation repair preparation, before implementation.
+Reviewed design: `docs/reviews/admission-evaluation-preparation/design.md`.
+Reviewed design SHA256:
+c5f0f469a6e2c64dd6cdcd911902a1d80a4ceeca25a86fdd40686636011f5f57
+AGP HEAD at review: bcf0738a7af8d17fefc9f83a293fd03bb7633d14.
+The design is an uncommitted artifact identified by its measured hash, not by
+the HEAD commit. This verdict is not transferable to a changed design by title.
+
+Reviewer: `/root/admission_job_boundary_review`, independent non-author of this
+design/procedure; not a scored reader or judge. I previously reviewed the old
+packet and authored its completed-measurement judgment, which is disclosed
+continuity, not authorship of this repair. No delegation was used.
+
+Constitution: mission-kit `7c059b15eda7a92f0462c79e740fb5f14c20dbce`, read
+with `git show` from `/home/apnex/taceng/mission-kit`, without switching it.
+The parent supplied the remote-canonical verification; I verified the local
+commit object and origin `https://github.com/apnex/mission-kit.git`.
+Read: `/home/apnex/taceng/AGENTS.md`, the complete INDEX, M7, A0 and A1-A14,
+R3, W10/W22, E7/E8, M1/M2, C2, RU1-RU3, and relevant style guidance.
+The research-artefacts skill supplies the bounded plan and explicit separation
+of author claims, source facts and judgment. The repo-audit guidance supplied
+source-grounding discipline; this is not a whole-project adoption audit.
+
+Other measured input identities (paths under `docs/reviews/`):
+
+- `admission-evaluation-repair-proposal.md`:
+  54da382bd5418be69f67accf4458ed18d7950010891d9717a6d2fe892aa34bae
+- `admission-evaluation-repair-findings.md`:
+  d24688b531b3239b7d6a068e25ca22bce9ab836e794a14fa3d52725090942ad3
+- `admission-evaluation-preparation/runtime-compatibility.md`:
+  f40b05f83233f80c12ce503a8d3cb425f674db8dc79d994cc1ba6085635ee89c
+- Applicable parent `AGENTS.md`:
+  ec472eadfcf0afde17f6073000abf1d523de4bc3962958ee6431fc7cb2f4f8ad
+
+Bounded plan (recorded before reading the design or tracing its source paths)
+
+1. Read the pinned M7/axiom and verifier/gate guidance, then the selected
+   repair proposal, exact design, and the source findings they rely on.
+2. Establish descriptive facts along three seams: evaluation contract and
+   diagnostic consistency; public runtime output-cap/route/probe interfaces;
+   static preparation versus later live qualification and authority.
+3. Adversarially assess scope, score preservation/inflation, absent outcomes,
+   retry/provenance deltas, and the claimed evidence boundary.
+4. Record independent design and M7 verdicts, source identity/provenance,
+   axiom mapping, layers, tensions, required deltas, implementation guardrails,
+   and exact-artifact validation/closeout hooks in this file only.
+
+Vocabulary: preparation, qualification, raw reason, diagnostic consistency,
+behavior-ended outcome, not cast, NO VERDICT, exact-artifact readiness.
+Absences to test: score-2 vacuity, required-decision linkage, complete raw
+attempt retention, explicit future live gates, and unresolved budget authority.
+Parked: AGP semantic redesign, new comparisons, model calls, runtime fault
+reproduction, retroactive rescoring, upstream edits, execution and publication.
+
+MECHANICS: SOURCE FINDINGS AND ADVERSARIAL ASSESSMENT
+
+1. The repair addresses an observed defect without claiming its cause proved.
+   I re-read the frozen preregistration's scoring/validity clauses, the actual
+   A16 question, key, answer and Gemini raw reason in job
+   `admission-clarity.answer.answers.g.15.json`, and candidate input status and
+   recommendation text. The accepted penalty used accurate proposal status as
+   its sole stated hedge despite correct/complete/supported required decisions.
+   The design's lines 26-32 preserve completeness and support requirements while
+   distinguishing that status caveat from actual required-decision uncertainty.
+   They neither mandate score 2 for mentioning proposal status nor excuse an
+   answer that withholds a required decision. This is a prospective correction;
+   it does not regrade the old answer or prove why that judge made its error.
+
+2. One delivered policy is a real seam, not an alternate judge implementation.
+   At context-lab candidate `0c0ab1f0248ef0cbb21885d7d6af76586d8a1b68`,
+   `packages/core/src/judge-panel.ts` has the same Git blob as at historical
+   `6e6d0a92965a15ec473c661887b2b9c5037fedcf`:
+   306d7da951a88cefcdcfe0bc923ee4bbddab3070.
+   Its lines 95-110 deliver custom judge instructions, question, key, rubric
+   and answer; the generic fallback is replaced, not appended. Lines 135-152
+   accept integer score range/association and stringify the reason, without
+   adjudicating its meaning. Lines 175-224 assign other-family judges, choose
+   the adapter's delivery mode, invoke tools-off, and retain job replies.
+   `index.ts` exports `judgeAll`. Thus the proposed capture injection can check
+   the real public rendering/assignment/parser seam without copying it.
+   It cannot show an actual runtime delivered the prompt or obeyed isolation.
+
+3. The checker must detect contradiction, not become an automatic scorer.
+   Design lines 40-53 expressly preserve the original score/reason and require
+   independent semantic review of full-credit votes as well as penalties.
+   Falsifiable failure hypotheses are: a correct-looking tag record conceals
+   a wrong decision; an accurate caveat is falsely assigned a required ID; a
+   score-1 record has no actual deficiency; or a quote cap creates an apparent
+   contradiction when applied before this checker. G1-G3 below hold these
+   boundaries. Mechanical cleanliness supplies no entitlement to full credit.
+
+4. Absence needs two distinct test surfaces.
+   The design includes an absent-answer diagnostic fixture, but the selected
+   proposal preserves deterministic zero outcomes and explicit not-cast slots.
+   Testing syntax for `DECISION=missing`, `REQUIRED=all`, `ISSUE=no-answer`
+   is legitimate as a checker unit test; inserting such a vote into an actual
+   absent reader outcome would contradict the frozen accounting rule.
+   G3 is mandatory. No denominator, eligible population or threshold changes.
+
+5. The public cap is configuration, not an observed effective budget.
+   Candidate `adapters.ts:179-191` accepts positive integral `outputTokenMax`;
+   lines 216-225 put it into the explicit OpenCode sandbox environment.
+   Lines 167-177 disclose a configured route; this is not an SDK/wire/backend
+   trace. Codex lines 297-309 accept only `reasoningEffort`, not the cap.
+   These source facts support static seam preparation only. I did not re-probe
+   OpenCode, infer a cause of the historical Gemini stops, or select a token
+   value. The design explicitly distinguishes these levels at lines 64-72.
+
+6. The whole candidate upgrade has a live-adoption blocker.
+   Independently confirmed in `isolation-prober.ts:72-88`: a tool-using first
+   probe can be retried, the local outcome is replaced, and returned answers
+   describe only the final attempt. Final-only returned tool counts therefore
+   cannot prove that every attempt was tools-off. This is source-derived, not
+   a reproduced runtime failure or a claim that it happened in the old run.
+   The candidate diff spans 30 files; unchanged judge-panel code does not
+   qualify its conductor/probe/accounting changes. The separate compatibility
+   record preserves this blocker. The earlier cap commit
+   `9a9b5e96c484b37d3f3fdbf34c0e7b726747a0a1` shares the old probe blob
+   `bdb5c0b7b4d7be9fb6b6c6c5b0dfd9a69e57d9fb`, which is an alternative
+   to review, not a pin selected or qualified here.
+
+AXIOM MAPPING
+
+The bounded system holds durable evaluation records, coordinates independent
+authors/reviewers and future readers/judges, and puts model judgment on the
+eventual critical path. Stateful, multi-agent and LLM-in-the-loop commitments
+therefore apply. The deterministic specification seam is considered below;
+this report does not claim the broader system is a reconciled declarative one.
+
+- A1, load-bearing: raw prompts/replies/votes and exact identities survive the
+  checker. Final-only probe retention is explicitly blocked from live adoption.
+- A2, supporting: one policy generates both delivered instruction surfaces,
+  checked byte-for-byte. This reduces specification drift; it is not proof of
+  a fully isomorphic/reconciling evaluation system.
+- A3, load-bearing: AGP owns scoring semantics; context-lab owns dispatch and
+  runtime mechanisms. Public injection is allowed; copied parser/conductor or
+  private monkey-patching to bypass the upstream gap is not.
+- A4, load-bearing: preserve historical raw evidence and verdicts verbatim;
+  preparation captures and future request observations remain distinct records.
+- A5, load-bearing: explicit common proposal status and required decisions reach
+  every judge profile. Rendered parity is not assumed to establish live parity.
+- A6, supporting: generate the shared policy instead of manually transcribing
+  divergent instructions; independent review does not transfer author authority.
+- A7, load-bearing: diagnostic findings stop promotion with actionable issues;
+  failed/absent outcomes remain visible, never silently replaced by successes.
+- A8, load-bearing: design/M7 precede code; exact-artifact readiness follows;
+  live observation/calibration and fresh assurance have separate later gates.
+- A9, not materially implicated as deployment proof at this gate: no production
+  or live runtime is promoted. Static evidence must not acquire that claim.
+- A10, supporting: the observed evaluator friction becomes an explicit repair
+  and compatibility gap, without inventing an AGP mechanism defect.
+- A11, load-bearing: syntax, ID membership, contradiction detection and complete
+  accounting belong in code; semantic entailment remains independent judgment.
+- A12, supporting: explicit diagnostic structure and future budget observations
+  make context cost inspectable. Savings, sufficiency and live caps are unmeasured;
+  historical complete inputs cannot be trimmed merely to improve completion.
+- A13, load-bearing: preparation consumes no model budget and preselects neither
+  token values nor failure-policy changes. Live authority remains the director's.
+- A14, load-bearing: prior lessons become prospective invariants and ordinary
+  static checks; they do not become reused assurance cases or forgotten blockers.
+
+LAYERS AND TENSIONS
+
+- Intent/authority: the selected move prepares an instrument, not an AGP redesign
+  or live launch. Economy of director attention does not authorize missing choices.
+- State/knowledge: immutable old records coexist with separately labelled
+  development captures. Compact findings reference full evidence rather than
+  substituting for it; no session-memory-only prerequisite is accepted.
+- Specification/composition: generated policy, pure checker and public panel
+  have separate duties. Shared generation prevents drift; independent literal
+  semantic expectations must prevent a shared incorrect rule from passing itself.
+- Perception/context: common proposal status is given uniformly, without revealing
+  which document is preferred. It cannot replace decisive quoted support.
+- Operations/integrity: synthetic jobs exercise the declared public seam only.
+  Whole-runtime retry/retention drift cannot inherit that seal. Resilience does
+  not permit favorable retries that erase failed attempts from the measurement.
+- Learning: the upstream attempt-retention gap is durable and must be revisited
+  before live selection. It does not justify expanding this preparation into a
+  harness fork, unapproved diagnostic, or iterative AGP redesign.
+
+DELTAS AND IMPLEMENTATION GUARDRAILS
+
+No blocking design rewrite or director override is required for this static
+preparation. The following are conditions of this PASS, not optional polish:
+
+G1. Run the pure diagnostic checker on original accepted judge votes, before
+    conservative aggregation and exact-quote caps. Retain raw score/reason and
+    every finding. Never coerce, erase, rescore, substitute or favorably retry a
+    vote; a flag is neither a fabricated missing vote nor a semantic conviction.
+G2. Keep score 2 contingent on every numbered required decision being correct,
+    complete, settled and sufficiently grounded. Valid IDs/tags alone prove none
+    of that. Preserve negative cases for real uncertainty, omissions, unsupported
+    decisions and wrong decisions, including answers that invoke proposal status
+    while actually declining an asked decision. Test the policy's expected meaning,
+    not only a renderer compared with another output of the same renderer.
+G3. Keep absent-answer diagnostic fixtures checker-only. Actual absent/ended
+    outcomes remain deterministic zeroes plus explicit not-cast slots, with no
+    invented judge votes. Keep all six readers, other-family assignments, complete
+    denominators, conservative aggregation and quote caps unchanged.
+G4. The public-panel integration must inject local capture-only adapters with
+    no provider-capable fallback, use the real supported delivery modes, require
+    tools off, retain complete units/jobs/prompts/replies/votes and verify exact
+    assignments. Well-formed fixtures require no retries. All records are synthetic
+    development evidence; neither a reader probe nor a conductor run is in scope.
+G5. No execution/registration path, real adapter invocation, model experiment,
+    shared-config change or sibling mutation. Source/route/refusal checks must use
+    only sanitized explicit configuration. Route disclosure is not a general-purpose
+    secret scrubber, request capture or backend attestation.
+G6. No live cap selected by a synthetic test value; no Codex cap setting. Preserve
+    separately configured override, client-emitted request and backend-received/
+    enforced value, allowing unknowns. Retain visible output, reasoning use, finish
+    reason, file result and elapsed time independently when later authorized.
+
+Durable follow-ups, not implementation permission:
+
+- PREP-L1, runtime adoption: on any proposed live pin selection, re-triage the
+  probe retry/all-attempt-recording gap and the changed public consumers. Qualify
+  a compatible upstream revision or a reviewed upstream policy/recording seam;
+  do not select the earlier commit or waive the gap by implication.
+- PREP-L2, live diagnostics/calibration: only on a separate director decision,
+  freeze finite call/cost ceilings, exact caps, sanitized observation method,
+  unrelated cases/expected outcomes and stop rules. Representative volume and
+  file-writing behavior remain unmeasured. No endless calibration until success.
+- PREP-L3, fresh assurance: only after calibration qualification and separate
+  authority, independently audit new questions and fresh sessions for both
+  unchanged inputs. Preserve the completed-measurement independent semantic
+  review and post-response substantive-defect invalidation rule.
+
+CLOSEOUT HOOKS AND CONSEQUENCE
+
+The separate exact-artifact readiness recheck must bind the resulting design,
+policy, checker, runtime profile, public evaluator pin and complete capture/test
+inventory by measured identities. Recheck G1-G6 against implementation, including
+unchanged raw votes, full-credit semantic cases, status-plus-real-gap cases,
+checker-only absence, actual captured modes/assignments and complete job inventory.
+Inspect retained outputs, not just a passing test count. Carry PREP-L1 through L3
+into closeout explicitly; a static PASS cannot erase them.
+
+This review ran read-only source/record/hash checks, no tests or model calls.
+Preparation code/captures were not being certified at this pre-build gate.
+The design/proposal hashes and AGP HEAD remained the assigned identities at the
+final check; the frozen packet had no tracked diff, and the context-lab sibling
+and mission-kit checkout were clean. Only this new report was written by me.
+
+Consequence: implementation of the bounded static preparation may proceed under
+these guardrails. The original valid FAIL and subsequent NO VERDICT remain
+unchanged. No live suitability, Gemini repair, AGP implementation, ratification,
+B53 closure, publication, commit/push or Zorg correspondence is authorized or
+claimed by either PASS.
