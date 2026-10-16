@@ -13,11 +13,15 @@ The [selected repair proposal](../admission-evaluation-repair-proposal.md) defin
 | [Static interface tests](admission-public-interface.test.mjs) | Exercise public blinding, cross-family assignment, prompt rendering and reply parsing through local capture-only runtimes |
 | [Preparation profile](preparation-profile.json) | Zero live calls/cost, unselected live cap and explicit live blockers |
 | [Runtime findings](runtime-compatibility.md) | Separate supported public settings from unmeasured request/backend limits and changed retry policy |
-| [Author test output](author-test-output.txt) | Exact command and full output: 39 passed, including 11 new preparation checks and 28 existing accounting/record checks |
+| [Current author test output](author-test-output-02.txt) | Failing-before guard and complete passing output: 40 passed, including 12 preparation checks and 28 existing accounting/record checks |
 
 The original design-review target was checked before code was written.\
 Subsequent changes to the design and runtime-findings Markdown only applied the repository's layout formatter; the independent artifact review must check the resulting hashes.\
 The first Markdown check failed layout rules; formatting corrected those failures without changing the scoring or runtime proposal.
+
+The [first artifact review](readiness-review-01.txt) found a mixed-decision contract defect despite the passing checks.\
+The [prospective correction](mixed-decision-correction.md) preserves wrong-decision precedence while retaining a separate conflict; its exact-artifact recheck is required before preparation readiness is claimed.\
+The first capture and [first author output](author-test-output.txt) remain preserved.
 
 ---
 
@@ -54,14 +58,15 @@ AGP_PREPARATION_SOURCE_REPO=/path/to/context-lab-repository \
 node --test docs/reviews/admission-evaluation-preparation/admission-scoring-policy.test.mjs docs/reviews/admission-evaluation-preparation/admission-public-interface.test.mjs
 ```
 
-The complete retained capture is gzip-compressed and base64-encoded at `capture-only-evidence.json.gz.base64`.\
+The corrected complete capture is gzip-compressed and base64-encoded at `capture-only-evidence-02.json.gz.base64`.\
 It contains all source fixtures, units, prompts, raw synthetic replies, public job records, votes, uncast identities and build provenance, not just counters.\
-Its decoded JSON SHA-256 is `0c38179e7f6d26a7dbd0871effb6abc7388926f6d08ff5175ab690cbb3f00544`.
+Its decoded JSON SHA-256 is `2945c82c888e6f486bd4bc466dd09081c515dcbed882076d2ef4081f203e7435`.\
+The first capture remains at `capture-only-evidence.json.gz.base64`, decoded SHA-256 `0c38179e7f6d26a7dbd0871effb6abc7388926f6d08ff5175ab690cbb3f00544`.
 
 To check the lossless retained payload:
 ```bash
 set -o pipefail
-base64 --decode docs/reviews/admission-evaluation-preparation/capture-only-evidence.json.gz.base64 | gzip --decompress | sha256sum
+base64 --decode docs/reviews/admission-evaluation-preparation/capture-only-evidence-02.json.gz.base64 | gzip --decompress | sha256sum
 ```
 
 ---

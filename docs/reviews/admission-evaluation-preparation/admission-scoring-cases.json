@@ -42,6 +42,13 @@
       "reason": "DECISION=wrong; COVERAGE=complete; SUPPORT=partial; HEDGE=no; REQUIRED=R1; ISSUE=wrong-decision,support; WHY=The thirty-day decision contradicts both the key and its quoted seven-day rule."
     },
     {
+      "id": "wrong-with-separate-conflict",
+      "document": "Draft policy, not adopted or implemented.\nA book on the reserve shelf is loaned for seven days.\nRenewals are not allowed for reserve books.\nEach reserve book may be renewed once.\n",
+      "answer": "The loan period is thirty days; I cannot settle renewal because the quoted renewal rules conflict.\nQUOTE: \"A book on the reserve shelf is loaned for seven days.\"\nQUOTE: \"Renewals are not allowed for reserve books.\"\nQUOTE: \"Each reserve book may be renewed once.\"",
+      "expectedRawScore": 0,
+      "reason": "DECISION=wrong; COVERAGE=complete; SUPPORT=partial; HEDGE=yes; REQUIRED=R1,R2; ISSUE=wrong-decision,support,conflict; WHY=R1 contradicts its seven-day source while R2 is withheld because the two quoted renewal rules conflict."
+    },
+    {
       "id": "absent-answer",
       "answer": null,
       "expectedRawScore": null,

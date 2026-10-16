@@ -27,7 +27,9 @@ REQUIRED lists the actual numbered decisions affected by a penalty; use none for
 ISSUE lists actual deficiencies, never proposal status; use none for full credit.
 DECISION=missing means a wholly absent answer, not an omitted part of a present answer.
 An omission has COVERAGE=incomplete; inadequate support has SUPPORT=partial or none; required uncertainty has HEDGE=yes.
-A material unresolved conflict has DECISION=withheld and HEDGE=yes; a withheld decision needs uncertainty or conflict.
+Any wrong required decision takes aggregate DECISION=wrong precedence and scores 0, even when another required decision is withheld or conflicting.
+A material unresolved conflict has HEDGE=yes and DECISION=withheld unless a wrong decision takes that precedence; retain every affected decision and issue.
+A withheld decision needs uncertainty or conflict.
 No-answer uses DECISION=missing, COVERAGE=incomplete, SUPPORT=none, HEDGE=no, REQUIRED=all and ISSUE=no-answer.
 Full credit uses correct, complete, supported, no, none and none respectively.
 Each penalty must name its affected required decisions and explain the concrete deficiency against the question and key.
@@ -76,7 +78,7 @@ export function checkAdmissionJudgment({ score, reason, requiredDecisionIds }) {
     flag((coverage === 'incomplete') !== has('omission'), 'omission issue and coverage tag disagree');
     flag((support !== 'supported') !== has('support'), 'support issue and support tag disagree');
     flag((hedge === 'yes') !== (has('uncertainty') || has('conflict')), 'uncertainty/conflict issue and hedge tag disagree');
-    flag(has('conflict') && decision !== 'withheld', 'unresolved conflict must withhold a decision');
+    flag(has('conflict') && decision !== 'withheld' && decision !== 'wrong', 'unresolved conflict needs withholding unless a wrong decision takes precedence');
     flag(decision === 'withheld' && !has('uncertainty') && !has('conflict'), 'withheld decision lacks uncertainty or conflict');
   }
   return { original, issues, diagnostics: { decision, coverage, support, hedge, required, issue, why } };

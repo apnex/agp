@@ -1,0 +1,101 @@
+RED BEFORE CORRECTION (exit 1)
+Command:
+node --test docs/reviews/admission-evaluation-preparation/admission-scoring-policy.test.mjs
+
+✔ Admission policy explicitly separates proposed status from required-decision uncertainty (0.792478ms)
+✔ Admission diagnostic fixtures cover full credit, status, omission, support, uncertainty, conflict, wrong and absent (2.262898ms)
+✔ Admission checker detects score/reason contradictions in both favorable and unfavorable directions (0.368312ms)
+✔ Admission checker refuses malformed diagnostics without dropping or rewriting the original (0.413159ms)
+✔ Admission negative fixtures prove required-ID and issue-tag checks discriminate (0.35674ms)
+✔ Admission clean diagnostics do not establish semantic validity or approve a vote (0.229585ms)
+✖ Admission wrong-decision precedence retains a different required conflict without raising zero (1.015086ms)
+✔ Admission unrelated semantic cases preserve literal expected distinctions for independent review (0.571007ms)
+ℹ tests 8
+ℹ suites 0
+ℹ pass 7
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 56.322393
+
+✖ failing tests:
+
+test at docs/reviews/admission-evaluation-preparation/admission-scoring-policy.test.mjs:87:1
+✖ Admission wrong-decision precedence retains a different required conflict without raising zero (1.015086ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:
+  + actual - expected
+  
+  + [
+  +   'unresolved conflict must withhold a decision'
+  + ]
+  - []
+  
+      at TestContext.<anonymous> (file:///home/apnex/taceng/agp/docs/reviews/admission-evaluation-preparation/admission-scoring-policy.test.mjs:90:10)
+      at Test.runInAsyncScope (node:async_hooks:214:14)
+      at Test.run (node:internal/test_runner/test:1106:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:788:18)
+      at Test.postRun (node:internal/test_runner/test:1235:19)
+      at Test.run (node:internal/test_runner/test:1163:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:788:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: [ 'unresolved conflict must withhold a decision' ],
+    expected: [],
+    operator: 'deepStrictEqual',
+    diff: 'simple'
+  }
+
+GREEN AFTER CORRECTION (exit 0)
+Command:
+AGP_PREPARATION_CORE_ROOT=/tmp/agp-evaluation-preparation.5Lswpq/context-lab AGP_PREPARATION_SOURCE_REPO=/home/apnex/taceng/context-lab node --test docs/reviews/admission-evaluation-preparation/admission-scoring-policy.test.mjs docs/reviews/admission-evaluation-preparation/admission-public-interface.test.mjs docs/reviews/admission-lifetime-assurance-r4/admission-comparison-accounting.test.mjs test/conformance/board-record.test.js test/conformance/record-integrity.test.js test/conformance/architecture-record.test.js
+
+{"evidence":"/tmp/agp-evaluation-static-checks.QG5O50/capture-only-evidence.json","synthetic":true,"modelCalls":0,"evaluatorRevision":"0c0ab1f0248ef0cbb21885d7d6af76586d8a1b68","publicPanelJobs":[48,40],"castVotes":[288,240],"uncastSlots":[0,48]}
+✔ Admission public panel preserves all 144 synthetic outcomes and 288 cross-family vote identities (382.343444ms)
+✔ Admission public blinder leaves missing answers uncast with complete 288-slot accounting (304.107018ms)
+✔ Admission runtime preparation inspects only public setting refusal and sanitized declared routes (1.042182ms)
+✔ Admission preparation retains complete synthetic capture records with explicit provenance (7.12428ms)
+✔ Admission policy explicitly separates proposed status from required-decision uncertainty (1.238889ms)
+✔ Admission diagnostic fixtures cover full credit, status, omission, support, uncertainty, conflict, wrong and absent (3.707491ms)
+✔ Admission checker detects score/reason contradictions in both favorable and unfavorable directions (0.425885ms)
+✔ Admission checker refuses malformed diagnostics without dropping or rewriting the original (0.473977ms)
+✔ Admission negative fixtures prove required-ID and issue-tag checks discriminate (0.405153ms)
+✔ Admission clean diagnostics do not establish semantic validity or approve a vote (0.26879ms)
+✔ Admission wrong-decision precedence retains a different required conflict without raising zero (0.685385ms)
+✔ Admission unrelated semantic cases preserve literal expected distinctions for independent review (1.201585ms)
+✔ Admission accounting preserves all identities and does not issue its own gate verdict (34.994372ms)
+✔ Admission missing null, undefined and blank answers become explicit uncast zeroes (52.314796ms)
+✔ Admission valid phase with no answer file accounts for all twenty-four missing answers (10.576922ms)
+✔ Admission ended sole phase ignores retained partial or complete raw answers (21.460964ms)
+✔ Admission predecessor behavior failure does not automatically fail candidate thresholds (11.29484ms)
+✔ Admission invalid required evidence takes precedence over numerical failure (9.293308ms)
+✔ Admission accounting rejects missing or duplicate cells, probes, votes and invalid provenance (251.838991ms)
+✔ Admission unresolved infrastructure/isolation or incomplete phase never becomes a reader zero (20.39565ms)
+✔ Admission accounting accepts one infrastructure retry but not a behavior retry (19.834251ms)
+✔ Admission minimum-vote and quote caps are downward-only and inspect every excerpt (23.180522ms)
+✔ Admission diagnostic formatting cannot invalidate or improve an accepted score (12.964556ms)
+✔ Admission ties and each individual control regression are not averaged away (21.992996ms)
+✔ Admission accounting requires replay bound to the actual raw replies and derived votes (51.182934ms)
+✔ Admission probe and reader raw evidence cannot be replaced by favorable labels (90.238081ms)
+✔ Admission probe check preserves the pinned allowance for unanswered non-canary questions (2.78637ms)
+✔ Given the confirmed intent record, when its numbered subsections are read, then every number is unique and ordered (6.181309ms)
+✔ Given the reconciled architecture, when its current paths and scope owners are resolved, then none points at a fictional module or a forked deferred list (5.81224ms)
+✔ Given the triage ledger, when each candidate is read, then it is scored on both dimensions and cites a record (11.43043ms)
+✔ Given every record cited by the board, when the link is resolved, then the target and its anchor exist (82.349824ms)
+✔ Given the held section, when each item is read, then it is scored and carries a revival trigger (0.627618ms)
+✔ Given the decisions required, when each is read, then it names exactly what it blocks (0.800318ms)
+✔ Given every board identifier, when the ledger and milestones are compared, then neither contains an item the other omits (0.920317ms)
+✔ Given every board item, when its ledger status is compared with where it sits, then the board does not disagree with itself about its state (7.885395ms)
+✔ Given the milestones, when each is read, then no landed item is presented as a live move and the closed count matches the closed set (3.851031ms)
+✔ Given every record that cites a board item, when the citation is resolved, then the item exists on the board (34.970035ms)
+✔ Given the architecture maturity table, when a reopen trigger is read, then it names a condition that has not already happened (1.190791ms)
+✔ Given confirmed intent, when a row says it was amended, then it names the decision that amended it (0.71279ms)
+✔ Given every ratified decision, when it is checked against the vision, then it has been absorbed or explicitly ruled not to change purpose (1.005452ms)
+ℹ tests 40
+ℹ suites 0
+ℹ pass 40
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 3208.556684

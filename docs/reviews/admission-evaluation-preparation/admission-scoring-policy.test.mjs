@@ -84,11 +84,20 @@ test('Admission clean diagnostics do not establish semantic validity or approve 
   assert.equal('repairedScore' in check(1, falseHedge), false);
 });
 
+test('Admission wrong-decision precedence retains a different required conflict without raising zero', () => {
+  const reason = 'DECISION=wrong; COVERAGE=complete; SUPPORT=partial; HEDGE=yes; REQUIRED=R1,R2; ISSUE=wrong-decision,support,conflict; WHY=R1 contradicts its source while R2 is withheld because of conflicting source rules.';
+  const result = check(0, reason);
+  assert.deepEqual(result.issues, []);
+  assert.deepEqual(result.original, { score: 0, reason });
+  for (const score of [1, 2]) assert.match(check(score, reason).issues.join('\n'), /requires zero/);
+  assert.match(check(0, reason.replace('DECISION=wrong;', 'DECISION=withheld;')).issues.join('\n'), /wrong-decision issue and decision tag disagree/);
+});
+
 test('Admission unrelated semantic cases preserve literal expected distinctions for independent review', () => {
   const fixture = JSON.parse(fs.readFileSync(new URL('./admission-scoring-cases.json', import.meta.url), 'utf8'));
   assert.deepEqual(fixture.cases.map((c) => [c.id, c.expectedRawScore]), [
     ['complete', 2], ['accurate-status', 2], ['status-with-required-uncertainty', 1],
-    ['omitted-decision', 1], ['unsupported-decision', 1], ['wrong-decision', 0], ['absent-answer', null],
+    ['omitted-decision', 1], ['unsupported-decision', 1], ['wrong-decision', 0], ['wrong-with-separate-conflict', 0], ['absent-answer', null],
   ]);
   for (const example of fixture.cases) {
     if (example.answer === null) {
@@ -101,7 +110,7 @@ test('Admission unrelated semantic cases preserve literal expected distinctions 
     // decides whether each expected score is semantically warranted by the case.
     assert.deepEqual(check(example.expectedRawScore, example.reason, fixture.requiredDecisionIds).issues, [], example.id);
     for (const match of example.answer.matchAll(/^QUOTE: (.+)$/gm)) {
-      assert.ok(fixture.document.includes(JSON.parse(match[1])), 'development excerpt must match the source');
+      assert.ok((example.document ?? fixture.document).includes(JSON.parse(match[1])), 'development excerpt must match the source');
     }
   }
 });
