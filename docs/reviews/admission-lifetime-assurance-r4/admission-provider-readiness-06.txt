@@ -1,0 +1,255 @@
+ADMISSION CLARIFICATION R4: BOUNDED RUNTIME-AMENDMENT RECHECK
+
+Verdict: PASS -- STATIC/CONFIGURATION readiness for the prospective OpenCode version amendment; live runtime compatibility and scored assurance are not established.
+Reviewed checkpoint: d1632ef02acd34c0460426185242174f7896a463
+
+Yield: the single-field amendment matches the independently queried installed versions; the pinned CLI surface remains advertised; 26 permitted static tests passed.
+No blocking defect was found within this bounded delta.
+All six reader-profile and three judge-profile delivery/isolation probes remain mandatory before any scored invocation.
+
+Tier 3: the verdict and assessments are this reviewer's judgments.
+[MEASURED] identifies direct reads and checks here; [SOURCE-DERIVED] identifies consequences of inspected code, not live observations; [AUTHOR] and [INHERITED] identify other evidence or prior bounded coverage.
+
+IDENTITY, INDEPENDENCE AND SCOPE
+
+[MEASURED] Parent: 03b22aebb9c154721d1d352a7841ea0f128e5056.
+[MEASURED] Pinned evaluator: /tmp/agp-admission-resume.9mKplT/context-lab, clean at 6e6d0a92965a15ec473c661887b2b9c5037fedcf before and after the tests.
+[MEASURED] Version/identity check time: 2026-10-16T06:01:14.027Z.
+
+Reviewer: /root/admission_job_boundary_review, independent of this amendment's author and not a scored reader.
+I authored the previous bounded review, not the amendment, implementation, tests, designs, questions or keys.
+This is non-author/source-review independence, not model-family independence; I supplied no reader answer or genuine judge vote and delegated no work.
+The only repository file I wrote this turn is this new report.
+
+The condition is limited to the explicitly selected one-field runtime amendment, preservation, version/configuration agreement and compatibility of the inspected public interface sufficiently to attempt the unchanged live prerequisite gate.
+It is not a finding that the new runtime already works correctly with the provider, parser or sandbox.
+References below use packet-relative paths and E = packages/core/src/ in the pinned evaluator.
+
+[MEASURED] Re-read the complete research-artefacts skill and applicable verifier/gate/evidence guidance; used the previously read standing context and ledger.
+Mission-kit cache remains clean at ec356b8c706c1201f636ce526348ec1f6c213a18; the parent separately reverified remote main this turn.
+The skill caused the bounded plan and separation of measured, source-derived and inherited claims; no new semantic audit or broader workflow was added.
+
+BOUNDED PLAN (written before amendment/interface tracing)
+
+1. Read the exact three-file amendment and author evidence; prove one-field scope and preservation.
+2. Trace the pinned adapter, query only versions/help and inspect static refusal metadata.
+3. Rerun the four previously read, unchanged no-model tests and retain full output.
+4. Record one exact-target verdict, independence, inherited coverage and remaining live gates.
+
+Vocabulary: static/configuration readiness, runtime version, delivery/isolation,
+six reader profiles, three judge profiles, no verdict, 144 outcomes, 288 intended slots.
+Look for widened configuration, changed provider/model routing, unsupported CLI flags,
+weakened prerequisites or overwritten history.
+Park semantic-key audit, model calls, runtime/fault probes, crafted cross-job records,
+runtime equivalence, implementation and ratification.
+
+FINDINGS AND EVIDENCE
+
+1. Amendment scope and preservation hold.
+
+[MEASURED] Read the complete three-file diff, admission-runtime-amendment-01.md, admission-runtime-author-checks-01.json and previous readiness-05 report.
+The execution configuration is byte-for-byte its parent text with only expectedRuntimeVersions.opencode changed from 1.19.0 to 1.19.2; the other two changed paths are new amendment and author-evidence records.
+All 40 target packet files equal their committed blobs; 37 of 38 parent files are unchanged, as are all 35 other files from the previous 36-file reviewed checkpoint.
+The provider, models/families, evaluator, six cells, input/key/control material, phase/scoring/retry rules and instrument implementation are therefore unchanged.
+All 57 original assurance files, all prior reports and the recorded version-mismatch stop are preserved byte-for-byte.
+The old stop remains correct for its old checkpoint; this explicit prospective amendment is not a retrospective waiver.
+
+2. Static/runtime-version agreement is measured; live compatibility is not.
+
+[MEASURED] Imported the pinned public core, validated the pack, and queried its opencodeAdapter.version() and codexAdapter.version() plus bwrap --version.
+Observed: OpenCode 1.19.2, codex-cli 0.162.1, bubblewrap 0.4.1; exact equality with the new configuration.
+The public adapter resolves OpenCode to /home/apnex/.opencode/bin/opencode.
+For every declared member, static reader/judge refusal checks returned null with the actual selected modes; sandboxed is adapter metadata, not a measured isolation result.
+Credential presence was checked only as a boolean; no secret value was printed.
+No registration history or packet register/records directory existed.
+
+[MEASURED SOURCE] E/adapters.ts:133-205 reads the explicitly supplied frozen provider configuration, writes fresh per-invocation configuration with plugin=[], scoped instructions/permissions, passes only referenced credential variables, and delegates to runSandboxed.
+Its OpenCode command is run --format json -m MODEL, with inline reader/probe prompts or --file attachment delivery for judges; E/judge-panel.ts:198 selects the latter when stdin is unavailable.
+[MEASURED] The installed binary's run --help exited 0 and advertises the positional message, model, JSON-format, file and session options used by that unchanged adapter.
+[SOURCE-DERIVED] No version-amendment change alters the adapter, provider routing, temporary configuration or bubblewrap boundary (E/runtime-sandbox.ts:41-64).
+[ASSESSMENT] No static CLI/interface incompatibility was found that blocks attempting the already required live probes.
+Help/version/refusal metadata do not validate actual configuration interpretation, instruction delivery, tools-off enforcement, event shapes expected by E/parse-opencode.ts:18-88, backend availability or behavioral equivalence to 1.19.0.
+
+3. Runtime and evidence gates remain load-bearing.
+
+[MEASURED SOURCE] run-admission-comparison.mjs:28-50 still binds the reviewed inventory/readiness, validates the pack and requires exact runtime versions before registration at line 56; analyze-admission-comparison.mjs:31-37 retains receipt and actual recorded-version checks.
+E/run-conductor.ts:275-287 completes and records six reader-profile and three judge-profile probes before scheduling cells.
+The project wrapper at run-admission-comparison.mjs:67-73 still refuses every scored invocation unless all required probe identities and raw evidence pass admissionComparisonProbeIssues; the generic runner's reduced-population behavior is not accepted.
+E/isolation-prober.ts:47-94 retains the no-tool, delivered/foreign-canary, withheld-marker and liveness rules, including the allowed unanswered non-canary case.
+[ASSESSMENT] All nine profiles must pass in the actual run; a failed or incomplete prerequisite stops scored execution with no substitution, reduced population or favorable rerun.
+Those named-content probes remain bounded observations, not proof of every runtime or isolation property.
+
+4. Static checks support preservation, not a live compatibility claim.
+
+[MEASURED] The four test files and local implementations previously read in full are byte-identical to the prior reviewed source; the approved rerun exited 0 with 26 passed and none failed, cancelled, skipped or todo.
+Coverage remains 15 accounting, 5 input/projection, 4 public-panel replay and 2 temporary Git receipt tests; full independent output is retained below.
+[INHERITED] Readiness-05's source-derived job-boundary assessment and bounded PR-02/03 coverage remain applicable to those unchanged bytes; its earlier test evidence is not relabeled as a new live measurement.
+The cross-job constructed reassignment was not rerun, and no new semantic-key audit was performed.
+[AUTHOR] The new author record separately captures build, 26 tests and capture-only rendering; I read it but did not count it as independent execution, repeat the preview, or independently rebuild the evaluator.
+
+LIMITS AND HANDOFF
+
+This exact-target PASS supports the selected conditional execution path only through its unchanged prerequisites; the parent must use this new checkpoint/report rather than treat readiness-05 as reviewing amended bytes.
+Retain registration, actual versions, all attempts/replies, public tally replay and complete 144-outcome/288-intended-slot accounting; completed evidence still needs the separate non-author assurance verdict.
+Any missing or invalid required evidence leaves NO VERDICT, not a favorable reinterpretation.
+No real-runtime adapter.invoke, model call, live probe, experiment registration, AGP traffic/fault test, crafted record reassignment, exploit input, source edit, installation, operator-config change, AGP repository commit, publication or delegation was performed here.
+The existing tests created only their normal disposable static public-panel and receipt fixtures.
+AGP implementation, public-contract ratification, B53 closure, Zorg correspondence and a completed-measurement verdict remain outside this review.
+[MEASURED] Final validation (chunk f2840f, exit 0): HEAD unchanged, all 40 target files still exact, evaluator clean, one exact checkpoint line and one verdict line, and no register/records directory.
+
+RAW INDEPENDENT VERSION / STATIC-INTERFACE CHECK
+
+Exit code: 0
+Execution chunks: a2df31, 4fa24b
+
+{
+  "recordedAt": "2026-10-16T06:01:14.027Z",
+  "target": "d1632ef02acd34c0460426185242174f7896a463",
+  "parent": "03b22aebb9c154721d1d352a7841ea0f128e5056",
+  "tree": "9645095615ef81625352b0a77014389576932f01",
+  "packetTree": "8d70fe4e0d496913d28806a17184b7ec56e17621",
+  "frozenFiles": 40,
+  "parentFiles": 38,
+  "unchangedParentFiles": 37,
+  "unchangedPreviousReviewedFiles": 35,
+  "originalAssuranceFilesPreserved": 57,
+  "configOnlyChangedField": "expectedRuntimeVersions.opencode: 1.19.0 -> 1.19.2",
+  "evaluatorRevision": "6e6d0a92965a15ec473c661887b2b9c5037fedcf",
+  "evaluatorClean": true,
+  "packValid": true,
+  "opencodeBinary": "/home/apnex/.opencode/bin/opencode",
+  "versions": {
+    "opencode": "1.19.2",
+    "codex": "codex-cli 0.162.1",
+    "bubblewrap": "bubblewrap 0.4.1"
+  },
+  "versionsMatch": true,
+  "profiles": [
+    {
+      "id": "c",
+      "runtime": "opencode",
+      "declaredFilesystem": "sandboxed",
+      "readerMode": "inline",
+      "judgeMode": "attachment",
+      "readerRefusal": null,
+      "judgeRefusal": null
+    },
+    {
+      "id": "g",
+      "runtime": "opencode",
+      "declaredFilesystem": "sandboxed",
+      "readerMode": "inline",
+      "judgeMode": "attachment",
+      "readerRefusal": null,
+      "judgeRefusal": null
+    },
+    {
+      "id": "o",
+      "runtime": "codex",
+      "declaredFilesystem": "sandboxed",
+      "readerMode": "inline",
+      "judgeMode": "stdin",
+      "readerRefusal": null,
+      "judgeRefusal": null
+    }
+  ],
+  "selectedProviderCredentialPresent": true,
+  "hashes": {
+    "admission-execution-config.json": "c0122a30db551238bbe1d362977b3938b62f911a06e45b8057515ed625af94c4",
+    "admission-provider-config.json": "98668a42f2fb4e913b07a539b40df560d7cf6051dfe15226602e2f22cd37e7b0",
+    "admission-execution-preflight-02.json": "0b947c1959a44fd40348805861b873e9b55d7f3219857610029e49e52c5d7a11",
+    "admission-provider-readiness-03.txt": "fb21a5eb841eaf30ea1482424bfa1809e8d848f2a79725cee85bd7fe171a177b",
+    "admission-provider-readiness-04.txt": "8c9a01a4c7b62a5670db98201265f0e8cf3e071d902798cbd97e1bef69ca9218",
+    "admission-provider-readiness-05.txt": "bbb6e33d4c34c601d09e0d899638a976a41a44dd533e59c13b0c01084e27cba6"
+  },
+  "registerPresent": false,
+  "recordsPresent": false,
+  "modelCalls": 0,
+  "scope": "Read-only exact-identity/version/static-interface checks, not live runtime compatibility"
+}
+
+RAW INSTALLED CLI HELP
+
+Command: /home/apnex/.opencode/bin/opencode run --help
+Exit code: 0
+Execution chunk: c84369
+
+opencode run [message..]
+
+run opencode with a message
+
+Positionals:
+  message  message to send                                                     [array] [default: []]
+
+Options:
+  -h, --help         show help                                                             [boolean]
+  -v, --version      show version number                                                   [boolean]
+      --print-logs   print logs to stderr                                                  [boolean]
+      --log-level    log level                  [string] [choices: "DEBUG", "INFO", "WARN", "ERROR"]
+      --pure         run without external plugins                                          [boolean]
+      --command      the command to run, use message for args                               [string]
+  -c, --continue     continue the last session                                             [boolean]
+  -s, --session      session id to continue                                                 [string]
+      --fork         fork the session before continuing (requires --continue or --session) [boolean]
+  -m, --model        model to use in the format of provider/model                           [string]
+      --agent        agent to use                                                           [string]
+      --format       format: default (formatted) or json (raw JSON events)
+                                          [string] [choices: "default", "json"] [default: "default"]
+  -f, --file         file(s) to attach to message                                            [array]
+      --title        title for the session (uses truncated prompt if no value provided)     [string]
+      --attach       attach to a running opencode server (e.g., http://localhost:4096)      [string]
+  -p, --password     basic auth password (defaults to OPENCODE_SERVER_PASSWORD)             [string]
+  -u, --username     basic auth username (defaults to OPENCODE_SERVER_USERNAME or 'opencode')
+                                                                                            [string]
+      --dir          directory to run in, path on remote server if attaching                [string]
+      --port         port for the local server (defaults to random port if no value provided)
+                                                                                            [number]
+      --variant      model variant (provider-specific reasoning effort, e.g., high, max, minimal)
+                                                                                            [string]
+      --thinking     show thinking blocks                                                  [boolean]
+  -i, --interactive  run in direct interactive split-footer mode          [boolean] [default: false]
+      --auto         auto-approve permissions that are not explicitly denied (dangerous!)
+                                                                          [boolean] [default: false]
+
+RAW INDEPENDENT STATIC-TEST OUTPUT
+
+Command (cwd: this packet):
+AGP_ADMISSION_EVALUATOR_ROOT=/tmp/agp-admission-resume.9mKplT/context-lab node --test admission-input.test.mjs admission-comparison-accounting.test.mjs admission-judgment-replay.test.mjs admission-execution-receipt.test.mjs
+
+Exit code: 0
+Execution chunks: 6f5668, 26bf42
+
+✔ Admission accounting preserves all identities and does not issue its own gate verdict (26.970537ms)
+✔ Admission missing null, undefined and blank answers become explicit uncast zeroes (54.857836ms)
+✔ Admission valid phase with no answer file accounts for all twenty-four missing answers (12.438339ms)
+✔ Admission ended sole phase ignores retained partial or complete raw answers (25.210032ms)
+✔ Admission predecessor behavior failure does not automatically fail candidate thresholds (10.746913ms)
+✔ Admission invalid required evidence takes precedence over numerical failure (10.427288ms)
+✔ Admission accounting rejects missing or duplicate cells, probes, votes and invalid provenance (270.466563ms)
+✔ Admission unresolved infrastructure/isolation or incomplete phase never becomes a reader zero (21.184388ms)
+✔ Admission accounting accepts one infrastructure retry but not a behavior retry (21.419313ms)
+✔ Admission minimum-vote and quote caps are downward-only and inspect every excerpt (21.70939ms)
+✔ Admission diagnostic formatting cannot invalidate or improve an accepted score (12.64521ms)
+✔ Admission ties and each individual control regression are not averaged away (21.868295ms)
+✔ Admission accounting requires replay bound to the actual raw replies and derived votes (48.257503ms)
+✔ Admission probe and reader raw evidence cannot be replaced by favorable labels (85.321953ms)
+✔ Admission probe check preserves the pinned allowance for unanswered non-canary questions (2.533445ms)
+✔ Admission execution receipt binds complete reviewed Git inventory and readiness identity (57.546344ms)
+✔ Admission receipt rejects omitted coverage, wrong identities and unreviewed file/config changes (556.172683ms)
+✔ Admission input identities match both whole sources and their exact projections (3.25813ms)
+✔ Admission source mutation is rejected before its projection can be trusted (1.466145ms)
+✔ Admission reader mutation is rejected at its content identity boundary (0.727281ms)
+✔ A rehashed but substantively changed reader copy still fails projection fidelity (2.150241ms)
+✔ Admission projection fails closed when its history boundary is absent (0.37916ms)
+✔ Admission public-panel replay binds first prompts, member identities, scores and reasons (67.678958ms)
+✔ Admission public-panel replay preserves pending-only completion and retained failure (131.551219ms)
+✔ Admission public-panel replay reconciles every job across all 144 units and 288 slots (1635.162621ms)
+✔ Admission public-panel replay rejects changed, missing, unparseable or misassigned raw judgments (309.642859ms)
+ℹ tests 26
+ℹ suites 0
+ℹ pass 26
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 2230.70055
