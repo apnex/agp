@@ -1,0 +1,167 @@
+ADMISSION CLARIFICATION R4: PUBLIC JUDGE-JOB BOUNDARY RECHECK
+
+Verdict: PASS -- STATIC INSTRUMENT readiness for this bounded public judge-job correction; not execution readiness or a scored assurance verdict.
+Reviewed checkpoint: fe6e7675cb440ec129f9e2c77ba82b71612d510a
+
+Yield: 26 permitted static tests passed; no blocking defect found in the reviewed correction or its named consumers.
+The prior cross-job finding is addressed by inspected source mechanism, not by a rerun of its constructed record reassignment.
+Live execution remains stopped: the parent measured OpenCode 1.19.2 against frozen 1.19.0; this PASS does not waive exact runtime-version matching.
+
+Tier 3: the verdict and assessments are this reviewer's judgments.
+[MEASURED] denotes this reviewer's direct reads or deterministic checks.
+[SOURCE-DERIVED] denotes consequences of inspected code, not observed runtime behavior.
+[AUTHOR/PARENT] and [INHERITED] identify evidence or coverage not independently produced here.
+
+IDENTITY, INDEPENDENCE AND CONDITION
+
+[MEASURED] Direct parent: 3e324f380a0a8fca50b7c909c38a56ec13da421b.
+[MEASURED] Target tree: 7f277f499456c3eecbdebc3fe4be25ea18767e4e.
+[MEASURED] Target packet tree: 002b3bf663be50ec6499dad06ac57764ab17d324.
+[MEASURED] Pinned evaluator: /tmp/agp-admission-resume.9mKplT/context-lab, clean at 6e6d0a92965a15ec473c661887b2b9c5037fedcf before and after the tests.
+[MEASURED] Review clock checkpoint: 2026-10-16 04:39:00 UTC.
+
+Reviewer: /root/admission_job_boundary_review, an independent non-author agent, not a scored reader.
+I authored none of the reviewed implementation, tests, designs, questions or keys; I supplied no scored answer or genuine judge vote and delegated no work.
+This is separate-agent/source-review independence, not model-family or statistical independence.
+My only repository write is this new report; no reviewed file, old report or AGP commit was changed.
+
+The fixed condition is exact retained job/prompt/reply/failure provenance and original accepted votes/reasons through the pinned public panel, with PR-02/03 corrections and the frozen six-cell, 144-outcome, 288-intended-slot comparison preserved.
+This review does not reopen semantic-key coverage or require arbitrary tamper-proof runtime attestation.
+
+References: P = this packet at the reviewed checkpoint; J = replay-admission-judgments.mjs; N = analyze-admission-comparison.mjs; A = account-admission-comparison.mjs; C = check-admission-execution-receipt.mjs; L = run-admission-comparison.mjs; E = packages/core/src/ in the evaluator above.
+
+[MEASURED] Read the applicable /home/apnex/taceng/AGENTS.md, fetched the mission-kit INDEX, and read the complete research-artefacts skill plus triggered review/gate/evidence and writing guidance.
+Guidance cache: clean main at ec356b8c706c1201f636ce526348ec1f6c213a18; remote freshness was separately verified by the parent.
+The skill caused the bounded plan and explicit claim/source/assessment separation; no whole-project audit or additional governance workflow was invoked.
+
+BOUNDED PLAN (recorded in commentary before target tracing; carried here before tests)
+
+1. Read the complete prior readiness reports and exact five-file correction.
+2. Trace the public judgeAll job boundary and analyzer/accountant consumers;
+   verify preservation of PR-02/03 corrections and original inputs/criteria.
+3. Read and run only the four approved no-model static test files; retain full output.
+4. Record one bounded static-instrument verdict, exact identities and limitations.
+
+Vocabulary: valid, ended, incomplete, uncast, no verdict, intended judge slots.
+Checked absences: premature job advance, leftover replies, missing/extra jobs,
+detached prompts/replies/failure, and consumers bypassing replay issues.
+Parked: semantic-key re-audit, crafted cross-job records, live execution,
+arbitrary tamper-proof runtime attestation, ratification and implementation.
+
+FINDINGS
+
+PR-01 -- The actual public job boundary is now reconciled.
+
+[AUTHOR] P/admission-evidence-correction-02.md and admission-evidence-author-checks-02.json claim job-boundary reconciliation and 26 passing author tests; these claims were read in full, not treated as an independent verdict.
+[MEASURED] Read the complete five-file parent-to-target diff and both complete prior readiness reports, admission-provider-readiness-03.txt and admission-provider-readiness-04.txt.
+
+[MEASURED SOURCE] E/judge-panel.ts:170-224 uses a queue whose worker awaits each job; with parallel=1, a job writes its completed record synchronously before the next job can invoke the adapter.
+The same source owns pending-unit selection, local-ID regeneration, at most three prompts, tool-using-reply exclusion, parsing, validation and retained failures (lines 121-152, 199-221).
+J:67-69 invokes that public judgeAll with parallel=1 and a no-model retained-reply adapter; no parser, scoring rule or retry algorithm was copied or modified.
+The generated public job-loop implementation was also inspected; the evaluator checkout was not edited.
+
+[SOURCE-DERIVED] J:42-59 now keeps the active retained job until its corresponding public completion record exists, not until its retained reply list is exhausted.
+Before any next-job reply can be supplied, leftover replies on a completed job cause a recorded issue and refusal; an exhausted list while the public job remains pending requires the retained failure or refuses an unretained completion.
+J:70 checks final consumption, including leftovers on the last job where no later invocation would expose them.
+J:71-78 additionally requires exact equality of the entire public job-name inventory and every complete job record, including initial prompt, ordered replies and failure; only the scratch records-directory warning in the prompt is normalized.
+Thus global vote equality is no longer the sole evidence of attribution: the actual public per-job artifacts must also match.
+This directly addresses the mechanism recorded in readiness-04; no crafted cross-job reassignment was created, reconstructed, executed or validated here.
+
+[SOURCE-DERIVED] N:72-74 executes this replay, forwards its issues and passes its result to A.
+A:98-100 requires the evidence hash for the same raw inputs, an empty replay-issue list and exact resulting votes; A:199-209 makes any issue incomplete with NO VERDICT, regardless of numerical conditions.
+The shared consumer therefore does not discard the new per-job mismatch signals or rely only on the summary job counter.
+[ASSESSMENT] The bounded PR-01 correction is sufficient for static instrument readiness on this pin; no remaining blocking job-attribution defect was found.
+
+PR-02 and PR-03 -- Prior bounded corrections remain intact.
+
+[MEASURED] A, N, L, C, admission-comparison-accounting.test.mjs and admission-execution-receipt.test.mjs are byte-identical to 9b18d1657ac4ed37e09a723887b0e73bc25078cb.
+[MEASURED SOURCE] A:32-65 still reconciles raw probe questions/responses with the public canary/leak rules; A:117-135 requires linked raw attempt/phase outcomes, prompt and valid-phase scored-file provenance.
+N:50-68 retains public phase-prompt, answer-extraction and blinding reconciliation; L:67-73 still gates scored invocations on the full probe set.
+These paths were checked against E/isolation-prober.ts:47-94, E/episode.ts:224-249 and E/run-conductor.ts:338-382, including the allowed unanswered non-canary case and the valid/ended/incomplete distinction.
+C:13-47 still resolves the exact commit, derives the required complete inventory, checks every Git/working/receipt byte identity and binds the readiness hash and one exact target; L:28-37 and N:31 both consume it.
+[ASSESSMENT] No regression of the earlier bounded PR-02/03 disposition was found.
+This does not authenticate a live transcript, reconstruct probe outcome fields the public record does not retain, or establish delivery/isolation in operation.
+
+MEASURED COVERAGE AND PRESERVATION
+
+[MEASURED] Read all four approved test files and their local imports before execution.
+The independent rerun exited 0: 26 passed, 0 failed/cancelled/skipped/todo; full untouched output is retained below.
+Breakdown: 15 accounting tests, 5 input/projection tests, 4 public-panel replay tests and 2 temporary Git receipt tests.
+
+[MEASURED] The added full-population test exercises 144 synthetic units, 288 vote entries and 48 public jobs in each of two ordinary branches: pending-only completion in a later same-judge job, or a retained exception there.
+It asserts complete vote equality, consumed-reply counts and every complete public job record, not just the total; the exception branch includes null/missing votes, not 288 valid cast votes.
+The existing suite also checks simple raw-record changes/omissions, public-replay binding, raw probe/reader evidence, exact receipts and the corrected no-verdict/zero/uncast arithmetic.
+Accounting fixtures explicitly stand in for replay; public-panel tests exercise replay separately.
+No standalone retained-run analyzer or integrated full-accountant cross-job reproduction was run: consumer propagation and correction of the prior constructed case are SOURCE-DERIVED, not newly measured test coverage.
+
+[MEASURED] Read-only identity assertions (chunk 1df513, exit 0): all 36 committed packet files equal target blobs; all 34 parent paths remain, with 31 byte-identical and only the declared three modifications plus two additions.
+The changes are J, its test, the preserved-body correction-01 banner, correction-02 and author-checks-02.
+Questions/keys, controls, whole inputs/projections, manifest, pack, experiment, accounting amendment, preregistration, provider configuration/amendment and execution settings are unchanged.
+Direct reading of the accounting amendment and preregistration confirms no changed population, phase rule, downward-only quote cap, candidate threshold, individual-control comparison, strict-improvement rule or final non-author gate.
+[INHERITED] Earlier semantic-key/design coverage remains as bounded by readiness-03/-04; it was not repeated or upgraded by this review.
+
+[MEASURED] All 57 original assurance paths/content bytes match f6ebdd6690fc6fb44a9df43faee3d120dd488a8b and the current worktree; the preserved tree is f399ece937693149078bc6ae055d7b29f1cfa221.
+The original scored FAIL, readiness-03 FAIL and readiness-04 FAIL remain historical negatives, not retrospectively repaired results.
+Readiness-03 SHA-256: fb21a5eb841eaf30ea1482424bfa1809e8d848f2a79725cee85bd7fe171a177b.
+Readiness-04 SHA-256: 8c9a01a4c7b62a5670db98201265f0e8cf3e071d902798cbd97e1bef69ca9218.
+J SHA-256: 91c82ae4bba807c4fc774891a0be55e184d370797f7353f8f0a2595ff5fe3255.
+Replay test SHA-256: d65034b8a08f9617e80966720e2ae1e16c5f189cf8929668bf77124ac146fd8c.
+Parent-to-target git diff --check passed; neither P/register nor P/records exists (no claim about every possible external history).
+[MEASURED] Final read-only validation (chunk 26c363, exit 0) found one exact checkpoint line, one static PASS verdict line, unchanged HEAD and all 36 target blobs still exact, with register/records still absent.
+
+SEPARATE EXECUTION STOP AND LIMITS
+
+[AUTHOR/PARENT] The append-only admission-execution-preflight-02.json, read here but outside the frozen target, records public version-query output in chunk d376de: OpenCode 1.19.2 versus required 1.19.0; Codex 0.162.1 and bubblewrap 0.4.1 match.
+I did not independently rerun runtime-version commands, rebuild the evaluator, or rerun the parent's capture-only preview.
+The parent's restored/build evidence is in author-checks-02; this review independently exercised the resulting public exports with only static fixtures.
+[SOURCE-DERIVED] L:45-46 requires exact versions before registration at L:56.
+No live execution is allowed on the recorded mismatch, and no configuration amendment, downgrade or runtime substitution is authorized by this report.
+
+No model call, scored reader answer, live delivery/canary/isolation check, registration, AGP runtime/fault test, exploit candidate, new speculative test, broad suite, repository commit, publication or external message was performed by this reviewer.
+Temporary files and Git commits were confined to the existing tests' disposable public-panel/receipt fixtures; original evidence was not overwritten.
+The only additional packet path observed besides this report was the parent's separately authored preflight record; neither is counted among the reviewed 36 files.
+Runtime availability, actual isolation/delivery, real reader/judge performance, the completed-measurement verdict, public-contract ratification, AGP implementation and B53 closure remain NOT CLAIMED.
+The static PASS addresses this prospective correction only; it neither erases prior FAILs nor permits bypassing remaining execution prerequisites.
+
+FULL INDEPENDENT STATIC-TEST OUTPUT
+
+Command (cwd: this packet):
+AGP_ADMISSION_EVALUATOR_ROOT=/tmp/agp-admission-resume.9mKplT/context-lab node --test admission-input.test.mjs admission-comparison-accounting.test.mjs admission-judgment-replay.test.mjs admission-execution-receipt.test.mjs
+
+Exit code: 0
+Execution chunks: 848869, 4ad7db
+
+✔ Admission accounting preserves all identities and does not issue its own gate verdict (41.757098ms)
+✔ Admission missing null, undefined and blank answers become explicit uncast zeroes (111.560141ms)
+✔ Admission valid phase with no answer file accounts for all twenty-four missing answers (21.501569ms)
+✔ Admission ended sole phase ignores retained partial or complete raw answers (47.779292ms)
+✔ Admission predecessor behavior failure does not automatically fail candidate thresholds (22.557842ms)
+✔ Admission invalid required evidence takes precedence over numerical failure (17.167556ms)
+✔ Admission accounting rejects missing or duplicate cells, probes, votes and invalid provenance (514.182741ms)
+✔ Admission unresolved infrastructure/isolation or incomplete phase never becomes a reader zero (41.077936ms)
+✔ Admission accounting accepts one infrastructure retry but not a behavior retry (48.346308ms)
+✔ Admission minimum-vote and quote caps are downward-only and inspect every excerpt (50.070583ms)
+✔ Admission diagnostic formatting cannot invalidate or improve an accepted score (21.702445ms)
+✔ Admission ties and each individual control regression are not averaged away (41.498476ms)
+✔ Admission accounting requires replay bound to the actual raw replies and derived votes (118.526188ms)
+✔ Admission probe and reader raw evidence cannot be replaced by favorable labels (190.300389ms)
+✔ Admission probe check preserves the pinned allowance for unanswered non-canary questions (7.846284ms)
+✔ Admission execution receipt binds complete reviewed Git inventory and readiness identity (99.323226ms)
+✔ Admission receipt rejects omitted coverage, wrong identities and unreviewed file/config changes (1128.475255ms)
+✔ Admission input identities match both whole sources and their exact projections (5.179455ms)
+✔ Admission source mutation is rejected before its projection can be trusted (2.960557ms)
+✔ Admission reader mutation is rejected at its content identity boundary (1.298995ms)
+✔ A rehashed but substantively changed reader copy still fails projection fidelity (3.506218ms)
+✔ Admission projection fails closed when its history boundary is absent (0.534252ms)
+✔ Admission public-panel replay binds first prompts, member identities, scores and reasons (121.070791ms)
+✔ Admission public-panel replay preserves pending-only completion and retained failure (240.363314ms)
+✔ Admission public-panel replay reconciles every job across all 144 units and 288 slots (2726.965448ms)
+✔ Admission public-panel replay rejects changed, missing, unparseable or misassigned raw judgments (476.11253ms)
+ℹ tests 26
+ℹ suites 0
+ℹ pass 26
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 3706.08493
