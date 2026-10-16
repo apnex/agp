@@ -1,0 +1,255 @@
+ADMISSION EVALUATOR QUALIFICATION: INDEPENDENT PRE-BUILD AND M7 REVIEW
+
+Tier 3 analytical judgment, 2026-10-17 Australia/Melbourne.
+Verdict: PASS - pre-build STATIC/CAPTURE qualification design and M7, with the mandatory guardrails below; not evaluator readiness or live qualification.
+
+IDENTITY, PROVENANCE AND INDEPENDENCE
+
+Work: the selected qualification of unchanged public context-lab parent
+e705b3d749400d0a79efe98e5338e9c84a1695b8 for AGP's instruction-only,
+single fresh answer-phase shape.
+Reviewed artifact: docs/reviews/admission-evaluator-qualification/admission-qualification-amendment.md
+Reviewed artifact SHA256: c40a17a89a5ac2dbd74194914873b91f9c6ac15d2ea07a65d82b716733ffc6af
+AGP HEAD observed: 4655139a33990d9bb49cefac39a01348906655da.
+The amendment is uncommitted; its measured content hash, not that HEAD, identifies
+this verdict's target. A changed amendment needs an explicit recheck.
+
+Reviewer: /root/admission_job_boundary_review, non-author of the amendment and
+proposed implementation, not a scored/calibration reader or judge. I authored
+the earlier independent preparation reviews; that continuity is disclosed, not
+counted as a second independent source. No delegation. No implementation exists
+in the new qualification directory at this review's gate.
+
+Constitution: /home/apnex/taceng/AGENTS.md and mission-kit main at
+ae217c932e50737d0595db9523502a1257b7a4bd, read through git show without a
+checkout change. The cache was clean, its origin was the canonical GitHub URL,
+and an independent git ls-remote observation returned that exact main revision.
+Read the complete INDEX, research-artefacts skill, M7, A0/A1-A14, R3,
+W10/W22, E7/E8, M1/M2, C2, RU2/RU3 and relevant style guidance.
+This is a bounded local design gate, not a production/upstream M1 audit or an
+M2 execution/calibration result. Author source findings remain claims until
+checked against pinned source; test success is not asserted at a pre-build gate.
+
+Other measured input SHA256 identities, paths under docs/reviews/:
+
+- admission-evaluator-compatibility-review.md:
+  6a90421f79ce62aea9dc87df2c70c48be5e0b9416159f4512d68f6008841bd75
+- admission-evaluator-compatibility-findings.md:
+  2ddf33753af9b67acb0873c8ffdf7add32d31e6ed0a627b5d4ca8a5bd1059ba3
+- admission-evaluator-qualification/admission-qualification-source-findings.md:
+  256aac37566d67763af5a24065b75d69366b6a64d8629f487acbde9bf3dc01f4
+- admission-evaluation-preparation/design-review-01.txt:
+  aa94f13a5ba38dce2277da0d71af668ffd3f25a5b500a8b11f7d95305448c95d
+- admission-evaluation-preparation/readiness-review-02.txt:
+  5ce147adf73a5fc7e3fb8cbad3c01554b19f8e5eb0bf3f2a2a8521eb64b7700e
+
+Bounded plan, written before amendment/source review:
+1. Read the exact amendment, prior compatibility findings/recommendation and
+   original G1-G6, keeping author assertions distinct from source observations.
+2. Trace only the proposed public interfaces and changed paths needed to assess
+   delivery/phase restrictions, ordinary episode records and tally compatibility.
+3. Challenge exact-pin provenance, hidden side effects, favorable accounting,
+   scope escape and transfer of static evidence into live authority.
+4. Write this report with exact identity, M7 mapping, layers, tensions, guardrails
+   and validation/closeout hooks. Preserve all input artifacts.
+Vocabulary: static qualification, effective phase, raw outcome, uncast, legacy
+fields, PREP-L1/L2/L3. Parked: new semantic audit, implementation, scored readers,
+model/provider/probe/conductor calls, fault reproduction and upstream changes.
+
+MECHANICS: SOURCE CHECKS AND ADVERSARIAL ASSESSMENT
+
+1. Parent selection addresses the identified retry delta without a local fork.
+   Git resolves the previously prepared candidate's immediate parent to the
+   selected revision. Its complete isolation-prober.ts blob is identical to the
+   original frozen evaluator 6e6d0a92965a15ec473c661887b2b9c5037fedcf:
+   bdb5c0b7b4d7be9fb6b6c6c5b0dfd9a69e57d9fb.
+   The validity-classifier.ts blobs likewise match:
+   3dca5b6497ffab56d81c685d00055e2d8cd3501a.
+   I read the probe's once-per-question invocation and tool-count rejection.
+   It does not expose a complete raw-outcome/invocation collection; no broader
+   retention claim follows from that equality. No probe was executed.
+
+2. The omitted mount restriction has a narrow algebraic boundary.
+   The parent-to-tip adapters.ts diff adds only tools-off guards around the two
+   onRequest mount expressions; with an empty list both expressions yield [].
+   composeArm starts folderFiles/onRequest empty and populates them only from
+   the corresponding delivery kinds; public EMPTY_ARM has both empty. The frozen
+   pack declares two instruction deliveries and no hooks/transforms. This supports
+   the proposed precondition, not general sandbox equivalence. A future nonempty
+   list invalidates the recommendation; no filtering it away or patched adapter.
+
+3. Validation ordering is a real side-effect boundary.
+   pack-checker.ts:370-380 can run a declaration-check hook, and
+   variant-builder.ts:107-125 can run a transform. Thus "validate then refuse
+   hooks" would violate the amendment despite eventually returning failure.
+   Raw declarative rejection must precede these calls (Q1). This is a source
+   finding, not a reproduced hook execution or a new fault test.
+
+4. Effective shape must be checked, not inferred from experiment.phases.
+   pack-schema.ts phasesOf gives scenario.phases precedence; episode.ts
+   propertyPhase resolves explicit property placement or the final effective
+   phase. The conductor also prefers a variant's revision over the run revision.
+   Q2 therefore covers resolved scenarios, every property and actual composed
+   revision manifests. "No notes" means phase notes/generators and judge note
+   context, not silently deleting inert historical metadata such as the frozen
+   experiment's notes string. None of these checks may rewrite the frozen pack.
+
+5. A positive fake episode is an appropriately bounded additional check.
+   Public index.ts exports runEpisode, phasesOf, propertyPhase and tally.
+   I read runEpisode and its workspace/ledger path: the candidate produces trees
+   and diffs in a separate bare ledger and snapshots the phase's ending workspace.
+   One first/new phase does not enter following-phase history replacement,
+   withholding, continuation or branch/note handling. A local fake runtime can
+   produce an ordinary unrelated answer file and expose this record contract.
+   runEpisode itself passes tools="on"; this is permitted only for the synthetic
+   file writer, not a relaxation of tools-off panel/probe requirements. A supplied
+   classification callback is also an input, not evidence of real classification.
+
+6. Tally and conductor claims must stay separate.
+   I read the fresh conductor attempt/scoring path and its exact delta from the
+   frozen evaluator: attempts remain appended before the classified maximum-two
+   retry decision; ledger/routes/restated fields are added. I read tally's scoring
+   and held-out split. Single-phase/no-held-out restrictions remove those wider
+   cases from this qualification, but source review is not executed conductor
+   proof. Pure fixtures can compare legacy result fields and distinguish ended,
+   missing, incomplete and excluded data without causing any runtime failure.
+   Public tally averages assigned votes; parity there must not replace AGP's
+   separate conservative minimum/quote-cap gate or shrink its denominator.
+
+7. Existing panel checks are reused, not replicated.
+   I read the full existing capture test and profile. An optional profile path
+   can retain its default, all assertions and public blinder/judgeAll path.
+   Complete payload reconciliation, not matching counters alone, must show the
+   historical default is unchanged except temporary paths. New captures remain
+   synthetic; repeated unrelated headings do not become independent semantic
+   questions, a reader-volume result or evidence that models apply the policy.
+
+AXIOM MAPPING AND LAYERED APPLICATION
+
+The altered consumer procedure has durable records, independent author/reviewer
+roles and an eventual LLM judgment path. Stateful, multi-agent and LLM-in-the-loop
+commitments apply; composing with unchanged context-lab does not assert ownership
+of all its internals. A2 is supporting direction, not a claim that this scripted
+qualification is a fully reconciled declarative system.
+
+- A1, load-bearing: exact source and complete raw synthetic records expose the
+  actual basis of each claim; no final-only record is called all-attempt proof.
+- A2, supporting: declared profile/restrictions become tested preconditions,
+  including effective overrides, rather than a remembered invocation convention.
+- A3, load-bearing: one existing public panel test and public episode/tally seams;
+  no copied evaluator logic, private patch, or consumer repair of upstream policy.
+- A4, load-bearing: historical FAIL/NO VERDICT and every prior report/capture stay
+  intact; new evidence is separately retained, with failures and exact identities.
+- A5, load-bearing: downstream reviewers see the same full payload, source pin
+  and limitations; an empty mounted-list calculation is not physical isolation.
+- A6, supporting: optional profile resolution reuses approved checks; handoff
+  references the durable record rather than asking the director to relay details.
+- A7, load-bearing: unsupported shapes fail before side effects, with actionable
+  reasons; ended/incomplete data are not recast as successful or missing votes.
+- A8, load-bearing: this design gate precedes implementation; a different exact-
+  artifact gate must inspect the implementation and evidence before qualification.
+- A9, not materially implicated as deployment proof: no deployment is promoted;
+  ordinary positive records provide no chaos, leak, isolation or recovery claim.
+- A10, supporting: the retry incompatibility remains an explicit upstream concern
+  rather than disappearing because a different public revision is considered.
+- A11, load-bearing: identities, refusals and accounting are deterministic; the
+  independent semantic judgment boundary in G1/G2 is not delegated to tag checks.
+- A12, supporting: existing structured policy and complete inputs are retained;
+  test caps stay non-invoked values, not measured sufficiency or a live selection.
+- A13, load-bearing: zero model calls/cost, no entry point and separate director
+  diagnostic authority prevent static success from spending an unselected budget.
+- A14, load-bearing: prior findings become prospective guards with revival hooks,
+  not rewritten history or an open-ended evaluator re-audit.
+
+Layers: intent/authority selects only candidate qualification; source/configuration
+binds both evaluator bytes and effective pack shape; composition stays at public
+seams; state/knowledge retains full records; perception labels measured versus
+source-derived claims; integrity separates author checks, independent readiness
+and later live gates; learning keeps incompatible shapes as explicit stop triggers.
+
+Tensions resolved: strict probe policy versus newer mount defenses is bounded by
+empty assembled lists, not by discarding either obligation. Useful positive
+episode coverage versus security/failure scope is resolved by one ordinary fresh
+phase only. Source identity versus execution proof is resolved by separate labels
+and later authority, not a broad "compatible evaluator" headline. Small records
+versus audit fidelity is resolved by retaining full payloads behind concise claims.
+
+DELTAS AND MANDATORY IMPLEMENTATION GUARDRAILS
+
+No blocking design rewrite or director override is required. Q1-Q7 make the
+amendment's bounds concrete and must accompany implementation and closeout:
+
+Q1. Reject nonempty pack.hooks, transforms and disallowed delivery declarations
+    from inert parsed data BEFORE checkPack/buildVariant or any other hook-capable
+    operation. Test refusals as pure data; do not execute a hook to demonstrate
+    its rejection. Public validation remains additional validation, not replaced.
+Q2. Use public effective phase/property resolution for all resolved scenarios:
+    exactly one new answer phase, every property on it, no phase task/after/note/
+    withhold override, traps, fixture or held-out split. Check declared and actual
+    composed arms, public EMPTY_ARM, instruction content/revision provenance and
+    empty folderFiles/onRequest. Reject conflicting variant revision overrides;
+    an explicitly pinned build argument alone is not enough. Bind exact original
+    population, routes/settings, factors, judging identities, run and wall limits.
+Q3. Preserve G1-G3: unchanged scoring policy and literal semantic fixtures;
+    diagnostics inspect original votes before aggregation/caps; no coercion,
+    rescoring, favorable retry or invented absent vote. Keep six cells, two other-
+    family slots per answer, 144/288 complete accounting and missing 120/240+48.
+    Mechanical cleanliness never proves semantic correctness; favorable and
+    unfavorable live judgments still need independent source/answer review.
+Q4. Preserve G4/G5 except the explicitly selected positive episode extension:
+    public panel tools off with local captures only; one ordinary synthetic
+    episode using only an injected local fake runtime in fresh scratch. Retain
+    actual invocation, outcome, answer bytes, phase record, ledger tree identities,
+    diffs and snapshot; check their relation, not merely existence/counts. Assert
+    one invocation and no continuation. No real adapter invoke/fallback, probe,
+    conductor, resume, registration, runtime fault/security case or source patch.
+Q5. Keep the existing test change to optional profile-path resolution, with
+    references resolved relative to that profile. Verify both evaluator exports
+    byte-for-byte, force-build in isolated scratch and import their public index.
+    Rerun the historical default and compare the complete retained capture after
+    only narrowly enumerated temporary-path normalization. Keep all original
+    assertions, profiles, outputs and captures; new evidence gets new paths.
+Q6. Compare EVERY legacy tally field against the pinned original evaluator,
+    separately enumerate additive diagnostics, and preserve original raw votes.
+    Exercise ordinary ended/missing/incomplete disposition records as inert pure
+    data only. No restricted-run tally, resumption or exclusion of inconvenient
+    outcomes. Retain both results/full failures; do not report source tracing as
+    an executed conductor or replace AGP's conservative project accounting.
+Q7. Preserve G6 and the authority boundary: liveCallsMaximum/liveCostMaximum zero,
+    no live cap selected, no Codex cap, sanitized route/refusal only. Configured,
+    client-emitted and backend-enforced limits remain distinct. This amendment
+    adds no execution entry point; any future one must enforce these restrictions
+    before calls and retain complete invocation evidence.
+
+CLOSEOUT HOOKS, RESIDUAL GATES AND CONSEQUENCE
+
+The exact-artifact reviewer must inspect the committed implementation, its full
+diff, both profiles, complete synthetic captures, episode file/tree/diff payload,
+old/new tally results and full test outputs, including failed checks. Recheck
+Q1-Q7 and G1-G6, not just a test total. Verify no source/record drift, no extra
+existing-preparation changes and no silent live authority. A source or shape
+mismatch stops qualification rather than widening this PASS.
+
+PREP-L1 is not resolved by this pre-build verdict. A later static qualification
+PASS may resolve only its candidate-compatibility portion for this exact shape.
+Real delivery, sandbox behavior, complete invocation capture and whole-conductor
+behavior remain unqualified. Revisit the upstream retry/all-attempt concern if
+adopting the newer prober or requiring nonempty onRequest delivery; do not infer
+permission to send upstream correspondence or alter context-lab.
+PREP-L2 revives only on a separate director-selected finite-budget diagnostic:
+exact caps, sanitized observations, frozen unrelated cases/expected outcomes,
+representative reader/file output, failure accounting and stop rules.
+PREP-L3 revives after that qualification and separate assurance authority:
+audited fresh questions/readers, both unchanged inputs, independent completed-
+measurement judgment and the preserved substantive-defect invalidation rule.
+
+This review performed read-only source/record/hash checks only: no test execution,
+build, runEpisode, model/provider/probe/conductor call or registration. Only this
+new report was written by the reviewer. Frozen assurance/preparation paths had
+no tracked worktree diff; sibling source and mission-kit checkouts remained clean.
+
+Consequence: the bounded static qualification implementation may proceed under
+these guardrails. The earlier independent PASS is not transferred by ancestry.
+The old FAIL and NO VERDICT remain unchanged. No actual runtime compatibility,
+Gemini cause/repair, AGP implementation, ratification, B53 closure, B56 change,
+publication, commit/push or Zorg message is authorized or claimed.
