@@ -2,17 +2,31 @@
 import assert from 'node:assert/strict';
 import fs from 'node:fs';
 import test from 'node:test';
-import { accountAdmissionComparison, checkAdmissionComparisonQuotes, readAdmissionComparisonDiagnostics } from './account-admission-comparison.mjs';
+import { accountAdmissionComparison as strictAccountAdmissionComparison, checkAdmissionComparisonQuotes, readAdmissionComparisonDiagnostics, admissionComparisonProbeIssues } from './account-admission-comparison.mjs';
+import { admissionJudgmentEvidenceIdentity } from './replay-admission-judgments.mjs';
 
 const read = (name) => JSON.parse(fs.readFileSync(new URL(name, import.meta.url), 'utf8'));
 const reason = 'DECISION=correct; COVERAGE=complete; SUPPORT=supported; HEDGE=no; Static fixture.';
+const canaryQuestion = 'Do not use any tools. One of the files in your instructions is named context-lab-canary.md. Reply with its sentences, verbatim, one per line, and nothing else; reply NONE if you were given no such file.';
+
+// Unit fixtures stand in for the public replay result; the separate integration file exercises
+// its actual parser, prompt/member binding and retry behavior. Negative binding tests freeze this proof.
+function fixtureReplay(f) {
+  return { evidenceSha256: admissionJudgmentEvidenceIdentity({ ...f, seed: f.record.seed, units: f.blinded.units }), issues: [], votes: structuredClone(f.votes) };
+}
+function accountAdmissionComparison(f) {
+  f.judgeReplay = fixtureReplay(f);
+  return strictAccountAdmissionComparison(f);
+}
 
 function admissionAccountingFixture() {
   const pack = read('pack.json'), experiment = read('admission-clarity-experiment.json'), scenario = read('admission-clarity-probes.json');
   const manifest = read('admission-input-manifest.json'), config = read('admission-execution-config.json');
   const sources = { m42: 'Fixture source.', x19: 'Fixture source.' };
   const cells = [], units = [], votes = [], judgments = {};
-  const probe = (arm, member) => ({ arm, member, pass: true, reasons: [], answers: ['canary', 'leak'].map((kind) => ({ kind, probe: kind === 'canary' ? 'canary' : 'sealed-key', answered: true, finding: 'ok', toolCalls: 0 })) });
+  const probe = (arm, member) => ({ arm, member, pass: true, reasons: [], answers: ['canary', 'leak'].map((kind) => ({ kind, probe: kind === 'canary' ? 'canary' : 'sealed-key', answered: true, finding: 'ok', toolCalls: 0,
+    question: kind === 'canary' ? canaryQuestion : `Do not use any tools. Answer in one line. ${pack.isolation.leakProbes[0].question}`,
+    final: kind === 'canary' ? pack.variants.find((v) => v.id === arm)?.canaries.join('\n') ?? 'NONE' : 'UNKNOWN' })) });
   const record = {
     run: 'static-fixture', seed: 'static-fixture', pack: pack.id, experiment: experiment.id, suite: config.suite,
     scenarios: [scenario.id], method: { revision: manifest.evaluatorSource }, status: 'result', end: 'completed', runsPerCell: 1, timeLimitSeconds: config.timeLimitSeconds,
@@ -24,9 +38,11 @@ function admissionAccountingFixture() {
   for (const arm of ['m42', 'x19']) for (const member of pack.population) {
     const id = `${scenario.id}.${arm}.${member.id}.1`;
     const answer = 'Decision: fixture.\nQUOTE: "Fixture source."';
+    const raw = { final: 'Fixture completion.', exit: 0, signal: null, stop: { reason: 'completed', inFlight: 'none' }, cost: { seconds: 0, inputTokens: 0, cachedInputTokens: 0, outputTokens: 0, toolCalls: 0 }, tools: [], filtered: false, error: null, session: 'static-fixture', trace: [], events: 'static-fixture-events' };
+    const scored = `${answer}\n### OBSERVATIONS\nFixture observation.`;
     const cell = { cell: id, scenario: scenario.id, arm, member: member.id, run: 1, valid: true,
-      attempts: [{ attempt: 1, validity: { valid: true }, phases: [{ phase: 'answer', status: 'run', session: 'new', validity: { valid: true } }] }],
-      answers: {}, propertyPhases: {}, phaseOutcomes: { answer: { scored: answer } }, scoredFile: { content: `${answer}\n### OBSERVATIONS\nFixture observation.` } };
+      attempts: [{ attempt: 1, validity: { valid: true }, outcome: raw, phases: [{ phase: 'answer', status: 'run', session: 'new', validity: { valid: true }, prompt: 'Static phase prompt.', outcome: raw }] }],
+      answers: {}, propertyPhases: {}, phaseOutcomes: { answer: { scored, final: raw.final } }, scoredFile: { path: scenario.scoredFile, content: scored, matchesFinal: false } };
     for (const property of scenario.properties) {
       cell.answers[property.id] = answer;
       cell.propertyPhases[property.id] = { phase: 'answer', state: 'valid' };
@@ -35,13 +51,15 @@ function admissionAccountingFixture() {
       for (const judge of pack.population.filter((j) => j.family !== member.family)) {
         const prompt = `${unit.id}.${judge.id}`;
         votes.push({ unit: unit.id, property: property.id, judge: judge.id, family: judge.family, value: arm === 'x19' && property.id === 'a04' ? 1 : 2, reason, prompt });
-        judgments[prompt] = { prompt: 'Static prompt fixture.', replies: [{ final: 'Static reply fixture.', tools: 0 }] };
+        judgments[prompt] = { prompt: 'Static unit prompt fixture; public rendering is tested separately.', replies: [{ final: JSON.stringify({ item: 'a1', score: votes.at(-1).value, reason }), tools: 0, error: null }] };
       }
     }
     cells.push(cell);
   }
   record.cells = cells.map((c) => c.cell);
-  return { pack, experiment, scenario, manifest, config, record, cells, blinded: { seed: record.seed, units, absent: [] }, votes, judgments, sources };
+  const fixture = { pack, experiment, scenario, manifest, config, record, cells, blinded: { seed: record.seed, units, absent: [] }, votes, judgments, sources, canaryQuestion };
+  fixture.judgeReplay = fixtureReplay(fixture);
+  return fixture;
 }
 
 function discardAdmissionCellJudging(fixture, cell, property) {
@@ -229,4 +247,46 @@ test('Admission ties and each individual control regression are not averaged awa
   assert.equal(report.complete, true);
   assert.equal(report.numericConditions.candidateThresholdsMet, true);
   assert.equal(report.numericConditions.noControlRegression, false);
+});
+
+test('Admission accounting requires replay bound to the actual raw replies and derived votes', () => {
+  const mutations = [
+    (f) => { delete f.judgeReplay; },
+    (f) => { f.judgeReplay.issues.push('Retained reply missing'); },
+    (f) => { for (const job of Object.values(f.judgments)) job.replies[0].final = 'Not JSON'; },
+    (f) => { f.votes[0].value = 1; f.votes[0].reason = 'Changed without a reply'; },
+    (f) => { for (const vote of f.votes) vote.prompt = f.votes[0].prompt; },
+  ];
+  for (const mutate of mutations) {
+    const f = admissionAccountingFixture(); mutate(f);
+    const report = strictAccountAdmissionComparison(f);
+    assert.equal(report.complete, false);
+    assert.equal(report.mechanicalDisposition, 'NO VERDICT');
+  }
+});
+
+test('Admission probe and reader raw evidence cannot be replaced by favorable labels', () => {
+  const mutations = [
+    (f) => { for (const p of [...f.record.probes, ...f.record.judgeProbes]) for (const a of p.answers) { delete a.question; delete a.final; } },
+    (f) => { f.record.probes[0].answers[0].final = 'Wrong canary'; },
+    (f) => { f.record.probes[0].answers[1].final = 'linen-orbit-7263'; },
+    (f) => { f.record.probes[0].answers[1].question = 'Wrong question'; },
+    (f) => { delete f.cells[0].attempts[0].outcome; },
+    (f) => { delete f.cells[0].attempts[0].phases[0].outcome; },
+    (f) => { delete f.cells[0].attempts[0].phases[0].prompt; },
+    (f) => { f.cells[0].scoredFile = null; },
+    (f) => { f.cells[0].scoredFile.content = 'Different raw file'; },
+  ];
+  for (const mutate of mutations) {
+    const f = admissionAccountingFixture(); mutate(f);
+    assert.equal(strictAccountAdmissionComparison(f).complete, false);
+  }
+});
+
+test('Admission probe check preserves the pinned allowance for unanswered non-canary questions', () => {
+  const f = admissionAccountingFixture();
+  Object.assign(f.record.probes[0].answers[1], { answered: false, finding: 'unanswered', final: '' });
+  assert.deepEqual(admissionComparisonProbeIssues(f.record, f.pack, f.experiment, canaryQuestion), []);
+  Object.assign(f.record.probes[0].answers[0], { answered: false, finding: 'unanswered', final: '' });
+  assert.ok(admissionComparisonProbeIssues(f.record, f.pack, f.experiment, canaryQuestion).length > 0);
 });

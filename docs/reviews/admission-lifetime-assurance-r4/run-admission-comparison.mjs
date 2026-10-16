@@ -10,11 +10,11 @@ import path from 'node:path';
 import { fileURLToPath, pathToFileURL } from 'node:url';
 import { admissionComparisonProbeIssues } from './account-admission-comparison.mjs';
 import { analyzeAdmissionComparison } from './analyze-admission-comparison.mjs';
+import { readAdmissionReviewedFiles, checkAdmissionExecutionReceipt } from './check-admission-execution-receipt.mjs';
 
 const packet = path.dirname(fileURLToPath(import.meta.url));
 const read = (file) => JSON.parse(fs.readFileSync(file, 'utf8'));
 const hash = (bytes) => createHash('sha256').update(bytes).digest('hex');
-const git = (...args) => execFileSync('git', args, { cwd: packet, encoding: 'utf8', maxBuffer: 16 * 1024 * 1024 });
 assert.equal(process.argv.length, 6, 'Provide evaluator root, reviewed revision, readiness report and --execute');
 assert.equal(process.argv[5], '--execute', 'Explicit execution selection required');
 const coreRoot = path.resolve(process.argv[2]), revision = process.argv[3], readinessPath = path.resolve(process.argv[4]);
@@ -24,22 +24,17 @@ const manifest = read(path.join(packet, 'admission-input-manifest.json'));
 assert.equal(config.evaluatorRevision, manifest.evaluatorSource);
 assert.equal(execFileSync('git', ['-C', coreRoot, 'rev-parse', 'HEAD'], { encoding: 'utf8' }).trim(), config.evaluatorRevision);
 assert.equal(execFileSync('git', ['-C', coreRoot, 'status', '--porcelain'], { encoding: 'utf8' }).trim(), '', 'Pinned evaluator must be clean');
-const root = git('rev-parse', '--show-toplevel').trim();
-const prefix = path.relative(root, packet) + '/';
-const frozenPaths = git('ls-tree', '-r', '--name-only', revision, '--', '.').trim().split('\n');
 const files = {};
-for (const name of frozenPaths) {
-  const full = name.startsWith(prefix) ? name : prefix + name;
-  const relative = full.slice(prefix.length);
-  const expected = execFileSync('git', ['show', `${revision}:${full}`], { cwd: root, maxBuffer: 16 * 1024 * 1024 });
-  const actual = fs.readFileSync(path.join(packet, relative));
-  assert.ok(actual.equals(expected), `Reviewed file changed: ${relative}`);
-  files[relative] = hash(actual);
+for (const [name, expected] of Object.entries(readAdmissionReviewedFiles(packet, revision))) {
+  const actual = fs.readFileSync(path.join(packet, name));
+  assert.ok(actual.equals(expected), `Reviewed file changed: ${name}`);
+  files[name] = hash(actual);
 }
-for (const name of ['pack.json', 'admission-execution-config.json', config.providerConfig, 'run-admission-comparison.mjs', 'account-admission-comparison.mjs', 'analyze-admission-comparison.mjs']) assert.ok(files[name], `Execution file not frozen: ${name}`);
 const readiness = fs.readFileSync(readinessPath, 'utf8');
 assert.match(readiness, /^Verdict: PASS\b/m, 'Independent readiness report must say PASS');
 assert.ok(readiness.includes(revision), 'Readiness report must identify the exact reviewed checkpoint');
+const identity = { reviewedRevision: revision, sourceRevision: revision, evaluatorRevision: config.evaluatorRevision, options: config, readiness: { file: readinessPath, sha256: hash(readiness) }, files };
+assert.deepEqual(checkAdmissionExecutionReceipt(packet, identity, config, manifest), [], 'Pre-launch reviewed execution identity is invalid');
 assert.ok(process.env.LITELLM_NETBIRD_API_KEY, 'Selected provider credential is absent');
 const core = await import(pathToFileURL(path.join(coreRoot, 'packages/core/dist/src/index.js')).href);
 const checked = await core.checkPack(packet);
@@ -60,7 +55,7 @@ assert.equal(core.recordHistory(loaded, experiment.id).length, 0, 'An experiment
 const workRoot = fs.mkdtempSync(path.join(os.tmpdir(), 'agp-admission-r4-execution.'));
 const register = core.recordExperiment(loaded, experiment.id);
 fs.mkdirSync(recordsRoot);
-const receipt = { schema: 'agp.admission-clarity-execution-receipt/1', recordedAt: new Date().toISOString(), reviewedRevision: revision, sourceRevision: revision, evaluatorRevision: config.evaluatorRevision, coreRoot, workRoot, options: config, versions, node: process.version, readiness: { file: readinessPath, sha256: hash(readiness) }, register, files };
+const receipt = { schema: 'agp.admission-clarity-execution-receipt/1', ...identity, recordedAt: new Date().toISOString(), coreRoot, workRoot, versions, node: process.version, register };
 fs.writeFileSync(path.join(recordsRoot, 'admission-execution-receipt.json'), JSON.stringify(receipt, null, 2) + '\n');
 console.log(JSON.stringify({ event: 'registered', register, workRoot, reviewedRevision: revision, frozenFiles: Object.keys(files).length }));
 
@@ -74,7 +69,7 @@ const guarded = Object.fromEntries(Object.entries(adapters).map(([runtime, adapt
       const runs = fs.readdirSync(recordsRoot, { withFileTypes: true }).filter((entry) => entry.isDirectory());
       assert.equal(runs.length, 1, 'Exactly one registered run must exist');
       const record = read(path.join(recordsRoot, runs[0].name, 'run.json'));
-      const issues = admissionComparisonProbeIssues(record, loaded.pack, experiment);
+      const issues = admissionComparisonProbeIssues(record, loaded.pack, experiment, core.CANARY_QUESTION);
       assert.ok(record.states.some((s) => s.state === 'probed') && issues.length === 0, `Full-population probe gate refused scored invocation: ${issues.join('; ')}`);
     }
     return adapter.invoke(invocation);

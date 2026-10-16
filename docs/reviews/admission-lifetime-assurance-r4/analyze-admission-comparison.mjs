@@ -8,6 +8,8 @@ import path from 'node:path';
 import { fileURLToPath, pathToFileURL } from 'node:url';
 import { isDeepStrictEqual } from 'node:util';
 import { accountAdmissionComparison } from './account-admission-comparison.mjs';
+import { replayAdmissionJudgments } from './replay-admission-judgments.mjs';
+import { checkAdmissionExecutionReceipt } from './check-admission-execution-receipt.mjs';
 
 const packet = path.dirname(fileURLToPath(import.meta.url));
 const read = (file) => JSON.parse(fs.readFileSync(file, 'utf8'));
@@ -26,14 +28,10 @@ export async function analyzeAdmissionComparison(coreRoot, runDir) {
   const config = read(path.join(packet, 'admission-execution-config.json'));
   const record = read(path.join(runDir, 'run.json'));
   const receipt = read(path.join(runDir, '..', 'admission-execution-receipt.json'));
-  const provenanceIssues = [];
+  const provenanceIssues = checkAdmissionExecutionReceipt(packet, receipt, config, manifest);
   const require = (condition, message) => { if (!condition) provenanceIssues.push(message); };
-  require(receipt.evaluatorRevision === manifest.evaluatorSource, 'execution receipt evaluator differs');
-  require(isDeepStrictEqual(receipt.options, config), 'execution receipt settings differ');
-  require(receipt.sourceRevision === receipt.reviewedRevision, 'execution source differs from reviewed checkpoint');
   require(Date.parse(receipt.recordedAt) <= Date.parse(record.states?.[0]?.at), 'execution receipt does not predate the run');
   require(isDeepStrictEqual(receipt.register, record.register) && record.register?.hash === core.contentHash(loaded, experiment.id), 'registration is not the current frozen experiment');
-  for (const [name, hash] of Object.entries(receipt.files)) require(sha256(fs.readFileSync(path.join(packet, name))) === hash, `execution input changed: ${name}`);
   for (const [arm, variant] of Object.entries(record.variants ?? {})) require(variant.revision === receipt.sourceRevision && variant.variant === arm && variant.rewritten === 0 && isDeepStrictEqual(variant.canaries, loaded.pack.variants.find((v) => v.id === arm)?.canaries), `variant provenance differs: ${arm}`);
   require(isDeepStrictEqual(Object.keys(record.variants ?? {}).sort(), [...experiment.factors.arms].sort()) && experiment.factors.arms.every((arm) => record.arms?.[arm]?.composed === true), 'required variants or composed arms missing');
   require(isDeepStrictEqual(record.runtimes, { opencode: config.expectedRuntimeVersions.opencode, codex: config.expectedRuntimeVersions.codex }), 'recorded runtime versions differ');
@@ -49,6 +47,15 @@ export async function analyzeAdmissionComparison(coreRoot, runDir) {
   const blinded = optional('sealed/units.json', { seed: null, units: [], absent: [] });
   const votes = optional('judging/votes.json', []);
   const judgments = Object.fromEntries(filesIn(path.join(runDir, 'judging')).filter((name) => name !== 'votes.json').map((name) => [name.slice(0, -5), read(path.join(runDir, 'judging', name))]));
+  for (const cell of cells) for (const attempt of cell.attempts ?? []) {
+    for (const phase of attempt.phases ?? []) {
+      const prompt = core.phasePrompt(experiment, scenario, experiment.phases[0], true, { onRequest: [] }, phase.workspace, null, []);
+      require(phase.phase === 'answer' && phase.prompt === prompt, `${cell.cell}: retained phase prompt differs from public rendering`);
+      if (phase.validity?.valid === true && attempt === cell.attempts.at(-1)) {
+        require(cell.phaseOutcomes?.answer?.final === core.stripSelfExplanation(phase.outcome?.final ?? '', loaded.pack.masks.selfExplanationMarker), `${cell.cell}: raw final message differs from eligible phase output`);
+      }
+    }
+  }
   // Reuse the evaluator's extraction; do not reinterpret a failed phase's saved file.
   for (const cell of cells) for (const property of scenario.properties) {
     if (cell.propertyPhases?.[property.id]?.state !== 'valid') continue;
@@ -62,7 +69,10 @@ export async function analyzeAdmissionComparison(coreRoot, runDir) {
   } catch (error) {
     provenanceIssues.push(`public blinder replay unavailable: ${String(error)}`);
   }
-  const report = accountAdmissionComparison({ pack: loaded.pack, experiment, scenario, manifest, config, record, cells, blinded, votes, judgments, sources, provenanceIssues });
+  const judgeReplay = await replayAdmissionJudgments({ core, loaded, experiment, scenario, seed: record.seed, units: blinded.units, judgments, originalRecordsDir: runDir });
+  provenanceIssues.push(...judgeReplay.issues);
+  const report = accountAdmissionComparison({ pack: loaded.pack, experiment, scenario, manifest, config, record, cells, blinded, votes, judgments, judgeReplay, canaryQuestion: core.CANARY_QUESTION, sources, provenanceIssues });
+  fs.writeFileSync(path.join(runDir, 'admission-judge-replay.json'), JSON.stringify(judgeReplay, null, 2) + '\n');
   fs.writeFileSync(path.join(runDir, 'ADMISSION-ACCOUNTING.json'), JSON.stringify(report, null, 2) + '\n');
   return report;
 }

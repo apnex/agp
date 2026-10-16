@@ -1,6 +1,7 @@
 // Admission comparison accounting: preserve the declared 144 outcomes and 288 intended vote slots.
 // This derives mechanical scores from retained records, never model answers or an independent verdict.
 import { isDeepStrictEqual } from 'node:util';
+import { admissionJudgmentEvidenceIdentity } from './replay-admission-judgments.mjs';
 
 const normalizeAdmissionWhitespace = (text) => text.replace(/\s+/g, ' ').trim();
 
@@ -28,8 +29,9 @@ export function readAdmissionComparisonDiagnostics(reason) {
 }
 
 // Require the full declared reader/judge probe identities, not merely nine favorable booleans.
-export function admissionComparisonProbeIssues(record, pack, experiment) {
+export function admissionComparisonProbeIssues(record, pack, experiment, canaryQuestion) {
   const issues = [];
+  if (typeof canaryQuestion !== 'string' || !canaryQuestion) issues.push('pinned public canary question is unavailable');
   const expectedReaders = experiment.factors.arms.flatMap((arm) => experiment.factors.population.map((member) => `${arm}.${member}`));
   const expectedJudges = experiment.judging.judges.map((member) => `judges.${member}`);
   for (const [kind, probes, expected] of [['reader', record.probes ?? [], expectedReaders], ['judge', record.judgeProbes ?? [], expectedJudges]]) {
@@ -41,13 +43,30 @@ export function admissionComparisonProbeIssues(record, pack, experiment) {
       if (!isDeepStrictEqual((probe.answers ?? []).map((a) => `${a.kind}:${a.probe}`).sort(), expectedAnswers)) issues.push(`${kind} probe ${probe.arm}.${probe.member} lacks its recorded questions`);
       if (!(probe.answers ?? []).some((a) => a.answered) || (probe.answers ?? []).some((a) => a.toolCalls !== 0 || !['ok', 'unanswered'].includes(a.finding))) issues.push(`${kind} probe ${probe.arm}.${probe.member} has invalid delivery/isolation evidence`);
       if (kind === 'reader' && !probe.answers?.some((a) => a.kind === 'canary' && a.answered && a.finding === 'ok')) issues.push(`${kind} probe ${probe.arm}.${probe.member} lacks canary delivery`);
+      const delivered = new Set(pack.arms.find((a) => a.id === probe.arm)?.deliver.map((d) => d.variant) ?? []);
+      const canaries = kind === 'reader' ? pack.variants.filter((v) => delivered.has(v.id)).flatMap((v) => v.canaries) : [];
+      const foreign = kind === 'reader' ? pack.variants.filter((v) => !delivered.has(v.id)).flatMap((v) => v.canaries) : [];
+      for (const answer of probe.answers ?? []) {
+        const leak = leaks.find((p) => p.id === answer.probe);
+        const expectedQuestion = answer.kind === 'canary' ? canaryQuestion : leak ? `Do not use any tools. Answer in one line. ${leak.question}` : null;
+        if (typeof answer.final !== 'string' || typeof answer.answered !== 'boolean' || !Number.isInteger(answer.toolCalls) || answer.question !== expectedQuestion) issues.push(`${kind} probe ${probe.arm}.${probe.member}: raw question/response provenance missing or different`);
+        const final = typeof answer.final === 'string' ? answer.final : '';
+        if (answer.answered && (!final.trim() || answer.toolCalls !== 0)) issues.push(`${kind} probe ${probe.arm}.${probe.member}: answered flag contradicts raw response`);
+        let finding = answer.answered ? 'ok' : 'unanswered';
+        if (answer.answered && answer.kind === 'canary') {
+          if (!canaries.every((c) => final.includes(c))) finding = 'missing-canary';
+          else if (foreign.some((c) => final.includes(c))) finding = 'foreign-canary';
+        }
+        if (answer.answered && answer.kind === 'leak' && leak && new RegExp(leak.leak, 'i').test(final)) finding = 'leak';
+        if (answer.finding !== finding) issues.push(`${kind} probe ${probe.arm}.${probe.member}: finding contradicts its raw response`);
+      }
     }
   }
   return issues;
 }
 
 // Input records may be incomplete. Missing evidence leaves unresolved identities; it is never a zero.
-export function accountAdmissionComparison({ pack, experiment, scenario, manifest, config, record, cells, blinded, votes, judgments, sources, provenanceIssues = [] }) {
+export function accountAdmissionComparison({ pack, experiment, scenario, manifest, config, record, cells, blinded, votes, judgments, judgeReplay, canaryQuestion, sources, provenanceIssues = [] }) {
   const issues = [...provenanceIssues];
   const require = (condition, message) => { if (!condition) issues.push(message); };
   const same = (actual, expected, message) => require(isDeepStrictEqual(actual, expected), message);
@@ -71,11 +90,14 @@ export function accountAdmissionComparison({ pack, experiment, scenario, manifes
   const times = (record.states ?? []).map((s) => Date.parse(s.at));
   require(times.length > 0 && times.every((t, i) => Number.isFinite(t) && (i === 0 || t >= times[i - 1])), 'run lifecycle timestamps are invalid');
   require(record.register?.experiment === experiment.id && record.register?.declaredStatus === 'result' && /^[a-f0-9]{64}$/.test(record.register?.hash ?? '') && Date.parse(record.register?.recordedAt) < times[0], 'prior experiment registration is absent or invalid');
-  issues.push(...admissionComparisonProbeIssues(record, pack, experiment));
+  issues.push(...admissionComparisonProbeIssues(record, pack, experiment, canaryQuestion));
   same([...(record.cells ?? [])].sort(), intendedCells.map((c) => c.id).sort(), 'declared run cells are missing, duplicated or unexpected');
   same(cells.map((c) => c.cell).sort(), intendedCells.map((c) => c.id).sort(), 'retained cell records are missing, duplicated or unexpected');
   const units = blinded?.units ?? [];
   const absent = blinded?.absent ?? [];
+  require(judgeReplay?.evidenceSha256 === admissionJudgmentEvidenceIdentity({ pack, experiment, scenario, seed: record.seed, units, judgments }), 'public judge replay is absent or bound to different raw evidence');
+  require(Array.isArray(judgeReplay?.issues) && judgeReplay.issues.length === 0, 'public judge replay has unresolved evidence gaps');
+  same(judgeReplay?.votes, votes, 'accepted votes differ from public replay of retained replies');
   require(new Set(units.map((u) => u.id)).size === units.length, 'duplicate blinded unit identity');
   require(new Set(absent.map((a) => `${a.cell}.${a.property}`)).size === absent.length, 'duplicate absent-answer identity');
   const usedUnits = new Set(), usedVotes = new Set(), usedAbsent = new Set();
@@ -92,6 +114,14 @@ export function accountAdmissionComparison({ pack, experiment, scenario, manifes
     cellRequire(cell?.scenario === scenario.id && cell?.arm === intended.arm && cell?.member === intended.member.id && cell?.run === 1, 'cell identity missing or inconsistent');
     cellRequire(attempts.length >= 1 && attempts.length <= 2 && attempts.every((a, i) => a.attempt === i + 1), 'attempt accounting invalid');
     cellRequire(attempts.slice(0, -1).every((a) => a.validity?.valid === false && ['infrastructure', 'isolation'].includes(a.validity.cause)), 'retry after non-retryable outcome');
+    for (const attempt of attempts) {
+      const raw = attempt.outcome;
+      cellRequire(raw && typeof raw.final === 'string' && (Number.isInteger(raw.exit) || raw.exit === null) && (typeof raw.signal === 'string' || raw.signal === null) && ['completed', 'timeout', 'error'].includes(raw.stop?.reason) && ['model', 'tool', 'none', 'unknown'].includes(raw.stop?.inFlight) && Array.isArray(raw.tools) && Array.isArray(raw.trace) && typeof raw.events === 'string' && typeof raw.filtered === 'boolean' && raw.cost && Object.hasOwn(raw, 'error') && Object.hasOwn(raw, 'session'), `attempt ${attempt.attempt} lacks its raw outcome`);
+      if (attempt.failure === undefined) {
+        const retained = attempt.phases?.length === 1 ? attempt.phases[0] : null;
+        cellRequire(retained?.phase === 'answer' && typeof retained?.prompt === 'string' && retained.prompt.length > 0 && retained.outcome && isDeepStrictEqual(retained.outcome, raw), `attempt ${attempt.attempt} lacks linked raw phase outcome/prompt`);
+      } else cellRequire(attempt.validity?.valid === false && attempt.validity.cause === 'infrastructure' && typeof attempt.failure === 'string' && attempt.failure.length > 0, `attempt ${attempt.attempt} has inconsistent core-failure provenance`);
+    }
     cellRequire(cell?.valid === validity?.valid, 'cell validity differs from final attempt');
     cellRequire(usable, 'unresolved infrastructure, isolation or missing attempt');
     const phase = last?.phases?.length === 1 ? last.phases[0] : null;
@@ -99,7 +129,11 @@ export function accountAdmissionComparison({ pack, experiment, scenario, manifes
     cellRequire(isDeepStrictEqual(phase?.validity, validity), 'phase classification differs from final attempt');
     const expectedState = validity?.valid === true ? 'valid' : validity?.cause === 'behaviour' ? 'ended' : 'incomplete';
     if (expectedState === 'ended') cellRequire(last?.endedAt === 'answer', 'behavior failure lacks ended phase identity');
-    if (expectedState === 'valid') cellRequire(typeof cell?.phaseOutcomes?.answer?.scored === 'string' || cell?.phaseOutcomes?.answer?.scored === null, 'valid phase lacks retained scored-file provenance');
+    if (expectedState === 'valid') {
+      cellRequire(typeof cell?.phaseOutcomes?.answer?.scored === 'string' || cell?.phaseOutcomes?.answer?.scored === null, 'valid phase lacks retained scored-file provenance');
+      cellRequire(cell?.scoredFile?.path === scenario.scoredFile && cell.scoredFile.content === cell?.phaseOutcomes?.answer?.scored, 'raw scored file is missing or differs from eligible phase material');
+      cellRequire(cell?.scoredFile?.matchesFinal === (typeof cell?.scoredFile?.content === 'string' && cell.scoredFile.content.trim() === (phase?.outcome?.final ?? '').trim()), 'raw scored-file final-message comparison differs');
+    }
     same(Object.keys(cell?.propertyPhases ?? {}).sort(), [...propertyIds].sort(), `${intended.id}: property phase identities differ`);
     observations.push({ cell: intended.id, state: expectedState, exploratory: expectedState !== 'valid', text: cell?.scoredFile?.content?.split('### OBSERVATIONS')[1]?.trim() ?? null });
     issues.push(...cellIssues);
