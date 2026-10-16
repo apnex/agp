@@ -1,5 +1,8 @@
 # Admission clarification fresh-reader preregistration
 
+Execution amendment: the director selected the [provider migration](admission-provider-amendment-01.md), a bounded independent readiness recheck and conditional execution of the complete comparison.\
+That amendment changes only the two provider-qualified model names and freezes the current provider configuration; the earlier preparation-only authority statements below remain historical.
+
 Correction banner: the prospective [accounting amendment](admission-accounting-amendment-01.md) supersedes the specified accounting clauses below after the [readiness FAIL](admission-key-audit-01.txt).\
 The original body is preserved as-authored at `e9fc08b9c340c11e4f094408ca298dbe28419127`; the amended packet needs its own bounded independent recheck before a separate execution decision.
 

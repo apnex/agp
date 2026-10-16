@@ -56,13 +56,13 @@
       "id": "c",
       "family": "claude",
       "runtime": "opencode",
-      "model": "litellm-netbird/claude-opus-5-5"
+      "model": "litellm-nexus/claude-opus-5-5"
     },
     {
       "id": "g",
       "family": "gemini",
       "runtime": "opencode",
-      "model": "litellm-netbird/gemini-3.8-flash"
+      "model": "litellm-nexus/gemini-3.8-flash"
     },
     {
       "id": "o",

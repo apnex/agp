@@ -1,0 +1,27 @@
+{
+  "provider": {
+    "litellm-nexus": {
+      "npm": "@ai-sdk/anthropic",
+      "options": {
+        "baseURL": "http://100.80.94.9:4000/v1",
+        "apiKey": "{env:LITELLM_NETBIRD_API_KEY}"
+      },
+      "models": {
+        "claude-opus-5-5": {
+          "name": "Claude Opus 5.5 [Nexus]",
+          "reasoning": true,
+          "options": {
+            "thinking": { "type": "adaptive" },
+            "output_config": { "effort": "high" }
+          },
+          "limit": { "context": 1000000, "output": 128000 }
+        },
+        "gemini-3.8-flash": {
+          "name": "Gemini 3.8 Flash [Nexus]",
+          "limit": { "context": 1048576, "output": 65536 },
+          "provider": { "npm": "@ai-sdk/openai-compatible" }
+        }
+      }
+    }
+  }
+}

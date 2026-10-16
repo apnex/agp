@@ -1,0 +1,218 @@
+{
+  "schema": "agp.admission-execution-preflight/1",
+  "recordedAtUtc": "2026-10-16 01:02:18 UTC",
+  "status": "not-ready: provider selection unresolved; no experiment run",
+  "handoffChecks": {
+    "recordChecks": {
+      "command": "node --test --test-concurrency=1 --test-timeout=120000 test/conformance/board-record.test.js test/conformance/record-integrity.test.js test/conformance/markdown-link-integrity.test.js",
+      "chunk_id": "3d3505",
+      "wall_time_seconds": 0.234392766,
+      "exit_code": 0,
+      "original_token_count": 450,
+      "output": "✔ Given the triage ledger, when each candidate is read, then it is scored on both dimensions and cites a record (6.781867ms)\n✔ Given every record cited by the board, when the link is resolved, then the target and its anchor exist (92.360258ms)\n✔ Given the held section, when each item is read, then it is scored and carries a revival trigger (0.880354ms)\n✔ Given the decisions required, when each is read, then it names exactly what it blocks (0.813625ms)\n✔ Given every board identifier, when the ledger and milestones are compared, then neither contains an item the other omits (0.925804ms)\n✔ Given every tracked markdown file, when its local links are resolved, then each target file exists (31.359915ms)\n✔ Given every tracked markdown file, when a link names an anchor, then the target heading exists (25.812924ms)\n✔ Given every board item, when its ledger status is compared with where it sits, then the board does not disagree with itself about its state (7.231672ms)\n✔ Given the milestones, when each is read, then no landed item is presented as a live move and the closed count matches the closed set (2.909545ms)\n✔ Given every record that cites a board item, when the citation is resolved, then the item exists on the board (24.789938ms)\n✔ Given the architecture maturity table, when a reopen trigger is read, then it names a condition that has not already happened (1.683437ms)\n✔ Given confirmed intent, when a row says it was amended, then it names the decision that amended it (0.816058ms)\n✔ Given every ratified decision, when it is checked against the vision, then it has been absorbed or explicitly ruled not to change purpose (1.081093ms)\nℹ tests 13\nℹ suites 0\nℹ pass 13\nℹ fail 0\nℹ cancelled 0\nℹ skipped 0\nℹ todo 0\nℹ duration_ms 349.184013\n"
+    },
+    "styleChecks": {
+      "command": "tools/check-docs.sh docs/BOARD.md docs/VERIFICATION.md",
+      "chunk_id": "5dd6bd",
+      "wall_time_seconds": 0.000014263,
+      "exit_code": 0,
+      "original_token_count": 49,
+      "output": "\nclean: 2 file(s), rule S13.\n\nclean: 2 file(s), rule S6.\n\nclean: 2 file(s), rule S10.\n\nclean: 2 file(s), rule S12.\n\nclean: 2 file(s), rule S8.\ndocs: 2 file(s) clean against S6, S8, S10, S12, S13.\n"
+    },
+    "diffCheck": {
+      "command": "git diff --check",
+      "chunk_id": "58e08a",
+      "wall_time_seconds": 0.00001442,
+      "exit_code": 0,
+      "original_token_count": 0,
+      "output": ""
+    },
+    "limit": "Author document/record checks only, not experiment readiness, reader assurance or AGP runtime acceptance."
+  },
+  "authority": {
+    "selection": "continue",
+    "selectedScope": "Execution preflight, then the frozen six-reader comparison if prerequisites pass.",
+    "exclusions": [
+      "No model/profile change by implication",
+      "No public-contract ratification",
+      "No AGP runtime implementation",
+      "No publication or Zorg correspondence"
+    ]
+  },
+  "revisions": {
+    "agp": "f6ebdd6690fc6fb44a9df43faee3d120dd488a8b",
+    "evaluator": "6e6d0a92965a15ec473c661887b2b9c5037fedcf",
+    "currentContextLab": "0c0ab1f0248ef0cbb21885d7d6af76586d8a1b68",
+    "guidance": "ec356b8c706c1201f636ce526348ec1f6c213a18"
+  },
+  "measured": {
+    "checkout": "Clean detached worktree at the evaluator pin; npm ci --ignore-scripts and npm run build exited 0.",
+    "inputs": "All 17 committed R4 packet files and all 57 earlier-assurance files match AGP HEAD.",
+    "preview": "Existing capture-only public renderer check exited 0: 48 judge prompts, 24 questions, 15 controls, 144 fixture units, 288 null fixture vote slots; no model invoked.",
+    "runtimeVersions": {
+      "node": "v24.12.0",
+      "npm": "11.6.2",
+      "bubblewrap": "0.4.1",
+      "opencode": "1.19.0",
+      "codex": "codex-cli 0.162.1"
+    },
+    "defaultConfiguration": "Only litellm-nexus is configured; the two frozen litellm-netbird profile prefixes have no default provider entry.",
+    "configurationDifferences": "The retained NetBird config snapshots and current Nexus config differ in endpoint and model limits; the current Gemini model also selects @ai-sdk/openai-compatible instead of inheriting @ai-sdk/anthropic.",
+    "providerRefusalLimit": "The pinned opencode refusal check returned null but does not validate provider/model presence when the member declares no settings; this metadata check does not establish launch readiness.",
+    "priorProviderConnectivity": "The old hostname resolved to 100.80.91.238 and one TCP connection to port 4000 succeeded. No application request or credential was sent; model serving, policy and suitability are unmeasured.",
+    "registerAndRecords": "Neither conventional R4 register nor records directory exists; no new registration, live isolation probe, reader or judge invocation occurred in this turn."
+  },
+  "sourceRecord": {
+    "repository": "/home/apnex/taceng/context-lab",
+    "revision": "0c0ab1f0248ef0cbb21885d7d6af76586d8a1b68",
+    "path": "docs/DECISIONS.md",
+    "decision": "0021",
+    "scope": "Context-lab Delta-2 live stage; not automatically an amendment of the AGP experiment.",
+    "excerpt": "The thresholds derived from run `2026-10-12-105615-aa` stay in mission-kit's register, superseded, and the old endpoint is not used again.",
+    "corroboratingMigration": "Mission-kit commit 4bbee9f55f37ae82e1dc4ca386d327cc9fde47e7 moved its pack to Nexus and a five-member population; AGP has not adopted that population."
+  },
+  "assessment": {
+    "tier": 3,
+    "finding": "This is not established to be a harmless alias rename. Substituting the provider would change a frozen input; reviving the retired endpoint is not assumed authorized.",
+    "recommendation": "Obtain director selection for a prospective provider migration amendment, then a bounded non-author readiness recheck. Retain AGP's existing three families/models, six cells, 24 questions, 15 controls, 144 outcomes, 288 vote slots, evaluator pin, scoring and retry rules. Do not inherit mission-kit's extra models or outputTokenMax settings.",
+    "scopeLimit": "Provider route/SDK/model limits must be recorded explicitly; model labels do not prove identical backend versions.",
+    "remaining": [
+      "Director provider selection",
+      "Prospective amendment and bounded independent recheck if migration selected",
+      "Implement and verify complete fail-closed project accounting (no new accounting code written this turn)",
+      "Record common execution limits and seed mechanism",
+      "Register final packet",
+      "Pass actual reader/judge delivery and isolation probes",
+      "Run comparison and retain all attempts",
+      "Replay tally and project accounting; obtain independent measurement verdict"
+    ]
+  },
+  "scratch": "/tmp/agp-admission-execution.z0MIOj",
+  "commandRecords": {
+    "build-completion.json": {
+      "chunk_id": "de5db9",
+      "wall_time_seconds": 0.000010912,
+      "exit_code": 0,
+      "original_token_count": 0,
+      "output": ""
+    },
+    "build.json": {
+      "command": "npm run build",
+      "cwd": "/tmp/agp-admission-execution.z0MIOj/context-lab",
+      "chunk_id": "2f73f6",
+      "wall_time_seconds": 1.001105525,
+      "session_id": 33598,
+      "original_token_count": 11,
+      "output": "\n> @apnex/context-lab@0.0.0 build\n> tsc -b\n\n"
+    },
+    "checkout.json": {
+      "command": "git worktree add --detach /tmp/agp-admission-execution.z0MIOj/context-lab 6e6d0a92965a15ec473c661887b2b9c5037fedcf",
+      "chunk_id": "1dae7b",
+      "wall_time_seconds": 0.000017756,
+      "exit_code": 0,
+      "original_token_count": 34,
+      "output": "Preparing worktree (detached HEAD 6e6d0a9)\nHEAD is now at 6e6d0a9 Delta-2 stage 2: multi-phase episodes, branches, notes, trap rotation\n"
+    },
+    "frozen-identities.json": {
+      "command": "node --input-type=module -e 'import fs from \"node:fs\";import path from \"node:path\";import {execFileSync} from \"node:child_process\";import {createHash} from \"node:crypto\";const git=(...args)=>execFileSync(\"git\",args,{encoding:\"utf8\"}).trim();const roots=[\"docs/reviews/admission-lifetime-assurance\",\"docs/reviews/admission-lifetime-assurance-r4\"];const result={head:git(\"rev-parse\",\"HEAD\"),node:process.version,packets:roots.map(root=>{const names=git(\"ls-tree\",\"-r\",\"--name-only\",\"HEAD\",\"--\",root).split(\"\\n\");const files=names.map(file=>{const bytes=fs.readFileSync(file);const baseline=execFileSync(\"git\",[\"show\",`HEAD:${file}`]);return {file,sha256:createHash(\"sha256\").update(bytes).digest(\"hex\"),matchesHead:bytes.equals(baseline)}});return {root,tree:git(\"rev-parse\",`HEAD:${root}`),count:files.length,allMatchHead:files.every(x=>x.matchesHead),files}}),registerPresent:fs.existsSync(path.join(roots[1],\"register\")),recordsPresent:fs.existsSync(path.join(roots[1],\"records\"))};console.log(JSON.stringify(result,null,2));if(!result.packets.every(x=>x.allMatchHead))process.exitCode=1;'",
+      "cwd": "/home/apnex/taceng/agp",
+      "chunk_id": "591bb7",
+      "wall_time_seconds": 0.093719501,
+      "exit_code": 0,
+      "original_token_count": 4934,
+      "output": "{\n  \"head\": \"f6ebdd6690fc6fb44a9df43faee3d120dd488a8b\",\n  \"node\": \"v24.12.0\",\n  \"packets\": [\n    {\n      \"root\": \"docs/reviews/admission-lifetime-assurance\",\n      \"tree\": \"f399ece937693149078bc6ae055d7b29f1cfa221\",\n      \"count\": 57,\n      \"allMatchHead\": true,\n      \"files\": [\n        {\n          \"file\": \"docs/reviews/admission-lifetime-assurance/admission-assurance-amendment-01.md\",\n          \"sha256\": \"594cc7d41f5c59a327ddef9f0393f0fd540615c88dc7d72488a76e154a250224\",\n          \"matchesHead\": true\n        },\n        {\n          \"file\": \"docs/reviews/admission-lifetime-assurance/admission-assurance-findings-triage.md\",\n          \"sha256\": \"1d930c27bfaa79cfcc59d86edd83741e4a478e9a0f50697f312dc316dd3839fc\",\n          \"matchesHead\": true\n        },\n        {\n          \"file\": \"docs/reviews/admission-lifetime-assurance/admission-assurance-preregistration.md\",\n          \"sha256\": \"44059bb029da139735e7488f81833ff79c8ec03162cf60b8d9c2e7fad4ea59e6\",\n          \"matchesHead\": true\n        },\n        {\n          \"file\": \"docs/reviews/admission-lifetime-assurance/admission-assurance-result.md\",\n          \"sha256\": \"b9af30b61371ab21b25a6108875008e1725a7deb3977345563e6368fa7ea4140\",\n          \"matchesHead\": true\n        },\n        {\n          \"file\": \"docs/reviews/admission-lifetime-assurance/admission-gate-review-01.txt\",\n          \"sha256\": \"f1e0371d99c6e3646451b1ab9559444c9e06dbe3c93180e9099ccecb6507d4aa\",\n          \"matchesHead\": true\n        },\n        {\n          \"file\": \"docs/reviews/admission-lifetime-assurance/admission-input-manifest.json\",\n          \"sha256\": \"df67bda6290df751abc9a45769088bf45c5be70290d4a2731a093d4893f06c57\",\n          \"matchesHead\": true\n        },\n        {\n          \"file\": \"docs/reviews/admission-lifetime-assurance/admission-lifetime-experiment.json\",\n          \"sha256\": \"d93b38cefbefd5e9cc6bfabd279edbbaa73116cf99b1f26971be34b613471293\",\n          \"matchesHead\": true\n        },\n        {\n          \"file\": \"docs/reviews/admission-lifetime-assurance/admission-lifetime-probes.json\",\n          \"sha256\": \"fcbbc7baca7b67fce55d6107fec1d80e8b59de3a69e424f44a34e45f9214fb4e\",\n          \"matchesHead\": true\n        },\n        {\n          \"file\": \"docs/reviews/admission-lifetime-assurance/analyze-admission-assurance.mjs\",\n          \"sha256\": \"e69d52257bb2d571feefc0f3bc6b1aff461adc1bf54a1677ad123a84e21174a5\",\n          \"matchesHead\": true\n        },\n        {\n          \"file\": \"docs/reviews/admission-lifetime-assurance/inputs/d41/DESIGN.md\",\n          \"sha256\": \"3396fc788a6907a0ba81b142ce2a904035fcf9ce0694f100e2e5e51c1d4db040\",\n          \"matchesHead\": true\n        },\n        {\n          \"file\": \"docs/reviews/admission-lifetime-assurance/inputs/p87/DESIGN.md\",\n          \"sha256\": \"c8c86304e408a9b5b0a335e66ec9cc3530659ca1e6265e1d618137d0f42bf332\",\n          \"matchesHead\": true\n        },\n        {\n          \"file\": \"docs/reviews/admission-lifetime-assurance/judge-o-06-rejected-events.jsonl\",\n          \"sha256\": \"0b7af6e857329d79c988c559b1b271fcf0c9debd9a862256e4630ec2331c0aa1\",\n          \"matchesHead\": true\n        },\n        {\n          \"file\": \"docs/reviews/admission-lifetime-assurance/key-audit-01.txt\",\n          \"sha256\": \"17cdc79fbdd0c4b35aca6024b29d69a9163fe4c0c63edabc9fb3a7cadaf4113d\",\n          \"matchesHead\": true\n        },\n        {\n          \"file\": \"docs/reviews/admission-lifetime-assurance/key-audit-02.txt\",\n          \"sha256\": \"cb6fcd8123a55a07274563329232a0fa6a1559dc1dc6bfa7e4561f6dd32edaf1\",\n          \"matchesHead\": true\n        },\n        {\n          \"file\": \"docs/reviews/admission-lifetime-assurance/mechanical-accounting.json\",\n          \"sha256\": \"c58382c04f27924a37ece80ad8501eddeafe009e4ffa022550e72e93325f13cc\",\n          \"matchesHead\": true\n        },\n        {\n          \"file\": \"docs/reviews/admission-lifetime-assurance/pack.json\",\n          \"sha256\": \"0f0e2a20f08b98e3815a85f941bcea8367b4e4b3f75b173760a4c0bc2df6f613\",\n          \"matchesHead\": true\n        },\n        {\n          \"file\": \"docs/reviews/admission-lifetime-assurance/reader-p87-g-events.jsonl\",\n          \"sha256\": \"72b3f0cbc899f6b131c03672a74496f16fbd67a578323d1b26f73eacf5624420\",\n          \"matchesHead\": true\n        },\n        {\n          \"file\": \"docs/reviews/admission-lifetime-assurance/records/2026-10-12-032023-admission-lifetime/RESULT.json\",\n          \"sha256\": \"3b18a9f7cd6996177774fa662b772977b6968d92445f35a92e66801fe1018627\",\n          \"matchesHead\": true\n        },\n        {\n          \"file\": \"docs/reviews/admission-lifetime-assurance/records/2026-10-12-032023-admission-lifetime/RESULT.md\",\n          \"sha256\": \"c8d20ba3e332c14b43d1b44de3560a26c445fcadc897eb7ae38e46ec213b5661\",\n          \"matchesHead\": true\n        },\n        {\n          \"file\": \"docs/reviews/admission-lifetime-assurance/records/2026-10-12-032023-admission-lifetime/cells/admission-lifetime.d41.c.1.json\",\n          \"sha256\": \"eb2d96be9b0330433213d947f1433099f6b9aa4bedb487e248f15309aa9a3d0f\",\n          \"matchesHead\": true\n        },\n        {\n          \"file\": \"docs/reviews/admission-lifetime-assurance/records/2026-10-12-032023-admission-lifetime/cells/admission-lifetime.d41.g.1.json\",\n          \"sha256\": \"df6aea1e1c376a2abe77e05792188e7f1b4e8bec7ac59b12bb7a67c2761694c1\",\n          \"matchesHead\": true\n        },\n        {\n          \"file\": \"docs/reviews/admission-lifetime-assurance/records/2026-10-12-032023-admission-lifetime/cells/admission-lifetime.d41.o.1.json\",\n          \"sha256\": \"a9f1a0b9bcffda77add0e2658ff42d97aec52f2c3c4feddf6675912f15008888\",\n          \"matchesHead\": true\n        },\n        {\n          \"file\": \"docs/reviews/admission-lifetime-assurance/records/2026-10-12-032023-admission-lifetime/cells/admission-lifetime.p87.c.1.json\",\n          \"sha256\": \"31ff810fd19ee322fb046d02546c7723fde9836cf7cf3cd119e09ca07a25d30b\",\n          \"matchesHead\": true\n        },\n        {\n          \"file\": \"docs/reviews/admission-lifetime-assurance/records/2026-10-12-032023-admission-lifetime/cells/admission-lifetime.p87.g.1.json\",\n          \"sha256\": \"429cd6c8212d4ec35728f3907b088583b712be60464fa945e2c4a58bd76b771d\",\n          \"matchesHead\": true\n        },\n        {\n          \"file\": \"docs/reviews/admission-lifetime-assurance/records/2026-10-12-032023-admission-lifetime/cells/admission-lifetime.p87.o.1.json\",\n          \"sha256\": \"1cb45e5419044942973518219f0ce05d69de67ed2875d23df2b416815b0eb40d\",\n          \"matchesHead\": true\n        },\n        {\n          \"file\": \"docs/reviews/admission-lifetime-assurance/records/2026-10-12-032023-admission-lifetime/judging/admission-lifetime.answer.answers.c.1.json\",\n          \"sha256\": \"85a9578b683b3edde2f146296810941f89db7ce678f7260e4800b96cab5b0de0\",\n          \"matchesHead\": true\n        },\n        {\n          \"file\": \"docs/reviews/admission-lifetime-assurance/records/2026-10-12-032023-admission-lifetime/judging/admission-lifetime.answer.answers.c.2.json\",\n          \"sha256\": \"afe207f01dc168f1829a0f7e1da63244e2201ce1ea9f604a52efa046dde13ab4\",\n          \"matchesHead\": true\n        },\n        {\n          \"file\": \"docs/reviews/admission-lifetime-assurance/records/2026-10-12-032023-admission-lifetime/judging/admission-lifetime.answer.answers.c.3.json\",\n          \"sha256\": \"5fe86d30dacf3a0fe9983275ccf9ba5742a53c9e861f885c857317c53705d249\",\n          \"matchesHead\": true\n        },\n        {\n          \"file\": \"docs/reviews/admission-lifetime-assurance/records/2026-10-12-032023-admission-lifetime/judging/admission-lifetime.answer.answers.c.4.json\",\n          \"sha256\": \"94793eae06f36809b8e1f65673f608bb225007b6eebd0df10da68109ef2cef76\",\n          \"matchesHead\": true\n        },\n        {\n          \"file\": \"docs/reviews/admission-lifetime-assurance/records/2026-10-12-032023-admission-lifetime/judging/admission-lifetime.answer.answers.c.5.json\",\n          \"sha256\": \"46575f1a5a6455950b7fe67d41f5351c88515749a06801ef5cd7f410f1419717\",\n          \"matchesHead\": true\n        },\n        {\n          \"file\": \"docs/reviews/admission-lifetime-assurance/records/2026-10-12-032023-admission-lifetime/judging/admission-lifetime.answer.answers.c.6.json\",\n          \"sha256\": \"e4c41efac2aff4ca7670a2f93195c39a9e04281b2c910a2ec3913faf640d45be\",\n          \"matchesHead\": true\n        },\n        {\n          \"file\": \"docs/reviews/admission-lifetime-assurance/records/2026-10-12-032023-admission-lifetime/judging/admission-lifetime.answer.answers.c.7.json\",\n          \"sha256\": \"8f3b443573150dba7c81705917960231932a73ed0e9ddbc73f547525817b5a79\",\n          \"matchesHead\": true\n        },\n        {\n          \"file\": \"docs/reviews/admission-lifetime-assurance/records/2026-10-12-032023-admission-lifetime/judging/admission-lifetime.answer.answers.c.8.json\",\n          \"sha256\": \"f7a0b0e8ff1b6fd49554552e819f15d3018bb2942902afc735aaaa79afee6c69\",\n          \"matchesHead\": true\n        },\n        {\n          \"file\": \"docs/reviews/admission-lifetime-assurance/records/2026-10-12-032023-admission-lifetime/judging/admission-lifetime.answer.answers.g.1.json\",\n          \"sha256\": \"80f6f95abea5ba1438ee08a2e69fe82c2f138dfe6440f28dfb49eac98a511092\",\n          \"matchesHead\": true\n        },\n        {\n          \"file\": \"docs/reviews/admission-lifetime-assurance/records/2026-10-12-032023-admission-lifetime/judging/admission-lifetime.answer.answers.g.2.json\",\n          \"sha256\": \"ed04dfda368925a3c39c81a251de61fdaae0c0221290ea994881c53b99ad1dd6\",\n          \"matchesHead\": true\n        },\n        {\n          \"file\": \"docs/reviews/admission-lifetime-assurance/records/2026-10-12-032023-admission-lifetime/judging/admission-lifetime.answer.answers.g.3.json\",\n          \"sha256\": \"1810a347e41a603f92f8c92db0ef0db4c631b4d37504b6c2a9c952d05a7875bb\",\n          \"matchesHead\": true\n        },\n        {\n          \"file\": \"docs/reviews/admission-lifetime-assurance/records/2026-10-12-032023-admission-lifetime/judging/admission-lifetime.answer.answers.g.4.json\",\n          \"sha256\": \"ab1a8291654501fc31500c8b39eab11263e2d916d52aed71969337f212bf9390\",\n          \"matchesHead\": true\n        },\n        {\n          \"file\": \"docs/reviews/admission-lifetime-assurance/records/2026-10-12-032023-admission-lifetime/judging/admission-lifetime.answer.answers.g.5.json\",\n          \"sha256\": \"b1b2fe8367faac84bf03399439b29be3ce0584d491db6c9da86e229b49d45f68\",\n          \"matchesHead\": true\n        },\n        {\n          \"file\": \"docs/reviews/admission-lifetime-assurance/records/2026-10-12-032023-admission-lifetime/judging/admission-lifetime.answer.answers.g.6.json\",\n          \"sha256\": \"a47372001b071ffc802090304d0d3d84ff627b43c36d727b0b0a9c70a72abc3a\",\n          \"matchesHead\": true\n        },\n        {\n          \"file\": \"docs/reviews/admission-lifetime-assurance/records/2026-10-12-032023-admission-lifetime/judging/admission-lifetime.answer.answers.g.7.json\",\n          \"sha256\": \"3b1ad3cf3a9b951dede290c19ff92189253ac3a31bcb55d040283c8b9b3da453\",\n          \"matchesHead\": true\n        },\n        {\n          \"file\": \"docs/reviews/admission-lifetime-assurance/records/2026-10-12-032023-admission-lifetime/judging/admission-lifetime.answer.answers.g.8.json\",\n          \"sha256\": \"b8ec4f12011ae09bf0023357c15da098ba7f06b37832b997be8d4ef800ac9832\",\n          \"matchesHead\": true\n        },\n        {\n          \"file\": \"docs/reviews/admission-lifetime-assurance/records/2026-10-12-032023-admission-lifetime/judging/admission-lifetime.answer.answers.o.1.json\",\n          \"sha256\": \"fb79ee971d96777c577926a889f6d6b712ce0557ff0f19cf06e43e2cbc9896d9\",\n          \"matchesHead\": true\n        },\n        {\n          \"file\": \"docs/reviews/admission-lifetime-assurance/records/2026-10-12-032023-admission-lifetime/judging/admission-lifetime.answer.answers.o.2.json\",\n          \"sha256\": \"3fcd99d16577f84b97125086466ddc5f487fdc276b829dadbd2878db29126940\",\n          \"matchesHead\": true\n        },\n        {\n          \"file\": \"docs/reviews/admission-lifetime-assurance/records/2026-10-12-032023-admission-lifetime/judging/admission-lifetime.answer.answers.o.3.json\",\n          \"sha256\": \"df4ced86aac8279ef51aa72f34b9158c0e0097dfe13ce1ae8effb0a69f2f9d75\",\n          \"matchesHead\": true\n        },\n        {\n          \"file\": \"docs/reviews/admission-lifetime-assurance/records/2026-10-12-032023-admission-lifetime/judging/admission-lifetime.answer.answers.o.4.json\",\n          \"sha256\": \"ec261970a635b8790271c86742b9654d4b63504ac6f8767191bc851c363d4e7e\",\n          \"matchesHead\": true\n        },\n        {\n          \"file\": \"docs/reviews/admission-lifetime-assurance/records/2026-10-12-032023-admission-lifetime/judging/admission-lifetime.answer.answers.o.5.json\",\n          \"sha256\": \"727976536fb0a9dd49e785cfe486481efc17daf353f4f9656f669367b2dc6aa9\",\n          \"matchesHead\": true\n        },\n        {\n          \"file\": \"docs/reviews/admission-lifetime-assurance/records/2026-10-12-032023-admission-lifetime/judging/admission-lifetime.answer.answers.o.6.json\",\n          \"sha256\": \"0a93eae641e42dd701540a7973ede761355462d1be07aa2fc1f5b224d2e79196\",\n          \"matchesHead\": true\n        },\n        {\n          \"file\": \"docs/reviews/admission-lifetime-assurance/records/2026-10-12-032023-admission-lifetime/judging/admission-lifetime.answer.answers.o.7.json\",\n          \"sha256\": \"657839f7d019cba9c7bc340d96ea4186e932841d8ea92437efdee6a7dcfda467\",\n          \"matchesHead\": true\n        },\n        {\n          \"file\": \"docs/reviews/admission-lifetime-assurance/records/2026-10-12-032023-admission-lifetime/judging/admission-lifetime.answer.answers.o.8.json\",\n          \"sha256\": \"3cb6bb3c140e5244848543e9044ec89f129c60d95a5cfa5c97a65fdb0ff16eb4\",\n          \"matchesHead\": true\n        },\n        {\n          \"file\": \"docs/reviews/admission-lifetime-assurance/records/2026-10-12-032023-admission-lifetime/judging/votes.json\",\n          \"sha256\": \"7b2300d597901f9f43dfec841a2921dff108c2a1a5e914b2eb4b01b0ebae5d19\",\n          \"matchesHead\": true\n        },\n        {\n          \"file\": \"docs/reviews/admission-lifetime-assurance/records/2026-10-12-032023-admission-lifetime/run.json\",\n          \"sha256\": \"da4539630469aecf4fac2a7081947058076ca30edd404f31237358dffd21c1d6\",\n          \"matchesHead\": true\n        },\n        {\n          \"file\": \"docs/reviews/admission-lifetime-assurance/records/2026-10-12-032023-admission-lifetime/sealed/units.json\",\n          \"sha256\": \"b7080b0c316e6db8fb857555cde4c347ac8579990d5ec4de249ca5f0c5a5eabb\",\n          \"matchesHead\": true\n        },\n        {\n          \"file\": \"docs/reviews/admission-lifetime-assurance/register/admission-lifetime.json\",\n          \"sha256\": \"94c073b34d42090311bc5a30b4abc4f2b2b7e11bea571b51d23f8103910afe79\",\n          \"matchesHead\": true\n        },\n        {\n          \"file\": \"docs/reviews/admission-lifetime-assurance/sources/frozen-r2.txt\",\n          \"sha256\": \"b89a3328ae7cd41feb38a498b75b16fe06d47f232d9c09dffe42542438f005fb\",\n          \"matchesHead\": true\n        },\n        {\n          \"file\": \"docs/reviews/admission-lifetime-assurance/sources/frozen-r3.txt\",\n          \"sha256\": \"6ccf9ba0e7d94b83897fade8f865fe3fb1328db292d92cce4d5cc85bc28fc2f2\",\n          \"matchesHead\": true\n        },\n        {\n          \"file\": \"docs/reviews/admission-lifetime-assurance/sources/ratified-retry-excerpt.txt\",\n          \"sha256\": \"98d4ae947e0475c4140932910cc209dc994c618a1aca0ca43bec2bdae329a256\",\n          \"matchesHead\": true\n        },\n        {\n          \"file\": \"docs/reviews/admission-lifetime-assurance/verify-admission-judge-prompts.mjs\",\n          \"sha256\": \"6c337052d248bdd9d876e991a3b3c3af6850abe40474d0b3fb86f0d0e3df8947\",\n          \"matchesHead\": true\n        }\n      ]\n    },\n    {\n      \"root\": \"docs/reviews/admission-lifetime-assurance-r4\",\n      \"tree\": \"af1f49ac579e2992f76000c46285cd46aea41e14\",\n      \"count\": 17,\n      \"allMatchHead\": true,\n      \"files\": [\n        {\n          \"file\": \"docs/reviews/admission-lifetime-assurance-r4/admission-accounting-amendment-01.md\",\n          \"sha256\": \"4a59e4608b2cd4087ab8a69393a700a42c29a276fd5385bbd95e686decb77399\",\n          \"matchesHead\": true\n        },\n        {\n          \"file\": \"docs/reviews/admission-lifetime-assurance-r4/admission-assurance-coverage.json\",\n          \"sha256\": \"5a01bd2687d5c40736bd86a34b5d6413ce0ca34f063d218a22760acc836f77f4\",\n          \"matchesHead\": true\n        },\n        {\n          \"file\": \"docs/reviews/admission-lifetime-assurance-r4/admission-assurance-preregistration.md\",\n          \"sha256\": \"7ae488d7d120effbc0af4a14ded98598ea3209558d8928df7f6a8ec4e05d9ab5\",\n          \"matchesHead\": true\n        },\n        {\n          \"file\": \"docs/reviews/admission-lifetime-assurance-r4/admission-clarity-experiment.json\",\n          \"sha256\": \"6a9a7cc08570ed3af675dafacba5c99c4f7d11137eb90a7d4b0f54268022f9a6\",\n          \"matchesHead\": true\n        },\n        {\n          \"file\": \"docs/reviews/admission-lifetime-assurance-r4/admission-clarity-probes.json\",\n          \"sha256\": \"5c36906b1a6b2c63e9815695163b816c9386d614c1dd4f4e06fa096da0b2a247\",\n          \"matchesHead\": true\n        },\n        {\n          \"file\": \"docs/reviews/admission-lifetime-assurance-r4/admission-input-manifest.json\",\n          \"sha256\": \"8a35376cd4ab9075c5788c79203e727eaef654b202b678dd787093e71364e9cf\",\n          \"matchesHead\": true\n        },\n        {\n          \"file\": \"docs/reviews/admission-lifetime-assurance-r4/admission-input.test.mjs\",\n          \"sha256\": \"0d26b8dc797d29fbdd5a497034e4b0d0f9ee1008e948ba24b5a1528a6fea2378\",\n          \"matchesHead\": true\n        },\n        {\n          \"file\": \"docs/reviews/admission-lifetime-assurance-r4/admission-key-audit-01.txt\",\n          \"sha256\": \"21561fbc58fdb51d8d7a62ce9cfb5e383423b700a585abe459213055538ce35e\",\n          \"matchesHead\": true\n        },\n        {\n          \"file\": \"docs/reviews/admission-lifetime-assurance-r4/admission-key-recheck-02.txt\",\n          \"sha256\": \"e280c067606dd737e694b995284d4c52a3ebae4584ab4a702ae52efb284fd438\",\n          \"matchesHead\": true\n        },\n        {\n          \"file\": \"docs/reviews/admission-lifetime-assurance-r4/check-admission-input.mjs\",\n          \"sha256\": \"989a89ff7e9be6313585a43e50b1de3e1fea55f7611c60cbb27ee2a7f8c0e293\",\n          \"matchesHead\": true\n        },\n        {\n          \"file\": \"docs/reviews/admission-lifetime-assurance-r4/inputs/m42/DESIGN.md\",\n          \"sha256\": \"822c1f92287b53c59cbc9ca26743bd1b2b73693fc8e994c11d206d04af31bae9\",\n          \"matchesHead\": true\n        },\n        {\n          \"file\": \"docs/reviews/admission-lifetime-assurance-r4/inputs/x19/DESIGN.md\",\n          \"sha256\": \"605dc6181909bc66532d120e07b2a69c59dea3286ca690ce718a0583c033200a\",\n          \"matchesHead\": true\n        },\n        {\n          \"file\": \"docs/reviews/admission-lifetime-assurance-r4/pack.json\",\n          \"sha256\": \"6d9133bc7574ae1be9d57b7e987c2050337ae42bd4ad7072c70a9204dfa5092d\",\n          \"matchesHead\": true\n        },\n        {\n          \"file\": \"docs/reviews/admission-lifetime-assurance-r4/project-admission-input.mjs\",\n          \"sha256\": \"408b994da025f9a8c21822166f492cfbe2b2b61d1b0b33cc175aa6d1da4d7573\",\n          \"matchesHead\": true\n        },\n        {\n          \"file\": \"docs/reviews/admission-lifetime-assurance-r4/sources/frozen-r3.txt\",\n          \"sha256\": \"6ccf9ba0e7d94b83897fade8f865fe3fb1328db292d92cce4d5cc85bc28fc2f2\",\n          \"matchesHead\": true\n        },\n        {\n          \"file\": \"docs/reviews/admission-lifetime-assurance-r4/sources/frozen-r4.txt\",\n          \"sha256\": \"082b2c704dfdc3338283f3733732388a15fbffec5d1f28bf78313bad884b97b4\",\n          \"matchesHead\": true\n        },\n        {\n          \"file\": \"docs/reviews/admission-lifetime-assurance-r4/verify-admission-packet.mjs\",\n          \"sha256\": \"a736899ef3d658153c74c978ce1e1d6ec7230a6abcb8931cf163ceb2a6f8b91c\",\n          \"matchesHead\": true\n        }\n      ]\n    }\n  ],\n  \"registerPresent\": false,\n  \"recordsPresent\": false\n}\n"
+    },
+    "input-tests.json": {
+      "command": "node --test --test-concurrency=1 --test-timeout=120000 docs/reviews/admission-lifetime-assurance-r4/admission-input.test.mjs",
+      "cwd": "/home/apnex/taceng/agp",
+      "chunk_id": "009441",
+      "wall_time_seconds": 0.070444088,
+      "exit_code": 0,
+      "original_token_count": 145,
+      "output": "✔ Admission input identities match both whole sources and their exact projections (8.302936ms)\n✔ Admission source mutation is rejected before its projection can be trusted (3.840737ms)\n✔ Admission reader mutation is rejected at its content identity boundary (1.739138ms)\n✔ A rehashed but substantively changed reader copy still fails projection fidelity (4.294786ms)\n✔ Admission projection fails closed when its history boundary is absent (0.906065ms)\nℹ tests 5\nℹ suites 0\nℹ pass 5\nℹ fail 0\nℹ cancelled 0\nℹ skipped 0\nℹ todo 0\nℹ duration_ms 164.215937\n"
+    },
+    "install-completion.json": {
+      "chunk_id": "4021e4",
+      "wall_time_seconds": 0.000017702,
+      "exit_code": 0,
+      "original_token_count": 19,
+      "output": "\nadded 4 packages, and audited 6 packages in 1s\n\nfound 0 vulnerabilities\n"
+    },
+    "install.json": {
+      "command": "npm ci --ignore-scripts",
+      "cwd": "/tmp/agp-admission-execution.z0MIOj/context-lab",
+      "chunk_id": "e46a62",
+      "wall_time_seconds": 1.001102545,
+      "session_id": 67076,
+      "original_token_count": 0,
+      "output": ""
+    },
+    "old-endpoint-connectivity-completion.json": {
+      "chunk_id": "12ae0f",
+      "wall_time_seconds": 0.000019251,
+      "exit_code": 0,
+      "original_token_count": 20,
+      "output": "{\"host\":\"dev-workstation-91-238.netbird.cloud\",\"port\":4000,\"connected\":true}\n"
+    },
+    "old-endpoint-connectivity.json": {
+      "command": "node --input-type=module -e 'import dns from \"node:dns/promises\";import net from \"node:net\";const host=\"dev-workstation-91-238.netbird.cloud\";try{const resolved=await dns.lookup(host);console.log(JSON.stringify({host,resolved}));const result=await new Promise(resolve=>{const socket=net.createConnection({host:resolved.address,port:4000});socket.setTimeout(5000);socket.once(\"connect\",()=>{socket.destroy();resolve({connected:true})});socket.once(\"timeout\",()=>{socket.destroy();resolve({connected:false,error:\"timeout\"})});socket.once(\"error\",e=>resolve({connected:false,error:e.code}));});console.log(JSON.stringify({host,port:4000,...result}));if(!result.connected)process.exitCode=1;}catch(e){console.log(JSON.stringify({host,error:e.code}));process.exitCode=1;}'",
+      "kind": "DNS/TCP-only diagnostic; no application request, credential, model call or AGP traffic",
+      "chunk_id": "c5ee6a",
+      "wall_time_seconds": 1.001180337,
+      "session_id": 24333,
+      "original_token_count": 25,
+      "output": "{\"host\":\"dev-workstation-91-238.netbird.cloud\",\"resolved\":{\"address\":\"100.80.91.238\",\"family\":4}}\n"
+    },
+    "prompt-preview.json": {
+      "command": "node docs/reviews/admission-lifetime-assurance-r4/verify-admission-packet.mjs /tmp/agp-admission-execution.z0MIOj/context-lab",
+      "cwd": "/home/apnex/taceng/agp",
+      "chunk_id": "c92d48",
+      "wall_time_seconds": 0.42941532,
+      "exit_code": 0,
+      "original_token_count": 109,
+      "output": "{\n  \"status\": \"PASS: author packet and prompt checks only; no reader or judge model invoked\",\n  \"evaluatorRevision\": \"6e6d0a92965a15ec473c661887b2b9c5037fedcf\",\n  \"evaluatorCheckout\": \"/tmp/agp-admission-execution.z0MIOj/context-lab\",\n  \"previewRecords\": \"/tmp/agp-admission-clarity-preview.W3b58W\",\n  \"prompts\": 48,\n  \"probes\": 24,\n  \"controls\": 15,\n  \"readerPromptCopies\": 2,\n  \"fixtureUnits\": 144,\n  \"nullFixtureVoteSlots\": 288\n}\n"
+    },
+    "provider-history.json": {
+      "command": "node --input-type=module -e 'import fs from \"node:fs\";import os from \"node:os\";import path from \"node:path\";import {createHash} from \"node:crypto\";const root=path.join(os.homedir(),\".config/opencode\");const files=[\"opencode.json.bak-20261013-nexus\",\"opencode.json.bak-20261014-netbird\",\"opencode.json.bak-20261014-routes\",\"opencode.json\"];const digest=x=>createHash(\"sha256\").update(JSON.stringify(x)).digest(\"hex\");for(const file of files){const c=JSON.parse(fs.readFileSync(path.join(root,file),\"utf8\"));console.log(JSON.stringify({file,providers:Object.entries(c.provider??{}).map(([id,p])=>({id,npm:p.npm,baseURL:p.options?.baseURL?new URL(p.options.baseURL).origin:null,providerConfigHash:digest(p),models:[\"claude-opus-5-5\",\"gemini-3.8-flash\"].map(model=>({model,configHash:p.models?.[model]?digest(p.models[model]):null,config:p.models?.[model]??null}))}))}));}'",
+      "meaning": "Existing config snapshots; filenames are not independent proof of creation time; no secret values printed",
+      "chunk_id": "181ff9",
+      "wall_time_seconds": 0.000015155,
+      "exit_code": 0,
+      "original_token_count": 877,
+      "output": "{\"file\":\"opencode.json.bak-20261013-nexus\",\"providers\":[{\"id\":\"litellm-netbird\",\"npm\":\"@ai-sdk/anthropic\",\"baseURL\":\"http://dev-workstation-91-238.netbird.cloud:4000\",\"providerConfigHash\":\"e878400a3caec200e42e627480a22452b3c3188fc4aa6b54f45bd0ec63605f5d\",\"models\":[{\"model\":\"claude-opus-5-5\",\"configHash\":\"46830c321594b776d5e97a5b1592e7a8d6f0b161e81e21b24a95bdcbbf35dcdc\",\"config\":{\"name\":\"Claude Opus 5.5 [NetBird]\",\"reasoning\":true,\"options\":{\"thinking\":{\"type\":\"adaptive\"},\"output_config\":{\"effort\":\"high\"}}}},{\"model\":\"gemini-3.8-flash\",\"configHash\":\"dc62021b022cfbef4b0bdd7ad600c44def865eb528c1acd6095dddc3d6675f3e\",\"config\":{\"name\":\"Gemini 3.8 Flash [NetBird]\"}}]}]}\n{\"file\":\"opencode.json.bak-20261014-netbird\",\"providers\":[{\"id\":\"litellm-netbird\",\"npm\":\"@ai-sdk/anthropic\",\"baseURL\":\"http://dev-workstation-91-238.netbird.cloud:4000\",\"providerConfigHash\":\"e878400a3caec200e42e627480a22452b3c3188fc4aa6b54f45bd0ec63605f5d\",\"models\":[{\"model\":\"claude-opus-5-5\",\"configHash\":\"46830c321594b776d5e97a5b1592e7a8d6f0b161e81e21b24a95bdcbbf35dcdc\",\"config\":{\"name\":\"Claude Opus 5.5 [NetBird]\",\"reasoning\":true,\"options\":{\"thinking\":{\"type\":\"adaptive\"},\"output_config\":{\"effort\":\"high\"}}}},{\"model\":\"gemini-3.8-flash\",\"configHash\":\"dc62021b022cfbef4b0bdd7ad600c44def865eb528c1acd6095dddc3d6675f3e\",\"config\":{\"name\":\"Gemini 3.8 Flash [NetBird]\"}}]},{\"id\":\"litellm-nexus\",\"npm\":\"@ai-sdk/anthropic\",\"baseURL\":\"http://100.80.94.9:4000\",\"providerConfigHash\":\"3cf57adc497249ea275d29da8842a421667a619c8f48db372d8c3f7766f9ea96\",\"models\":[{\"model\":\"claude-opus-5-5\",\"configHash\":\"29d5bee5d1271b8e9f55e7d5a61ccc4375af0b98cb934071797aa66c69ddba00\",\"config\":{\"name\":\"Claude Opus 5.5 [Nexus]\",\"reasoning\":true,\"options\":{\"thinking\":{\"type\":\"adaptive\"},\"output_config\":{\"effort\":\"high\"}},\"limit\":{\"context\":1000000,\"output\":128000}}},{\"model\":\"gemini-3.8-flash\",\"configHash\":\"a34a62668a7b78c02bbb661dd5dee342e1700cece32db2bce869881eab18939b\",\"config\":{\"name\":\"Gemini 3.8 Flash [Nexus]\",\"limit\":{\"context\":1048576,\"output\":65536}}}]}]}\n{\"file\":\"opencode.json.bak-20261014-routes\",\"providers\":[{\"id\":\"litellm-nexus\",\"npm\":\"@ai-sdk/anthropic\",\"baseURL\":\"http://100.80.94.9:4000\",\"providerConfigHash\":\"3a379da99d1cef70577596051b776a62199c4d7df2a4b3a3b5043c81bc04e91f\",\"models\":[{\"model\":\"claude-opus-5-5\",\"configHash\":\"29d5bee5d1271b8e9f55e7d5a61ccc4375af0b98cb934071797aa66c69ddba00\",\"config\":{\"name\":\"Claude Opus 5.5 [Nexus]\",\"reasoning\":true,\"options\":{\"thinking\":{\"type\":\"adaptive\"},\"output_config\":{\"effort\":\"high\"}},\"limit\":{\"context\":1000000,\"output\":128000}}},{\"model\":\"gemini-3.8-flash\",\"configHash\":\"a34a62668a7b78c02bbb661dd5dee342e1700cece32db2bce869881eab18939b\",\"config\":{\"name\":\"Gemini 3.8 Flash [Nexus]\",\"limit\":{\"context\":1048576,\"output\":65536}}}]}]}\n{\"file\":\"opencode.json\",\"providers\":[{\"id\":\"litellm-nexus\",\"npm\":\"@ai-sdk/anthropic\",\"baseURL\":\"http://100.80.94.9:4000\",\"providerConfigHash\":\"bc1e4069cad06aafb18bdaf3388673e7aca95062cf9ac95e81d32935b23c5b6d\",\"models\":[{\"model\":\"claude-opus-5-5\",\"configHash\":\"29d5bee5d1271b8e9f55e7d5a61ccc4375af0b98cb934071797aa66c69ddba00\",\"config\":{\"name\":\"Claude Opus 5.5 [Nexus]\",\"reasoning\":true,\"options\":{\"thinking\":{\"type\":\"adaptive\"},\"output_config\":{\"effort\":\"high\"}},\"limit\":{\"context\":1000000,\"output\":128000}}},{\"model\":\"gemini-3.8-flash\",\"configHash\":\"32ece9e6b928bd9c7642e366eb489ccf1d1f473bcb5bb40b3aa2d1e986063cee\",\"config\":{\"name\":\"Gemini 3.8 Flash [Nexus]\",\"limit\":{\"context\":1048576,\"output\":65536},\"provider\":{\"npm\":\"@ai-sdk/openai-compatible\"}}}]}]}\n"
+    },
+    "provider-preflight.json": {
+      "command": "node --input-type=module -e 'import fs from \"node:fs\";import os from \"node:os\";import path from \"node:path\";const file=path.join(process.env.XDG_CONFIG_HOME??path.join(os.homedir(),\".config\"),\"opencode/opencode.json\");const c=JSON.parse(fs.readFileSync(file,\"utf8\"));const wanted=[\"claude-opus-5-5\",\"gemini-3.8-flash\"];const providers=Object.entries(c.provider??{}).map(([id,p])=>({id,modelCount:Object.keys(p.models??{}).length,requestedModels:wanted.filter(m=>Object.hasOwn(p.models??{},m)),credentialReferences:[...JSON.stringify(p.options??{}).matchAll(/\\{env:([A-Za-z_][A-Za-z0-9_]*)\\}/g)].map(x=>({name:x[1],present:Boolean(process.env[x[1]])}))}));console.log(JSON.stringify({file,topLevelFields:Object.keys(c),providers},null,2));'",
+      "meaning": "Presence metadata only; no secret values printed",
+      "chunk_id": "d74dc5",
+      "wall_time_seconds": 0.000023142,
+      "exit_code": 0,
+      "original_token_count": 127,
+      "output": "{\n  \"file\": \"/home/apnex/.config/opencode/opencode.json\",\n  \"topLevelFields\": [\n    \"$schema\",\n    \"model\",\n    \"instructions\",\n    \"compaction\",\n    \"permission\",\n    \"plugin\",\n    \"provider\"\n  ],\n  \"providers\": [\n    {\n      \"id\": \"litellm-nexus\",\n      \"modelCount\": 4,\n      \"requestedModels\": [\n        \"claude-opus-5-5\",\n        \"gemini-3.8-flash\"\n      ],\n      \"credentialReferences\": [\n        {\n          \"name\": \"LITELLM_NETBIRD_API_KEY\",\n          \"present\": true\n        }\n      ]\n    }\n  ]\n}\n"
+    },
+    "runtime-preflight.json": {
+      "kind": "Local metadata and refusal preflight only; no live model call",
+      "chunk_id": "1237ee",
+      "wall_time_seconds": 0.000016705,
+      "exit_code": 0,
+      "original_token_count": 132,
+      "output": "{\"member\":\"c\",\"model\":\"litellm-netbird/claude-opus-5-5\",\"runtime\":\"opencode\",\"version\":\"1.19.0\",\"refusal\":null,\"filesystem\":\"sandboxed\",\"network\":\"detected\"}\n{\"member\":\"g\",\"model\":\"litellm-netbird/gemini-3.8-flash\",\"runtime\":\"opencode\",\"version\":\"1.19.0\",\"refusal\":null,\"filesystem\":\"sandboxed\",\"network\":\"detected\"}\n{\"member\":\"o\",\"model\":\"gpt-6-astra\",\"runtime\":\"codex\",\"version\":\"codex-cli 0.162.1\",\"refusal\":null,\"filesystem\":\"sandboxed\",\"network\":\"denied\"}\n{\"codexLoginFilePresent\":true,\"opencodeConfigFilePresent\":true}\n"
+    },
+    "runtime-versions-completion.json": {
+      "chunk_id": "f15d2c",
+      "wall_time_seconds": 0.000020013,
+      "exit_code": 0,
+      "original_token_count": 23,
+      "output": "{\"binary\":\"opencode\",\"version\":\"1.19.0\"}\n{\"binary\":\"codex\",\"version\":\"codex-cli 0.162.1\"}\n"
+    },
+    "runtime-versions.json": {
+      "command": "node --input-type=module -e 'import {execFileSync} from \"node:child_process\"; for (const binary of [\"node\",\"npm\",\"bwrap\",\"opencode\",\"codex\"]) {try {console.log(JSON.stringify({binary,version:execFileSync(binary,[\"--version\"],{encoding:\"utf8\",timeout:20000,stdio:[\"ignore\",\"pipe\",\"ignore\"]}).trim()}))} catch(e) {console.log(JSON.stringify({binary,error:e.code??e.status??\"unavailable\"}));process.exitCode=1}}'",
+      "cwd": "/home/apnex/taceng/agp",
+      "chunk_id": "744599",
+      "wall_time_seconds": 1.000895017,
+      "session_id": 71506,
+      "original_token_count": 31,
+      "output": "{\"binary\":\"node\",\"version\":\"v24.12.0\"}\n{\"binary\":\"npm\",\"version\":\"11.6.2\"}\n{\"binary\":\"bwrap\",\"version\":\"bubblewrap 0.4.1\"}\n"
+    }
+  }
+}

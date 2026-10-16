@@ -1,0 +1,22 @@
+{
+  "schema": "agp.admission-clarity-execution/1",
+  "evaluatorRevision": "6e6d0a92965a15ec473c661887b2b9c5037fedcf",
+  "suite": "admission-clarity",
+  "providerConfig": "admission-provider-config.json",
+  "parallel": 6,
+  "runsPerCell": 1,
+  "timeLimitSeconds": 1200,
+  "judgeTimeLimitSeconds": 900,
+  "expectedRuntimeVersions": {
+    "opencode": "1.19.0",
+    "codex": "codex-cli 0.162.1",
+    "bubblewrap": "bubblewrap 0.4.1"
+  },
+  "readerAttemptsMaximum": 2,
+  "judgePromptsMaximum": 3,
+  "seed": "Generated once by the pinned conductor from the run ID; retained in run.json and shared across both arms.",
+  "probeTimeout": "The public conductor uses timeLimitSeconds for probes when explicitly supplied: 1200 seconds per invocation.",
+  "probeGate": "All six arm/member probes and all three judge probes must pass before any scored reader invocation. No reduced population is accepted.",
+  "limits": "Provider limit fields are declared configuration, not measurements of backend capacity. No outputTokenMax setting or model substitution is added.",
+  "authority": "Director selected the provider amendment, independent readiness recheck and conditional whole-comparison execution; no runtime implementation, ratification, publication or B53 closure."
+}
