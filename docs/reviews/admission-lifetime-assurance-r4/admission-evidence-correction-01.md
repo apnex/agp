@@ -1,5 +1,8 @@
 # Admission execution evidence correction
 
+Correction status: the [bounded recheck](admission-provider-readiness-04.txt) found that the job/reply boundary below was not fully enforced.\
+The [prospective job-boundary correction](admission-evidence-correction-02.md) addresses that remaining finding; this original body is preserved as-authored.
+
 The [independent readiness review](admission-provider-readiness-03.txt) found three blocking defects in the new execution/accounting tooling.\
 This prospective correction binds derived scores to their retained evidence before the selected experiment can run.\
 It changes no design, question, key, control, score, threshold, retry allowance or provider selection.

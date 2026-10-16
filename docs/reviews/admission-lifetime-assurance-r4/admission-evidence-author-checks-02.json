@@ -1,0 +1,56 @@
+{
+  "schema": "agp.admission-job-boundary-author-checks/1",
+  "recordedAt": "2026-10-16 04:33:39 UTC",
+  "scope": "Author checks for the prospective PR-01 public-job boundary correction. Static fixture records only; no model, AGP traffic, registration or scored run.",
+  "evaluator": {
+    "root": "/tmp/agp-admission-resume.9mKplT/context-lab",
+    "revision": "6e6d0a92965a15ec473c661887b2b9c5037fedcf",
+    "restoreReason": "The previous temporary evaluator checkout was absent on resume. A new detached worktree at the same pin was restored; the sibling checkout was not switched.",
+    "install": {
+      "command": "npm ci --ignore-scripts",
+      "result": {
+        "chunk_id": "586a63",
+        "wall_time_seconds": 0.817982725,
+        "exit_code": 0,
+        "original_token_count": 19,
+        "output": "\nadded 4 packages, and audited 6 packages in 844ms\n\nfound 0 vulnerabilities\n"
+      }
+    },
+    "build": {
+      "command": "npm run build",
+      "start": {
+        "chunk_id": "090295",
+        "wall_time_seconds": 1.001544203,
+        "session_id": 20449,
+        "original_token_count": 11,
+        "output": "\n> @apnex/context-lab@0.0.0 build\n> tsc -b\n\n"
+      },
+      "completion": {
+        "chunk_id": "e92efc",
+        "wall_time_seconds": 0.000018398,
+        "exit_code": 0,
+        "original_token_count": 0,
+        "output": ""
+      }
+    }
+  },
+  "tests": {
+    "command": "AGP_ADMISSION_EVALUATOR_ROOT=/tmp/agp-admission-resume.9mKplT/context-lab node --test admission-input.test.mjs admission-comparison-accounting.test.mjs admission-judgment-replay.test.mjs admission-execution-receipt.test.mjs",
+    "cwd": "/home/apnex/taceng/agp/docs/reviews/admission-lifetime-assurance-r4",
+    "start": {
+      "chunk_id": "aa0668",
+      "wall_time_seconds": 1.001067528,
+      "session_id": 68838,
+      "original_token_count": 0,
+      "output": ""
+    },
+    "completion": {
+      "chunk_id": "ba40f2",
+      "wall_time_seconds": 0.000013321,
+      "exit_code": 0,
+      "original_token_count": 692,
+      "output": "✔ Admission accounting preserves all identities and does not issue its own gate verdict (62.407981ms)\n✔ Admission missing null, undefined and blank answers become explicit uncast zeroes (149.467084ms)\n✔ Admission valid phase with no answer file accounts for all twenty-four missing answers (31.589379ms)\n✔ Admission ended sole phase ignores retained partial or complete raw answers (66.040067ms)\n✔ Admission predecessor behavior failure does not automatically fail candidate thresholds (27.456866ms)\n✔ Admission invalid required evidence takes precedence over numerical failure (23.387068ms)\n✔ Admission accounting rejects missing or duplicate cells, probes, votes and invalid provenance (945.131181ms)\n✔ Admission unresolved infrastructure/isolation or incomplete phase never becomes a reader zero (59.55755ms)\n✔ Admission accounting accepts one infrastructure retry but not a behavior retry (50.445498ms)\n✔ Admission minimum-vote and quote caps are downward-only and inspect every excerpt (67.543567ms)\n✔ Admission diagnostic formatting cannot invalidate or improve an accepted score (39.365964ms)\n✔ Admission ties and each individual control regression are not averaged away (60.568638ms)\n✔ Admission accounting requires replay bound to the actual raw replies and derived votes (131.625596ms)\n✔ Admission probe and reader raw evidence cannot be replaced by favorable labels (235.236281ms)\n✔ Admission probe check preserves the pinned allowance for unanswered non-canary questions (10.220255ms)\n✔ Admission execution receipt binds complete reviewed Git inventory and readiness identity (167.142942ms)\n✔ Admission receipt rejects omitted coverage, wrong identities and unreviewed file/config changes (2270.695341ms)\n✔ Admission input identities match both whole sources and their exact projections (5.351488ms)\n✔ Admission source mutation is rejected before its projection can be trusted (3.578018ms)\n✔ Admission reader mutation is rejected at its content identity boundary (1.474328ms)\n✔ A rehashed but substantively changed reader copy still fails projection fidelity (3.847778ms)\n✔ Admission projection fails closed when its history boundary is absent (0.730092ms)\n✔ Admission public-panel replay binds first prompts, member identities, scores and reasons (165.773533ms)\n✔ Admission public-panel replay preserves pending-only completion and retained failure (626.931034ms)\n✔ Admission public-panel replay reconciles every job across all 144 units and 288 slots (6117.181723ms)\n✔ Admission public-panel replay rejects changed, missing, unparseable or misassigned raw judgments (969.710372ms)\nℹ tests 26\nℹ suites 0\nℹ pass 26\nℹ fail 0\nℹ cancelled 0\nℹ skipped 0\nℹ todo 0\nℹ duration_ms 8116.528533\n"
+    }
+  },
+  "limits": "Full-population tests compare genuine public-panel static records, including a later job's pending completion and retained failure. They do not reproduce the previous review's constructed cross-job record reassignment; that mechanism is addressed by source review and exact per-job reconciliation. Author checks are not an independent readiness verdict."
+}
