@@ -1,0 +1,329 @@
+{
+  "schema": "agp.admission-evaluator-compatibility-check-record/1",
+  "kind": "Author development evidence; not independent assurance or live qualification",
+  "missionKitRevision": "ae217c932e50737d0595db9523502a1257b7a4bd",
+  "sourceRepository": "https://github.com/apnex/context-lab",
+  "remoteObservation": {
+    "command": "git ls-remote https://github.com/apnex/context-lab.git refs/heads/main",
+    "output": "0c0ab1f0248ef0cbb21885d7d6af76586d8a1b68\trefs/heads/main\n",
+    "exitCode": 0
+  },
+  "setup": {
+    "directory": "/tmp/agp-evaluator-compatibility.t27xtR/context-lab",
+    "sourceExportCommand": "git -C /home/apnex/taceng/context-lab archive e705b3d749400d0a79efe98e5338e9c84a1695b8 | tar -x -C /tmp/agp-evaluator-compatibility.t27xtR/context-lab",
+    "dependencySource": "Existing /home/apnex/taceng/context-lab/node_modules symlinked into isolated export; no install, shared build or shared checkout mutation",
+    "plan": "/tmp/agp-evaluator-compatibility.t27xtR/plan.md"
+  },
+  "attempts": [
+    {
+      "command": "node --input-type=module - <<'NODE'\nimport assert from 'node:assert/strict';\nimport { execFileSync } from 'node:child_process';\nimport { createHash } from 'node:crypto';\nimport fs from 'node:fs';\nimport path from 'node:path';\nimport { pathToFileURL } from 'node:url';\n\nconst repo = '/home/apnex/taceng/context-lab';\nconst exported = '/tmp/agp-evaluator-compatibility.t27xtR/context-lab';\nconst agp = '/home/apnex/taceng/agp';\nconst revisions = {\n  frozen: '6e6d0a92965a15ec473c661887b2b9c5037fedcf',\n  firstCap: '9a9b5e96c484b37d3f3fdbf34c0e7b726747a0a1',\n  parentCandidate: 'e705b3d749400d0a79efe98e5338e9c84a1695b8',\n  observedTip: '0c0ab1f0248ef0cbb21885d7d6af76586d8a1b68',\n};\nconst git = (...args) => execFileSync('git', ['-C', repo, ...args], { encoding: 'utf8' });\nconst sha256 = (value) => createHash('sha256').update(value).digest('hex');\nconst checks = [];\nconst verified = (name, check) => { check(); checks.push(name); };\nconst files = git('ls-tree', '-r', '--name-only', revisions.parentCandidate).trim().split('\\n');\nverified('All exported tracked bytes match the exact parent candidate', () => {\n  assert.equal(fs.existsSync(path.join(exported, '.git')), false);\n  assert.notEqual(fs.realpathSync(exported), fs.realpathSync(repo));\n  for (const file of files) {\n    assert.deepEqual(fs.readFileSync(path.join(exported, file)),\n      execFileSync('git', ['-C', repo, 'show', revisions.parentCandidate + ':' + file]));\n  }\n});\nconst changedSource = git('diff', '--name-only', revisions.parentCandidate, revisions.observedTip, '--', 'packages/core/src').trim().split('\\n');\nverified('Only adapters and isolation prober differ from the observed tip source', () => {\n  assert.deepEqual(changedSource, ['packages/core/src/adapters.ts', 'packages/core/src/isolation-prober.ts']);\n});\nconst paths = files.filter((file) => file.startsWith('packages/core/src/'));\nconst sourceBlobs = paths.map((file) => ({\n  file,\n  ...Object.fromEntries(Object.entries(revisions).map(([name, revision]) =>\n    [name, git('rev-parse', revision + ':' + file).trim()])),\n}));\nverified('Parent probe is byte-identical to the frozen evaluator probe', () => {\n  const probe = sourceBlobs.find((row) => row.file.endsWith('/isolation-prober.ts'));\n  assert.equal(probe.parentCandidate, probe.frozen);\n});\nverified('Parent adapter is byte-identical to the first public-cap adapter', () => {\n  const adapter = sourceBlobs.find((row) => row.file.endsWith('/adapters.ts'));\n  assert.equal(adapter.parentCandidate, adapter.firstCap);\n});\nverified('Parent and tip dependency declarations and lock are identical', () => {\n  assert.equal(git('diff', revisions.parentCandidate, revisions.observedTip, '--',\n    'package.json', 'package-lock.json', 'packages/core/package.json'), '');\n});\nconst buildOutput = execFileSync('npm', ['run', 'build', '--', '--force'], { cwd: exported, encoding: 'utf8' });\nchecks.push('Forced isolated TypeScript build completed');\nconst core = await import(pathToFileURL(path.join(exported, 'packages/core/dist/src/index.js')).href);\nconst packPath = path.join(agp, 'docs/reviews/admission-lifetime-assurance-r4/pack.json');\nconst packText = fs.readFileSync(packPath, 'utf8');\nconst pack = JSON.parse(packText);\nconst experimentPath = path.join(path.dirname(packPath), pack.experiments[0]);\nconst experimentText = fs.readFileSync(experimentPath, 'utf8');\nconst experiment = JSON.parse(experimentText);\nverified('Current two AGP arms use only instruction delivery and no hooks', () => {\n  assert.equal(pack.arms.length, 2);\n  assert.ok(pack.arms.every((arm) => arm.deliver.length > 0 && arm.deliver.every((d) => d.as === 'instruction')));\n  assert.deepEqual(pack.hooks, []);\n  assert.deepEqual(core.EMPTY_ARM.onRequest, []);\n});\nverified('Current AGP experiment declares a single new-session answer phase', () => {\n  assert.deepEqual(experiment.phases, [{ id: 'answer', session: 'new' }]);\n});\nconst runtime = core.opencodeAdapter({\n  operatorConfig: path.join(agp, 'docs/reviews/admission-lifetime-assurance-r4/admission-provider-config.json'),\n  env: {}, binary: '/not-invoked/opencode', operatorCache: '/not-read/cache',\n});\nconst member = structuredClone(pack.population.find((m) => m.id === 'g'));\nmember.settings = { outputTokenMax: 4096 };\nconst invocation = {\n  member, arm: core.EMPTY_ARM, mode: 'attachment', tools: 'off', prompt: '',\n  workspace: exported, work: '/not-created/invocation', timeLimitSeconds: 1,\n};\nverified('Parent public refusal accepts a positive integer test cap without invoking a runtime', () => {\n  assert.equal(runtime.refuse(invocation), null);\n});\nconst route = runtime.route(member);\nverified('Parent declared route reports the test cap and configured model limit', () => {\n  assert.equal(route.memberSettings.outputTokenMax, 4096);\n  assert.equal(route.settings.limit.output, 65536);\n  assert.equal(route.npm, '@ai-sdk/openai-compatible');\n  assert.equal('apiKey' in route.endpoint, false);\n  assert.equal('headers' in route.endpoint, false);\n});\nconst codex = core.codexAdapter({ env: {}, vendor: '/not-invoked/codex', models: '/not-read/models', auth: '/not-read/auth' });\nverified('Parent public refusal rejects the cap for Codex without invoking a runtime', () => {\n  assert.match(codex.refuse({ ...invocation, mode: 'stdin', member: { ...pack.population.find((m) => m.id === 'o'), settings: { outputTokenMax: 4096 } } }), /outputTokenMax.*not one Codex can apply/);\n});\nconst preservationPaths = [\n  'docs/reviews/admission-evaluation-preparation',\n  'docs/reviews/admission-lifetime-assurance',\n  'docs/reviews/admission-lifetime-assurance-r4',\n  'docs/reviews/admission-lifetime-correction-r4.md', 'packages', 'cli',\n];\nverified('Reviewed packets and AGP code have no delta against this turn starting HEAD', () => {\n  assert.equal(execFileSync('git', ['-C', agp, 'diff', '--name-only', '0e4fb13921626d91199aadb508145c5d9d54cd47', '--', ...preservationPaths], { encoding: 'utf8' }), '');\n});\nconst result = {\n  schema: 'agp.admission-evaluator-compatibility-inspection/1',\n  inspectedAt: new Date().toISOString(), kind: 'author static checks; not qualification or independent assurance',\n  startingAgpRevision: '0e4fb13921626d91199aadb508145c5d9d54cd47',\n  revisions, exported, sourceRepository: repo, exportVerifiedFiles: files.length,\n  nodeVersion: process.version, buildCommand: 'npm run build -- --force', buildOutput,\n  checks, changedSource, sourceBlobs,\n  pack: { path: packPath, sha256: sha256(packText), deliveryKinds: pack.arms.map((arm) => ({ arm: arm.id, delivery: arm.deliver.map((d) => d.as) })) },\n  experiment: { path: experimentPath, sha256: sha256(experimentText), phases: experiment.phases },\n  nonInvokedInterface: { testOutputTokenMax: 4096, configuredModelOutputLimit: route.settings.limit.output, capAcceptedByOpenCode: true, capRefusedByCodex: true },\n  boundaries: {\n    modelExperiments: 0, providerInvocations: 0, probeInvocations: 0, conductorInvocations: 0,\n    registerInvocations: 0, runtimeSettingsChanged: false, evaluatorAdoptedForLiveUse: false,\n    liveCapSelected: false, clientRequestObserved: false, backendBudgetObserved: false,\n    fullConductorCompatibilityQualified: false,\n  },\n};\nconsole.log(JSON.stringify(result, null, 2));\nNODE",
+      "result": {
+        "chunk_id": "d8a1b2",
+        "wall_time_seconds": 0.613994882,
+        "exit_code": 1,
+        "original_token_count": 361,
+        "output": "fatal: Path 'packages/core/src/cli-flags.ts' exists on disk, but not in '6e6d0a92965a15ec473c661887b2b9c5037fedcf'.\nnode:internal/errors:985\n  const err = new Error(message);\n              ^\n\nError: Command failed: git -C /home/apnex/taceng/context-lab rev-parse 6e6d0a92965a15ec473c661887b2b9c5037fedcf:packages/core/src/cli-flags.ts\nfatal: Path 'packages/core/src/cli-flags.ts' exists on disk, but not in '6e6d0a92965a15ec473c661887b2b9c5037fedcf'.\n\n    at genericNodeError (node:internal/errors:985:15)\n    at wrappedFn (node:internal/errors:539:14)\n    at checkExecSyncError (node:child_process:925:11)\n    at execFileSync (node:child_process:961:15)\n    at git (file:///home/apnex/taceng/agp/[eval1]:17:26)\n    at file:///home/apnex/taceng/agp/[eval1]:38:12\n    at Array.map (<anonymous>)\n    at file:///home/apnex/taceng/agp/[eval1]:37:51\n    at Array.map (<anonymous>)\n    at file:///home/apnex/taceng/agp/[eval1]:35:27 {\n  status: 128,\n  signal: null,\n  output: [\n    null,\n    '6e6d0a92965a15ec473c661887b2b9c5037fedcf:packages/core/src/cli-flags.ts\\n',\n    \"fatal: Path 'packages/core/src/cli-flags.ts' exists on disk, but not in '6e6d0a92965a15ec473c661887b2b9c5037fedcf'.\\n\"\n  ],\n  pid: 118600,\n  stdout: '6e6d0a92965a15ec473c661887b2b9c5037fedcf:packages/core/src/cli-flags.ts\\n',\n  stderr: \"fatal: Path 'packages/core/src/cli-flags.ts' exists on disk, but not in '6e6d0a92965a15ec473c661887b2b9c5037fedcf'.\\n\"\n}\n\nNode.js v24.12.0\n"
+      },
+      "assessment": "Inventory command failed before compilation because a newer source path is absent in the historical revision. No completed inspection is claimed."
+    },
+    {
+      "command": "node --input-type=module - <<'NODE'\nimport assert from 'node:assert/strict';\nimport { execFileSync } from 'node:child_process';\nimport { createHash } from 'node:crypto';\nimport fs from 'node:fs';\nimport path from 'node:path';\nimport { pathToFileURL } from 'node:url';\n\nconst repo = '/home/apnex/taceng/context-lab';\nconst exported = '/tmp/agp-evaluator-compatibility.t27xtR/context-lab';\nconst agp = '/home/apnex/taceng/agp';\nconst revisions = {\n  frozen: '6e6d0a92965a15ec473c661887b2b9c5037fedcf',\n  firstCap: '9a9b5e96c484b37d3f3fdbf34c0e7b726747a0a1',\n  parentCandidate: 'e705b3d749400d0a79efe98e5338e9c84a1695b8',\n  observedTip: '0c0ab1f0248ef0cbb21885d7d6af76586d8a1b68',\n};\nconst git = (...args) => execFileSync('git', ['-C', repo, ...args], { encoding: 'utf8' });\nconst sha256 = (value) => createHash('sha256').update(value).digest('hex');\nconst checks = [];\nconst verified = (name, check) => { check(); checks.push(name); };\nconst files = git('ls-tree', '-r', '--name-only', revisions.parentCandidate).trim().split('\\n');\nverified('All exported tracked bytes match the exact parent candidate', () => {\n  assert.equal(fs.existsSync(path.join(exported, '.git')), false);\n  assert.notEqual(fs.realpathSync(exported), fs.realpathSync(repo));\n  for (const file of files) {\n    assert.deepEqual(fs.readFileSync(path.join(exported, file)),\n      execFileSync('git', ['-C', repo, 'show', revisions.parentCandidate + ':' + file]));\n  }\n});\nconst changedSource = git('diff', '--name-only', revisions.parentCandidate, revisions.observedTip, '--', 'packages/core/src').trim().split('\\n');\nverified('Only adapters and isolation prober differ from the observed tip source', () => {\n  assert.deepEqual(changedSource, ['packages/core/src/adapters.ts', 'packages/core/src/isolation-prober.ts']);\n});\nconst paths = files.filter((file) => file.startsWith('packages/core/src/'));\nconst trees = Object.fromEntries(Object.entries(revisions).map(([name, revision]) => [\n  name, new Map(git('ls-tree', '-r', revision, '--', 'packages/core/src').trim().split('\\n').map((line) => {\n    const match = line.match(/^[0-7]+ blob ([a-f0-9]+)\\t(.+)$/);\n    assert.ok(match, line);\n    return [match[2], match[1]];\n  })),\n]));\nconst sourceBlobs = paths.map((file) => ({\n  file,\n  ...Object.fromEntries(Object.keys(revisions).map((name) => [name, trees[name].get(file) ?? null])),\n}));\nverified('Parent probe is byte-identical to the frozen evaluator probe', () => {\n  const probe = sourceBlobs.find((row) => row.file.endsWith('/isolation-prober.ts'));\n  assert.equal(probe.parentCandidate, probe.frozen);\n});\nverified('Parent adapter is byte-identical to the first public-cap adapter', () => {\n  const adapter = sourceBlobs.find((row) => row.file.endsWith('/adapters.ts'));\n  assert.equal(adapter.parentCandidate, adapter.firstCap);\n});\nverified('Parent and tip dependency declarations and lock are identical', () => {\n  assert.equal(git('diff', revisions.parentCandidate, revisions.observedTip, '--',\n    'package.json', 'package-lock.json', 'packages/core/package.json'), '');\n});\nconst buildOutput = execFileSync('npm', ['run', 'build', '--', '--force'], { cwd: exported, encoding: 'utf8' });\nchecks.push('Forced isolated TypeScript build completed');\nconst core = await import(pathToFileURL(path.join(exported, 'packages/core/dist/src/index.js')).href);\nconst packPath = path.join(agp, 'docs/reviews/admission-lifetime-assurance-r4/pack.json');\nconst packText = fs.readFileSync(packPath, 'utf8');\nconst pack = JSON.parse(packText);\nconst experimentPath = path.join(path.dirname(packPath), pack.experiments[0]);\nconst experimentText = fs.readFileSync(experimentPath, 'utf8');\nconst experiment = JSON.parse(experimentText);\nverified('Current two AGP arms use only instruction delivery and no hooks', () => {\n  assert.equal(pack.arms.length, 2);\n  assert.ok(pack.arms.every((arm) => arm.deliver.length > 0 && arm.deliver.every((d) => d.as === 'instruction')));\n  assert.deepEqual(pack.hooks, []);\n  assert.deepEqual(core.EMPTY_ARM.onRequest, []);\n});\nverified('Current AGP experiment declares a single new-session answer phase', () => {\n  assert.deepEqual(experiment.phases, [{ id: 'answer', session: 'new' }]);\n});\nconst runtime = core.opencodeAdapter({\n  operatorConfig: path.join(agp, 'docs/reviews/admission-lifetime-assurance-r4/admission-provider-config.json'),\n  env: {}, binary: '/not-invoked/opencode', operatorCache: '/not-read/cache',\n});\nconst member = structuredClone(pack.population.find((m) => m.id === 'g'));\nmember.settings = { outputTokenMax: 4096 };\nconst invocation = {\n  member, arm: core.EMPTY_ARM, mode: 'attachment', tools: 'off', prompt: '',\n  workspace: exported, work: '/not-created/invocation', timeLimitSeconds: 1,\n};\nverified('Parent public refusal accepts a positive integer test cap without invoking a runtime', () => {\n  assert.equal(runtime.refuse(invocation), null);\n});\nconst route = runtime.route(member);\nverified('Parent declared route reports the test cap and configured model limit', () => {\n  assert.equal(route.memberSettings.outputTokenMax, 4096);\n  assert.equal(route.settings.limit.output, 65536);\n  assert.equal(route.npm, '@ai-sdk/openai-compatible');\n  assert.equal('apiKey' in route.endpoint, false);\n  assert.equal('headers' in route.endpoint, false);\n});\nconst codex = core.codexAdapter({ env: {}, vendor: '/not-invoked/codex', models: '/not-read/models', auth: '/not-read/auth' });\nverified('Parent public refusal rejects the cap for Codex without invoking a runtime', () => {\n  assert.match(codex.refuse({ ...invocation, mode: 'stdin', member: { ...pack.population.find((m) => m.id === 'o'), settings: { outputTokenMax: 4096 } } }), /outputTokenMax.*not one Codex can apply/);\n});\nconst preservationPaths = [\n  'docs/reviews/admission-evaluation-preparation',\n  'docs/reviews/admission-lifetime-assurance',\n  'docs/reviews/admission-lifetime-assurance-r4',\n  'docs/reviews/admission-lifetime-correction-r4.md', 'packages', 'cli',\n];\nverified('Reviewed packets and AGP code have no delta against this turn starting HEAD', () => {\n  assert.equal(execFileSync('git', ['-C', agp, 'diff', '--name-only', '0e4fb13921626d91199aadb508145c5d9d54cd47', '--', ...preservationPaths], { encoding: 'utf8' }), '');\n});\nconst result = {\n  schema: 'agp.admission-evaluator-compatibility-inspection/1',\n  inspectedAt: new Date().toISOString(), kind: 'author static checks; not qualification or independent assurance',\n  startingAgpRevision: '0e4fb13921626d91199aadb508145c5d9d54cd47',\n  revisions, exported, sourceRepository: repo, exportVerifiedFiles: files.length,\n  nodeVersion: process.version, buildCommand: 'npm run build -- --force', buildOutput,\n  checks, changedSource, sourceBlobs,\n  pack: { path: packPath, sha256: sha256(packText), deliveryKinds: pack.arms.map((arm) => ({ arm: arm.id, delivery: arm.deliver.map((d) => d.as) })) },\n  experiment: { path: experimentPath, sha256: sha256(experimentText), phases: experiment.phases },\n  nonInvokedInterface: { testOutputTokenMax: 4096, configuredModelOutputLimit: route.settings.limit.output, capAcceptedByOpenCode: true, capRefusedByCodex: true },\n  boundaries: {\n    modelExperiments: 0, providerInvocations: 0, probeInvocations: 0, conductorInvocations: 0,\n    registerInvocations: 0, runtimeSettingsChanged: false, evaluatorAdoptedForLiveUse: false,\n    liveCapSelected: false, clientRequestObserved: false, backendBudgetObserved: false,\n    fullConductorCompatibilityQualified: false,\n  },\n};\nconsole.log(JSON.stringify(result, null, 2));\nNODE",
+      "result": {
+        "chunk_id": "08cc97",
+        "wall_time_seconds": 4.343936595,
+        "exit_code": 0,
+        "original_token_count": 3065,
+        "output": "{\n  \"schema\": \"agp.admission-evaluator-compatibility-inspection/1\",\n  \"inspectedAt\": \"2026-10-16T21:58:39.947Z\",\n  \"kind\": \"author static checks; not qualification or independent assurance\",\n  \"startingAgpRevision\": \"0e4fb13921626d91199aadb508145c5d9d54cd47\",\n  \"revisions\": {\n    \"frozen\": \"6e6d0a92965a15ec473c661887b2b9c5037fedcf\",\n    \"firstCap\": \"9a9b5e96c484b37d3f3fdbf34c0e7b726747a0a1\",\n    \"parentCandidate\": \"e705b3d749400d0a79efe98e5338e9c84a1695b8\",\n    \"observedTip\": \"0c0ab1f0248ef0cbb21885d7d6af76586d8a1b68\"\n  },\n  \"exported\": \"/tmp/agp-evaluator-compatibility.t27xtR/context-lab\",\n  \"sourceRepository\": \"/home/apnex/taceng/context-lab\",\n  \"exportVerifiedFiles\": 128,\n  \"nodeVersion\": \"v24.12.0\",\n  \"buildCommand\": \"npm run build -- --force\",\n  \"buildOutput\": \"\\n> @apnex/context-lab@0.0.0 build\\n> tsc -b --force\\n\\n\",\n  \"checks\": [\n    \"All exported tracked bytes match the exact parent candidate\",\n    \"Only adapters and isolation prober differ from the observed tip source\",\n    \"Parent probe is byte-identical to the frozen evaluator probe\",\n    \"Parent adapter is byte-identical to the first public-cap adapter\",\n    \"Parent and tip dependency declarations and lock are identical\",\n    \"Forced isolated TypeScript build completed\",\n    \"Current two AGP arms use only instruction delivery and no hooks\",\n    \"Current AGP experiment declares a single new-session answer phase\",\n    \"Parent public refusal accepts a positive integer test cap without invoking a runtime\",\n    \"Parent declared route reports the test cap and configured model limit\",\n    \"Parent public refusal rejects the cap for Codex without invoking a runtime\",\n    \"Reviewed packets and AGP code have no delta against this turn starting HEAD\"\n  ],\n  \"changedSource\": [\n    \"packages/core/src/adapters.ts\",\n    \"packages/core/src/isolation-prober.ts\"\n  ],\n  \"sourceBlobs\": [\n    {\n      \"file\": \"packages/core/src/adapters.ts\",\n      \"frozen\": \"a85de8f37f0ae4d07c39aa166aa7ddc07a579ee4\",\n      \"firstCap\": \"d0f0554147d82d79267483ede44c294b360e099e\",\n      \"parentCandidate\": \"d0f0554147d82d79267483ede44c294b360e099e\",\n      \"observedTip\": \"059f0f5079051b1d759143422ac5082f389b26b0\"\n    },\n    {\n      \"file\": \"packages/core/src/answer-parser.ts\",\n      \"frozen\": \"9742d39ccca6fbc6c822021b338f27615e098983\",\n      \"firstCap\": \"9742d39ccca6fbc6c822021b338f27615e098983\",\n      \"parentCandidate\": \"9742d39ccca6fbc6c822021b338f27615e098983\",\n      \"observedTip\": \"9742d39ccca6fbc6c822021b338f27615e098983\"\n    },\n    {\n      \"file\": \"packages/core/src/arm-composer.ts\",\n      \"frozen\": \"06f216d9455a9aab9791a4a5be34d9bf73e8e1b5\",\n      \"firstCap\": \"06f216d9455a9aab9791a4a5be34d9bf73e8e1b5\",\n      \"parentCandidate\": \"06f216d9455a9aab9791a4a5be34d9bf73e8e1b5\",\n      \"observedTip\": \"06f216d9455a9aab9791a4a5be34d9bf73e8e1b5\"\n    },\n    {\n      \"file\": \"packages/core/src/blinder.ts\",\n      \"frozen\": \"2c16c89966ab25ae4101db3a216c8659fd8121a1\",\n      \"firstCap\": \"218b97f81c5414bb534eb41926c71f4336aa755a\",\n      \"parentCandidate\": \"218b97f81c5414bb534eb41926c71f4336aa755a\",\n      \"observedTip\": \"218b97f81c5414bb534eb41926c71f4336aa755a\"\n    },\n    {\n      \"file\": \"packages/core/src/cli-flags.ts\",\n      \"frozen\": null,\n      \"firstCap\": \"d20142b03b3353586360a39a36cf54f0fce4c8d1\",\n      \"parentCandidate\": \"d20142b03b3353586360a39a36cf54f0fce4c8d1\",\n      \"observedTip\": \"d20142b03b3353586360a39a36cf54f0fce4c8d1\"\n    },\n    {\n      \"file\": \"packages/core/src/cli.ts\",\n      \"frozen\": \"79cfc6b1b77a0f07f456abdd8d8812d713a0eee3\",\n      \"firstCap\": \"21a2d6537fc67f7c63a1f27f3f2339b34db90ec0\",\n      \"parentCandidate\": \"4670361e2e9263ba5da5b41c0ea03bcebecf1300\",\n      \"observedTip\": \"4670361e2e9263ba5da5b41c0ea03bcebecf1300\"\n    },\n    {\n      \"file\": \"packages/core/src/code-measurer.ts\",\n      \"frozen\": \"63bd45b21e41dbaf5e69d2fa4d4061f1949fa20a\",\n      \"firstCap\": \"63bd45b21e41dbaf5e69d2fa4d4061f1949fa20a\",\n      \"parentCandidate\": \"63bd45b21e41dbaf5e69d2fa4d4061f1949fa20a\",\n      \"observedTip\": \"63bd45b21e41dbaf5e69d2fa4d4061f1949fa20a\"\n    },\n    {\n      \"file\": \"packages/core/src/comparison.ts\",\n      \"frozen\": null,\n      \"firstCap\": \"ff47487d4e552adf7b6837ab154c1efcacdf5097\",\n      \"parentCandidate\": \"ff47487d4e552adf7b6837ab154c1efcacdf5097\",\n      \"observedTip\": \"ff47487d4e552adf7b6837ab154c1efcacdf5097\"\n    },\n    {\n      \"file\": \"packages/core/src/episode.ts\",\n      \"frozen\": \"77dced6e12cb65b43f50b66f59ca8c15957c13d8\",\n      \"firstCap\": \"f27405b6267a17507b909bb61d960874f4505eb2\",\n      \"parentCandidate\": \"33e057325121d4bddb127552480f7d5ab194cc90\",\n      \"observedTip\": \"33e057325121d4bddb127552480f7d5ab194cc90\"\n    },\n    {\n      \"file\": \"packages/core/src/experiment-register.ts\",\n      \"frozen\": \"e9365106da292f2bff9f9cfbb4e0eac1f2262861\",\n      \"firstCap\": \"81a6f213cc4655e1d67aa77ee9ca5b090dae7545\",\n      \"parentCandidate\": \"81a6f213cc4655e1d67aa77ee9ca5b090dae7545\",\n      \"observedTip\": \"81a6f213cc4655e1d67aa77ee9ca5b090dae7545\"\n    },\n    {\n      \"file\": \"packages/core/src/hook-runner.ts\",\n      \"frozen\": \"ea4ffc04faf54421f3933f0a26215b91291125a1\",\n      \"firstCap\": \"ea4ffc04faf54421f3933f0a26215b91291125a1\",\n      \"parentCandidate\": \"ea4ffc04faf54421f3933f0a26215b91291125a1\",\n      \"observedTip\": \"ea4ffc04faf54421f3933f0a26215b91291125a1\"\n    },\n    {\n      \"file\": \"packages/core/src/index.ts\",\n      \"frozen\": \"94af609955920bfd3391e01751ee84291ceb7e93\",\n      \"firstCap\": \"1c4985fc1ff5cccd0323ff90da759131997c26bd\",\n      \"parentCandidate\": \"ac7b7b6940628e2b7c6ef5cc7cee83a212d024bd\",\n      \"observedTip\": \"ac7b7b6940628e2b7c6ef5cc7cee83a212d024bd\"\n    },\n    {\n      \"file\": \"packages/core/src/isolation-prober.ts\",\n      \"frozen\": \"bdb5c0b7b4d7be9fb6b6c6c5b0dfd9a69e57d9fb\",\n      \"firstCap\": \"bdb5c0b7b4d7be9fb6b6c6c5b0dfd9a69e57d9fb\",\n      \"parentCandidate\": \"bdb5c0b7b4d7be9fb6b6c6c5b0dfd9a69e57d9fb\",\n      \"observedTip\": \"407a4e7ae3b1d42b864f25b64209006dd01f30d3\"\n    },\n    {\n      \"file\": \"packages/core/src/judge-panel.ts\",\n      \"frozen\": \"306d7da951a88cefcdcfe0bc923ee4bbddab3070\",\n      \"firstCap\": \"306d7da951a88cefcdcfe0bc923ee4bbddab3070\",\n      \"parentCandidate\": \"306d7da951a88cefcdcfe0bc923ee4bbddab3070\",\n      \"observedTip\": \"306d7da951a88cefcdcfe0bc923ee4bbddab3070\"\n    },\n    {\n      \"file\": \"packages/core/src/measures.ts\",\n      \"frozen\": null,\n      \"firstCap\": \"d49fda52852d1bf0181c5b71a87e3ee53898d946\",\n      \"parentCandidate\": \"d49fda52852d1bf0181c5b71a87e3ee53898d946\",\n      \"observedTip\": \"d49fda52852d1bf0181c5b71a87e3ee53898d946\"\n    },\n    {\n      \"file\": \"packages/core/src/outcome.ts\",\n      \"frozen\": \"3279c72394f1486d01f0736f5a7373afe6a97733\",\n      \"firstCap\": \"3279c72394f1486d01f0736f5a7373afe6a97733\",\n      \"parentCandidate\": \"3279c72394f1486d01f0736f5a7373afe6a97733\",\n      \"observedTip\": \"3279c72394f1486d01f0736f5a7373afe6a97733\"\n    },\n    {\n      \"file\": \"packages/core/src/pack-checker.ts\",\n      \"frozen\": \"74b1f18ba6b60a71e6d62b6957d6cde686342d4a\",\n      \"firstCap\": \"0f2160c7e95465fb788a119e1383fc7050b5f612\",\n      \"parentCandidate\": \"0f2160c7e95465fb788a119e1383fc7050b5f612\",\n      \"observedTip\": \"0f2160c7e95465fb788a119e1383fc7050b5f612\"\n    },\n    {\n      \"file\": \"packages/core/src/pack-schema.ts\",\n      \"frozen\": \"c40543db88b08f455eee665b65d20e3d7c93849c\",\n      \"firstCap\": \"2fe92bfd3ac38b7c7deca13fde573431e6460a5f\",\n      \"parentCandidate\": \"2fe92bfd3ac38b7c7deca13fde573431e6460a5f\",\n      \"observedTip\": \"2fe92bfd3ac38b7c7deca13fde573431e6460a5f\"\n    },\n    {\n      \"file\": \"packages/core/src/parse-codex.ts\",\n      \"frozen\": \"97b65814c2b13dae81b7f958c703e37dc1f6e5a5\",\n      \"firstCap\": \"97b65814c2b13dae81b7f958c703e37dc1f6e5a5\",\n      \"parentCandidate\": \"97b65814c2b13dae81b7f958c703e37dc1f6e5a5\",\n      \"observedTip\": \"97b65814c2b13dae81b7f958c703e37dc1f6e5a5\"\n    },\n    {\n      \"file\": \"packages/core/src/parse-opencode.ts\",\n      \"frozen\": \"037a0a8f81352951d15efa0b3198538854e34e8d\",\n      \"firstCap\": \"037a0a8f81352951d15efa0b3198538854e34e8d\",\n      \"parentCandidate\": \"037a0a8f81352951d15efa0b3198538854e34e8d\",\n      \"observedTip\": \"037a0a8f81352951d15efa0b3198538854e34e8d\"\n    },\n    {\n      \"file\": \"packages/core/src/paths.ts\",\n      \"frozen\": \"10e82338aa0bb0fc7c8401f0244c92e0bd25d708\",\n      \"firstCap\": \"10e82338aa0bb0fc7c8401f0244c92e0bd25d708\",\n      \"parentCandidate\": \"10e82338aa0bb0fc7c8401f0244c92e0bd25d708\",\n      \"observedTip\": \"10e82338aa0bb0fc7c8401f0244c92e0bd25d708\"\n    },\n    {\n      \"file\": \"packages/core/src/phase-driver.ts\",\n      \"frozen\": \"b5b0ce39f79ebf4999f452823f6146192031b5f7\",\n      \"firstCap\": \"b5b0ce39f79ebf4999f452823f6146192031b5f7\",\n      \"parentCandidate\": \"b5b0ce39f79ebf4999f452823f6146192031b5f7\",\n      \"observedTip\": \"b5b0ce39f79ebf4999f452823f6146192031b5f7\"\n    },\n    {\n      \"file\": \"packages/core/src/run-conductor.ts\",\n      \"frozen\": \"e1ce737a5ffd7c8a4d80372207bfdb73b27fd17e\",\n      \"firstCap\": \"0da8559cc4ea5f128e305ef9115e39393dbc4429\",\n      \"parentCandidate\": \"c164fc7747643eee35ae8895552c243fd39f5d97\",\n      \"observedTip\": \"c164fc7747643eee35ae8895552c243fd39f5d97\"\n    },\n    {\n      \"file\": \"packages/core/src/runtime-sandbox.ts\",\n      \"frozen\": \"1b9670de7f6f9162dd80eece5e3b8edab1b18231\",\n      \"firstCap\": \"1b9670de7f6f9162dd80eece5e3b8edab1b18231\",\n      \"parentCandidate\": \"1b9670de7f6f9162dd80eece5e3b8edab1b18231\",\n      \"observedTip\": \"1b9670de7f6f9162dd80eece5e3b8edab1b18231\"\n    },\n    {\n      \"file\": \"packages/core/src/selector.ts\",\n      \"frozen\": \"79581bb596f374d040bbe6fa596e74e237e92cc6\",\n      \"firstCap\": \"79581bb596f374d040bbe6fa596e74e237e92cc6\",\n      \"parentCandidate\": \"79581bb596f374d040bbe6fa596e74e237e92cc6\",\n      \"observedTip\": \"79581bb596f374d040bbe6fa596e74e237e92cc6\"\n    },\n    {\n      \"file\": \"packages/core/src/tally.ts\",\n      \"frozen\": \"c3de6679837406ceb636729e3559d21eebc00f23\",\n      \"firstCap\": \"131497dfddcd711f9f5a88cdd33a5fbb1c4f149e\",\n      \"parentCandidate\": \"131497dfddcd711f9f5a88cdd33a5fbb1c4f149e\",\n      \"observedTip\": \"131497dfddcd711f9f5a88cdd33a5fbb1c4f149e\"\n    },\n    {\n      \"file\": \"packages/core/src/validity-classifier.ts\",\n      \"frozen\": \"3dca5b6497ffab56d81c685d00055e2d8cd3501a\",\n      \"firstCap\": \"3dca5b6497ffab56d81c685d00055e2d8cd3501a\",\n      \"parentCandidate\": \"3dca5b6497ffab56d81c685d00055e2d8cd3501a\",\n      \"observedTip\": \"3dca5b6497ffab56d81c685d00055e2d8cd3501a\"\n    },\n    {\n      \"file\": \"packages/core/src/variant-builder.ts\",\n      \"frozen\": \"c8039ab523ba4d4270d9cfb5d88e05d8df72b200\",\n      \"firstCap\": \"c8039ab523ba4d4270d9cfb5d88e05d8df72b200\",\n      \"parentCandidate\": \"c8039ab523ba4d4270d9cfb5d88e05d8df72b200\",\n      \"observedTip\": \"c8039ab523ba4d4270d9cfb5d88e05d8df72b200\"\n    },\n    {\n      \"file\": \"packages/core/src/workspace-builder.ts\",\n      \"frozen\": \"fcfaa49c8ecc74b140734878db67305b914f2eed\",\n      \"firstCap\": \"fcfaa49c8ecc74b140734878db67305b914f2eed\",\n      \"parentCandidate\": \"fcfaa49c8ecc74b140734878db67305b914f2eed\",\n      \"observedTip\": \"fcfaa49c8ecc74b140734878db67305b914f2eed\"\n    }\n  ],\n  \"pack\": {\n    \"path\": \"/home/apnex/taceng/agp/docs/reviews/admission-lifetime-assurance-r4/pack.json\",\n    \"sha256\": \"23c0b12983fbfede9da716fc22b9d1abd9c45c4529b2e9fbb6d498bfda5191ad\",\n    \"deliveryKinds\": [\n      {\n        \"arm\": \"m42\",\n        \"delivery\": [\n          \"instruction\"\n        ]\n      },\n      {\n        \"arm\": \"x19\",\n        \"delivery\": [\n          \"instruction\"\n        ]\n      }\n    ]\n  },\n  \"experiment\": {\n    \"path\": \"/home/apnex/taceng/agp/docs/reviews/admission-lifetime-assurance-r4/admission-clarity-experiment.json\",\n    \"sha256\": \"6a9a7cc08570ed3af675dafacba5c99c4f7d11137eb90a7d4b0f54268022f9a6\",\n    \"phases\": [\n      {\n        \"id\": \"answer\",\n        \"session\": \"new\"\n      }\n    ]\n  },\n  \"nonInvokedInterface\": {\n    \"testOutputTokenMax\": 4096,\n    \"configuredModelOutputLimit\": 65536,\n    \"capAcceptedByOpenCode\": true,\n    \"capRefusedByCodex\": true\n  },\n  \"boundaries\": {\n    \"modelExperiments\": 0,\n    \"providerInvocations\": 0,\n    \"probeInvocations\": 0,\n    \"conductorInvocations\": 0,\n    \"registerInvocations\": 0,\n    \"runtimeSettingsChanged\": false,\n    \"evaluatorAdoptedForLiveUse\": false,\n    \"liveCapSelected\": false,\n    \"clientRequestObserved\": false,\n    \"backendBudgetObserved\": false,\n    \"fullConductorCompatibilityQualified\": false\n  }\n}\n"
+      },
+      "assessment": "Inventory records absent historical paths as null; twelve author checks completed. No runtime, provider, probe or conductor invocation."
+    }
+  ],
+  "observed": {
+    "schema": "agp.admission-evaluator-compatibility-inspection/1",
+    "inspectedAt": "2026-10-16T21:58:39.947Z",
+    "kind": "author static checks; not qualification or independent assurance",
+    "startingAgpRevision": "0e4fb13921626d91199aadb508145c5d9d54cd47",
+    "revisions": {
+      "frozen": "6e6d0a92965a15ec473c661887b2b9c5037fedcf",
+      "firstCap": "9a9b5e96c484b37d3f3fdbf34c0e7b726747a0a1",
+      "parentCandidate": "e705b3d749400d0a79efe98e5338e9c84a1695b8",
+      "observedTip": "0c0ab1f0248ef0cbb21885d7d6af76586d8a1b68"
+    },
+    "exported": "/tmp/agp-evaluator-compatibility.t27xtR/context-lab",
+    "sourceRepository": "/home/apnex/taceng/context-lab",
+    "exportVerifiedFiles": 128,
+    "nodeVersion": "v24.12.0",
+    "buildCommand": "npm run build -- --force",
+    "buildOutput": "\n> @apnex/context-lab@0.0.0 build\n> tsc -b --force\n\n",
+    "checks": [
+      "All exported tracked bytes match the exact parent candidate",
+      "Only adapters and isolation prober differ from the observed tip source",
+      "Parent probe is byte-identical to the frozen evaluator probe",
+      "Parent adapter is byte-identical to the first public-cap adapter",
+      "Parent and tip dependency declarations and lock are identical",
+      "Forced isolated TypeScript build completed",
+      "Current two AGP arms use only instruction delivery and no hooks",
+      "Current AGP experiment declares a single new-session answer phase",
+      "Parent public refusal accepts a positive integer test cap without invoking a runtime",
+      "Parent declared route reports the test cap and configured model limit",
+      "Parent public refusal rejects the cap for Codex without invoking a runtime",
+      "Reviewed packets and AGP code have no delta against this turn starting HEAD"
+    ],
+    "changedSource": [
+      "packages/core/src/adapters.ts",
+      "packages/core/src/isolation-prober.ts"
+    ],
+    "sourceBlobs": [
+      {
+        "file": "packages/core/src/adapters.ts",
+        "frozen": "a85de8f37f0ae4d07c39aa166aa7ddc07a579ee4",
+        "firstCap": "d0f0554147d82d79267483ede44c294b360e099e",
+        "parentCandidate": "d0f0554147d82d79267483ede44c294b360e099e",
+        "observedTip": "059f0f5079051b1d759143422ac5082f389b26b0"
+      },
+      {
+        "file": "packages/core/src/answer-parser.ts",
+        "frozen": "9742d39ccca6fbc6c822021b338f27615e098983",
+        "firstCap": "9742d39ccca6fbc6c822021b338f27615e098983",
+        "parentCandidate": "9742d39ccca6fbc6c822021b338f27615e098983",
+        "observedTip": "9742d39ccca6fbc6c822021b338f27615e098983"
+      },
+      {
+        "file": "packages/core/src/arm-composer.ts",
+        "frozen": "06f216d9455a9aab9791a4a5be34d9bf73e8e1b5",
+        "firstCap": "06f216d9455a9aab9791a4a5be34d9bf73e8e1b5",
+        "parentCandidate": "06f216d9455a9aab9791a4a5be34d9bf73e8e1b5",
+        "observedTip": "06f216d9455a9aab9791a4a5be34d9bf73e8e1b5"
+      },
+      {
+        "file": "packages/core/src/blinder.ts",
+        "frozen": "2c16c89966ab25ae4101db3a216c8659fd8121a1",
+        "firstCap": "218b97f81c5414bb534eb41926c71f4336aa755a",
+        "parentCandidate": "218b97f81c5414bb534eb41926c71f4336aa755a",
+        "observedTip": "218b97f81c5414bb534eb41926c71f4336aa755a"
+      },
+      {
+        "file": "packages/core/src/cli-flags.ts",
+        "frozen": null,
+        "firstCap": "d20142b03b3353586360a39a36cf54f0fce4c8d1",
+        "parentCandidate": "d20142b03b3353586360a39a36cf54f0fce4c8d1",
+        "observedTip": "d20142b03b3353586360a39a36cf54f0fce4c8d1"
+      },
+      {
+        "file": "packages/core/src/cli.ts",
+        "frozen": "79cfc6b1b77a0f07f456abdd8d8812d713a0eee3",
+        "firstCap": "21a2d6537fc67f7c63a1f27f3f2339b34db90ec0",
+        "parentCandidate": "4670361e2e9263ba5da5b41c0ea03bcebecf1300",
+        "observedTip": "4670361e2e9263ba5da5b41c0ea03bcebecf1300"
+      },
+      {
+        "file": "packages/core/src/code-measurer.ts",
+        "frozen": "63bd45b21e41dbaf5e69d2fa4d4061f1949fa20a",
+        "firstCap": "63bd45b21e41dbaf5e69d2fa4d4061f1949fa20a",
+        "parentCandidate": "63bd45b21e41dbaf5e69d2fa4d4061f1949fa20a",
+        "observedTip": "63bd45b21e41dbaf5e69d2fa4d4061f1949fa20a"
+      },
+      {
+        "file": "packages/core/src/comparison.ts",
+        "frozen": null,
+        "firstCap": "ff47487d4e552adf7b6837ab154c1efcacdf5097",
+        "parentCandidate": "ff47487d4e552adf7b6837ab154c1efcacdf5097",
+        "observedTip": "ff47487d4e552adf7b6837ab154c1efcacdf5097"
+      },
+      {
+        "file": "packages/core/src/episode.ts",
+        "frozen": "77dced6e12cb65b43f50b66f59ca8c15957c13d8",
+        "firstCap": "f27405b6267a17507b909bb61d960874f4505eb2",
+        "parentCandidate": "33e057325121d4bddb127552480f7d5ab194cc90",
+        "observedTip": "33e057325121d4bddb127552480f7d5ab194cc90"
+      },
+      {
+        "file": "packages/core/src/experiment-register.ts",
+        "frozen": "e9365106da292f2bff9f9cfbb4e0eac1f2262861",
+        "firstCap": "81a6f213cc4655e1d67aa77ee9ca5b090dae7545",
+        "parentCandidate": "81a6f213cc4655e1d67aa77ee9ca5b090dae7545",
+        "observedTip": "81a6f213cc4655e1d67aa77ee9ca5b090dae7545"
+      },
+      {
+        "file": "packages/core/src/hook-runner.ts",
+        "frozen": "ea4ffc04faf54421f3933f0a26215b91291125a1",
+        "firstCap": "ea4ffc04faf54421f3933f0a26215b91291125a1",
+        "parentCandidate": "ea4ffc04faf54421f3933f0a26215b91291125a1",
+        "observedTip": "ea4ffc04faf54421f3933f0a26215b91291125a1"
+      },
+      {
+        "file": "packages/core/src/index.ts",
+        "frozen": "94af609955920bfd3391e01751ee84291ceb7e93",
+        "firstCap": "1c4985fc1ff5cccd0323ff90da759131997c26bd",
+        "parentCandidate": "ac7b7b6940628e2b7c6ef5cc7cee83a212d024bd",
+        "observedTip": "ac7b7b6940628e2b7c6ef5cc7cee83a212d024bd"
+      },
+      {
+        "file": "packages/core/src/isolation-prober.ts",
+        "frozen": "bdb5c0b7b4d7be9fb6b6c6c5b0dfd9a69e57d9fb",
+        "firstCap": "bdb5c0b7b4d7be9fb6b6c6c5b0dfd9a69e57d9fb",
+        "parentCandidate": "bdb5c0b7b4d7be9fb6b6c6c5b0dfd9a69e57d9fb",
+        "observedTip": "407a4e7ae3b1d42b864f25b64209006dd01f30d3"
+      },
+      {
+        "file": "packages/core/src/judge-panel.ts",
+        "frozen": "306d7da951a88cefcdcfe0bc923ee4bbddab3070",
+        "firstCap": "306d7da951a88cefcdcfe0bc923ee4bbddab3070",
+        "parentCandidate": "306d7da951a88cefcdcfe0bc923ee4bbddab3070",
+        "observedTip": "306d7da951a88cefcdcfe0bc923ee4bbddab3070"
+      },
+      {
+        "file": "packages/core/src/measures.ts",
+        "frozen": null,
+        "firstCap": "d49fda52852d1bf0181c5b71a87e3ee53898d946",
+        "parentCandidate": "d49fda52852d1bf0181c5b71a87e3ee53898d946",
+        "observedTip": "d49fda52852d1bf0181c5b71a87e3ee53898d946"
+      },
+      {
+        "file": "packages/core/src/outcome.ts",
+        "frozen": "3279c72394f1486d01f0736f5a7373afe6a97733",
+        "firstCap": "3279c72394f1486d01f0736f5a7373afe6a97733",
+        "parentCandidate": "3279c72394f1486d01f0736f5a7373afe6a97733",
+        "observedTip": "3279c72394f1486d01f0736f5a7373afe6a97733"
+      },
+      {
+        "file": "packages/core/src/pack-checker.ts",
+        "frozen": "74b1f18ba6b60a71e6d62b6957d6cde686342d4a",
+        "firstCap": "0f2160c7e95465fb788a119e1383fc7050b5f612",
+        "parentCandidate": "0f2160c7e95465fb788a119e1383fc7050b5f612",
+        "observedTip": "0f2160c7e95465fb788a119e1383fc7050b5f612"
+      },
+      {
+        "file": "packages/core/src/pack-schema.ts",
+        "frozen": "c40543db88b08f455eee665b65d20e3d7c93849c",
+        "firstCap": "2fe92bfd3ac38b7c7deca13fde573431e6460a5f",
+        "parentCandidate": "2fe92bfd3ac38b7c7deca13fde573431e6460a5f",
+        "observedTip": "2fe92bfd3ac38b7c7deca13fde573431e6460a5f"
+      },
+      {
+        "file": "packages/core/src/parse-codex.ts",
+        "frozen": "97b65814c2b13dae81b7f958c703e37dc1f6e5a5",
+        "firstCap": "97b65814c2b13dae81b7f958c703e37dc1f6e5a5",
+        "parentCandidate": "97b65814c2b13dae81b7f958c703e37dc1f6e5a5",
+        "observedTip": "97b65814c2b13dae81b7f958c703e37dc1f6e5a5"
+      },
+      {
+        "file": "packages/core/src/parse-opencode.ts",
+        "frozen": "037a0a8f81352951d15efa0b3198538854e34e8d",
+        "firstCap": "037a0a8f81352951d15efa0b3198538854e34e8d",
+        "parentCandidate": "037a0a8f81352951d15efa0b3198538854e34e8d",
+        "observedTip": "037a0a8f81352951d15efa0b3198538854e34e8d"
+      },
+      {
+        "file": "packages/core/src/paths.ts",
+        "frozen": "10e82338aa0bb0fc7c8401f0244c92e0bd25d708",
+        "firstCap": "10e82338aa0bb0fc7c8401f0244c92e0bd25d708",
+        "parentCandidate": "10e82338aa0bb0fc7c8401f0244c92e0bd25d708",
+        "observedTip": "10e82338aa0bb0fc7c8401f0244c92e0bd25d708"
+      },
+      {
+        "file": "packages/core/src/phase-driver.ts",
+        "frozen": "b5b0ce39f79ebf4999f452823f6146192031b5f7",
+        "firstCap": "b5b0ce39f79ebf4999f452823f6146192031b5f7",
+        "parentCandidate": "b5b0ce39f79ebf4999f452823f6146192031b5f7",
+        "observedTip": "b5b0ce39f79ebf4999f452823f6146192031b5f7"
+      },
+      {
+        "file": "packages/core/src/run-conductor.ts",
+        "frozen": "e1ce737a5ffd7c8a4d80372207bfdb73b27fd17e",
+        "firstCap": "0da8559cc4ea5f128e305ef9115e39393dbc4429",
+        "parentCandidate": "c164fc7747643eee35ae8895552c243fd39f5d97",
+        "observedTip": "c164fc7747643eee35ae8895552c243fd39f5d97"
+      },
+      {
+        "file": "packages/core/src/runtime-sandbox.ts",
+        "frozen": "1b9670de7f6f9162dd80eece5e3b8edab1b18231",
+        "firstCap": "1b9670de7f6f9162dd80eece5e3b8edab1b18231",
+        "parentCandidate": "1b9670de7f6f9162dd80eece5e3b8edab1b18231",
+        "observedTip": "1b9670de7f6f9162dd80eece5e3b8edab1b18231"
+      },
+      {
+        "file": "packages/core/src/selector.ts",
+        "frozen": "79581bb596f374d040bbe6fa596e74e237e92cc6",
+        "firstCap": "79581bb596f374d040bbe6fa596e74e237e92cc6",
+        "parentCandidate": "79581bb596f374d040bbe6fa596e74e237e92cc6",
+        "observedTip": "79581bb596f374d040bbe6fa596e74e237e92cc6"
+      },
+      {
+        "file": "packages/core/src/tally.ts",
+        "frozen": "c3de6679837406ceb636729e3559d21eebc00f23",
+        "firstCap": "131497dfddcd711f9f5a88cdd33a5fbb1c4f149e",
+        "parentCandidate": "131497dfddcd711f9f5a88cdd33a5fbb1c4f149e",
+        "observedTip": "131497dfddcd711f9f5a88cdd33a5fbb1c4f149e"
+      },
+      {
+        "file": "packages/core/src/validity-classifier.ts",
+        "frozen": "3dca5b6497ffab56d81c685d00055e2d8cd3501a",
+        "firstCap": "3dca5b6497ffab56d81c685d00055e2d8cd3501a",
+        "parentCandidate": "3dca5b6497ffab56d81c685d00055e2d8cd3501a",
+        "observedTip": "3dca5b6497ffab56d81c685d00055e2d8cd3501a"
+      },
+      {
+        "file": "packages/core/src/variant-builder.ts",
+        "frozen": "c8039ab523ba4d4270d9cfb5d88e05d8df72b200",
+        "firstCap": "c8039ab523ba4d4270d9cfb5d88e05d8df72b200",
+        "parentCandidate": "c8039ab523ba4d4270d9cfb5d88e05d8df72b200",
+        "observedTip": "c8039ab523ba4d4270d9cfb5d88e05d8df72b200"
+      },
+      {
+        "file": "packages/core/src/workspace-builder.ts",
+        "frozen": "fcfaa49c8ecc74b140734878db67305b914f2eed",
+        "firstCap": "fcfaa49c8ecc74b140734878db67305b914f2eed",
+        "parentCandidate": "fcfaa49c8ecc74b140734878db67305b914f2eed",
+        "observedTip": "fcfaa49c8ecc74b140734878db67305b914f2eed"
+      }
+    ],
+    "pack": {
+      "path": "/home/apnex/taceng/agp/docs/reviews/admission-lifetime-assurance-r4/pack.json",
+      "sha256": "23c0b12983fbfede9da716fc22b9d1abd9c45c4529b2e9fbb6d498bfda5191ad",
+      "deliveryKinds": [
+        {
+          "arm": "m42",
+          "delivery": [
+            "instruction"
+          ]
+        },
+        {
+          "arm": "x19",
+          "delivery": [
+            "instruction"
+          ]
+        }
+      ]
+    },
+    "experiment": {
+      "path": "/home/apnex/taceng/agp/docs/reviews/admission-lifetime-assurance-r4/admission-clarity-experiment.json",
+      "sha256": "6a9a7cc08570ed3af675dafacba5c99c4f7d11137eb90a7d4b0f54268022f9a6",
+      "phases": [
+        {
+          "id": "answer",
+          "session": "new"
+        }
+      ]
+    },
+    "nonInvokedInterface": {
+      "testOutputTokenMax": 4096,
+      "configuredModelOutputLimit": 65536,
+      "capAcceptedByOpenCode": true,
+      "capRefusedByCodex": true
+    },
+    "boundaries": {
+      "modelExperiments": 0,
+      "providerInvocations": 0,
+      "probeInvocations": 0,
+      "conductorInvocations": 0,
+      "registerInvocations": 0,
+      "runtimeSettingsChanged": false,
+      "evaluatorAdoptedForLiveUse": false,
+      "liveCapSelected": false,
+      "clientRequestObserved": false,
+      "backendBudgetObserved": false,
+      "fullConductorCompatibilityQualified": false
+    }
+  }
+}
