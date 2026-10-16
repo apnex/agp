@@ -1,5 +1,8 @@
 # Admission clarification fresh-reader preregistration
 
+Correction banner: the prospective [accounting amendment](admission-accounting-amendment-01.md) supersedes the specified accounting clauses below after the [readiness FAIL](admission-key-audit-01.txt).\
+The original body is preserved as-authored at `e9fc08b9c340c11e4f094408ca298dbe28419127`; the amended packet needs its own bounded independent recheck before a separate execution decision.
+
 Status: prospective preparation, before independent key audit or any reader execution.\
 Tier 3: this measurement design and its decision rule are judgments, not reader-performance observations.
 
