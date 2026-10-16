@@ -1,0 +1,1931 @@
+{
+  "evidenceSha256": "7ef9a3d83dbb7dd5d4439dee7a74ad07254cb589067fdd9a4b6bc227cbf046e2",
+  "issues": [],
+  "votes": [
+    {
+      "unit": "u0001",
+      "property": "a19",
+      "judge": "g",
+      "family": "gemini",
+      "value": 2,
+      "reason": "DECISION=correct; COVERAGE=complete; SUPPORT=supported; HEDGE=no; both required decisions are correct, complete, and supported by exact excerpts confirming that timely allow and local capacity refusal are not policy denials and that local capacity failure invokes no provider.",
+      "guess": null,
+      "prompt": "admission-clarity.answer.answers.g.1"
+    },
+    {
+      "unit": "u0001",
+      "property": "a19",
+      "judge": "o",
+      "family": "gpt",
+      "value": 2,
+      "reason": "DECISION=correct; COVERAGE=complete; SUPPORT=supported; HEDGE=no; Exact excerpts support normal allow processing, actual identity denial as policy refusal, and local capacity refusal without provider invocation or provider-fault misclassification.",
+      "guess": null,
+      "prompt": "admission-clarity.answer.answers.o.7"
+    },
+    {
+      "unit": "u0002",
+      "property": "a01",
+      "judge": "c",
+      "family": "claude",
+      "value": 2,
+      "reason": "DECISION=correct; COVERAGE=complete; SUPPORT=supported; HEDGE=no — The quotes support releasing P immediately because its permit was revoked before invocation, holding Q until eventual settlement plus disposal despite cancellation, and holding R's capacity while its result awaits disposal; the ended-connection point is not asked by the question.",
+      "guess": null,
+      "prompt": "admission-clarity.answer.answers.c.3"
+    },
+    {
+      "unit": "u0002",
+      "property": "a01",
+      "judge": "g",
+      "family": "gemini",
+      "value": 2,
+      "reason": "DECISION=correct; COVERAGE=complete; SUPPORT=supported; HEDGE=no; the decisions correctly identify immediate release for P and retention conditions for Q and R with exact supporting quotations.",
+      "guess": null,
+      "prompt": "admission-clarity.answer.answers.g.4"
+    },
+    {
+      "unit": "u0003",
+      "property": "a13",
+      "judge": "c",
+      "family": "claude",
+      "value": 1,
+      "reason": "DECISION=correct; COVERAGE=complete; SUPPORT=partial; HEDGE=no — gate closure, permit invalidation and the queued stop's inability to overwrite Failed, publish or rearm are quoted, but the asked-for owner (node-owned gate/coordinator) is asserted without any supporting excerpt.",
+      "guess": null,
+      "prompt": "admission-clarity.answer.answers.c.2"
+    },
+    {
+      "unit": "u0003",
+      "property": "a13",
+      "judge": "g",
+      "family": "gemini",
+      "value": 2,
+      "reason": "DECISION=correct; COVERAGE=complete; SUPPORT=supported; HEDGE=no; the response correctly identifies the node-owned coordinator boundary and confirms that numeric exhaustion revokes both prepared identity results and queued stop continuations with exact textual support.",
+      "guess": null,
+      "prompt": "admission-clarity.answer.answers.g.16"
+    },
+    {
+      "unit": "u0004",
+      "property": "a02",
+      "judge": "c",
+      "family": "claude",
+      "value": 2,
+      "reason": "DECISION=correct; COVERAGE=complete; SUPPORT=supported; HEDGE=no — The quotes cover the runtime gate, controller identity, admission kind, token and deadline checks; they also cover controller-replaced completions being disposed through their bounded owner with no admission, identity, route or terminal effect, and late observers keeping only bounded work-accounting state, which together entail no fault on or refund of the replacement.",
+      "guess": null,
+      "prompt": "admission-clarity.answer.answers.c.8"
+    },
+    {
+      "unit": "u0004",
+      "property": "a02",
+      "judge": "g",
+      "family": "gemini",
+      "value": 2,
+      "reason": "DECISION=correct; COVERAGE=complete; SUPPORT=supported; HEDGE=no, Both required decisions barring late rejections from faulting replacements and defining bounded disposal are correct and fully supported.",
+      "guess": null,
+      "prompt": "admission-clarity.answer.answers.g.13"
+    },
+    {
+      "unit": "u0005",
+      "property": "a17",
+      "judge": "g",
+      "family": "gemini",
+      "value": 2,
+      "reason": "DECISION=correct; COVERAGE=complete; SUPPORT=supported; HEDGE=no; the answer correctly determines that nothing starts, the waiter is retained, and the refusing pool persists, fully supported by quoted premises.",
+      "guess": null,
+      "prompt": "admission-clarity.answer.answers.g.12"
+    },
+    {
+      "unit": "u0005",
+      "property": "a17",
+      "judge": "o",
+      "family": "gpt",
+      "value": 2,
+      "reason": "DECISION=correct; COVERAGE=complete; SUPPORT=supported; HEDGE=no; The excerpts require retaining one waiter, rechecking identity and remembered refusing pools before acquisition, rejecting stale notifications as permits and preserving the refusing set until actual acquisition in the stated scenario.",
+      "guess": null,
+      "prompt": "admission-clarity.answer.answers.o.2"
+    },
+    {
+      "unit": "u0006",
+      "property": "a11",
+      "judge": "c",
+      "family": "claude",
+      "value": 1,
+      "reason": "DECISION=correct; COVERAGE=incomplete; SUPPORT=partial; HEDGE=yes. The answer correctly says the malformed result cannot consume a revision or authorize an ACK, and it supports the nonfatal POLICY atomic commit, but it reports the admission-fault terminal transition for R1 as unspecified rather than grounding it.",
+      "guess": null,
+      "prompt": "admission-clarity.answer.answers.c.1"
+    },
+    {
+      "unit": "u0006",
+      "property": "a11",
+      "judge": "g",
+      "family": "gemini",
+      "value": 1,
+      "reason": "DECISION=withheld; COVERAGE=incomplete; SUPPORT=partial; HEDGE=no; the answer correctly addresses proposal handling and nonfatal policy denial but safely reports a gap regarding the explicit transition to session fault for malformed route results.",
+      "guess": null,
+      "prompt": "admission-clarity.answer.answers.g.8"
+    },
+    {
+      "unit": "u0007",
+      "property": "a04",
+      "judge": "g",
+      "family": "gemini",
+      "value": 2,
+      "reason": "DECISION=correct; COVERAGE=complete; SUPPORT=supported; HEDGE=no; the answer correctly treats deadline equality as expired, discards plan and permit without effects, and assigns the session controller to advance AdmissionExpired in the same turn with decisive document excerpts.",
+      "guess": null,
+      "prompt": "admission-clarity.answer.answers.g.6"
+    },
+    {
+      "unit": "u0007",
+      "property": "a04",
+      "judge": "o",
+      "family": "gpt",
+      "value": 2,
+      "reason": "DECISION=correct; COVERAGE=complete; SUPPORT=supported; HEDGE=no; The quoted equality, discard, same-turn expiry and shared controller ownership rules jointly support both required decisions without waiting for timer delivery.",
+      "guess": null,
+      "prompt": "admission-clarity.answer.answers.o.1"
+    },
+    {
+      "unit": "u0008",
+      "property": "a11",
+      "judge": "g",
+      "family": "gemini",
+      "value": 1,
+      "reason": "DECISION=withheld; COVERAGE=incomplete; SUPPORT=partial; HEDGE=yes, The answer withholds a definitive decision on whether malformed route results end the session due to a reported gap in document authority.",
+      "guess": null,
+      "prompt": "admission-clarity.answer.answers.g.13"
+    },
+    {
+      "unit": "u0008",
+      "property": "a11",
+      "judge": "o",
+      "family": "gpt",
+      "value": 1,
+      "reason": "DECISION=withheld; COVERAGE=incomplete; SUPPORT=partial; HEDGE=yes; The valid policy denial is correctly supported as nonfatal and atomic, but malformed-result termination is explicitly unresolved and its revision and ACK prohibition lacks decisive quoted support.",
+      "guess": null,
+      "prompt": "admission-clarity.answer.answers.o.5"
+    },
+    {
+      "unit": "u0009",
+      "property": "a05",
+      "judge": "c",
+      "family": "claude",
+      "value": 1,
+      "reason": "DECISION=withheld; COVERAGE=incomplete; SUPPORT=partial; HEDGE=yes - The answer honestly reports the equal-deadline priority as missing instead of stating that OpenExpired wins regardless of callback order, and it correctly refuses early-wake expiry but reports the rearm-remainder action as unspecified, so it is safe but incomplete.",
+      "guess": null,
+      "prompt": "admission-clarity.answer.answers.c.4"
+    },
+    {
+      "unit": "u0009",
+      "property": "a05",
+      "judge": "g",
+      "family": "gemini",
+      "value": 1,
+      "reason": "DECISION=withheld; COVERAGE=incomplete; SUPPORT=partial; HEDGE=no; the answer safely determines that premature wake authorizes no expiry transition but reports the equal-deadline tie resolution as an undocumented gap, which constitutes safe incompleteness capped at 1.",
+      "guess": null,
+      "prompt": "admission-clarity.answer.answers.g.1"
+    },
+    {
+      "unit": "u0010",
+      "property": "a03",
+      "judge": "g",
+      "family": "gemini",
+      "value": 2,
+      "reason": "DECISION=correct; COVERAGE=complete; SUPPORT=supported; HEDGE=no, the response correctly rejects placing normalization and abort delivery in the installation turn, keeping them outside the executor to avoid running application code, fully supported by quoted text.",
+      "guess": null,
+      "prompt": "admission-clarity.answer.answers.g.11"
+    },
+    {
+      "unit": "u0010",
+      "property": "a03",
+      "judge": "o",
+      "family": "gpt",
+      "value": 2,
+      "reason": "DECISION=correct; COVERAGE=complete; SUPPORT=supported; HEDGE=no; The excerpts place normalization and abort delivery outside the executor because they can run application code and require bounded owned immutable data with no external callbacks during installation.",
+      "guess": null,
+      "prompt": "admission-clarity.answer.answers.o.1"
+    },
+    {
+      "unit": "u0011",
+      "property": "a03",
+      "judge": "g",
+      "family": "gemini",
+      "value": 2,
+      "reason": "DECISION=correct; COVERAGE=complete; SUPPORT=supported; HEDGE=no; the answer correctly forbids the placement because normalization and abort events run external code outside the executor while the serialized turn only installs owned data, fully supported by quotes.",
+      "guess": null,
+      "prompt": "admission-clarity.answer.answers.g.8"
+    },
+    {
+      "unit": "u0011",
+      "property": "a03",
+      "judge": "o",
+      "family": "gpt",
+      "value": 2,
+      "reason": "DECISION=correct; COVERAGE=complete; SUPPORT=supported; HEDGE=no; The excerpts support external normalization and abort delivery, explain their application-code risk, and establish that the serialized turn receives bounded owned immutable data.",
+      "guess": null,
+      "prompt": "admission-clarity.answer.answers.o.1"
+    },
+    {
+      "unit": "u0012",
+      "property": "a07",
+      "judge": "c",
+      "family": "claude",
+      "value": 1,
+      "reason": "DECISION=correct; COVERAGE=incomplete; SUPPORT=partial; HEDGE=yes - The answer safely says detachment cannot restart D or drop cleanup and that the write timeout cannot replace the committed cause, but preserving D is inferred from the one-budget quote, the cleanup generation and earlier-abort allowance are not addressed, and the answer itself reports that no write-timeout cause-precedence quote exists.",
+      "guess": null,
+      "prompt": "admission-clarity.answer.answers.c.4"
+    },
+    {
+      "unit": "u0012",
+      "property": "a07",
+      "judge": "g",
+      "family": "gemini",
+      "value": 1,
+      "reason": "DECISION=correct; COVERAGE=incomplete; SUPPORT=partial; HEDGE=no; the answer correctly reaches safe outcomes but reports a material gap regarding explicit precedence authority, capping the score at 1.",
+      "guess": null,
+      "prompt": "admission-clarity.answer.answers.g.12"
+    },
+    {
+      "unit": "u0013",
+      "property": "a16",
+      "judge": "g",
+      "family": "gemini",
+      "value": 2,
+      "reason": "DECISION=correct; COVERAGE=complete; SUPPORT=supported; HEDGE=no; the answer correctly validates the initial retry-wait projection, notes that waiting consumes no attempts or timers, and identifies that only identity capacity must open using decisive document excerpts.",
+      "guess": null,
+      "prompt": "admission-clarity.answer.answers.g.6"
+    },
+    {
+      "unit": "u0013",
+      "property": "a16",
+      "judge": "o",
+      "family": "gpt",
+      "value": 2,
+      "reason": "DECISION=correct; COVERAGE=complete; SUPPORT=supported; HEDGE=no; The quotations jointly support a valid initial capacity wait with unchanged attempt history and no fabricated session or timer despite disabled reconnect, requiring identity capacity without blocking on unrelated route pressure.",
+      "guess": null,
+      "prompt": "admission-clarity.answer.answers.o.4"
+    },
+    {
+      "unit": "u0014",
+      "property": "a20",
+      "judge": "g",
+      "family": "gemini",
+      "value": 2,
+      "reason": "DECISION=correct; COVERAGE=complete; SUPPORT=supported; HEDGE=no; both required decisions on provider compatibility and out-of-schema cancellation are fully correct and supported by exact supplied excerpts.",
+      "guess": null,
+      "prompt": "admission-clarity.answer.answers.g.4"
+    },
+    {
+      "unit": "u0014",
+      "property": "a20",
+      "judge": "o",
+      "family": "gpt",
+      "value": 2,
+      "reason": "DECISION=correct; COVERAGE=complete; SUPPORT=supported; HEDGE=no; Excerpts establish compatible one-argument providers, an optional shared second argument supplied by AGP, and process-local cancellation outside unchanged DTO schemas without a browser/CLI split.",
+      "guess": null,
+      "prompt": "admission-clarity.answer.answers.o.6"
+    },
+    {
+      "unit": "u0015",
+      "property": "a20",
+      "judge": "g",
+      "family": "gemini",
+      "value": 2,
+      "reason": "DECISION=correct; COVERAGE=complete; SUPPORT=supported; HEDGE=no; backward compatibility for single-argument providers and external signal placement are completely answered and supported by exact quotes.",
+      "guess": null,
+      "prompt": "admission-clarity.answer.answers.g.9"
+    },
+    {
+      "unit": "u0015",
+      "property": "a20",
+      "judge": "o",
+      "family": "gpt",
+      "value": 2,
+      "reason": "DECISION=correct; COVERAGE=complete; SUPPORT=supported; HEDGE=no; Quotes establish the optional shared second argument supplied by AGP on both ports, continued one-argument compatibility, and opt-in process-local cancellation outside DTO schemas without a browser/CLI split.",
+      "guess": null,
+      "prompt": "admission-clarity.answer.answers.o.5"
+    },
+    {
+      "unit": "u0016",
+      "property": "a10",
+      "judge": "g",
+      "family": "gemini",
+      "value": 1,
+      "reason": "DECISION=withheld; COVERAGE=incomplete; SUPPORT=partial; HEDGE=no; the answer correctly identifies that an empty decisions list is the only valid result if invoked but withholds a decisive ruling on the skip optimization by reporting a missing rule, resulting in safe incompleteness scored at 1.",
+      "guess": null,
+      "prompt": "admission-clarity.answer.answers.g.1"
+    },
+    {
+      "unit": "u0016",
+      "property": "a10",
+      "judge": "o",
+      "family": "gpt",
+      "value": 1,
+      "reason": "DECISION=withheld; COVERAGE=incomplete; SUPPORT=partial; HEDGE=yes; The empty decision list follows from the quoted subset rules, but the answer reports missing authority instead of establishing mandatory invocation once after the committed reservation.",
+      "guess": null,
+      "prompt": "admission-clarity.answer.answers.o.5"
+    },
+    {
+      "unit": "u0017",
+      "property": "a08",
+      "judge": "c",
+      "family": "claude",
+      "value": 2,
+      "reason": "DECISION=correct; COVERAGE=complete; SUPPORT=supported; HEDGE=no: the answer says the drain stops, the ordinary ACK joins the same FIFO, and the head is dequeued only after disposal or transfer to a bounded owner such as the reserved evaluation record, each directly quoted.",
+      "guess": null,
+      "prompt": "admission-clarity.answer.answers.c.5"
+    },
+    {
+      "unit": "u0017",
+      "property": "a08",
+      "judge": "g",
+      "family": "gemini",
+      "value": 2,
+      "reason": "DECISION=correct; COVERAGE=complete; SUPPORT=supported; HEDGE=no; both required decisions on drain stoppage and reservation removal timing are correctly identified and fully supported by direct quotes.",
+      "guess": null,
+      "prompt": "admission-clarity.answer.answers.g.9"
+    },
+    {
+      "unit": "u0018",
+      "property": "a24",
+      "judge": "g",
+      "family": "gemini",
+      "value": 2,
+      "reason": "DECISION=correct; COVERAGE=complete; SUPPORT=supported; HEDGE=no; the answer correctly determines that the OPEN timer retains authority through OpenConfirm and ends only upon establishment or teardown, backed by exact quotations.",
+      "guess": null,
+      "prompt": "admission-clarity.answer.answers.g.5"
+    },
+    {
+      "unit": "u0018",
+      "property": "a24",
+      "judge": "o",
+      "family": "gpt",
+      "value": 2,
+      "reason": "DECISION=correct; COVERAGE=complete; SUPPORT=supported; HEDGE=no; The excerpts establish continuing OPEN authority through OpenConfirm with hold zero and termination of that bound only at Established or teardown, adequately supporting both required decisions.",
+      "guess": null,
+      "prompt": "admission-clarity.answer.answers.o.3"
+    },
+    {
+      "unit": "u0019",
+      "property": "a01",
+      "judge": "c",
+      "family": "claude",
+      "value": 2,
+      "reason": "DECISION=correct; COVERAGE=complete; SUPPORT=supported; HEDGE=no: the answer releases only P now (revoked before the provider was called) and keeps Q until settlement plus disposal and R until disposal, and the quotes on immediate release, waiting results holding capacity, and dispose-then-release-once entail both decisions.",
+      "guess": null,
+      "prompt": "admission-clarity.answer.answers.c.5"
+    },
+    {
+      "unit": "u0019",
+      "property": "a01",
+      "judge": "g",
+      "family": "gemini",
+      "value": 2,
+      "reason": "DECISION=correct; COVERAGE=complete; SUPPORT=supported; HEDGE=no; the answer correctly determines that only P releases immediately while Q and R await settlement and disposal conditions, with decisive text support.",
+      "guess": null,
+      "prompt": "admission-clarity.answer.answers.g.12"
+    },
+    {
+      "unit": "u0020",
+      "property": "a22",
+      "judge": "c",
+      "family": "claude",
+      "value": 2,
+      "reason": "DECISION=correct; COVERAGE=complete; SUPPORT=supported; HEDGE=no: the answer rejects both claims, quoting that the defaults are review recommendations rather than workload measurements and that the counts do not bound arbitrary provider allocations or physical heap bytes; minor extra detail does not undermine the decisions.",
+      "guess": null,
+      "prompt": "admission-clarity.answer.answers.c.5"
+    },
+    {
+      "unit": "u0020",
+      "property": "a22",
+      "judge": "g",
+      "family": "gemini",
+      "value": 2,
+      "reason": "DECISION=correct; COVERAGE=complete; SUPPORT=supported; HEDGE=no; the answer correctly rejects both claims and defines the true bounds of evaluation counts and review defaults using decisive document excerpts.",
+      "guess": null,
+      "prompt": "admission-clarity.answer.answers.g.5"
+    },
+    {
+      "unit": "u0021",
+      "property": "a14",
+      "judge": "c",
+      "family": "claude",
+      "value": 2,
+      "reason": "DECISION=correct; COVERAGE=complete; SUPPORT=supported; HEDGE=no - The answer states both queries return the same frozen values, terminal revision and capturedAt=T, and that private disposal cannot publish new counters, events or revisions; it also treats the nonzero count as last-known at T rather than proof of live allocation or release, and the quotes directly entail each point.",
+      "guess": null,
+      "prompt": "admission-clarity.answer.answers.c.4"
+    },
+    {
+      "unit": "u0021",
+      "property": "a14",
+      "judge": "g",
+      "family": "gemini",
+      "value": 2,
+      "reason": "DECISION=correct; COVERAGE=complete; SUPPORT=supported; HEDGE=no; the frozen query return values and caller resource conclusions are both fully answered and decisively supported by quoted text.",
+      "guess": null,
+      "prompt": "admission-clarity.answer.answers.g.9"
+    },
+    {
+      "unit": "u0022",
+      "property": "a07",
+      "judge": "c",
+      "family": "claude",
+      "value": 2,
+      "reason": "DECISION=correct; COVERAGE=complete; SUPPORT=supported; HEDGE=no — The table quotes show that detachment preserves or shortens the deadline and never restarts it, that detached cleanup runs with exact cleanup-generation checks, and that the per-send timeout may force an earlier abort but cannot replace the cause or restart the budget.",
+      "guess": null,
+      "prompt": "admission-clarity.answer.answers.c.3"
+    },
+    {
+      "unit": "u0022",
+      "property": "a07",
+      "judge": "g",
+      "family": "gemini",
+      "value": 2,
+      "reason": "DECISION=correct; COVERAGE=complete; SUPPORT=supported; HEDGE=no; the response correctly determines that detachment does not restart D and write expiry cannot replace the committed cause, fully backed by exact excerpts.",
+      "guess": null,
+      "prompt": "admission-clarity.answer.answers.g.12"
+    },
+    {
+      "unit": "u0023",
+      "property": "a09",
+      "judge": "c",
+      "family": "claude",
+      "value": 1,
+      "reason": "DECISION=correct; COVERAGE=incomplete; SUPPORT=partial; HEDGE=no — the answer correctly disposes the semantic backlog, blocks early credit, keeps the unsettled provider reservation and has the sole reader drain through terminal, but no quote states that terminal disposition disposes queued commands and releases only their queue reservations, and it never states that a second reader or early read cancellation cannot substitute for the drain.",
+      "guess": null,
+      "prompt": "admission-clarity.answer.answers.c.2"
+    },
+    {
+      "unit": "u0023",
+      "property": "a09",
+      "judge": "g",
+      "family": "gemini",
+      "value": 2,
+      "reason": "DECISION=correct; COVERAGE=complete; SUPPORT=supported; HEDGE=no; both required decisions are correct, complete, and supported by supplied excerpts confirming queue reservation disposal without protocol effects and transport FIFO draining by the sole reader.",
+      "guess": null,
+      "prompt": "admission-clarity.answer.answers.g.1"
+    },
+    {
+      "unit": "u0024",
+      "property": "a16",
+      "judge": "c",
+      "family": "claude",
+      "value": 2,
+      "reason": "DECISION=correct; COVERAGE=complete; SUPPORT=supported; HEDGE=no — the quotes establish a valid initial capacity wait with no manufactured attempt, token or backoff, show that disabled reconnect removes only repeats, require identity capacity, and show that unrelated route-pool pressure does not block the identity-only phase.",
+      "guess": null,
+      "prompt": "admission-clarity.answer.answers.c.6"
+    },
+    {
+      "unit": "u0024",
+      "property": "a16",
+      "judge": "g",
+      "family": "gemini",
+      "value": 2,
+      "reason": "DECISION=correct; COVERAGE=complete; SUPPORT=supported; HEDGE=no; The answer correctly validates the initial capacity wait projection and specifies the identity capacity requirement with direct quoted support.",
+      "guess": null,
+      "prompt": "admission-clarity.answer.answers.g.2"
+    },
+    {
+      "unit": "u0025",
+      "property": "a01",
+      "judge": "g",
+      "family": "gemini",
+      "value": 1,
+      "reason": "DECISION=correct; COVERAGE=incomplete; SUPPORT=partial; HEDGE=yes, the response correctly identifies the release conditions for P, Q, and R, but hedges on R's immediate release by making it conditional on disposal occurring at the checkpoint and reports a gap regarding cleanup disposal timing.",
+      "guess": null,
+      "prompt": "admission-clarity.answer.answers.g.11"
+    },
+    {
+      "unit": "u0025",
+      "property": "a01",
+      "judge": "o",
+      "family": "gpt",
+      "value": 2,
+      "reason": "DECISION=correct; COVERAGE=complete; SUPPORT=supported; HEDGE=no; Excerpts support immediate release only for uninvoked P, settlement plus disposal for Q and disposal for settled R, without refunds from cancellation or session termination.",
+      "guess": null,
+      "prompt": "admission-clarity.answer.answers.o.8"
+    },
+    {
+      "unit": "u0026",
+      "property": "a17",
+      "judge": "g",
+      "family": "gemini",
+      "value": 2,
+      "reason": "DECISION=correct; COVERAGE=complete; SUPPORT=supported; HEDGE=no; the answer correctly concludes that no acquisition starts on backoff expiry or stale notification and that the refusing pool set persists until the next acquisition, supported by exact excerpts.",
+      "guess": null,
+      "prompt": "admission-clarity.answer.answers.g.5"
+    },
+    {
+      "unit": "u0026",
+      "property": "a17",
+      "judge": "o",
+      "family": "gpt",
+      "value": 1,
+      "reason": "DECISION=correct; COVERAGE=complete; SUPPORT=partial; HEDGE=no; The excerpts establish waiter retention, stale-notification handling and refusing-set persistence, but do not support the asserted requirement to recheck identity capacity alongside the refusing route pool.",
+      "guess": null,
+      "prompt": "admission-clarity.answer.answers.o.6"
+    },
+    {
+      "unit": "u0027",
+      "property": "a08",
+      "judge": "g",
+      "family": "gemini",
+      "value": 2,
+      "reason": "DECISION=correct; COVERAGE=complete; SUPPORT=supported; HEDGE=no; the response correctly determines that drain stops, incoming ACKs do not bypass the queue, and head reservations persist until bounded transfer, backed by decisive quotes.",
+      "guess": null,
+      "prompt": "admission-clarity.answer.answers.g.15"
+    },
+    {
+      "unit": "u0027",
+      "property": "a08",
+      "judge": "o",
+      "family": "gpt",
+      "value": 2,
+      "reason": "DECISION=correct; COVERAGE=complete; SUPPORT=supported; HEDGE=no; The excerpts establish that the new admission stops draining, ordinary ACKs join the FIFO, and the head remains reserved until dispatch transfers it to the reserved evaluation record.",
+      "guess": null,
+      "prompt": "admission-clarity.answer.answers.o.3"
+    },
+    {
+      "unit": "u0028",
+      "property": "a19",
+      "judge": "c",
+      "family": "claude",
+      "value": 2,
+      "reason": "DECISION=correct; COVERAGE=complete; SUPPORT=supported; HEDGE=no — the quotes establish that a timely allow follows normal collision/confirmation rules while only a deny is a policy refusal, and that capacity refusal occurs before provider invocation as AdmissionCapacityExceeded rather than IDENTITY_REJECTED or a provider fault.",
+      "guess": null,
+      "prompt": "admission-clarity.answer.answers.c.2"
+    },
+    {
+      "unit": "u0028",
+      "property": "a19",
+      "judge": "g",
+      "family": "gemini",
+      "value": 2,
+      "reason": "DECISION=correct; COVERAGE=complete; SUPPORT=supported; HEDGE=no; both required decisions correctly classify the admission outcomes and non-invoking capacity refusal with exact document support.",
+      "guess": null,
+      "prompt": "admission-clarity.answer.answers.g.4"
+    },
+    {
+      "unit": "u0029",
+      "property": "a18",
+      "judge": "g",
+      "family": "gemini",
+      "value": 2,
+      "reason": "DECISION=correct; COVERAGE=complete; SUPPORT=supported; HEDGE=no; both required decisions are correct, complete, and supported by exact excerpts confirming that adopting an already-established exact winner resets failure history while OpenConfirm winner dial cancellation preserves history without reset.",
+      "guess": null,
+      "prompt": "admission-clarity.answer.answers.g.10"
+    },
+    {
+      "unit": "u0029",
+      "property": "a18",
+      "judge": "o",
+      "family": "gpt",
+      "value": 2,
+      "reason": "DECISION=correct; COVERAGE=complete; SUPPORT=supported; HEDGE=no; Exact excerpts authorize the adopted Established winner's idempotent reset, reject stale success resets and distinguish scheduling cancellation from clearing failure history.",
+      "guess": null,
+      "prompt": "admission-clarity.answer.answers.o.2"
+    },
+    {
+      "unit": "u0030",
+      "property": "a04",
+      "judge": "g",
+      "family": "gemini",
+      "value": 1,
+      "reason": "DECISION=withheld; COVERAGE=incomplete; SUPPORT=partial; HEDGE=no; the answer safely identifies unstated rules regarding boundary equality and session advancement ownership rather than inventing them.",
+      "guess": null,
+      "prompt": "admission-clarity.answer.answers.g.3"
+    },
+    {
+      "unit": "u0030",
+      "property": "a04",
+      "judge": "o",
+      "family": "gpt",
+      "value": 1,
+      "reason": "DECISION=withheld; COVERAGE=incomplete; SUPPORT=partial; HEDGE=yes; The answer safely reports missing equality and same-turn expiry ownership rules, leaving both required decisions unresolved rather than inventing authority.",
+      "guess": null,
+      "prompt": "admission-clarity.answer.answers.o.2"
+    },
+    {
+      "unit": "u0031",
+      "property": "a15",
+      "judge": "c",
+      "family": "claude",
+      "value": 1,
+      "reason": "DECISION=withheld; COVERAGE=incomplete; SUPPORT=partial; HEDGE=yes. The answer correctly supports non-reopening cleanup, non-mutating queries and live capture time, but it honestly withholds whether the disposal gauge change increments the revision because the referenced classification is not reproduced, which is a safe gap that cannot earn 2.",
+      "guess": null,
+      "prompt": "admission-clarity.answer.answers.c.1"
+    },
+    {
+      "unit": "u0031",
+      "property": "a15",
+      "judge": "g",
+      "family": "gemini",
+      "value": 1,
+      "reason": "DECISION=withheld; COVERAGE=incomplete; SUPPORT=partial; HEDGE=no; the answer correctly resolves lifecycle non-reopening and live capture time but safely reports a material gap regarding whether gauge-only disposal advances the canonical revision.",
+      "guess": null,
+      "prompt": "admission-clarity.answer.answers.g.8"
+    },
+    {
+      "unit": "u0032",
+      "property": "a17",
+      "judge": "c",
+      "family": "claude",
+      "value": 2,
+      "reason": "DECISION=correct; COVERAGE=complete; SUPPORT=supported; HEDGE=no — The quotes show that timer expiry consumes only the timer and retains one waiter, that a stale notification carries no permit so the start-turn check keeps the waiter, and that remembered refusing pools persist until an actual next acquisition; the other named clearing transitions are asserted without a quote but are not decisive for this scenario.",
+      "guess": null,
+      "prompt": "admission-clarity.answer.answers.c.3"
+    },
+    {
+      "unit": "u0032",
+      "property": "a17",
+      "judge": "g",
+      "family": "gemini",
+      "value": 2,
+      "reason": "DECISION=correct; COVERAGE=complete; SUPPORT=supported; HEDGE=no; the answer correctly finds that expired backoff and stale notifications do not start acquisitions and that the refusing pool set is retained until actual acquisition or clearing transitions, with direct quotation support.",
+      "guess": null,
+      "prompt": "admission-clarity.answer.answers.g.8"
+    },
+    {
+      "unit": "u0033",
+      "property": "a18",
+      "judge": "g",
+      "family": "gemini",
+      "value": 2,
+      "reason": "DECISION=correct; COVERAGE=complete; SUPPORT=supported; HEDGE=no; The answer correctly identifies the established winner adoption as the reset event and explains why cancelling the OpenConfirm dial timer preserves history, fully supported by quoted text.",
+      "guess": null,
+      "prompt": "admission-clarity.answer.answers.g.7"
+    },
+    {
+      "unit": "u0033",
+      "property": "a18",
+      "judge": "o",
+      "family": "gpt",
+      "value": 2,
+      "reason": "DECISION=correct; COVERAGE=complete; SUPPORT=supported; HEDGE=no; The quotations support the idempotent reset on established-current-winner adoption, rejection of stale success resets, and preservation of history when OpenConfirm ownership cancels scheduling.",
+      "guess": null,
+      "prompt": "admission-clarity.answer.answers.o.4"
+    },
+    {
+      "unit": "u0034",
+      "property": "a04",
+      "judge": "c",
+      "family": "claude",
+      "value": 1,
+      "reason": "DECISION=withheld; COVERAGE=incomplete; SUPPORT=partial; HEDGE=no — the answer safely discards the expired plan without route, revision or ACK effects, but takes equality-as-expired from ordinary interpretation rather than a quote, and honestly reports that the document gives no owner who must commit AdmissionExpired within this turn, so R2 is a reported gap rather than a grounded decision.",
+      "guess": null,
+      "prompt": "admission-clarity.answer.answers.c.6"
+    },
+    {
+      "unit": "u0034",
+      "property": "a04",
+      "judge": "g",
+      "family": "gemini",
+      "value": 1,
+      "reason": "DECISION=withheld; COVERAGE=incomplete; SUPPORT=partial; HEDGE=no; While correctly discarding the plan and permit upon deadline equality, the response safely withholds the synchronous advance decision by reporting a specification gap regarding the expiry handoff.",
+      "guess": null,
+      "prompt": "admission-clarity.answer.answers.g.7"
+    },
+    {
+      "unit": "u0035",
+      "property": "a07",
+      "judge": "g",
+      "family": "gemini",
+      "value": 1,
+      "reason": "DECISION=correct; COVERAGE=incomplete; SUPPORT=partial; HEDGE=no, the response correctly decides that detachment cannot restart the deadline or disable cleanup and that the write timeout cannot replace the committed cause, but omits that write expiry may force an earlier abort and assumes non-replacement without identifying missing precedence authority.",
+      "guess": null,
+      "prompt": "admission-clarity.answer.answers.g.11"
+    },
+    {
+      "unit": "u0035",
+      "property": "a07",
+      "judge": "o",
+      "family": "gpt",
+      "value": 1,
+      "reason": "DECISION=correct; COVERAGE=incomplete; SUPPORT=partial; HEDGE=no; The single-budget and existing-owner excerpts support non-restart and continued cleanup, but exact cleanup-generation preservation lacks decisive support and the permitted earlier abort on write expiry is omitted.",
+      "guess": null,
+      "prompt": "admission-clarity.answer.answers.o.1"
+    },
+    {
+      "unit": "u0036",
+      "property": "a15",
+      "judge": "g",
+      "family": "gemini",
+      "value": 1,
+      "reason": "DECISION=withheld; COVERAGE=incomplete; SUPPORT=partial; HEDGE=no; the answer safely identifies unstated metadata revision and live capture rules as gaps, appropriately limiting the score to 1.",
+      "guess": null,
+      "prompt": "admission-clarity.answer.answers.g.3"
+    },
+    {
+      "unit": "u0036",
+      "property": "a15",
+      "judge": "o",
+      "family": "gpt",
+      "value": 1,
+      "reason": "DECISION=withheld; COVERAGE=incomplete; SUPPORT=partial; HEDGE=yes; R1 is supported, but the answer honestly identifies missing authority for R2's exactly-once revision increment and fresh query capture time.",
+      "guess": null,
+      "prompt": "admission-clarity.answer.answers.o.1"
+    },
+    {
+      "unit": "u0037",
+      "property": "a06",
+      "judge": "c",
+      "family": "claude",
+      "value": 1,
+      "reason": "DECISION=withheld; COVERAGE=incomplete; SUPPORT=partial; HEDGE=yes. The answer grounds a single teardown budget starting at terminal-cause commit that close cannot restart, but it honestly reports that no setting is bound to that budget and leaves the t=1000 deadline and migration choice unresolved, which is safe incompleteness.",
+      "guess": null,
+      "prompt": "admission-clarity.answer.answers.c.1"
+    },
+    {
+      "unit": "u0037",
+      "property": "a06",
+      "judge": "g",
+      "family": "gemini",
+      "value": 1,
+      "reason": "DECISION=withheld; COVERAGE=incomplete; SUPPORT=partial; HEDGE=no; the answer safely identifies the single teardown budget but withholds the numeric deadline by reporting that the configuration mapping is missing.",
+      "guess": null,
+      "prompt": "admission-clarity.answer.answers.g.5"
+    },
+    {
+      "unit": "u0038",
+      "property": "a16",
+      "judge": "c",
+      "family": "claude",
+      "value": 2,
+      "reason": "DECISION=correct; COVERAGE=complete; SUPPORT=supported; HEDGE=no — The quoted table row validates retry-wait with no attempt, token, backoff, retryAt or activeControllerId and unchanged retryAttempt; the quotes also show disabled reconnect does not remove the initial attempt or its wait, and that route-pool pressure alone does not block the identity-only phase gated by identity capacity.",
+      "guess": null,
+      "prompt": "admission-clarity.answer.answers.c.8"
+    },
+    {
+      "unit": "u0038",
+      "property": "a16",
+      "judge": "g",
+      "family": "gemini",
+      "value": 2,
+      "reason": "DECISION=correct; COVERAGE=complete; SUPPORT=supported; HEDGE=no; all required decisions regarding the valid initial capacity wait and identity-only pool requirements are correct and supported by exact source excerpts.",
+      "guess": null,
+      "prompt": "admission-clarity.answer.answers.g.4"
+    },
+    {
+      "unit": "u0039",
+      "property": "a24",
+      "judge": "g",
+      "family": "gemini",
+      "value": 2,
+      "reason": "DECISION=correct; COVERAGE=complete; SUPPORT=supported; HEDGE=no; both required decisions that the OPEN deadline remains armed and ends normally at establishment are correctly stated and fully supported by direct quotes.",
+      "guess": null,
+      "prompt": "admission-clarity.answer.answers.g.15"
+    },
+    {
+      "unit": "u0039",
+      "property": "a24",
+      "judge": "o",
+      "family": "gpt",
+      "value": 2,
+      "reason": "DECISION=correct; COVERAGE=complete; SUPPORT=supported; HEDGE=no; Excerpts establish OPEN authority through confirmation with zero hold and termination at Established or teardown, while the unspecified expiry event name is unasked detail.",
+      "guess": null,
+      "prompt": "admission-clarity.answer.answers.o.8"
+    },
+    {
+      "unit": "u0040",
+      "property": "a20",
+      "judge": "c",
+      "family": "claude",
+      "value": 2,
+      "reason": "DECISION=correct; COVERAGE=complete; SUPPORT=supported; HEDGE=no - the answer quotes the optional shared process-local options as the second evaluate argument on both ports, supplied by AGP and ignorable by one-argument providers, with no browser/CLI split (R1), and quotes the unchanged DTO schemas, no protocol-schema change and optional adoption (R2).",
+      "guess": null,
+      "prompt": "admission-clarity.answer.answers.c.7"
+    },
+    {
+      "unit": "u0040",
+      "property": "a20",
+      "judge": "g",
+      "family": "gemini",
+      "value": 2,
+      "reason": "DECISION=correct; COVERAGE=complete; SUPPORT=supported; HEDGE=no; provider migration policy and parameter placement are completely answered and supported by exact quotations.",
+      "guess": null,
+      "prompt": "admission-clarity.answer.answers.g.3"
+    },
+    {
+      "unit": "u0041",
+      "property": "a09",
+      "judge": "g",
+      "family": "gemini",
+      "value": 1,
+      "reason": "DECISION=correct; COVERAGE=complete; SUPPORT=partial; HEDGE=no; the answer reaches the correct decisions but safely and honestly reports a lack of decisive document authority for administrative queue disposal, capping the score at 1.",
+      "guess": null,
+      "prompt": "admission-clarity.answer.answers.g.14"
+    },
+    {
+      "unit": "u0041",
+      "property": "a09",
+      "judge": "o",
+      "family": "gpt",
+      "value": 1,
+      "reason": "DECISION=correct; COVERAGE=complete; SUPPORT=partial; HEDGE=yes; The sole-reader drain is supported, but administrative-terminal queue disposal, reservation release and retention of unsettled provider reservations lack decisive quoted support, with disposal applicability expressly qualified.",
+      "guess": null,
+      "prompt": "admission-clarity.answer.answers.o.8"
+    },
+    {
+      "unit": "u0042",
+      "property": "a18",
+      "judge": "c",
+      "family": "claude",
+      "value": 2,
+      "reason": "DECISION=correct; COVERAGE=complete; SUPPORT=supported; HEDGE=no. Quoted excerpts directly establish the once-only reset when an established exact winner is adopted, that stale success cannot reset newer history, and that OpenConfirm timer clearing removes scheduling authority while preserving failure history.",
+      "guess": null,
+      "prompt": "admission-clarity.answer.answers.c.1"
+    },
+    {
+      "unit": "u0042",
+      "property": "a18",
+      "judge": "g",
+      "family": "gemini",
+      "value": 2,
+      "reason": "DECISION=correct; COVERAGE=complete; SUPPORT=supported; HEDGE=no; The answer correctly identifies that adopting an established winner resets history while OpenConfirm cancellation only removes scheduling authority, fully supported by quotes.",
+      "guess": null,
+      "prompt": "admission-clarity.answer.answers.g.2"
+    },
+    {
+      "unit": "u0043",
+      "property": "a23",
+      "judge": "g",
+      "family": "gemini",
+      "value": 2,
+      "reason": "DECISION=correct; COVERAGE=complete; SUPPORT=supported; HEDGE=no; the answer correctly denies that the prerequisite can close and identifies the required public-surface and store-gating integration work with decisive document support.",
+      "guess": null,
+      "prompt": "admission-clarity.answer.answers.g.5"
+    },
+    {
+      "unit": "u0043",
+      "property": "a23",
+      "judge": "o",
+      "family": "gpt",
+      "value": 1,
+      "reason": "DECISION=correct; COVERAGE=incomplete; SUPPORT=partial; HEDGE=no; The publication inventory and shared gate are supported, but coordinated public-surface adoption is incomplete because provider compatibility and the insufficiency of draft text or generic map extensibility are not addressed.",
+      "guess": null,
+      "prompt": "admission-clarity.answer.answers.o.8"
+    },
+    {
+      "unit": "u0044",
+      "property": "a13",
+      "judge": "g",
+      "family": "gemini",
+      "value": 2,
+      "reason": "DECISION=correct; COVERAGE=complete; SUPPORT=supported; HEDGE=no; authority boundaries, gate closure, and rejection of ordinary continuations are correctly resolved and fully supported by quoted excerpts.",
+      "guess": null,
+      "prompt": "admission-clarity.answer.answers.g.9"
+    },
+    {
+      "unit": "u0044",
+      "property": "a13",
+      "judge": "o",
+      "family": "gpt",
+      "value": 2,
+      "reason": "DECISION=correct; COVERAGE=complete; SUPPORT=supported; HEDGE=no; The quoted shared coordinator, authority revocation, final recheck and queued-continuation prohibition support both required decisions; the reservation caveat concerns ancillary detail.",
+      "guess": null,
+      "prompt": "admission-clarity.answer.answers.o.2"
+    },
+    {
+      "unit": "u0045",
+      "property": "a02",
+      "judge": "g",
+      "family": "gemini",
+      "value": 2,
+      "reason": "DECISION=correct; COVERAGE=complete; SUPPORT=supported; HEDGE=no; both required decisions are correct, complete, and fully supported by excerpts establishing that late completions lack session authority over replacements and undergo only bounded disposal.",
+      "guess": null,
+      "prompt": "admission-clarity.answer.answers.g.1"
+    },
+    {
+      "unit": "u0045",
+      "property": "a02",
+      "judge": "o",
+      "family": "gpt",
+      "value": 2,
+      "reason": "DECISION=correct; COVERAGE=complete; SUPPORT=supported; HEDGE=no; The combined excerpts support checking runtime and exact evaluation authority before effects and limiting stale completion to its own bounded disposal and reservation release without replacement effects.",
+      "guess": null,
+      "prompt": "admission-clarity.answer.answers.o.7"
+    },
+    {
+      "unit": "u0046",
+      "property": "a23",
+      "judge": "g",
+      "family": "gemini",
+      "value": 2,
+      "reason": "DECISION=correct; COVERAGE=complete; SUPPORT=supported; HEDGE=no, Both required decisions rejecting premature prerequisite closure and detailing remaining coordinated public-surface tasks are correct and fully supported.",
+      "guess": null,
+      "prompt": "admission-clarity.answer.answers.g.13"
+    },
+    {
+      "unit": "u0046",
+      "property": "a23",
+      "judge": "o",
+      "family": "gpt",
+      "value": 1,
+      "reason": "DECISION=missing; COVERAGE=incomplete; SUPPORT=partial; HEDGE=no; The answer correctly rejects closure and identifies coordinated public updates, but omits pre-publication mutations from the gate inventory and does not establish provider compatibility verification or distinguish draft/map extensibility from adoption.",
+      "guess": null,
+      "prompt": "admission-clarity.answer.answers.o.4"
+    },
+    {
+      "unit": "u0047",
+      "property": "a12",
+      "judge": "g",
+      "family": "gemini",
+      "value": 1,
+      "reason": "DECISION=withheld; COVERAGE=incomplete; SUPPORT=partial; HEDGE=no; decision on commit-time RIB capacity is correct, while the route rejection outcome is safely withheld due to a reported material specification gap.",
+      "guess": null,
+      "prompt": "admission-clarity.answer.answers.g.9"
+    },
+    {
+      "unit": "u0047",
+      "property": "a12",
+      "judge": "o",
+      "family": "gpt",
+      "value": 1,
+      "reason": "DECISION=withheld; COVERAGE=incomplete; SUPPORT=partial; HEDGE=yes; Final-commit capacity assessment is supported, but the answer honestly leaves unresolved the required nonfatal per-route CAPACITY outcome and its atomic revision commitment before ACK.",
+      "guess": null,
+      "prompt": "admission-clarity.answer.answers.o.5"
+    },
+    {
+      "unit": "u0048",
+      "property": "a21",
+      "judge": "g",
+      "family": "gemini",
+      "value": 2,
+      "reason": "DECISION=correct; COVERAGE=complete; SUPPORT=supported; HEDGE=no; The answer correctly assigns ownership of hidden work to the provider and denies established session authority to the saved signal, with direct supporting quotes.",
+      "guess": null,
+      "prompt": "admission-clarity.answer.answers.g.7"
+    },
+    {
+      "unit": "u0048",
+      "property": "a21",
+      "judge": "o",
+      "family": "gpt",
+      "value": 1,
+      "reason": "DECISION=correct; COVERAGE=incomplete; SUPPORT=partial; HEDGE=no; The excerpts establish provider ownership of hidden work and prohibit reusing the signal after commit, but the answer omits retained request/result coverage and supplies no decisive support for its AGP ledger scope claim.",
+      "guess": null,
+      "prompt": "admission-clarity.answer.answers.o.2"
+    },
+    {
+      "unit": "u0049",
+      "property": "a09",
+      "judge": "g",
+      "family": "gemini",
+      "value": 2,
+      "reason": "DECISION=correct; COVERAGE=complete; SUPPORT=supported; HEDGE=no; the response correctly identifies the disposal of queued work, retention of unsettled provider reservations, and the sole reader's drain obligation with decisive quotation support.",
+      "guess": null,
+      "prompt": "admission-clarity.answer.answers.g.16"
+    },
+    {
+      "unit": "u0049",
+      "property": "a09",
+      "judge": "o",
+      "family": "gpt",
+      "value": 2,
+      "reason": "DECISION=correct; COVERAGE=complete; SUPPORT=supported; HEDGE=no; The excerpts require effect-free backlog disposal with queue reservation release, preserve already-started provider reservations and require the sole reader to drain accepted evidence through terminal without semantic dispatch.",
+      "guess": null,
+      "prompt": "admission-clarity.answer.answers.o.2"
+    },
+    {
+      "unit": "u0050",
+      "property": "a15",
+      "judge": "c",
+      "family": "claude",
+      "value": 2,
+      "reason": "DECISION=correct; COVERAGE=complete; SUPPORT=supported; HEDGE=no — The quotes establish that disposal updates cleanup gauges without reopening lifecycle or subscriptions, that the gauge change increments the revision once with a fresh capture time, that queries do not increment it, and that ordinary stopped instances keep live accounting.",
+      "guess": null,
+      "prompt": "admission-clarity.answer.answers.c.3"
+    },
+    {
+      "unit": "u0050",
+      "property": "a15",
+      "judge": "g",
+      "family": "gemini",
+      "value": 2,
+      "reason": "DECISION=correct; COVERAGE=complete; SUPPORT=supported; HEDGE=no; the response correctly determines all lifecycle, revision, and query capture time rules for stopped-node disposal and read-only queries with decisive textual support.",
+      "guess": null,
+      "prompt": "admission-clarity.answer.answers.g.16"
+    },
+    {
+      "unit": "u0051",
+      "property": "a03",
+      "judge": "c",
+      "family": "claude",
+      "value": 2,
+      "reason": "DECISION=correct; COVERAGE=complete; SUPPORT=supported; HEDGE=no - the answer quotes that provider calls and abort delivery stay outside the executor because they can run application code (R1), and that normalization produces bounded owned immutable data outside the executor with no property access or callbacks inside it, which entails a callback-free installation turn consuming prepared data (R2).",
+      "guess": null,
+      "prompt": "admission-clarity.answer.answers.c.7"
+    },
+    {
+      "unit": "u0051",
+      "property": "a03",
+      "judge": "g",
+      "family": "gemini",
+      "value": 2,
+      "reason": "DECISION=correct; COVERAGE=complete; SUPPORT=supported; HEDGE=no; The answer correctly excludes normalization and abort delivery from the serialized turn to prevent running application code, fully supported by document excerpts.",
+      "guess": null,
+      "prompt": "admission-clarity.answer.answers.g.2"
+    },
+    {
+      "unit": "u0052",
+      "property": "a14",
+      "judge": "c",
+      "family": "claude",
+      "value": 2,
+      "reason": "DECISION=correct; COVERAGE=complete; SUPPORT=supported; HEDGE=no - the answer quotes that both queries return the same frozen values, revision and capturedAt with no new revision, event or counter after private disposal (R1), and that the nonzero counts are last-known at capture, not proof of current allocation or of cleanup (R2).",
+      "guess": null,
+      "prompt": "admission-clarity.answer.answers.c.7"
+    },
+    {
+      "unit": "u0052",
+      "property": "a14",
+      "judge": "g",
+      "family": "gemini",
+      "value": 2,
+      "reason": "DECISION=correct; COVERAGE=complete; SUPPORT=supported; HEDGE=no; the response correctly specifies frozen terminal query return values and accurate caller inferences about physical resources with decisive textual excerpts.",
+      "guess": null,
+      "prompt": "admission-clarity.answer.answers.g.16"
+    },
+    {
+      "unit": "u0053",
+      "property": "a09",
+      "judge": "c",
+      "family": "claude",
+      "value": 2,
+      "reason": "DECISION=correct; COVERAGE=complete; SUPPORT=supported; HEDGE=no — the quotes directly establish backlog disposal without data/credit effects, queue-reservation release that excludes started provider work, and the same sole reader's FIFO drain through terminal with no second reader or early cancellation.",
+      "guess": null,
+      "prompt": "admission-clarity.answer.answers.c.2"
+    },
+    {
+      "unit": "u0053",
+      "property": "a09",
+      "judge": "g",
+      "family": "gemini",
+      "value": 2,
+      "reason": "DECISION=correct; COVERAGE=complete; SUPPORT=supported; HEDGE=no; the answer correctly identifies queued work disposal, retention of unsettled provider reservations, and reader draining duties, with direct quote support.",
+      "guess": null,
+      "prompt": "admission-clarity.answer.answers.g.12"
+    },
+    {
+      "unit": "u0054",
+      "property": "a05",
+      "judge": "g",
+      "family": "gemini",
+      "value": 2,
+      "reason": "DECISION=correct; COVERAGE=complete; SUPPORT=supported; HEDGE=no; The answer correctly identifies OpenExpired for equal elapsed bounds regardless of arrival order and specifies rechecking and rearming without terminal transitions for premature wakeups, backed by exact quotations.",
+      "guess": null,
+      "prompt": "admission-clarity.answer.answers.g.7"
+    },
+    {
+      "unit": "u0054",
+      "property": "a05",
+      "judge": "o",
+      "family": "gpt",
+      "value": 2,
+      "reason": "DECISION=correct; COVERAGE=complete; SUPPORT=supported; HEDGE=no; The excerpts explicitly select OpenExpired for equal elapsed deadlines regardless of callback order and require an early timer wake to recheck and rearm its positive remainder without a transition.",
+      "guess": null,
+      "prompt": "admission-clarity.answer.answers.o.3"
+    },
+    {
+      "unit": "u0055",
+      "property": "a05",
+      "judge": "g",
+      "family": "gemini",
+      "value": 1,
+      "reason": "DECISION=withheld; COVERAGE=incomplete; SUPPORT=partial; HEDGE=no, the response safely reports a missing tie-break rule between equal deadlines rather than guessing which terminal cause wins and correctly notes that early wakes cannot expire, which constitutes safe incompleteness supported by the text.",
+      "guess": null,
+      "prompt": "admission-clarity.answer.answers.g.11"
+    },
+    {
+      "unit": "u0055",
+      "property": "a05",
+      "judge": "o",
+      "family": "gpt",
+      "value": 1,
+      "reason": "DECISION=withheld; COVERAGE=incomplete; SUPPORT=partial; HEDGE=yes; The answer honestly reports missing tie authority instead of selecting OpenExpired and lacks decisive support for rearming only the waking timer's positive remainder.",
+      "guess": null,
+      "prompt": "admission-clarity.answer.answers.o.8"
+    },
+    {
+      "unit": "u0056",
+      "property": "a10",
+      "judge": "g",
+      "family": "gemini",
+      "value": 2,
+      "reason": "DECISION=correct; COVERAGE=complete; SUPPORT=supported; HEDGE=no; both required decisions are correct and fully supported by quoted text, with the noted inference pertaining only to unasked ancillary detail.",
+      "guess": null,
+      "prompt": "admission-clarity.answer.answers.g.14"
+    },
+    {
+      "unit": "u0056",
+      "property": "a10",
+      "judge": "o",
+      "family": "gpt",
+      "value": 2,
+      "reason": "DECISION=correct; COVERAGE=complete; SUPPORT=supported; HEDGE=no; The quotations explicitly require one invocation with empty inputs and an empty decisions list, excluding decisions outside that subset.",
+      "guess": null,
+      "prompt": "admission-clarity.answer.answers.o.4"
+    },
+    {
+      "unit": "u0057",
+      "property": "a02",
+      "judge": "g",
+      "family": "gemini",
+      "value": 2,
+      "reason": "DECISION=correct; COVERAGE=complete; SUPPORT=supported; HEDGE=no; the answer correctly decides that the replacement is unaffected and its reservation is not released, properly deriving the result from quoted premises without inventing rules.",
+      "guess": null,
+      "prompt": "admission-clarity.answer.answers.g.12"
+    },
+    {
+      "unit": "u0057",
+      "property": "a02",
+      "judge": "o",
+      "family": "gpt",
+      "value": 2,
+      "reason": "DECISION=correct; COVERAGE=complete; SUPPORT=supported; HEDGE=no; The quoted authority checks and stale-completion rules jointly support rejecting authority based on shared peer identity and limiting disposal and reservation release to the old evaluation's own bounded owner.",
+      "guess": null,
+      "prompt": "admission-clarity.answer.answers.o.3"
+    },
+    {
+      "unit": "u0058",
+      "property": "a10",
+      "judge": "c",
+      "family": "claude",
+      "value": 2,
+      "reason": "DECISION=correct; COVERAGE=complete; SUPPORT=supported; HEDGE=no - the answer quotes that there is no empty-subset exemption and that an authorized capacity-reserved action invokes once with empty route inputs (R1) and requires an empty decisions list validated against exactly that subset (R2).",
+      "guess": null,
+      "prompt": "admission-clarity.answer.answers.c.7"
+    },
+    {
+      "unit": "u0058",
+      "property": "a10",
+      "judge": "g",
+      "family": "gemini",
+      "value": 2,
+      "reason": "DECISION=correct; COVERAGE=complete; SUPPORT=supported; HEDGE=no; the decision correctly identifies that invocation cannot be skipped and only an empty decision list is valid, fully supported by the quoted text.",
+      "guess": null,
+      "prompt": "admission-clarity.answer.answers.g.14"
+    },
+    {
+      "unit": "u0059",
+      "property": "a15",
+      "judge": "g",
+      "family": "gemini",
+      "value": 1,
+      "reason": "DECISION=correct; COVERAGE=incomplete; SUPPORT=supported; HEDGE=no; the required decisions are correct and supported, but the answer safely reports an honest material gap regarding query capture time interpretation and stopped-node gating.",
+      "guess": null,
+      "prompt": "admission-clarity.answer.answers.g.4"
+    },
+    {
+      "unit": "u0059",
+      "property": "a15",
+      "judge": "o",
+      "family": "gpt",
+      "value": 1,
+      "reason": "DECISION=correct; COVERAGE=complete; SUPPORT=supported; HEDGE=yes; The stated decisions match the quoted rules, but the answer reports a material unresolved ambiguity about whether each query captures fresh time, leaving that required conclusion qualified.",
+      "guess": null,
+      "prompt": "admission-clarity.answer.answers.o.7"
+    },
+    {
+      "unit": "u0060",
+      "property": "a14",
+      "judge": "g",
+      "family": "gemini",
+      "value": 2,
+      "reason": "DECISION=correct; COVERAGE=complete; SUPPORT=supported; HEDGE=no; both terminal capture behavior and last-known resource interpretation are fully answered and backed by exact quotations.",
+      "guess": null,
+      "prompt": "admission-clarity.answer.answers.g.3"
+    },
+    {
+      "unit": "u0060",
+      "property": "a14",
+      "judge": "o",
+      "family": "gpt",
+      "value": 2,
+      "reason": "DECISION=correct; COVERAGE=complete; SUPPORT=supported; HEDGE=no; The quotations support both queries retaining the two evaluations, terminal revision and capture time T without public updates, and explain why those counts prove neither continuing allocation nor release.",
+      "guess": null,
+      "prompt": "admission-clarity.answer.answers.o.4"
+    },
+    {
+      "unit": "u0061",
+      "property": "a07",
+      "judge": "g",
+      "family": "gemini",
+      "value": 2,
+      "reason": "DECISION=correct; COVERAGE=complete; SUPPORT=supported; HEDGE=no; both required decisions are correctly decided and fully grounded in exact document excerpts.",
+      "guess": null,
+      "prompt": "admission-clarity.answer.answers.g.14"
+    },
+    {
+      "unit": "u0061",
+      "property": "a07",
+      "judge": "o",
+      "family": "gpt",
+      "value": 2,
+      "reason": "DECISION=correct; COVERAGE=complete; SUPPORT=supported; HEDGE=no; Excerpts preserve the original deadline and cleanup generation through detachment and allow write expiry to accelerate abort without replacing the committed cause or restarting its budget.",
+      "guess": null,
+      "prompt": "admission-clarity.answer.answers.o.6"
+    },
+    {
+      "unit": "u0062",
+      "property": "a17",
+      "judge": "c",
+      "family": "claude",
+      "value": 2,
+      "reason": "DECISION=correct; COVERAGE=complete; SUPPORT=supported; HEDGE=no — the quotes establish that timer expiry starts nothing and keeps one waiter, that a stale notification carries no permit when the slot was used elsewhere, and that the refusing set persists until an actual next acquisition; the added mention of other named clearing transitions is consistent and minor.",
+      "guess": null,
+      "prompt": "admission-clarity.answer.answers.c.2"
+    },
+    {
+      "unit": "u0062",
+      "property": "a17",
+      "judge": "g",
+      "family": "gemini",
+      "value": 2,
+      "reason": "DECISION=correct; COVERAGE=complete; SUPPORT=supported; HEDGE=no; both required decisions on waiting and retaining the refusing-pool set are fully correct and supported by exact document quotations.",
+      "guess": null,
+      "prompt": "admission-clarity.answer.answers.g.4"
+    },
+    {
+      "unit": "u0063",
+      "property": "a11",
+      "judge": "c",
+      "family": "claude",
+      "value": 2,
+      "reason": "DECISION=correct; COVERAGE=complete; SUPPORT=supported; HEDGE=no — the answer routes the malformed/incomplete result to the AdmissionFaulted terminal path with no revision or ACK, and treats the explicit denial as nonfatal POLICY with an atomic commit and consumed revision before ACK authority, each quoted directly.",
+      "guess": null,
+      "prompt": "admission-clarity.answer.answers.c.6"
+    },
+    {
+      "unit": "u0063",
+      "property": "a11",
+      "judge": "g",
+      "family": "gemini",
+      "value": 2,
+      "reason": "DECISION=correct; COVERAGE=complete; SUPPORT=supported; HEDGE=no; both required decisions on terminal fault handling and nonfatal atomic commit before ACK are correct, complete, and supported by exact document excerpts.",
+      "guess": null,
+      "prompt": "admission-clarity.answer.answers.g.10"
+    },
+    {
+      "unit": "u0064",
+      "property": "a01",
+      "judge": "g",
+      "family": "gemini",
+      "value": 1,
+      "reason": "DECISION=withheld; COVERAGE=incomplete; SUPPORT=partial; HEDGE=yes; the answer hedges and withholds a decisive conclusion that only P can release now by reporting an ungrounded gap regarding whether R may be disposed and released at cleanup.",
+      "guess": null,
+      "prompt": "admission-clarity.answer.answers.g.10"
+    },
+    {
+      "unit": "u0064",
+      "property": "a01",
+      "judge": "o",
+      "family": "gpt",
+      "value": 2,
+      "reason": "DECISION=correct; COVERAGE=complete; SUPPORT=supported; HEDGE=no; The excerpts support releasing only P now, retaining Q until settlement and disposal, and retaining R until actual disposal, without refunds for cancellation or session termination.",
+      "guess": null,
+      "prompt": "admission-clarity.answer.answers.o.3"
+    },
+    {
+      "unit": "u0065",
+      "property": "a16",
+      "judge": "g",
+      "family": "gemini",
+      "value": 1,
+      "reason": "DECISION=correct; COVERAGE=complete; SUPPORT=supported; HEDGE=yes; the core decisions are correct and quoted, but the response hedges by treating retry-wait projection as a recommendation rather than an adopted contract.",
+      "guess": null,
+      "prompt": "admission-clarity.answer.answers.g.15"
+    },
+    {
+      "unit": "u0065",
+      "property": "a16",
+      "judge": "o",
+      "family": "gpt",
+      "value": 2,
+      "reason": "DECISION=correct; COVERAGE=complete; SUPPORT=supported; HEDGE=no; Quotes support valid initial capacity waiting without an attempt or timer, unchanged retryAttempt despite disabled reconnect, and identity availability without an unrelated route-capacity requirement.",
+      "guess": null,
+      "prompt": "admission-clarity.answer.answers.o.5"
+    },
+    {
+      "unit": "u0066",
+      "property": "a22",
+      "judge": "g",
+      "family": "gemini",
+      "value": 2,
+      "reason": "DECISION=correct; COVERAGE=complete; SUPPORT=supported; HEDGE=no; both decisions correctly deny peer-scale certification and unbounded memory guarantees, with full support from quoted document excerpts bounding only evaluations and logical input size.",
+      "guess": null,
+      "prompt": "admission-clarity.answer.answers.g.10"
+    },
+    {
+      "unit": "u0066",
+      "property": "a22",
+      "judge": "o",
+      "family": "gpt",
+      "value": 2,
+      "reason": "DECISION=correct; COVERAGE=complete; SUPPORT=supported; HEDGE=no; The excerpts establish that the defaults are unmeasured recommendations derived from resolved settings, providing no 500-peer certification, and that counts cover evaluations and retained logical inputs rather than arbitrary provider allocations or heap bytes.",
+      "guess": null,
+      "prompt": "admission-clarity.answer.answers.o.3"
+    },
+    {
+      "unit": "u0067",
+      "property": "a18",
+      "judge": "c",
+      "family": "claude",
+      "value": 2,
+      "reason": "DECISION=correct; COVERAGE=complete; SUPPORT=supported; HEDGE=no: the answer has only adoption of the exact already-Established winner perform the once-only reset, so the stale older success cannot reset history, and says clearing an OpenConfirm winner's timer removes scheduling authority but keeps failure history, all directly quoted.",
+      "guess": null,
+      "prompt": "admission-clarity.answer.answers.c.5"
+    },
+    {
+      "unit": "u0067",
+      "property": "a18",
+      "judge": "g",
+      "family": "gemini",
+      "value": 2,
+      "reason": "DECISION=correct; COVERAGE=complete; SUPPORT=supported; HEDGE=no; failure history reset rules and dial timer cancellation semantics are fully resolved with exact source support.",
+      "guess": null,
+      "prompt": "admission-clarity.answer.answers.g.3"
+    },
+    {
+      "unit": "u0068",
+      "property": "a12",
+      "judge": "g",
+      "family": "gemini",
+      "value": 2,
+      "reason": "DECISION=correct; COVERAGE=complete; SUPPORT=supported; HEDGE=no; all required decisions regarding capacity timing, canonical per-route rejection, and atomic commit before ACK are correct and fully supported by quoted text without requiring unasked route-selection details.",
+      "guess": null,
+      "prompt": "admission-clarity.answer.answers.g.10"
+    },
+    {
+      "unit": "u0068",
+      "property": "a12",
+      "judge": "o",
+      "family": "gpt",
+      "value": 2,
+      "reason": "DECISION=correct; COVERAGE=complete; SUPPORT=supported; HEDGE=no; Excerpts support final serialized capacity assessment and atomic per-route CAPACITY outcomes with revision committed before ACK, while survivor selection is unasked detail.",
+      "guess": null,
+      "prompt": "admission-clarity.answer.answers.o.8"
+    },
+    {
+      "unit": "u0069",
+      "property": "a06",
+      "judge": "c",
+      "family": "claude",
+      "value": 2,
+      "reason": "DECISION=correct; COVERAGE=complete; SUPPORT=supported; HEDGE=no — The quotes bind the absolute deadline to terminal-cause commit using transportCloseTimeoutMs (t=1000, leaving 150 ms at t=850) and deny later phases a fresh budget; they also require the FSM row, public descriptions and migration guidance to change together for the redefined interval.",
+      "guess": null,
+      "prompt": "admission-clarity.answer.answers.c.3"
+    },
+    {
+      "unit": "u0069",
+      "property": "a06",
+      "judge": "g",
+      "family": "gemini",
+      "value": 2,
+      "reason": "DECISION=correct; COVERAGE=complete; SUPPORT=supported; HEDGE=no; the absolute teardown deadline of t=1000, graceful close remainder, and configuration migration requirements are correctly decided and backed by supplied quotes.",
+      "guess": null,
+      "prompt": "admission-clarity.answer.answers.g.9"
+    },
+    {
+      "unit": "u0070",
+      "property": "a21",
+      "judge": "c",
+      "family": "claude",
+      "value": 2,
+      "reason": "DECISION=correct; COVERAGE=complete; SUPPORT=supported; HEDGE=no — The quotes state that the ledger measures only AGP port evaluations and that the provider owns hidden work's cancellation and budget, and that the signal owns only the pending evaluation, is not a session close or credential-validity handle, and cannot be reused after commit.",
+      "guess": null,
+      "prompt": "admission-clarity.answer.answers.c.8"
+    },
+    {
+      "unit": "u0070",
+      "property": "a21",
+      "judge": "g",
+      "family": "gemini",
+      "value": 2,
+      "reason": "DECISION=correct; COVERAGE=complete; SUPPORT=supported; HEDGE=no; the response correctly determines provider ownership of hidden work and denies session authority to the evaluation signal, with complete and decisive document support.",
+      "guess": null,
+      "prompt": "admission-clarity.answer.answers.g.15"
+    },
+    {
+      "unit": "u0071",
+      "property": "a23",
+      "judge": "c",
+      "family": "claude",
+      "value": 2,
+      "reason": "DECISION=correct; COVERAGE=complete; SUPPORT=supported; HEDGE=no — The quotes require inventorying every live OperationsStore publication and pre-publication mutation and routing each through the same gate or proving it effect-free; they also require coordinated type/schema/catalog/document, FSM/event-schema and provider-compatibility work, and the stated gap is an intended scope exclusion.",
+      "guess": null,
+      "prompt": "admission-clarity.answer.answers.c.3"
+    },
+    {
+      "unit": "u0071",
+      "property": "a23",
+      "judge": "g",
+      "family": "gemini",
+      "value": 2,
+      "reason": "DECISION=correct; COVERAGE=complete; SUPPORT=supported; HEDGE=no, the response correctly denies closing the prerequisite, requires inventorying and gating all live publications, and details the necessary coordinated public-surface updates with direct source citations.",
+      "guess": null,
+      "prompt": "admission-clarity.answer.answers.g.11"
+    },
+    {
+      "unit": "u0072",
+      "property": "a06",
+      "judge": "g",
+      "family": "gemini",
+      "value": 2,
+      "reason": "DECISION=correct; COVERAGE=complete; SUPPORT=supported; HEDGE=no; The answer correctly calculates the total cleanup deadline of 1000 ms, denies a renewed close allowance, and details configuration migration impacts with decisive source citations.",
+      "guess": null,
+      "prompt": "admission-clarity.answer.answers.g.7"
+    },
+    {
+      "unit": "u0072",
+      "property": "a06",
+      "judge": "o",
+      "family": "gpt",
+      "value": 2,
+      "reason": "DECISION=correct; COVERAGE=complete; SUPPORT=supported; HEDGE=no; Quoted premises establish t=1000, only 150 ms remaining for close, and explicit configuration and migration changes for the stricter teardown interval.",
+      "guess": null,
+      "prompt": "admission-clarity.answer.answers.o.5"
+    },
+    {
+      "unit": "u0073",
+      "property": "a21",
+      "judge": "g",
+      "family": "gemini",
+      "value": 2,
+      "reason": "DECISION=correct; COVERAGE=complete; SUPPORT=supported; HEDGE=no; the answer correctly assigns hidden host work ownership to the provider and denies post-commit reuse of evaluation signal authority using decisive document excerpts.",
+      "guess": null,
+      "prompt": "admission-clarity.answer.answers.g.6"
+    },
+    {
+      "unit": "u0073",
+      "property": "a21",
+      "judge": "o",
+      "family": "gpt",
+      "value": 2,
+      "reason": "DECISION=correct; COVERAGE=complete; SUPPORT=supported; HEDGE=no; Excerpts assign hidden descendant work and its resource budget to the provider and expressly deny post-commit session or credential authority to the evaluation signal.",
+      "guess": null,
+      "prompt": "admission-clarity.answer.answers.o.6"
+    },
+    {
+      "unit": "u0074",
+      "property": "a14",
+      "judge": "g",
+      "family": "gemini",
+      "value": 2,
+      "reason": "DECISION=correct; COVERAGE=complete; SUPPORT=supported; HEDGE=no; both required decisions are correct, complete, and supported by exact quotes from the supplied text.",
+      "guess": null,
+      "prompt": "admission-clarity.answer.answers.g.14"
+    },
+    {
+      "unit": "u0074",
+      "property": "a14",
+      "judge": "o",
+      "family": "gpt",
+      "value": 2,
+      "reason": "DECISION=correct; COVERAGE=complete; SUPPORT=supported; HEDGE=no; The excerpts support identical frozen values, revision and capture time for both queries, prohibit private-disposal publication, and establish that nonzero counts prove neither continued allocation nor release.",
+      "guess": null,
+      "prompt": "admission-clarity.answer.answers.o.1"
+    },
+    {
+      "unit": "u0075",
+      "property": "a08",
+      "judge": "c",
+      "family": "claude",
+      "value": 2,
+      "reason": "DECISION=correct; COVERAGE=complete; SUPPORT=supported; HEDGE=no — the answer stops the drain on the new admission, has the ACK join the same FIFO, and keeps the head reservation until disposal or transfer to a bounded owner such as the reserved evaluation record, with exact quotes for each point.",
+      "guess": null,
+      "prompt": "admission-clarity.answer.answers.c.6"
+    },
+    {
+      "unit": "u0075",
+      "property": "a08",
+      "judge": "g",
+      "family": "gemini",
+      "value": 2,
+      "reason": "DECISION=correct; COVERAGE=complete; SUPPORT=supported; HEDGE=no; the answer correctly establishes that starting route admission stops the drain, the ACK joins the FIFO without bypassing, and the queue head reservation is retained until disposal or bounded transfer, directly backed by source excerpts.",
+      "guess": null,
+      "prompt": "admission-clarity.answer.answers.g.8"
+    },
+    {
+      "unit": "u0076",
+      "property": "a20",
+      "judge": "c",
+      "family": "claude",
+      "value": 2,
+      "reason": "DECISION=correct; COVERAGE=complete; SUPPORT=supported; HEDGE=no: the answer cites the optional shared process-local second evaluate parameter on both ports, which AGP supplies and one-argument providers may ignore, with DTO schemas unchanged and no CLI/browser split; noting it is still a recommendation is a scope statement, not a hedge.",
+      "guess": null,
+      "prompt": "admission-clarity.answer.answers.c.5"
+    },
+    {
+      "unit": "u0076",
+      "property": "a20",
+      "judge": "g",
+      "family": "gemini",
+      "value": 2,
+      "reason": "DECISION=correct; COVERAGE=complete; SUPPORT=supported; HEDGE=no; The answer correctly resolves both provider compatibility and signal placement outside DTO schemas with complete document support.",
+      "guess": null,
+      "prompt": "admission-clarity.answer.answers.g.2"
+    },
+    {
+      "unit": "u0077",
+      "property": "a06",
+      "judge": "g",
+      "family": "gemini",
+      "value": 1,
+      "reason": "DECISION=withheld; COVERAGE=incomplete; SUPPORT=partial; HEDGE=no; the answer correctly identifies that close receives no fresh allowance but withholds the numeric deadline due to an honest missing-authority report regarding timeout setting bindings, which is safe incompleteness scored at 1.",
+      "guess": null,
+      "prompt": "admission-clarity.answer.answers.g.1"
+    },
+    {
+      "unit": "u0077",
+      "property": "a06",
+      "judge": "o",
+      "family": "gpt",
+      "value": 1,
+      "reason": "DECISION=withheld; COVERAGE=incomplete; SUPPORT=partial; HEDGE=no; The answer safely reports the missing configuration-to-budget binding and supports a single deadline starting at terminal commit, but cannot establish the numeric deadline, remaining allowance or specific migration consequence.",
+      "guess": null,
+      "prompt": "admission-clarity.answer.answers.o.7"
+    },
+    {
+      "unit": "u0078",
+      "property": "a21",
+      "judge": "c",
+      "family": "claude",
+      "value": 2,
+      "reason": "DECISION=correct; COVERAGE=complete; SUPPORT=supported; HEDGE=no - The answer assigns the hidden descendant work's cancellation and resource budget to the provider, limits AGP's ledger to port evaluations, and says the signal covers only the pending evaluation and cannot be reused after commit as session-close or credential authority, with exact quotes supporting each point.",
+      "guess": null,
+      "prompt": "admission-clarity.answer.answers.c.4"
+    },
+    {
+      "unit": "u0078",
+      "property": "a21",
+      "judge": "g",
+      "family": "gemini",
+      "value": 2,
+      "reason": "DECISION=correct; COVERAGE=complete; SUPPORT=supported; HEDGE=no, Both required decisions on hidden work ownership and signal authority limitations are correct and fully supported by quoted text.",
+      "guess": null,
+      "prompt": "admission-clarity.answer.answers.g.13"
+    },
+    {
+      "unit": "u0079",
+      "property": "a23",
+      "judge": "c",
+      "family": "claude",
+      "value": 1,
+      "reason": "DECISION=correct; COVERAGE=complete; SUPPORT=partial; HEDGE=no - R1 (inventory and gate every publication site) and most of R2 (coordinated type/schema/catalog/operational absorption and contract agreement) are quoted, but the provider-compatibility check clause of R2 is asserted without any supporting excerpt; the inventory gap note is a legitimate scope statement, not a hedge.",
+      "guess": null,
+      "prompt": "admission-clarity.answer.answers.c.7"
+    },
+    {
+      "unit": "u0079",
+      "property": "a23",
+      "judge": "g",
+      "family": "gemini",
+      "value": 2,
+      "reason": "DECISION=correct; COVERAGE=complete; SUPPORT=supported; HEDGE=no; the answer correctly concludes that two callbacks cannot close the prerequisite and enumerates the required coordinated public-surface work using decisive document excerpts.",
+      "guess": null,
+      "prompt": "admission-clarity.answer.answers.g.6"
+    },
+    {
+      "unit": "u0080",
+      "property": "a19",
+      "judge": "c",
+      "family": "claude",
+      "value": 2,
+      "reason": "DECISION=correct; COVERAGE=complete; SUPPORT=supported; HEDGE=no. Quoted excerpts establish that allow follows normal rules and only deny is policy refusal, and that capacity refusal happens before provider invocation as AdmissionCapacityExceeded rather than IDENTITY_REJECTED or a provider fault.",
+      "guess": null,
+      "prompt": "admission-clarity.answer.answers.c.1"
+    },
+    {
+      "unit": "u0080",
+      "property": "a19",
+      "judge": "g",
+      "family": "gemini",
+      "value": 2,
+      "reason": "DECISION=correct; COVERAGE=complete; SUPPORT=supported; HEDGE=no; the answer correctly identifies the mislabeled outcomes and confirms that evaluation-capacity refusal invokes no provider, supported by direct document quotes.",
+      "guess": null,
+      "prompt": "admission-clarity.answer.answers.g.5"
+    },
+    {
+      "unit": "u0081",
+      "property": "a19",
+      "judge": "g",
+      "family": "gemini",
+      "value": 2,
+      "reason": "DECISION=correct; COVERAGE=complete; SUPPORT=supported; HEDGE=no; the response correctly identifies which labels are wrong and notes that capacity refusal invokes no provider, fully backed by quoted text.",
+      "guess": null,
+      "prompt": "admission-clarity.answer.answers.g.16"
+    },
+    {
+      "unit": "u0081",
+      "property": "a19",
+      "judge": "o",
+      "family": "gpt",
+      "value": 2,
+      "reason": "DECISION=correct; COVERAGE=complete; SUPPORT=supported; HEDGE=no; The quotations establish normal collision/confirmation for allow, policy refusal for deny, and provider-free local capacity refusal without identity or provider-fault misclassification.",
+      "guess": null,
+      "prompt": "admission-clarity.answer.answers.o.4"
+    },
+    {
+      "unit": "u0082",
+      "property": "a02",
+      "judge": "c",
+      "family": "claude",
+      "value": 2,
+      "reason": "DECISION=correct; COVERAGE=complete; SUPPORT=supported; HEDGE=no — The quotes support the gate/controller/kind/token/deadline check, revocation detaching the session-effect target so only bounded accounting remains, and stale failure lacking authority, which together entail that the old completion cannot fault the replacement or release its reservation.",
+      "guess": null,
+      "prompt": "admission-clarity.answer.answers.c.8"
+    },
+    {
+      "unit": "u0082",
+      "property": "a02",
+      "judge": "g",
+      "family": "gemini",
+      "value": 2,
+      "reason": "DECISION=correct; COVERAGE=complete; SUPPORT=supported; HEDGE=no; The answer correctly denies faulting or reservation release on the replacement, specifies the runtime authority check, and bounds the old rejection to its own disposal path with full source support.",
+      "guess": null,
+      "prompt": "admission-clarity.answer.answers.g.7"
+    },
+    {
+      "unit": "u0083",
+      "property": "a22",
+      "judge": "c",
+      "family": "claude",
+      "value": 2,
+      "reason": "DECISION=correct; COVERAGE=complete; SUPPORT=supported; HEDGE=no. Quoted excerpts establish that the defaults are unmeasured review recommendations not endorsed for hundreds of peers, and that the counts bound retained evaluations and logical inputs rather than arbitrary provider allocations or heap bytes.",
+      "guess": null,
+      "prompt": "admission-clarity.answer.answers.c.1"
+    },
+    {
+      "unit": "u0083",
+      "property": "a22",
+      "judge": "g",
+      "family": "gemini",
+      "value": 2,
+      "reason": "DECISION=correct; COVERAGE=complete; SUPPORT=supported; HEDGE=no, Both required decisions rejecting peer-scale certification and memory bounding are correct and directly supported by exact document excerpts.",
+      "guess": null,
+      "prompt": "admission-clarity.answer.answers.g.13"
+    },
+    {
+      "unit": "u0084",
+      "property": "a05",
+      "judge": "c",
+      "family": "claude",
+      "value": 2,
+      "reason": "DECISION=correct; COVERAGE=complete; SUPPORT=supported; HEDGE=no — the quotes establish that equal elapsed deadlines select OpenExpired regardless of callback order, and that an early wake only rearms its own positive remainder with no expiry or termination, matching R1 and R2.",
+      "guess": null,
+      "prompt": "admission-clarity.answer.answers.c.6"
+    },
+    {
+      "unit": "u0084",
+      "property": "a05",
+      "judge": "g",
+      "family": "gemini",
+      "value": 2,
+      "reason": "DECISION=correct; COVERAGE=complete; SUPPORT=supported; HEDGE=no; The answer correctly identifies OpenExpired as the winner on equal deadlines and rearming on early wakes, fully backed by quoted sources.",
+      "guess": null,
+      "prompt": "admission-clarity.answer.answers.g.2"
+    },
+    {
+      "unit": "u0085",
+      "property": "a13",
+      "judge": "c",
+      "family": "claude",
+      "value": 2,
+      "reason": "DECISION=correct; COVERAGE=complete; SUPPORT=supported; HEDGE=no — the quotes establish node ownership of the gate/coordinator, that unrelated publications must reach it and revoke admission authority (so the prepared result cannot install), and that the queued stop must observe the terminal gate without overwriting Failed, publishing another revision or rearming.",
+      "guess": null,
+      "prompt": "admission-clarity.answer.answers.c.2"
+    },
+    {
+      "unit": "u0085",
+      "property": "a13",
+      "judge": "g",
+      "family": "gemini",
+      "value": 2,
+      "reason": "DECISION=correct; COVERAGE=complete; SUPPORT=supported; HEDGE=no; the response correctly determines that numeric domain exhaustion closes the coordinator gate to discard pending results and prevents stop completion commits, with full quotation support.",
+      "guess": null,
+      "prompt": "admission-clarity.answer.answers.g.15"
+    },
+    {
+      "unit": "u0086",
+      "property": "a08",
+      "judge": "g",
+      "family": "gemini",
+      "value": 1,
+      "reason": "DECISION=correct; COVERAGE=complete; SUPPORT=supported; HEDGE=yes; the required decisions are correct and supported, but the response hedges by claiming the design does not specify the transfer moment and speculating about an unquoted queue overflow terminal.",
+      "guess": null,
+      "prompt": "admission-clarity.answer.answers.g.15"
+    },
+    {
+      "unit": "u0086",
+      "property": "a08",
+      "judge": "o",
+      "family": "gpt",
+      "value": 2,
+      "reason": "DECISION=correct; COVERAGE=complete; SUPPORT=supported; HEDGE=no; Excerpts establish that admission pauses drain, ordinary ACKs join the FIFO, and the head retains its reservation until disposal or transfer to a bounded owner.",
+      "guess": null,
+      "prompt": "admission-clarity.answer.answers.o.6"
+    },
+    {
+      "unit": "u0087",
+      "property": "a13",
+      "judge": "g",
+      "family": "gemini",
+      "value": 2,
+      "reason": "DECISION=correct; COVERAGE=complete; SUPPORT=supported; HEDGE=no; both required decisions, the owner, and the authority boundary are correctly stated and decisively supported by supplied excerpts.",
+      "guess": null,
+      "prompt": "admission-clarity.answer.answers.g.14"
+    },
+    {
+      "unit": "u0087",
+      "property": "a13",
+      "judge": "o",
+      "family": "gpt",
+      "value": 2,
+      "reason": "DECISION=correct; COVERAGE=complete; SUPPORT=supported; HEDGE=no; The excerpts establish the shared node-owned coordinator, revocation of prepared admission authority on exhaustion, and the prohibition on queued stop completion changing terminal state, revisions or adjacency authority.",
+      "guess": null,
+      "prompt": "admission-clarity.answer.answers.o.7"
+    },
+    {
+      "unit": "u0088",
+      "property": "a04",
+      "judge": "c",
+      "family": "claude",
+      "value": 2,
+      "reason": "DECISION=correct; COVERAGE=complete; SUPPORT=supported; HEDGE=no: the answer treats equality as expired, discards the plan and permit with no result effects, and has the session controller prepare, preflight and commit AdmissionExpired in the same turn via the shared expiry path; the same-turn preflight, sole-owner and expiry-action quotes together entail this.",
+      "guess": null,
+      "prompt": "admission-clarity.answer.answers.c.5"
+    },
+    {
+      "unit": "u0088",
+      "property": "a04",
+      "judge": "g",
+      "family": "gemini",
+      "value": 2,
+      "reason": "DECISION=correct; COVERAGE=complete; SUPPORT=supported; HEDGE=no, the response correctly decides that equality is expired, mandates discarding the plan and permit without result effects, and requires the session controller to commit route expiry in the same turn with exact document support.",
+      "guess": null,
+      "prompt": "admission-clarity.answer.answers.g.11"
+    },
+    {
+      "unit": "u0089",
+      "property": "a22",
+      "judge": "g",
+      "family": "gemini",
+      "value": 2,
+      "reason": "DECISION=correct; COVERAGE=complete; SUPPORT=supported; HEDGE=no; the answer correctly rejects both release note claims and specifies the exact limits of default counts and retained inputs using decisive document excerpts.",
+      "guess": null,
+      "prompt": "admission-clarity.answer.answers.g.6"
+    },
+    {
+      "unit": "u0089",
+      "property": "a22",
+      "judge": "o",
+      "family": "gpt",
+      "value": 2,
+      "reason": "DECISION=correct; COVERAGE=complete; SUPPORT=supported; HEDGE=no; Excerpts support rejecting peer-scale certification from recommended defaults and distinguish logical-input limits from arbitrary provider allocations or physical heap bounds.",
+      "guess": null,
+      "prompt": "admission-clarity.answer.answers.o.6"
+    },
+    {
+      "unit": "u0090",
+      "property": "a12",
+      "judge": "c",
+      "family": "claude",
+      "value": 1,
+      "reason": "DECISION=withheld; COVERAGE=incomplete; SUPPORT=partial; HEDGE=yes — R1 is correct and quoted, and the answer correctly separates RIB shortage from evaluation-pool refusal, but it withholds R2, saying the document does not choose between per-route CAPACITY rejection and session-terminal failure; this is a safe honest gap, not a grounded decision.",
+      "guess": null,
+      "prompt": "admission-clarity.answer.answers.c.8"
+    },
+    {
+      "unit": "u0090",
+      "property": "a12",
+      "judge": "g",
+      "family": "gemini",
+      "value": 1,
+      "reason": "DECISION=withheld; COVERAGE=incomplete; SUPPORT=partial; HEDGE=no; the answer correctly identifies when RIB capacity is evaluated but safely withholds the decision on normal partial replacement versus session failure due to a reported gap in supplied document authority.",
+      "guess": null,
+      "prompt": "admission-clarity.answer.answers.g.6"
+    },
+    {
+      "unit": "u0091",
+      "property": "a10",
+      "judge": "c",
+      "family": "claude",
+      "value": 1,
+      "reason": "DECISION=correct; COVERAGE=complete; SUPPORT=partial; HEDGE=yes - the answer safely rejects the skip and correctly requires an empty decisions list, but it infers the no-shortcut rule from the absence of an exception and reports no explicit prohibition, without quoting the decisive no-exemption, invoke-once rule.",
+      "guess": null,
+      "prompt": "admission-clarity.answer.answers.c.7"
+    },
+    {
+      "unit": "u0091",
+      "property": "a10",
+      "judge": "g",
+      "family": "gemini",
+      "value": 2,
+      "reason": "DECISION=correct; COVERAGE=complete; SUPPORT=supported; HEDGE=no; the response correctly concludes that skipping provider invocation is unauthorized and that only an empty decision list is valid, grounded directly in the supplied excerpts.",
+      "guess": null,
+      "prompt": "admission-clarity.answer.answers.g.16"
+    },
+    {
+      "unit": "u0092",
+      "property": "a24",
+      "judge": "c",
+      "family": "claude",
+      "value": 2,
+      "reason": "DECISION=correct; COVERAGE=complete; SUPPORT=supported; HEDGE=no - The answer keeps the OPEN bound effective through OpenConfirm with hold disabled, rejects identity commit as a cancellation point, and names establishment or teardown as the end, all supported by the quoted timer contract; the unreproduced event name is unasked detail.",
+      "guess": null,
+      "prompt": "admission-clarity.answer.answers.c.4"
+    },
+    {
+      "unit": "u0092",
+      "property": "a24",
+      "judge": "g",
+      "family": "gemini",
+      "value": 2,
+      "reason": "DECISION=correct; COVERAGE=complete; SUPPORT=supported; HEDGE=no; The answer correctly confirms that the OPEN deadline persists through OpenConfirm and ends at establishment or teardown, with decisive document support.",
+      "guess": null,
+      "prompt": "admission-clarity.answer.answers.g.2"
+    },
+    {
+      "unit": "u0093",
+      "property": "a03",
+      "judge": "c",
+      "family": "claude",
+      "value": 2,
+      "reason": "DECISION=correct; COVERAGE=complete; SUPPORT=supported; HEDGE=no — the quotes place provider-result normalization and abort-event delivery outside the executor because they can run application code, and establish that the serialized turn consumes only bounded owned immutable data.",
+      "guess": null,
+      "prompt": "admission-clarity.answer.answers.c.6"
+    },
+    {
+      "unit": "u0093",
+      "property": "a03",
+      "judge": "g",
+      "family": "gemini",
+      "value": 2,
+      "reason": "DECISION=correct; COVERAGE=complete; SUPPORT=supported; HEDGE=no; both operations are correctly placed outside the executor with complete coverage and exact supporting quotations.",
+      "guess": null,
+      "prompt": "admission-clarity.answer.answers.g.3"
+    },
+    {
+      "unit": "u0094",
+      "property": "a24",
+      "judge": "c",
+      "family": "claude",
+      "value": 2,
+      "reason": "DECISION=correct; COVERAGE=complete; SUPPORT=supported; HEDGE=no - The answer says identity success leaves the OPEN bound authoritative through OpenConfirm at zero hold and that only Established or teardown ends it, the quotes directly support both decisions, and the note about the OpenExpired action list is a scope exclusion, not a hedge.",
+      "guess": null,
+      "prompt": "admission-clarity.answer.answers.c.4"
+    },
+    {
+      "unit": "u0094",
+      "property": "a24",
+      "judge": "g",
+      "family": "gemini",
+      "value": 2,
+      "reason": "DECISION=correct; COVERAGE=complete; SUPPORT=supported; HEDGE=no; the answer correctly determines that the outer OPEN bound remains authoritative through OpenConfirm and terminates at establishment or teardown, supported by exact document excerpts.",
+      "guess": null,
+      "prompt": "admission-clarity.answer.answers.g.8"
+    },
+    {
+      "unit": "u0095",
+      "property": "a11",
+      "judge": "g",
+      "family": "gemini",
+      "value": 2,
+      "reason": "DECISION=correct; COVERAGE=complete; SUPPORT=supported; HEDGE=no; all required decisions are correct and fully supported by document excerpts, with the revision consumption behavior validly derived from quoted premises without inventing rules.",
+      "guess": null,
+      "prompt": "admission-clarity.answer.answers.g.10"
+    },
+    {
+      "unit": "u0095",
+      "property": "a11",
+      "judge": "o",
+      "family": "gpt",
+      "value": 2,
+      "reason": "DECISION=correct; COVERAGE=complete; SUPPORT=supported; HEDGE=no; The excerpts jointly support terminal handling without revision consumption or ACK authority for the malformed proposal and nonfatal policy denial with atomic revision consumption before ACK authority for the valid result.",
+      "guess": null,
+      "prompt": "admission-clarity.answer.answers.o.7"
+    },
+    {
+      "unit": "u0096",
+      "property": "a12",
+      "judge": "c",
+      "family": "claude",
+      "value": 2,
+      "reason": "DECISION=correct; COVERAGE=complete; SUPPORT=supported; HEDGE=no — The quotes show RIB capacity is computed at the final serialized commit rather than reserved stale, that a shortfall is canonical per-route CAPACITY rather than whole-snapshot failure or work-pool refusal, and that survivors, rejections and revision commit atomically before ACK; the noted selection-order gap is unasked detail.",
+      "guess": null,
+      "prompt": "admission-clarity.answer.answers.c.8"
+    },
+    {
+      "unit": "u0096",
+      "property": "a12",
+      "judge": "g",
+      "family": "gemini",
+      "value": 2,
+      "reason": "DECISION=correct; COVERAGE=complete; SUPPORT=supported; HEDGE=no, Both required decisions on serialized commit timing and nonfatal atomic route capacity handling are correct and supported by exact quotations.",
+      "guess": null,
+      "prompt": "admission-clarity.answer.answers.g.13"
+    }
+  ],
+  "replayedReplies": 32,
+  "retainedJobs": 32,
+  "reconciledJobs": 32,
+  "scratch": "/tmp/agp-admission-judge-replay.eoPuUz",
+  "modelCalls": 0
+}

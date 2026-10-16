@@ -1,0 +1,740 @@
+{
+  "run": "2026-10-16-060526-admission-clarity",
+  "pack": "agp-admission-clarity",
+  "experiment": "admission-clarity",
+  "suite": "admission-clarity",
+  "scenarios": [
+    "admission-clarity"
+  ],
+  "status": "result",
+  "statusReason": "recorded, unchanged",
+  "register": {
+    "experiment": "admission-clarity",
+    "hash": "21eff1aeafa1d667413e2678f16064fbbe39b9417f1758c149b3540660aac10c",
+    "recordedAt": "2026-10-16T06:05:26.163Z",
+    "declaredStatus": "result"
+  },
+  "method": {
+    "package": "@apnex/context-lab-core",
+    "version": "0.0.0",
+    "revision": "6e6d0a92965a15ec473c661887b2b9c5037fedcf"
+  },
+  "states": [
+    {
+      "state": "validated",
+      "at": "2026-10-16T06:05:26.181Z"
+    },
+    {
+      "state": "recorded",
+      "at": "2026-10-16T06:05:26.182Z"
+    },
+    {
+      "state": "built",
+      "at": "2026-10-16T06:05:26.206Z"
+    },
+    {
+      "state": "probed",
+      "at": "2026-10-16T06:06:00.046Z"
+    },
+    {
+      "state": "executed",
+      "at": "2026-10-16T06:09:50.011Z"
+    },
+    {
+      "state": "measured",
+      "at": "2026-10-16T06:09:50.016Z"
+    },
+    {
+      "state": "blinded",
+      "at": "2026-10-16T06:09:50.022Z"
+    },
+    {
+      "state": "judged",
+      "at": "2026-10-16T06:14:37.699Z"
+    },
+    {
+      "state": "tallied",
+      "at": "2026-10-16T06:14:37.709Z"
+    }
+  ],
+  "variants": {
+    "m42": {
+      "variant": "m42",
+      "source": "sheet-m42",
+      "revision": "d1632ef02acd34c0460426185242174f7896a463",
+      "canaries": [
+        "The bronze heron rests beside seven stones."
+      ],
+      "rewritten": 0
+    },
+    "x19": {
+      "variant": "x19",
+      "source": "sheet-x19",
+      "revision": "d1632ef02acd34c0460426185242174f7896a463",
+      "canaries": [
+        "The silver heron rests beside four stones."
+      ],
+      "rewritten": 0
+    }
+  },
+  "arms": {
+    "m42": {
+      "composed": true
+    },
+    "x19": {
+      "composed": true
+    }
+  },
+  "probes": [
+    {
+      "arm": "m42",
+      "member": "c",
+      "pass": true,
+      "answers": [
+        {
+          "question": "Do not use any tools. One of the files in your instructions is named context-lab-canary.md. Reply with its sentences, verbatim, one per line, and nothing else; reply NONE if you were given no such file.",
+          "kind": "canary",
+          "probe": "canary",
+          "answered": true,
+          "final": "The bronze heron rests beside seven stones.",
+          "finding": "ok",
+          "toolCalls": 0
+        },
+        {
+          "question": "Do not use any tools. Answer in one line. What is the sealed audit marker in the withheld admission answer key? Reply UNKNOWN if it was not supplied.",
+          "kind": "leak",
+          "probe": "sealed-key",
+          "answered": true,
+          "final": "UNKNOWN",
+          "finding": "ok",
+          "toolCalls": 0
+        }
+      ],
+      "reasons": []
+    },
+    {
+      "arm": "m42",
+      "member": "g",
+      "pass": true,
+      "answers": [
+        {
+          "question": "Do not use any tools. One of the files in your instructions is named context-lab-canary.md. Reply with its sentences, verbatim, one per line, and nothing else; reply NONE if you were given no such file.",
+          "kind": "canary",
+          "probe": "canary",
+          "answered": true,
+          "final": "The bronze heron rests beside seven stones.",
+          "finding": "ok",
+          "toolCalls": 0
+        },
+        {
+          "question": "Do not use any tools. Answer in one line. What is the sealed audit marker in the withheld admission answer key? Reply UNKNOWN if it was not supplied.",
+          "kind": "leak",
+          "probe": "sealed-key",
+          "answered": true,
+          "final": "UNKNOWN",
+          "finding": "ok",
+          "toolCalls": 0
+        }
+      ],
+      "reasons": []
+    },
+    {
+      "arm": "m42",
+      "member": "o",
+      "pass": true,
+      "answers": [
+        {
+          "question": "Do not use any tools. One of the files in your instructions is named context-lab-canary.md. Reply with its sentences, verbatim, one per line, and nothing else; reply NONE if you were given no such file.",
+          "kind": "canary",
+          "probe": "canary",
+          "answered": true,
+          "final": "The bronze heron rests beside seven stones.",
+          "finding": "ok",
+          "toolCalls": 0
+        },
+        {
+          "question": "Do not use any tools. Answer in one line. What is the sealed audit marker in the withheld admission answer key? Reply UNKNOWN if it was not supplied.",
+          "kind": "leak",
+          "probe": "sealed-key",
+          "answered": true,
+          "final": "UNKNOWN",
+          "finding": "ok",
+          "toolCalls": 0
+        }
+      ],
+      "reasons": []
+    },
+    {
+      "arm": "x19",
+      "member": "c",
+      "pass": true,
+      "answers": [
+        {
+          "question": "Do not use any tools. One of the files in your instructions is named context-lab-canary.md. Reply with its sentences, verbatim, one per line, and nothing else; reply NONE if you were given no such file.",
+          "kind": "canary",
+          "probe": "canary",
+          "answered": true,
+          "final": "The silver heron rests beside four stones.",
+          "finding": "ok",
+          "toolCalls": 0
+        },
+        {
+          "question": "Do not use any tools. Answer in one line. What is the sealed audit marker in the withheld admission answer key? Reply UNKNOWN if it was not supplied.",
+          "kind": "leak",
+          "probe": "sealed-key",
+          "answered": true,
+          "final": "UNKNOWN",
+          "finding": "ok",
+          "toolCalls": 0
+        }
+      ],
+      "reasons": []
+    },
+    {
+      "arm": "x19",
+      "member": "g",
+      "pass": true,
+      "answers": [
+        {
+          "question": "Do not use any tools. One of the files in your instructions is named context-lab-canary.md. Reply with its sentences, verbatim, one per line, and nothing else; reply NONE if you were given no such file.",
+          "kind": "canary",
+          "probe": "canary",
+          "answered": true,
+          "final": "The silver heron rests beside four stones.",
+          "finding": "ok",
+          "toolCalls": 0
+        },
+        {
+          "question": "Do not use any tools. Answer in one line. What is the sealed audit marker in the withheld admission answer key? Reply UNKNOWN if it was not supplied.",
+          "kind": "leak",
+          "probe": "sealed-key",
+          "answered": true,
+          "final": "UNKNOWN",
+          "finding": "ok",
+          "toolCalls": 0
+        }
+      ],
+      "reasons": []
+    },
+    {
+      "arm": "x19",
+      "member": "o",
+      "pass": true,
+      "answers": [
+        {
+          "question": "Do not use any tools. One of the files in your instructions is named context-lab-canary.md. Reply with its sentences, verbatim, one per line, and nothing else; reply NONE if you were given no such file.",
+          "kind": "canary",
+          "probe": "canary",
+          "answered": true,
+          "final": "The silver heron rests beside four stones.",
+          "finding": "ok",
+          "toolCalls": 0
+        },
+        {
+          "question": "Do not use any tools. Answer in one line. What is the sealed audit marker in the withheld admission answer key? Reply UNKNOWN if it was not supplied.",
+          "kind": "leak",
+          "probe": "sealed-key",
+          "answered": true,
+          "final": "UNKNOWN",
+          "finding": "ok",
+          "toolCalls": 0
+        }
+      ],
+      "reasons": []
+    }
+  ],
+  "cells": [
+    "admission-clarity.m42.c.1",
+    "admission-clarity.m42.g.1",
+    "admission-clarity.m42.o.1",
+    "admission-clarity.x19.c.1",
+    "admission-clarity.x19.g.1",
+    "admission-clarity.x19.o.1"
+  ],
+  "runsPerCell": 1,
+  "timeLimitSeconds": 1200,
+  "population": [
+    "c",
+    "g",
+    "o"
+  ],
+  "runtimes": {
+    "opencode": "1.19.2",
+    "codex": "codex-cli 0.162.1"
+  },
+  "judges": [
+    "c",
+    "g",
+    "o"
+  ],
+  "judgeProbes": [
+    {
+      "arm": "judges",
+      "member": "c",
+      "pass": true,
+      "answers": [
+        {
+          "question": "Do not use any tools. One of the files in your instructions is named context-lab-canary.md. Reply with its sentences, verbatim, one per line, and nothing else; reply NONE if you were given no such file.",
+          "kind": "canary",
+          "probe": "canary",
+          "answered": true,
+          "final": "NONE",
+          "finding": "ok",
+          "toolCalls": 0
+        },
+        {
+          "question": "Do not use any tools. Answer in one line. What is the sealed audit marker in the withheld admission answer key? Reply UNKNOWN if it was not supplied.",
+          "kind": "leak",
+          "probe": "sealed-key",
+          "answered": true,
+          "final": "UNKNOWN",
+          "finding": "ok",
+          "toolCalls": 0
+        }
+      ],
+      "reasons": []
+    },
+    {
+      "arm": "judges",
+      "member": "g",
+      "pass": true,
+      "answers": [
+        {
+          "question": "Do not use any tools. One of the files in your instructions is named context-lab-canary.md. Reply with its sentences, verbatim, one per line, and nothing else; reply NONE if you were given no such file.",
+          "kind": "canary",
+          "probe": "canary",
+          "answered": true,
+          "final": "NONE",
+          "finding": "ok",
+          "toolCalls": 0
+        },
+        {
+          "question": "Do not use any tools. Answer in one line. What is the sealed audit marker in the withheld admission answer key? Reply UNKNOWN if it was not supplied.",
+          "kind": "leak",
+          "probe": "sealed-key",
+          "answered": true,
+          "final": "UNKNOWN",
+          "finding": "ok",
+          "toolCalls": 0
+        }
+      ],
+      "reasons": []
+    },
+    {
+      "arm": "judges",
+      "member": "o",
+      "pass": true,
+      "answers": [
+        {
+          "question": "Do not use any tools. One of the files in your instructions is named context-lab-canary.md. Reply with its sentences, verbatim, one per line, and nothing else; reply NONE if you were given no such file.",
+          "kind": "canary",
+          "probe": "canary",
+          "answered": true,
+          "final": "NONE",
+          "finding": "ok",
+          "toolCalls": 0
+        },
+        {
+          "question": "Do not use any tools. Answer in one line. What is the sealed audit marker in the withheld admission answer key? Reply UNKNOWN if it was not supplied.",
+          "kind": "leak",
+          "probe": "sealed-key",
+          "answered": true,
+          "final": "UNKNOWN",
+          "finding": "ok",
+          "toolCalls": 0
+        }
+      ],
+      "reasons": []
+    }
+  ],
+  "snapshot": {
+    "scenarios": [
+      {
+        "id": "admission-clarity",
+        "tags": [
+          "admission-clarity",
+          "comprehension"
+        ],
+        "fixture": null,
+        "task": "Reason about the supplied design, without executing it. Answer each question separately; the stated cases are static review scenarios, not instructions to run code or send traffic.\n\n### A01\nAt a cleanup checkpoint the ledger has three reservations: P was revoked before its provider was invoked; Q was invoked and is still pending despite cancellation; R has settled but its owned result is awaiting disposal. Which reservations may be released now, and what condition releases each of the others?\n\n### A02\nA removed controller's provider later rejects. A replacement controller now owns the same peer identity, and its admission is timely. May the late rejection fault the replacement or release its reservation? State the authority check and the permitted handling of the old completion.\n\n### A03\nAn implementer proposes normalizing a provider's result object and delivering its abort event inside the same serialized turn that installs the route plan, to avoid an extra handoff. Is that placement permitted? Identify where those operations belong and why.\n\n### A04\nA current route completion is timely when preparation starts. Its unconsumed ordinary permit exists, but the final guard observes the admission deadline exactly equal to now. No timer input has arrived; numeric preflight has room. What happens to the plan and permit, and who must advance the session before returning from this serialized turn?\n\n### A05\nIdentity evaluation is current. In one observation, admission and OPEN have the same absolute deadline and both are elapsed, but the admission timer is delivered first. In a separate observation, the admission timer wakes before either deadline. Which transition, if any, is authorized in each observation?\n\n### A06\nA deployment sets transportCloseTimeoutMs to 900 ms and transportWriteTimeoutMs to 2400 ms. A controller's terminal cause commits at monotonic t=100; its notification completes at t=800, and no send remains active. At t=850 graceful close is about to begin. What absolute total-cleanup deadline does this design select, and does the close phase receive a new 900 ms allowance? Include the configuration-migration consequence.\n\n### A07\nA controller is already tearing down for a committed protocol cause with absolute deadline D. Before D, numeric node failure detaches it; its outstanding send then times out while transport terminal evidence has not been consumed. May detachment restart D or disable the cleanup guard, and may the write timeout replace the committed cause?\n\n### A08\nDuring ordered drain, the queue head starts another route evaluation. A new ordinary route ACK arrives before that evaluation returns. Can the drain keep processing later commands, can the new ACK bypass the queue, and when may the head's queue reservation be removed?\n\n### A09\nAn administrative terminal action wins while a continuation queue contains an ordinary data command and a credit-bearing command. An invoked provider is still unsettled, and the transport has accepted evidence ahead of its terminal record. Which queued work and reservations are disposed, and what must the reader still do?\n\n### A10\nA valid expected route snapshot has passed static checks, leaving zero policy-eligible tuples. Its BeginRouteAdmission action is current and a work reservation is available and committed. May the controller skip provider invocation as an optimization, and what decision list is valid if it invokes?\n\n### A11\nTwo independent timely current route evaluations have reserved capacity. One returns a malformed or incomplete tuple-decision list; the other returns a complete valid list denying one tuple by policy. Does each end the session, and may each proposal consume its route revision and authorize an ACK?\n\n### A12\nA timely complete route policy result allows every eligible tuple. While it waited, another session consumed enough RIB space that not all allowed routes fit. The evaluation work pool is not full. When is available RIB space decided, and does this situation mean whole-session admission-work failure or a normal route replacement outcome? Include revision and ACK treatment.\n\n### A13\nA publication unrelated to admission exhausts an operations numeric domain. At that moment an identity result is prepared but not installed, and a stop-completion task is already queued. May either continue as an ordinary transaction? State the owner and the required authority boundary.\n\n### A14\nAn operations numeric-terminal capture contains two unfinished evaluation reservations at time T. Both later settle and are privately disposed. A focused resources query is made, followed by an aggregate snapshot query. What values, revision and capture time should those queries report, and what can a caller conclude about physical resources?\n\n### A15\nA node has stopped normally without numeric-domain exhaustion. Its last retained provider result is then disposed, changing a cleanup gauge. Two later resource queries perform no mutation. Does disposal reopen the node or subscriptions, which of disposal and the queries advances the canonical revision, and is query capture time live or frozen?\n\n### A16\nAn operator sees a never-attempted configured adjacency in retry-wait, with no activeControllerId or retryAt, while reconnect is disabled. Identity capacity is unavailable; the unrelated route pool is also full. Is that projection necessarily wrong, does waiting consume an attempt or represent a real retry timer, and which capacity must open before this initial identity-only acquisition can begin?\n\n### A17\nA real retryable attempt ended because its local route-evaluation pool refused a reservation; reconnect and retry budget permit another attempt. Its backoff expires while route capacity is still full. Later a release notification arrives, but another adjacency consumes the freed slot before this one's serialized start check. What may start, and what happens to the wait and remembered refusing-pool set?\n\n### A18\nA configured adjacency with accumulated failure history adopts a different exact winner that is already Established. Later a success callback from an older losing controller arrives. Which event can reset failure history, and why would cancelling a dial timer for a winner still in OpenConfirm have a different effect?\n\n### A19\nA review labels three independent admission outcomes as identity policy denial: a timely current identity allow, a timely current identity deny, and an invocation attempt unable to reserve a local evaluation slot. Which labels are wrong, and which outcome invokes no provider?\n\n### A20\nA library consumer plans to keep its existing one-argument identity and route providers, while a second consumer opts into cancellation. Does the proposed common API force the first consumer to migrate or require separate CLI/browser provider interfaces? Where does cancellation capability enter without changing request/result DTO schemas?\n\n### A21\nA provider wrapper has completed its AGP evaluation and the result has committed, but the wrapper's private host task is still running. The consumer saves the evaluation signal as a future authenticated-session revocation handle. Which of AGP or the provider owns the hidden work, and is the saved signal authority over the established session?\n\n### A22\nA release note claims that these finite evaluation-count defaults certify 500 simultaneous browser peers and put a hard bound on all memory allocated by policy providers. Are either claims established by this design? Identify the specific limits of the counts and of the default values.\n\n### A23\nA patch author says the terminal prerequisite is complete after routing the two admission-result callbacks through the coordinator and adding new gauge names. All other live OperationsStore publication sites retain their existing paths. Can that close the prerequisite, and what coordinated public-surface work remains necessary?\n\n### A24\nA peer was allowed by identity admission and is in OpenConfirm with negotiated hold disabled. Confirmation has not arrived when the stored outer OPEN deadline becomes elapsed. Does the completed identity evaluation remove the opening bound, and what ends that bound normally?\n\nWrite answers to {WORKSPACE}/answers.md only. Use exactly the headings above. Under each, provide Decision, Document support, and Inference or gap (NONE if none). Put each source excerpt on its own line as QUOTE: followed by a JSON string containing an exact contiguous substring of the supplied design, with no ellipses. End with ### OBSERVATIONS for other ambiguities or missing authority, or NONE. Do not add another ### heading. After writing the file, reply only DONE.",
+        "scoredFile": "answers.md",
+        "properties": [
+          {
+            "id": "a01",
+            "type": "comprehension",
+            "decidedBy": "judge",
+            "key": "Required decisions: R1. Only P can release now: revocation before invocation means no evaluation began. R2. Q remains reserved until settlement plus disposal; R remains reserved until disposal. Cancellation alone is not settlement, and an ended connection does not refund these reservations.",
+            "scale": [
+              0,
+              2
+            ],
+            "rubric": "2 only if every numbered required decision is correct, complete and supported by short exact supplied-document excerpts; derivation from quoted premises is allowed when no extra rule is invented. 1 for a safe but incomplete answer, a reported material gap/conflict, or a correct decision lacking decisive source support. 0 for a wrong/unsafe required decision or no answer. Do not require ancillary or unasked detail. Record separately in the reason: DECISION=correct|wrong|withheld|missing; COVERAGE=complete|incomplete; SUPPORT=supported|partial|none; HEDGE=yes|no, followed by concrete explanation. These tags are diagnostic, not a second score. A safe honest gap is not reader misconduct but is not grounded implementation completeness. Never supply a missing design rule from outside knowledge; no preferred version is disclosed. Exact-source quotation validation is a separate project check; a missing/malformed/nonmatching submitted QUOTE caps a safe outcome at 1, never raises a 0.",
+            "answerHeading": "A01",
+            "question": "At a cleanup checkpoint the ledger has three reservations: P was revoked before its provider was invoked; Q was invoked and is still pending despite cancellation; R has settled but its owned result is awaiting disposal. Which reservations may be released now, and what condition releases each of the others?",
+            "notes": "Purpose: Retained work. Source sections: Three lifetimes; Admission sequence and invariants. Classification: control. Both documents explicitly separate uninvoked, unsettled and settled-retained reservations; no new implementation detail is required."
+          },
+          {
+            "id": "a02",
+            "type": "comprehension",
+            "decidedBy": "judge",
+            "key": "Required decisions: R1. No: current runtime authority, exact controller/incarnation, admission kind and token must be checked before effects; identity-name equality is not authority. R2. The old completion has only its own bounded disposal/accounting path, with no fault/expiry/identity/collision/route/ACK effect on the replacement and no refund of the replacement's reservation.",
+            "scale": [
+              0,
+              2
+            ],
+            "rubric": "2 only if every numbered required decision is correct, complete and supported by short exact supplied-document excerpts; derivation from quoted premises is allowed when no extra rule is invented. 1 for a safe but incomplete answer, a reported material gap/conflict, or a correct decision lacking decisive source support. 0 for a wrong/unsafe required decision or no answer. Do not require ancillary or unasked detail. Record separately in the reason: DECISION=correct|wrong|withheld|missing; COVERAGE=complete|incomplete; SUPPORT=supported|partial|none; HEDGE=yes|no, followed by concrete explanation. These tags are diagnostic, not a second score. A safe honest gap is not reader misconduct but is not grounded implementation completeness. Never supply a missing design rule from outside knowledge; no preferred version is disclosed. Exact-source quotation validation is a separate project check; a missing/malformed/nonmatching submitted QUOTE caps a safe outcome at 1, never raises a 0.",
+            "answerHeading": "A02",
+            "question": "A removed controller's provider later rejects. A replacement controller now owns the same peer identity, and its admission is timely. May the late rejection fault the replacement or release its reservation? State the authority check and the permitted handling of the old completion.",
+            "notes": "Purpose: Exact continuation authority. Source sections: Admission sequence and invariants; Three lifetimes. Classification: control. The complete exact-owner guard and stale success/failure symmetry are present in both inputs."
+          },
+          {
+            "id": "a03",
+            "type": "comprehension",
+            "decidedBy": "judge",
+            "key": "Required decisions: R1. Provider-controlled property access/normalization and abort-event delivery stay outside the executor because they can run application code. R2. The installation turn consumes bounded owned immutable data and cannot run those external callbacks. Ancillary: asynchronous normalization is followed by the final authority/deadline guard.",
+            "scale": [
+              0,
+              2
+            ],
+            "rubric": "2 only if every numbered required decision is correct, complete and supported by short exact supplied-document excerpts; derivation from quoted premises is allowed when no extra rule is invented. 1 for a safe but incomplete answer, a reported material gap/conflict, or a correct decision lacking decisive source support. 0 for a wrong/unsafe required decision or no answer. Do not require ancillary or unasked detail. Record separately in the reason: DECISION=correct|wrong|withheld|missing; COVERAGE=complete|incomplete; SUPPORT=supported|partial|none; HEDGE=yes|no, followed by concrete explanation. These tags are diagnostic, not a second score. A safe honest gap is not reader misconduct but is not grounded implementation completeness. Never supply a missing design rule from outside knowledge; no preferred version is disclosed. Exact-source quotation validation is a separate project check; a missing/malformed/nonmatching submitted QUOTE caps a safe outcome at 1, never raises a 0.",
+            "answerHeading": "A03",
+            "question": "An implementer proposes normalizing a provider's result object and delivering its abort event inside the same serialized turn that installs the route plan, to avoid an extra handoff. Is that placement permitted? Identify where those operations belong and why.",
+            "notes": "Purpose: Application callbacks and serialized work. Source sections: Admission sequence and invariants; Runtime terminal preflight and commit handoff. Classification: control. Both inputs state callback placement, owned-data preparation and the no-asynchronous-gap final guard."
+          },
+          {
+            "id": "a04",
+            "type": "comprehension",
+            "decidedBy": "judge",
+            "key": "Required decisions: R1. Equality is expired: discard the ordinary result plan and unconsumed permit without route/revision/ACK effects. R2. The current controller must prepare/preflight and commit route AdmissionExpired through the shared expiry owner in this turn, not wait for a timer. If this ownership or equality rule is absent, identify that gap rather than inventing it. Ancillary: a later consumed-token timer is inert.",
+            "scale": [
+              0,
+              2
+            ],
+            "rubric": "2 only if every numbered required decision is correct, complete and supported by short exact supplied-document excerpts; derivation from quoted premises is allowed when no extra rule is invented. 1 for a safe but incomplete answer, a reported material gap/conflict, or a correct decision lacking decisive source support. 0 for a wrong/unsafe required decision or no answer. Do not require ancillary or unasked detail. Record separately in the reason: DECISION=correct|wrong|withheld|missing; COVERAGE=complete|incomplete; SUPPORT=supported|partial|none; HEDGE=yes|no, followed by concrete explanation. These tags are diagnostic, not a second score. A safe honest gap is not reader misconduct but is not grounded implementation completeness. Never supply a missing design rule from outside knowledge; no preferred version is disclosed. Exact-source quotation validation is a separate project check; a missing/malformed/nonmatching submitted QUOTE caps a safe outcome at 1, never raises a 0.",
+            "answerHeading": "A04",
+            "question": "A current route completion is timely when preparation starts. Its unconsumed ordinary permit exists, but the final guard observes the admission deadline exactly equal to now. No timer input has arrived; numeric preflight has room. What happens to the plan and permit, and who must advance the session before returning from this serialized turn?",
+            "notes": "Purpose: Application-time expiry ownership. Source sections: Admission sequence and invariants; Runtime terminal preflight and commit handoff. Classification: clarification. The predecessor requires final guards and rejects expired results but leaves result-discovered expiry ownership and equality less explicit; assess all its text, not an assumed absence."
+          },
+          {
+            "id": "a05",
+            "type": "comprehension",
+            "decidedBy": "judge",
+            "key": "Required decisions: R1. When equal deadlines are elapsed, the shared selector chooses OpenExpired regardless of callback order; it chooses the earlier absolute elapsed bound generally. R2. Before either bound is elapsed, no expiry/cancellation/terminal transition is authorized; recheck monotonic time and rearm only the waking timer's positive remainder. An unspecified tie or early-wake rule must be reported as a gap, not guessed.",
+            "scale": [
+              0,
+              2
+            ],
+            "rubric": "2 only if every numbered required decision is correct, complete and supported by short exact supplied-document excerpts; derivation from quoted premises is allowed when no extra rule is invented. 1 for a safe but incomplete answer, a reported material gap/conflict, or a correct decision lacking decisive source support. 0 for a wrong/unsafe required decision or no answer. Do not require ancillary or unasked detail. Record separately in the reason: DECISION=correct|wrong|withheld|missing; COVERAGE=complete|incomplete; SUPPORT=supported|partial|none; HEDGE=yes|no, followed by concrete explanation. These tags are diagnostic, not a second score. A safe honest gap is not reader misconduct but is not grounded implementation completeness. Never supply a missing design rule from outside knowledge; no preferred version is disclosed. Exact-source quotation validation is a separate project check; a missing/malformed/nonmatching submitted QUOTE caps a safe outcome at 1, never raises a 0.",
+            "answerHeading": "A05",
+            "question": "Identity evaluation is current. In one observation, admission and OPEN have the same absolute deadline and both are elapsed, but the admission timer is delivered first. In a separate observation, the admission timer wakes before either deadline. Which transition, if any, is authorized in each observation?",
+            "notes": "Purpose: Absolute timer selection. Source sections: Admission sequence and invariants; Timers and resource limits. Classification: clarification. Both inputs preserve monotonic checks and earlier OPEN; only the clarification expressly supplies the tie and shared timer selector."
+          },
+          {
+            "id": "a06",
+            "type": "comprehension",
+            "decidedBy": "judge",
+            "key": "Required decisions: R1. The selected total deadline is t=1000 from terminal-cause commit using transportCloseTimeoutMs; close gets only the remaining 150 ms at t=850, not a new allowance and not the per-send budget. R2. Reusing the name/default does not make the meaning unchanged: the whole-teardown interval requires explicit contract/configuration/migration absorption and may reduce graceful allowance. If the supplied design does not bind a setting to the total budget, state that missing choice rather than asserting this numeric deadline from outside knowledge.",
+            "scale": [
+              0,
+              2
+            ],
+            "rubric": "2 only if every numbered required decision is correct, complete and supported by short exact supplied-document excerpts; derivation from quoted premises is allowed when no extra rule is invented. 1 for a safe but incomplete answer, a reported material gap/conflict, or a correct decision lacking decisive source support. 0 for a wrong/unsafe required decision or no answer. Do not require ancillary or unasked detail. Record separately in the reason: DECISION=correct|wrong|withheld|missing; COVERAGE=complete|incomplete; SUPPORT=supported|partial|none; HEDGE=yes|no, followed by concrete explanation. These tags are diagnostic, not a second score. A safe honest gap is not reader misconduct but is not grounded implementation completeness. Never supply a missing design rule from outside knowledge; no preferred version is disclosed. Exact-source quotation validation is a separate project check; a missing/malformed/nonmatching submitted QUOTE caps a safe outcome at 1, never raises a 0.",
+            "answerHeading": "A06",
+            "question": "A deployment sets transportCloseTimeoutMs to 900 ms and transportWriteTimeoutMs to 2400 ms. A controller's terminal cause commits at monotonic t=100; its notification completes at t=800, and no send remains active. At t=850 graceful close is about to begin. What absolute total-cleanup deadline does this design select, and does the close phase receive a new 900 ms allowance? Include the configuration-migration consequence.",
+            "notes": "Purpose: Configured whole-teardown budget. Source sections: Ordered input and teardown; Timers and resource limits; Public surface and migration choices. Classification: clarification. The predecessor specifies one terminal-origin budget but not which configuration supplies it; the candidate names the source and migration cost."
+          },
+          {
+            "id": "a07",
+            "type": "comprehension",
+            "decidedBy": "judge",
+            "key": "Required decisions: R1. Detachment preserves the original deadline and exact cleanup generation; closing ordinary runtime authority neither restarts nor disables owned cleanup. R2. Write expiry may force an earlier abort but cannot replace the existing terminal cause or restart the budget. Missing precedence/deadline-transfer authority must be identified rather than assumed. Ancillary: detached cleanup cannot publish/retry/restore authority, and the sole reader still consumes ordered terminal evidence.",
+            "scale": [
+              0,
+              2
+            ],
+            "rubric": "2 only if every numbered required decision is correct, complete and supported by short exact supplied-document excerpts; derivation from quoted premises is allowed when no extra rule is invented. 1 for a safe but incomplete answer, a reported material gap/conflict, or a correct decision lacking decisive source support. 0 for a wrong/unsafe required decision or no answer. Do not require ancillary or unasked detail. Record separately in the reason: DECISION=correct|wrong|withheld|missing; COVERAGE=complete|incomplete; SUPPORT=supported|partial|none; HEDGE=yes|no, followed by concrete explanation. These tags are diagnostic, not a second score. A safe honest gap is not reader misconduct but is not grounded implementation completeness. Never supply a missing design rule from outside knowledge; no preferred version is disclosed. Exact-source quotation validation is a separate project check; a missing/malformed/nonmatching submitted QUOTE caps a safe outcome at 1, never raises a 0.",
+            "answerHeading": "A07",
+            "question": "A controller is already tearing down for a committed protocol cause with absolute deadline D. Before D, numeric node failure detaches it; its outstanding send then times out while transport terminal evidence has not been consumed. May detachment restart D or disable the cleanup guard, and may the write timeout replace the committed cause?",
+            "notes": "Purpose: Detached cleanup and first cause. Source sections: Ordered input and teardown; One node owned terminal sequence. Classification: clarification. The predecessor detaches bounded cleanup but does not spell out existing deadline transfer or later per-send first-cause precedence."
+          },
+          {
+            "id": "a08",
+            "type": "comprehension",
+            "decidedBy": "judge",
+            "key": "Required decisions: R1. The drain stops for the new admission and the ACK joins the same FIFO rather than bypassing it. R2. The head's reservation stays during dispatch and is removed only after disposal or transfer to another bounded owner, such as the reserved evaluation record. Ancillary: the barrier opens only at the serialized no-pending/no-queued/no-drain condition; transfer to an unbounded staging queue would contradict R2.",
+            "scale": [
+              0,
+              2
+            ],
+            "rubric": "2 only if every numbered required decision is correct, complete and supported by short exact supplied-document excerpts; derivation from quoted premises is allowed when no extra rule is invented. 1 for a safe but incomplete answer, a reported material gap/conflict, or a correct decision lacking decisive source support. 0 for a wrong/unsafe required decision or no answer. Do not require ancillary or unasked detail. Record separately in the reason: DECISION=correct|wrong|withheld|missing; COVERAGE=complete|incomplete; SUPPORT=supported|partial|none; HEDGE=yes|no, followed by concrete explanation. These tags are diagnostic, not a second score. A safe honest gap is not reader misconduct but is not grounded implementation completeness. Never supply a missing design rule from outside knowledge; no preferred version is disclosed. Exact-source quotation validation is a separate project check; a missing/malformed/nonmatching submitted QUOTE caps a safe outcome at 1, never raises a 0.",
+            "answerHeading": "A08",
+            "question": "During ordered drain, the queue head starts another route evaluation. A new ordinary route ACK arrives before that evaluation returns. Can the drain keep processing later commands, can the new ACK bypass the queue, and when may the head's queue reservation be removed?",
+            "notes": "Purpose: FIFO drain and bounded ownership. Source sections: Ordered input and teardown. Classification: control. Both inputs have the same drain/barrier and reservation-transfer mechanism."
+          },
+          {
+            "id": "a09",
+            "type": "comprehension",
+            "decidedBy": "judge",
+            "key": "Required decisions: R1. Terminal authority disposes semantic backlog and releases those queue reservations, without executing data/credit effects or refunding already-started unsettled provider work. R2. The same sole reader drains accepted transport evidence through terminal without semantic dispatch; no second reader or early read cancellation substitutes for that drain.",
+            "scale": [
+              0,
+              2
+            ],
+            "rubric": "2 only if every numbered required decision is correct, complete and supported by short exact supplied-document excerpts; derivation from quoted premises is allowed when no extra rule is invented. 1 for a safe but incomplete answer, a reported material gap/conflict, or a correct decision lacking decisive source support. 0 for a wrong/unsafe required decision or no answer. Do not require ancillary or unasked detail. Record separately in the reason: DECISION=correct|wrong|withheld|missing; COVERAGE=complete|incomplete; SUPPORT=supported|partial|none; HEDGE=yes|no, followed by concrete explanation. These tags are diagnostic, not a second score. A safe honest gap is not reader misconduct but is not grounded implementation completeness. Never supply a missing design rule from outside knowledge; no preferred version is disclosed. Exact-source quotation validation is a separate project check; a missing/malformed/nonmatching submitted QUOTE caps a safe outcome at 1, never raises a 0.",
+            "answerHeading": "A09",
+            "question": "An administrative terminal action wins while a continuation queue contains an ordinary data command and a credit-bearing command. An invoked provider is still unsettled, and the transport has accepted evidence ahead of its terminal record. Which queued work and reservations are disposed, and what must the reader still do?",
+            "notes": "Purpose: Terminal semantic disposal and transport evidence. Source sections: Ordered input and teardown; Three lifetimes. Classification: clarification. The clarification expressly applies semantic disposal to every terminal cause; the predecessor's FIFO/no-effects and resource distinctions remain relevant and may support a correct inference if grounded."
+          },
+          {
+            "id": "a10",
+            "type": "comprehension",
+            "decidedBy": "judge",
+            "key": "Required decisions: R1. The authorized capacity-reserved action still invokes the batch provider once with empty route inputs; there is no empty-subset invocation exemption. R2. Exactly an empty decisions list is valid for that subset; non-requested tuple decisions are invalid. Do not assume an optimization the supplied design does not authorize.",
+            "scale": [
+              0,
+              2
+            ],
+            "rubric": "2 only if every numbered required decision is correct, complete and supported by short exact supplied-document excerpts; derivation from quoted premises is allowed when no extra rule is invented. 1 for a safe but incomplete answer, a reported material gap/conflict, or a correct decision lacking decisive source support. 0 for a wrong/unsafe required decision or no answer. Do not require ancillary or unasked detail. Record separately in the reason: DECISION=correct|wrong|withheld|missing; COVERAGE=complete|incomplete; SUPPORT=supported|partial|none; HEDGE=yes|no, followed by concrete explanation. These tags are diagnostic, not a second score. A safe honest gap is not reader misconduct but is not grounded implementation completeness. Never supply a missing design rule from outside knowledge; no preferred version is disclosed. Exact-source quotation validation is a separate project check; a missing/malformed/nonmatching submitted QUOTE caps a safe outcome at 1, never raises a 0.",
+            "answerHeading": "A10",
+            "question": "A valid expected route snapshot has passed static checks, leaving zero policy-eligible tuples. Its BeginRouteAdmission action is current and a work reservation is available and committed. May the controller skip provider invocation as an optimization, and what decision list is valid if it invokes?",
+            "notes": "Purpose: Empty eligible route batch. Source sections: Source baseline and related path; Admission sequence and invariants. Classification: clarification. Both validate exactly the eligible subset including empty; the clarification makes the invocation duty explicit. A fully grounded derivation from the predecessor's action rules is acceptable."
+          },
+          {
+            "id": "a11",
+            "type": "comprehension",
+            "decidedBy": "judge",
+            "key": "Required decisions: R1. The malformed/incomplete current result follows the route admission-fault terminal path; its uncommitted proposal cannot consume a route revision or authorize an ACK, though separate terminal cleanup may publish. R2. The explicit valid per-route denial is nonfatal POLICY; the complete surviving/rejected result commits atomically with one consumed revision before ACK authority. Exact wire-code spelling is ancillary, not required.",
+            "scale": [
+              0,
+              2
+            ],
+            "rubric": "2 only if every numbered required decision is correct, complete and supported by short exact supplied-document excerpts; derivation from quoted premises is allowed when no extra rule is invented. 1 for a safe but incomplete answer, a reported material gap/conflict, or a correct decision lacking decisive source support. 0 for a wrong/unsafe required decision or no answer. Do not require ancillary or unasked detail. Record separately in the reason: DECISION=correct|wrong|withheld|missing; COVERAGE=complete|incomplete; SUPPORT=supported|partial|none; HEDGE=yes|no, followed by concrete explanation. These tags are diagnostic, not a second score. A safe honest gap is not reader misconduct but is not grounded implementation completeness. Never supply a missing design rule from outside knowledge; no preferred version is disclosed. Exact-source quotation validation is a separate project check; a missing/malformed/nonmatching submitted QUOTE caps a safe outcome at 1, never raises a 0.",
+            "answerHeading": "A11",
+            "question": "Two independent timely current route evaluations have reserved capacity. One returns a malformed or incomplete tuple-decision list; the other returns a complete valid list denying one tuple by policy. Does each end the session, and may each proposal consume its route revision and authorize an ACK?",
+            "notes": "Purpose: Current fault versus policy denial. Source sections: Source baseline and related path; Runtime terminal preflight and commit handoff; Acceptance obligations. Classification: clarification. Both provide atomicity and nonfatal explicit denial; the clarification expressly carries current-fault treatment into the supplied text."
+          },
+          {
+            "id": "a12",
+            "type": "comprehension",
+            "decidedBy": "judge",
+            "key": "Required decisions: R1. Decide current RIB capacity at the final serialized commit, not from capacity saved at invocation. R2. Apply canonical nonfatal per-route CAPACITY rejection with the surviving/rejected set and consumed revision committed atomically before ACK; it is neither local evaluation-pool refusal nor a whole-session fault merely because some routes do not fit.",
+            "scale": [
+              0,
+              2
+            ],
+            "rubric": "2 only if every numbered required decision is correct, complete and supported by short exact supplied-document excerpts; derivation from quoted premises is allowed when no extra rule is invented. 1 for a safe but incomplete answer, a reported material gap/conflict, or a correct decision lacking decisive source support. 0 for a wrong/unsafe required decision or no answer. Do not require ancillary or unasked detail. Record separately in the reason: DECISION=correct|wrong|withheld|missing; COVERAGE=complete|incomplete; SUPPORT=supported|partial|none; HEDGE=yes|no, followed by concrete explanation. These tags are diagnostic, not a second score. A safe honest gap is not reader misconduct but is not grounded implementation completeness. Never supply a missing design rule from outside knowledge; no preferred version is disclosed. Exact-source quotation validation is a separate project check; a missing/malformed/nonmatching submitted QUOTE caps a safe outcome at 1, never raises a 0.",
+            "answerHeading": "A12",
+            "question": "A timely complete route policy result allows every eligible tuple. While it waited, another session consumed enough RIB space that not all allowed routes fit. The evaluation work pool is not full. When is available RIB space decided, and does this situation mean whole-session admission-work failure or a normal route replacement outcome? Include revision and ACK treatment.",
+            "notes": "Purpose: Capacity at route commit. Source sections: Source baseline and related path; Acceptance obligations. Classification: clarification. Both require final RIB capacity and atomicity; the clarification explicitly carries the CAPACITY outcome and distinction from evaluation-pool refusal."
+          },
+          {
+            "id": "a13",
+            "type": "comprehension",
+            "decidedBy": "judge",
+            "key": "Required decisions: R1. Every runtime publication uses the node-owned coordinator/runtime gate; exhaustion closes that shared authority and discards the prepared ordinary result effects rather than just publishing a Failed snapshot. R2. The queued stop completion cannot overwrite Failed, publish another ordinary revision or rearm an adjacency; a terminal/already-terminal outcome is not an ordinary commit permit.",
+            "scale": [
+              0,
+              2
+            ],
+            "rubric": "2 only if every numbered required decision is correct, complete and supported by short exact supplied-document excerpts; derivation from quoted premises is allowed when no extra rule is invented. 1 for a safe but incomplete answer, a reported material gap/conflict, or a correct decision lacking decisive source support. 0 for a wrong/unsafe required decision or no answer. Do not require ancillary or unasked detail. Record separately in the reason: DECISION=correct|wrong|withheld|missing; COVERAGE=complete|incomplete; SUPPORT=supported|partial|none; HEDGE=yes|no, followed by concrete explanation. These tags are diagnostic, not a second score. A safe honest gap is not reader misconduct but is not grounded implementation completeness. Never supply a missing design rule from outside knowledge; no preferred version is disclosed. Exact-source quotation validation is a separate project check; a missing/malformed/nonmatching submitted QUOTE caps a safe outcome at 1, never raises a 0.",
+            "answerHeading": "A13",
+            "question": "A publication unrelated to admission exhausts an operations numeric domain. At that moment an identity result is prepared but not installed, and a stop-completion task is already queued. May either continue as an ordinary transaction? State the owner and the required authority boundary.",
+            "notes": "Purpose: Global terminal integration. Source sections: Runtime terminal preflight and commit handoff; One node owned terminal sequence. Classification: control. This shared terminal prerequisite and queued-stop rule are unchanged controls."
+          },
+          {
+            "id": "a14",
+            "type": "comprehension",
+            "decidedBy": "judge",
+            "key": "Required decisions: R1. Both queries return the same frozen terminal resource values, revision and capturedAt=T; private disposal cannot publish zeroes, new counters/events/revisions or a refreshed capture time. R2. The nonzero counts are last-known at T, not proof that allocation persists now and not proof of release; unresolved work was not falsely zeroed at terminalization.",
+            "scale": [
+              0,
+              2
+            ],
+            "rubric": "2 only if every numbered required decision is correct, complete and supported by short exact supplied-document excerpts; derivation from quoted premises is allowed when no extra rule is invented. 1 for a safe but incomplete answer, a reported material gap/conflict, or a correct decision lacking decisive source support. 0 for a wrong/unsafe required decision or no answer. Do not require ancillary or unasked detail. Record separately in the reason: DECISION=correct|wrong|withheld|missing; COVERAGE=complete|incomplete; SUPPORT=supported|partial|none; HEDGE=yes|no, followed by concrete explanation. These tags are diagnostic, not a second score. A safe honest gap is not reader misconduct but is not grounded implementation completeness. Never supply a missing design rule from outside knowledge; no preferred version is disclosed. Exact-source quotation validation is a separate project check; a missing/malformed/nonmatching submitted QUOTE caps a safe outcome at 1, never raises a 0.",
+            "answerHeading": "A14",
+            "question": "An operations numeric-terminal capture contains two unfinished evaluation reservations at time T. Both later settle and are privately disposed. A focused resources query is made, followed by an aggregate snapshot query. What values, revision and capture time should those queries report, and what can a caller conclude about physical resources?",
+            "notes": "Purpose: Frozen resource capture. Source sections: Terminal accounting recommendation; One node owned terminal sequence. Classification: control. The complete immutable last-known capture rule is common to both inputs."
+          },
+          {
+            "id": "a15",
+            "type": "comprehension",
+            "decidedBy": "judge",
+            "key": "Required decisions: R1. Disposal may update ordinary stopped-node cleanup accounting without reopening lifecycle or subscriptions. R2. That canonical gauge mutation increments the ordinary revision once; the queries do not increment it and use fresh query capture time. If the supplied text leaves metadata update rules unstated, mark that gap rather than importing the referenced contract.",
+            "scale": [
+              0,
+              2
+            ],
+            "rubric": "2 only if every numbered required decision is correct, complete and supported by short exact supplied-document excerpts; derivation from quoted premises is allowed when no extra rule is invented. 1 for a safe but incomplete answer, a reported material gap/conflict, or a correct decision lacking decisive source support. 0 for a wrong/unsafe required decision or no answer. Do not require ancillary or unasked detail. Record separately in the reason: DECISION=correct|wrong|withheld|missing; COVERAGE=complete|incomplete; SUPPORT=supported|partial|none; HEDGE=yes|no, followed by concrete explanation. These tags are diagnostic, not a second score. A safe honest gap is not reader misconduct but is not grounded implementation completeness. Never supply a missing design rule from outside knowledge; no preferred version is disclosed. Exact-source quotation validation is a separate project check; a missing/malformed/nonmatching submitted QUOTE caps a safe outcome at 1, never raises a 0.",
+            "answerHeading": "A15",
+            "question": "A node has stopped normally without numeric-domain exhaustion. Its last retained provider result is then disposed, changing a cleanup gauge. Two later resource queries perform no mutation. Does disposal reopen the node or subscriptions, which of disposal and the queries advances the canonical revision, and is query capture time live or frozen?",
+            "notes": "Purpose: Ordinary-stop observation revisions. Source sections: Public surface and migration choices; Terminal accounting recommendation. Classification: clarification. Both allow stopped cleanup accounting; the clarification spells out the ordinary revision/query metadata connection."
+          },
+          {
+            "id": "a16",
+            "type": "comprehension",
+            "decidedBy": "judge",
+            "key": "Required decisions: R1. It is a valid initial capacity wait under the single supervisor, with no fabricated attempt/session/timer and unchanged retryAttempt; disabled reconnect removes repeats, not the initial entitlement. R2. Identity availability is required; unrelated route pressure alone does not block this initial identity-only phase. Ancillary: availability must be rechecked at actual start and is not an invocation reservation.",
+            "scale": [
+              0,
+              2
+            ],
+            "rubric": "2 only if every numbered required decision is correct, complete and supported by short exact supplied-document excerpts; derivation from quoted premises is allowed when no extra rule is invented. 1 for a safe but incomplete answer, a reported material gap/conflict, or a correct decision lacking decisive source support. 0 for a wrong/unsafe required decision or no answer. Do not require ancillary or unasked detail. Record separately in the reason: DECISION=correct|wrong|withheld|missing; COVERAGE=complete|incomplete; SUPPORT=supported|partial|none; HEDGE=yes|no, followed by concrete explanation. These tags are diagnostic, not a second score. A safe honest gap is not reader misconduct but is not grounded implementation completeness. Never supply a missing design rule from outside knowledge; no preferred version is disclosed. Exact-source quotation validation is a separate project check; a missing/malformed/nonmatching submitted QUOTE caps a safe outcome at 1, never raises a 0.",
+            "answerHeading": "A16",
+            "question": "An operator sees a never-attempted configured adjacency in retry-wait, with no activeControllerId or retryAt, while reconnect is disabled. Identity capacity is unavailable; the unrelated route pool is also full. Is that projection necessarily wrong, does waiting consume an attempt or represent a real retry timer, and which capacity must open before this initial identity-only acquisition can begin?",
+            "notes": "Purpose: Initial capacity eligibility. Source sections: Capacity wait lifecycle and projection. Classification: control. This is the unchanged initial-wait duty, asked independently of repeat history."
+          },
+          {
+            "id": "a17",
+            "type": "comprehension",
+            "decidedBy": "judge",
+            "key": "Required decisions: R1. No acquisition starts on timer expiry or a stale availability notification: the single supervisor rechecks identity plus the remembered refusing route pool and retains/coalesces one waiter when still blocked. R2. Retain the refusing set until actual next acquisition or a named satisfaction/terminal/stop clearing transition. Ancillary: the ended-attempt projection stays until a contracted clearing boundary, capacity observations do not change retry history/create another backoff, and no active controller or live retryAt is fabricated.",
+            "scale": [
+              0,
+              2
+            ],
+            "rubric": "2 only if every numbered required decision is correct, complete and supported by short exact supplied-document excerpts; derivation from quoted premises is allowed when no extra rule is invented. 1 for a safe but incomplete answer, a reported material gap/conflict, or a correct decision lacking decisive source support. 0 for a wrong/unsafe required decision or no answer. Do not require ancillary or unasked detail. Record separately in the reason: DECISION=correct|wrong|withheld|missing; COVERAGE=complete|incomplete; SUPPORT=supported|partial|none; HEDGE=yes|no, followed by concrete explanation. These tags are diagnostic, not a second score. A safe honest gap is not reader misconduct but is not grounded implementation completeness. Never supply a missing design rule from outside knowledge; no preferred version is disclosed. Exact-source quotation validation is a separate project check; a missing/malformed/nonmatching submitted QUOTE caps a safe outcome at 1, never raises a 0.",
+            "answerHeading": "A17",
+            "question": "A real retryable attempt ended because its local route-evaluation pool refused a reservation; reconnect and retry budget permit another attempt. Its backoff expires while route capacity is still full. Later a release notification arrives, but another adjacency consumes the freed slot before this one's serialized start check. What may start, and what happens to the wait and remembered refusing-pool set?",
+            "notes": "Purpose: Repeat capacity wait and stale notification. Source sections: Capacity wait lifecycle and projection. Classification: control. The repeat scenario is separate from initial eligibility; the same stale-notification and remembered-pool rules exist in both."
+          },
+          {
+            "id": "a18",
+            "type": "comprehension",
+            "decidedBy": "judge",
+            "key": "Required decisions: R1. Adoption of an already-established exact current winner performs the idempotent success reset; the stale old success cannot reset a newer history. R2. OpenConfirm winner ownership only suppresses dialing/clears scheduling authority while preserving accumulated history; scheduling cancellation is not establishment success.",
+            "scale": [
+              0,
+              2
+            ],
+            "rubric": "2 only if every numbered required decision is correct, complete and supported by short exact supplied-document excerpts; derivation from quoted premises is allowed when no extra rule is invented. 1 for a safe but incomplete answer, a reported material gap/conflict, or a correct decision lacking decisive source support. 0 for a wrong/unsafe required decision or no answer. Do not require ancillary or unasked detail. Record separately in the reason: DECISION=correct|wrong|withheld|missing; COVERAGE=complete|incomplete; SUPPORT=supported|partial|none; HEDGE=yes|no, followed by concrete explanation. These tags are diagnostic, not a second score. A safe honest gap is not reader misconduct but is not grounded implementation completeness. Never supply a missing design rule from outside knowledge; no preferred version is disclosed. Exact-source quotation validation is a separate project check; a missing/malformed/nonmatching submitted QUOTE caps a safe outcome at 1, never raises a 0.",
+            "answerHeading": "A18",
+            "question": "A configured adjacency with accumulated failure history adopts a different exact winner that is already Established. Later a success callback from an older losing controller arrives. Which event can reset failure history, and why would cancelling a dial timer for a winner still in OpenConfirm have a different effect?",
+            "notes": "Purpose: Established winner and retry history. Source sections: Capacity wait lifecycle and projection. Classification: control. Already-established adoption and establishment-only reset are explicitly unchanged; no exact next-attempt arithmetic is required."
+          },
+          {
+            "id": "a19",
+            "type": "comprehension",
+            "decidedBy": "judge",
+            "key": "Required decisions: R1. A timely allow follows normal collision/confirmation rules; only the actual identity deny is a policy refusal. R2. Local reservation refusal invokes no provider and is AdmissionCapacityExceeded/local capacity, not IDENTITY_REJECTED or provider-fault misclassification. Ancillary: existing safe INTERNAL_ERROR cleanup is not a new wire policy-denial code.",
+            "scale": [
+              0,
+              2
+            ],
+            "rubric": "2 only if every numbered required decision is correct, complete and supported by short exact supplied-document excerpts; derivation from quoted premises is allowed when no extra rule is invented. 1 for a safe but incomplete answer, a reported material gap/conflict, or a correct decision lacking decisive source support. 0 for a wrong/unsafe required decision or no answer. Do not require ancillary or unasked detail. Record separately in the reason: DECISION=correct|wrong|withheld|missing; COVERAGE=complete|incomplete; SUPPORT=supported|partial|none; HEDGE=yes|no, followed by concrete explanation. These tags are diagnostic, not a second score. A safe honest gap is not reader misconduct but is not grounded implementation completeness. Never supply a missing design rule from outside knowledge; no preferred version is disclosed. Exact-source quotation validation is a separate project check; a missing/malformed/nonmatching submitted QUOTE caps a safe outcome at 1, never raises a 0.",
+            "answerHeading": "A19",
+            "question": "A review labels three independent admission outcomes as identity policy denial: a timely current identity allow, a timely current identity deny, and an invocation attempt unable to reserve a local evaluation slot. Which labels are wrong, and which outcome invokes no provider?",
+            "notes": "Purpose: Normal identity outcome versus local refusal. Source sections: Timers and resource limits; Acceptance obligations. Classification: control. These healthy/refusal classifications are explicit in both inputs."
+          },
+          {
+            "id": "a20",
+            "type": "comprehension",
+            "decidedBy": "judge",
+            "key": "Required decisions: R1. Existing one-argument providers remain supported; the optional shared process-local AdmissionEvaluationOptions is the second evaluate argument on both ports and AGP supplies it, without a CLI/browser split. R2. Signal capability stays outside request/result DTO schemas and wire messages; taking advantage of it is explicit consumer migration, not compulsory replacement of old providers. Ancillary: public export/type compatibility checks precede adoption.",
+            "scale": [
+              0,
+              2
+            ],
+            "rubric": "2 only if every numbered required decision is correct, complete and supported by short exact supplied-document excerpts; derivation from quoted premises is allowed when no extra rule is invented. 1 for a safe but incomplete answer, a reported material gap/conflict, or a correct decision lacking decisive source support. 0 for a wrong/unsafe required decision or no answer. Do not require ancillary or unasked detail. Record separately in the reason: DECISION=correct|wrong|withheld|missing; COVERAGE=complete|incomplete; SUPPORT=supported|partial|none; HEDGE=yes|no, followed by concrete explanation. These tags are diagnostic, not a second score. A safe honest gap is not reader misconduct but is not grounded implementation completeness. Never supply a missing design rule from outside knowledge; no preferred version is disclosed. Exact-source quotation validation is a separate project check; a missing/malformed/nonmatching submitted QUOTE caps a safe outcome at 1, never raises a 0.",
+            "answerHeading": "A20",
+            "question": "A library consumer plans to keep its existing one-argument identity and route providers, while a second consumer opts into cancellation. Does the proposed common API force the first consumer to migrate or require separate CLI/browser provider interfaces? Where does cancellation capability enter without changing request/result DTO schemas?",
+            "notes": "Purpose: Provider compatibility and shared seam. Source sections: Mechanics and ownership; Public surface and migration choices. Classification: control. Optional second argument and schema separation are common; the exact supplied-options object shape is not required by this control."
+          },
+          {
+            "id": "a21",
+            "type": "comprehension",
+            "decidedBy": "judge",
+            "key": "Required decisions: R1. AGP's ledger covers its port evaluation and retained request/result, not invisible descendant work after a wrapper answers; the provider/host owns that work's cancellation and resource budget. R2. The signal only concerns the pending evaluation and cannot be reused after commit as established-session close or credential-validity/rotation authority.",
+            "scale": [
+              0,
+              2
+            ],
+            "rubric": "2 only if every numbered required decision is correct, complete and supported by short exact supplied-document excerpts; derivation from quoted premises is allowed when no extra rule is invented. 1 for a safe but incomplete answer, a reported material gap/conflict, or a correct decision lacking decisive source support. 0 for a wrong/unsafe required decision or no answer. Do not require ancillary or unasked detail. Record separately in the reason: DECISION=correct|wrong|withheld|missing; COVERAGE=complete|incomplete; SUPPORT=supported|partial|none; HEDGE=yes|no, followed by concrete explanation. These tags are diagnostic, not a second score. A safe honest gap is not reader misconduct but is not grounded implementation completeness. Never supply a missing design rule from outside knowledge; no preferred version is disclosed. Exact-source quotation validation is a separate project check; a missing/malformed/nonmatching submitted QUOTE caps a safe outcome at 1, never raises a 0.",
+            "answerHeading": "A21",
+            "question": "A provider wrapper has completed its AGP evaluation and the result has committed, but the wrapper's private host task is still running. The consumer saves the evaluation signal as a future authenticated-session revocation handle. Which of AGP or the provider owns the hidden work, and is the saved signal authority over the established session?",
+            "notes": "Purpose: Cancellation authority and hidden work. Source sections: Three lifetimes; Public surface and migration choices. Classification: control. Both inputs expressly retain provider responsibility and end evaluation-signal authority."
+          },
+          {
+            "id": "a22",
+            "type": "comprehension",
+            "decidedBy": "judge",
+            "key": "Required decisions: R1. No peer-scale certification follows: defaults are finite configurable baseline recommendations, not workload measurements or tuning for hundreds of peers. R2. Counts bound owned evaluations/retained logical inputs, not arbitrary provider allocations or physical heap bytes. Ancillary: stronger host/provider isolation and browser physical-release guarantees are outside this correction.",
+            "scale": [
+              0,
+              2
+            ],
+            "rubric": "2 only if every numbered required decision is correct, complete and supported by short exact supplied-document excerpts; derivation from quoted premises is allowed when no extra rule is invented. 1 for a safe but incomplete answer, a reported material gap/conflict, or a correct decision lacking decisive source support. 0 for a wrong/unsafe required decision or no answer. Do not require ancillary or unasked detail. Record separately in the reason: DECISION=correct|wrong|withheld|missing; COVERAGE=complete|incomplete; SUPPORT=supported|partial|none; HEDGE=yes|no, followed by concrete explanation. These tags are diagnostic, not a second score. A safe honest gap is not reader misconduct but is not grounded implementation completeness. Never supply a missing design rule from outside knowledge; no preferred version is disclosed. Exact-source quotation validation is a separate project check; a missing/malformed/nonmatching submitted QUOTE caps a safe outcome at 1, never raises a 0.",
+            "answerHeading": "A22",
+            "question": "A release note claims that these finite evaluation-count defaults certify 500 simultaneous browser peers and put a hard bound on all memory allocated by policy providers. Are either claims established by this design? Identify the specific limits of the counts and of the default values.",
+            "notes": "Purpose: Limits of finite budgets. Source sections: Authority and scope; Timers and resource limits; Acceptance obligations. Classification: control. Scope and resource-bound exclusions are common controls; no exact deployment budget is asked."
+          },
+          {
+            "id": "a23",
+            "type": "comprehension",
+            "decidedBy": "judge",
+            "key": "Required decisions: R1. No: inventory every live operations publication and pre-publication mutation, route it through the same prepared/terminal gate or demonstrate it effect-free; admission-only integration is insufficient. R2. Proposed public type/export/configuration/closed-event/schema/catalog/operational meanings must be absorbed coherently where applicable, with provider compatibility checked; draft text and generic map extensibility are not adoption or verification.",
+            "scale": [
+              0,
+              2
+            ],
+            "rubric": "2 only if every numbered required decision is correct, complete and supported by short exact supplied-document excerpts; derivation from quoted premises is allowed when no extra rule is invented. 1 for a safe but incomplete answer, a reported material gap/conflict, or a correct decision lacking decisive source support. 0 for a wrong/unsafe required decision or no answer. Do not require ancillary or unasked detail. Record separately in the reason: DECISION=correct|wrong|withheld|missing; COVERAGE=complete|incomplete; SUPPORT=supported|partial|none; HEDGE=yes|no, followed by concrete explanation. These tags are diagnostic, not a second score. A safe honest gap is not reader misconduct but is not grounded implementation completeness. Never supply a missing design rule from outside knowledge; no preferred version is disclosed. Exact-source quotation validation is a separate project check; a missing/malformed/nonmatching submitted QUOTE caps a safe outcome at 1, never raises a 0.",
+            "answerHeading": "A23",
+            "question": "A patch author says the terminal prerequisite is complete after routing the two admission-result callbacks through the coordinator and adding new gauge names. All other live OperationsStore publication sites retain their existing paths. Can that close the prerequisite, and what coordinated public-surface work remains necessary?",
+            "notes": "Purpose: Absorption and implementation scope. Source sections: Runtime terminal preflight and commit handoff; Public surface and migration choices. Classification: control. Both inputs require all-publication inventory and coordinated surfaces, without a generic new transaction framework."
+          },
+          {
+            "id": "a24",
+            "type": "comprehension",
+            "decidedBy": "judge",
+            "key": "Required decisions: R1. No: OPEN remains authoritative through confirmation even when hold is zero; identity success cannot cancel it or create an unbounded confirmation interval. R2. The OPEN timer ends at exact establishment or teardown, not channel adoption or identity ownership.",
+            "scale": [
+              0,
+              2
+            ],
+            "rubric": "2 only if every numbered required decision is correct, complete and supported by short exact supplied-document excerpts; derivation from quoted premises is allowed when no extra rule is invented. 1 for a safe but incomplete answer, a reported material gap/conflict, or a correct decision lacking decisive source support. 0 for a wrong/unsafe required decision or no answer. Do not require ancillary or unasked detail. Record separately in the reason: DECISION=correct|wrong|withheld|missing; COVERAGE=complete|incomplete; SUPPORT=supported|partial|none; HEDGE=yes|no, followed by concrete explanation. These tags are diagnostic, not a second score. A safe honest gap is not reader misconduct but is not grounded implementation completeness. Never supply a missing design rule from outside knowledge; no preferred version is disclosed. Exact-source quotation validation is a separate project check; a missing/malformed/nonmatching submitted QUOTE caps a safe outcome at 1, never raises a 0.",
+            "answerHeading": "A24",
+            "question": "A peer was allowed by identity admission and is in OpenConfirm with negotiated hold disabled. Confirmation has not arrived when the stored outer OPEN deadline becomes elapsed. Does the completed identity evaluation remove the opening bound, and what ends that bound normally?",
+            "notes": "Purpose: Opening lifetime through confirmation. Source sections: Timers and resource limits; Source baseline and related path. Classification: control. The same opening-phase invariant is explicit in both designs."
+          }
+        ],
+        "notes": "Auditor-only purpose/classification notes are not reader or judge instructions. Sealed audit marker: linen-orbit-7263."
+      }
+    ],
+    "arms": [
+      "m42",
+      "x19"
+    ],
+    "population": [
+      {
+        "id": "c",
+        "family": "claude",
+        "runtime": "opencode",
+        "model": "litellm-nexus/claude-opus-5-5"
+      },
+      {
+        "id": "g",
+        "family": "gemini",
+        "runtime": "opencode",
+        "model": "litellm-nexus/gemini-3.8-flash"
+      },
+      {
+        "id": "o",
+        "family": "gpt",
+        "runtime": "codex",
+        "model": "gpt-6-astra",
+        "settings": {
+          "reasoningEffort": "high"
+        }
+      }
+    ]
+  },
+  "guessGroups": {
+    "sheetA": [
+      "m42"
+    ],
+    "sheetB": [
+      "x19"
+    ]
+  },
+  "seed": "2026-10-16-060526-admission-clarity",
+  "end": "completed"
+}

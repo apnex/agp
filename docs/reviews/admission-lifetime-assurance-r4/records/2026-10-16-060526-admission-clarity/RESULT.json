@@ -1,0 +1,1530 @@
+{
+  "run": "2026-10-16-060526-admission-clarity",
+  "status": "result",
+  "arms": [
+    "m42",
+    "x19"
+  ],
+  "members": [
+    "c",
+    "g",
+    "o"
+  ],
+  "properties": [
+    {
+      "scenario": "admission-clarity",
+      "property": "a01",
+      "byArm": {
+        "m42": {
+          "mean": 1.1666666666666667,
+          "of": 3,
+          "incomplete": 0
+        },
+        "x19": {
+          "mean": 1.1666666666666667,
+          "of": 3,
+          "incomplete": 0
+        }
+      },
+      "byArmMember": {
+        "m42": {
+          "c": {
+            "mean": 1.5,
+            "of": 1,
+            "incomplete": 0
+          },
+          "g": {
+            "mean": 0,
+            "of": 1,
+            "incomplete": 0
+          },
+          "o": {
+            "mean": 2,
+            "of": 1,
+            "incomplete": 0
+          }
+        },
+        "x19": {
+          "c": {
+            "mean": 1.5,
+            "of": 1,
+            "incomplete": 0
+          },
+          "g": {
+            "mean": 0,
+            "of": 1,
+            "incomplete": 0
+          },
+          "o": {
+            "mean": 2,
+            "of": 1,
+            "incomplete": 0
+          }
+        }
+      },
+      "agreement": {
+        "agree": 2,
+        "of": 4
+      }
+    },
+    {
+      "scenario": "admission-clarity",
+      "property": "a02",
+      "byArm": {
+        "m42": {
+          "mean": 1.3333333333333333,
+          "of": 3,
+          "incomplete": 0
+        },
+        "x19": {
+          "mean": 1.3333333333333333,
+          "of": 3,
+          "incomplete": 0
+        }
+      },
+      "byArmMember": {
+        "m42": {
+          "c": {
+            "mean": 2,
+            "of": 1,
+            "incomplete": 0
+          },
+          "g": {
+            "mean": 0,
+            "of": 1,
+            "incomplete": 0
+          },
+          "o": {
+            "mean": 2,
+            "of": 1,
+            "incomplete": 0
+          }
+        },
+        "x19": {
+          "c": {
+            "mean": 2,
+            "of": 1,
+            "incomplete": 0
+          },
+          "g": {
+            "mean": 0,
+            "of": 1,
+            "incomplete": 0
+          },
+          "o": {
+            "mean": 2,
+            "of": 1,
+            "incomplete": 0
+          }
+        }
+      },
+      "agreement": {
+        "agree": 4,
+        "of": 4
+      }
+    },
+    {
+      "scenario": "admission-clarity",
+      "property": "a03",
+      "byArm": {
+        "m42": {
+          "mean": 1.3333333333333333,
+          "of": 3,
+          "incomplete": 0
+        },
+        "x19": {
+          "mean": 1.3333333333333333,
+          "of": 3,
+          "incomplete": 0
+        }
+      },
+      "byArmMember": {
+        "m42": {
+          "c": {
+            "mean": 2,
+            "of": 1,
+            "incomplete": 0
+          },
+          "g": {
+            "mean": 0,
+            "of": 1,
+            "incomplete": 0
+          },
+          "o": {
+            "mean": 2,
+            "of": 1,
+            "incomplete": 0
+          }
+        },
+        "x19": {
+          "c": {
+            "mean": 2,
+            "of": 1,
+            "incomplete": 0
+          },
+          "g": {
+            "mean": 0,
+            "of": 1,
+            "incomplete": 0
+          },
+          "o": {
+            "mean": 2,
+            "of": 1,
+            "incomplete": 0
+          }
+        }
+      },
+      "agreement": {
+        "agree": 4,
+        "of": 4
+      }
+    },
+    {
+      "scenario": "admission-clarity",
+      "property": "a04",
+      "byArm": {
+        "m42": {
+          "mean": 1.3333333333333333,
+          "of": 3,
+          "incomplete": 0
+        },
+        "x19": {
+          "mean": 0.6666666666666666,
+          "of": 3,
+          "incomplete": 0
+        }
+      },
+      "byArmMember": {
+        "m42": {
+          "c": {
+            "mean": 2,
+            "of": 1,
+            "incomplete": 0
+          },
+          "g": {
+            "mean": 0,
+            "of": 1,
+            "incomplete": 0
+          },
+          "o": {
+            "mean": 2,
+            "of": 1,
+            "incomplete": 0
+          }
+        },
+        "x19": {
+          "c": {
+            "mean": 1,
+            "of": 1,
+            "incomplete": 0
+          },
+          "g": {
+            "mean": 0,
+            "of": 1,
+            "incomplete": 0
+          },
+          "o": {
+            "mean": 1,
+            "of": 1,
+            "incomplete": 0
+          }
+        }
+      },
+      "agreement": {
+        "agree": 4,
+        "of": 4
+      }
+    },
+    {
+      "scenario": "admission-clarity",
+      "property": "a05",
+      "byArm": {
+        "m42": {
+          "mean": 1.3333333333333333,
+          "of": 3,
+          "incomplete": 0
+        },
+        "x19": {
+          "mean": 0.6666666666666666,
+          "of": 3,
+          "incomplete": 0
+        }
+      },
+      "byArmMember": {
+        "m42": {
+          "c": {
+            "mean": 2,
+            "of": 1,
+            "incomplete": 0
+          },
+          "g": {
+            "mean": 0,
+            "of": 1,
+            "incomplete": 0
+          },
+          "o": {
+            "mean": 2,
+            "of": 1,
+            "incomplete": 0
+          }
+        },
+        "x19": {
+          "c": {
+            "mean": 1,
+            "of": 1,
+            "incomplete": 0
+          },
+          "g": {
+            "mean": 0,
+            "of": 1,
+            "incomplete": 0
+          },
+          "o": {
+            "mean": 1,
+            "of": 1,
+            "incomplete": 0
+          }
+        }
+      },
+      "agreement": {
+        "agree": 4,
+        "of": 4
+      }
+    },
+    {
+      "scenario": "admission-clarity",
+      "property": "a06",
+      "byArm": {
+        "m42": {
+          "mean": 1.3333333333333333,
+          "of": 3,
+          "incomplete": 0
+        },
+        "x19": {
+          "mean": 0.6666666666666666,
+          "of": 3,
+          "incomplete": 0
+        }
+      },
+      "byArmMember": {
+        "m42": {
+          "c": {
+            "mean": 2,
+            "of": 1,
+            "incomplete": 0
+          },
+          "g": {
+            "mean": 0,
+            "of": 1,
+            "incomplete": 0
+          },
+          "o": {
+            "mean": 2,
+            "of": 1,
+            "incomplete": 0
+          }
+        },
+        "x19": {
+          "c": {
+            "mean": 1,
+            "of": 1,
+            "incomplete": 0
+          },
+          "g": {
+            "mean": 0,
+            "of": 1,
+            "incomplete": 0
+          },
+          "o": {
+            "mean": 1,
+            "of": 1,
+            "incomplete": 0
+          }
+        }
+      },
+      "agreement": {
+        "agree": 4,
+        "of": 4
+      }
+    },
+    {
+      "scenario": "admission-clarity",
+      "property": "a07",
+      "byArm": {
+        "m42": {
+          "mean": 1.3333333333333333,
+          "of": 3,
+          "incomplete": 0
+        },
+        "x19": {
+          "mean": 0.6666666666666666,
+          "of": 3,
+          "incomplete": 0
+        }
+      },
+      "byArmMember": {
+        "m42": {
+          "c": {
+            "mean": 2,
+            "of": 1,
+            "incomplete": 0
+          },
+          "g": {
+            "mean": 0,
+            "of": 1,
+            "incomplete": 0
+          },
+          "o": {
+            "mean": 2,
+            "of": 1,
+            "incomplete": 0
+          }
+        },
+        "x19": {
+          "c": {
+            "mean": 1,
+            "of": 1,
+            "incomplete": 0
+          },
+          "g": {
+            "mean": 0,
+            "of": 1,
+            "incomplete": 0
+          },
+          "o": {
+            "mean": 1,
+            "of": 1,
+            "incomplete": 0
+          }
+        }
+      },
+      "agreement": {
+        "agree": 4,
+        "of": 4
+      }
+    },
+    {
+      "scenario": "admission-clarity",
+      "property": "a08",
+      "byArm": {
+        "m42": {
+          "mean": 1.1666666666666667,
+          "of": 3,
+          "incomplete": 0
+        },
+        "x19": {
+          "mean": 1.3333333333333333,
+          "of": 3,
+          "incomplete": 0
+        }
+      },
+      "byArmMember": {
+        "m42": {
+          "c": {
+            "mean": 1.5,
+            "of": 1,
+            "incomplete": 0
+          },
+          "g": {
+            "mean": 0,
+            "of": 1,
+            "incomplete": 0
+          },
+          "o": {
+            "mean": 2,
+            "of": 1,
+            "incomplete": 0
+          }
+        },
+        "x19": {
+          "c": {
+            "mean": 2,
+            "of": 1,
+            "incomplete": 0
+          },
+          "g": {
+            "mean": 0,
+            "of": 1,
+            "incomplete": 0
+          },
+          "o": {
+            "mean": 2,
+            "of": 1,
+            "incomplete": 0
+          }
+        }
+      },
+      "agreement": {
+        "agree": 3,
+        "of": 4
+      }
+    },
+    {
+      "scenario": "admission-clarity",
+      "property": "a09",
+      "byArm": {
+        "m42": {
+          "mean": 1.3333333333333333,
+          "of": 3,
+          "incomplete": 0
+        },
+        "x19": {
+          "mean": 0.8333333333333334,
+          "of": 3,
+          "incomplete": 0
+        }
+      },
+      "byArmMember": {
+        "m42": {
+          "c": {
+            "mean": 2,
+            "of": 1,
+            "incomplete": 0
+          },
+          "g": {
+            "mean": 0,
+            "of": 1,
+            "incomplete": 0
+          },
+          "o": {
+            "mean": 2,
+            "of": 1,
+            "incomplete": 0
+          }
+        },
+        "x19": {
+          "c": {
+            "mean": 1,
+            "of": 1,
+            "incomplete": 0
+          },
+          "g": {
+            "mean": 0,
+            "of": 1,
+            "incomplete": 0
+          },
+          "o": {
+            "mean": 1.5,
+            "of": 1,
+            "incomplete": 0
+          }
+        }
+      },
+      "agreement": {
+        "agree": 3,
+        "of": 4
+      }
+    },
+    {
+      "scenario": "admission-clarity",
+      "property": "a10",
+      "byArm": {
+        "m42": {
+          "mean": 1.3333333333333333,
+          "of": 3,
+          "incomplete": 0
+        },
+        "x19": {
+          "mean": 0.8333333333333334,
+          "of": 3,
+          "incomplete": 0
+        }
+      },
+      "byArmMember": {
+        "m42": {
+          "c": {
+            "mean": 2,
+            "of": 1,
+            "incomplete": 0
+          },
+          "g": {
+            "mean": 0,
+            "of": 1,
+            "incomplete": 0
+          },
+          "o": {
+            "mean": 2,
+            "of": 1,
+            "incomplete": 0
+          }
+        },
+        "x19": {
+          "c": {
+            "mean": 1,
+            "of": 1,
+            "incomplete": 0
+          },
+          "g": {
+            "mean": 0,
+            "of": 1,
+            "incomplete": 0
+          },
+          "o": {
+            "mean": 1.5,
+            "of": 1,
+            "incomplete": 0
+          }
+        }
+      },
+      "agreement": {
+        "agree": 3,
+        "of": 4
+      }
+    },
+    {
+      "scenario": "admission-clarity",
+      "property": "a11",
+      "byArm": {
+        "m42": {
+          "mean": 1.3333333333333333,
+          "of": 3,
+          "incomplete": 0
+        },
+        "x19": {
+          "mean": 0.6666666666666666,
+          "of": 3,
+          "incomplete": 0
+        }
+      },
+      "byArmMember": {
+        "m42": {
+          "c": {
+            "mean": 2,
+            "of": 1,
+            "incomplete": 0
+          },
+          "g": {
+            "mean": 0,
+            "of": 1,
+            "incomplete": 0
+          },
+          "o": {
+            "mean": 2,
+            "of": 1,
+            "incomplete": 0
+          }
+        },
+        "x19": {
+          "c": {
+            "mean": 1,
+            "of": 1,
+            "incomplete": 0
+          },
+          "g": {
+            "mean": 0,
+            "of": 1,
+            "incomplete": 0
+          },
+          "o": {
+            "mean": 1,
+            "of": 1,
+            "incomplete": 0
+          }
+        }
+      },
+      "agreement": {
+        "agree": 4,
+        "of": 4
+      }
+    },
+    {
+      "scenario": "admission-clarity",
+      "property": "a12",
+      "byArm": {
+        "m42": {
+          "mean": 1.3333333333333333,
+          "of": 3,
+          "incomplete": 0
+        },
+        "x19": {
+          "mean": 0.6666666666666666,
+          "of": 3,
+          "incomplete": 0
+        }
+      },
+      "byArmMember": {
+        "m42": {
+          "c": {
+            "mean": 2,
+            "of": 1,
+            "incomplete": 0
+          },
+          "g": {
+            "mean": 0,
+            "of": 1,
+            "incomplete": 0
+          },
+          "o": {
+            "mean": 2,
+            "of": 1,
+            "incomplete": 0
+          }
+        },
+        "x19": {
+          "c": {
+            "mean": 1,
+            "of": 1,
+            "incomplete": 0
+          },
+          "g": {
+            "mean": 0,
+            "of": 1,
+            "incomplete": 0
+          },
+          "o": {
+            "mean": 1,
+            "of": 1,
+            "incomplete": 0
+          }
+        }
+      },
+      "agreement": {
+        "agree": 4,
+        "of": 4
+      }
+    },
+    {
+      "scenario": "admission-clarity",
+      "property": "a13",
+      "byArm": {
+        "m42": {
+          "mean": 1.3333333333333333,
+          "of": 3,
+          "incomplete": 0
+        },
+        "x19": {
+          "mean": 1.1666666666666667,
+          "of": 3,
+          "incomplete": 0
+        }
+      },
+      "byArmMember": {
+        "m42": {
+          "c": {
+            "mean": 2,
+            "of": 1,
+            "incomplete": 0
+          },
+          "g": {
+            "mean": 0,
+            "of": 1,
+            "incomplete": 0
+          },
+          "o": {
+            "mean": 2,
+            "of": 1,
+            "incomplete": 0
+          }
+        },
+        "x19": {
+          "c": {
+            "mean": 2,
+            "of": 1,
+            "incomplete": 0
+          },
+          "g": {
+            "mean": 0,
+            "of": 1,
+            "incomplete": 0
+          },
+          "o": {
+            "mean": 1.5,
+            "of": 1,
+            "incomplete": 0
+          }
+        }
+      },
+      "agreement": {
+        "agree": 3,
+        "of": 4
+      }
+    },
+    {
+      "scenario": "admission-clarity",
+      "property": "a14",
+      "byArm": {
+        "m42": {
+          "mean": 1.3333333333333333,
+          "of": 3,
+          "incomplete": 0
+        },
+        "x19": {
+          "mean": 1.3333333333333333,
+          "of": 3,
+          "incomplete": 0
+        }
+      },
+      "byArmMember": {
+        "m42": {
+          "c": {
+            "mean": 2,
+            "of": 1,
+            "incomplete": 0
+          },
+          "g": {
+            "mean": 0,
+            "of": 1,
+            "incomplete": 0
+          },
+          "o": {
+            "mean": 2,
+            "of": 1,
+            "incomplete": 0
+          }
+        },
+        "x19": {
+          "c": {
+            "mean": 2,
+            "of": 1,
+            "incomplete": 0
+          },
+          "g": {
+            "mean": 0,
+            "of": 1,
+            "incomplete": 0
+          },
+          "o": {
+            "mean": 2,
+            "of": 1,
+            "incomplete": 0
+          }
+        }
+      },
+      "agreement": {
+        "agree": 4,
+        "of": 4
+      }
+    },
+    {
+      "scenario": "admission-clarity",
+      "property": "a15",
+      "byArm": {
+        "m42": {
+          "mean": 1,
+          "of": 3,
+          "incomplete": 0
+        },
+        "x19": {
+          "mean": 0.6666666666666666,
+          "of": 3,
+          "incomplete": 0
+        }
+      },
+      "byArmMember": {
+        "m42": {
+          "c": {
+            "mean": 1,
+            "of": 1,
+            "incomplete": 0
+          },
+          "g": {
+            "mean": 0,
+            "of": 1,
+            "incomplete": 0
+          },
+          "o": {
+            "mean": 2,
+            "of": 1,
+            "incomplete": 0
+          }
+        },
+        "x19": {
+          "c": {
+            "mean": 1,
+            "of": 1,
+            "incomplete": 0
+          },
+          "g": {
+            "mean": 0,
+            "of": 1,
+            "incomplete": 0
+          },
+          "o": {
+            "mean": 1,
+            "of": 1,
+            "incomplete": 0
+          }
+        }
+      },
+      "agreement": {
+        "agree": 4,
+        "of": 4
+      }
+    },
+    {
+      "scenario": "admission-clarity",
+      "property": "a16",
+      "byArm": {
+        "m42": {
+          "mean": 1.1666666666666667,
+          "of": 3,
+          "incomplete": 0
+        },
+        "x19": {
+          "mean": 1.3333333333333333,
+          "of": 3,
+          "incomplete": 0
+        }
+      },
+      "byArmMember": {
+        "m42": {
+          "c": {
+            "mean": 1.5,
+            "of": 1,
+            "incomplete": 0
+          },
+          "g": {
+            "mean": 0,
+            "of": 1,
+            "incomplete": 0
+          },
+          "o": {
+            "mean": 2,
+            "of": 1,
+            "incomplete": 0
+          }
+        },
+        "x19": {
+          "c": {
+            "mean": 2,
+            "of": 1,
+            "incomplete": 0
+          },
+          "g": {
+            "mean": 0,
+            "of": 1,
+            "incomplete": 0
+          },
+          "o": {
+            "mean": 2,
+            "of": 1,
+            "incomplete": 0
+          }
+        }
+      },
+      "agreement": {
+        "agree": 3,
+        "of": 4
+      }
+    },
+    {
+      "scenario": "admission-clarity",
+      "property": "a17",
+      "byArm": {
+        "m42": {
+          "mean": 1.1666666666666667,
+          "of": 3,
+          "incomplete": 0
+        },
+        "x19": {
+          "mean": 1.3333333333333333,
+          "of": 3,
+          "incomplete": 0
+        }
+      },
+      "byArmMember": {
+        "m42": {
+          "c": {
+            "mean": 1.5,
+            "of": 1,
+            "incomplete": 0
+          },
+          "g": {
+            "mean": 0,
+            "of": 1,
+            "incomplete": 0
+          },
+          "o": {
+            "mean": 2,
+            "of": 1,
+            "incomplete": 0
+          }
+        },
+        "x19": {
+          "c": {
+            "mean": 2,
+            "of": 1,
+            "incomplete": 0
+          },
+          "g": {
+            "mean": 0,
+            "of": 1,
+            "incomplete": 0
+          },
+          "o": {
+            "mean": 2,
+            "of": 1,
+            "incomplete": 0
+          }
+        }
+      },
+      "agreement": {
+        "agree": 3,
+        "of": 4
+      }
+    },
+    {
+      "scenario": "admission-clarity",
+      "property": "a18",
+      "byArm": {
+        "m42": {
+          "mean": 1.3333333333333333,
+          "of": 3,
+          "incomplete": 0
+        },
+        "x19": {
+          "mean": 1.3333333333333333,
+          "of": 3,
+          "incomplete": 0
+        }
+      },
+      "byArmMember": {
+        "m42": {
+          "c": {
+            "mean": 2,
+            "of": 1,
+            "incomplete": 0
+          },
+          "g": {
+            "mean": 0,
+            "of": 1,
+            "incomplete": 0
+          },
+          "o": {
+            "mean": 2,
+            "of": 1,
+            "incomplete": 0
+          }
+        },
+        "x19": {
+          "c": {
+            "mean": 2,
+            "of": 1,
+            "incomplete": 0
+          },
+          "g": {
+            "mean": 0,
+            "of": 1,
+            "incomplete": 0
+          },
+          "o": {
+            "mean": 2,
+            "of": 1,
+            "incomplete": 0
+          }
+        }
+      },
+      "agreement": {
+        "agree": 4,
+        "of": 4
+      }
+    },
+    {
+      "scenario": "admission-clarity",
+      "property": "a19",
+      "byArm": {
+        "m42": {
+          "mean": 1.3333333333333333,
+          "of": 3,
+          "incomplete": 0
+        },
+        "x19": {
+          "mean": 1.3333333333333333,
+          "of": 3,
+          "incomplete": 0
+        }
+      },
+      "byArmMember": {
+        "m42": {
+          "c": {
+            "mean": 2,
+            "of": 1,
+            "incomplete": 0
+          },
+          "g": {
+            "mean": 0,
+            "of": 1,
+            "incomplete": 0
+          },
+          "o": {
+            "mean": 2,
+            "of": 1,
+            "incomplete": 0
+          }
+        },
+        "x19": {
+          "c": {
+            "mean": 2,
+            "of": 1,
+            "incomplete": 0
+          },
+          "g": {
+            "mean": 0,
+            "of": 1,
+            "incomplete": 0
+          },
+          "o": {
+            "mean": 2,
+            "of": 1,
+            "incomplete": 0
+          }
+        }
+      },
+      "agreement": {
+        "agree": 4,
+        "of": 4
+      }
+    },
+    {
+      "scenario": "admission-clarity",
+      "property": "a20",
+      "byArm": {
+        "m42": {
+          "mean": 1.3333333333333333,
+          "of": 3,
+          "incomplete": 0
+        },
+        "x19": {
+          "mean": 1.3333333333333333,
+          "of": 3,
+          "incomplete": 0
+        }
+      },
+      "byArmMember": {
+        "m42": {
+          "c": {
+            "mean": 2,
+            "of": 1,
+            "incomplete": 0
+          },
+          "g": {
+            "mean": 0,
+            "of": 1,
+            "incomplete": 0
+          },
+          "o": {
+            "mean": 2,
+            "of": 1,
+            "incomplete": 0
+          }
+        },
+        "x19": {
+          "c": {
+            "mean": 2,
+            "of": 1,
+            "incomplete": 0
+          },
+          "g": {
+            "mean": 0,
+            "of": 1,
+            "incomplete": 0
+          },
+          "o": {
+            "mean": 2,
+            "of": 1,
+            "incomplete": 0
+          }
+        }
+      },
+      "agreement": {
+        "agree": 4,
+        "of": 4
+      }
+    },
+    {
+      "scenario": "admission-clarity",
+      "property": "a21",
+      "byArm": {
+        "m42": {
+          "mean": 1.3333333333333333,
+          "of": 3,
+          "incomplete": 0
+        },
+        "x19": {
+          "mean": 1.1666666666666667,
+          "of": 3,
+          "incomplete": 0
+        }
+      },
+      "byArmMember": {
+        "m42": {
+          "c": {
+            "mean": 2,
+            "of": 1,
+            "incomplete": 0
+          },
+          "g": {
+            "mean": 0,
+            "of": 1,
+            "incomplete": 0
+          },
+          "o": {
+            "mean": 2,
+            "of": 1,
+            "incomplete": 0
+          }
+        },
+        "x19": {
+          "c": {
+            "mean": 1.5,
+            "of": 1,
+            "incomplete": 0
+          },
+          "g": {
+            "mean": 0,
+            "of": 1,
+            "incomplete": 0
+          },
+          "o": {
+            "mean": 2,
+            "of": 1,
+            "incomplete": 0
+          }
+        }
+      },
+      "agreement": {
+        "agree": 3,
+        "of": 4
+      }
+    },
+    {
+      "scenario": "admission-clarity",
+      "property": "a22",
+      "byArm": {
+        "m42": {
+          "mean": 1.3333333333333333,
+          "of": 3,
+          "incomplete": 0
+        },
+        "x19": {
+          "mean": 1.3333333333333333,
+          "of": 3,
+          "incomplete": 0
+        }
+      },
+      "byArmMember": {
+        "m42": {
+          "c": {
+            "mean": 2,
+            "of": 1,
+            "incomplete": 0
+          },
+          "g": {
+            "mean": 0,
+            "of": 1,
+            "incomplete": 0
+          },
+          "o": {
+            "mean": 2,
+            "of": 1,
+            "incomplete": 0
+          }
+        },
+        "x19": {
+          "c": {
+            "mean": 2,
+            "of": 1,
+            "incomplete": 0
+          },
+          "g": {
+            "mean": 0,
+            "of": 1,
+            "incomplete": 0
+          },
+          "o": {
+            "mean": 2,
+            "of": 1,
+            "incomplete": 0
+          }
+        }
+      },
+      "agreement": {
+        "agree": 4,
+        "of": 4
+      }
+    },
+    {
+      "scenario": "admission-clarity",
+      "property": "a23",
+      "byArm": {
+        "m42": {
+          "mean": 1,
+          "of": 3,
+          "incomplete": 0
+        },
+        "x19": {
+          "mean": 1.1666666666666667,
+          "of": 3,
+          "incomplete": 0
+        }
+      },
+      "byArmMember": {
+        "m42": {
+          "c": {
+            "mean": 1.5,
+            "of": 1,
+            "incomplete": 0
+          },
+          "g": {
+            "mean": 0,
+            "of": 1,
+            "incomplete": 0
+          },
+          "o": {
+            "mean": 1.5,
+            "of": 1,
+            "incomplete": 0
+          }
+        },
+        "x19": {
+          "c": {
+            "mean": 1.5,
+            "of": 1,
+            "incomplete": 0
+          },
+          "g": {
+            "mean": 0,
+            "of": 1,
+            "incomplete": 0
+          },
+          "o": {
+            "mean": 2,
+            "of": 1,
+            "incomplete": 0
+          }
+        }
+      },
+      "agreement": {
+        "agree": 1,
+        "of": 4
+      }
+    },
+    {
+      "scenario": "admission-clarity",
+      "property": "a24",
+      "byArm": {
+        "m42": {
+          "mean": 1.3333333333333333,
+          "of": 3,
+          "incomplete": 0
+        },
+        "x19": {
+          "mean": 1.3333333333333333,
+          "of": 3,
+          "incomplete": 0
+        }
+      },
+      "byArmMember": {
+        "m42": {
+          "c": {
+            "mean": 2,
+            "of": 1,
+            "incomplete": 0
+          },
+          "g": {
+            "mean": 0,
+            "of": 1,
+            "incomplete": 0
+          },
+          "o": {
+            "mean": 2,
+            "of": 1,
+            "incomplete": 0
+          }
+        },
+        "x19": {
+          "c": {
+            "mean": 2,
+            "of": 1,
+            "incomplete": 0
+          },
+          "g": {
+            "mean": 0,
+            "of": 1,
+            "incomplete": 0
+          },
+          "o": {
+            "mean": 2,
+            "of": 1,
+            "incomplete": 0
+          }
+        }
+      },
+      "agreement": {
+        "agree": 4,
+        "of": 4
+      }
+    }
+  ],
+  "totals": {
+    "m42": 30.66666666666666,
+    "x19": 25.666666666666664
+  },
+  "excluded": [],
+  "absent": [],
+  "guesses": {
+    "right": 0,
+    "all": 0,
+    "byGuess": {},
+    "baseRate": null
+  },
+  "unreachable": [],
+  "cellValues": {
+    "admission-clarity.m42.c.1": {
+      "a01": 1.5,
+      "a02": 2,
+      "a03": 2,
+      "a04": 2,
+      "a05": 2,
+      "a06": 2,
+      "a07": 2,
+      "a08": 1.5,
+      "a09": 2,
+      "a10": 2,
+      "a11": 2,
+      "a12": 2,
+      "a13": 2,
+      "a14": 2,
+      "a15": 1,
+      "a16": 1.5,
+      "a17": 1.5,
+      "a18": 2,
+      "a19": 2,
+      "a20": 2,
+      "a21": 2,
+      "a22": 2,
+      "a23": 1.5,
+      "a24": 2
+    },
+    "admission-clarity.m42.g.1": {
+      "a01": 0,
+      "a02": 0,
+      "a03": 0,
+      "a04": 0,
+      "a05": 0,
+      "a06": 0,
+      "a07": 0,
+      "a08": 0,
+      "a09": 0,
+      "a10": 0,
+      "a11": 0,
+      "a12": 0,
+      "a13": 0,
+      "a14": 0,
+      "a15": 0,
+      "a16": 0,
+      "a17": 0,
+      "a18": 0,
+      "a19": 0,
+      "a20": 0,
+      "a21": 0,
+      "a22": 0,
+      "a23": 0,
+      "a24": 0
+    },
+    "admission-clarity.m42.o.1": {
+      "a01": 2,
+      "a02": 2,
+      "a03": 2,
+      "a04": 2,
+      "a05": 2,
+      "a06": 2,
+      "a07": 2,
+      "a08": 2,
+      "a09": 2,
+      "a10": 2,
+      "a11": 2,
+      "a12": 2,
+      "a13": 2,
+      "a14": 2,
+      "a15": 2,
+      "a16": 2,
+      "a17": 2,
+      "a18": 2,
+      "a19": 2,
+      "a20": 2,
+      "a21": 2,
+      "a22": 2,
+      "a23": 1.5,
+      "a24": 2
+    },
+    "admission-clarity.x19.c.1": {
+      "a01": 1.5,
+      "a02": 2,
+      "a03": 2,
+      "a04": 1,
+      "a05": 1,
+      "a06": 1,
+      "a07": 1,
+      "a08": 2,
+      "a09": 1,
+      "a10": 1,
+      "a11": 1,
+      "a12": 1,
+      "a13": 2,
+      "a14": 2,
+      "a15": 1,
+      "a16": 2,
+      "a17": 2,
+      "a18": 2,
+      "a19": 2,
+      "a20": 2,
+      "a21": 1.5,
+      "a22": 2,
+      "a23": 1.5,
+      "a24": 2
+    },
+    "admission-clarity.x19.g.1": {
+      "a01": 0,
+      "a02": 0,
+      "a03": 0,
+      "a04": 0,
+      "a05": 0,
+      "a06": 0,
+      "a07": 0,
+      "a08": 0,
+      "a09": 0,
+      "a10": 0,
+      "a11": 0,
+      "a12": 0,
+      "a13": 0,
+      "a14": 0,
+      "a15": 0,
+      "a16": 0,
+      "a17": 0,
+      "a18": 0,
+      "a19": 0,
+      "a20": 0,
+      "a21": 0,
+      "a22": 0,
+      "a23": 0,
+      "a24": 0
+    },
+    "admission-clarity.x19.o.1": {
+      "a01": 2,
+      "a02": 2,
+      "a03": 2,
+      "a04": 1,
+      "a05": 1,
+      "a06": 1,
+      "a07": 1,
+      "a08": 2,
+      "a09": 1.5,
+      "a10": 1.5,
+      "a11": 1,
+      "a12": 1,
+      "a13": 1.5,
+      "a14": 2,
+      "a15": 1,
+      "a16": 2,
+      "a17": 2,
+      "a18": 2,
+      "a19": 2,
+      "a20": 2,
+      "a21": 2,
+      "a22": 2,
+      "a23": 2,
+      "a24": 2
+    }
+  }
+}

@@ -1,0 +1,11 @@
+{
+  "experiment": "admission-clarity",
+  "records": [
+    {
+      "experiment": "admission-clarity",
+      "hash": "21eff1aeafa1d667413e2678f16064fbbe39b9417f1758c149b3540660aac10c",
+      "recordedAt": "2026-10-16T06:05:26.163Z",
+      "declaredStatus": "result"
+    }
+  ]
+}

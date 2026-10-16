@@ -1,0 +1,138 @@
+{
+  "schema": "agp.admission-execution-author-record/1",
+  "recordedAtUtc": "2026-10-16T06:16:06.543Z",
+  "scope": "Retained execution and author mechanical checks; independent completed-measurement verdict remains outstanding.",
+  "command": "node docs/reviews/admission-lifetime-assurance-r4/run-admission-comparison.mjs /tmp/agp-admission-resume.9mKplT/context-lab d1632ef02acd34c0460426185242174f7896a463 /home/apnex/taceng/agp/docs/reviews/admission-lifetime-assurance-r4/admission-provider-readiness-06.txt --execute",
+  "cwd": "/home/apnex/taceng/agp",
+  "executionChunks": [
+    {
+      "chunk_id": "0a2db7",
+      "wall_time_seconds": 1.001314037,
+      "session_id": 58185,
+      "original_token_count": 85,
+      "output": "{\"event\":\"registered\",\"register\":{\"experiment\":\"admission-clarity\",\"hash\":\"21eff1aeafa1d667413e2678f16064fbbe39b9417f1758c149b3540660aac10c\",\"recordedAt\":\"2026-10-16T06:05:26.163Z\",\"declaredStatus\":\"result\"},\"workRoot\":\"/tmp/agp-admission-r4-execution.02Fvhz\",\"reviewedRevision\":\"d1632ef02acd34c0460426185242174f7896a463\",\"frozenFiles\":40}\n"
+    },
+    {
+      "chunk_id": "5e885c",
+      "wall_time_seconds": 25.000810179,
+      "session_id": 58185,
+      "original_token_count": 0,
+      "output": ""
+    },
+    {
+      "chunk_id": "32394f",
+      "wall_time_seconds": 25.001247994,
+      "session_id": 58185,
+      "original_token_count": 0,
+      "output": ""
+    },
+    {
+      "chunk_id": "b444bb",
+      "wall_time_seconds": 25.001499373,
+      "session_id": 58185,
+      "original_token_count": 0,
+      "output": ""
+    },
+    {
+      "chunk_id": "2ee5f2",
+      "wall_time_seconds": 25.001699813,
+      "session_id": 58185,
+      "original_token_count": 0,
+      "output": ""
+    },
+    {
+      "chunk_id": "c5e322",
+      "wall_time_seconds": 25.001893906,
+      "session_id": 58185,
+      "original_token_count": 0,
+      "output": ""
+    },
+    {
+      "chunk_id": "796b3e",
+      "wall_time_seconds": 25.001258741,
+      "session_id": 58185,
+      "original_token_count": 0,
+      "output": ""
+    },
+    {
+      "chunk_id": "bc249c",
+      "wall_time_seconds": 25.00107292,
+      "session_id": 58185,
+      "original_token_count": 0,
+      "output": ""
+    },
+    {
+      "chunk_id": "3730ee",
+      "wall_time_seconds": 25.0015256,
+      "session_id": 58185,
+      "original_token_count": 0,
+      "output": ""
+    },
+    {
+      "chunk_id": "a0bcec",
+      "wall_time_seconds": 25.001669961,
+      "session_id": 58185,
+      "original_token_count": 0,
+      "output": ""
+    },
+    {
+      "chunk_id": "15cc5b",
+      "wall_time_seconds": 25.001851178,
+      "session_id": 58185,
+      "original_token_count": 0,
+      "output": ""
+    },
+    {
+      "chunk_id": "afc79d",
+      "wall_time_seconds": 8.892858671,
+      "exit_code": 0,
+      "original_token_count": 91,
+      "output": "{\"event\":\"accounted\",\"directory\":\"/home/apnex/taceng/agp/docs/reviews/admission-lifetime-assurance-r4/records/2026-10-16-060526-admission-clarity\",\"complete\":true,\"issues\":[],\"mechanicalDisposition\":\"NUMERIC CONDITIONS NOT MET; INDEPENDENT REVIEW REQUIRED\",\"numericConditions\":{\"candidateThresholdsMet\":false,\"noControlRegression\":false,\"strictImprovement\":true}}\n"
+    }
+  ],
+  "completionCheck": {
+    "command": "node --input-type=module <<'NODE'\nimport assert from 'node:assert/strict';\nimport fs from 'node:fs';\nimport path from 'node:path';\nimport { createHash } from 'node:crypto';\nimport { execFileSync } from 'node:child_process';\nconst packet='docs/reviews/admission-lifetime-assurance-r4';\nconst dir=packet+'/records/2026-10-16-060526-admission-clarity';\nconst read=p=>JSON.parse(fs.readFileSync(p));\nconst sha=p=>createHash('sha256').update(fs.readFileSync(p)).digest('hex');\nconst reviewed='d1632ef02acd34c0460426185242174f7896a463';\nconst paths=execFileSync('git',['ls-tree','-r','--name-only',reviewed,'--',packet],{encoding:'utf8'}).trim().split('\\n');\nfor(const p of paths)assert.ok(fs.readFileSync(p).equals(execFileSync('git',['show',reviewed+':'+p])),p);\nconst rawPaths=[];\nfunction walk(p){for(const e of fs.readdirSync(p,{withFileTypes:true})){const f=path.join(p,e.name);if(e.isDirectory())walk(f);else rawPaths.push(f);}}\nwalk(packet+'/records');walk(packet+'/register');\nrawPaths.push(packet+'/reader-m42-g-events.jsonl',packet+'/reader-x19-g-events.jsonl');\nconst credential=process.env.LITELLM_NETBIRD_API_KEY;\nassert.ok(credential);\nconst secretMatches=rawPaths.filter(p=>fs.readFileSync(p).includes(Buffer.from(credential)));\nassert.equal(secretMatches.length,0,'Credential literal must not appear in retained records');\nconst record=read(dir+'/run.json'),accounting=read(dir+'/ADMISSION-ACCOUNTING.json'),replay=read(dir+'/admission-judge-replay.json'),tallyReplay=read(dir+'/admission-replay.json'),receipt=read(packet+'/records/admission-execution-receipt.json');\nassert.equal(receipt.reviewedRevision,reviewed);\nassert.equal(receipt.readiness.sha256,sha(packet+'/admission-provider-readiness-06.txt'));\nassert.equal(record.end,'completed');assert.equal(accounting.complete,true);assert.deepEqual(accounting.issues,[]);assert.deepEqual(replay.issues,[]);\nconst hashNow=['RESULT.json','RESULT.md'].map(name=>sha(dir+'/'+name));\nassert.deepEqual(tallyReplay.tallyHashes,hashNow);assert.equal(tallyReplay.identical,true);\nassert.equal(sha('/home/apnex/.config/opencode/opencode.json'),'3d50767fea0cf4305e62d9baeca99edf7d1fa14281eebb320084cffd2d9e7f64');\nconst cells=record.cells.map(id=>read(dir+'/cells/'+id+'.json'));\nconst ended=cells.filter(c=>c.attempts.at(-1).validity.cause==='behaviour').map(c=>({cell:c.cell,attempts:c.attempts.length,validity:c.attempts.at(-1).validity,answerFile:c.scoredFile.content,eventPath:c.attempts.at(-1).outcome.events}));\nfor(const c of ended) assert.ok(fs.readFileSync(c.eventPath).equals(fs.readFileSync(packet+'/reader-'+c.cell.split('.')[1]+'-g-events.jsonl')));\nconsole.log(JSON.stringify({observedAt:new Date().toISOString(),reviewedRevision:reviewed,frozenFilesUnchanged:paths.length,run:record.run,states:record.states,end:record.end,readerProfilesPassed:record.probes.filter(p=>p.pass).length,judgeProfilesPassed:record.judgeProbes.filter(p=>p.pass).length,readerAttempts:cells.reduce((n,c)=>n+c.attempts.length,0),usableValidPhases:cells.filter(c=>c.valid).length,endedPhases:ended,accounting:{complete:accounting.complete,issues:accounting.issues,outcomes:accounting.outcomeCount,intendedSlots:accounting.intendedVoteSlots,castVotes:accounting.castVotes,explicitUncastSlots:accounting.rows.flatMap(r=>r.slots).filter(s=>s.status==='uncast').length,numericConditions:accounting.numericConditions,mechanicalDisposition:accounting.mechanicalDisposition,regressedControls:accounting.table.filter(r=>r.control&&r.candidateSum<r.predecessorSum).map(r=>r.heading)},judgeReplay:{issues:replay.issues,retainedJobs:replay.retainedJobs,reconciledJobs:replay.reconciledJobs,replayedReplies:replay.replayedReplies,modelCalls:replay.modelCalls},tallyReplay,retainedFiles:rawPaths.length,retainedBytes:rawPaths.reduce((n,p)=>n+fs.statSync(p).size,0),credentialLiteralMatches:secretMatches.length,sharedOperatorConfigUnchanged:true,hashes:Object.fromEntries(rawPaths.sort().map(p=>[p.slice(packet.length+1),sha(p)])),scope:'Author execution/accounting evidence; no independent assurance verdict'},null,2));\nNODE",
+    "result": {
+      "chunk_id": "166d11",
+      "wall_time_seconds": 0.027115422,
+      "exit_code": 0,
+      "original_token_count": 2695,
+      "output": "{\n  \"observedAt\": \"2026-10-16T06:15:36.584Z\",\n  \"reviewedRevision\": \"d1632ef02acd34c0460426185242174f7896a463\",\n  \"frozenFilesUnchanged\": 40,\n  \"run\": \"2026-10-16-060526-admission-clarity\",\n  \"states\": [\n    {\n      \"state\": \"validated\",\n      \"at\": \"2026-10-16T06:05:26.181Z\"\n    },\n    {\n      \"state\": \"recorded\",\n      \"at\": \"2026-10-16T06:05:26.182Z\"\n    },\n    {\n      \"state\": \"built\",\n      \"at\": \"2026-10-16T06:05:26.206Z\"\n    },\n    {\n      \"state\": \"probed\",\n      \"at\": \"2026-10-16T06:06:00.046Z\"\n    },\n    {\n      \"state\": \"executed\",\n      \"at\": \"2026-10-16T06:09:50.011Z\"\n    },\n    {\n      \"state\": \"measured\",\n      \"at\": \"2026-10-16T06:09:50.016Z\"\n    },\n    {\n      \"state\": \"blinded\",\n      \"at\": \"2026-10-16T06:09:50.022Z\"\n    },\n    {\n      \"state\": \"judged\",\n      \"at\": \"2026-10-16T06:14:37.699Z\"\n    },\n    {\n      \"state\": \"tallied\",\n      \"at\": \"2026-10-16T06:14:37.709Z\"\n    }\n  ],\n  \"end\": \"completed\",\n  \"readerProfilesPassed\": 6,\n  \"judgeProfilesPassed\": 3,\n  \"readerAttempts\": 6,\n  \"usableValidPhases\": 4,\n  \"endedPhases\": [\n    {\n      \"cell\": \"admission-clarity.m42.g.1\",\n      \"attempts\": 1,\n      \"validity\": {\n        \"valid\": false,\n        \"cause\": \"behaviour\",\n        \"detail\": \"the agent ended with no message\"\n      },\n      \"answerFile\": null,\n      \"eventPath\": \"/tmp/agp-admission-r4-execution.02Fvhz/2026-10-16-060526-admission-clarity/invocations/i-VlxpCz/events.jsonl\"\n    },\n    {\n      \"cell\": \"admission-clarity.x19.g.1\",\n      \"attempts\": 1,\n      \"validity\": {\n        \"valid\": false,\n        \"cause\": \"behaviour\",\n        \"detail\": \"the agent ended with no message\"\n      },\n      \"answerFile\": null,\n      \"eventPath\": \"/tmp/agp-admission-r4-execution.02Fvhz/2026-10-16-060526-admission-clarity/invocations/i-AVpzrA/events.jsonl\"\n    }\n  ],\n  \"accounting\": {\n    \"complete\": true,\n    \"issues\": [],\n    \"outcomes\": 144,\n    \"intendedSlots\": 288,\n    \"castVotes\": 192,\n    \"explicitUncastSlots\": 0,\n    \"numericConditions\": {\n      \"candidateThresholdsMet\": false,\n      \"noControlRegression\": false,\n      \"strictImprovement\": true\n    },\n    \"mechanicalDisposition\": \"NUMERIC CONDITIONS NOT MET; INDEPENDENT REVIEW REQUIRED\",\n    \"regressedControls\": [\n      \"A08\",\n      \"A16\",\n      \"A17\",\n      \"A23\"\n    ]\n  },\n  \"judgeReplay\": {\n    \"issues\": [],\n    \"retainedJobs\": 32,\n    \"reconciledJobs\": 32,\n    \"replayedReplies\": 32,\n    \"modelCalls\": 0\n  },\n  \"tallyReplay\": {\n    \"replayedAt\": \"2026-10-16T06:14:38.266Z\",\n    \"tallyHashes\": [\n      \"54d5e9ef4d4de5eb9d180a61b4ffaa4858d26a44e7faeee65895fb0e6401b3af\",\n      \"df0740219e9959b2febf581eb4a95b21bb70d4722da06ed42afe3acfb7b51404\"\n    ],\n    \"identical\": true\n  },\n  \"retainedFiles\": 50,\n  \"retainedBytes\": 2997164,\n  \"credentialLiteralMatches\": 0,\n  \"sharedOperatorConfigUnchanged\": true,\n  \"hashes\": {\n    \"reader-m42-g-events.jsonl\": \"f4c2468ca2d60bb9902a315ffad0dbd3008c9e79e0e4680e5435872c3d851c5a\",\n    \"reader-x19-g-events.jsonl\": \"0b915ddb4ca1f6968c5801c7c45a41986b6fd22cbeb26520a8fc3a1ccfda0bba\",\n    \"records/2026-10-16-060526-admission-clarity/ADMISSION-ACCOUNTING.json\": \"353ecbaf3d468ad2225f489ad5551c3fbe35475943b9908325b2ef6f8b75e722\",\n    \"records/2026-10-16-060526-admission-clarity/RESULT.json\": \"54d5e9ef4d4de5eb9d180a61b4ffaa4858d26a44e7faeee65895fb0e6401b3af\",\n    \"records/2026-10-16-060526-admission-clarity/RESULT.md\": \"df0740219e9959b2febf581eb4a95b21bb70d4722da06ed42afe3acfb7b51404\",\n    \"records/2026-10-16-060526-admission-clarity/admission-judge-replay.json\": \"02344475eacb2928ea9bb99a15e1bdb81cd2fe602f55a5b875970169b0206d86\",\n    \"records/2026-10-16-060526-admission-clarity/admission-replay.json\": \"2c02f7903f29199a4eda4635d31ec319c60c533fc2e34e629df9f65b41e28836\",\n    \"records/2026-10-16-060526-admission-clarity/cells/admission-clarity.m42.c.1.json\": \"ab4a2fb2d1b570a90203d77007f83e2212a70f65085cef664087a9094b385a65\",\n    \"records/2026-10-16-060526-admission-clarity/cells/admission-clarity.m42.g.1.json\": \"e3f25304ab2baa0023b6d2b51da0fc01d1b2e758a26ac38cf8bdd72a57436516\",\n    \"records/2026-10-16-060526-admission-clarity/cells/admission-clarity.m42.o.1.json\": \"ca141727df9dfd935e0143fd9118bfeb61ea2064760e514c0a4e61e8a4bb63a6\",\n    \"records/2026-10-16-060526-admission-clarity/cells/admission-clarity.x19.c.1.json\": \"56c2b216b9ea96e84cc411a21c30e3787277f003442fc94b3a7919cec53bffe5\",\n    \"records/2026-10-16-060526-admission-clarity/cells/admission-clarity.x19.g.1.json\": \"34aa1a3cf3c3c897ce67c9f620c8e081f7a72b8a0c7b722d9db57a37a0cf629a\",\n    \"records/2026-10-16-060526-admission-clarity/cells/admission-clarity.x19.o.1.json\": \"640e9ef3b913c59d213d6df0b26b5b810006cf7d153df8b9d57c40b10e4797ba\",\n    \"records/2026-10-16-060526-admission-clarity/judging/admission-clarity.answer.answers.c.1.json\": \"1fab03aee7e59261673421bde48af4d3e289f7629a87d0b95338303fe403546d\",\n    \"records/2026-10-16-060526-admission-clarity/judging/admission-clarity.answer.answers.c.2.json\": \"772f6654bff956f02a037ed9d61685604acd6de6f00ee0d3ce777671ae2afb70\",\n    \"records/2026-10-16-060526-admission-clarity/judging/admission-clarity.answer.answers.c.3.json\": \"bcb3f7eaa6397afda4b1e5f6a34abef1d759d89f1f1b43d05281c3dc061f8973\",\n    \"records/2026-10-16-060526-admission-clarity/judging/admission-clarity.answer.answers.c.4.json\": \"955118190caa87807474ad516fee9ff1cebc8e0fefcdaf76449111aa34df1cca\",\n    \"records/2026-10-16-060526-admission-clarity/judging/admission-clarity.answer.answers.c.5.json\": \"836f9eae994b053cf924f905055716e82724c86751154ff4a1e87565c00184a3\",\n    \"records/2026-10-16-060526-admission-clarity/judging/admission-clarity.answer.answers.c.6.json\": \"059e97c05faac6c19418395da9c97ac2f8fcf713cdb012b3a462552ac4e24ed5\",\n    \"records/2026-10-16-060526-admission-clarity/judging/admission-clarity.answer.answers.c.7.json\": \"965da1a679dd1fb19ed4db6368299a2fece004e396523de7f9c3e5e86d2f4302\",\n    \"records/2026-10-16-060526-admission-clarity/judging/admission-clarity.answer.answers.c.8.json\": \"2ea6cbfd99e92fcee2adb8c6466d004c5941ef662484ed2d0ef0de59ec615890\",\n    \"records/2026-10-16-060526-admission-clarity/judging/admission-clarity.answer.answers.g.1.json\": \"d5316ad909a00d70461c211b7f55aec3bc0bb5afdd362bb4b64eff1d501b8475\",\n    \"records/2026-10-16-060526-admission-clarity/judging/admission-clarity.answer.answers.g.10.json\": \"2ba68a41641631af07107de5d0595a02b6ab9755215a2c9e8504585212783adc\",\n    \"records/2026-10-16-060526-admission-clarity/judging/admission-clarity.answer.answers.g.11.json\": \"f4f6acb45be918b3b78e3aecf9a39d7d816e267ac3d13d5f6b0277d96bb90e3e\",\n    \"records/2026-10-16-060526-admission-clarity/judging/admission-clarity.answer.answers.g.12.json\": \"456077c80f452cbe9fe20adc4232b6db51c5a1f72855382cfc40b1b631d0dd67\",\n    \"records/2026-10-16-060526-admission-clarity/judging/admission-clarity.answer.answers.g.13.json\": \"0aa4963d8558b63d974b548b1fa21eb0b095d8af3951a5b7cfd35129f69bce48\",\n    \"records/2026-10-16-060526-admission-clarity/judging/admission-clarity.answer.answers.g.14.json\": \"c7ca2c2eb62a49c91234b93521fe5030bea60f1cafd93f975329a83924b1496a\",\n    \"records/2026-10-16-060526-admission-clarity/judging/admission-clarity.answer.answers.g.15.json\": \"a7183070c0dac9f88c87a222182822c9900815284c252ad5c951c94ce8040544\",\n    \"records/2026-10-16-060526-admission-clarity/judging/admission-clarity.answer.answers.g.16.json\": \"3e67f8508747230d2cbb27bb165624c94a3ce67d1fa9eecc4317a685ffea4583\",\n    \"records/2026-10-16-060526-admission-clarity/judging/admission-clarity.answer.answers.g.2.json\": \"026877404177c547ad60ca44023532544bb1e64bfccf98fed7a7adca3fe10d73\",\n    \"records/2026-10-16-060526-admission-clarity/judging/admission-clarity.answer.answers.g.3.json\": \"dd574362c34ef88c3b2fa1c51ebf612f80374d2d86587d8cd14a886052a44785\",\n    \"records/2026-10-16-060526-admission-clarity/judging/admission-clarity.answer.answers.g.4.json\": \"4802fcb8832f9aa6af1887aa788f7007e5ed76221116ba73cfaf1fd9e52698cd\",\n    \"records/2026-10-16-060526-admission-clarity/judging/admission-clarity.answer.answers.g.5.json\": \"ac13295b0191183b4df300646036b2e20fed5a1673607ccf6a618a13a883aae2\",\n    \"records/2026-10-16-060526-admission-clarity/judging/admission-clarity.answer.answers.g.6.json\": \"d2abf6c4d0ab84a92f42e3cc279c08dbe65856fb0b662e21e8b163900aa6cd20\",\n    \"records/2026-10-16-060526-admission-clarity/judging/admission-clarity.answer.answers.g.7.json\": \"7516e301881aeed111323f1a1f63aeaeec69fa3e06f03324e8263d26c97a8caa\",\n    \"records/2026-10-16-060526-admission-clarity/judging/admission-clarity.answer.answers.g.8.json\": \"b8afccb31211f9a101f5d5629fde0dd3f25efb0b2991704a8bf0dec5c341ed61\",\n    \"records/2026-10-16-060526-admission-clarity/judging/admission-clarity.answer.answers.g.9.json\": \"9da41beff98c19de5f96278b8a125d1934d607c374de849374fe0f8b80ac5e09\",\n    \"records/2026-10-16-060526-admission-clarity/judging/admission-clarity.answer.answers.o.1.json\": \"8138ff60da064222992521342568e881382d9d48f508694ece2c6af441d9e232\",\n    \"records/2026-10-16-060526-admission-clarity/judging/admission-clarity.answer.answers.o.2.json\": \"c2b9ce6b84ca7fc1da3df96ad141e650eea1802a103a82bc8a9ab7fc761b0c6e\",\n    \"records/2026-10-16-060526-admission-clarity/judging/admission-clarity.answer.answers.o.3.json\": \"6aea91e1baf00d0a3ca4bbab8138cbc96231df4200387a3a64f56f985e0d6d8f\",\n    \"records/2026-10-16-060526-admission-clarity/judging/admission-clarity.answer.answers.o.4.json\": \"9c2fd905ca0ba27e788ea9ad2328b3c62e59dba6b1678db0b88f4f1367999da3\",\n    \"records/2026-10-16-060526-admission-clarity/judging/admission-clarity.answer.answers.o.5.json\": \"134fd34b0c6270becda5f6692f05ee7e96e23ba164c1c905cc6d29a30c07fce7\",\n    \"records/2026-10-16-060526-admission-clarity/judging/admission-clarity.answer.answers.o.6.json\": \"c0f78963e3afff33d0fabf9172bb0df33f8d894551bad4b6228888d7cd66e786\",\n    \"records/2026-10-16-060526-admission-clarity/judging/admission-clarity.answer.answers.o.7.json\": \"dc01fc3646dbb01a5248c8f7c574421e465bdb8c25f85de516f1f225fd5777b4\",\n    \"records/2026-10-16-060526-admission-clarity/judging/admission-clarity.answer.answers.o.8.json\": \"f7fa26a8971a4008e1e2a35cf6138a46fc7a6eb33fec4419fdd1cfb5dd7e8300\",\n    \"records/2026-10-16-060526-admission-clarity/judging/votes.json\": \"6103dbe526abd97e30a095d0036526f13ca211659911817b2ab9d0a04178a558\",\n    \"records/2026-10-16-060526-admission-clarity/run.json\": \"52535ef37dcccd976863eb21424557b85a19a41238fb082b8bab1cdcee6fc053\",\n    \"records/2026-10-16-060526-admission-clarity/sealed/units.json\": \"aae36709c8743a77b3e93ebfc3051e60cdfed8798661953e3eae110860399725\",\n    \"records/admission-execution-receipt.json\": \"1e10b29d923e917e49c923ffbf67cf3514d282f05433998effb610383b625915\",\n    \"register/admission-clarity.json\": \"29051715daa7ceffa35fae6572873ba79bcac90d1721b1403e6e89f5ab3410e2\"\n  },\n  \"scope\": \"Author execution/accounting evidence; no independent assurance verdict\"\n}\n"
+    }
+  },
+  "slotCensusCorrection": {
+    "command": "node --input-type=module <<'NODE'\nimport assert from 'node:assert/strict';\nimport fs from 'node:fs';\nconst a=JSON.parse(fs.readFileSync('docs/reviews/admission-lifetime-assurance-r4/records/2026-10-16-060526-admission-clarity/ADMISSION-ACCOUNTING.json'));\nconst statuses={};\nfor(const slot of a.rows.flatMap(r=>r.slots)) statuses[slot.status]=(statuses[slot.status]??0)+1;\nassert.equal(statuses['not cast: ended phase'],96);\nassert.equal(a.castVotes,192);\nassert.equal(Object.values(statuses).reduce((n,v)=>n+v,0),288);\nconsole.log(JSON.stringify({recordedAt:new Date().toISOString(),statuses,castVotes:a.castVotes,explicitUncastSlots:statuses['not cast: ended phase'],totalSlots:288,correction:'The first supplemental author diagnostic counted status === uncast, a value not used by this schema, and printed zero. This direct status census corrects that diagnostic; no run record, score or accounting artifact was edited.'},null,2));\nNODE",
+    "result": {
+      "chunk_id": "e902ce",
+      "wall_time_seconds": 0.000010662,
+      "exit_code": 0,
+      "original_token_count": 109,
+      "output": "{\n  \"recordedAt\": \"2026-10-16T06:16:06.543Z\",\n  \"statuses\": {\n    \"cast\": 192,\n    \"not cast: ended phase\": 96\n  },\n  \"castVotes\": 192,\n  \"explicitUncastSlots\": 96,\n  \"totalSlots\": 288,\n  \"correction\": \"The first supplemental author diagnostic counted status === uncast, a value not used by this schema, and printed zero. This direct status census corrects that diagnostic; no run record, score or accounting artifact was edited.\"\n}\n"
+    }
+  },
+  "runtimeEvents": {
+    "m42": {
+      "chunk_id": "2a4fd0",
+      "wall_time_seconds": 0.000031085,
+      "exit_code": 0,
+      "original_token_count": 184,
+      "output": "{\"type\":\"step_start\",\"timestamp\":1792130922918,\"sessionID\":\"ses_ebcaeb67fffeQtN8XSHel3fVkk\",\"part\":{\"id\":\"prt_14353b99f001S6Jws54eQBUiUK\",\"messageID\":\"msg_14351515000107Q4BAlh5hQJRg\",\"sessionID\":\"ses_ebcaeb67fffeQtN8XSHel3fVkk\",\"snapshot\":\"4b825dc642cb6eb9a060e54bf8d69288fbee4904\",\"type\":\"step-start\"}}\n{\"type\":\"step_finish\",\"timestamp\":1792130922968,\"sessionID\":\"ses_ebcaeb67fffeQtN8XSHel3fVkk\",\"part\":{\"id\":\"prt_14353b9ca001INN1IDBHaGQFvz\",\"reason\":\"length\",\"snapshot\":\"4b825dc642cb6eb9a060e54bf8d69288fbee4904\",\"messageID\":\"msg_14351515000107Q4BAlh5hQJRg\",\"sessionID\":\"ses_ebcaeb67fffeQtN8XSHel3fVkk\",\"type\":\"step-finish\",\"tokens\":{\"total\":47711,\"input\":20565,\"output\":0,\"reasoning\":27146,\"cache\":{\"write\":0,\"read\":0}},\"cost\":0}}\n"
+    },
+    "x19": {
+      "chunk_id": "9dff64",
+      "wall_time_seconds": 0.000041355,
+      "exit_code": 0,
+      "original_token_count": 184,
+      "output": "{\"type\":\"step_start\",\"timestamp\":1792130989813,\"sessionID\":\"ses_ebcaeb0b6ffeDrQ8COumWH2O1K\",\"part\":{\"id\":\"prt_14354beed001NFf90yWvzc2u0b\",\"messageID\":\"msg_143515519001EveTkgc99s7k3S\",\"sessionID\":\"ses_ebcaeb0b6ffeDrQ8COumWH2O1K\",\"snapshot\":\"4b825dc642cb6eb9a060e54bf8d69288fbee4904\",\"type\":\"step-start\"}}\n{\"type\":\"step_finish\",\"timestamp\":1792130989835,\"sessionID\":\"ses_ebcaeb0b6ffeDrQ8COumWH2O1K\",\"part\":{\"id\":\"prt_14354bf05001x6oWVxEBXvfYi3\",\"reason\":\"length\",\"snapshot\":\"4b825dc642cb6eb9a060e54bf8d69288fbee4904\",\"messageID\":\"msg_143515519001EveTkgc99s7k3S\",\"sessionID\":\"ses_ebcaeb0b6ffeDrQ8COumWH2O1K\",\"type\":\"step-finish\",\"tokens\":{\"total\":43421,\"input\":18091,\"output\":0,\"reasoning\":25330,\"cache\":{\"write\":0,\"read\":0}},\"cost\":0}}\n"
+    },
+    "preservation": "Both copied JSONL files compare byte-for-byte with their retained runtime event paths (cmp exit 0 for each)."
+  },
+  "boundaries": [
+    "No reader retry or judge completion retry occurred",
+    "Ended Gemini phases retained as 48 deterministic zero outcomes and 96 explicit not-cast slots; not missing required votes",
+    "Version/configuration changes were committed and independently reviewed before this run",
+    "No model/configuration/key/score/threshold change during or after execution",
+    "No inference about the backend or client limit responsible for the observed length stop",
+    "No AGP runtime repair, ratification, B53 closure, push or Zorg message"
+  ]
+}

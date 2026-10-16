@@ -1,0 +1,1350 @@
+{
+  "seed": "2026-10-16-060526-admission-clarity",
+  "units": [
+    {
+      "id": "u0001",
+      "cell": "admission-clarity.m42.c.1",
+      "scenario": "admission-clarity",
+      "arm": "m42",
+      "member": "c",
+      "family": "claude",
+      "properties": [
+        "a19"
+      ],
+      "phase": "answer",
+      "text": "--- ANSWER ---\nDecision: Labeling the timely allow as a denial is wrong. An allow proceeds through normal collision and confirmation. Labeling the timely deny as a policy refusal is correct. Labeling the reservation failure as a denial is wrong. It is the proposed `AdmissionCapacityExceeded`, with admission-fault cleanup and the `INTERNAL_ERROR` reconnect disposition. The reservation failure is the outcome that invokes no provider.\n\nDocument support:\nQUOTE: \"| Timely identity result | Allow follows normal collision and confirmation rules; deny remains a policy refusal |\"\nQUOTE: \"At capacity, refuse before provider invocation and report proposed `AdmissionCapacityExceeded`, not `IDENTITY_REJECTED` or a per-route `POLICY` denial.\"\nQUOTE: \"Its terminal effects follow the existing admission-fault cleanup and `INTERNAL_ERROR` reconnect disposition, but do not misreport a provider fault when no provider was called.\"\n\nInference or gap: NONE\n",
+      "blindedAt": "2026-10-16T06:09:50.021Z"
+    },
+    {
+      "id": "u0002",
+      "cell": "admission-clarity.m42.o.1",
+      "scenario": "admission-clarity",
+      "arm": "m42",
+      "member": "o",
+      "family": "gpt",
+      "properties": [
+        "a01"
+      ],
+      "phase": "answer",
+      "text": "--- ANSWER ---\nDecision: P may be released now because its invocation permit was revoked before invocation. Q must retain its reservation despite cancellation until its evaluation settles and AGP disposes the retained work. R must retain its reservation until its owned result is disposed; settlement alone is insufficient. If disposal is performed at this checkpoint, R can then be released exactly once.\n\nDocument support:\n\nQUOTE: \"A reservation whose invocation permit is revoked before the provider is called can be released immediately.\"\nQUOTE: \"Its capacity remains reserved while that result is waiting, preventing an unbounded queue of settled results behind the executor.\"\nQUOTE: \"On eventual provider settlement, dispose the retained work and release its reservation exactly once; stale success and stale failure have the same lack of authority.\"\n\nInference or gap: NONE.\n",
+      "blindedAt": "2026-10-16T06:09:50.021Z"
+    },
+    {
+      "id": "u0003",
+      "cell": "admission-clarity.x19.o.1",
+      "scenario": "admission-clarity",
+      "arm": "x19",
+      "member": "o",
+      "family": "gpt",
+      "properties": [
+        "a13"
+      ],
+      "phase": "answer",
+      "text": "--- ANSWER ---\nDecision: Neither the prepared identity result nor the queued stop completion may proceed as an ordinary transaction after numeric terminal replacement. The node owns the runtime gate and serialized coordinator. Exhaustion from any publication closes that gate, sets host authority to Failed, invalidates admission and other action permits, and discards the exhausting ordinary plan. The prepared identity result loses effect authority. The stop continuation must observe the same gate and cannot overwrite Failed, publish another revision, or rearm an adjacency. OperationsStore cannot independently terminalize only the projection.\n\nDocument support:\n\nQUOTE: \"All runtime operations publications must reach this coordinator, including ones outside admission, so an unrelated counter/event/revision exhaustion revokes admission and acquisition authority too.\"\nQUOTE: \"Close the runtime gate and set host authority to `Failed`; invalidate the node generation, all admission invocation/result permits, acquisition adoption permits, supervisor wait/timer generations, and outstanding ordinary action intents.\"\nQUOTE: \"A stop or listener-failure continuation already queued must observe the terminal gate and must not overwrite `Failed` with `Stopping` or `Stopped`, generate another revision, or rearm an adjacency.\"\n\nInference or gap: NONE.\n",
+      "blindedAt": "2026-10-16T06:09:50.021Z"
+    },
+    {
+      "id": "u0004",
+      "cell": "admission-clarity.m42.o.1",
+      "scenario": "admission-clarity",
+      "arm": "m42",
+      "member": "o",
+      "family": "gpt",
+      "properties": [
+        "a02"
+      ],
+      "phase": "answer",
+      "text": "--- ANSWER ---\nDecision: The old rejection cannot fault the replacement or release the replacement's reservation. Application checks the runtime gate, controller identity/incarnation, admission kind, exact token and deadline. The removed controller's completion is stale regardless of the shared peer identity or the replacement's timeliness. Its bounded accounting owner observes and disposes the old completion and releases only the old evaluation's reservation once settlement and disposal permit. It cannot introduce a new session fault or expiry.\n\nDocument support:\n\nQUOTE: \"Route the prepared completion through a short executor turn that checks the runtime authority gate, controller identity, admission kind, token and deadline;\"\nQUOTE: \"Runtime authority revoked, controller replaced, admission kind/token stale, or another terminal cause already committed | Dispose the retained completion through its bounded owner; no admission event, identity effect, route effect or new terminal cause\"\nQUOTE: \"Revocation detaches the result's session-effect target; a late observer retains only bounded work-accounting state, not a closure that keeps the controller and channel alive.\"\n\nInference or gap: NONE.\n",
+      "blindedAt": "2026-10-16T06:09:50.021Z"
+    },
+    {
+      "id": "u0005",
+      "cell": "admission-clarity.x19.c.1",
+      "scenario": "admission-clarity",
+      "arm": "x19",
+      "member": "c",
+      "family": "claude",
+      "properties": [
+        "a17"
+      ],
+      "phase": "answer",
+      "text": "--- ANSWER ---\nDecision: Nothing may start. When backoff expires with route capacity still full, only the timer is consumed and one waiter is kept or registered. No new attempt begins and `retryAt` is cleared. The later notification carries no permit. The start-turn level check finds the slot taken, so the waiter remains with the current capacity reason. The remembered route-refusing pool persists until an actual next acquisition begins. Identity availability is also checked at start.\n\nDocument support:\nQUOTE: \"Consume only the timer; retain/register one waiter and the ended attempt projection\"\nQUOTE: \"The start-turn level check keeps the waiter; an older notification carries no permit\"\nQUOTE: \"Immediately before local acquisition, check identity-pool availability and any pool that caused that adjacency's prior local capacity refusal.\"\nQUOTE: \"Remembered refusing pools persist across capacity fluctuations and backoff until one actual next acquisition begins; they are then consumed, not inherited indefinitely.\"\nQUOTE: \"Availability is not a reservation, and provider invocation still reserves atomically.\"\n\nInference or gap: NONE\n",
+      "blindedAt": "2026-10-16T06:09:50.021Z"
+    },
+    {
+      "id": "u0006",
+      "cell": "admission-clarity.x19.o.1",
+      "scenario": "admission-clarity",
+      "arm": "x19",
+      "member": "o",
+      "family": "gpt",
+      "properties": [
+        "a11"
+      ],
+      "phase": "answer",
+      "text": "--- ANSWER ---\nDecision: The malformed/incomplete result fails preparation. It cannot consume the route revision, mutate routing, or authorize an ACK. The design's admission-fault model supports treating an invalid current result as a session fault, but it does not explicitly define the invalid-route-result-to-terminal transition. The complete valid result denying one tuple is explicitly nonfatal: policy denial is an ordinary route outcome, and a successfully prepared, guarded and committed proposal consumes one revision and authorizes one ACK. Reserved evaluation capacity does not validate either result.\n\nDocument support:\n\nQUOTE: \"Validate the result against exactly that subset, including an empty subset.\"\nQUOTE: \"Neither the controller revision nor routing state may change until that complete preparation succeeds.\"\nQUOTE: \"Success, rejection, thrown/invalid result and timer callbacks obey the same exact current-token guard\"\nQUOTE: \"Complete valid allow/deny decisions cause one atomic revision/RIB change and one ACK; per-route denials remain nonfatal\"\n\nInference or gap: Session termination for malformed results is a reasonable admission-fault interpretation, not a fully specified transition in this document. Its exact event/disposition is missing; nonfatal policy denial and the malformed proposal's lack of commit authority are explicit.\n",
+      "blindedAt": "2026-10-16T06:09:50.021Z"
+    },
+    {
+      "id": "u0007",
+      "cell": "admission-clarity.m42.c.1",
+      "scenario": "admission-clarity",
+      "arm": "m42",
+      "member": "c",
+      "family": "claude",
+      "properties": [
+        "a04"
+      ],
+      "phase": "answer",
+      "text": "--- ANSWER ---\nDecision: Equality counts as expired. The route result plan and its unconsumed ordinary permit are discarded, with no route, revision or ACK effects. In the same serialized turn, the session controller's single expiry decision path prepares and preflights `AdmissionExpired`. It then commits it through the node coordinator, without waiting for the timer. This route expiry uses the Established expiry actions: invalidate the continuation, send `INTERNAL_ERROR` only if safe, purge and release. Result authority is revoked, the timer is cancelled and teardown starts. The already settled result's reservation is released only when that result is disposed.\n\nDocument support:\nQUOTE: \"a result is timely only while `now < deadline`.\"\nQUOTE: \"Equality is expired, and provider settlement time does not replace the final application-time check.\"\nQUOTE: \"| A bound expires between preparation and the final guard | Discard the unconsumed ordinary permit and result plan; prepare and preflight the expiry transition in the same turn, with no result effects |\"\nQUOTE: \"The session controller owns the serialized transition; timer delivery and result application call the same expiry decision path, not separate terminal owners.\"\nQUOTE: \"select `AdmissionExpired` unless the identity/OPEN precedence below selects `OpenExpired`; do not wait for the scheduled timer input\"\nQUOTE: \"Route expiry retains the Established expiry actions: invalidate the continuation, send `INTERNAL_ERROR` only if safe, purge and release.\"\n\nInference or gap: The phrase \"a bound expires between preparation and the final guard\" is read here to include the case where the final guard observes equality. That reading follows from the `now < deadline` rule.\n",
+      "blindedAt": "2026-10-16T06:09:50.021Z"
+    },
+    {
+      "id": "u0008",
+      "cell": "admission-clarity.x19.c.1",
+      "scenario": "admission-clarity",
+      "arm": "x19",
+      "member": "c",
+      "family": "claude",
+      "properties": [
+        "a11"
+      ],
+      "phase": "answer",
+      "text": "--- ANSWER ---\nDecision: The complete valid list with one policy denial is a normal outcome. The denial is nonfatal, and the result yields one atomic revision/RIB change and one ACK. The malformed or incomplete list is rejected without retaining an unbounded copy. It causes no revision, RIB change or ACK, and leaves no partial routing state. Whether the malformed list ends the session is only inferred: it appears to be an admission fault with the existing fault cleanup and `INTERNAL_ERROR` disposition.\n\nDocument support:\nQUOTE: \"Complete valid allow/deny decisions cause one atomic revision/RIB change and one ACK; per-route denials remain nonfatal\"\nQUOTE: \"reject invalid shape without retaining an unbounded copy\"\nQUOTE: \"a failed preparation leaves no partial routing state\"\nQUOTE: \"Success, rejection, thrown/invalid result and timer callbacks obey the same exact current-token guard\"\n\nInference or gap: The design does not explicitly classify an invalid route result as a session-terminal admission fault. That classification rests on the existing contract, which is not reproduced here.\n",
+      "blindedAt": "2026-10-16T06:09:50.021Z"
+    },
+    {
+      "id": "u0009",
+      "cell": "admission-clarity.x19.o.1",
+      "scenario": "admission-clarity",
+      "arm": "x19",
+      "member": "o",
+      "family": "gpt",
+      "properties": [
+        "a05"
+      ],
+      "phase": "answer",
+      "text": "--- ANSWER ---\nDecision: When both deadlines have elapsed, admission authority has expired and must not commit a result. However, the document does not resolve an equal-deadline tie between OPEN expiry and identity-admission expiry, or identify which terminal transition wins independently of delivery order. Delivery of the admission callback first is not a documented tie-breaking rule. In the separate early-wake observation, no deadline-expiry transition is justified by that wake: neither deadline is elapsed. A current timer generation does not itself establish expiry.\n\nDocument support:\n\nQUOTE: \"Independent provider budget, consistent with the present default OPEN budget; the earlier applicable OPEN deadline still wins\"\nQUOTE: \"Use monotonic elapsed time, tokened timer generations and deadline checks at invocation and commit.\"\nQUOTE: \"The reducer also rejects mismatched admission fault and expiry tokens as defence in depth.\"\n\nInference or gap: Equal-deadline priority is missing. No explicit early-callback rearming transition is supplied; refusing premature expiry follows the monotonic-deadline requirement, but the precise rescheduling action is unspecified.\n",
+      "blindedAt": "2026-10-16T06:09:50.021Z"
+    },
+    {
+      "id": "u0010",
+      "cell": "admission-clarity.x19.c.1",
+      "scenario": "admission-clarity",
+      "arm": "x19",
+      "member": "c",
+      "family": "claude",
+      "properties": [
+        "a03"
+      ],
+      "phase": "answer",
+      "text": "--- ANSWER ---\nDecision: Not permitted. Result normalization (property access, cloning, provider-controlled callbacks) must happen outside the executor. It produces bounded, owned, immutable data before the short guarded executor turn. Abort-event delivery must also stay outside the executor, and is requested only after authority has been revoked or detached. Both can run application code. The serialized prepare-to-install sequence forbids external callbacks between preparation and installation.\n\nDocument support:\nQUOTE: \"Normalize a potentially current provider result outside the executor into bounded owned immutable data\"\nQUOTE: \"Property access, cloning and provider-controlled callbacks must not become application code running inside the executor.\"\nQUOTE: \"Provider calls and abort-event delivery both stay outside the executor because either can run application code.\"\nQUOTE: \"without yielding, recursive publication or external callbacks between preparation and installation\"\n\nInference or gap: NONE\n",
+      "blindedAt": "2026-10-16T06:09:50.021Z"
+    },
+    {
+      "id": "u0011",
+      "cell": "admission-clarity.m42.c.1",
+      "scenario": "admission-clarity",
+      "arm": "m42",
+      "member": "c",
+      "family": "claude",
+      "properties": [
+        "a03"
+      ],
+      "phase": "answer",
+      "text": "--- ANSWER ---\nDecision: Not permitted. Normalizing the result and delivering the abort event can both run provider or application code, so both must happen outside the executor. Normalization happens before the completion is routed into the short serialized turn. That turn only checks authority and installs the already prepared owned data. Cooperative cancellation is requested outside the executor, after authority has been revoked synchronously.\n\nDocument support:\nQUOTE: \"Normalize a potentially current provider result outside the executor into bounded owned immutable data; reject invalid shape without retaining an unbounded copy. Property access, cloning and provider-controlled callbacks must not become application code running inside the executor.\"\nQUOTE: \"Provider calls and abort-event delivery both stay outside the executor because either can run application code.\"\nQUOTE: \"Once expiry commits, revoke result authority, cancel the timer and detach the effect target synchronously; request cooperative cancellation outside the executor and start the owned teardown.\"\n\nInference or gap: NONE\n",
+      "blindedAt": "2026-10-16T06:09:50.021Z"
+    },
+    {
+      "id": "u0012",
+      "cell": "admission-clarity.x19.o.1",
+      "scenario": "admission-clarity",
+      "arm": "x19",
+      "member": "o",
+      "family": "gpt",
+      "properties": [
+        "a07"
+      ],
+      "phase": "answer",
+      "text": "--- ANSWER ---\nDecision: Detachment cannot justify restarting D or dropping the active cleanup deadline. The existing cleanup work is transferred to a bounded owner, and the single budget began with the committed cause. The later write timeout cannot replace that already-winning session cause or authorize a second session terminal disposition. Numeric failure separately closes node authority and creates its terminal capture. Until terminal evidence is consumed, cleanup must continue under the retained budget; detached cleanup cannot publish ordinary operations changes.\n\nDocument support:\n\nQUOTE: \"Start one teardown budget when the terminal cause commits.\"\nQUOTE: \"transfer still-needed reader/channel cleanup to its existing bounded cleanup owner.\"\nQUOTE: \"Fatal notification, invalid input, transport rejection or terminal | Bypass the barrier and use the one terminal disposition; preserve already-observed FIFO transport evidence\"\nQUOTE: \"These tasks cannot restore live authority, schedule retry or publish operations changes, even if they settle immediately.\"\n\nInference or gap: Preserving D across ownership transfer follows the one-budget requirement. The document does not detail the transferred timer/guard representation or a write-timeout-specific cause-precedence transition; it does require one winning session disposition and continued bounded cleanup.\n",
+      "blindedAt": "2026-10-16T06:09:50.021Z"
+    },
+    {
+      "id": "u0013",
+      "cell": "admission-clarity.x19.c.1",
+      "scenario": "admission-clarity",
+      "arm": "x19",
+      "member": "c",
+      "family": "claude",
+      "properties": [
+        "a16"
+      ],
+      "phase": "answer",
+      "text": "--- ANSWER ---\nDecision: The projection is not necessarily wrong. A never-attempted adjacency blocked on identity capacity is `retry-wait` with a capacity reason, no `retryAt` and no `activeControllerId`. Disabled reconnect does not prevent the initial attempt or its capacity wait. Waiting consumes no attempt and represents no timer. Only identity capacity must open, because there is no remembered route refusal and route pressure alone does not block an identity-only phase. Inference: the reason should be `identity-admission-capacity`, not the combined value.\n\nDocument support:\nQUOTE: \"Register one waiter; no attempt, session token or backoff is manufactured\"\nQUOTE: \"`retry-wait`, capacity reason, no `retryAt`, no `activeControllerId`; `retryAttempt` unchanged\"\nQUOTE: \"`reconnect.enabled = false` prevents repeat attempts, not the initial configured attempt or its pre-acquisition capacity wait.\"\nQUOTE: \"At eligibility checks, identity capacity is always required; route capacity is required only when that set includes a local route-capacity refusal.\"\nQUOTE: \"Route-pool pressure alone does not prohibit an unrelated identity-only phase\"\nQUOTE: \"`retryAt` is the wall-time projection recorded when a real monotonic backoff timer is armed, not an estimate of when capacity will become available.\"\n\nInference or gap: The choice of the identity-only reason when the route pool is also full is inferred from the eligibility rule.\n",
+      "blindedAt": "2026-10-16T06:09:50.021Z"
+    },
+    {
+      "id": "u0014",
+      "cell": "admission-clarity.m42.c.1",
+      "scenario": "admission-clarity",
+      "arm": "m42",
+      "member": "c",
+      "family": "claude",
+      "properties": [
+        "a20"
+      ],
+      "phase": "answer",
+      "text": "--- ANSWER ---\nDecision: No. The recommended API is one shared, optional second parameter that AGP always supplies. One-argument providers may ignore it and still type-check. There is no split between CLI and browser interfaces. Cancellation enters only through process-local `AdmissionEvaluationOptions { signal }`. The request/result DTOs and their schemas stay unchanged. Even if a provider ignores the signal, the work ledger still applies.\n\nDocument support:\nQUOTE: \"Recommendation: add one shared process-local `AdmissionEvaluationOptions` with a `signal` capability as an optional second parameter to both ports' `evaluate` methods.\"\nQUOTE: \"AGP always supplies it; existing one-argument implementations may ignore it.\"\nQUOTE: \"Keep the request and result DTOs unchanged and credential-free, and keep clocks, callback handles and cancellation authority out of their schemas.\"\nQUOTE: \"| Compatibility | Current providers still type-check; new options remain process-local; no protocol-schema change or browser/CLI policy split |\"\n\nInference or gap: This is a recommendation that has not been adopted. Provider inventory and compile checks are still required.\n",
+      "blindedAt": "2026-10-16T06:09:50.021Z"
+    },
+    {
+      "id": "u0015",
+      "cell": "admission-clarity.x19.c.1",
+      "scenario": "admission-clarity",
+      "arm": "x19",
+      "member": "c",
+      "family": "claude",
+      "properties": [
+        "a20"
+      ],
+      "phase": "answer",
+      "text": "--- ANSWER ---\nDecision: No. The recommendation adds an optional second parameter, which one-argument providers may ignore. It requires no browser/CLI split. Cancellation enters through a process-local `AdmissionEvaluationOptions.signal` that AGP always passes as the second `evaluate` argument. Request/result DTOs stay unchanged, with cancellation authority kept out of their schemas. This is a recommendation pending public type/export review and compatibility checks.\n\nDocument support:\nQUOTE: \"Recommendation: add one shared process-local `AdmissionEvaluationOptions` with a `signal` capability as an optional second parameter to both ports' `evaluate` methods.\"\nQUOTE: \"AGP always supplies it; existing one-argument implementations may ignore it.\"\nQUOTE: \"Keep the request and result DTOs unchanged and credential-free, and keep clocks, callback handles and cancellation authority out of their schemas.\"\nQUOTE: \"Current providers still type-check; new options remain process-local; no protocol-schema change or browser/CLI policy split\"\nQUOTE: \"Status: proposed behavior, not adopted or implemented.\"\n\nInference or gap: NONE\n",
+      "blindedAt": "2026-10-16T06:09:50.021Z"
+    },
+    {
+      "id": "u0016",
+      "cell": "admission-clarity.x19.c.1",
+      "scenario": "admission-clarity",
+      "arm": "x19",
+      "member": "c",
+      "family": "claude",
+      "properties": [
+        "a10"
+      ],
+      "phase": "answer",
+      "text": "--- ANSWER ---\nDecision: The design does not authorize skipping. Its sequence invokes after a committed reservation, and it explicitly requires validating against \"an empty subset\". That implies an empty-subset invocation is a legitimate case. A skip optimization is neither explicitly forbidden nor allowed. If the provider is invoked, the only valid decision list is empty: exactly one decision per requested tuple, and none were requested.\n\nDocument support:\nQUOTE: \"Validate the result against exactly that subset, including an empty subset.\"\nQUOTE: \"the contract requires policy decisions only for routes not already statically rejected\"\nQUOTE: \"returns exactly one decision per requested tuple\"\n\nInference or gap: Missing rule on whether a zero-eligible snapshot may bypass the provider. If it may, the design also does not say what happens to the already-committed reservation in that case.\n",
+      "blindedAt": "2026-10-16T06:09:50.021Z"
+    },
+    {
+      "id": "u0017",
+      "cell": "admission-clarity.x19.o.1",
+      "scenario": "admission-clarity",
+      "arm": "x19",
+      "member": "o",
+      "family": "gpt",
+      "properties": [
+        "a08"
+      ],
+      "phase": "answer",
+      "text": "--- ANSWER ---\nDecision: Starting the new route admission stops the drain until its result arrives. The new ordinary ACK joins the same FIFO and cannot bypass older commands or obtain early protocol effects. The head's queue reservation stays in place while synchronous dispatch prepares the command. It may be removed only after that dispatch has disposed the input or transferred it to another bounded owner, here the reserved evaluation record. It need not remain in the queue until provider settlement once that ownership transfer is complete.\n\nDocument support:\n\nQUOTE: \"processing a queued command that starts another admission stops that drain until the new result arrives.\"\nQUOTE: \"New ordinary arrivals join the same FIFO throughout; terminal commands still bypass it.\"\nQUOTE: \"Dequeue only after dispatch has disposed the input or transferred it to another bounded owner, including a reserved evaluation record when another admission starts.\"\n\nInference or gap: NONE.\n",
+      "blindedAt": "2026-10-16T06:09:50.021Z"
+    },
+    {
+      "id": "u0018",
+      "cell": "admission-clarity.m42.c.1",
+      "scenario": "admission-clarity",
+      "arm": "m42",
+      "member": "c",
+      "family": "claude",
+      "properties": [
+        "a24"
+      ],
+      "phase": "answer",
+      "text": "--- ANSWER ---\nDecision: No. Identity success does not remove the opening bound. The OPEN timer keeps its separate authority through confirmation, even when hold is zero. Once that deadline has elapsed, the existing OPEN expiry applies. The bound ends normally only when the session reaches `Established`, or otherwise at teardown.\n\nDocument support:\nQUOTE: \"Preserve the outer opening deadline through `OpenConfirm`, including when negotiated hold is zero\"\nQUOTE: \"after identity commit, the still-active OPEN timer retains its separate authority through confirmation.\"\nQUOTE: \"The OPEN timer remains armed until `Established` or teardown; admission success cannot leave an unlimited confirmation phase when hold is zero.\"\n\nInference or gap: The design names `OpenExpired` only in the identity-evaluation context. Using it as the transition in OpenConfirm is inferred from the existing OPEN timer authority.\n",
+      "blindedAt": "2026-10-16T06:09:50.021Z"
+    },
+    {
+      "id": "u0019",
+      "cell": "admission-clarity.x19.o.1",
+      "scenario": "admission-clarity",
+      "arm": "x19",
+      "member": "o",
+      "family": "gpt",
+      "properties": [
+        "a01"
+      ],
+      "phase": "answer",
+      "text": "--- ANSWER ---\nDecision: P may be released immediately: its invocation permit was revoked before any evaluation began. Q must remain reserved despite cancellation; release requires actual settlement and disposal of its retained work. R must also remain reserved at this checkpoint, because settlement alone is insufficient while its owned result awaits disposal. R can be released when that disposal occurs. Each release happens exactly once.\n\nDocument support:\n\nQUOTE: \"A reservation whose invocation permit is revoked before the provider is called can be released immediately.\"\nQUOTE: \"Its capacity remains reserved while that result is waiting, preventing an unbounded queue of settled results behind the executor.\"\nQUOTE: \"On eventual provider settlement, dispose the retained work and release its reservation exactly once; stale success and stale failure have the same lack of authority.\"\n\nInference or gap: NONE.\n",
+      "blindedAt": "2026-10-16T06:09:50.021Z"
+    },
+    {
+      "id": "u0020",
+      "cell": "admission-clarity.x19.o.1",
+      "scenario": "admission-clarity",
+      "arm": "x19",
+      "member": "o",
+      "family": "gpt",
+      "properties": [
+        "a22"
+      ],
+      "phase": "answer",
+      "text": "--- ANSWER ---\nDecision: Neither claim is established. The document provides no certification of 500 simultaneous browser peers, workload measurements, or browser physical-release guarantee. The defaults are review recommendations, with identity evaluation count derived from maxPendingHandshakes and route evaluation count from maxSessions; they are not independently measured deployment capacities. Counts bound outstanding AGP evaluations, including revoked unfinished work and retained results. Protocol/schema limits bound retained logical inputs per call. Neither bounds arbitrary provider allocations, hidden descendant tasks, physical JavaScript heap usage, or CPU execution.\n\nDocument support:\n\nQUOTE: \"These defaults are recommendations for review, not existing runtime behaviour or workload measurements.\"\nQUOTE: \"Proposed `maxIdentityAdmissionEvaluations` | Resolved `maxPendingHandshakes`\"\nQUOTE: \"Proposed `maxRouteAdmissionEvaluations` | Resolved `maxSessions`\"\nQUOTE: \"The request's protocol/schema limits bound the retained logical input size per call; these counts do not claim to bound a provider's arbitrary allocations or physical JavaScript heap bytes.\"\nQUOTE: \"No in-process acceptance claim includes stopping synchronous infinite computation, proving arbitrary provider allocations freed, or proving browser-native cleanup.\"\n\nInference or gap: NONE. A concrete peer-count certification would require evidence beyond this design.\n",
+      "blindedAt": "2026-10-16T06:09:50.021Z"
+    },
+    {
+      "id": "u0021",
+      "cell": "admission-clarity.x19.o.1",
+      "scenario": "admission-clarity",
+      "arm": "x19",
+      "member": "o",
+      "family": "gpt",
+      "properties": [
+        "a14"
+      ],
+      "phase": "answer",
+      "text": "--- ANSWER ---\nDecision: Both queries return the same terminal capture: the captured evaluation count still includes the two unfinished reservations, all other values remain as captured, the revision remains the terminal revision, and capturedAt remains T. Private late settlement/disposal may free internal reservations but cannot update public counters, events or revision. The count is historical last-known accounting at T, not evidence that those resources remain physically allocated at query time, nor proof that all physical resources were ever released.\n\nDocument support:\n\nQUOTE: \"Freeze its resource values, revision and `capturedAt` together; subsequent aggregate and focused queries return that same terminal capture, not a new timestamp on old counts.\"\nQUOTE: \"later private disposal can release internal reservations but cannot publish a new revision, event or counter.\"\nQUOTE: \"The final count is last-known at the terminal capture, not a live promise that resources remain allocated or that cleanup has finished.\"\n\nInference or gap: NONE.\n",
+      "blindedAt": "2026-10-16T06:09:50.021Z"
+    },
+    {
+      "id": "u0022",
+      "cell": "admission-clarity.m42.o.1",
+      "scenario": "admission-clarity",
+      "arm": "m42",
+      "member": "o",
+      "family": "gpt",
+      "properties": [
+        "a07"
+      ],
+      "phase": "answer",
+      "text": "--- ANSWER ---\nDecision: Detachment preserves D or may force cleanup sooner; it cannot restart the deadline or disable its guard while terminal observation is pending. Numeric failure closes ordinary authority, but the transferred cleanup owner retains exact cleanup-generation authority and the original deadline. The later write timeout may force an earlier channel abort, but cannot replace the committed protocol cause, publish another teardown event or restart the budget. The sole reader still consumes terminal evidence; detached cleanup cannot publish operations or schedule retry.\n\nDocument support:\n\nQUOTE: \"Node stop/failure overtakes an existing controller cleanup | Preserve its deadline or force cleanup sooner, never restart it; detached cleanup may run after the ordinary runtime gate closes\"\nQUOTE: \"After numeric terminal replacement, its exact cleanup-generation checks remain usable, but cleanup cannot publish operations, schedule retry or restore a controller.\"\nQUOTE: \"Per-send timeout expires after a terminal cause has committed | It may force channel abort earlier, but cannot replace the cause, publish another teardown event or restart the teardown budget\"\n\nInference or gap: NONE.\n",
+      "blindedAt": "2026-10-16T06:09:50.021Z"
+    },
+    {
+      "id": "u0023",
+      "cell": "admission-clarity.x19.o.1",
+      "scenario": "admission-clarity",
+      "arm": "x19",
+      "member": "o",
+      "family": "gpt",
+      "properties": [
+        "a09"
+      ],
+      "phase": "answer",
+      "text": "--- ANSWER ---\nDecision: Revoke the pending admission's authority and discard the queued semantic commands, releasing continuation reservations as their retained inputs are disposed. Neither the data command nor the credit-bearing command receives its ordinary protocol effect; credit cannot be applied early. The invoked, unsettled provider's evaluation reservation remains occupied despite cancellation. The sole reader must still consume already-accepted transport FIFO evidence through the ordered terminal record, draining without protocol effects after logical release. Queue disposal is not transport drain, provider settlement, or proof of native release.\n\nDocument support:\n\nQUOTE: \"On expiry or terminal disposition, revoke authority first, cancel its timer, detach its effect target and request cooperative cancellation outside the executor\"\nQUOTE: \"Reading ahead is not permission to apply a queued packet's peer-credit grant early.\"\nQUOTE: \"An admitted packet may become semantically inert after a session-fatal event, but the transport's already-accepted FIFO must still be drained\"\nQUOTE: \"Both current and revoked-but-unsettled work consume their pool; neither timeout, connection replacement nor snapshot removal returns a slot.\"\n\nInference or gap: Releasing continuation storage follows actual input disposal and ownership conservation; it does not release the distinct evaluation or transport reservations prematurely.\n",
+      "blindedAt": "2026-10-16T06:09:50.021Z"
+    },
+    {
+      "id": "u0024",
+      "cell": "admission-clarity.x19.o.1",
+      "scenario": "admission-clarity",
+      "arm": "x19",
+      "member": "o",
+      "family": "gpt",
+      "properties": [
+        "a16"
+      ],
+      "phase": "answer",
+      "text": "--- ANSWER ---\nDecision: The projection is valid for initial capacity waiting even with reconnect disabled. It represents neither a consumed attempt nor a real retry timer; no attempt, session token, active controller or retryAt need exist. Identity capacity must become available for this initial identity-only acquisition. The unrelated full route pool does not block it because there is no prior local route-capacity refusal. Actual start still requires all ordinary eligibility guards, and later admission reservation remains atomic rather than guaranteed by the capacity observation.\n\nDocument support:\n\nQUOTE: \"Initial acquisition eligible, identity pool full | Register one waiter; no attempt, session token or backoff is manufactured\"\nQUOTE: \"`reconnect.enabled = false` prevents repeat attempts, not the initial configured attempt or its pre-acquisition capacity wait.\"\nQUOTE: \"Route-pool pressure alone does not prohibit an unrelated identity-only phase; a route-capacity refusal parks that affected adjacency on route capacity as well.\"\n\nInference or gap: NONE.\n",
+      "blindedAt": "2026-10-16T06:09:50.021Z"
+    },
+    {
+      "id": "u0025",
+      "cell": "admission-clarity.m42.c.1",
+      "scenario": "admission-clarity",
+      "arm": "m42",
+      "member": "c",
+      "family": "claude",
+      "properties": [
+        "a01"
+      ],
+      "phase": "answer",
+      "text": "--- ANSWER ---\nDecision: P may be released now, because its provider was never invoked. Q stays reserved while its provider is pending. Cancellation does not release it. Q is released once, only after its evaluation settles and AGP disposes the retained request/result. R has settled, but settlement alone releases nothing. Its slot stays reserved until AGP disposes the owned result. R may be released at this checkpoint only if that disposal actually happens here.\n\nDocument support:\nQUOTE: \"A reservation whose invocation permit is revoked before the provider is called can be released immediately.\"\nQUOTE: \"After invocation, no reset merely because the session ended or the abort signal fired\"\nQUOTE: \"Its capacity remains reserved while that result is waiting, preventing an unbounded queue of settled results behind the executor.\"\nQUOTE: \"Release a provider-work reservation only on the existing uninvoked-permit or settlement-plus-disposal condition, even when this result path discovered expiry.\"\n\nInference or gap: The design does not say exactly when a settled result counts as disposed during cleanup. It only requires that disposal has actually happened before the release.\n",
+      "blindedAt": "2026-10-16T06:09:50.021Z"
+    },
+    {
+      "id": "u0026",
+      "cell": "admission-clarity.m42.c.1",
+      "scenario": "admission-clarity",
+      "arm": "m42",
+      "member": "c",
+      "family": "claude",
+      "properties": [
+        "a17"
+      ],
+      "phase": "answer",
+      "text": "--- ANSWER ---\nDecision: Nothing may start. When backoff expires, only the timer is consumed, and one waiter is kept along with the projection of the ended attempt. The release notification carries no permit. The serialized start check sees the route pool full again and keeps the waiter, with no attempt, no increment and no `retryAt`. The remembered refusing-pool set (route) persists until an actual next acquisition begins. Identity capacity is also always required.\n\nDocument support:\nQUOTE: \"| Backoff expires but capacity is still unavailable | Consume only the timer; retain/register one waiter and the ended attempt projection | `retry-wait`, capacity reason, no `retryAt`; no new attempt |\"\nQUOTE: \"| Capacity opens and is used elsewhere before this adjacency starts | The start-turn level check keeps the waiter; an older notification carries no permit | `retry-wait`, current capacity reason; retain a still-live timer only |\"\nQUOTE: \"Remembered refusing pools persist across capacity fluctuations and backoff until one actual next acquisition begins; they are then consumed, not inherited indefinitely.\"\nQUOTE: \"Capacity wakes neither increment reconnect attempts nor restart an already-running backoff, and stop removes all wait records.\"\n\nInference or gap: NONE\n",
+      "blindedAt": "2026-10-16T06:09:50.021Z"
+    },
+    {
+      "id": "u0027",
+      "cell": "admission-clarity.x19.c.1",
+      "scenario": "admission-clarity",
+      "arm": "x19",
+      "member": "c",
+      "family": "claude",
+      "properties": [
+        "a08"
+      ],
+      "phase": "answer",
+      "text": "--- ANSWER ---\nDecision: No to both. Draining stops at the head that started the new admission, until that result arrives. The new ordinary route ACK joins the same FIFO behind the backlog and cannot bypass it; only terminal commands bypass. The head's queue reservation is removed (dequeued) only in the dispatch turn that transfers the input to the reserved evaluation record of the new admission. Until then the head stays reserved in place, without being moved to a separate task queue.\n\nDocument support:\nQUOTE: \"processing a queued command that starts another admission stops that drain until the new result arrives.\"\nQUOTE: \"New ordinary arrivals join the same FIFO throughout; terminal commands still bypass it.\"\nQUOTE: \"Use the queue's head without releasing its reservation while the synchronous dispatch turn prepares the command; do not dequeue into a separate task queue.\"\nQUOTE: \"Dequeue only after dispatch has disposed the input or transferred it to another bounded owner, including a reserved evaluation record when another admission starts.\"\n\nInference or gap: NONE\n",
+      "blindedAt": "2026-10-16T06:09:50.021Z"
+    },
+    {
+      "id": "u0028",
+      "cell": "admission-clarity.m42.o.1",
+      "scenario": "admission-clarity",
+      "arm": "m42",
+      "member": "o",
+      "family": "gpt",
+      "properties": [
+        "a19"
+      ],
+      "phase": "answer",
+      "text": "--- ANSWER ---\nDecision: Labeling the timely identity allow as policy denial is wrong: it follows normal collision and confirmation rules, without promising that it must ultimately become established. Labeling the timely current identity deny as policy refusal is correct. Labeling local evaluation-slot exhaustion as identity policy denial is wrong: report AdmissionCapacityExceeded with the exact current admission kind/token and existing admission-fault cleanup/INTERNAL_ERROR reconnect disposition. Capacity refusal invokes no provider; it must not be represented as IDENTITY_REJECTED or a provider fault.\n\nDocument support:\n\nQUOTE: \"Timely identity result | Allow follows normal collision and confirmation rules; deny remains a policy refusal\"\nQUOTE: \"At capacity, refuse before provider invocation and report proposed `AdmissionCapacityExceeded`, not `IDENTITY_REJECTED` or a per-route `POLICY` denial.\"\nQUOTE: \"Its terminal effects follow the existing admission-fault cleanup and `INTERNAL_ERROR` reconnect disposition, but do not misreport a provider fault when no provider was called.\"\n\nInference or gap: NONE.\n",
+      "blindedAt": "2026-10-16T06:09:50.021Z"
+    },
+    {
+      "id": "u0029",
+      "cell": "admission-clarity.x19.c.1",
+      "scenario": "admission-clarity",
+      "arm": "x19",
+      "member": "c",
+      "family": "claude",
+      "properties": [
+        "a18"
+      ],
+      "phase": "answer",
+      "text": "--- ANSWER ---\nDecision: Adopting an exact winner that is already Established applies the successful reset once, for that success. The older loser's later success callback is stale and cannot reset newer history. Cancelling a dial timer for a winner still in OpenConfirm only removes scheduling authority. It preserves the accumulated failure history, because no establishment success has occurred.\n\nDocument support:\nQUOTE: \"Exact current winner enters `Established`, or an already-established exact winner is adopted\"\nQUOTE: \"Confirm current winner/incarnation, apply the successful reset once for that success, and keep dial suppression; stale or duplicate success notifications cannot reset newer history\"\nQUOTE: \"Clearing a retry timer because a winner suppresses dialing removes its scheduling authority, not accumulated failure history.\"\nQUOTE: \"Channel adoption, identity victory and collision satisfaction before `Established` cannot perform the reset.\"\n\nInference or gap: NONE\n",
+      "blindedAt": "2026-10-16T06:09:50.021Z"
+    },
+    {
+      "id": "u0030",
+      "cell": "admission-clarity.x19.c.1",
+      "scenario": "admission-clarity",
+      "arm": "x19",
+      "member": "c",
+      "family": "claude",
+      "properties": [
+        "a04"
+      ],
+      "phase": "answer",
+      "text": "--- ANSWER ---\nDecision: The plan's fate depends on the boundary rule. If a deadline equal to now counts as expired, the final guard discards the ordinary plan before any effects. The permit is not consumed and cannot be carried across an asynchronous boundary. No route revision, RIB change or ACK occurs. The missing timer input does not matter, because deadline validity is checked directly, not inferred from timer delivery. Room in numeric preflight does not authorize the commit either. The design does not say whether the coordinator must itself commit the expiry transition in this same serialized turn, or leave it to the timer owner. \"Discarded or rebuilt\" is the only instruction given.\n\nDocument support:\nQUOTE: \"Deadline validity is checked again at result application, not inferred from whether the timer callback has run.\"\nQUOTE: \"Expired/stale preparation is discarded or rebuilt before effects; the permit never crosses an asynchronous boundary\"\nQUOTE: \"On expiry or terminal disposition, revoke authority first, cancel its timer, detach its effect target and request cooperative cancellation outside the executor; proceed with session cleanup without joining the provider.\"\n\nInference or gap: Missing rule: the design does not define whether a deadline equal to now is elapsed (inclusive or exclusive). Missing rule: no owner is named for advancing the session (committing the expiry/terminal transition) within the turn whose final guard observes expiry.\n",
+      "blindedAt": "2026-10-16T06:09:50.021Z"
+    },
+    {
+      "id": "u0031",
+      "cell": "admission-clarity.x19.o.1",
+      "scenario": "admission-clarity",
+      "arm": "x19",
+      "member": "o",
+      "family": "gpt",
+      "properties": [
+        "a15"
+      ],
+      "phase": "answer",
+      "text": "--- ANSWER ---\nDecision: Disposal may update the normally stopped node's live cleanup accounting without reopening its lifecycle or subscriptions. Read-only queries do not themselves authorize canonical mutations or revision increments. Query capture time remains live rather than being frozen by ordinary stop; freezing is specified for numeric terminal capture. Disposal is the candidate canonical change that could advance revision, but the supplied document delegates exact revision costing to existing canonical-change/domain rules and does not state whether every cleanup-gauge-only change increments revision. That exact increment cannot be certified from this document alone.\n\nDocument support:\n\nQUOTE: \"Ordinary stopped instances remain queryable: later settlement may update cleanup gauges without reopening the lifecycle or event subscriptions.\"\nQUOTE: \"Ordinary stopped instances retain live accounting until an operational-domain terminal barrier actually occurs.\"\nQUOTE: \"OperationsStore validates the complete projection and exact numeric cost, using its existing domain rules and canonical-change classification\"\nQUOTE: \"The current implementation's `#capture` samples wall time afresh even after terminal failure\"\n\nInference or gap: Live capture time follows the ordinary/live versus numeric/frozen distinction and the stated baseline. Queries do not mutate by the scenario's premise. The precise revision consequence of a gauge-only disposal is missing because the referenced canonical-change classification is not reproduced.\n",
+      "blindedAt": "2026-10-16T06:09:50.021Z"
+    },
+    {
+      "id": "u0032",
+      "cell": "admission-clarity.m42.o.1",
+      "scenario": "admission-clarity",
+      "arm": "m42",
+      "member": "o",
+      "family": "gpt",
+      "properties": [
+        "a17"
+      ],
+      "phase": "answer",
+      "text": "--- ANSWER ---\nDecision: Backoff expiry consumes only the timer; it cannot start a new attempt while required route capacity remains unavailable. Retain/register the one waiter and ended-attempt projection, with no retryAt after the timer expires. A release notification carries no reservation: if route capacity is full again at this adjacency's start check, no acquisition starts and waiting continues. Recompute blocked pools, including mandatory identity capacity. Preserve the remembered route-refusal set across these fluctuations; consume it only at actual next acquisition, or clear it on the other explicitly named satisfaction/terminal/stop transitions.\n\nDocument support:\n\nQUOTE: \"Backoff expires but capacity is still unavailable | Consume only the timer; retain/register one waiter and the ended attempt projection\"\nQUOTE: \"Capacity opens and is used elsewhere before this adjacency starts | The start-turn level check keeps the waiter; an older notification carries no permit\"\nQUOTE: \"Remembered refusing pools persist across capacity fluctuations and backoff until one actual next acquisition begins; they are then consumed, not inherited indefinitely.\"\n\nInference or gap: NONE.\n",
+      "blindedAt": "2026-10-16T06:09:50.021Z"
+    },
+    {
+      "id": "u0033",
+      "cell": "admission-clarity.m42.c.1",
+      "scenario": "admission-clarity",
+      "arm": "m42",
+      "member": "c",
+      "family": "claude",
+      "properties": [
+        "a18"
+      ],
+      "phase": "answer",
+      "text": "--- ANSWER ---\nDecision: Only the success of the exact current winner can reset history. Here that is adopting the different winner that is already Established, which applies the reset once. The older loser's success callback is stale and inert, so it cannot reset newer history. Cancelling a dial timer for a winner still in OpenConfirm removes only scheduling authority. Failure history is kept, because winning or adoption before `Established` cannot reset it.\n\nDocument support:\nQUOTE: \"| Exact current winner enters `Established`, or an already-established exact winner is adopted | Confirm current winner/incarnation, apply the successful reset once for that success, and keep dial suppression; stale or duplicate success notifications cannot reset newer history |\"\nQUOTE: \"Clearing a retry timer because a winner suppresses dialing removes its scheduling authority, not accumulated failure history.\"\nQUOTE: \"Channel adoption, identity victory and collision satisfaction before `Established` cannot perform the reset.\"\n\nInference or gap: The design says to remove the node's channel-adoption reset, but also allows a reset when an already-established winner is adopted. These are reconciled here as establishment-based, not adoption-based.\n",
+      "blindedAt": "2026-10-16T06:09:50.021Z"
+    },
+    {
+      "id": "u0034",
+      "cell": "admission-clarity.x19.o.1",
+      "scenario": "admission-clarity",
+      "arm": "x19",
+      "member": "o",
+      "family": "gpt",
+      "properties": [
+        "a04"
+      ],
+      "phase": "answer",
+      "text": "--- ANSWER ---\nDecision: A plan that has reached its deadline cannot obtain ordinary effect authority merely because preflight succeeded or the timer callback has not arrived. Treating equality as expiry, discard the expired ordinary plan and do not consume its permit to install route effects, revision or ACK. The document does not specify an explicit permit-disposal operation or require a named owner to commit expiry before this turn returns. It assigns transition legality to the FSM and admission effects to the controller, but does not finish the synchronous expiry-handoff rule asked for here.\n\nDocument support:\n\nQUOTE: \"Deadline validity is checked again at result application, not inferred from whether the timer callback has run.\"\nQUOTE: \"Expired/stale preparation is discarded or rebuilt before effects; the permit never crosses an asynchronous boundary.\"\nQUOTE: \"Core FSM | Legal transitions, admission token and terminal disposition\"\nQUOTE: \"Session controller | Exact incarnation, ordered wire dispatch, admission effects and teardown\"\n\nInference or gap: Equality being expired is the ordinary deadline interpretation; the document gives no explicit comparison operator. It also does not specify permit invalidation mechanics or who must advance the session synchronously before returning. Rebuilding cannot make this expired evaluation timely.\n",
+      "blindedAt": "2026-10-16T06:09:50.021Z"
+    },
+    {
+      "id": "u0035",
+      "cell": "admission-clarity.x19.c.1",
+      "scenario": "admission-clarity",
+      "arm": "x19",
+      "member": "c",
+      "family": "claude",
+      "properties": [
+        "a07"
+      ],
+      "phase": "answer",
+      "text": "--- ANSWER ---\nDecision: Detachment may not disable the cleanup guard. The terminal sequence hands still-needed reader/channel cleanup to its existing bounded cleanup owner, and those tasks cannot restore authority. Restarting D is not authorized: the single teardown budget begins when the terminal cause commits, and detachment is not a new commit of that session's cause. The write timeout may not replace the committed protocol cause, because one terminal cause wins. The reader must still consume the transport terminal evidence.\n\nDocument support:\nQUOTE: \"One terminal cause wins\"\nQUOTE: \"Start one teardown budget when the terminal cause commits.\"\nQUOTE: \"transfer still-needed reader/channel cleanup to its existing bounded cleanup owner\"\nQUOTE: \"These tasks cannot restore live authority, schedule retry or publish operations changes, even if they settle immediately.\"\n\nInference or gap: The design has no explicit \"detachment does not restart the deadline\" sentence; non-restart is inferred from the single-budget and handoff rules.\n",
+      "blindedAt": "2026-10-16T06:09:50.021Z"
+    },
+    {
+      "id": "u0036",
+      "cell": "admission-clarity.x19.c.1",
+      "scenario": "admission-clarity",
+      "arm": "x19",
+      "member": "c",
+      "family": "claude",
+      "properties": [
+        "a15"
+      ],
+      "phase": "answer",
+      "text": "--- ANSWER ---\nDecision: Disposal does not reopen the lifecycle or event subscriptions. Accounting stays live because no numeric-terminal barrier occurred. Inference: the gauge change is a publication through the coordinator, so disposal, not the read-only queries, may advance the revision. Queries perform no mutation and should not advance it. Capture time is not frozen for an ordinary stop, since freezing is defined only for a numeric terminal. That suggests it is live, but this is not stated.\n\nDocument support:\nQUOTE: \"Ordinary stopped instances remain queryable: later settlement may update cleanup gauges without reopening the lifecycle or event subscriptions.\"\nQUOTE: \"Ordinary stopped instances retain live accounting until an operational-domain terminal barrier actually occurs.\"\nQUOTE: \"The current implementation's `#capture` samples wall time afresh even after terminal failure\"\n\nInference or gap: Missing rule: whether a post-stop gauge update consumes a revision, and whether ordinary-stop query capture time is sampled freshly. Both are inferred, not stated.\n",
+      "blindedAt": "2026-10-16T06:09:50.021Z"
+    },
+    {
+      "id": "u0037",
+      "cell": "admission-clarity.x19.o.1",
+      "scenario": "admission-clarity",
+      "arm": "x19",
+      "member": "o",
+      "family": "gpt",
+      "properties": [
+        "a06"
+      ],
+      "phase": "answer",
+      "text": "--- ANSWER ---\nDecision: The design selects one total teardown budget starting at t=100, but supplies no mapping from transportCloseTimeoutMs or transportWriteTimeoutMs to that budget. Therefore its absolute deadline cannot be determined from these two settings. If the intended budget were 900 ms, the deadline would be t=1000 and only 150 ms would remain at t=850; that is conditional, not a selected design value. Graceful close cannot restart the total-cleanup budget, although phase-specific limits could operate within it.\n\nDocument support:\n\nQUOTE: \"Start one teardown budget when the terminal cause commits.\"\nQUOTE: \"The deadline actively stops the writer and aborts the channel even if notification write or graceful close has not settled; a signal passed only to a later `close()` call cannot bound an earlier wait.\"\n\nInference or gap: The budget's configuration source and migration are missing. Adoption must decide whether an existing timeout changes meaning or a distinct total budget is introduced, and document compatibility and interaction with the write timeout. Neither supplied setting can silently be repurposed.\n",
+      "blindedAt": "2026-10-16T06:09:50.021Z"
+    },
+    {
+      "id": "u0038",
+      "cell": "admission-clarity.m42.o.1",
+      "scenario": "admission-clarity",
+      "arm": "m42",
+      "member": "o",
+      "family": "gpt",
+      "properties": [
+        "a16"
+      ],
+      "phase": "answer",
+      "text": "--- ANSWER ---\nDecision: The projection is permitted for an initial capacity wait. It creates no attempt, controller token or backoff timer, and retryAttempt stays unchanged. No retryAt means no live retry timer. Disabling reconnect prevents repeat attempts, not this initial acquisition or its wait. Only identity capacity must become available for this identity-only phase; unrelated route-pool pressure does not block it. The serialized start still checks other eligibility guards, and availability is not a reservation for later provider invocation.\n\nDocument support:\n\nQUOTE: \"Initial acquisition eligible, identity pool full | Register one waiter; no attempt, session token or backoff is manufactured | `retry-wait`, capacity reason, no `retryAt`, no `activeControllerId`; `retryAttempt` unchanged\"\nQUOTE: \"`reconnect.enabled = false` prevents repeat attempts, not the initial configured attempt or its pre-acquisition capacity wait.\"\nQUOTE: \"Route-pool pressure alone does not prohibit an unrelated identity-only phase; a route-capacity refusal parks that affected adjacency on route capacity as well.\"\n\nInference or gap: NONE.\n",
+      "blindedAt": "2026-10-16T06:09:50.021Z"
+    },
+    {
+      "id": "u0039",
+      "cell": "admission-clarity.x19.c.1",
+      "scenario": "admission-clarity",
+      "arm": "x19",
+      "member": "c",
+      "family": "claude",
+      "properties": [
+        "a24"
+      ],
+      "phase": "answer",
+      "text": "--- ANSWER ---\nDecision: No. Identity success does not remove the opening bound. The outer OPEN deadline stays armed through `OpenConfirm`, even with hold disabled, so its elapse ends the attempt through OPEN-timer expiry and teardown. The bound ends normally only when the session reaches `Established`.\n\nDocument support:\nQUOTE: \"Preserve the outer opening deadline through `OpenConfirm`, including when negotiated hold is zero\"\nQUOTE: \"The OPEN timer remains armed until `Established` or teardown; admission success cannot leave an unlimited confirmation phase when hold is zero.\"\nQUOTE: \"The opening deadline remains effective through confirmation, independently of admission and even with hold disabled\"\n\nInference or gap: The exact terminal cause or event name for OPEN expiry in OpenConfirm is not given here.\n",
+      "blindedAt": "2026-10-16T06:09:50.021Z"
+    },
+    {
+      "id": "u0040",
+      "cell": "admission-clarity.m42.o.1",
+      "scenario": "admission-clarity",
+      "arm": "m42",
+      "member": "o",
+      "family": "gpt",
+      "properties": [
+        "a20"
+      ],
+      "phase": "answer",
+      "text": "--- ANSWER ---\nDecision: The recommendation permits existing one-argument implementations to remain; it does not force cancellation-aware migration or separate browser/CLI interfaces. Both ports share optional process-local AdmissionEvaluationOptions as evaluate's second parameter, with a required signal inside any supplied options object. AGP always supplies the options; a consumer may ignore them or explicitly adopt cancellation. Request/result DTOs and their schemas remain unchanged and credential-free. This remains a proposal requiring provider inventory, type/export review and compilation checks before adoption, not a verified compatibility result.\n\nDocument support:\n\nQUOTE: \"Recommendation: add one shared process-local `AdmissionEvaluationOptions` with a `signal` capability as an optional second parameter to both ports' `evaluate` methods.\"\nQUOTE: \"AGP always supplies it; existing one-argument implementations may ignore it.\"\nQUOTE: \"The proposed options shape is `{ readonly signal: AbortSignal }`: the options argument is optional, but a supplied options object must contain the signal.\"\nQUOTE: \"Keep the request and result DTOs unchanged and credential-free, and keep clocks, callback handles and cancellation authority out of their schemas.\"\nQUOTE: \"Compatibility | Current providers still type-check; new options remain process-local; no protocol-schema change or browser/CLI policy split\"\n\nInference or gap: NONE.\n",
+      "blindedAt": "2026-10-16T06:09:50.021Z"
+    },
+    {
+      "id": "u0041",
+      "cell": "admission-clarity.x19.c.1",
+      "scenario": "admission-clarity",
+      "arm": "x19",
+      "member": "c",
+      "family": "claude",
+      "properties": [
+        "a09"
+      ],
+      "phase": "answer",
+      "text": "--- ANSWER ---\nDecision: The administrative terminal invalidates the pending token. The queued data command and the credit-bearing command are discarded as semantic work, and their peer-credit grant is not applied. Their continuation-queue reservations are released with that disposal. Returning transport capacity is a separate bound and does not release them. The invoked unsettled provider keeps its work reservation until it settles and is disposed. The sole reader must keep draining the transport's already-accepted FIFO, with no protocol effects, until the transport terminal, and then stop.\n\nDocument support:\nQUOTE: \"Remain runnable through their existing owner; invalidate the pending token when terminal\"\nQUOTE: \"Reading ahead is not permission to apply a queued packet's peer-credit grant early.\"\nQUOTE: \"Receive-ring credit and continuation storage are distinct bounds: returning transport capacity must not release the queue's reservation.\"\nQUOTE: \"An admitted packet may become semantically inert after a session-fatal event, but the transport's already-accepted FIFO must still be drained; a second reader or an early read cancellation is not the correction.\"\nQUOTE: \"Drain without protocol effects until the transport terminal, then stop the sole reader\"\n\nInference or gap: Explicit \"discard queued semantic work\" appears only for overflow (\"discard queued semantic work and drain transport evidence\") and numeric terminal (\"purge semantic queues\"). Applying it to administrative terminal is an inference. Whether credit carried by discarded packets is ever honoured is unstated.\n",
+      "blindedAt": "2026-10-16T06:09:50.021Z"
+    },
+    {
+      "id": "u0042",
+      "cell": "admission-clarity.x19.o.1",
+      "scenario": "admission-clarity",
+      "arm": "x19",
+      "member": "o",
+      "family": "gpt",
+      "properties": [
+        "a18"
+      ],
+      "phase": "answer",
+      "text": "--- ANSWER ---\nDecision: Adopting the different exact winner that is already Established may reset failure history once, after confirming that winner/incarnation is current. The older losing controller's later success callback cannot reset anything. A winner still in OpenConfirm can suppress dialing and cancel the retry timer, but that cancellation removes scheduling authority only; it preserves accumulated failures. Its eventual exact establishment success, if still current, is what authorizes the reset. Losing it before establishment therefore uses the preserved progression.\n\nDocument support:\n\nQUOTE: \"Exact current winner enters `Established`, or an already-established exact winner is adopted | Confirm current winner/incarnation, apply the successful reset once for that success, and keep dial suppression; stale or duplicate success notifications cannot reset newer history\"\nQUOTE: \"Channel adoption, identity victory and collision satisfaction before `Established` cannot perform the reset.\"\nQUOTE: \"Clearing a retry timer because a winner suppresses dialing removes its scheduling authority, not accumulated failure history.\"\n\nInference or gap: NONE.\n",
+      "blindedAt": "2026-10-16T06:09:50.021Z"
+    },
+    {
+      "id": "u0043",
+      "cell": "admission-clarity.m42.c.1",
+      "scenario": "admission-clarity",
+      "arm": "m42",
+      "member": "c",
+      "family": "claude",
+      "properties": [
+        "a23"
+      ],
+      "phase": "answer",
+      "text": "--- ANSWER ---\nDecision: No. Every live publication site must go through the same prepared-transaction/terminal gate, or be shown to be effect-free. The old independent terminalization path cannot remain anywhere. Preparation must also be complete, not just a numeric check placed in front of mutating methods. Coordinated public-surface work still remains:\n- type, schema, catalog and document updates for the gauges, events, capacity fields and defaults;\n- FSM and session-event schema changes;\n- the change to the meaning of the close-timeout setting;\n- frozen terminal capture metadata;\n- agreement on the adjacency reason contract.\n\nDocument support:\nQUOTE: \"No live-node call site may retain the old independent store-terminalization path.\"\nQUOTE: \"Before implementation can close this prerequisite, inventory every live runtime OperationsStore publication and each associated pre-publication mutation; route them through the same prepared-transaction/terminal gate or demonstrate they are effect-free.\"\nQUOTE: \"Preparation must be complete: extracting only a numeric check ahead of the existing mutating route import or identity/collision methods is insufficient.\"\nQUOTE: \"The new gauge keys, local event names, capacity fields and effective defaults require a coordinated type/schema/catalog/document update where applicable.\"\nQUOTE: \"Both additions require coordinated core FSM, closed session-event schema/type and operations documentation changes.\"\nQUOTE: \"These are proposed semantic clarifications of existing fields, not an added public state or field; they still need contract agreement and checks of every operations reader.\"\n\nInference or gap: NONE\n",
+      "blindedAt": "2026-10-16T06:09:50.021Z"
+    },
+    {
+      "id": "u0044",
+      "cell": "admission-clarity.m42.c.1",
+      "scenario": "admission-clarity",
+      "arm": "m42",
+      "member": "c",
+      "family": "claude",
+      "properties": [
+        "a13"
+      ],
+      "phase": "answer",
+      "text": "--- ANSWER ---\nDecision: Neither may continue as an ordinary transaction. The node owns the single runtime gate and the commit coordinator. Every publication goes through it, so the unrelated exhaustion starts the node-owned terminal sequence. That sequence closes the gate, sets `Failed` and invalidates every admission result permit. The prepared identity result fails its final guard and has no effects. Its disposable result is released. The queued stop continuation must observe the gate and must not overwrite `Failed`, generate a revision or rearm an adjacency.\n\nDocument support:\nQUOTE: \"The node owns one authoritative runtime gate and the serialized commit coordinator; the core owns pure transition/routing preparation and numeric-domain preflight.\"\nQUOTE: \"All runtime operations publications must reach this coordinator, including ones outside admission, so an unrelated counter/event/revision exhaustion revokes admission and acquisition authority too.\"\nQUOTE: \"Close the runtime gate and set host authority to `Failed`; invalidate the node generation, all admission invocation/result permits, acquisition adoption permits, supervisor wait/timer generations, and outstanding ordinary action intents.\"\nQUOTE: \"Coordinator rechecks runtime authority, exact owners/tokens, monotonic deadlines and prepared versions immediately before consuming the permit\"\nQUOTE: \"A stop or listener-failure continuation already queued must observe the terminal gate and must not overwrite `Failed` with `Stopping` or `Stopped`, generate another revision, or rearm an adjacency.\"\n\nInference or gap: Releasing the prepared result's reservation in the terminal turn assumes it counts as an \"actually disposable retained result\". This is not stated explicitly.\n",
+      "blindedAt": "2026-10-16T06:09:50.021Z"
+    },
+    {
+      "id": "u0045",
+      "cell": "admission-clarity.x19.c.1",
+      "scenario": "admission-clarity",
+      "arm": "x19",
+      "member": "c",
+      "family": "claude",
+      "properties": [
+        "a02"
+      ],
+      "phase": "answer",
+      "text": "--- ANSWER ---\nDecision: No. The late rejection may not fault the replacement and may not release the replacement's reservation. Authority comes from the exact controller incarnation, admission kind, token and deadline, checked in a short executor turn behind the runtime gate. Sharing a peer identity confers no authority. The old completion is stale and has no session authority. The only permitted handling is to dispose the old evaluation's retained work and release the old evaluation's own reservation exactly once.\n\nDocument support:\nQUOTE: \"Route the prepared completion through a short executor turn that checks the runtime authority gate, controller identity, admission kind, token and deadline\"\nQUOTE: \"Apply the same exact-token requirement to success, rejection, fault and expiry\"\nQUOTE: \"On eventual provider settlement, dispose the retained work and release its reservation exactly once; stale success and stale failure have the same lack of authority.\"\nQUOTE: \"Revocation detaches the result's session-effect target; a late observer retains only bounded work-accounting state, not a closure that keeps the controller and channel alive.\"\n\nInference or gap: NONE\n",
+      "blindedAt": "2026-10-16T06:09:50.021Z"
+    },
+    {
+      "id": "u0046",
+      "cell": "admission-clarity.x19.c.1",
+      "scenario": "admission-clarity",
+      "arm": "x19",
+      "member": "c",
+      "family": "claude",
+      "properties": [
+        "a23"
+      ],
+      "phase": "answer",
+      "text": "--- ANSWER ---\nDecision: No. Every live OperationsStore publication must be inventoried and routed through the gate, or shown to be effect-free. No old independent terminalization path may remain. Remaining coordinated public-surface work:\n- gauge keys, event names, capacity fields and defaults need coordinated type/schema/catalog/document updates;\n- the new events need core FSM, session-event schema and operations documentation changes;\n- the signal option needs public type/export review;\n- the retry-wait reason clarifications need contract agreement and checks of every operations reader.\n\nDocument support:\nQUOTE: \"No live-node call site may retain the old independent store-terminalization path.\"\nQUOTE: \"admission must not be certified while an unmediated publication can leave runtime authority alive behind a terminal snapshot\"\nQUOTE: \"The new gauge keys, local event names, capacity fields and effective defaults require a coordinated type/schema/catalog/document update where applicable.\"\nQUOTE: \"Both additions require coordinated core FSM, closed session-event schema/type and operations documentation changes.\"\nQUOTE: \"Public type/export review and compatibility checks\"\nQUOTE: \"These are proposed semantic clarifications of existing fields, not an added public state or field; they still need contract agreement and checks of every operations reader.\"\n\nInference or gap: NONE\n",
+      "blindedAt": "2026-10-16T06:09:50.021Z"
+    },
+    {
+      "id": "u0047",
+      "cell": "admission-clarity.x19.c.1",
+      "scenario": "admission-clarity",
+      "arm": "x19",
+      "member": "c",
+      "family": "claude",
+      "properties": [
+        "a12"
+      ],
+      "phase": "answer",
+      "text": "--- ANSWER ---\nDecision: Available RIB space is decided at the final serialized commit, not reserved at the initial proposal. This is not `AdmissionCapacityExceeded`, which refers to the evaluation-work pools before invocation. The design does not say whether a RIB shortfall gives partial acceptance, per-route rejection or a session failure. It requires only that current RIB capacity and complete validation come before the single committed revision and ACK, and that failed preparation leaves no partial state. So the revision is consumed and the ACK authorized only if a complete preparation succeeds against current capacity.\n\nDocument support:\nQUOTE: \"Compute available RIB capacity at the final serialized commit, because other sessions may change it while policy runs; do not reserve a stale global-capacity answer in the initial proposal.\"\nQUOTE: \"current RIB capacity and complete validation precede the one committed revision and ACK\"\nQUOTE: \"At capacity, refuse before provider invocation and report proposed `AdmissionCapacityExceeded`\"\n\nInference or gap: Missing rule: the outcome when allowed routes exceed current RIB capacity. It defers to an existing routing contract that is not stated here.\n",
+      "blindedAt": "2026-10-16T06:09:50.021Z"
+    },
+    {
+      "id": "u0048",
+      "cell": "admission-clarity.x19.c.1",
+      "scenario": "admission-clarity",
+      "arm": "x19",
+      "member": "c",
+      "family": "claude",
+      "properties": [
+        "a21"
+      ],
+      "phase": "answer",
+      "text": "--- ANSWER ---\nDecision: The provider owns the hidden host task, including its cancellation and resource budget. AGP's ledger measures only the port evaluation. The saved signal gives no authority over the established session. It covers only that pending evaluation, and after commit its cancellation authority is not reused.\n\nDocument support:\nQUOTE: \"A provider that answers from its own timeout race while leaving external work running still owns that work's cancellation and resource budget; its answered promise is not evidence of physical resource release.\"\nQUOTE: \"The signal owns only that pending evaluation; it is not an established-session close handle or a live credential-validity signal.\"\nQUOTE: \"Once a current result commits, later session events cannot reuse that evaluation's cancellation authority.\"\n\nInference or gap: NONE\n",
+      "blindedAt": "2026-10-16T06:09:50.021Z"
+    },
+    {
+      "id": "u0049",
+      "cell": "admission-clarity.m42.c.1",
+      "scenario": "admission-clarity",
+      "arm": "m42",
+      "member": "c",
+      "family": "claude",
+      "properties": [
+        "a09"
+      ],
+      "phase": "answer",
+      "text": "--- ANSWER ---\nDecision: The pending token is invalidated. Both queued commands are disposed with no effects, so the credit-bearing command grants no peer credit. Their queue reservations are released. The reservation of the unsettled invoked provider is kept until settlement and disposal. Cancellation is only requested, outside the executor. The sole reader keeps draining already-accepted packets and rejection evidence in FIFO order through the one terminal record, with no semantic dispatch. A second reader or early read cancellation is not allowed. Teardown runs under the one deadline.\n\nDocument support:\nQUOTE: \"| Timer, node stop or administrative terminal | Remain runnable through their existing owner; invalidate the pending token when terminal |\"\nQUOTE: \"Every terminal cause invalidates pending semantic authority and disposes the queued semantic backlog; none of those queued commands may later refresh hold, grant peer credit, invoke another provider or apply protocol effects.\"\nQUOTE: \"Disposing continuation inputs releases their queue reservations, not reservations for already-started provider work.\"\nQUOTE: \"The sole reader still drains the transport's already-accepted packets and rejection evidence in FIFO order through its one terminal record, without semantic dispatch; a second reader or early read cancellation is not the correction.\"\n\nInference or gap: NONE\n",
+      "blindedAt": "2026-10-16T06:09:50.021Z"
+    },
+    {
+      "id": "u0050",
+      "cell": "admission-clarity.m42.o.1",
+      "scenario": "admission-clarity",
+      "arm": "m42",
+      "member": "o",
+      "family": "gpt",
+      "properties": [
+        "a15"
+      ],
+      "phase": "answer",
+      "text": "--- ANSWER ---\nDecision: Disposal updates the ordinary stopped instance's cleanup accounting without reopening lifecycle or event subscriptions. That canonical gauge change increments the revision once and uses a fresh capture time. The two read-only queries do not increment revision; absent another mutation, both see the disposal's resulting revision and updated gauge. Capture time remains live for ordinary stopped queries, rather than frozen as it would be after operational-domain terminal capture. A later numeric exhaustion would change that authority, but none is stated here.\n\nDocument support:\n\nQUOTE: \"Ordinary stopped instances remain queryable: later settlement may update cleanup gauges without reopening the lifecycle or event subscriptions.\"\nQUOTE: \"Such gauge changes are ordinary canonical transactions under the operations revision rules: increment once, with a fresh query capture time; queries themselves do not increment revisions.\"\nQUOTE: \"Ordinary stopped instances retain live accounting until an operational-domain terminal barrier actually occurs.\"\n\nInference or gap: NONE.\n",
+      "blindedAt": "2026-10-16T06:09:50.021Z"
+    },
+    {
+      "id": "u0051",
+      "cell": "admission-clarity.x19.o.1",
+      "scenario": "admission-clarity",
+      "arm": "x19",
+      "member": "o",
+      "family": "gpt",
+      "properties": [
+        "a03"
+      ],
+      "phase": "answer",
+      "text": "--- ANSWER ---\nDecision: Neither operation belongs inside that serialized installation turn. Normalize a potentially current result outside the executor into bounded, owned, immutable data. Deliver cooperative abort outside the executor after serialized revocation/detachment. Accessing provider-controlled properties, cloning, and delivering abort can execute application code; putting them in the commit would violate its callback-free boundary. The serialized turn consumes prepared data and performs the final authority checks and installation.\n\nDocument support:\n\nQUOTE: \"Normalize a potentially current provider result outside the executor into bounded owned immutable data; reject invalid shape without retaining an unbounded copy.\"\nQUOTE: \"Property access, cloning and provider-controlled callbacks must not become application code running inside the executor.\"\nQUOTE: \"Provider calls and abort-event delivery both stay outside the executor because either can run application code.\"\n\nInference or gap: NONE.\n",
+      "blindedAt": "2026-10-16T06:09:50.021Z"
+    },
+    {
+      "id": "u0052",
+      "cell": "admission-clarity.m42.o.1",
+      "scenario": "admission-clarity",
+      "arm": "m42",
+      "member": "o",
+      "family": "gpt",
+      "properties": [
+        "a14"
+      ],
+      "phase": "answer",
+      "text": "--- ANSWER ---\nDecision: Both queries return the same frozen terminal resource values, including the two unfinished reservations recorded at T, the same terminal revision and capturedAt=T. Private later settlement/disposal cannot update those public values, create events or advance revision. The counts are last-known at terminal capture; callers cannot infer that the work remains allocated now, that cleanup has finished, or that physical resources stopped. Private disposal can release internal reservations without creating public release evidence.\n\nDocument support:\n\nQUOTE: \"Freeze its resource values, revision and `capturedAt` together; subsequent aggregate and focused queries return that same terminal capture, not a new timestamp on old counts.\"\nQUOTE: \"Outstanding provider evaluations remain nonzero at that capture when unresolved; later private disposal can release internal reservations but cannot publish a new revision, event or counter.\"\nQUOTE: \"The final count is last-known at the terminal capture, not a live promise that resources remain allocated or that cleanup has finished.\"\n\nInference or gap: NONE.\n",
+      "blindedAt": "2026-10-16T06:09:50.021Z"
+    },
+    {
+      "id": "u0053",
+      "cell": "admission-clarity.m42.o.1",
+      "scenario": "admission-clarity",
+      "arm": "m42",
+      "member": "o",
+      "family": "gpt",
+      "properties": [
+        "a09"
+      ],
+      "phase": "answer",
+      "text": "--- ANSWER ---\nDecision: Revoke pending semantic authority and dispose both queued commands, releasing their continuation-queue reservations. Neither may dispatch data, grant peer credit, refresh hold or start policy work. Keep the invoked unsettled provider's work reservation despite cancellation and semantic disposal. The same sole reader must continue consuming already-accepted transport packets and rejection evidence in FIFO order through the terminal record, without protocol effects. It must not be replaced by a second reader or cancelled early merely because the administrative cause has won.\n\nDocument support:\n\nQUOTE: \"Every terminal cause invalidates pending semantic authority and disposes the queued semantic backlog; none of those queued commands may later refresh hold, grant peer credit, invoke another provider or apply protocol effects.\"\nQUOTE: \"Disposing continuation inputs releases their queue reservations, not reservations for already-started provider work.\"\nQUOTE: \"The sole reader still drains the transport's already-accepted packets and rejection evidence in FIFO order through its one terminal record, without semantic dispatch; a second reader or early read cancellation is not the correction.\"\n\nInference or gap: NONE.\n",
+      "blindedAt": "2026-10-16T06:09:50.021Z"
+    },
+    {
+      "id": "u0054",
+      "cell": "admission-clarity.m42.c.1",
+      "scenario": "admission-clarity",
+      "arm": "m42",
+      "member": "c",
+      "family": "claude",
+      "properties": [
+        "a05"
+      ],
+      "phase": "answer",
+      "text": "--- ANSWER ---\nDecision: In the first observation, `OpenExpired` is authorized. Both bounds have elapsed and have equal deadlines, so the outer OPEN transition wins regardless of which timer was delivered first. In the second observation, no transition is authorized. The admission timer rechecks elapsed time and rearms only its positive remainder, with no expiry, no cancellation and no terminal transition.\n\nDocument support:\nQUOTE: \"If both are elapsed, choose the earlier absolute deadline; equal deadlines choose the outer `OpenExpired` transition.\"\nQUOTE: \"While an identity evaluation is current, both admission/OPEN timer inputs and result-application guards use that same selection; callback arrival order cannot select the later bound.\"\nQUOTE: \"| Current admission timer wakes while every applicable bound remains valid | Recheck elapsed time and rearm only its positive remainder; no expiry, cancellation or terminal transition |\"\n\nInference or gap: NONE\n",
+      "blindedAt": "2026-10-16T06:09:50.021Z"
+    },
+    {
+      "id": "u0055",
+      "cell": "admission-clarity.x19.c.1",
+      "scenario": "admission-clarity",
+      "arm": "x19",
+      "member": "c",
+      "family": "claude",
+      "properties": [
+        "a05"
+      ],
+      "phase": "answer",
+      "text": "--- ANSWER ---\nDecision: In the tie case, both deadlines have elapsed, so continued admission authority is not allowed. Some timeout terminal is authorized. Which cause wins is not decided: \"earlier applicable OPEN deadline wins\" covers only a strictly earlier OPEN deadline, and timer delivery order is not authority. In the early-wake case, no expiry transition is authorized. The callback must recheck the monotonic deadline, and the timer presumably reschedules under its generation. The evaluation remains current.\n\nDocument support:\nQUOTE: \"the earlier applicable OPEN deadline still wins\"\nQUOTE: \"Use monotonic elapsed time, tokened timer generations and deadline checks at invocation and commit.\"\nQUOTE: \"Node documents delayed callback execution and delay coercion, so a callback's scheduling is not proof that a deadline remains valid (Node timer semantics).\"\nQUOTE: \"Chunk oversized host timer delays and round positive fractional remainders upward; cancellation of a scheduled callback alone is not a stale-generation guard.\"\n\nInference or gap: Missing rule: no tie-break between equal admission and OPEN deadlines. Inference: an early wake re-arms rather than expires; rescheduling is implied by the chunking rule but not stated explicitly.\n",
+      "blindedAt": "2026-10-16T06:09:50.021Z"
+    },
+    {
+      "id": "u0056",
+      "cell": "admission-clarity.m42.c.1",
+      "scenario": "admission-clarity",
+      "arm": "m42",
+      "member": "c",
+      "family": "claude",
+      "properties": [
+        "a10"
+      ],
+      "phase": "answer",
+      "text": "--- ANSWER ---\nDecision: No. The controller may not skip the provider. The authorized, capacity-reserved action invokes the provider once, with empty route inputs. The only valid decision list is an empty one, because the result is validated against exactly the empty subset. Static rejections are kept separately.\n\nDocument support:\nQUOTE: \"The existing route-start transition has no empty-subset exemption: an authorized, capacity-reserved action invokes once with empty route inputs when no tuple is policy-eligible, and requires an empty decisions list.\"\nQUOTE: \"Validate the result against exactly that subset, including an empty subset.\"\n\nInference or gap: Presumably the statically rejected tuples are committed with the revision and the ACK. This is inferred from the atomic-commit rule.\n",
+      "blindedAt": "2026-10-16T06:09:50.021Z"
+    },
+    {
+      "id": "u0057",
+      "cell": "admission-clarity.m42.c.1",
+      "scenario": "admission-clarity",
+      "arm": "m42",
+      "member": "c",
+      "family": "claude",
+      "properties": [
+        "a02"
+      ],
+      "phase": "answer",
+      "text": "--- ANSWER ---\nDecision: No. The late rejection may not fault the replacement, and it may not release the replacement's reservation. Authority depends on the exact controller incarnation, the admission kind, the token, the deadline and the runtime gate. A shared peer identity gives no authority. The old completion is stale. It is disposed through its own bounded owner, with no admission event, identity or route effect, and no terminal cause. Its own reservation (not the replacement's) is released once, after settlement and disposal.\n\nDocument support:\nQUOTE: \"Route the prepared completion through a short executor turn that checks the runtime authority gate, controller identity, admission kind, token and deadline\"\nQUOTE: \"Runtime authority revoked, controller replaced, admission kind/token stale, or another terminal cause already committed | Dispose the retained completion through its bounded owner; no admission event, identity effect, route effect or new terminal cause\"\nQUOTE: \"Apply the same exact-token requirement to success, rejection, fault and expiry\"\nQUOTE: \"On eventual provider settlement, dispose the retained work and release its reservation exactly once; stale success and stale failure have the same lack of authority.\"\n\nInference or gap: The design does not explicitly say that reservations belong to evaluations rather than peers. That is inferred from the per-evaluation ledger and the exactly-once release rule.\n",
+      "blindedAt": "2026-10-16T06:09:50.021Z"
+    },
+    {
+      "id": "u0058",
+      "cell": "admission-clarity.m42.o.1",
+      "scenario": "admission-clarity",
+      "arm": "m42",
+      "member": "o",
+      "family": "gpt",
+      "properties": [
+        "a10"
+      ],
+      "phase": "answer",
+      "text": "--- ANSWER ---\nDecision: The empty eligible subset does not authorize skipping invocation. Subject to the final invocation permit, runtime and deadline checks, the authorized, capacity-reserved action invokes the provider exactly once with empty route inputs. The only valid decisions list is empty. Static rejections remain separately retained for complete route preparation; they do not create policy decisions or an exemption from the route-start transition. A later revocation or elapsed bound could prevent invocation, but empty input itself cannot.\n\nDocument support:\n\nQUOTE: \"Before invocation, validate the envelope, exact next revision and canonical snapshot, then prepare the immutable policy-eligible subset and retain static rejections separately.\"\nQUOTE: \"Validate the result against exactly that subset, including an empty subset.\"\nQUOTE: \"The existing route-start transition has no empty-subset exemption: an authorized, capacity-reserved action invokes once with empty route inputs when no tuple is policy-eligible, and requires an empty decisions list.\"\n\nInference or gap: NONE.\n",
+      "blindedAt": "2026-10-16T06:09:50.021Z"
+    },
+    {
+      "id": "u0059",
+      "cell": "admission-clarity.m42.c.1",
+      "scenario": "admission-clarity",
+      "arm": "m42",
+      "member": "c",
+      "family": "claude",
+      "properties": [
+        "a15"
+      ],
+      "phase": "answer",
+      "text": "--- ANSWER ---\nDecision: Disposal does not reopen the lifecycle or the event subscriptions. The disposal is an ordinary canonical transaction that increments the revision once. The two queries do not increment it. Accounting stays live: query capture time is fresh, not frozen.\n\nDocument support:\nQUOTE: \"Ordinary stopped instances remain queryable: later settlement may update cleanup gauges without reopening the lifecycle or event subscriptions.\"\nQUOTE: \"Such gauge changes are ordinary canonical transactions under the operations revision rules: increment once, with a fresh query capture time; queries themselves do not increment revisions.\"\nQUOTE: \"Ordinary stopped instances retain live accounting until an operational-domain terminal barrier actually occurs.\"\n\nInference or gap: It is unclear whether \"fresh query capture time\" means each query samples the time again, or that queries report the disposal transaction's time. The design also does not say how such transactions pass a runtime gate that is closed for a stopped node.\n",
+      "blindedAt": "2026-10-16T06:09:50.021Z"
+    },
+    {
+      "id": "u0060",
+      "cell": "admission-clarity.x19.c.1",
+      "scenario": "admission-clarity",
+      "arm": "x19",
+      "member": "c",
+      "family": "claude",
+      "properties": [
+        "a14"
+      ],
+      "phase": "answer",
+      "text": "--- ANSWER ---\nDecision: Both queries return the same frozen terminal capture. It shows two outstanding evaluations, with the terminal revision and capturedAt T. Later private disposal publishes no new revision, event or counter, and adds no fresh timestamp. A caller can conclude only that two evaluations were unresolved at T. The capture is last-known, not proof that resources are still allocated or have since been freed.\n\nDocument support:\nQUOTE: \"Freeze its resource values, revision and `capturedAt` together; subsequent aggregate and focused queries return that same terminal capture, not a new timestamp on old counts.\"\nQUOTE: \"Outstanding provider evaluations remain nonzero at that capture when unresolved; later private disposal can release internal reservations but cannot publish a new revision, event or counter.\"\nQUOTE: \"The final count is last-known at the terminal capture, not a live promise that resources remain allocated or that cleanup has finished.\"\n\nInference or gap: NONE\n",
+      "blindedAt": "2026-10-16T06:09:50.021Z"
+    },
+    {
+      "id": "u0061",
+      "cell": "admission-clarity.m42.c.1",
+      "scenario": "admission-clarity",
+      "arm": "m42",
+      "member": "c",
+      "family": "claude",
+      "properties": [
+        "a07"
+      ],
+      "phase": "answer",
+      "text": "--- ANSWER ---\nDecision: No to both questions. Detachment by the node keeps the original deadline D, or forces cleanup sooner. It never restarts D, and the guard stays armed while FIFO terminal observation is pending. The write timeout may force channel abort earlier. It cannot replace the committed protocol cause, publish another teardown event or restart the budget. After numeric failure, cleanup may still run under its generation checks. It cannot publish operations, schedule a retry or restore the controller. The sole reader must still consume the terminal evidence.\n\nDocument support:\nQUOTE: \"| Node stop/failure overtakes an existing controller cleanup | Preserve its deadline or force cleanup sooner, never restart it; detached cleanup may run after the ordinary runtime gate closes |\"\nQUOTE: \"The transferred owner keeps the original deadline; a controller first detached by the node terminal sequence receives its deadline at that detachment commit.\"\nQUOTE: \"never cancels that guard merely because `close()` settled while FIFO terminal observation is still pending\"\nQUOTE: \"| Per-send timeout expires after a terminal cause has committed | It may force channel abort earlier, but cannot replace the cause, publish another teardown event or restart the teardown budget |\"\nQUOTE: \"After numeric terminal replacement, its exact cleanup-generation checks remain usable, but cleanup cannot publish operations, schedule retry or restore a controller.\"\n\nInference or gap: NONE\n",
+      "blindedAt": "2026-10-16T06:09:50.021Z"
+    },
+    {
+      "id": "u0062",
+      "cell": "admission-clarity.x19.o.1",
+      "scenario": "admission-clarity",
+      "arm": "x19",
+      "member": "o",
+      "family": "gpt",
+      "properties": [
+        "a17"
+      ],
+      "phase": "answer",
+      "text": "--- ANSWER ---\nDecision: Backoff expiry consumes the timer but starts no acquisition while required route capacity remains full. The supervisor retains/registers one coalesced waiter and the ended-attempt projection, with no retryAt once no timer remains. A later release notification is not a permit: if another adjacency used the slot before this start turn, this adjacency still cannot start. Recompute identity and remembered route requirements, keep waiting, and retain the route-refusing set until an actual acquisition begins or another named clearing transition occurs. Neither notification nor waiting increments attempts or restarts backoff.\n\nDocument support:\n\nQUOTE: \"Backoff expires but capacity is still unavailable | Consume only the timer; retain/register one waiter and the ended attempt projection\"\nQUOTE: \"Capacity opens and is used elsewhere before this adjacency starts | The start-turn level check keeps the waiter; an older notification carries no permit\"\nQUOTE: \"Remembered refusing pools persist across capacity fluctuations and backoff until one actual next acquisition begins; they are then consumed, not inherited indefinitely.\"\n\nInference or gap: NONE.\n",
+      "blindedAt": "2026-10-16T06:09:50.021Z"
+    },
+    {
+      "id": "u0063",
+      "cell": "admission-clarity.m42.o.1",
+      "scenario": "admission-clarity",
+      "arm": "m42",
+      "member": "o",
+      "family": "gpt",
+      "properties": [
+        "a11"
+      ],
+      "phase": "answer",
+      "text": "--- ANSWER ---\nDecision: The malformed or incomplete current result is a fault: take the existing route AdmissionFaulted terminal path, send INTERNAL_ERROR only if safe, purge routes, and neither consume the proposal's revision nor authorize an ACK. The complete valid result with an explicit policy denial is nonfatal. Subject to complete preparation and final commit guards, it atomically commits surviving routes, the POLICY rejection and the consumed revision; only then does ACK authority exist. Reserving evaluation capacity does not convert invalid decisions into an acceptable route outcome.\n\nDocument support:\n\nQUOTE: \"The inherited route-result rules distinguish malformed, incomplete or thrown results from an explicit per-route denial.\"\nQUOTE: \"A current fault follows the existing route `AdmissionFaulted` terminal path, with `INTERNAL_ERROR` if safe, route purge and no ACK for the uncommitted proposal.\"\nQUOTE: \"An explicit denial remains nonfatal `POLICY`;\"\nQUOTE: \"The surviving routes, rejection list and consumed revision commit atomically before ACK authority exists.\"\n\nInference or gap: NONE.\n",
+      "blindedAt": "2026-10-16T06:09:50.021Z"
+    },
+    {
+      "id": "u0064",
+      "cell": "admission-clarity.x19.c.1",
+      "scenario": "admission-clarity",
+      "arm": "x19",
+      "member": "c",
+      "family": "claude",
+      "properties": [
+        "a01"
+      ],
+      "phase": "answer",
+      "text": "--- ANSWER ---\nDecision: P may be released now, because its provider was never invoked. Q stays reserved until its provider actually settles and AGP disposes its retained request/result. Cancellation, revocation or the session ending does not release Q. R stays reserved while its result is waiting. Its slot is released once, when AGP actually disposes that owned result. In the terminal sequence, R counts as \"actually disposable\" work and can be released in that turn. Q cannot.\n\nDocument support:\nQUOTE: \"A reservation whose invocation permit is revoked before the provider is called can be released immediately.\"\nQUOTE: \"Permit revoked before invocation, or evaluation settles and AGP disposes its retained request/result\"\nQUOTE: \"After invocation, no reset merely because the session ended or the abort signal fired\"\nQUOTE: \"Its capacity remains reserved while that result is waiting, preventing an unbounded queue of settled results behind the executor.\"\nQUOTE: \"Release only uninvoked evaluation permits and actually disposable retained results; keep reservations for started unsettled evaluations and other genuinely retained resources.\"\n\nInference or gap: The design does not say whether an ordinary (non-terminal) cleanup checkpoint must dispose R immediately or may defer it. It only says R is released on actual disposal.\n",
+      "blindedAt": "2026-10-16T06:09:50.021Z"
+    },
+    {
+      "id": "u0065",
+      "cell": "admission-clarity.m42.c.1",
+      "scenario": "admission-clarity",
+      "arm": "m42",
+      "member": "c",
+      "family": "claude",
+      "properties": [
+        "a16"
+      ],
+      "phase": "answer",
+      "text": "--- ANSWER ---\nDecision: The projection is not necessarily wrong. An initial wait for identity capacity correctly shows `retry-wait` with a capacity reason, no `retryAt`, no `activeControllerId` and an unchanged `retryAttempt`. Disabled reconnect does not block the initial attempt or its capacity wait. Waiting consumes no attempt and does not represent a retry timer. Only identity capacity must open. The full route pool does not block this identity-only phase.\n\nDocument support:\nQUOTE: \"| Initial acquisition eligible, identity pool full | Register one waiter; no attempt, session token or backoff is manufactured | `retry-wait`, capacity reason, no `retryAt`, no `activeControllerId`; `retryAttempt` unchanged |\"\nQUOTE: \"`reconnect.enabled = false` prevents repeat attempts, not the initial configured attempt or its pre-acquisition capacity wait.\"\nQUOTE: \"`desired` remains true while the configured relationship is wanted; initial capacity waiting does not consume its initial-attempt entitlement.\"\nQUOTE: \"At eligibility checks, identity capacity is always required; route capacity is required only when that set includes a local route-capacity refusal.\"\nQUOTE: \"Route-pool pressure alone does not prohibit an unrelated identity-only phase; a route-capacity refusal parks that affected adjacency on route capacity as well.\"\n\nInference or gap: The expected `lastReason` is presumably `identity-admission-capacity`, not the combined value. This is inferred. Reusing `retry-wait` here is a recommendation, not an adopted contract.\n",
+      "blindedAt": "2026-10-16T06:09:50.021Z"
+    },
+    {
+      "id": "u0066",
+      "cell": "admission-clarity.x19.c.1",
+      "scenario": "admission-clarity",
+      "arm": "x19",
+      "member": "c",
+      "family": "claude",
+      "properties": [
+        "a22"
+      ],
+      "phase": "answer",
+      "text": "--- ANSWER ---\nDecision: Neither claim is established. The defaults are unmeasured review recommendations, derived from other resolved settings. The design gives no figure of 500 and makes no browser guarantee. The counts bound AGP port evaluations and the retained logical input per call. They do not bound provider allocations, descendant tasks or heap bytes.\n\nDocument support:\nQUOTE: \"These defaults are recommendations for review, not existing runtime behaviour or workload measurements.\"\nQUOTE: \"Proposed `maxIdentityAdmissionEvaluations` | Resolved `maxPendingHandshakes`\"\nQUOTE: \"Proposed `maxRouteAdmissionEvaluations` | Resolved `maxSessions`\"\nQUOTE: \"The request's protocol/schema limits bound the retained logical input size per call; these counts do not claim to bound a provider's arbitrary allocations or physical JavaScript heap bytes.\"\nQUOTE: \"The ledger measures AGP port evaluations, not invisible descendant tasks started by a provider.\"\nQUOTE: \"New carrier, browser physical-release guarantees or runtime portability\"\n\nInference or gap: NONE\n",
+      "blindedAt": "2026-10-16T06:09:50.021Z"
+    },
+    {
+      "id": "u0067",
+      "cell": "admission-clarity.m42.o.1",
+      "scenario": "admission-clarity",
+      "arm": "m42",
+      "member": "o",
+      "family": "gpt",
+      "properties": [
+        "a18"
+      ],
+      "phase": "answer",
+      "text": "--- ANSWER ---\nDecision: Adoption of the exact already-Established winner can reset accumulated failure history once for that success after confirming current winner/incarnation. A later success from an older losing controller is stale and cannot reset newer history. A winner still in OpenConfirm suppresses dialing and clears waiter/timer/refusing-pool scheduling state, but does not yet constitute establishment success. Cancelling its dial timer therefore preserves accumulated failures; retryable loss before establishment uses that preserved progression.\n\nDocument support:\n\nQUOTE: \"Exact current winner enters `Established`, or an already-established exact winner is adopted | Confirm current winner/incarnation, apply the successful reset once for that success, and keep dial suppression; stale or duplicate success notifications cannot reset newer history\"\nQUOTE: \"Channel adoption, identity victory and collision satisfaction before `Established` cannot perform the reset.\"\nQUOTE: \"Clearing a retry timer because a winner suppresses dialing removes its scheduling authority, not accumulated failure history.\"\n\nInference or gap: NONE.\n",
+      "blindedAt": "2026-10-16T06:09:50.021Z"
+    },
+    {
+      "id": "u0068",
+      "cell": "admission-clarity.m42.c.1",
+      "scenario": "admission-clarity",
+      "arm": "m42",
+      "member": "c",
+      "family": "claude",
+      "properties": [
+        "a12"
+      ],
+      "phase": "answer",
+      "text": "--- ANSWER ---\nDecision: Available RIB space is decided at the final serialized commit, not at the initial proposal. This is a normal route replacement outcome. Routes that do not fit get the canonical per-route `CAPACITY` rejection. It is not a whole-snapshot failure and not a refusal by the admission-work pool. The surviving routes, the rejection list and the consumed revision commit atomically, and then one ACK is sent.\n\nDocument support:\nQUOTE: \"Compute available RIB capacity at the final serialized commit, because other sessions may change it while policy runs; do not reserve a stale global-capacity answer in the initial proposal.\"\nQUOTE: \"An explicit denial remains nonfatal `POLICY`; insufficient final RIB capacity remains canonical per-route `CAPACITY` under capacity admission, not whole-snapshot failure or admission-work-pool refusal.\"\nQUOTE: \"The surviving routes, rejection list and consumed revision commit atomically before ACK authority exists.\"\n\nInference or gap: The design does not specify which allowed routes survive when only some fit, such as by order or priority. That selection rule is missing.\n",
+      "blindedAt": "2026-10-16T06:09:50.021Z"
+    },
+    {
+      "id": "u0069",
+      "cell": "admission-clarity.m42.o.1",
+      "scenario": "admission-clarity",
+      "arm": "m42",
+      "member": "o",
+      "family": "gpt",
+      "properties": [
+        "a06"
+      ],
+      "phase": "answer",
+      "text": "--- ANSWER ---\nDecision: On the scenario's millisecond time scale, the absolute cleanup deadline is t=1000: terminal-cause commit at 100 plus 900 ms. At t=850, graceful close has only 150 ms of the total allowance remaining. It receives no fresh 900 ms, and the 2400 ms per-send setting cannot extend cleanup. This is proposed semantic migration of the existing close setting: adoption must update the FSM timer row, public descriptions and migration guidance together. Existing name, units, domain and default remain, but earlier teardown phases consume the allowance.\n\nDocument support:\n\nQUOTE: \"Start one absolute teardown deadline when the controller's terminal cause commits, using the resolved `timers.transportCloseTimeoutMs`.\"\nQUOTE: \"Its scope includes waiting for the terminal notification, any pending send, graceful close and observation of the sole reader's terminal; later phases never receive a fresh budget.\"\nQUOTE: \"The current FSM timer row instead starts transport-close timing at graceful-close start; adopting this revision must change that row and all public descriptions of the setting together.\"\nQUOTE: \"Before adoption, inventory type/schema/config descriptions and callers that rely on close timing; record the changed interval in migration guidance.\"\n\nInference or gap: The numerical timestamps are read as milliseconds, consistent with the scenario's settings. No deadline-rule gap.\n",
+      "blindedAt": "2026-10-16T06:09:50.021Z"
+    },
+    {
+      "id": "u0070",
+      "cell": "admission-clarity.x19.o.1",
+      "scenario": "admission-clarity",
+      "arm": "x19",
+      "member": "o",
+      "family": "gpt",
+      "properties": [
+        "a21"
+      ],
+      "phase": "answer",
+      "text": "--- ANSWER ---\nDecision: The provider owns cancellation and resource budgeting for its hidden host task. AGP's ledger measures the evaluation at its port, not invisible descendant work; an answered evaluation is not proof of physical cleanup. The saved evaluation signal provides no authority over an established session and is not a credential-revocation handle. Once the current result commits, later session events cannot reuse that evaluation's cancellation authority. Any host-task cleanup or authenticated-session revocation mechanism needs its own appropriate owner and contract.\n\nDocument support:\n\nQUOTE: \"The ledger measures AGP port evaluations, not invisible descendant tasks started by a provider.\"\nQUOTE: \"A provider that answers from its own timeout race while leaving external work running still owns that work's cancellation and resource budget; its answered promise is not evidence of physical resource release.\"\nQUOTE: \"The signal owns only that pending evaluation; it is not an established-session close handle or a live credential-validity signal.\"\nQUOTE: \"Once a current result commits, later session events cannot reuse that evaluation's cancellation authority.\"\n\nInference or gap: NONE.\n",
+      "blindedAt": "2026-10-16T06:09:50.021Z"
+    },
+    {
+      "id": "u0071",
+      "cell": "admission-clarity.x19.o.1",
+      "scenario": "admission-clarity",
+      "arm": "x19",
+      "member": "o",
+      "family": "gpt",
+      "properties": [
+        "a23"
+      ],
+      "phase": "answer",
+      "text": "--- ANSWER ---\nDecision: No. Covering only admission callbacks leaves unrelated exhaustion able to invalidate the operations projection while runtime authority survives. Inventory every live publication and its preceding mutations; route them through prepared transactions and the common runtime terminal gate, or demonstrate effect-freedom. Gauge names alone also miss coordinated capacity/default configuration, local-event FSM/schema/type/docs, effective configuration and real timer/queue projection, documented gauge meanings, capacity-wait field semantics and reader checks, and terminal-capture contract agreement. If adopting cancellation options, public exports/provider compatibility/schema-isolation checks remain necessary. None of this authorizes runtime implementation merely by being proposed.\n\nDocument support:\n\nQUOTE: \"No live-node call site may retain the old independent store-terminalization path.\"\nQUOTE: \"Before implementation can close this prerequisite, inventory every live runtime OperationsStore publication and each associated pre-publication mutation; route them through the same prepared-transaction/terminal gate or demonstrate they are effect-free.\"\nQUOTE: \"The new gauge keys, local event names, capacity fields and effective defaults require a coordinated type/schema/catalog/document update where applicable.\"\nQUOTE: \"Both additions require coordinated core FSM, closed session-event schema/type and operations documentation changes.\"\nQUOTE: \"Before adopting the recommendation, inventory providers through the public packages, compile existing one-argument implementations and a cancellation-aware implementation, and confirm the options do not leak into request schemas.\"\n\nInference or gap: The full publication inventory and exact downstream document/catalog locations are implementation work deliberately not available from this single design. The scope of required coverage is explicit.\n",
+      "blindedAt": "2026-10-16T06:09:50.021Z"
+    },
+    {
+      "id": "u0072",
+      "cell": "admission-clarity.m42.c.1",
+      "scenario": "admission-clarity",
+      "arm": "m42",
+      "member": "c",
+      "family": "claude",
+      "properties": [
+        "a06"
+      ],
+      "phase": "answer",
+      "text": "--- ANSWER ---\nDecision: The total-cleanup deadline is absolute t=1000, which is 100 plus 900. The close phase gets no new 900 ms allowance. When close begins at t=850, only the remaining 150 ms applies. The 2400 ms write timeout cannot extend teardown. Migration consequence: the current FSM timer row starts close timing at the start of graceful close. Adopting this design requires changing that row and every public description of the setting together, and recording the new interval in migration guidance. The result is a stricter effective allowance.\n\nDocument support:\nQUOTE: \"Start one absolute teardown deadline when the controller's terminal cause commits, using the resolved `timers.transportCloseTimeoutMs`.\"\nQUOTE: \"Its scope includes waiting for the terminal notification, any pending send, graceful close and observation of the sole reader's terminal; later phases never receive a fresh budget.\"\nQUOTE: \"the per-send budget grants no extension\"\nQUOTE: \"The current FSM timer row instead starts transport-close timing at graceful-close start; adopting this revision must change that row and all public descriptions of the setting together.\"\nQUOTE: \"A deployment cannot expect the full per-send allowance followed by another full close allowance.\"\nQUOTE: \"Before adoption, inventory type/schema/config descriptions and callers that rely on close timing; record the changed interval in migration guidance.\"\n\nInference or gap: The design is only a proposal, and it claims no implicit migration. Today's behavior would differ.\n",
+      "blindedAt": "2026-10-16T06:09:50.021Z"
+    },
+    {
+      "id": "u0073",
+      "cell": "admission-clarity.m42.c.1",
+      "scenario": "admission-clarity",
+      "arm": "m42",
+      "member": "c",
+      "family": "claude",
+      "properties": [
+        "a21"
+      ],
+      "phase": "answer",
+      "text": "--- ANSWER ---\nDecision: The provider owns the hidden host task, including its cancellation and resource budget. AGP's ledger covers only the port evaluation, which has settled. The saved signal has no authority over the established session. It owned only the pending evaluation, and after commit its cancellation authority cannot be reused.\n\nDocument support:\nQUOTE: \"The ledger measures AGP port evaluations, not invisible descendant tasks started by a provider.\"\nQUOTE: \"A provider that answers from its own timeout race while leaving external work running still owns that work's cancellation and resource budget; its answered promise is not evidence of physical resource release.\"\nQUOTE: \"The signal owns only that pending evaluation; it is not an established-session close handle or a live credential-validity signal.\"\nQUOTE: \"Once a current result commits, later session events cannot reuse that evaluation's cancellation authority.\"\n\nInference or gap: NONE\n",
+      "blindedAt": "2026-10-16T06:09:50.021Z"
+    },
+    {
+      "id": "u0074",
+      "cell": "admission-clarity.m42.c.1",
+      "scenario": "admission-clarity",
+      "arm": "m42",
+      "member": "c",
+      "family": "claude",
+      "properties": [
+        "a14"
+      ],
+      "phase": "answer",
+      "text": "--- ANSWER ---\nDecision: The focused query and the aggregate query both return the same frozen terminal capture. That capture shows two outstanding evaluations, the terminal revision and capturedAt T. Private disposal releases the internal reservations but publishes no new revision, event or counter. A caller can conclude only that the counts are last-known as of T. They do not show that the resources are still allocated, or that they have been physically released.\n\nDocument support:\nQUOTE: \"Freeze its resource values, revision and `capturedAt` together; subsequent aggregate and focused queries return that same terminal capture, not a new timestamp on old counts.\"\nQUOTE: \"Outstanding provider evaluations remain nonzero at that capture when unresolved; later private disposal can release internal reservations but cannot publish a new revision, event or counter.\"\nQUOTE: \"The final count is last-known at the terminal capture, not a live promise that resources remain allocated or that cleanup has finished.\"\nQUOTE: \"neither an abort return nor removal from the snapshot counts as provider/native release.\"\n\nInference or gap: NONE\n",
+      "blindedAt": "2026-10-16T06:09:50.021Z"
+    },
+    {
+      "id": "u0075",
+      "cell": "admission-clarity.m42.o.1",
+      "scenario": "admission-clarity",
+      "arm": "m42",
+      "member": "o",
+      "family": "gpt",
+      "properties": [
+        "a08"
+      ],
+      "phase": "answer",
+      "text": "--- ANSWER ---\nDecision: Starting another route admission stops the drain until its result arrives. The new ordinary route ACK joins the same FIFO and cannot bypass older inputs or apply effects early. The barrier remains engaged throughout admission and draining. The head retains its queue reservation while synchronous dispatch prepares it; dequeue only after dispatch disposes the input or transfers ownership to another bounded owner, here the reserved evaluation record. Provider invocation alone is not permission to leave an unowned copy in another queue.\n\nDocument support:\n\nQUOTE: \"There is at most one pending admission and one drain task per controller; processing a queued command that starts another admission stops that drain until the new result arrives.\"\nQUOTE: \"New ordinary arrivals join the same FIFO throughout; terminal commands still bypass it.\"\nQUOTE: \"Use the queue's head without releasing its reservation while the synchronous dispatch turn prepares the command; do not dequeue into a separate task queue.\"\nQUOTE: \"Dequeue only after dispatch has disposed the input or transferred it to another bounded owner, including a reserved evaluation record when another admission starts.\"\n\nInference or gap: NONE.\n",
+      "blindedAt": "2026-10-16T06:09:50.021Z"
+    },
+    {
+      "id": "u0076",
+      "cell": "admission-clarity.x19.o.1",
+      "scenario": "admission-clarity",
+      "arm": "x19",
+      "member": "o",
+      "family": "gpt",
+      "properties": [
+        "a20"
+      ],
+      "phase": "answer",
+      "text": "--- ANSWER ---\nDecision: The recommended API does not force the first consumer to change its one-argument implementations and does not require CLI/browser variants. It proposes one shared process-local AdmissionEvaluationOptions, supplied as an optional second evaluate parameter on both ports, carrying the signal capability. AGP supplies it; existing providers may ignore it, while the second consumer can explicitly adopt cancellation. Request/result DTOs and their schemas remain unchanged. This is a recommendation awaiting public-surface review and compatibility checks, not an already adopted signature.\n\nDocument support:\n\nQUOTE: \"Recommendation: add one shared process-local `AdmissionEvaluationOptions` with a `signal` capability as an optional second parameter to both ports' `evaluate` methods.\"\nQUOTE: \"AGP always supplies it; existing one-argument implementations may ignore it.\"\nQUOTE: \"Keep the request and result DTOs unchanged and credential-free, and keep clocks, callback handles and cancellation authority out of their schemas.\"\nQUOTE: \"Current providers still type-check; new options remain process-local; no protocol-schema change or browser/CLI policy split\"\n\nInference or gap: NONE.\n",
+      "blindedAt": "2026-10-16T06:09:50.021Z"
+    },
+    {
+      "id": "u0077",
+      "cell": "admission-clarity.x19.c.1",
+      "scenario": "admission-clarity",
+      "arm": "x19",
+      "member": "c",
+      "family": "claude",
+      "properties": [
+        "a06"
+      ],
+      "phase": "answer",
+      "text": "--- ANSWER ---\nDecision: The design does not determine the absolute deadline. It requires one teardown budget, started when the terminal cause commits (t=100), that covers notification write, close and terminal drain. It never names transportCloseTimeoutMs or transportWriteTimeoutMs and gives no budget value or formula. Candidates such as 100+900=1000 or 100+2400=2500 would be guesses. Close does not receive a fresh 900 ms allowance at t=850: the single budget started at commit, and a signal given only to a later close cannot be the bound. Migration consequence: whether the two existing settings combine, become sub-limits or are replaced by a new effective teardown setting is unspecified. That needs a configuration decision before implementation.\n\nDocument support:\nQUOTE: \"Start one teardown budget when the terminal cause commits.\"\nQUOTE: \"The teardown deadline must cover every wait it owns\"\nQUOTE: \"The deadline actively stops the writer and aborts the channel even if notification write or graceful close has not settled; a signal passed only to a later `close()` call cannot bound an earlier wait.\"\n\nInference or gap: Missing rule: no teardown-budget value, no setting name, and no mapping from the existing write/close timeouts; the resolved-settings table omits it.\n",
+      "blindedAt": "2026-10-16T06:09:50.021Z"
+    },
+    {
+      "id": "u0078",
+      "cell": "admission-clarity.m42.o.1",
+      "scenario": "admission-clarity",
+      "arm": "m42",
+      "member": "o",
+      "family": "gpt",
+      "properties": [
+        "a21"
+      ],
+      "phase": "answer",
+      "text": "--- ANSWER ---\nDecision: The provider owns its hidden descendant task's cancellation and resource budget. AGP accounts for port evaluations and retained request/results, not invisible private tasks; a completed evaluation does not prove physical cleanup. The saved signal grants no authenticated-session revocation authority. It belongs only to that pending evaluation, and after the current result commits, later session events cannot reuse its cancellation authority. AGP's own evaluation reservation is releasable under settlement-plus-disposal rules, independently of the provider's hidden work.\n\nDocument support:\n\nQUOTE: \"The ledger measures AGP port evaluations, not invisible descendant tasks started by a provider.\"\nQUOTE: \"A provider that answers from its own timeout race while leaving external work running still owns that work's cancellation and resource budget; its answered promise is not evidence of physical resource release.\"\nQUOTE: \"The signal owns only that pending evaluation; it is not an established-session close handle or a live credential-validity signal.\"\nQUOTE: \"Once a current result commits, later session events cannot reuse that evaluation's cancellation authority.\"\n\nInference or gap: NONE.\n",
+      "blindedAt": "2026-10-16T06:09:50.021Z"
+    },
+    {
+      "id": "u0079",
+      "cell": "admission-clarity.m42.o.1",
+      "scenario": "admission-clarity",
+      "arm": "m42",
+      "member": "o",
+      "family": "gpt",
+      "properties": [
+        "a23"
+      ],
+      "phase": "answer",
+      "text": "--- ANSWER ---\nDecision: No. Inventory every live OperationsStore publication and its prior mutations, and mediate it through prepared transactions and the common runtime-terminal gate or demonstrate it is effect-free. Two callback changes cannot close a prerequisite while independent terminalization can leave authority alive. Public work includes coordinated event types/closed schemas/FSM and operations documentation, capacity settings and effective defaults, gauge catalog meanings, timer/queue projections, retry projection reasons, terminal capture semantics, and the close-setting interval migration. If adopting cancellation options, complete type/export, provider inventory and compatibility checks. Gauge names alone establish none of these contracts.\n\nDocument support:\n\nQUOTE: \"Before implementation can close this prerequisite, inventory every live runtime OperationsStore publication and each associated pre-publication mutation; route them through the same prepared-transaction/terminal gate or demonstrate they are effect-free.\"\nQUOTE: \"Both additions require coordinated core FSM, closed session-event schema/type and operations documentation changes.\"\nQUOTE: \"The new gauge keys, local event names, capacity fields and effective defaults require a coordinated type/schema/catalog/document update where applicable.\"\nQUOTE: \"These are proposed semantic clarifications of existing fields, not an added public state or field; they still need contract agreement and checks of every operations reader.\"\nQUOTE: \"Contract absorption | FSM timer/events, SDK/configuration, transport deadline ownership and operational meanings describe the same expiry and teardown semantics; old evidence remains frozen and no implicit close-setting migration is claimed\"\n\nInference or gap: The supplied document requires a publication-site inventory but does not provide the complete inventory; this static review cannot certify it. API adoption and contract agreement remain explicitly pending.\n",
+      "blindedAt": "2026-10-16T06:09:50.021Z"
+    },
+    {
+      "id": "u0080",
+      "cell": "admission-clarity.x19.o.1",
+      "scenario": "admission-clarity",
+      "arm": "x19",
+      "member": "o",
+      "family": "gpt",
+      "properties": [
+        "a19"
+      ],
+      "phase": "answer",
+      "text": "--- ANSWER ---\nDecision: Calling the timely identity allow a policy denial is wrong: it follows normal identity/collision/confirmation processing. Calling the timely identity deny a policy denial is correct. Calling local evaluation-capacity refusal a policy denial is also wrong: it is proposed AdmissionCapacityExceeded, with the specified admission-fault-style cleanup and INTERNAL_ERROR reconnect disposition, while retaining its distinct local-capacity meaning. The capacity-refused invocation calls no provider; neither a provider fault nor an identity rejection may be invented for it.\n\nDocument support:\n\nQUOTE: \"Allow follows normal collision and confirmation rules; deny remains a policy refusal\"\nQUOTE: \"At capacity, refuse before provider invocation and report proposed `AdmissionCapacityExceeded`, not `IDENTITY_REJECTED` or a per-route `POLICY` denial.\"\nQUOTE: \"Its terminal effects follow the existing admission-fault cleanup and `INTERNAL_ERROR` reconnect disposition, but do not misreport a provider fault when no provider was called.\"\n\nInference or gap: NONE.\n",
+      "blindedAt": "2026-10-16T06:09:50.021Z"
+    },
+    {
+      "id": "u0081",
+      "cell": "admission-clarity.x19.c.1",
+      "scenario": "admission-clarity",
+      "arm": "x19",
+      "member": "c",
+      "family": "claude",
+      "properties": [
+        "a19"
+      ],
+      "phase": "answer",
+      "text": "--- ANSWER ---\nDecision: The \"allow\" label is wrong; allow proceeds through collision and confirmation. The \"deny\" label is correct; it remains a policy refusal. The capacity label is wrong; it is `AdmissionCapacityExceeded`, not `IDENTITY_REJECTED` and not a provider fault. The capacity outcome is the one that invokes no provider.\n\nDocument support:\nQUOTE: \"Allow follows normal collision and confirmation rules; deny remains a policy refusal\"\nQUOTE: \"At capacity, refuse before provider invocation and report proposed `AdmissionCapacityExceeded`, not `IDENTITY_REJECTED` or a per-route `POLICY` denial.\"\nQUOTE: \"but do not misreport a provider fault when no provider was called\"\n\nInference or gap: NONE\n",
+      "blindedAt": "2026-10-16T06:09:50.021Z"
+    },
+    {
+      "id": "u0082",
+      "cell": "admission-clarity.x19.o.1",
+      "scenario": "admission-clarity",
+      "arm": "x19",
+      "member": "o",
+      "family": "gpt",
+      "properties": [
+        "a02"
+      ],
+      "phase": "answer",
+      "text": "--- ANSWER ---\nDecision: The old rejection cannot fault the replacement or release the replacement's reservation. Shared peer identity is insufficient authority. Application requires the runtime gate, exact controller incarnation, admission kind, token and deadline to remain valid. The removed controller's completion has only accounting/disposal authority: observe its rejection, dispose its own retained work, and release its own reservation once disposal permits. The replacement's timely evaluation retains its independent authority and reservation.\n\nDocument support:\n\nQUOTE: \"Route the prepared completion through a short executor turn that checks the runtime authority gate, controller identity, admission kind, token and deadline\"\nQUOTE: \"Revocation detaches the result's session-effect target; a late observer retains only bounded work-accounting state, not a closure that keeps the controller and channel alive.\"\nQUOTE: \"stale success and stale failure have the same lack of authority.\"\n\nInference or gap: NONE.\n",
+      "blindedAt": "2026-10-16T06:09:50.021Z"
+    },
+    {
+      "id": "u0083",
+      "cell": "admission-clarity.m42.o.1",
+      "scenario": "admission-clarity",
+      "arm": "m42",
+      "member": "o",
+      "family": "gpt",
+      "properties": [
+        "a22"
+      ],
+      "phase": "answer",
+      "text": "--- ANSWER ---\nDecision: Neither claim is established. The defaults are review recommendations, not measured sizing or certification for 500 simultaneous browser peers. Evaluation counts bound AGP's retained port evaluations, including revoked unsettled work and settled results awaiting disposal, in separate finite pools. Protocol/schema limits bound logical request inputs. These do not bound arbitrary provider allocations, invisible descendant work, physical JavaScript heap bytes or browser-native resource release. The design expressly provides no hundreds-of-peers endorsement for these settings.\n\nDocument support:\n\nQUOTE: \"These defaults are recommendations for review, not existing runtime behaviour or workload measurements.\"\nQUOTE: \"Both current and revoked-but-unsettled work consume their pool; neither timeout, connection replacement nor snapshot removal returns a slot.\"\nQUOTE: \"The request's protocol/schema limits bound the retained logical input size per call; these counts do not claim to bound a provider's arbitrary allocations or physical JavaScript heap bytes.\"\nQUOTE: \"No setting value here is endorsed for hundreds of peers, and no new public field or downstream migration has been applied by this draft.\"\n\nInference or gap: NONE.\n",
+      "blindedAt": "2026-10-16T06:09:50.021Z"
+    },
+    {
+      "id": "u0084",
+      "cell": "admission-clarity.m42.o.1",
+      "scenario": "admission-clarity",
+      "arm": "m42",
+      "member": "o",
+      "family": "gpt",
+      "properties": [
+        "a05"
+      ],
+      "phase": "answer",
+      "text": "--- ANSWER ---\nDecision: In the first observation, OpenExpired wins because equal elapsed identity-admission and outer OPEN deadlines select the outer deadline. Delivery of the admission timer first cannot authorize AdmissionExpired instead. In the separate early-wake observation, neither expiry transition is authorized. Recheck monotonic time and rearm the admission timer only for its positive remainder; do not cancel the evaluation or terminate the session. The OPEN timer retains its own authority.\n\nDocument support:\n\nQUOTE: \"If both are elapsed, choose the earlier absolute deadline; equal deadlines choose the outer `OpenExpired` transition.\"\nQUOTE: \"While an identity evaluation is current, both admission/OPEN timer inputs and result-application guards use that same selection; callback arrival order cannot select the later bound.\"\nQUOTE: \"If neither bound has elapsed, a current timer input only rearms its own positive remainder; after identity commit, the still-active OPEN timer retains its separate authority through confirmation.\"\n\nInference or gap: NONE.\n",
+      "blindedAt": "2026-10-16T06:09:50.021Z"
+    },
+    {
+      "id": "u0085",
+      "cell": "admission-clarity.m42.o.1",
+      "scenario": "admission-clarity",
+      "arm": "m42",
+      "member": "o",
+      "family": "gpt",
+      "properties": [
+        "a13"
+      ],
+      "phase": "answer",
+      "text": "--- ANSWER ---\nDecision: Neither may continue as an ordinary transaction after numeric terminal replacement. The node owns the authoritative runtime gate and serialized coordinator; every live operations publication, including unrelated ones, must cross that boundary. Exhaustion closes the gate, sets host authority to Failed and invalidates outstanding admission/action permits before ordinary effects. The prepared identity plan cannot install. The queued stop completion must observe the terminal gate and cannot overwrite Failed, publish another revision or rearm an adjacency. The store supplies preflight and capture, not independent live-node terminal authority.\n\nDocument support:\n\nQUOTE: \"The node owns one authoritative runtime gate and the serialized commit coordinator; the core owns pure transition/routing preparation and numeric-domain preflight.\"\nQUOTE: \"All runtime operations publications must reach this coordinator, including ones outside admission, so an unrelated counter/event/revision exhaustion revokes admission and acquisition authority too.\"\nQUOTE: \"A stop or listener-failure continuation already queued must observe the terminal gate and must not overwrite `Failed` with `Stopping` or `Stopped`, generate another revision, or rearm an adjacency.\"\n\nInference or gap: NONE.\n",
+      "blindedAt": "2026-10-16T06:09:50.021Z"
+    },
+    {
+      "id": "u0086",
+      "cell": "admission-clarity.m42.c.1",
+      "scenario": "admission-clarity",
+      "arm": "m42",
+      "member": "c",
+      "family": "claude",
+      "properties": [
+        "a08"
+      ],
+      "phase": "answer",
+      "text": "--- ANSWER ---\nDecision: The drain stops when the head starts another admission, and resumes only after that result arrives. The new ACK cannot bypass the queue. It joins the same FIFO behind the existing backlog, and only terminal commands bypass. The head's queue reservation stays in place while it is being dispatched. The head is dequeued only after dispatch has transferred the input to the reserved evaluation record, or disposed of it.\n\nDocument support:\nQUOTE: \"processing a queued command that starts another admission stops that drain until the new result arrives.\"\nQUOTE: \"New ordinary arrivals join the same FIFO throughout; terminal commands still bypass it.\"\nQUOTE: \"Use the queue's head without releasing its reservation while the synchronous dispatch turn prepares the command; do not dequeue into a separate task queue.\"\nQUOTE: \"Dequeue only after dispatch has disposed the input or transferred it to another bounded owner, including a reserved evaluation record when another admission starts.\"\n\nInference or gap: Presumably the transfer happens when the new admission action and its reservation commit. The design does not name that exact moment. If the queue is full, the ACK triggers the proposed `ContinuationQueueOverflow` terminal instead.\n",
+      "blindedAt": "2026-10-16T06:09:50.021Z"
+    },
+    {
+      "id": "u0087",
+      "cell": "admission-clarity.x19.c.1",
+      "scenario": "admission-clarity",
+      "arm": "x19",
+      "member": "c",
+      "family": "claude",
+      "properties": [
+        "a13"
+      ],
+      "phase": "answer",
+      "text": "--- ANSWER ---\nDecision: Neither may continue as an ordinary transaction. The unrelated exhaustion goes through the same node-owned coordinator and gate. That sets the host to `Failed` and invalidates all admission result permits, so the prepared identity result gets `already-terminal` and no effects. The queued stop completion must observe the terminal gate. It must not overwrite `Failed`, generate a revision or rearm adjacencies. Owner: the node, which owns the single runtime gate and the commit coordinator. Boundary: no ordinary effect after the terminal gate closes.\n\nDocument support:\nQUOTE: \"The node owns one authoritative runtime gate and the serialized commit coordinator\"\nQUOTE: \"All runtime operations publications must reach this coordinator, including ones outside admission, so an unrelated counter/event/revision exhaustion revokes admission and acquisition authority too.\"\nQUOTE: \"invalidate the node generation, all admission invocation/result permits\"\nQUOTE: \"Already-terminal calls return `already-terminal` and the same frozen capture without effects, increments or another terminal transaction.\"\nQUOTE: \"A stop or listener-failure continuation already queued must observe the terminal gate and must not overwrite `Failed` with `Stopping` or `Stopped`, generate another revision, or rearm an adjacency.\"\n\nInference or gap: NONE\n",
+      "blindedAt": "2026-10-16T06:09:50.021Z"
+    },
+    {
+      "id": "u0088",
+      "cell": "admission-clarity.m42.o.1",
+      "scenario": "admission-clarity",
+      "arm": "m42",
+      "member": "o",
+      "family": "gpt",
+      "properties": [
+        "a04"
+      ],
+      "phase": "answer",
+      "text": "--- ANSWER ---\nDecision: Equality means expired. Discard the result-effect plan and its unconsumed ordinary permit. The session controller must prepare and preflight the route AdmissionExpired transition through the coordinator and commit it in this same serialized turn; it cannot return leaving progress dependent on timer delivery. With numeric room, route expiry invalidates the continuation, sends INTERNAL_ERROR only if safe, purges and releases. No result revision or ACK effect occurs. Work capacity still follows settlement-plus-disposal accounting.\n\nDocument support:\n\nQUOTE: \"Equality is expired, and provider settlement time does not replace the final application-time check.\"\nQUOTE: \"A bound expires between preparation and the final guard | Discard the unconsumed ordinary permit and result plan; prepare and preflight the expiry transition in the same turn, with no result effects\"\nQUOTE: \"The session controller owns the serialized transition; timer delivery and result application call the same expiry decision path, not separate terminal owners.\"\nQUOTE: \"Route expiry retains the Established expiry actions: invalidate the continuation, send `INTERNAL_ERROR` only if safe, purge and release.\"\n\nInference or gap: NONE.\n",
+      "blindedAt": "2026-10-16T06:09:50.021Z"
+    },
+    {
+      "id": "u0089",
+      "cell": "admission-clarity.m42.c.1",
+      "scenario": "admission-clarity",
+      "arm": "m42",
+      "member": "c",
+      "family": "claude",
+      "properties": [
+        "a22"
+      ],
+      "phase": "answer",
+      "text": "--- ANSWER ---\nDecision: Neither claim is established. The defaults are review recommendations, not measurements, and no value is endorsed for hundreds of peers. The counts limit the number of AGP evaluations and the logical input retained per call. They do not limit a provider's allocations or heap bytes. Browser physical release is excluded from scope.\n\nDocument support:\nQUOTE: \"These defaults are recommendations for review, not existing runtime behaviour or workload measurements.\"\nQUOTE: \"The request's protocol/schema limits bound the retained logical input size per call; these counts do not claim to bound a provider's arbitrary allocations or physical JavaScript heap bytes.\"\nQUOTE: \"No setting value here is endorsed for hundreds of peers, and no new public field or downstream migration has been applied by this draft.\"\nQUOTE: \"New carrier, browser physical-release guarantees or runtime portability\"\n\nInference or gap: NONE\n",
+      "blindedAt": "2026-10-16T06:09:50.021Z"
+    },
+    {
+      "id": "u0090",
+      "cell": "admission-clarity.x19.o.1",
+      "scenario": "admission-clarity",
+      "arm": "x19",
+      "member": "o",
+      "family": "gpt",
+      "properties": [
+        "a12"
+      ],
+      "phase": "answer",
+      "text": "--- ANSWER ---\nDecision: Available RIB capacity is computed at final serialized commit, using current state, rather than reserved from the earlier proposal. RIB shortage is not exhaustion of the evaluation-work pool and does not justify AdmissionCapacityExceeded. The document does not specify how allowed tuples that no longer fit are selected, rejected, or represented, so it does not conclusively choose a normal partial replacement versus a session-terminal routing failure. A normal, completely prepared route replacement would consume one revision and authorize one ACK; failed preparation must do neither. Capacity must be resolved before that choice can commit.\n\nDocument support:\n\nQUOTE: \"Compute available RIB capacity at the final serialized commit, because other sessions may change it while policy runs; do not reserve a stale global-capacity answer in the initial proposal.\"\nQUOTE: \"current RIB capacity and complete validation precede the one committed revision and ACK; a failed preparation leaves no partial routing state\"\nQUOTE: \"At capacity, refuse before provider invocation and report proposed `AdmissionCapacityExceeded`, not `IDENTITY_REJECTED` or a per-route `POLICY` denial.\"\n\nInference or gap: The quoted admission-capacity refusal concerns evaluation pools, not RIB slots. A normal route replacement with capacity rejections is plausible, but its rejection rules, selection order and terminal/nonterminal classification are not supplied. They cannot be imported from an unread routing contract.\n",
+      "blindedAt": "2026-10-16T06:09:50.021Z"
+    },
+    {
+      "id": "u0091",
+      "cell": "admission-clarity.x19.o.1",
+      "scenario": "admission-clarity",
+      "arm": "x19",
+      "member": "o",
+      "family": "gpt",
+      "properties": [
+        "a10"
+      ],
+      "phase": "answer",
+      "text": "--- ANSWER ---\nDecision: The specified admission sequence calls the provider after the committed action/reservation and final invocation checks. It supplies no empty-subset fast path, so skipping invocation is not an authorized optimization under that sequence. If invoked, the valid decision list is empty: it must match exactly the empty policy-eligible subset. Decisions for statically rejected routes or invented tuples are invalid. Static rejections remain separately retained for route preparation.\n\nDocument support:\n\nQUOTE: \"Before invocation, validate the envelope, exact next revision and canonical snapshot, then prepare the immutable policy-eligible subset and retain static rejections separately.\"\nQUOTE: \"Validate the result against exactly that subset, including an empty subset.\"\nQUOTE: \"Outside the executor, recheck the invocation permit and monotonic bounds, start the admission timer immediately before invocation, and observe both fulfilment and rejection.\"\n\nInference or gap: There is no explicit sentence prohibiting an empty-subset shortcut, but there is also no exception authorizing one or defining synthetic completion and reservation handling. Allowing one would require an additional design choice.\n",
+      "blindedAt": "2026-10-16T06:09:50.021Z"
+    },
+    {
+      "id": "u0092",
+      "cell": "admission-clarity.x19.o.1",
+      "scenario": "admission-clarity",
+      "arm": "x19",
+      "member": "o",
+      "family": "gpt",
+      "properties": [
+        "a24"
+      ],
+      "phase": "answer",
+      "text": "--- ANSWER ---\nDecision: Completed identity admission does not remove the opening bound. The outer OPEN deadline remains effective in OpenConfirm even with negotiated hold disabled. When it becomes elapsed, the controller cannot remain indefinitely in confirmation or accept a late continuation as though still timely; the opening expiry must lead to the applicable terminal processing. Normally establishment ends the OPEN timer; teardown also ends it. Admission success at identity commit is specifically too early to cancel it.\n\nDocument support:\n\nQUOTE: \"`ArmProtocolTimers` cancels the OPEN timer at identity commit; the timer contract stops it at establishment\"\nQUOTE: \"Preserve the outer opening deadline through `OpenConfirm`, including when negotiated hold is zero\"\nQUOTE: \"The OPEN timer remains armed until `Established` or teardown; admission success cannot leave an unlimited confirmation phase when hold is zero.\"\n\nInference or gap: The exact OPEN-expiry event name and terminal reason are not reproduced. The continued bound and its normal ending phase are explicit.\n",
+      "blindedAt": "2026-10-16T06:09:50.021Z"
+    },
+    {
+      "id": "u0093",
+      "cell": "admission-clarity.m42.o.1",
+      "scenario": "admission-clarity",
+      "arm": "m42",
+      "member": "o",
+      "family": "gpt",
+      "properties": [
+        "a03"
+      ],
+      "phase": "answer",
+      "text": "--- ANSWER ---\nDecision: Neither operation is permitted there. Normalize a potentially current provider result outside the executor into bounded, owned, immutable data, before serialized application. Property access, cloning or provider-controlled callbacks must not execute application code inside the executor. Abort-event delivery also belongs outside the executor, after serialized revocation/commit as appropriate. The serialized turn handles owned preparation, guards and installation; avoiding a handoff does not authorize application callbacks within that turn.\n\nDocument support:\n\nQUOTE: \"Normalize a potentially current provider result outside the executor into bounded owned immutable data; reject invalid shape without retaining an unbounded copy.\"\nQUOTE: \"Property access, cloning and provider-controlled callbacks must not become application code running inside the executor.\"\nQUOTE: \"Provider calls and abort-event delivery both stay outside the executor because either can run application code.\"\n\nInference or gap: NONE.\n",
+      "blindedAt": "2026-10-16T06:09:50.021Z"
+    },
+    {
+      "id": "u0094",
+      "cell": "admission-clarity.m42.o.1",
+      "scenario": "admission-clarity",
+      "arm": "m42",
+      "member": "o",
+      "family": "gpt",
+      "properties": [
+        "a24"
+      ],
+      "phase": "answer",
+      "text": "--- ANSWER ---\nDecision: Identity success does not remove the outer OPEN bound. It remains active through OpenConfirm even when negotiated hold is zero. Once elapsed, its existing OpenExpired authority must end the opening attempt, subject to the runtime gate and existing terminal ownership, rather than permitting unlimited confirmation wait. Normal successful establishment ends the bound; teardown also cancels it. The completed identity evaluation supplies no continuing cancellation or result authority over this later phase.\n\nDocument support:\n\nQUOTE: \"Preserve the outer opening deadline through `OpenConfirm`, including when negotiated hold is zero\"\nQUOTE: \"after identity commit, the still-active OPEN timer retains its separate authority through confirmation.\"\nQUOTE: \"The OPEN timer remains armed until `Established` or teardown; admission success cannot leave an unlimited confirmation phase when hold is zero.\"\n\nInference or gap: NONE for the bound and its end conditions. The full existing OpenExpired action list is referenced rather than reproduced in this document.\n",
+      "blindedAt": "2026-10-16T06:09:50.021Z"
+    },
+    {
+      "id": "u0095",
+      "cell": "admission-clarity.m42.c.1",
+      "scenario": "admission-clarity",
+      "arm": "m42",
+      "member": "c",
+      "family": "claude",
+      "properties": [
+        "a11"
+      ],
+      "phase": "answer",
+      "text": "--- ANSWER ---\nDecision: The malformed or incomplete result is a current fault. It ends the session through route `AdmissionFaulted`, sends `INTERNAL_ERROR` if safe, purges routes, consumes no revision and sends no ACK. The complete list that denies one tuple is nonfatal `POLICY`. Its surviving routes, rejection list and consumed revision commit atomically, subject to preflight, and only then does ACK authority exist.\n\nDocument support:\nQUOTE: \"The inherited route-result rules distinguish malformed, incomplete or thrown results from an explicit per-route denial.\"\nQUOTE: \"A current fault follows the existing route `AdmissionFaulted` terminal path, with `INTERNAL_ERROR` if safe, route purge and no ACK for the uncommitted proposal.\"\nQUOTE: \"An explicit denial remains nonfatal `POLICY`; insufficient final RIB capacity remains canonical per-route `CAPACITY` under capacity admission, not whole-snapshot failure or admission-work-pool refusal.\"\nQUOTE: \"The surviving routes, rejection list and consumed revision commit atomically before ACK authority exists.\"\nQUOTE: \"Neither the controller revision nor routing state may change until that complete preparation succeeds.\"\n\nInference or gap: The statement that the faulted proposal consumes no revision is inferred from the \"no change until complete preparation succeeds\" rule.\n",
+      "blindedAt": "2026-10-16T06:09:50.021Z"
+    },
+    {
+      "id": "u0096",
+      "cell": "admission-clarity.m42.o.1",
+      "scenario": "admission-clarity",
+      "arm": "m42",
+      "member": "o",
+      "family": "gpt",
+      "properties": [
+        "a12"
+      ],
+      "phase": "answer",
+      "text": "--- ANSWER ---\nDecision: Compute available RIB capacity at the final serialized commit, using then-current routing state. The initial policy preparation must not freeze a global-capacity answer. Insufficient RIB space is normal per-route CAPACITY rejection under capacity admission, not AdmissionCapacityExceeded, provider fault or whole-snapshot failure. The surviving routes, canonical rejection list and consumed revision commit atomically, after complete validation; that committed outcome authorizes an ACK. The evaluation work pool and final RIB capacity are distinct limits.\n\nDocument support:\n\nQUOTE: \"Compute available RIB capacity at the final serialized commit, because other sessions may change it while policy runs; do not reserve a stale global-capacity answer in the initial proposal.\"\nQUOTE: \"insufficient final RIB capacity remains canonical per-route `CAPACITY` under capacity admission, not whole-snapshot failure or admission-work-pool refusal.\"\nQUOTE: \"The surviving routes, rejection list and consumed revision commit atomically before ACK authority exists.\"\n\nInference or gap: NONE for these decisions. The document does not specify which allowed tuples survive a capacity shortage; it refers to canonical capacity admission rather than defining that selection here.\n",
+      "blindedAt": "2026-10-16T06:09:50.021Z"
+    }
+  ],
+  "absent": []
+}

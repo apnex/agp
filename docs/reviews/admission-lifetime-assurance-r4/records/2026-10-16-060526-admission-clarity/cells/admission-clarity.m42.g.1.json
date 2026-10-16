@@ -1,0 +1,221 @@
+{
+  "cell": "admission-clarity.m42.g.1",
+  "scenario": "admission-clarity",
+  "arm": "m42",
+  "member": "g",
+  "run": 1,
+  "attempts": [
+    {
+      "attempt": 1,
+      "validity": {
+        "valid": false,
+        "cause": "behaviour",
+        "detail": "the agent ended with no message"
+      },
+      "outcome": {
+        "final": "",
+        "exit": 0,
+        "signal": null,
+        "stop": {
+          "reason": "completed",
+          "inFlight": "none"
+        },
+        "cost": {
+          "seconds": 162.659,
+          "inputTokens": 20565,
+          "cachedInputTokens": 0,
+          "outputTokens": 27146,
+          "toolCalls": 0
+        },
+        "tools": [],
+        "filtered": false,
+        "error": null,
+        "session": "ses_ebcaeb67fffeQtN8XSHel3fVkk",
+        "trace": [
+          {
+            "at": 162543,
+            "kind": "model-start"
+          },
+          {
+            "at": 162543,
+            "kind": "model-end",
+            "reason": "length"
+          }
+        ],
+        "events": "/tmp/agp-admission-r4-execution.02Fvhz/2026-10-16-060526-admission-clarity/invocations/i-VlxpCz/events.jsonl"
+      },
+      "diff": "",
+      "workspace": "/tmp/agp-admission-r4-execution.02Fvhz/2026-10-16-060526-admission-clarity/workspaces/w-MwZA1z",
+      "phases": [
+        {
+          "phase": "answer",
+          "session": "new",
+          "after": null,
+          "status": "run",
+          "prompt": "You are a fresh implementer reasoning from the single proposed admission-lifetime design supplied in your instructions. It is not an implemented or adopted contract. Use only that document and the questions. Do not browse, follow links, read repositories or other files, infer the version, execute the design, send traffic, or edit anything except the answer file. The scenarios are static comprehension questions, not runtime tests. The local shell may be used only to write that file. Separate document-supported decisions from guesses, missing rules and conflicts; do not silently repair the design. Answer every explicitly asked decision. Normally 60-120 words per heading plus short decisive source excerpts is enough, but completeness governs. Copy excerpts exactly as contiguous supplied-design text (including Markdown punctuation), each as QUOTE: followed by a JSON string on its own line. Scenario text and your own explanation are not source support. Do not quote irrelevant passages merely to fill a quota.\n\nReason about the supplied design, without executing it. Answer each question separately; the stated cases are static review scenarios, not instructions to run code or send traffic.\n\n### A01\nAt a cleanup checkpoint the ledger has three reservations: P was revoked before its provider was invoked; Q was invoked and is still pending despite cancellation; R has settled but its owned result is awaiting disposal. Which reservations may be released now, and what condition releases each of the others?\n\n### A02\nA removed controller's provider later rejects. A replacement controller now owns the same peer identity, and its admission is timely. May the late rejection fault the replacement or release its reservation? State the authority check and the permitted handling of the old completion.\n\n### A03\nAn implementer proposes normalizing a provider's result object and delivering its abort event inside the same serialized turn that installs the route plan, to avoid an extra handoff. Is that placement permitted? Identify where those operations belong and why.\n\n### A04\nA current route completion is timely when preparation starts. Its unconsumed ordinary permit exists, but the final guard observes the admission deadline exactly equal to now. No timer input has arrived; numeric preflight has room. What happens to the plan and permit, and who must advance the session before returning from this serialized turn?\n\n### A05\nIdentity evaluation is current. In one observation, admission and OPEN have the same absolute deadline and both are elapsed, but the admission timer is delivered first. In a separate observation, the admission timer wakes before either deadline. Which transition, if any, is authorized in each observation?\n\n### A06\nA deployment sets transportCloseTimeoutMs to 900 ms and transportWriteTimeoutMs to 2400 ms. A controller's terminal cause commits at monotonic t=100; its notification completes at t=800, and no send remains active. At t=850 graceful close is about to begin. What absolute total-cleanup deadline does this design select, and does the close phase receive a new 900 ms allowance? Include the configuration-migration consequence.\n\n### A07\nA controller is already tearing down for a committed protocol cause with absolute deadline D. Before D, numeric node failure detaches it; its outstanding send then times out while transport terminal evidence has not been consumed. May detachment restart D or disable the cleanup guard, and may the write timeout replace the committed cause?\n\n### A08\nDuring ordered drain, the queue head starts another route evaluation. A new ordinary route ACK arrives before that evaluation returns. Can the drain keep processing later commands, can the new ACK bypass the queue, and when may the head's queue reservation be removed?\n\n### A09\nAn administrative terminal action wins while a continuation queue contains an ordinary data command and a credit-bearing command. An invoked provider is still unsettled, and the transport has accepted evidence ahead of its terminal record. Which queued work and reservations are disposed, and what must the reader still do?\n\n### A10\nA valid expected route snapshot has passed static checks, leaving zero policy-eligible tuples. Its BeginRouteAdmission action is current and a work reservation is available and committed. May the controller skip provider invocation as an optimization, and what decision list is valid if it invokes?\n\n### A11\nTwo independent timely current route evaluations have reserved capacity. One returns a malformed or incomplete tuple-decision list; the other returns a complete valid list denying one tuple by policy. Does each end the session, and may each proposal consume its route revision and authorize an ACK?\n\n### A12\nA timely complete route policy result allows every eligible tuple. While it waited, another session consumed enough RIB space that not all allowed routes fit. The evaluation work pool is not full. When is available RIB space decided, and does this situation mean whole-session admission-work failure or a normal route replacement outcome? Include revision and ACK treatment.\n\n### A13\nA publication unrelated to admission exhausts an operations numeric domain. At that moment an identity result is prepared but not installed, and a stop-completion task is already queued. May either continue as an ordinary transaction? State the owner and the required authority boundary.\n\n### A14\nAn operations numeric-terminal capture contains two unfinished evaluation reservations at time T. Both later settle and are privately disposed. A focused resources query is made, followed by an aggregate snapshot query. What values, revision and capture time should those queries report, and what can a caller conclude about physical resources?\n\n### A15\nA node has stopped normally without numeric-domain exhaustion. Its last retained provider result is then disposed, changing a cleanup gauge. Two later resource queries perform no mutation. Does disposal reopen the node or subscriptions, which of disposal and the queries advances the canonical revision, and is query capture time live or frozen?\n\n### A16\nAn operator sees a never-attempted configured adjacency in retry-wait, with no activeControllerId or retryAt, while reconnect is disabled. Identity capacity is unavailable; the unrelated route pool is also full. Is that projection necessarily wrong, does waiting consume an attempt or represent a real retry timer, and which capacity must open before this initial identity-only acquisition can begin?\n\n### A17\nA real retryable attempt ended because its local route-evaluation pool refused a reservation; reconnect and retry budget permit another attempt. Its backoff expires while route capacity is still full. Later a release notification arrives, but another adjacency consumes the freed slot before this one's serialized start check. What may start, and what happens to the wait and remembered refusing-pool set?\n\n### A18\nA configured adjacency with accumulated failure history adopts a different exact winner that is already Established. Later a success callback from an older losing controller arrives. Which event can reset failure history, and why would cancelling a dial timer for a winner still in OpenConfirm have a different effect?\n\n### A19\nA review labels three independent admission outcomes as identity policy denial: a timely current identity allow, a timely current identity deny, and an invocation attempt unable to reserve a local evaluation slot. Which labels are wrong, and which outcome invokes no provider?\n\n### A20\nA library consumer plans to keep its existing one-argument identity and route providers, while a second consumer opts into cancellation. Does the proposed common API force the first consumer to migrate or require separate CLI/browser provider interfaces? Where does cancellation capability enter without changing request/result DTO schemas?\n\n### A21\nA provider wrapper has completed its AGP evaluation and the result has committed, but the wrapper's private host task is still running. The consumer saves the evaluation signal as a future authenticated-session revocation handle. Which of AGP or the provider owns the hidden work, and is the saved signal authority over the established session?\n\n### A22\nA release note claims that these finite evaluation-count defaults certify 500 simultaneous browser peers and put a hard bound on all memory allocated by policy providers. Are either claims established by this design? Identify the specific limits of the counts and of the default values.\n\n### A23\nA patch author says the terminal prerequisite is complete after routing the two admission-result callbacks through the coordinator and adding new gauge names. All other live OperationsStore publication sites retain their existing paths. Can that close the prerequisite, and what coordinated public-surface work remains necessary?\n\n### A24\nA peer was allowed by identity admission and is in OpenConfirm with negotiated hold disabled. Confirmation has not arrived when the stored outer OPEN deadline becomes elapsed. Does the completed identity evaluation remove the opening bound, and what ends that bound normally?\n\nWrite answers to /tmp/agp-admission-r4-execution.02Fvhz/2026-10-16-060526-admission-clarity/workspaces/w-MwZA1z/answers.md only. Use exactly the headings above. Under each, provide Decision, Document support, and Inference or gap (NONE if none). Put each source excerpt on its own line as QUOTE: followed by a JSON string containing an exact contiguous substring of the supplied design, with no ellipses. End with ### OBSERVATIONS for other ambiguities or missing authority, or NONE. Do not add another ### heading. After writing the file, reply only DONE.",
+          "note": null,
+          "noteSource": null,
+          "workspace": "/tmp/agp-admission-r4-execution.02Fvhz/2026-10-16-060526-admission-clarity/workspaces/w-MwZA1z",
+          "invocation": "/tmp/agp-admission-r4-execution.02Fvhz/2026-10-16-060526-admission-clarity/invocations/i-VlxpCz",
+          "copiedTree": null,
+          "startTree": "4b825dc642cb6eb9a060e54bf8d69288fbee4904",
+          "startCommit": "7131979e8d097624e419eef1bc69aa411a823257",
+          "startDiff": "",
+          "endTree": "4b825dc642cb6eb9a060e54bf8d69288fbee4904",
+          "snapshot": "/tmp/agp-admission-r4-execution.02Fvhz/2026-10-16-060526-admission-clarity/snapshots/admission-clarity.m42.g.1.1/answer",
+          "endDiff": "",
+          "outcome": {
+            "final": "",
+            "exit": 0,
+            "signal": null,
+            "stop": {
+              "reason": "completed",
+              "inFlight": "none"
+            },
+            "cost": {
+              "seconds": 162.659,
+              "inputTokens": 20565,
+              "cachedInputTokens": 0,
+              "outputTokens": 27146,
+              "toolCalls": 0
+            },
+            "tools": [],
+            "filtered": false,
+            "error": null,
+            "session": "ses_ebcaeb67fffeQtN8XSHel3fVkk",
+            "trace": [
+              {
+                "at": 162543,
+                "kind": "model-start"
+              },
+              {
+                "at": 162543,
+                "kind": "model-end",
+                "reason": "length"
+              }
+            ],
+            "events": "/tmp/agp-admission-r4-execution.02Fvhz/2026-10-16-060526-admission-clarity/invocations/i-VlxpCz/events.jsonl"
+          },
+          "validity": {
+            "valid": false,
+            "cause": "behaviour",
+            "detail": "the agent ended with no message"
+          },
+          "diff": "",
+          "traps": []
+        }
+      ],
+      "endedAt": "answer"
+    }
+  ],
+  "valid": false,
+  "final": null,
+  "scoredFile": {
+    "path": "answers.md",
+    "content": null,
+    "matchesFinal": false
+  },
+  "answers": {},
+  "diff": "",
+  "codeScores": [],
+  "traps": [],
+  "propertyPhases": {
+    "a01": {
+      "phase": "answer",
+      "state": "ended"
+    },
+    "a02": {
+      "phase": "answer",
+      "state": "ended"
+    },
+    "a03": {
+      "phase": "answer",
+      "state": "ended"
+    },
+    "a04": {
+      "phase": "answer",
+      "state": "ended"
+    },
+    "a05": {
+      "phase": "answer",
+      "state": "ended"
+    },
+    "a06": {
+      "phase": "answer",
+      "state": "ended"
+    },
+    "a07": {
+      "phase": "answer",
+      "state": "ended"
+    },
+    "a08": {
+      "phase": "answer",
+      "state": "ended"
+    },
+    "a09": {
+      "phase": "answer",
+      "state": "ended"
+    },
+    "a10": {
+      "phase": "answer",
+      "state": "ended"
+    },
+    "a11": {
+      "phase": "answer",
+      "state": "ended"
+    },
+    "a12": {
+      "phase": "answer",
+      "state": "ended"
+    },
+    "a13": {
+      "phase": "answer",
+      "state": "ended"
+    },
+    "a14": {
+      "phase": "answer",
+      "state": "ended"
+    },
+    "a15": {
+      "phase": "answer",
+      "state": "ended"
+    },
+    "a16": {
+      "phase": "answer",
+      "state": "ended"
+    },
+    "a17": {
+      "phase": "answer",
+      "state": "ended"
+    },
+    "a18": {
+      "phase": "answer",
+      "state": "ended"
+    },
+    "a19": {
+      "phase": "answer",
+      "state": "ended"
+    },
+    "a20": {
+      "phase": "answer",
+      "state": "ended"
+    },
+    "a21": {
+      "phase": "answer",
+      "state": "ended"
+    },
+    "a22": {
+      "phase": "answer",
+      "state": "ended"
+    },
+    "a23": {
+      "phase": "answer",
+      "state": "ended"
+    },
+    "a24": {
+      "phase": "answer",
+      "state": "ended"
+    }
+  },
+  "phaseOutcomes": {}
+}
