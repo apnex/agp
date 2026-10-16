@@ -1,0 +1,78 @@
+{
+  "schema": "agp.admission-execution-preflight/1",
+  "recordedAtUtc": "2026-10-16T04:36:33.623Z",
+  "status": "not-ready: frozen runtime version mismatch; no experiment run",
+  "authority": {
+    "selection": "resume",
+    "selectedScope": "Continue the approved provider amendment, correct/recheck evidence accounting and execute the unchanged six-reader comparison only if prerequisites pass.",
+    "exclusions": [
+      "No silent runtime-version amendment",
+      "No shared runtime downgrade or operator-config change",
+      "No AGP implementation, ratification, publication or Zorg correspondence"
+    ]
+  },
+  "measured": {
+    "recordedAt": "2026-10-16T04:36:33.623Z",
+    "head": "fe6e7675cb440ec129f9e2c77ba82b71612d510a",
+    "evaluatorRoot": "/tmp/agp-admission-resume.9mKplT/context-lab",
+    "evaluatorRevision": "6e6d0a92965a15ec473c661887b2b9c5037fedcf",
+    "evaluatorClean": true,
+    "packValid": true,
+    "expectedRuntimeVersions": {
+      "opencode": "1.19.0",
+      "codex": "codex-cli 0.162.1",
+      "bubblewrap": "bubblewrap 0.4.1"
+    },
+    "actualRuntimeVersions": {
+      "opencode": "1.19.2",
+      "codex": "codex-cli 0.162.1",
+      "bubblewrap": "bubblewrap 0.4.1"
+    },
+    "runtimeMismatches": [
+      "opencode"
+    ],
+    "selectedProviderCredentialPresent": true,
+    "frozenFiles": 36,
+    "allFrozenFilesMatchHead": true,
+    "executionConfigSha256": "1e4017ec11a68546c4dab02f582c27c1860dfa5199614a95c4f5ef05d832bc2e",
+    "registerPresent": false,
+    "recordsPresent": false,
+    "invoked": false,
+    "status": "NOT READY: runtime version differs from frozen execution configuration"
+  },
+  "interpretation": {
+    "tier": 3,
+    "disposition": "Stop before registration, live profile probes or scored calls. Static instrument readiness is a separate gate; a PASS cannot waive this version mismatch.",
+    "scope": "The public version query reports the installed CLI version, not backend availability, delivery/isolation or model performance.",
+    "nextDecision": "Restore and validate the exact frozen runtime in isolation, or explicitly amend the execution version and obtain the corresponding bounded compatibility/readiness check. Neither is claimed completed here."
+  },
+  "commandRecord": {
+    "chunk_id": "d376de",
+    "wall_time_seconds": 0.549383035,
+    "exit_code": 0,
+    "original_token_count": 237,
+    "output": "{\n  \"recordedAt\": \"2026-10-16T04:36:33.623Z\",\n  \"head\": \"fe6e7675cb440ec129f9e2c77ba82b71612d510a\",\n  \"evaluatorRoot\": \"/tmp/agp-admission-resume.9mKplT/context-lab\",\n  \"evaluatorRevision\": \"6e6d0a92965a15ec473c661887b2b9c5037fedcf\",\n  \"evaluatorClean\": true,\n  \"packValid\": true,\n  \"expectedRuntimeVersions\": {\n    \"opencode\": \"1.19.0\",\n    \"codex\": \"codex-cli 0.162.1\",\n    \"bubblewrap\": \"bubblewrap 0.4.1\"\n  },\n  \"actualRuntimeVersions\": {\n    \"opencode\": \"1.19.2\",\n    \"codex\": \"codex-cli 0.162.1\",\n    \"bubblewrap\": \"bubblewrap 0.4.1\"\n  },\n  \"runtimeMismatches\": [\n    \"opencode\"\n  ],\n  \"selectedProviderCredentialPresent\": true,\n  \"frozenFiles\": 36,\n  \"allFrozenFilesMatchHead\": true,\n  \"executionConfigSha256\": \"1e4017ec11a68546c4dab02f582c27c1860dfa5199614a95c4f5ef05d832bc2e\",\n  \"registerPresent\": false,\n  \"recordsPresent\": false,\n  \"invoked\": false,\n  \"status\": \"NOT READY: runtime version differs from frozen execution configuration\"\n}\n"
+  },
+  "captureOnlyRendering": {
+    "command": "node docs/reviews/admission-lifetime-assurance-r4/verify-admission-packet.mjs /tmp/agp-admission-resume.9mKplT/context-lab",
+    "start": {
+      "chunk_id": "9f939d",
+      "wall_time_seconds": 1.002608134,
+      "session_id": 86772,
+      "original_token_count": 0,
+      "output": ""
+    },
+    "completion": {
+      "chunk_id": "21ab5c",
+      "wall_time_seconds": 0.000011341,
+      "exit_code": 0,
+      "original_token_count": 108,
+      "output": "{\n  \"status\": \"PASS: author packet and prompt checks only; no reader or judge model invoked\",\n  \"evaluatorRevision\": \"6e6d0a92965a15ec473c661887b2b9c5037fedcf\",\n  \"evaluatorCheckout\": \"/tmp/agp-admission-resume.9mKplT/context-lab\",\n  \"previewRecords\": \"/tmp/agp-admission-clarity-preview.WiWTlV\",\n  \"prompts\": 48,\n  \"probes\": 24,\n  \"controls\": 15,\n  \"readerPromptCopies\": 2,\n  \"fixtureUnits\": 144,\n  \"nullFixtureVoteSlots\": 288\n}\n"
+    }
+  },
+  "localSearch": {
+    "scope": "Read-only binary-name/version-path search under /home/apnex/.opencode and /home/apnex/.cache/opencode plus listing /home/apnex/.opencode/bin.",
+    "found": "Only /home/apnex/.opencode/bin/opencode matched in that search; it reports 1.19.2.",
+    "limit": "No claim that the frozen runtime is unavailable elsewhere or cannot be obtained; no runtime was downloaded or installed."
+  }
+}
