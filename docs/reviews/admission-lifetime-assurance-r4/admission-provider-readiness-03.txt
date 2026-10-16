@@ -1,0 +1,305 @@
+ADMISSION CLARIFICATION R4: PROVIDER / EXECUTION / ACCOUNTING READINESS
+
+Verdict: FAIL -- the exact checkpoint is not ready for the selected scored comparison because its evidence checks can admit false mechanically complete records.
+Yield: the explicit provider migration and frozen comparison are preserved; 17 permitted static tests and the capture-only renderer passed; three blocking evidence-boundary findings remain.
+No scored reader answer, actual judge vote, registration, model invocation, isolation probe, AGP runtime test, implementation change, publication or ratification was produced.
+
+Tier 3: the verdict and assessments are this reviewer's judgments.
+[MEASURED] denotes direct artifact/source reads or deterministic checks performed here.
+[SOURCE-DERIVED] denotes consequences of the inspected source, not observations of a live run.
+Existing author checks and prior reviews are identified as such, not relabeled as this reviewer's measurements.
+
+EXACT IDENTITY, INDEPENDENCE AND CONDITION
+
+[MEASURED] Review target and working HEAD: b2514d0337ed5a127f5cd15ade639189be8e4fd9.
+[MEASURED] Provider-amendment parent: 3878f2d0dc494ba01d98241bbd40b8cdd938f2db.
+[MEASURED] Previous comparison baseline: f6ebdd6690fc6fb44a9df43faee3d120dd488a8b.
+[MEASURED] Target repository tree: 54c20c37255e64b2ec27f5b8cf7326329f797326.
+[MEASURED] Target packet tree: f742b83bde4bc3c7395037971ad831311f37139e.
+[MEASURED] Evaluator checkout HEAD: 6e6d0a92965a15ec473c661887b2b9c5037fedcf at /tmp/agp-admission-execution.z0MIOj/context-lab.
+[MEASURED] Guidance cache HEAD: ec356b8c706c1201f636ce526348ec1f6c213a18.
+[MEASURED] Review clock checkpoint: 2026-10-16 01:28:05 UTC.
+
+Reviewer: /root/admission_provider_readiness, an independent non-author agent selected for this bounded readiness review.
+I did not author any reviewed amendment, configuration, implementation, test, question, key or design and did not alter any reviewed file.
+I supplied no reader cell and no scored judgment and delegated no work.
+This is separate-agent/source-review independence, not a claim of model-family independence or statistical independence.
+The parent supplied scope and later suggested possible future repairs; no proposed repair was applied, tested as a repair, or counted toward this verdict.
+
+The condition was fixed before assessment: PASS requires an explicit provider/configuration migration without aliasing, extra families or weakened criteria; preservation of the remaining frozen packet and historical FAIL; complete accounting of all 144 outcomes and 288 intended judge slots with the corrected phase/no-verdict rules; and a clean pinned public evaluator boundary without a harness fork or silently reduced population.
+A mechanically complete record must not be admitted without the required evidence supporting it.
+Runtime model availability and actual delivery/isolation are later execution prerequisites, not inferred from configuration and not themselves failures of this static review.
+
+References below:
+
+- P: docs/reviews/admission-lifetime-assurance-r4/ at the target commit.
+- A: P/account-admission-comparison.mjs.
+- T: P/admission-comparison-accounting.test.mjs.
+- N: P/analyze-admission-comparison.mjs.
+- L: P/run-admission-comparison.mjs.
+- E: packages/core/src/ in the exact evaluator checkout above.
+- O: docs/reviews/admission-lifetime-assurance/.
+
+GUIDANCE AND BOUNDED PLAN
+
+[MEASURED] Read /home/apnex/taceng/AGENTS.md, fetched the complete current mission-kit INDEX, and directly read the triggered review/gate/evidence guidance, including A8, R3, W8, W9, RU1, E7, E8, C2 and applicable writing guidance.
+The local guidance cache was clean at the revision above; the parent separately reported verifying that revision against remote main this turn.
+The research-artefacts skill was read completely and used to separate measured, source-derived, inherited and analytical claims.
+The repo-audit and WorkGraph verification skill bodies were read for routing; their whole-project artifact tree, publication and WorkGraph operations are not this bounded single-report task and were not invoked.
+The review did not widen into a whole-project audit or a new governance workflow.
+
+The following plan was recorded in this new report before target source tracing:
+
+1. Bind the exact target, provider amendment/configuration, frozen preservation and prior negative lineage.
+2. Trace launch and analysis through the pinned public API, including provenance and population boundaries.
+3. Trace accounting eligibility and static tests against the full 144/288 contract.
+4. Run only permitted accounting/input tests and capture-only rendering; inspect false completeness using static accounting data only.
+5. Record the binary verdict, concrete blockers and limits without modifying the reviewed checkpoint.
+
+The preserved vocabulary is valid, ended, incomplete, uncast, no verdict and intended judge slots.
+Scored answering, models, registration, AGP runtime/reproduction tests, publication, project assurance, design ratification and repeating the unchanged semantic key audit were excluded.
+
+BLOCKING FINDINGS
+
+PR-01 -- Accepted votes are not bound to the retained judge evidence.
+
+[MEASURED] A:136-145 checks expected unit/property/judge identities, numeric range, reason type and a referenced judgment containing a nonempty prompt plus at least one nonempty tools=0 reply.
+It does not establish that the retained reply produced that vote, score or reason, or that the referenced prompt belongs to that judge and unit.
+There is no exact expected judgment-job coverage check.
+N:49-65 loads the judgment records, replays answer extraction and blinding, then calls A; it does not replay judge parsing or reconcile votes with replies.
+L:85-87 invokes the public tally replay, whose E/run-conductor.ts:442-452 reads the already-derived votes.json rather than deriving votes from the retained replies.
+
+[MEASURED] In the independent in-memory static cases below, all of the following still returned complete=true, issues=[], 144 outcomes and 288 cast/intended slots: replacing every retained reply with non-JSON text; changing a derived vote's value and reason without changing its reply; and pointing all 288 votes at one retained prompt, deleting the other judgment records.
+The existing positive test also uses the non-parseable text "Static reply fixture." while asserting 288 cast votes (T:35-38, 64-73).
+Its negative cases check missing judgment records and tools=1, but not value/reason/prompt/job reconciliation (T:137-169).
+
+[SOURCE-DERIVED] The pinned panel's actual acceptance is stricter: it parses answer JSON lines, validates each current local answer ID, ignores tool-using replies, and retries only pending units with newly assigned local IDs (E/judge-panel.ts:121-152, 176-221).
+Presence of unrelated text does not satisfy that contract.
+Public tally replay cannot repair this gap because it consumes the same unverified derived votes.
+
+[ASSESSMENT] Blocking.
+This violates both-valid-other-family-votes and original-reasons requirements in P/admission-accounting-amendment-01.md:55, 59 and P/admission-assurance-preregistration.md:95-101, 113.
+Required later repair condition: every accepted vote and its original reason must reconcile exactly to the appropriate retained job and accepted reply under the pinned panel's actual ordering, validation and bounded pending-only retry rules; missing, malformed, contradictory or unrelated evidence must leave no verdict.
+Do not substitute new scores, a parser with different acceptance rules, or a favorable retry.
+
+PR-02 -- Raw probe and reader provenance can disappear while accounting remains complete.
+
+[MEASURED] A:31-46 validates probe identities, pass/reasons flags, answer kind/probe IDs, tool counts and finding/answered flags.
+It never reads the recorded question or final response.
+The same helper is the launch gate at L:76-78.
+Deleting every probe answer's question and final fields still yielded no probe issues and complete accounting in the independent static case.
+
+[SOURCE-DERIVED] The actual prober's evidence includes the exact question and final answer; its findings depend on delivered canaries, foreign canaries, withheld-marker matches and the allowed liveness conditions (E/isolation-prober.ts:29-44, 59-94).
+Those observations cannot be recovered from pass/ok labels alone.
+This is not a measured live gate bypass: the inspected unmodified prober computes its labels itself.
+It is a missing evidence check in the helper that the launcher and retained-record analyzer both trust.
+A later repair must preserve the pinned rules, including their allowance for an unanswered question when the relevant canary/liveness conditions still hold; it must not invent a stricter or weaker experiment.
+
+[MEASURED] A:88-103 validates attempt numbering, retry classifications and the sole phase's labels but does not require the retained attempt outcome, phase outcome or phase prompt.
+N:53-61 starts its extraction/blinding replay at phaseOutcomes.answer.scored and cell.answers.
+It does not link that derived scored text to cell.scoredFile, the retained raw phase outcome or the raw attempt record.
+Deleting the raw attempt/phase outcome and phase prompt still yielded complete=true.
+Setting every cell's raw scoredFile to null while retaining eligible derived answers also yielded complete=true.
+
+[SOURCE-DERIVED] For this sole-phase experiment, the real conductor builds phaseOutcomes.answer.scored and scoredFile.content from the recorded phase snapshot, and extracts eligible answers only afterward (E/run-conductor.ts:350-382).
+The analyzer's current replay proves consistency between derived representations, not preservation of that upstream raw evidence.
+The public blinder reads the derived cell answers and does not repair a missing raw-outcome chain (E/blinder.ts:100-124).
+Deleting those raw fields does not alter N's extraction/blinding inputs.
+
+[ASSESSMENT] Blocking.
+Required delivery/isolation provenance and every reader attempt must remain inspectable, and a valid extracted answer must remain linked to the sole valid phase's actual retained scored material.
+These are requirements of P/admission-provider-amendment-01.md:59-63 and P/admission-accounting-amendment-01.md:44-45, 55, 68-78, not new scoring criteria.
+Missing or contradictory raw evidence must be identified as unresolved, not certified complete by mutually consistent derived labels.
+
+PR-03 -- The analyzer's frozen-input receipt check is not complete or exact-bound.
+
+[MEASURED] N:36 iterates only the supplied receipt.files entries.
+There is no required inventory equality check; an empty object executes zero preservation checks, and omission of the provider/configuration path has no rejection branch.
+N:33 checks only that receipt.sourceRevision equals receipt.reviewedRevision.
+The analyzer does not resolve that revision to the reviewed Git object, compare its required file list/blobs, or consume the recorded readiness file/hash.
+N:35 compares registration objects and the public contentHash, but E/experiment-register.ts:48-85 does not hash the project provider configuration, execution configuration or accounting/launch scripts.
+N:37-38 compares variant labels with the supplied receipt revision rather than independently resolving its exact source identity.
+
+[SOURCE-DERIVED] Consequently, omitted receipt coverage can hide configuration/code drift from analysis even while the experiment hash is unchanged.
+The provider route and SDK selection are outside that public experiment hash, precisely why this amendment adds a project receipt.
+No disk-based synthetic run or standalone analyzer execution was performed to test this gap; this finding is from the full source and absence of the necessary rejection checks.
+
+[ASSESSMENT] Blocking.
+The launcher does perform an exact pre-launch byte comparison and records a complete file map at L:29-39, 63; this is a useful boundary and is not alleged to generate an empty receipt normally.
+The defect is that the analyzer accepts that receipt as self-describing evidence rather than verifying its mandatory coverage and reviewed identity.
+A later repair must bind required paths, hashes, readiness and revision to the exact reviewed checkpoint and reject missing coverage; self-equality of supplied strings is not source identity.
+Do not broaden this into a claim of tamper-proof execution or cryptographic runtime attestation.
+
+MEASURED STATIC CHECKS AND THEIR LIMITS
+
+[MEASURED] Ran, after reading both complete test files and their local imports:
+node --test docs/reviews/admission-lifetime-assurance-r4/admission-comparison-accounting.test.mjs docs/reviews/admission-lifetime-assurance-r4/admission-input.test.mjs
+Exit 0; 17 tests, 17 passed, 0 failed, 0 cancelled, 0 skipped, 0 todo.
+This is 12 accounting tests and 5 input/projection tests.
+The tool output was captured in full before interpretation (execution chunk 800d48).
+These are ordinary static record/input tests; they do not invoke AGP, isolation or a model.
+Passing them establishes the tested cases, not the absent provenance checks above.
+
+[MEASURED] Ran the inspected capture-only public renderer:
+node docs/reviews/admission-lifetime-assurance-r4/verify-admission-packet.mjs /tmp/agp-admission-execution.z0MIOj/context-lab
+Exit 0; output captured in execution chunk 5cbd98.
+Retained preview directory: /tmp/agp-admission-clarity-preview.qC1SLn.
+Observed counts: 48 captured judge prompts, 24 question headings, 15 controls, 2 identical reader prompt copies, 144 placeholder units and 288 null fixture vote slots.
+The capture adapter throws before any model response; no accepted vote or genuine reader answer exists in that preview.
+The checked reader prompt is common instructions/questions, not proof of actual design-file delivery or live isolation (P/verify-admission-packet.mjs:57, 84-103).
+
+[MEASURED] Independent in-memory accounting checks, execution chunk f2e3b7:
+
+Case                                                        complete  issues  outcomes  slots  cast
+Static shape baseline                                       true      []      144       288    288
+All retained replies replaced by non-JSON text               true      []      144       288    288
+First derived vote value/reason changed, reply unchanged     true      []      144       288    288
+All votes refer to one judge prompt; other records removed   true      []      144       288    288
+All probe raw question/final fields removed                  true      []      144       288    288
+Raw attempt/phase outcome and phase prompt removed          true      []      144       288    288
+Raw scoredFile null; eligible derived answers retained       true      []      144       288    288
+
+All seven cases also returned [] from admissionComparisonProbeIssues.
+The fixture was static data only: six cells with the declared identities, one valid new-session answer phase, 24 placeholder headings each, nine profile probe records, and the declared nine lifecycle states.
+Its answer was explicitly "STATIC ACCOUNTING PLACEHOLDER ONLY" with a quotation from the separate string "Fixture source.", never an answer to an AGP question.
+The units were built by the pinned public blind function.
+Other-family membership and batches used public assignJudges and shuffle, with the panel's seed recipe and six units per batch.
+Initial static numeric votes were generated by public validate against the batch-local a1-a6 identities; 48 placeholder judgment records held matching JSON-line fixture replies.
+Each case rebuilt the fixture, then changed only the listed category.
+The baseline is an accounting test fixture, not evidence of a genuine run or a claim that synthetic prompts satisfy the experiment.
+No runtime failure, live traffic, exploit candidate, vulnerability-triggering input or synthetic failing reader was created or executed.
+
+[MEASURED] Read-only Git/content assertions exited 0 (execution chunk 742243):
+
+- HEAD and parent resolve exactly as recorded above.
+- All 26 committed target-packet working files match their target Git blobs byte-for-byte.
+- The previous baseline has 17 packet files; 15 are unchanged.
+- The only changed previous paths are pack.json and admission-assurance-preregistration.md.
+- Removing exactly the three new execution-banner lines reconstructs the prior preregistration byte-for-byte.
+- Replacing only the two old provider prefixes reconstructs the new pack exactly.
+- All 57 earlier-assurance paths and contents match both baseline and target and the worktree.
+- The earlier-assurance tree remains f399ece937693149078bc6ae055d7b29f1cfa221.
+- The old preflight SHA-256 is b399b3e2a1b86c1c8b879d328cad0392fda4bcf85248c1d6512699dd88820087.
+- Neither P/register nor P/records was present.
+
+The last observation is restricted to those conventional paths, not a claim about every possible external run history.
+git diff --check between the previous baseline and target exited 0.
+The exact parent-to-target commit adds only A, T, N, L and admission-provider-author-checks-01.json: five files, 644 inserted lines.
+No reviewed-file content was changed during this review.
+
+PROVIDER MIGRATION AND FROZEN COMPARISON
+
+[MEASURED] The provider amendment explicitly names the old and new qualified models, the route/SDK/limit changes, and the absence of backend-equivalence claims (P/admission-provider-amendment-01.md:13-33).
+pack.json changes only c and g from litellm-netbird to litellm-nexus.
+The GPT member, high reasoning setting, three family identities, six cells, twenty-four properties, fifteen controls and all other pack content are unchanged.
+No extra family or outputTokenMax setting was introduced.
+The input manifest, complete accounting amendment, question/key/rubric file, controls, designs, projections and prior audit records are among the byte-identical preserved files.
+
+[MEASURED] Independently read the current operator configuration without printing secrets and compared its selected Nexus provider, restricted to the two declared model entries, against the frozen provider configuration using deep equality.
+They matched, including all selected provider/model fields.
+The snapshot has exactly one provider and two model entries, and only the provider top-level field.
+The API key field is exactly the environment reference {env:LITELLM_NETBIRD_API_KEY}; no credential value was printed or requested from the environment.
+
+Declared configuration, not measured backend behavior:
+
+- Route: http://100.80.94.9:4000/v1.
+- Claude: @ai-sdk/anthropic; adaptive thinking; high output effort; context/output 1000000/128000.
+- Gemini: @ai-sdk/openai-compatible override; context/output 1048576/65536.
+- Common execution: parallel 6; one run per cell; reader/probe limit 1200 seconds; judge limit 900 seconds.
+- Declared expected versions: opencode 1.19.0, codex-cli 0.162.1, bubblewrap 0.4.1.
+
+[SOURCE-DERIVED] L:49 passes the frozen operatorConfig explicitly to the public opencodeAdapter.
+E/adapters.ts:133-146, 167-195 reads that provider block and creates isolated per-invocation configuration with plugin=[], supplied-arm instructions and only referenced credential variables.
+The old environment-variable spelling is not an endpoint alias.
+The selected configuration is explicit and common to both arms; actual backend availability or equivalence is not established.
+
+LAUNCH, PUBLIC API AND ACCOUNTING BRANCHES
+
+[MEASURED] The pinned evaluator checkout had an empty git status.
+Its built public exports were exercised by the capture-only renderer and pure accounting-fixture helpers.
+The parent reports a fresh build at this pin; I did not independently rebuild it or certify the runtime binaries.
+No evaluator source, generated build or adapter was edited.
+
+[SOURCE-DERIVED] L uses public checkPack, opencodeAdapter, codexAdapter, recordHistory, recordExperiment, conductRun and tallyRun, not copied harness code.
+Before registration it checks the exact source pin/cleanliness, reviewed packet bytes, explicit --execute, a readiness report, credential presence, declared runtime versions, sandbox metadata, empty execution history and runtime refusal metadata (L:18-59).
+The receipt records versions, configuration, reviewed revision, file hashes and registration before interpretation (L:60-65).
+These are inspected prerequisites, not measured launch success.
+
+[SOURCE-DERIVED] The wrapper distinguishes actual reader calls by tools=on and judge calls by their /judging/ work path (L:69-80).
+The pinned reader invocation is tools=on (E/episode.ts:224-235); the judge invocation is under work/judging/invocations with tools=off (E/judge-panel.ts:203-209); profile probes are tools=off under work/probes (E/isolation-prober.ts:66-72; E/run-conductor.ts:275-283).
+The conductor writes all probe results and the probed state before scheduling reader cells (E/run-conductor.ts:285-305).
+Thus, for this exact pinned call path and genuine unmodified probe records, the wrapper reaches every scored invocation and refuses a missing, duplicate or failing required profile set before calling the real adapter.
+No source-level reduced-population bypass was found in that classification boundary.
+This does not cure PR-02's raw-evidence weakness and is not a live enforcement observation.
+
+[MEASURED] The ordinary static tests exercise the intended 6 x 24 outcomes and 144 x 2 vote slots, unique expected identities, missing/duplicate cells/probes/votes, same-family and orphan votes, invalid numeric votes, ended phases, missing answers, no-verdict precedence, retry bounds, downward-only quote caps, diagnostic unknowns, ties and individual control regressions.
+
+[SOURCE-DERIVED] Subject to the evidence-binding findings above, the branch arithmetic matches the corrected rule:
+
+- A valid phase with a present answer requires both intended other-family slots, takes their minimum and applies only a downward quote cap (A:125-149).
+- A valid missing answer yields zero and two explicit not-cast slots (A:118-124).
+- A behavior-ended sole phase yields 24 zeroes and 48 ended-phase not-cast slots, does not salvage retained text, and requires no judge units (A:100-124).
+- Unresolved infrastructure/isolation, missing/incomplete phase or missing required valid vote makes complete false and mechanicalDisposition NO VERDICT, even if numerical conditions also fail (A:91-117, 140-175).
+- Intended identities are enumerated from the frozen full declarations rather than reduced to observed records (A:54-76, 106-108, 153-156).
+- Candidate per-heading thresholds, all fifteen independent control comparisons and strict improvement remain unchanged (A:157-175).
+- The mechanical output explicitly defers the final gate to non-author inspection of raw material, support, reasons, observations, hedges and measurement defects (A:175-176).
+
+The existing no-verdict and numeric branches are not the reason for this FAIL.
+The failure is that the predicates for evidence completeness can be satisfied by records lacking the evidence those branches require.
+A later non-author semantic review is not a substitute for the mechanical provenance prerequisites.
+
+PUBLIC REPAIR SEAM FEASIBILITY, NOT A REPAIR VERDICT
+
+[MEASURED] The pinned index exports assignJudges, shuffle, validate and judgeAll (E/index.ts:21-22); their implementations were read directly.
+[SOURCE-DERIVED] These public seams can support deterministic judge assignment and vote reconciliation without changing the evaluator.
+The answer parser itself is private to the panel; judgeAll exposes the complete parser/validator and pending-only retry behavior through a supplied adapter.
+A no-model record-replay adapter is therefore a plausible public-seam repair path, provided exact prompt/member/job/reply-count coverage and resulting votes are verified, including rejected replies and local-ID renumbering on retries.
+This is source-derived feasibility only; no such repair was implemented or certified here.
+The parent proposal to use that approach is not evidence that the target already satisfies PR-01.
+
+INHERITED COVERAGE AND HISTORY
+
+[MEASURED] Read both complete inherited reports, P/admission-key-audit-01.txt and P/admission-key-recheck-02.txt, and the accounting amendment/preregistration directly.
+The first report records the full 24 question/key/rubric and both-input semantic review and its original KR-01 readiness FAIL.
+The second records the bounded accounting-correction recheck and explicitly leaves later project-accounting implementation and execution prerequisites outstanding.
+Their unchanged coverage bounds this review; their verdicts are not substituted for the new code checks.
+No full semantic re-audit of the unchanged keys/designs, new scored answer or regrading occurred here.
+
+[MEASURED] Read O/admission-assurance-result.md as historical lineage.
+Its FAIL remains byte-identical, together with all earlier raw records, answers, votes and accounting.
+The provider preflight remains a preserved provider-selection stop, not a measured outage of the retired endpoint.
+The preserved earlier author command logs were inspected as author evidence; this review does not claim to have rerun their broad document checks, network check, build or runtime-version commands.
+
+REVIEWED NEW INPUT IDENTITIES
+
+[MEASURED] SHA-256 values at the target/worktree:
+
+account-admission-comparison.mjs
+192d16caf12708c252022aa375645bd1ab90f30b765af5908d795c327530cb62
+admission-comparison-accounting.test.mjs
+420d096a9737b4f81331c1cbadba69c741cf52ceb7b4ff5935a8c949d37248cc
+analyze-admission-comparison.mjs
+74b643eaad75fd6c98273c7283968b89e165a432de6c40992ae5b90858f9a872
+run-admission-comparison.mjs
+9ad12254b2be2bc2ae6aab43ebfe69ee0ae0dc507e396e7a76648f50f18dfead
+admission-provider-config.json
+98668a42f2fb4e913b07a539b40df560d7cf6051dfe15226602e2f22cd37e7b0
+admission-execution-config.json
+1e4017ec11a68546c4dab02f582c27c1860dfa5199614a95c4f5ef05d832bc2e
+
+LIMITS AND FINAL DISPOSITION
+
+This report establishes a readiness FAIL at b2514d0337ed5a127f5cd15ade639189be8e4fd9 for PR-01, PR-02 and PR-03.
+The provider migration is explicit and the frozen comparison/history are preserved, but those satisfied portions do not erase the evidence-boundary defects.
+No model availability, actual runtime version, live delivery/canary/isolation, cold-session behavior, genuine reader performance or judging quality was measured.
+No full standalone analyzer or live launcher was executed; PR-03 and the analyzer reachability of raw-evidence omissions are source-derived, while the pure-accountant false completeness cases are measured.
+No broad AGP test suite, network stimulus, runtime failure reproduction, vulnerability test, registration, commit, publication or external message was performed.
+The only repository file written by this reviewer is this new report; unrelated pre-existing dirty work was left untouched.
+Temporary artifacts were limited to the permitted capture-only renderer's preview material.
+[MEASURED] A final identity check still found all 26 reviewed files byte-identical to the target and no P/register or P/records directory.
+A new untracked P/replay-admission-judgments.mjs appeared during that final status check; it is outside the reviewed checkpoint and was not read, tested or counted toward this verdict.
+
+Preserve this exact FAIL and the reviewed checkpoint.
+Any correction requires new prospective bytes and a bounded independent recheck of these evidence boundaries before relying on the selected conditional execution path.
+Do not launch this checkpoint on the strength of passing author tests, the preserved earlier readiness review, or a proposed repair.
+This verdict is not project assurance, a scored design comparison, AGP runtime verification, public-contract ratification, B53 closure or publication authority.
