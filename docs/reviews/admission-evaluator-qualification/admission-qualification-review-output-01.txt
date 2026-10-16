@@ -1,0 +1,827 @@
+ADMISSION EVALUATOR STATIC QUALIFICATION: INDEPENDENT CHECK OUTPUT
+
+Reviewer: /root/admission_job_boundary_review, non-author; not a scored/calibration reader or judge.
+
+Target: febde60940f04bd36210c06494b4e577b3377254
+
+Working directory for the commands below: /home/apnex/taceng/agp
+
+Date: 2026-10-17 Australia/Melbourne.
+
+
+
+Only existing approved static suites and read-only record/source checks were run.
+
+No provider, sandbox, probe, conductor, resume, registration or model invocation.
+
+The synthetic public runEpisode uses one injected local ordinary file-writing fake.
+
+These are complete command outputs for the independent qualification, supporting
+
+tests, child/episode record inspection, full-payload comparison and provenance checks.
+
+Child outputs below are read verbatim from the newly generated full evidence.
+
+Exploratory source reads are not represented as additional tests.
+
+
+
+1. FRESH APPROVED STATIC QUALIFICATION SUITE
+
+Command:
+AGP_PREPARATION_SOURCE_REPO=/home/apnex/taceng/context-lab node --test --test-reporter=tap docs/reviews/admission-evaluator-qualification/admission-qualification.test.mjs
+
+Exit status: 0
+
+Output:
+TAP version 13
+# {"evidence":"/tmp/agp-evaluator-static-qualification.V5zBXm/admission-qualification-evidence.json","synthetic":true,"modelCalls":0,"candidate":"e705b3d749400d0a79efe98e5338e9c84a1695b8","checks":["candidate","historical-default","original-evaluator","panel","rejectedDeclarations","composition","episode","tally"],"bytes":8725612,"sha256":"fc0dcd16052468c9573ce56d5780fa3b74023ebc3ea7d856203932e6b6662e9b"}
+# Subtest: Admission qualification preserves the whole historical default capture and candidate panel payload
+ok 1 - Admission qualification preserves the whole historical default capture and candidate panel payload
+  ---
+  duration_ms: 102.994411
+  type: 'test'
+  ...
+# Subtest: Admission qualification refuses unsupported declarations and effective overrides as inert data
+ok 2 - Admission qualification refuses unsupported declarations and effective overrides as inert data
+  ---
+  duration_ms: 28.488078
+  type: 'test'
+  ...
+# Subtest: Admission qualification checks publicly composed instruction bytes and both reader and judge arms
+ok 3 - Admission qualification checks publicly composed instruction bytes and both reader and judge arms
+  ---
+  duration_ms: 63.017015
+  type: 'test'
+  ...
+# Subtest: Admission qualification records one ordinary synthetic answer phase and its ledger relation
+ok 4 - Admission qualification records one ordinary synthetic answer phase and its ledger relation
+  ---
+  duration_ms: 80.220962
+  type: 'test'
+  ...
+# Subtest: Admission qualification preserves every legacy tally field and failure disposition without executing failures
+ok 5 - Admission qualification preserves every legacy tally field and failure disposition without executing failures
+  ---
+  duration_ms: 74.838634
+  type: 'test'
+  ...
+# Subtest: Admission qualification retains complete development evidence without changing frozen source
+ok 6 - Admission qualification retains complete development evidence without changing frozen source
+  ---
+  duration_ms: 127.970058
+  type: 'test'
+  ...
+1..6
+# tests 6
+# suites 0
+# pass 6
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 23251.180444
+
+
+2. SCOPED EXISTING POLICY AND PURE ACCOUNTING TESTS
+
+Command:
+node --test --test-reporter=tap docs/reviews/admission-evaluation-preparation/admission-scoring-policy.test.mjs docs/reviews/admission-lifetime-assurance-r4/admission-comparison-accounting.test.mjs
+
+Exit status: 0
+
+Output:
+TAP version 13
+# Subtest: Admission policy explicitly separates proposed status from required-decision uncertainty
+ok 1 - Admission policy explicitly separates proposed status from required-decision uncertainty
+  ---
+  duration_ms: 2.171306
+  type: 'test'
+  ...
+# Subtest: Admission diagnostic fixtures cover full credit, status, omission, support, uncertainty, conflict, wrong and absent
+ok 2 - Admission diagnostic fixtures cover full credit, status, omission, support, uncertainty, conflict, wrong and absent
+  ---
+  duration_ms: 12.488145
+  type: 'test'
+  ...
+# Subtest: Admission checker detects score/reason contradictions in both favorable and unfavorable directions
+ok 3 - Admission checker detects score/reason contradictions in both favorable and unfavorable directions
+  ---
+  duration_ms: 2.981463
+  type: 'test'
+  ...
+# Subtest: Admission checker refuses malformed diagnostics without dropping or rewriting the original
+ok 4 - Admission checker refuses malformed diagnostics without dropping or rewriting the original
+  ---
+  duration_ms: 0.661569
+  type: 'test'
+  ...
+# Subtest: Admission negative fixtures prove required-ID and issue-tag checks discriminate
+ok 5 - Admission negative fixtures prove required-ID and issue-tag checks discriminate
+  ---
+  duration_ms: 0.674047
+  type: 'test'
+  ...
+# Subtest: Admission clean diagnostics do not establish semantic validity or approve a vote
+ok 6 - Admission clean diagnostics do not establish semantic validity or approve a vote
+  ---
+  duration_ms: 0.442139
+  type: 'test'
+  ...
+# Subtest: Admission wrong-decision precedence retains a different required conflict without raising zero
+ok 7 - Admission wrong-decision precedence retains a different required conflict without raising zero
+  ---
+  duration_ms: 0.565144
+  type: 'test'
+  ...
+# Subtest: Admission unrelated semantic cases preserve literal expected distinctions for independent review
+ok 8 - Admission unrelated semantic cases preserve literal expected distinctions for independent review
+  ---
+  duration_ms: 1.870127
+  type: 'test'
+  ...
+# Subtest: Admission accounting preserves all identities and does not issue its own gate verdict
+ok 9 - Admission accounting preserves all identities and does not issue its own gate verdict
+  ---
+  duration_ms: 62.923218
+  type: 'test'
+  ...
+# Subtest: Admission missing null, undefined and blank answers become explicit uncast zeroes
+ok 10 - Admission missing null, undefined and blank answers become explicit uncast zeroes
+  ---
+  duration_ms: 155.170913
+  type: 'test'
+  ...
+# Subtest: Admission valid phase with no answer file accounts for all twenty-four missing answers
+ok 11 - Admission valid phase with no answer file accounts for all twenty-four missing answers
+  ---
+  duration_ms: 33.310775
+  type: 'test'
+  ...
+# Subtest: Admission ended sole phase ignores retained partial or complete raw answers
+ok 12 - Admission ended sole phase ignores retained partial or complete raw answers
+  ---
+  duration_ms: 75.098304
+  type: 'test'
+  ...
+# Subtest: Admission predecessor behavior failure does not automatically fail candidate thresholds
+ok 13 - Admission predecessor behavior failure does not automatically fail candidate thresholds
+  ---
+  duration_ms: 27.134948
+  type: 'test'
+  ...
+# Subtest: Admission invalid required evidence takes precedence over numerical failure
+ok 14 - Admission invalid required evidence takes precedence over numerical failure
+  ---
+  duration_ms: 26.594625
+  type: 'test'
+  ...
+# Subtest: Admission accounting rejects missing or duplicate cells, probes, votes and invalid provenance
+ok 15 - Admission accounting rejects missing or duplicate cells, probes, votes and invalid provenance
+  ---
+  duration_ms: 753.509489
+  type: 'test'
+  ...
+# Subtest: Admission unresolved infrastructure/isolation or incomplete phase never becomes a reader zero
+ok 16 - Admission unresolved infrastructure/isolation or incomplete phase never becomes a reader zero
+  ---
+  duration_ms: 50.600699
+  type: 'test'
+  ...
+# Subtest: Admission accounting accepts one infrastructure retry but not a behavior retry
+ok 17 - Admission accounting accepts one infrastructure retry but not a behavior retry
+  ---
+  duration_ms: 59.070923
+  type: 'test'
+  ...
+# Subtest: Admission minimum-vote and quote caps are downward-only and inspect every excerpt
+ok 18 - Admission minimum-vote and quote caps are downward-only and inspect every excerpt
+  ---
+  duration_ms: 64.756369
+  type: 'test'
+  ...
+# Subtest: Admission diagnostic formatting cannot invalidate or improve an accepted score
+ok 19 - Admission diagnostic formatting cannot invalidate or improve an accepted score
+  ---
+  duration_ms: 31.926677
+  type: 'test'
+  ...
+# Subtest: Admission ties and each individual control regression are not averaged away
+ok 20 - Admission ties and each individual control regression are not averaged away
+  ---
+  duration_ms: 48.413931
+  type: 'test'
+  ...
+# Subtest: Admission accounting requires replay bound to the actual raw replies and derived votes
+ok 21 - Admission accounting requires replay bound to the actual raw replies and derived votes
+  ---
+  duration_ms: 116.425198
+  type: 'test'
+  ...
+# Subtest: Admission probe and reader raw evidence cannot be replaced by favorable labels
+ok 22 - Admission probe and reader raw evidence cannot be replaced by favorable labels
+  ---
+  duration_ms: 247.082848
+  type: 'test'
+  ...
+# Subtest: Admission probe check preserves the pinned allowance for unanswered non-canary questions
+ok 23 - Admission probe check preserves the pinned allowance for unanswered non-canary questions
+  ---
+  duration_ms: 7.771143
+  type: 'test'
+  ...
+1..23
+# tests 23
+# suites 0
+# pass 23
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 1951.127073
+
+
+3. FULL FRESH CHILD COMMAND OUTPUTS AND ORDINARY EPISODE RECORD
+
+Command:
+node --input-type=module <<'NODE'
+import fs from 'node:fs';
+const x=JSON.parse(fs.readFileSync('/tmp/agp-evaluator-static-qualification.V5zBXm/admission-qualification-evidence.json','utf8'));
+for(const [i,c] of x.commands.entries()) {console.log('COMMAND '+i+' '+JSON.stringify({command:c.command,args:c.args,cwd:c.cwd,environment:c.environment,status:c.status,signal:c.signal,error:c.error}));console.log('STDOUT\n'+c.stdout+'END STDOUT\nSTDERR\n'+c.stderr+'END STDERR');}
+console.log('PANEL KEYS '+JSON.stringify(Object.keys(x.checks.panel)));
+console.log('CANDIDATE CAPTURE KEYS '+JSON.stringify(Object.keys(x.checks.panel.candidateCapture)));
+console.log('RUN KEYS '+JSON.stringify(Object.keys(x.checks.panel.candidateCapture.runs[0])));
+console.log('CAPTURE KEYS '+JSON.stringify(Object.keys(x.checks.panel.candidateCapture.runs[0].captures[0])));
+console.log('JUDGMENT KEYS '+JSON.stringify(Object.keys(Object.values(x.checks.panel.candidateCapture.runs[0].judgments)[0])));
+console.log('EPISODE '+JSON.stringify(x.checks.episode,null,2));
+console.log('TALLY CASE KEYS '+JSON.stringify(x.checks.tally.map(t=>({keys:Object.keys(t),name:t.name??t.label,originalKeys:Object.keys(t.original??{}),candidateKeys:Object.keys(t.candidate??{})}))));
+NODE
+
+Exit status: 0
+
+Output:
+COMMAND 0 {"command":"/home/apnex/.nvm/versions/node/v24.12.0/bin/node","args":["--test","--test-reporter=tap","/home/apnex/taceng/agp/docs/reviews/admission-evaluation-preparation/admission-public-interface.test.mjs"],"cwd":"/home/apnex/taceng/agp","environment":{"AGP_PREPARATION_CORE_ROOT":"/tmp/agp-evaluator-static-qualification.V5zBXm/candidate","AGP_PREPARATION_SOURCE_REPO":"/home/apnex/taceng/context-lab","AGP_PREPARATION_PROFILE":"/home/apnex/taceng/agp/docs/reviews/admission-evaluator-qualification/admission-qualification-profile.json"},"status":0,"signal":null,"error":null}
+STDOUT
+TAP version 13
+# {"evidence":"/tmp/agp-evaluation-static-checks.ILOTQL/capture-only-evidence.json","synthetic":true,"modelCalls":0,"evaluatorRevision":"e705b3d749400d0a79efe98e5338e9c84a1695b8","publicPanelJobs":[48,40],"castVotes":[288,240],"uncastSlots":[0,48]}
+# Subtest: Admission public panel preserves all 144 synthetic outcomes and 288 cross-family vote identities
+ok 1 - Admission public panel preserves all 144 synthetic outcomes and 288 cross-family vote identities
+  ---
+  duration_ms: 917.586048
+  type: 'test'
+  ...
+# Subtest: Admission public blinder leaves missing answers uncast with complete 288-slot accounting
+ok 2 - Admission public blinder leaves missing answers uncast with complete 288-slot accounting
+  ---
+  duration_ms: 988.858455
+  type: 'test'
+  ...
+# Subtest: Admission runtime preparation inspects only public setting refusal and sanitized declared routes
+ok 3 - Admission runtime preparation inspects only public setting refusal and sanitized declared routes
+  ---
+  duration_ms: 2.704224
+  type: 'test'
+  ...
+# Subtest: Admission preparation retains complete synthetic capture records with explicit provenance
+ok 4 - Admission preparation retains complete synthetic capture records with explicit provenance
+  ---
+  duration_ms: 12.54998
+  type: 'test'
+  ...
+1..4
+# tests 4
+# suites 0
+# pass 4
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 7447.426749
+END STDOUT
+STDERR
+END STDERR
+COMMAND 1 {"command":"/home/apnex/.nvm/versions/node/v24.12.0/bin/node","args":["--test","--test-reporter=tap","/home/apnex/taceng/agp/docs/reviews/admission-evaluation-preparation/admission-public-interface.test.mjs"],"cwd":"/home/apnex/taceng/agp","environment":{"AGP_PREPARATION_CORE_ROOT":"/tmp/agp-evaluator-static-qualification.V5zBXm/historical-default","AGP_PREPARATION_SOURCE_REPO":"/home/apnex/taceng/context-lab","AGP_PREPARATION_PROFILE":null},"status":0,"signal":null,"error":null}
+STDOUT
+TAP version 13
+# {"evidence":"/tmp/agp-evaluation-static-checks.svc81s/capture-only-evidence.json","synthetic":true,"modelCalls":0,"evaluatorRevision":"0c0ab1f0248ef0cbb21885d7d6af76586d8a1b68","publicPanelJobs":[48,40],"castVotes":[288,240],"uncastSlots":[0,48]}
+# Subtest: Admission public panel preserves all 144 synthetic outcomes and 288 cross-family vote identities
+ok 1 - Admission public panel preserves all 144 synthetic outcomes and 288 cross-family vote identities
+  ---
+  duration_ms: 957.257377
+  type: 'test'
+  ...
+# Subtest: Admission public blinder leaves missing answers uncast with complete 288-slot accounting
+ok 2 - Admission public blinder leaves missing answers uncast with complete 288-slot accounting
+  ---
+  duration_ms: 864.765462
+  type: 'test'
+  ...
+# Subtest: Admission runtime preparation inspects only public setting refusal and sanitized declared routes
+ok 3 - Admission runtime preparation inspects only public setting refusal and sanitized declared routes
+  ---
+  duration_ms: 2.850569
+  type: 'test'
+  ...
+# Subtest: Admission preparation retains complete synthetic capture records with explicit provenance
+ok 4 - Admission preparation retains complete synthetic capture records with explicit provenance
+  ---
+  duration_ms: 16.871227
+  type: 'test'
+  ...
+1..4
+# tests 4
+# suites 0
+# pass 4
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 7612.931519
+END STDOUT
+STDERR
+END STDERR
+COMMAND 2 {"command":"npm","args":["run","build","--","--force"],"cwd":"/tmp/agp-evaluator-static-qualification.V5zBXm/original-evaluator","status":0,"signal":null,"error":null}
+STDOUT
+
+> @apnex/context-lab@0.0.0 build
+> tsc -b --force
+
+END STDOUT
+STDERR
+END STDERR
+PANEL KEYS ["candidateCapture","historicalCapture","historicalPayloadSha256","normalization"]
+CANDIDATE CAPTURE KEYS ["synthetic","modelCalls","evaluatorRevision","verifiedExportFiles","buildCommand","buildOutput","policySha256","runs"]
+RUN KEYS ["synthetic","modelCalls","scope","document","scenario","experiment","cells","blinded","captures","judgments","votes","uncast"]
+CAPTURE KEYS ["member","mode","tools","prompt","final"]
+JUDGMENT KEYS ["prompt","replies"]
+EPISODE {
+  "synthetic": true,
+  "classification": "injected valid fixture, not a classifier test",
+  "invocations": [
+    {
+      "arm": {
+        "arm": "judges",
+        "instructions": [],
+        "folderFiles": [],
+        "onRequest": [],
+        "canaries": [],
+        "negativeCanaries": [],
+        "revisions": {}
+      },
+      "workspace": "/tmp/agp-evaluator-static-qualification.V5zBXm/ordinary-episode/workspaces/w-d29ZIn",
+      "prompt": "Synthetic library record check only; no model is called.\n\nFor a reserve book, what is the loan period and may it be renewed?",
+      "mode": "inline",
+      "member": {
+        "id": "c",
+        "family": "claude",
+        "runtime": "opencode",
+        "model": "litellm-nexus/claude-opus-5-5"
+      },
+      "tools": "on",
+      "timeLimitSeconds": 1,
+      "work": "/tmp/agp-evaluator-static-qualification.V5zBXm/ordinary-episode/invocations/i-GdvAco"
+    }
+  ],
+  "outcome": {
+    "final": "The synthetic answer file is ready.",
+    "exit": 0,
+    "signal": null,
+    "stop": {
+      "reason": "completed",
+      "inFlight": "none"
+    },
+    "cost": {
+      "seconds": 0,
+      "inputTokens": 0,
+      "cachedInputTokens": 0,
+      "outputTokens": 0,
+      "toolCalls": 0
+    },
+    "tools": [],
+    "filtered": false,
+    "error": null,
+    "session": "synthetic-only",
+    "trace": [],
+    "events": ""
+  },
+  "result": {
+    "phases": [
+      {
+        "phase": "answer",
+        "session": "new",
+        "after": null,
+        "status": "run",
+        "prompt": "Synthetic library record check only; no model is called.\n\nFor a reserve book, what is the loan period and may it be renewed?",
+        "note": null,
+        "noteSource": null,
+        "workspace": "/tmp/agp-evaluator-static-qualification.V5zBXm/ordinary-episode/workspaces/w-d29ZIn",
+        "invocation": "/tmp/agp-evaluator-static-qualification.V5zBXm/ordinary-episode/invocations/i-GdvAco",
+        "copiedTree": null,
+        "startTree": "4b825dc642cb6eb9a060e54bf8d69288fbee4904",
+        "startDiff": "",
+        "endTree": "332e78b9edc42939fe3c0fb77f89a6c0b3dace82",
+        "snapshot": "/tmp/agp-evaluator-static-qualification.V5zBXm/ordinary-episode/snapshots/library-only/answer",
+        "endDiff": "diff --git a/answers.md b/answers.md\nnew file mode 100644\nindex 0000000..e150b74\n--- /dev/null\n+++ b/answers.md\n@@ -0,0 +1,2 @@\n+### Q1\n+Reserve books are loaned for seven days without renewal.\n",
+        "outcome": {
+          "final": "The synthetic answer file is ready.",
+          "exit": 0,
+          "signal": null,
+          "stop": {
+            "reason": "completed",
+            "inFlight": "none"
+          },
+          "cost": {
+            "seconds": 0,
+            "inputTokens": 0,
+            "cachedInputTokens": 0,
+            "outputTokens": 0,
+            "toolCalls": 0
+          },
+          "tools": [],
+          "filtered": false,
+          "error": null,
+          "session": "synthetic-only",
+          "trace": [],
+          "events": ""
+        },
+        "validity": {
+          "valid": true
+        },
+        "diff": "diff --git a/answers.md b/answers.md\nnew file mode 100644\nindex 0000000..e150b74\n--- /dev/null\n+++ b/answers.md\n@@ -0,0 +1,2 @@\n+### Q1\n+Reserve books are loaned for seven days without renewal.\n",
+        "traps": []
+      }
+    ],
+    "validity": {
+      "valid": true
+    },
+    "timeouts": 0,
+    "init": "4b825dc642cb6eb9a060e54bf8d69288fbee4904",
+    "ledger": "/tmp/agp-evaluator-static-qualification.V5zBXm/ordinary-episode/ledgers/library-only"
+  },
+  "answer": "### Q1\nReserve books are loaned for seven days without renewal.\n",
+  "answerSha256": "9358076fa1aa0a8e1ff2a04023097128ad2378b7f3512731ed9db66000ccd116",
+  "ledgerDiff": "diff --git a/answers.md b/answers.md\nnew file mode 100644\nindex 0000000..e150b74\n--- /dev/null\n+++ b/answers.md\n@@ -0,0 +1,2 @@\n+### Q1\n+Reserve books are loaned for seven days without renewal.\n"
+}
+TALLY CASE KEYS [{"keys":["name","input","original","candidate"],"name":"complete","originalKeys":["run","status","arms","members","properties","totals","excluded","absent","guesses","unreachable","cellValues"],"candidateKeys":["run","status","arms","members","properties","totals","excluded","absent","guesses","unreachable","cellValues","heldOut","heldOutCellValues","heldOutAbsent","heldOutGuesses","exposed","link","restated","variation"]},{"keys":["name","input","original","candidate"],"name":"missing-reader","originalKeys":["run","status","arms","members","properties","totals","excluded","absent","guesses","unreachable","cellValues"],"candidateKeys":["run","status","arms","members","properties","totals","excluded","absent","guesses","unreachable","cellValues","heldOut","heldOutCellValues","heldOutAbsent","heldOutGuesses","exposed","link","restated","variation"]},{"keys":["name","input","original","candidate"],"name":"ended","originalKeys":["run","status","arms","members","properties","totals","excluded","absent","guesses","unreachable","cellValues"],"candidateKeys":["run","status","arms","members","properties","totals","excluded","absent","guesses","unreachable","cellValues","heldOut","heldOutCellValues","heldOutAbsent","heldOutGuesses","exposed","link","restated","variation"]},{"keys":["name","input","original","candidate"],"name":"incomplete","originalKeys":["run","status","arms","members","properties","totals","excluded","absent","guesses","unreachable","cellValues"],"candidateKeys":["run","status","arms","members","properties","totals","excluded","absent","guesses","unreachable","cellValues","heldOut","heldOutCellValues","heldOutAbsent","heldOutGuesses","exposed","link","restated","variation"]},{"keys":["name","input","original","candidate"],"name":"excluded","originalKeys":["run","status","arms","members","properties","totals","excluded","absent","guesses","unreachable","cellValues"],"candidateKeys":["run","status","arms","members","properties","totals","excluded","absent","guesses","unreachable","cellValues","heldOut","heldOutCellValues","heldOutAbsent","heldOutGuesses","exposed","link","restated","variation"]}]
+
+
+4. INDEPENDENT FULL-PAYLOAD RECONCILIATION
+
+Command:
+node --input-type=module <<'NODE'
+import assert from 'node:assert/strict';
+import fs from 'node:fs';
+import path from 'node:path';
+import crypto from 'node:crypto';
+import zlib from 'node:zlib';
+const sha=b=>crypto.createHash('sha256').update(b).digest('hex');
+const retainedBytes=zlib.gunzipSync(Buffer.from(fs.readFileSync('docs/reviews/admission-evaluator-qualification/admission-qualification-evidence.json.gz.base64','utf8'),'base64'));
+const freshBytes=fs.readFileSync('/tmp/agp-evaluator-static-qualification.V5zBXm/admission-qualification-evidence.json');
+assert.equal(retainedBytes.length,8725616);
+assert.equal(sha(retainedBytes),'7f5d3749cd37ae81f243b84c1ab4f439121ba4eeed3658fc3c7d5445934b728f');
+const retained=JSON.parse(retainedBytes),fresh=JSON.parse(freshBytes);
+const diffs=[];
+function walk(a,b,p='$'){
+  if(Object.is(a,b))return;
+  if(typeof a!==typeof b || a===null || b===null || typeof a!=='object'){diffs.push(p);return;}
+  assert.equal(Array.isArray(a),Array.isArray(b),p);
+  assert.deepEqual(Object.keys(a),Object.keys(b),p);
+  for(const k of Object.keys(a))walk(a[k],b[k],p+'.'+k);
+}
+walk(retained,fresh);
+const groups={};
+for(const p of diffs){
+  const key=p.replace(/\.runs\.\d+\.(captures\.\d+|judgments\.[^.]+\.answers\.[^.]+\.\d+\.json)\.prompt$/,' .all-actual-prompt-paths');
+  groups[key]=(groups[key]??0)+1;
+}
+console.log('Unnormalized differing leaf fields: '+diffs.length);
+console.log(JSON.stringify(groups,null,2));
+function normalize(record) {
+  const x=structuredClone(record);
+  const root=path.dirname(x.checks.candidate.export);
+  assert.match(root,/^\/tmp\/agp-evaluator-static-qualification\.[A-Za-z0-9]+$/);
+  const rootPath=(value)=>{assert.ok(value.startsWith(root+'/'));return '<qualification-root>'+value.slice(root.length);};
+  const normalizations={root,childEvidencePaths:[],panelRecordPaths:[],episodePaths:[],tapDurations:[]};
+  assert.equal(x.commands.length,3);
+  for(let i=0;i<2;i++) {
+    const c=x.commands[i];
+    assert.equal(c.status,0);assert.equal(c.signal,null);assert.equal(c.error,null);assert.equal(c.stderr,'');
+    assert.match(c.stdout,/^1\.\.4$/m);
+    for(const line of ['# tests 4','# pass 4','# fail 0','# cancelled 0','# skipped 0','# todo 0']) assert.ok(c.stdout.split('\n').includes(line));
+    c.environment.AGP_PREPARATION_CORE_ROOT=rootPath(c.environment.AGP_PREPARATION_CORE_ROOT);
+    const lines=c.stdout.split('\n');
+    const indices=lines.map((l,j)=>l.startsWith('# {"evidence":')?j:-1).filter(j=>j>=0);
+    assert.equal(indices.length,1);
+    const info=JSON.parse(lines[indices[0]].slice(2));
+    assert.match(info.evidence,/^\/tmp\/agp-evaluation-static-checks\.[A-Za-z0-9]+\/capture-only-evidence\.json$/);
+    normalizations.childEvidencePaths.push(info.evidence);
+    info.evidence='<child-'+i+'-evidence>';
+    lines[indices[0]]='# '+JSON.stringify(info);
+    let durations=0;
+    c.stdout=lines.map(line=>{
+      if(/^(  duration_ms: |# duration_ms )[0-9]+(?:\.[0-9]+)?$/.test(line)){
+        durations++;return line.replace(/[0-9]+(?:\.[0-9]+)?$/,'<elapsed-ms>');
+      }
+      return line;
+    }).join('\n');
+    assert.equal(durations,5);
+    normalizations.tapDurations.push(durations);
+  }
+  x.commands[2].cwd=rootPath(x.commands[2].cwd);
+  for(const label of ['candidate','historical-default','original-evaluator']) x.checks[label].export=rootPath(x.checks[label].export);
+  for(const label of ['candidateCapture','historicalCapture']) {
+    const capture=x.checks.panel[label];
+    assert.equal(capture.runs.length,2);
+    for(const [i,run] of capture.runs.entries()) {
+      const matches=run.captures[0].prompt.match(/\/tmp\/agp-evaluation-static-checks\.[A-Za-z0-9]+\/panel-[A-Za-z0-9]+\/records/g);
+      assert.equal(matches.length,1);
+      const prefix=matches[0];normalizations.panelRecordPaths.push({label,run:i,path:prefix});
+      for(const record of [...run.captures,...Object.values(run.judgments)]){
+        assert.equal(record.prompt.split(prefix).length,2);
+        record.prompt=record.prompt.replace(prefix,'<'+label+'-panel-'+i+'-records>');
+      }
+    }
+  }
+  for(const arm of x.checks.composition.readerArms)for(const instruction of arm.instructions) instruction.path=rootPath(instruction.path);
+  for(const instruction of x.checks.composition.instructions)instruction.path=rootPath(instruction.path);
+  const e=x.checks.episode;
+  assert.equal(e.invocations.length,1);assert.equal(e.result.phases.length,1);
+  const invocation=e.invocations[0],phase=e.result.phases[0];
+  assert.equal(phase.workspace,invocation.workspace);assert.equal(phase.invocation,invocation.work);
+  assert.match(invocation.workspace,new RegExp('^'+root.replaceAll('.','\\.')+'/ordinary-episode/workspaces/w-[A-Za-z0-9]+$'));
+  assert.match(invocation.work,new RegExp('^'+root.replaceAll('.','\\.')+'/ordinary-episode/invocations/i-[A-Za-z0-9]+$'));
+  normalizations.episodePaths.push(invocation.workspace,invocation.work);
+  invocation.workspace=phase.workspace='<qualification-root>/ordinary-episode/workspaces/<fresh-workspace>';
+  invocation.work=phase.invocation='<qualification-root>/ordinary-episode/invocations/<fresh-invocation>';
+  phase.snapshot=rootPath(phase.snapshot);e.result.ledger=rootPath(e.result.ledger);
+  return {x,normalizations};
+}
+const a=normalize(retained),b=normalize(fresh);
+assert.deepEqual(b.x,a.x);
+console.log('Full parsed payload equality after the enumerated temporary-path and TAP-time normalization: PASS');
+console.log(JSON.stringify({retained:{bytes:retainedBytes.length,sha256:sha(retainedBytes),normalization:a.normalizations},fresh:{bytes:freshBytes.length,sha256:sha(freshBytes),normalization:b.normalizations},normalizedWholePayloadSha256:sha(JSON.stringify(b.x))},null,2));
+console.log('No outcome, score, reason, answer, source bytes, hash, identity, failure disposition, counter, command status or substantive prompt text was normalized.');
+NODE
+
+Exit status: 0
+
+Output:
+Unnormalized differing leaf fields: 374
+{
+  "$.commands.0.stdout": 1,
+  "$.commands.0.environment.AGP_PREPARATION_CORE_ROOT": 1,
+  "$.commands.1.stdout": 1,
+  "$.commands.1.environment.AGP_PREPARATION_CORE_ROOT": 1,
+  "$.commands.2.cwd": 1,
+  "$.checks.candidate.export": 1,
+  "$.checks.historical-default.export": 1,
+  "$.checks.original-evaluator.export": 1,
+  "$.checks.panel.candidateCapture .all-actual-prompt-paths": 176,
+  "$.checks.panel.historicalCapture .all-actual-prompt-paths": 176,
+  "$.checks.composition.readerArms.0.instructions.0.path": 1,
+  "$.checks.composition.readerArms.0.instructions.1.path": 1,
+  "$.checks.composition.readerArms.1.instructions.0.path": 1,
+  "$.checks.composition.readerArms.1.instructions.1.path": 1,
+  "$.checks.composition.instructions.0.path": 1,
+  "$.checks.composition.instructions.1.path": 1,
+  "$.checks.composition.instructions.2.path": 1,
+  "$.checks.composition.instructions.3.path": 1,
+  "$.checks.episode.invocations.0.workspace": 1,
+  "$.checks.episode.invocations.0.work": 1,
+  "$.checks.episode.result.phases.0.workspace": 1,
+  "$.checks.episode.result.phases.0.invocation": 1,
+  "$.checks.episode.result.phases.0.snapshot": 1,
+  "$.checks.episode.result.ledger": 1
+}
+Full parsed payload equality after the enumerated temporary-path and TAP-time normalization: PASS
+{
+  "retained": {
+    "bytes": 8725616,
+    "sha256": "7f5d3749cd37ae81f243b84c1ab4f439121ba4eeed3658fc3c7d5445934b728f",
+    "normalization": {
+      "root": "/tmp/agp-evaluator-static-qualification.iHIYQ5",
+      "childEvidencePaths": [
+        "/tmp/agp-evaluation-static-checks.I2uiu5/capture-only-evidence.json",
+        "/tmp/agp-evaluation-static-checks.hXmyWr/capture-only-evidence.json"
+      ],
+      "panelRecordPaths": [
+        {
+          "label": "candidateCapture",
+          "run": 0,
+          "path": "/tmp/agp-evaluation-static-checks.I2uiu5/panel-XBlfG7/records"
+        },
+        {
+          "label": "candidateCapture",
+          "run": 1,
+          "path": "/tmp/agp-evaluation-static-checks.I2uiu5/panel-0ESAo8/records"
+        },
+        {
+          "label": "historicalCapture",
+          "run": 0,
+          "path": "/tmp/agp-evaluation-static-checks.hXmyWr/panel-uDf5is/records"
+        },
+        {
+          "label": "historicalCapture",
+          "run": 1,
+          "path": "/tmp/agp-evaluation-static-checks.hXmyWr/panel-7cy4qu/records"
+        }
+      ],
+      "episodePaths": [
+        "/tmp/agp-evaluator-static-qualification.iHIYQ5/ordinary-episode/workspaces/w-baAQH4",
+        "/tmp/agp-evaluator-static-qualification.iHIYQ5/ordinary-episode/invocations/i-Ojoqe2"
+      ],
+      "tapDurations": [
+        5,
+        5
+      ]
+    }
+  },
+  "fresh": {
+    "bytes": 8725612,
+    "sha256": "fc0dcd16052468c9573ce56d5780fa3b74023ebc3ea7d856203932e6b6662e9b",
+    "normalization": {
+      "root": "/tmp/agp-evaluator-static-qualification.V5zBXm",
+      "childEvidencePaths": [
+        "/tmp/agp-evaluation-static-checks.ILOTQL/capture-only-evidence.json",
+        "/tmp/agp-evaluation-static-checks.svc81s/capture-only-evidence.json"
+      ],
+      "panelRecordPaths": [
+        {
+          "label": "candidateCapture",
+          "run": 0,
+          "path": "/tmp/agp-evaluation-static-checks.ILOTQL/panel-PusyxH/records"
+        },
+        {
+          "label": "candidateCapture",
+          "run": 1,
+          "path": "/tmp/agp-evaluation-static-checks.ILOTQL/panel-s3fXuI/records"
+        },
+        {
+          "label": "historicalCapture",
+          "run": 0,
+          "path": "/tmp/agp-evaluation-static-checks.svc81s/panel-o1zN5r/records"
+        },
+        {
+          "label": "historicalCapture",
+          "run": 1,
+          "path": "/tmp/agp-evaluation-static-checks.svc81s/panel-CIeRnt/records"
+        }
+      ],
+      "episodePaths": [
+        "/tmp/agp-evaluator-static-qualification.V5zBXm/ordinary-episode/workspaces/w-d29ZIn",
+        "/tmp/agp-evaluator-static-qualification.V5zBXm/ordinary-episode/invocations/i-GdvAco"
+      ],
+      "tapDurations": [
+        5,
+        5
+      ]
+    }
+  },
+  "normalizedWholePayloadSha256": "8658accb525fc3ac14be21a7e2b0e317e6f701802007aec4f6395f7d7614c1d1"
+}
+No outcome, score, reason, answer, source bytes, hash, identity, failure disposition, counter, command status or substantive prompt text was normalized.
+
+
+5. INDEPENDENT SOURCE, PRESERVATION AND RECORD-RELATION CHECKS
+
+Command:
+node --input-type=module <<'NODE'
+import assert from 'node:assert/strict';
+import fs from 'node:fs';
+import path from 'node:path';
+import crypto from 'node:crypto';
+import {execFileSync} from 'node:child_process';
+const agp=process.cwd(),source='/home/apnex/taceng/context-lab';
+const target='febde60940f04bd36210c06494b4e577b3377254',baseline='4655139a33990d9bb49cefac39a01348906655da';
+const qualification='docs/reviews/admission-evaluator-qualification',preparation='docs/reviews/admission-evaluation-preparation';
+const git=(repo,...args)=>execFileSync('git',['-C',repo,...args],{maxBuffer:32<<20});
+const sha=b=>crypto.createHash('sha256').update(b).digest('hex');
+assert.equal(git(agp,'rev-parse','HEAD').toString().trim(),target);
+const scope=[qualification,preparation,'docs/reviews/admission-lifetime-assurance','docs/reviews/admission-lifetime-assurance-r4','packages','cli','docs/reviews/admission-lifetime-correction-r4.md'];
+const tracked=git(agp,'ls-tree','-r','--name-only',target,'--',...scope).toString().trim().split('\n');
+for(const file of tracked)assert.deepEqual(fs.readFileSync(path.join(agp,file)),git(agp,'show',target+':'+file),file);
+console.log('Exact-target working bytes verified: '+tracked.length+' tracked files across declared qualification, preparation, frozen assurance and implementation-preservation paths.');
+assert.equal(git(agp,'diff',baseline,'--','docs/reviews/admission-lifetime-assurance','docs/reviews/admission-lifetime-assurance-r4','packages','cli','docs/reviews/admission-lifetime-correction-r4.md').length,0);
+const prepChanges=git(agp,'diff','--name-only',baseline,target,'--',preparation).toString().trim().split('\n');
+assert.deepEqual(prepChanges,[preparation+'/admission-public-interface.test.mjs']);
+console.log('Only prior-preparation change since frozen baseline: '+prepChanges[0]);
+console.log(git(agp,'diff',baseline,target,'--',prepChanges[0]).toString());
+const files=['admission-qualification-amendment.md','admission-qualification-design-review-01.txt','admission-qualification-source-findings.md','admission-qualification-profile.json','admission-qualification-shape.mjs','admission-qualification.test.mjs','admission-qualification-evidence.json.gz.base64','author-test-output-01.txt','author-test-output-02.txt','initial-child-command.json','supporting-test-output.txt'];
+const identities=Object.fromEntries(files.map(file=>[file,sha(fs.readFileSync(path.join(qualification,file)))]));
+assert.equal(identities['admission-qualification-amendment.md'],'c40a17a89a5ac2dbd74194914873b91f9c6ac15d2ea07a65d82b716733ffc6af');
+assert.equal(identities['admission-qualification-design-review-01.txt'],'cc307720a64e964ce80985dbd358e016feeee6f4fff79120153978a41ca2d3cd');
+console.log('Target identities '+JSON.stringify(identities,null,2));
+assert.equal(git(source,'status','--porcelain').toString(),'');
+console.log('Source checkout HEAD '+git(source,'rev-parse','HEAD').toString().trim()+'; clean.');
+const fresh=JSON.parse(fs.readFileSync('/tmp/agp-evaluator-static-qualification.V5zBXm/admission-qualification-evidence.json','utf8'));
+for(const label of ['candidate','historical-default','original-evaluator']){
+ const record=fresh.checks[label],files=git(source,'ls-tree','-r','--name-only',record.revision).toString().trim().split('\n');
+ assert.deepEqual(Object.keys(record.verifiedFiles),files);
+ for(const file of files){
+   const expected=git(source,'show',record.revision+':'+file);
+   assert.equal(sha(expected),record.verifiedFiles[file],label+':'+file);
+   assert.deepEqual(fs.readFileSync(path.join(record.export,file)),expected,label+':'+file);
+ }
+ assert.equal(fs.existsSync(path.join(record.export,'.git')),false);
+ console.log('Exact evaluator export '+label+' '+record.revision+' '+files.length+' tracked files: PASS; linked dependencies '+fs.readlinkSync(path.join(record.export,'node_modules')));
+}
+assert.equal(git(source,'rev-parse','0c0ab1f0248ef0cbb21885d7d6af76586d8a1b68^').toString().trim(),'e705b3d749400d0a79efe98e5338e9c84a1695b8');
+for(const file of ['isolation-prober.ts','validity-classifier.ts']){
+ const suffix='packages/core/src/'+file;
+ const a=git(source,'rev-parse','e705b3d749400d0a79efe98e5338e9c84a1695b8:'+suffix).toString().trim();
+ const b=git(source,'rev-parse','6e6d0a92965a15ec473c661887b2b9c5037fedcf:'+suffix).toString().trim();
+ assert.equal(a,b);console.log(file+' original/candidate identical blob '+a+' (identity/source evidence, not invocation)');
+}
+const e=fresh.checks.episode,p=e.result.phases[0];
+assert.deepEqual(p.outcome,e.outcome);
+assert.equal(p.startTree,e.result.init);
+assert.equal(git(e.result.ledger,'ls-tree','--name-only',p.startTree).toString(),'');
+assert.equal(git(e.result.ledger,'ls-tree','--name-only',p.endTree).toString(),'answers.md\n');
+assert.equal(git(e.result.ledger,'show',p.endTree+':answers.md').toString(),e.answer);
+assert.equal(fs.readFileSync(path.join(p.workspace,'answers.md'),'utf8'),e.answer);
+assert.equal(fs.readFileSync(path.join(p.snapshot,'answers.md'),'utf8'),e.answer);
+assert.equal(sha(e.answer),e.answerSha256);
+assert.equal(git(e.result.ledger,'diff',p.startTree,p.endTree).toString(),e.ledgerDiff);
+assert.equal(p.diff,e.ledgerDiff);assert.equal(p.endDiff,e.ledgerDiff);
+console.log('Positive episode artifact relation independently rechecked: '+JSON.stringify({invocations:e.invocations.length,phases:e.result.phases.length,startTree:p.startTree,endTree:p.endTree,answerSha256:e.answerSha256,classification:e.classification}));
+for(const t of fresh.checks.tally){
+ assert.deepEqual(Object.fromEntries(Object.keys(t.original).map(k=>[k,t.candidate[k]])),t.original);
+ const added=Object.keys(t.candidate).filter(k=>!Object.hasOwn(t.original,k));
+ console.log('Full retained tally comparison '+t.name+': '+Object.keys(t.original).length+' legacy fields identical; additions '+added.join(', '));
+}
+console.log('Preservation, source inventory, ordinary episode and complete legacy tally-field verification: PASS');
+NODE
+
+Exit status: 0
+
+Output:
+Exact-target working bytes verified: 727 tracked files across declared qualification, preparation, frozen assurance and implementation-preservation paths.
+Only prior-preparation change since frozen baseline: docs/reviews/admission-evaluation-preparation/admission-public-interface.test.mjs
+diff --git a/docs/reviews/admission-evaluation-preparation/admission-public-interface.test.mjs b/docs/reviews/admission-evaluation-preparation/admission-public-interface.test.mjs
+index 82792c4..6401985 100644
+--- a/docs/reviews/admission-evaluation-preparation/admission-public-interface.test.mjs
++++ b/docs/reviews/admission-evaluation-preparation/admission-public-interface.test.mjs
+@@ -10,8 +10,9 @@ import { fileURLToPath, pathToFileURL } from 'node:url';
+ import { ADMISSION_JUDGE_INSTRUCTIONS, ADMISSION_PROPERTY_RUBRIC, checkAdmissionJudgment } from './admission-scoring-policy.mjs';
+ 
+ const here = path.dirname(fileURLToPath(import.meta.url));
+-const read = (relative) => JSON.parse(fs.readFileSync(path.resolve(here, relative), 'utf8'));
+-const profile = read('preparation-profile.json');
++const profilePath = path.resolve(process.env.AGP_PREPARATION_PROFILE ?? path.join(here, 'preparation-profile.json'));
++const profile = JSON.parse(fs.readFileSync(profilePath, 'utf8'));
++const profileRead = (relative) => JSON.parse(fs.readFileSync(path.resolve(path.dirname(profilePath), relative), 'utf8'));
+ const coreRoot = process.env.AGP_PREPARATION_CORE_ROOT;
+ const sourceRepo = process.env.AGP_PREPARATION_SOURCE_REPO;
+ assert.ok(coreRoot && sourceRepo, 'Set AGP_PREPARATION_CORE_ROOT to an isolated export and AGP_PREPARATION_SOURCE_REPO to the source repository');
+@@ -27,8 +28,8 @@ for (const relative of sourceFiles) {
+ }
+ const build = execFileSync('npm', ['run', 'build', '--', '--force'], { cwd: coreRoot, encoding: 'utf8' });
+ const core = await import(pathToFileURL(path.join(coreRoot, 'packages/core/dist/src/index.js')).href);
+-const frozenPack = read(profile.frozenPopulationSource);
+-const frozenLimits = read(profile.frozenWallLimitsSource);
++const frozenPack = profileRead(profile.frozenPopulationSource);
++const frozenLimits = profileRead(profile.frozenWallLimitsSource);
+ const scratch = fs.mkdtempSync(path.join(os.tmpdir(), 'agp-evaluation-static-checks.'));
+ const capturedRuns = [];
+ const rawReason = 'DECISION=correct; COVERAGE=complete; SUPPORT=supported; HEDGE=no; REQUIRED=none; ISSUE=none; WHY=The answer gives the seven-day loan and no renewal with both exact excerpts; its proposal-status caveat is not a required-decision hedge.';
+@@ -133,7 +134,7 @@ test('Admission runtime preparation inspects only public setting refusal and san
+   assert.equal(profile.evaluatorAdoptedForLiveUse, false);
+   assert.equal(frozenLimits.timeLimitSeconds, 1200);
+   assert.equal(frozenLimits.judgeTimeLimitSeconds, 900);
+-  const runtime = core.opencodeAdapter({ operatorConfig: path.resolve(here, profile.sanitizedProviderSource), env: {}, binary: '/not-invoked/opencode' });
++  const runtime = core.opencodeAdapter({ operatorConfig: path.resolve(path.dirname(profilePath), profile.sanitizedProviderSource), env: {}, binary: '/not-invoked/opencode' });
+   const member = frozenPack.population.find((m) => m.id === 'g');
+   const invocation = { mode: 'attachment', tools: 'off', member, workspace: scratch, work: path.join(scratch, 'never-invoked'), arm: core.EMPTY_ARM, prompt: '', timeLimitSeconds: 1 };
+   for (const value of [0, -1, 1.5, '4096', null, true]) {
+
+Target identities {
+  "admission-qualification-amendment.md": "c40a17a89a5ac2dbd74194914873b91f9c6ac15d2ea07a65d82b716733ffc6af",
+  "admission-qualification-design-review-01.txt": "cc307720a64e964ce80985dbd358e016feeee6f4fff79120153978a41ca2d3cd",
+  "admission-qualification-source-findings.md": "256aac37566d67763af5a24065b75d69366b6a64d8629f487acbde9bf3dc01f4",
+  "admission-qualification-profile.json": "d101581d489ba78b1cede08439c8a0132f02dfa4936aab8bc837bd5b3611892b",
+  "admission-qualification-shape.mjs": "784827dcdaf4da39feb0ceaee4d9cbadd7a755ddfb861f487d3446306ddfff13",
+  "admission-qualification.test.mjs": "f6f87ea6fe851a87a7fee58bbb6d4dcd564fc34c7523b5ed80c2688432568540",
+  "admission-qualification-evidence.json.gz.base64": "2c1ba9965e8cadf53a08a32a915f478bfbf8db3e44e99bbef637474b7c552d89",
+  "author-test-output-01.txt": "cb5027553447f262c214209574ab6f9c06029aaf4fd438acb938758adfbec2bb",
+  "author-test-output-02.txt": "e7be9153a7e78ba4c812e615f050fab823cfe78c938f85272654c8775bd9c962",
+  "initial-child-command.json": "cf89aeed6b76b444e4b4d859396f2baa05d1cf1f1a0bc8d4740553fa2aacc662",
+  "supporting-test-output.txt": "1f7cb06446f834a48e97ba17232654a7f4014fb99a7b750f0e53ac6d64001e32"
+}
+Source checkout HEAD 8cada6c9fc8390aac6233287a619ba94920ff37c; clean.
+Exact evaluator export candidate e705b3d749400d0a79efe98e5338e9c84a1695b8 128 tracked files: PASS; linked dependencies /home/apnex/taceng/context-lab/node_modules
+Exact evaluator export historical-default 0c0ab1f0248ef0cbb21885d7d6af76586d8a1b68 128 tracked files: PASS; linked dependencies /home/apnex/taceng/context-lab/node_modules
+Exact evaluator export original-evaluator 6e6d0a92965a15ec473c661887b2b9c5037fedcf 121 tracked files: PASS; linked dependencies /home/apnex/taceng/context-lab/node_modules
+isolation-prober.ts original/candidate identical blob bdb5c0b7b4d7be9fb6b6c6c5b0dfd9a69e57d9fb (identity/source evidence, not invocation)
+validity-classifier.ts original/candidate identical blob 3dca5b6497ffab56d81c685d00055e2d8cd3501a (identity/source evidence, not invocation)
+Positive episode artifact relation independently rechecked: {"invocations":1,"phases":1,"startTree":"4b825dc642cb6eb9a060e54bf8d69288fbee4904","endTree":"332e78b9edc42939fe3c0fb77f89a6c0b3dace82","answerSha256":"9358076fa1aa0a8e1ff2a04023097128ad2378b7f3512731ed9db66000ccd116","classification":"injected valid fixture, not a classifier test"}
+Full retained tally comparison complete: 11 legacy fields identical; additions heldOut, heldOutCellValues, heldOutAbsent, heldOutGuesses, exposed, link, restated, variation
+Full retained tally comparison missing-reader: 11 legacy fields identical; additions heldOut, heldOutCellValues, heldOutAbsent, heldOutGuesses, exposed, link, restated, variation
+Full retained tally comparison ended: 11 legacy fields identical; additions heldOut, heldOutCellValues, heldOutAbsent, heldOutGuesses, exposed, link, restated, variation
+Full retained tally comparison incomplete: 11 legacy fields identical; additions heldOut, heldOutCellValues, heldOutAbsent, heldOutGuesses, exposed, link, restated, variation
+Full retained tally comparison excluded: 11 legacy fields identical; additions heldOut, heldOutCellValues, heldOutAbsent, heldOutGuesses, exposed, link, restated, variation
+Preservation, source inventory, ordinary episode and complete legacy tally-field verification: PASS
+
+
+END OF INDEPENDENT CHECK OUTPUT
+
+

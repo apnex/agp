@@ -1,0 +1,196 @@
+ADMISSION EVALUATOR QUALIFICATION: INDEPENDENT EXACT-ARTIFACT REVIEW
+
+Tier 3 analytical judgment, 2026-10-17 Australia/Melbourne.
+Reviewed checkpoint: febde60940f04bd36210c06494b4e577b3377254
+Verdict: PASS - STATIC QUALIFICATION of unchanged public context-lab e705b3d749400d0a79efe98e5338e9c84a1695b8 for the specified instruction-only, single fresh answer-phase shape; not live readiness or adoption.
+
+IDENTITY, SCOPE AND INDEPENDENCE
+
+Target: the committed admission-evaluator-qualification directory and the sole
+prior-preparation change, optional profile selection/resolution in
+admission-public-interface.test.mjs. Frozen inputs, policy, earlier records and
+implementation paths were preservation checks, not a new AGP semantic audit.
+
+Unchanged amendment SHA256:
+c40a17a89a5ac2dbd74194914873b91f9c6ac15d2ea07a65d82b716733ffc6af
+Pre-build M7/Q1-Q7 review SHA256:
+cc307720a64e964ce80985dbd358e016feeee6f4fff79120153978a41ca2d3cd
+Frozen AGP baseline: 4655139a33990d9bb49cefac39a01348906655da.
+Historical preparation evaluator: 0c0ab1f0248ef0cbb21885d7d6af76586d8a1b68.
+Original frozen evaluator: 6e6d0a92965a15ec473c661887b2b9c5037fedcf.
+
+Reviewer: /root/admission_job_boundary_review, non-author of this amendment,
+implementation and author evidence; not a scored/calibration reader or judge.
+I authored the earlier independent preparation and pre-build reviews. That
+continuity is disclosed, not counted as another independent source. No delegation.
+
+Guidance: /home/apnex/taceng/AGENTS.md and canonical mission-kit main at
+ae217c932e50737d0595db9523502a1257b7a4bd. Current hydration included the complete
+INDEX, research-artefacts skill and W8; the same-pin pre-build M7/axiom analysis
+and its mandatory Q1-Q7 remain the design baseline. The canonical remote pin
+was independently reverified; no guidance checkout was changed.
+
+Bounded plan, written before implementation review: verify exact identity and
+diff; read implementation, tests and retained failures before running; check
+Q1-Q7/G1-G6 at public seams; run only approved static checks; compare complete
+fresh evidence with narrowly enumerated dynamic fields; preserve two new
+reviewer-owned files. Author claims, measured results and source-only coverage
+are distinguished below.
+
+FINDINGS AND GUARDRAIL CLOSEOUT
+
+No blocking finding within this static scope.
+
+Q1/Q2: Raw hook/transform/revision/delivery rejection precedes checkPack and
+buildVariant. Public effective phase/property resolution is checked on the
+resolved scenario, not just the experiment declaration. Every property remains
+on the sole new answer phase; fixture, traps, held-out split, notes, continuation,
+phase overrides and measurement hooks are excluded. Original population,
+families, models/settings, factors, judging, run count and limits are compared
+with the separately pinned baseline. All 27 inert declaration refusal cases
+actually change their input. Seven inert composition refusal cases cover actual
+reader/judge structures. Both assembled reader arms contain exactly their
+frozen instruction and canary, with verified bytes/revisions; folderFiles and
+onRequest are empty, as is public EMPTY_ARM's delivery. Refusal tests never
+submit those inputs to an executing runtime.
+
+Q3/G1-G3: Policy and literal development cases are unchanged. I checked the
+unrelated library cases: an accurate proposal-status caveat retains two correct
+decisions; explicitly withholding renewal receives partial credit; omission
+and unsupported renewal remain partial; a wrong loan period remains zero.
+The mixed wrong-plus-separate-source-conflict case still has aggregate wrong
+precedence and score zero, while preserving the actual renewal conflict.
+Absent answers have no raw cast score. The pure checker preserves original
+score/reason; these author-authored cases are not model observations or hidden
+assurance. Repeated headings exercise accounting, not independent semantic
+coverage. Favorable live judgments would still require independent semantic
+review rather than accepting clean diagnostic tags.
+
+Q4/G4-G5: Public blind/judgeAll produced complete local captures with c/g
+attachment mode, o stdin mode, tools off, and exactly the two other-family
+judges per eligible answer. Per evaluator there are six cells: complete
+144 outcomes/288 cast votes/48 jobs; missing-reader 120 eligible outcomes/
+240 cast votes/40 jobs plus 24 absent outcomes and 48 explicit uncast slots.
+Every job has one retained reply, zero tools, no error/failure, and a unique
+matching capture. Original votes/reasons survive unchanged. This measures
+public invocation arguments with local fakes, not actual provider transport.
+
+The separately selected positive runEpisode extension makes one local fake
+invocation and one new answer phase, with no continuation. Its tools="on" is
+the public episode's ordinary file-writing contract, not a panel relaxation.
+Actual invocation, raw outcome and phase record are retained. I independently
+rechecked workspace/snapshot/ledger answer equality, empty start tree, sole
+answers.md end tree, and both phase diffs against the ledger:
+  startTree: 4b825dc642cb6eb9a060e54bf8d69288fbee4904
+  endTree:   332e78b9edc42939fe3c0fb77f89a6c0b3dace82
+  answer SHA256:
+  9358076fa1aa0a8e1ff2a04023097128ad2378b7f3512731ed9db66000ccd116
+Classification is deliberately injected valid data, not classifier proof.
+This ordinary two-line answer does not establish representative reader volume,
+failure handling, isolation or whole-conductor execution.
+
+Q5: All 128 candidate, 128 historical-default and 121 original evaluator
+tracked files were independently byte-checked against their exact Git objects;
+the isolated exports were force-built and public indexes used. The clean source
+cache currently has HEAD 8cada6c9fc8390aac6233287a619ba94920ff37c, but no export
+uses that HEAD implicitly. Dependencies are linked from its node_modules:
+this is source identity plus a successful local build, not a hermetic toolchain
+or dependency qualification. The sole existing-test diff is optional profile
+path selection and profile-relative references; all original assertions/default
+remain. Full historical-default capture parity and candidate parity passed.
+
+Q6: All eleven legacy public tally fields match the original evaluator for
+complete, missing-reader, ended, incomplete and infrastructure-excluded inert
+records: run, status, arms, members, properties, totals, excluded, absent,
+guesses, unreachable and cellValues. Eight additions are explicitly retained:
+heldOut, heldOutCellValues, heldOutAbsent, heldOutGuesses, exposed, link,
+restated and variation. Missing/ended outcomes remain zero; incomplete remains
+incomplete; infrastructure exclusion is separately identified. Raw votes are
+unchanged. These are pure disposition records, not executed failures.
+Public tally parity does not replace AGP's conservative minimum/quote-cap
+accounting or change its denominator. The new episode tree/ledger representation
+is not claimed to be an identical old commit-oriented record schema. The
+frozen AGP accountant does not consume startCommit/init/ledger; that seam and
+fresh conductor retry/record handling remain the bounded prior source review,
+not newly executed conductor coverage.
+
+Q7/G6: Live call/cost maxima remain zero, adoption false, and live cap/client/
+backend observations null. The public cap check only inspects sanitized route
+and refusal behavior, including Codex refusal; it invokes neither adapter.
+The current shape also rejects added member settings. A later selected cap
+therefore requires an explicit prospectively reviewed diagnostic profile/guard
+delta; this zero-call profile cannot be repurposed as execution authority.
+
+MEASURED CHECKS AND COMPLETE EVIDENCE
+
+Fresh approved qualification command passed 6/6 top-level tests. Both child
+public-panel suites actually ran 4/4 each, with zero skips, not merely a zero
+process exit. The existing policy and pure AGP accounting command passed 23/23.
+Independent total: 37 passing tests, zero failures/cancellations/skips/todos.
+The author's additional 13 repository-record checks were not counted as mine.
+
+The initial author failure and complete child warning remain preserved. That
+child exited zero without executing tests under the inherited Node runner
+context; the outer suite correctly failed for missing capture. The explicit
+context removal in the current harness is bounded test-runner plumbing.
+The fresh successful child outputs include all tests and full evidence paths.
+
+Decoded retained evidence:
+  8,725,616 bytes
+  SHA256 7f5d3749cd37ae81f243b84c1ab4f439121ba4eeed3658fc3c7d5445934b728f
+Fresh evidence:
+  /tmp/agp-evaluator-static-qualification.V5zBXm/admission-qualification-evidence.json
+  8,725,612 bytes
+  SHA256 fc0dcd16052468c9573ce56d5780fa3b74023ebc3ea7d856203932e6b6662e9b
+
+I compared the ENTIRE parsed payload. All 374 differing leaf fields reconcile:
+352 actual capture/job prompt fields differ only in their temporary records
+directory; the remaining fields contain export/composition/episode scratch
+paths or the two child stdout strings. Only those enumerated paths and ten
+child TAP duration numbers were normalized. No score, reason, answer, source
+content, outcome, identity, hash, disposition, counter, status or substantive
+prompt content was normalized. Whole normalized payload equality passed:
+SHA256 8658accb525fc3ac14be21a7e2b0e317e6f701802007aec4f6395f7d7614c1d1.
+
+Complete independent commands, outputs, child records, normalization rules,
+path mappings and identity checks are retained alongside this report in
+admission-qualification-review-output-01.txt, SHA256:
+e33c2a6b10418e7c3c04a1ad1d86e9b8a4e9a1f65267d42d3c448c3d8ae5e105
+
+PRESERVATION, M7 CLOSEOUT AND REMAINING GATES
+
+All 727 tracked files in the qualification/preparation/frozen-assurance and
+packages/CLI preservation scope match the reviewed checkpoint. Frozen assurance,
+original FAIL/NO VERDICT, previous profiles/captures/reports, AGP implementation
+and correction are unchanged from the pinned baseline. Only the permitted
+optional-profile test differs in the old preparation. Unrelated dirty board,
+verification and other user files were neither reviewed as this target nor
+modified. This reviewer writes only this report and its output file.
+
+The pre-build M7 commitments are realized at the bounded public seams:
+A1/A4 full truthful records and preserved failures; A3 one reused panel;
+A7 deterministic preconditions; A8 separate exact-artifact review; A11 unchanged
+raw judgments and independent semantic authority; A12/A13 no invented budget
+or live inference; A14 explicit revival triggers. This closes Q1-Q7 under the
+existing G1-G6, not a new production M1 audit or live M2 result.
+
+Consequence: resolve only PREP-L1's candidate-compatibility portion for this
+exact revision and shape. Real delivery, sandbox/isolation, complete real
+invocation capture, provider enforcement and whole-conductor behavior remain
+unqualified. Probe/classifier original/candidate blob identity was reverified
+but neither was invoked; no broader all-attempt retention claim follows.
+
+PREP-L2 still needs a separately selected finite-budget diagnostic with exact
+caps, runtime/version prerequisites, sanitized client/backend observations,
+frozen unrelated expected cases, representative reader/file output and stops.
+PREP-L3 still needs fresh audited questions/readers and independent completed
+assurance judgment. Any future execution entry point must enforce the reviewed
+restrictions and retain complete invocation evidence before calls.
+A different revision, nonempty onRequest, altered settings or wider phase/run
+shape revives review; it is not covered by this PASS.
+
+No model/provider/sandbox/probe/conductor/resume/registration invocation, fault
+or security-trigger reproduction, source patch, commit or delegation occurred.
+No AGP implementation, ratification, publication, B53 closure, B56 change, push,
+upstream contact or Zorg authority is implied.
+
