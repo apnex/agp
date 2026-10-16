@@ -1,0 +1,33 @@
+{
+  "schema": "agp.admission-evaluator-static-qualification/1",
+  "purpose": "Static capture development only; no experiment execution or registration",
+  "evaluatorRevision": "e705b3d749400d0a79efe98e5338e9c84a1695b8",
+  "comparisonEvaluatorRevision": "6e6d0a92965a15ec473c661887b2b9c5037fedcf",
+  "frozenPacketRevision": "4655139a33990d9bb49cefac39a01348906655da",
+  "evaluatorAdoptedForLiveUse": false,
+  "liveCallsMaximum": 0,
+  "liveCostMaximum": 0,
+  "liveReplyCap": null,
+  "clientRequestObservation": null,
+  "backendBudgetObservation": null,
+  "frozenPopulationSource": "../admission-lifetime-assurance-r4/pack.json",
+  "frozenWallLimitsSource": "../admission-lifetime-assurance-r4/admission-execution-config.json",
+  "sanitizedProviderSource": "../admission-lifetime-assurance-r4/admission-provider-config.json",
+  "restrictions": {
+    "delivery": "instruction-only",
+    "onRequest": false,
+    "folderFiles": false,
+    "hooks": false,
+    "transforms": false,
+    "phases": [{ "id": "answer", "session": "new" }],
+    "resume": false,
+    "restrictedTally": false
+  },
+  "liveBlockers": [
+    "Independent exact-artifact static qualification is required; this profile is not a verdict",
+    "Separate director selection of finite diagnostic/calibration budget, exact caps and stop conditions",
+    "Sanitized client/backend budget observation and representative reader/file-writing checks",
+    "Real delivery, isolation, complete invocation capture and whole-conductor behavior remain unqualified",
+    "Later fresh-question/key audit, fresh readers and independent assurance judgment"
+  ]
+}

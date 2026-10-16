@@ -1,0 +1,16 @@
+[
+  {
+    "command": "/home/apnex/.nvm/versions/node/v24.12.0/bin/node",
+    "args": [
+      "--test",
+      "--test-reporter=tap",
+      "/home/apnex/taceng/agp/docs/reviews/admission-evaluation-preparation/admission-public-interface.test.mjs"
+    ],
+    "cwd": "/home/apnex/taceng/agp",
+    "status": 0,
+    "signal": null,
+    "error": null,
+    "stdout": "",
+    "stderr": "(node:166812) Warning: node:test run() is being called recursively within a test file. skipping running files.\n(Use `node --trace-warnings ...` to show where the warning was created)\n"
+  }
+]

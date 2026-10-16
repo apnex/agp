@@ -1,0 +1,226 @@
+TAP version 13
+# Subtest: Admission policy explicitly separates proposed status from required-decision uncertainty
+ok 1 - Admission policy explicitly separates proposed status from required-decision uncertainty
+  ---
+  duration_ms: 2.324847
+  type: 'test'
+  ...
+# Subtest: Admission diagnostic fixtures cover full credit, status, omission, support, uncertainty, conflict, wrong and absent
+ok 2 - Admission diagnostic fixtures cover full credit, status, omission, support, uncertainty, conflict, wrong and absent
+  ---
+  duration_ms: 7.09665
+  type: 'test'
+  ...
+# Subtest: Admission checker detects score/reason contradictions in both favorable and unfavorable directions
+ok 3 - Admission checker detects score/reason contradictions in both favorable and unfavorable directions
+  ---
+  duration_ms: 0.807399
+  type: 'test'
+  ...
+# Subtest: Admission checker refuses malformed diagnostics without dropping or rewriting the original
+ok 4 - Admission checker refuses malformed diagnostics without dropping or rewriting the original
+  ---
+  duration_ms: 0.865693
+  type: 'test'
+  ...
+# Subtest: Admission negative fixtures prove required-ID and issue-tag checks discriminate
+ok 5 - Admission negative fixtures prove required-ID and issue-tag checks discriminate
+  ---
+  duration_ms: 1.448657
+  type: 'test'
+  ...
+# Subtest: Admission clean diagnostics do not establish semantic validity or approve a vote
+ok 6 - Admission clean diagnostics do not establish semantic validity or approve a vote
+  ---
+  duration_ms: 0.489011
+  type: 'test'
+  ...
+# Subtest: Admission wrong-decision precedence retains a different required conflict without raising zero
+ok 7 - Admission wrong-decision precedence retains a different required conflict without raising zero
+  ---
+  duration_ms: 5.679698
+  type: 'test'
+  ...
+# Subtest: Admission unrelated semantic cases preserve literal expected distinctions for independent review
+ok 8 - Admission unrelated semantic cases preserve literal expected distinctions for independent review
+  ---
+  duration_ms: 1.777428
+  type: 'test'
+  ...
+# Subtest: Admission accounting preserves all identities and does not issue its own gate verdict
+ok 9 - Admission accounting preserves all identities and does not issue its own gate verdict
+  ---
+  duration_ms: 65.400877
+  type: 'test'
+  ...
+# Subtest: Admission missing null, undefined and blank answers become explicit uncast zeroes
+ok 10 - Admission missing null, undefined and blank answers become explicit uncast zeroes
+  ---
+  duration_ms: 177.739811
+  type: 'test'
+  ...
+# Subtest: Admission valid phase with no answer file accounts for all twenty-four missing answers
+ok 11 - Admission valid phase with no answer file accounts for all twenty-four missing answers
+  ---
+  duration_ms: 29.499324
+  type: 'test'
+  ...
+# Subtest: Admission ended sole phase ignores retained partial or complete raw answers
+ok 12 - Admission ended sole phase ignores retained partial or complete raw answers
+  ---
+  duration_ms: 60.129587
+  type: 'test'
+  ...
+# Subtest: Admission predecessor behavior failure does not automatically fail candidate thresholds
+ok 13 - Admission predecessor behavior failure does not automatically fail candidate thresholds
+  ---
+  duration_ms: 31.770145
+  type: 'test'
+  ...
+# Subtest: Admission invalid required evidence takes precedence over numerical failure
+ok 14 - Admission invalid required evidence takes precedence over numerical failure
+  ---
+  duration_ms: 22.217929
+  type: 'test'
+  ...
+# Subtest: Admission accounting rejects missing or duplicate cells, probes, votes and invalid provenance
+ok 15 - Admission accounting rejects missing or duplicate cells, probes, votes and invalid provenance
+  ---
+  duration_ms: 573.502093
+  type: 'test'
+  ...
+# Subtest: Admission unresolved infrastructure/isolation or incomplete phase never becomes a reader zero
+ok 16 - Admission unresolved infrastructure/isolation or incomplete phase never becomes a reader zero
+  ---
+  duration_ms: 51.965279
+  type: 'test'
+  ...
+# Subtest: Admission accounting accepts one infrastructure retry but not a behavior retry
+ok 17 - Admission accounting accepts one infrastructure retry but not a behavior retry
+  ---
+  duration_ms: 41.703913
+  type: 'test'
+  ...
+# Subtest: Admission minimum-vote and quote caps are downward-only and inspect every excerpt
+ok 18 - Admission minimum-vote and quote caps are downward-only and inspect every excerpt
+  ---
+  duration_ms: 46.209559
+  type: 'test'
+  ...
+# Subtest: Admission diagnostic formatting cannot invalidate or improve an accepted score
+ok 19 - Admission diagnostic formatting cannot invalidate or improve an accepted score
+  ---
+  duration_ms: 28.635058
+  type: 'test'
+  ...
+# Subtest: Admission ties and each individual control regression are not averaged away
+ok 20 - Admission ties and each individual control regression are not averaged away
+  ---
+  duration_ms: 55.421611
+  type: 'test'
+  ...
+# Subtest: Admission accounting requires replay bound to the actual raw replies and derived votes
+ok 21 - Admission accounting requires replay bound to the actual raw replies and derived votes
+  ---
+  duration_ms: 119.521999
+  type: 'test'
+  ...
+# Subtest: Admission probe and reader raw evidence cannot be replaced by favorable labels
+ok 22 - Admission probe and reader raw evidence cannot be replaced by favorable labels
+  ---
+  duration_ms: 212.062617
+  type: 'test'
+  ...
+# Subtest: Admission probe check preserves the pinned allowance for unanswered non-canary questions
+ok 23 - Admission probe check preserves the pinned allowance for unanswered non-canary questions
+  ---
+  duration_ms: 8.283105
+  type: 'test'
+  ...
+# Subtest: Given the confirmed intent record, when its numbered subsections are read, then every number is unique and ordered
+ok 24 - Given the confirmed intent record, when its numbered subsections are read, then every number is unique and ordered
+  ---
+  duration_ms: 12.423708
+  type: 'test'
+  ...
+# Subtest: Given the reconciled architecture, when its current paths and scope owners are resolved, then none points at a fictional module or a forked deferred list
+ok 25 - Given the reconciled architecture, when its current paths and scope owners are resolved, then none points at a fictional module or a forked deferred list
+  ---
+  duration_ms: 12.39253
+  type: 'test'
+  ...
+# Subtest: Given the triage ledger, when each candidate is read, then it is scored on both dimensions and cites a record
+ok 26 - Given the triage ledger, when each candidate is read, then it is scored on both dimensions and cites a record
+  ---
+  duration_ms: 23.644847
+  type: 'test'
+  ...
+# Subtest: Given every record cited by the board, when the link is resolved, then the target and its anchor exist
+ok 27 - Given every record cited by the board, when the link is resolved, then the target and its anchor exist
+  ---
+  duration_ms: 256.54468
+  type: 'test'
+  ...
+# Subtest: Given the held section, when each item is read, then it is scored and carries a revival trigger
+ok 28 - Given the held section, when each item is read, then it is scored and carries a revival trigger
+  ---
+  duration_ms: 3.110751
+  type: 'test'
+  ...
+# Subtest: Given the decisions required, when each is read, then it names exactly what it blocks
+ok 29 - Given the decisions required, when each is read, then it names exactly what it blocks
+  ---
+  duration_ms: 1.954101
+  type: 'test'
+  ...
+# Subtest: Given every board identifier, when the ledger and milestones are compared, then neither contains an item the other omits
+ok 30 - Given every board identifier, when the ledger and milestones are compared, then neither contains an item the other omits
+  ---
+  duration_ms: 2.098855
+  type: 'test'
+  ...
+# Subtest: Given every board item, when its ledger status is compared with where it sits, then the board does not disagree with itself about its state
+ok 31 - Given every board item, when its ledger status is compared with where it sits, then the board does not disagree with itself about its state
+  ---
+  duration_ms: 55.582883
+  type: 'test'
+  ...
+# Subtest: Given the milestones, when each is read, then no landed item is presented as a live move and the closed count matches the closed set
+ok 32 - Given the milestones, when each is read, then no landed item is presented as a live move and the closed count matches the closed set
+  ---
+  duration_ms: 15.259893
+  type: 'test'
+  ...
+# Subtest: Given every record that cites a board item, when the citation is resolved, then the item exists on the board
+ok 33 - Given every record that cites a board item, when the citation is resolved, then the item exists on the board
+  ---
+  duration_ms: 83.653078
+  type: 'test'
+  ...
+# Subtest: Given the architecture maturity table, when a reopen trigger is read, then it names a condition that has not already happened
+ok 34 - Given the architecture maturity table, when a reopen trigger is read, then it names a condition that has not already happened
+  ---
+  duration_ms: 4.155145
+  type: 'test'
+  ...
+# Subtest: Given confirmed intent, when a row says it was amended, then it names the decision that amended it
+ok 35 - Given confirmed intent, when a row says it was amended, then it names the decision that amended it
+  ---
+  duration_ms: 1.376372
+  type: 'test'
+  ...
+# Subtest: Given every ratified decision, when it is checked against the vision, then it has been absorbed or explicitly ruled not to change purpose
+ok 36 - Given every ratified decision, when it is checked against the vision, then it has been absorbed or explicitly ruled not to change purpose
+  ---
+  duration_ms: 1.997239
+  type: 'test'
+  ...
+1..36
+# tests 36
+# suites 0
+# pass 36
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 1725.268671

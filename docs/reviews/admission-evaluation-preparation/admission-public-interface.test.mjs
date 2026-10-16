@@ -10,8 +10,9 @@ import { fileURLToPath, pathToFileURL } from 'node:url';
 import { ADMISSION_JUDGE_INSTRUCTIONS, ADMISSION_PROPERTY_RUBRIC, checkAdmissionJudgment } from './admission-scoring-policy.mjs';
 
 const here = path.dirname(fileURLToPath(import.meta.url));
-const read = (relative) => JSON.parse(fs.readFileSync(path.resolve(here, relative), 'utf8'));
-const profile = read('preparation-profile.json');
+const profilePath = path.resolve(process.env.AGP_PREPARATION_PROFILE ?? path.join(here, 'preparation-profile.json'));
+const profile = JSON.parse(fs.readFileSync(profilePath, 'utf8'));
+const profileRead = (relative) => JSON.parse(fs.readFileSync(path.resolve(path.dirname(profilePath), relative), 'utf8'));
 const coreRoot = process.env.AGP_PREPARATION_CORE_ROOT;
 const sourceRepo = process.env.AGP_PREPARATION_SOURCE_REPO;
 assert.ok(coreRoot && sourceRepo, 'Set AGP_PREPARATION_CORE_ROOT to an isolated export and AGP_PREPARATION_SOURCE_REPO to the source repository');
@@ -27,8 +28,8 @@ for (const relative of sourceFiles) {
 }
 const build = execFileSync('npm', ['run', 'build', '--', '--force'], { cwd: coreRoot, encoding: 'utf8' });
 const core = await import(pathToFileURL(path.join(coreRoot, 'packages/core/dist/src/index.js')).href);
-const frozenPack = read(profile.frozenPopulationSource);
-const frozenLimits = read(profile.frozenWallLimitsSource);
+const frozenPack = profileRead(profile.frozenPopulationSource);
+const frozenLimits = profileRead(profile.frozenWallLimitsSource);
 const scratch = fs.mkdtempSync(path.join(os.tmpdir(), 'agp-evaluation-static-checks.'));
 const capturedRuns = [];
 const rawReason = 'DECISION=correct; COVERAGE=complete; SUPPORT=supported; HEDGE=no; REQUIRED=none; ISSUE=none; WHY=The answer gives the seven-day loan and no renewal with both exact excerpts; its proposal-status caveat is not a required-decision hedge.';
@@ -133,7 +134,7 @@ test('Admission runtime preparation inspects only public setting refusal and san
   assert.equal(profile.evaluatorAdoptedForLiveUse, false);
   assert.equal(frozenLimits.timeLimitSeconds, 1200);
   assert.equal(frozenLimits.judgeTimeLimitSeconds, 900);
-  const runtime = core.opencodeAdapter({ operatorConfig: path.resolve(here, profile.sanitizedProviderSource), env: {}, binary: '/not-invoked/opencode' });
+  const runtime = core.opencodeAdapter({ operatorConfig: path.resolve(path.dirname(profilePath), profile.sanitizedProviderSource), env: {}, binary: '/not-invoked/opencode' });
   const member = frozenPack.population.find((m) => m.id === 'g');
   const invocation = { mode: 'attachment', tools: 'off', member, workspace: scratch, work: path.join(scratch, 'never-invoked'), arm: core.EMPTY_ARM, prompt: '', timeLimitSeconds: 1 };
   for (const value of [0, -1, 1.5, '4096', null, true]) {
