@@ -1,0 +1,280 @@
+ADMISSION CLARIFICATION R4: BOUNDED KR-01 ACCOUNTING RECHECK
+
+Verdict: PASS -- the exact accounting correction resolves KR-01 for instrument readiness and a separate execution decision.
+This is a non-author, separate-context source/document recheck, not model-family-independent scored assurance, runtime acceptance, ratification, B53 closure, publication, or authorization to execute.
+The original readiness FAIL and the earlier scored assurance FAIL remain unchanged.
+
+Tier 3: the verdict and explicitly marked assessments are this reviewer's judgments.
+[MEASURED] identifies direct artifact/source reads or deterministic checks performed in this recheck.
+[SOURCE-DERIVED] identifies consequences reasoned from pinned source, not observations from an executed reader or judge.
+
+IDENTITY, CONDITION, AND SCOPE
+
+[MEASURED] Reviewer: `/root/admission_accounting_recheck`.
+[MEASURED] Review checkpoint: 2026-10-16 00:19:39 UTC.
+This reviewer did not author the amendment and made no change to it or to any pre-existing file.
+The supplied task selects this bounded non-author recheck; no claim of cross-model independence or statistical independence is made.
+
+[MEASURED] Exact revisions:
+
+| Identity | Revision |
+|---|---|
+| Reviewed AGP candidate and HEAD | da024b29250e47bd19e44c660ba1bce535c379cb |
+| Candidate parent | ae83dc3574c7e84549b9e7097bc077495f8ac3b9 |
+| Candidate repository tree | 92d4cd6ed8180d841e22fccd8c1e104102c0e6fc |
+| Original frozen preparation packet | e9fc08b9c340c11e4f094408ca298dbe28419127 |
+| Commit containing the preserved first readiness audit | 2d0f4875ad94e51e3274871f8221163d6ee445e2 |
+| Pinned evaluator object read in `/home/apnex/taceng/context-lab` | 6e6d0a92965a15ec473c661887b2b9c5037fedcf |
+| Guidance cache HEAD read in `/home/apnex/taceng/mission-kit` | ec356b8c706c1201f636ce526348ec1f6c213a18 |
+
+Condition fixed before assessment: the correction must resolve KR-01 unambiguously against the pinned evaluator's sole-phase accounting boundary; preserve valid-answer, missing-answer, ended, incomplete and no-verdict distinctions; neither weaken thresholds nor change prior results; and preserve the unchanged packet and original preregistration body.
+A contradiction on any of those points would be a correction FAIL.
+Missing execution infrastructure is reported separately and cannot be substituted for a correction defect.
+
+Reference abbreviations:
+
+- P: `docs/reviews/admission-lifetime-assurance-r4/` at the candidate commit above.
+- A: P/`admission-accounting-amendment-01.md`.
+- R: P/`admission-assurance-preregistration.md`, with the three-line correction banner.
+- K: P/`admission-key-audit-01.txt`, preserved from the audit commit above.
+- E: `packages/core/src/` in the evaluator at the exact pinned object above.
+- O: `docs/reviews/admission-lifetime-assurance/`, the earlier scored assurance record.
+
+Line references below are to those exact versions.
+The complete A, R, K and parent-to-candidate diff were read.
+Because the original R body was independently reconstructed and found byte-identical, that read also covers the complete original preregistration body; its original line numbers after the title are three less than the amended version's.
+
+GUIDANCE AND REVIEW BOUNDARY
+
+[MEASURED] Read `/home/apnex/taceng/AGENTS.md`, the complete mission-kit ledger, and the triggered independent-review, gate/evidence, frozen-record, role/work-type/domain, source/claim and writing guidance.
+The mission-kit cache had the exact HEAD above and an empty status.
+The parent reported matching it to remote main this turn; this reviewer did not independently query the remote.
+The `research-artefacts` discipline was used: a scoped scratch plan preceded target reads, and source facts, inherited coverage, interpretation and unrun work are separated here.
+The whole-project `repo-audit` and WorkGraph lifecycle skills were inspected for routing, not invoked as additional workflows.
+
+The plan was limited to: full prior audit/preregistration and exact correction; pinned phase/extraction/blinding/vote/tally mechanisms; immutable-content and population accounting checks; this report.
+No further agent was delegated, no correction was requested or made during the review, and no favorable-result retry loop was performed.
+
+INHERITED COVERAGE VERSUS NEW WORK
+
+[MEASURED] K:97-208 records the first auditor's complete 24 question/key/rubric review against both complete reader inputs, control fairness, independent retained-body reconstruction, and capture-only prompt inspection.
+K:64-95 identifies KR-01 as the necessary accounting repair; K:281-284 preserves the resulting readiness FAIL.
+This recheck does not turn that earlier verdict into evidence of its own correctness.
+It uses the unchanged audit's recorded coverage to bound work on unchanged surfaces and independently examines the correction and the sources that decide KR-01.
+
+New in this recheck:
+
+- Read the entire first audit, amendment and preregistration, plus the full exact diff, manifest, experiment, population/delivery pack and earlier assurance result.
+- Read the pinned evaluator's relevant implementation, not the source at the local checkout's HEAD.
+- Independently compared frozen blobs and working files, including every earlier-assurance file, and checked the declared slot identities.
+- Reran the five inspected existing input tests.
+- Evaluated the partial-text, complete-text, missing-answer, invalid-vote and unresolved-input boundaries below.
+
+Not newly performed:
+
+- No full semantic re-read of all 24 unchanged keys or both full unchanged designs.
+- No new claim that unchanged controls or projection omissions are semantically fair beyond the inherited audit coverage.
+- No replay or regeneration of the original capture-only reader/judge previews.
+- No new observation of real delivery, isolation, model availability, reader performance or judging quality.
+
+The earlier audit's optional ancillary-label improvements remain optional; no question or rubric was enlarged or relaxed by this recheck.
+The author's reported checks were not used as this reviewer's independent measurements.
+
+MEASURED PRESERVATION
+
+[MEASURED] The candidate-to-parent diff consists of exactly two paths: addition of A (89 lines) and insertion of three lines into R.
+There are 92 insertions and no deletions.
+No other repository path changes in that commit.
+`git diff --check` for those revisions exited 0.
+
+[MEASURED] The original frozen packet has 14 files.
+All 14 have identical bytes at the candidate parent.
+At the candidate, the 13 files other than R are byte-identical to the original freeze.
+Removing exactly amended R lines 3-5 reconstructs the original R byte-for-byte, including its original scoring, validity, gate, preparation and authority text.
+The reconstructed original has SHA-256 `45a8a5c0800f652d4181b693be37a5961263d877483de0cce7c731d7ac34f1c9`.
+The banner points to A and K; A:16-20 explicitly identifies the clauses it supersedes and keeps the other requirements unchanged.
+
+[MEASURED] K is byte-identical at its audit commit, the candidate parent, the candidate, and the working tree.
+All 16 committed files in P match their candidate blobs in the working tree.
+The tree identities are:
+
+| Packet point | Git tree |
+|---|---|
+| Original frozen 14-file packet | 1f408908eed81185d38d972f7d73461354b0bfef |
+| Candidate parent, with original audit | 84b0eeebc44f086172333ea336686ea9170d1e0e |
+| Candidate, with amendment and banner | 2ebfcbbcb115af60fea02ba8fd21d6d3051fb87b |
+
+[MEASURED] All 57 files in O have the same paths and bytes at the original R4 freeze, candidate parent, candidate, and current working tree.
+O's tree remains `f399ece937693149078bc6ae055d7b29f1cfa221` at both the original freeze and candidate.
+This includes the earlier inputs, questions, raw records, answers/votes, accounting and FAIL result; nothing was regraded.
+The complete earlier result was read as lineage, not re-adjudicated (O/`admission-assurance-result.md`:3-19, 67-84).
+
+[MEASURED] Candidate packet SHA-256 identities, paths relative to P:
+
+| File | SHA-256 |
+|---|---|
+| admission-accounting-amendment-01.md | 4a59e4608b2cd4087ab8a69393a700a42c29a276fd5385bbd95e686decb77399 |
+| admission-assurance-preregistration.md | 7ae488d7d120effbc0af4a14ded98598ea3209558d8928df7f6a8ec4e05d9ab5 |
+| admission-key-audit-01.txt | 21561fbc58fdb51d8d7a62ce9cfb5e383423b700a585abe459213055538ce35e |
+| admission-assurance-coverage.json | 5a01bd2687d5c40736bd86a34b5d6413ce0ca34f063d218a22760acc836f77f4 |
+| admission-clarity-experiment.json | 6a9a7cc08570ed3af675dafacba5c99c4f7d11137eb90a7d4b0f54268022f9a6 |
+| admission-clarity-probes.json | 5c36906b1a6b2c63e9815695163b816c9386d614c1dd4f4e06fa096da0b2a247 |
+| admission-input-manifest.json | 8a35376cd4ab9075c5788c79203e727eaef654b202b678dd787093e71364e9cf |
+| admission-input.test.mjs | 0d26b8dc797d29fbdd5a497034e4b0d0f9ee1008e948ba24b5a1528a6fea2378 |
+| check-admission-input.mjs | 989a89ff7e9be6313585a43e50b1de3e1fea55f7611c60cbb27ee2a7f8c0e293 |
+| inputs/m42/DESIGN.md | 822c1f92287b53c59cbc9ca26743bd1b2b73693fc8e994c11d206d04af31bae9 |
+| inputs/x19/DESIGN.md | 605dc6181909bc66532d120e07b2a69c59dea3286ca690ce718a0583c033200a |
+| pack.json | 6d9133bc7574ae1be9d57b7e987c2050337ae42bd4ad7072c70a9204dfa5092d |
+| project-admission-input.mjs | 408b994da025f9a8c21822166f492cfbe2b2b61d1b0b33cc175aa6d1da4d7573 |
+| sources/frozen-r3.txt | 6ccf9ba0e7d94b83897fade8f865fe3fb1328db292d92cce4d5cc85bc28fc2f2 |
+| sources/frozen-r4.txt | 082b2c704dfdc3338283f3733732388a15fbffec5d1f28bf78313bad884b97b4 |
+| verify-admission-packet.mjs | a736899ef3d658153c74c978ce1e1d6ec7230a6abcb8931cf163ceb2a6f8b91c |
+
+This content comparison, not an ancestry-only check, establishes that questions, keys, rubrics, control membership, raw designs, reader projections, model settings, instructions, output format and ordering did not change.
+
+DECLARED PHASE AND POPULATION RECONCILIATION
+
+[MEASURED] The experiment declares one scenario, two arms (`m42`, `x19`), three population members (`c`, `g`, `o`), one run per cell and exactly one new-session `answer` phase.
+The scenario has no phase override, no trap pairs, and 24 distinct judge-decided properties `a01` through `a24`, with headings `A01` through `A24`, all on scale `[0, 2]`.
+No property names a different phase; each defaults to the sole last phase.
+The scored file is `answers.md`.
+These declarations agree with E/`pack-schema.ts`:257-264 and E/`episode.ts`:114-118.
+
+[MEASURED] The manifest and coverage file have identical partitions: 15 controls and 9 clarifications, disjoint and covering all 24 headings.
+The population entries exactly equal those of the earlier assurance pack, including runtime, model strings and `reasoningEffort: high` for profile `o`.
+The three families are distinct (`claude`, `gemini`, `gpt`).
+The existing six-way parallelism requirement is preserved in R:61; the amendment changes no execution setting.
+Specific later launch time limits and seed still require recording at the execution step; this is not evidence that they were selected or exercised here.
+
+[MEASURED] Enumerating only the committed declarations gives these six cell identities:
+
+- `admission-clarity.m42.c.1`
+- `admission-clarity.m42.g.1`
+- `admission-clarity.m42.o.1`
+- `admission-clarity.x19.c.1`
+- `admission-clarity.x19.g.1`
+- `admission-clarity.x19.o.1`
+
+The declared other-family assignments are `c -> g,o`, `g -> c,o`, `o -> c,g`, matching E/`judge-panel.ts`:38-40.
+There are exactly 144 unique `(cell, property)` identities and 288 unique `(cell, property, intended judge)` identities.
+Each cell accounts for 24 outcomes and 48 vote slots; each arm for 72 and 144; each intended judge for 96 slots across the full comparison.
+These are planned identities, not generated answers or votes.
+A:49-51 requires preserving them even when cells, answers, judge units or votes are absent.
+
+[MEASURED] The unchanged pack declares only `inputs/m42` and `inputs/x19` as sources, delivers one `DESIGN.md` instruction file per arm, and has no hooks (P/`pack.json`:4-52, 77).
+Neither A nor review metadata was added to those sources, the experiment instructions, the questions, or the judge-facing key/rubric fields.
+E/`episode.ts`:125-130 and E/`judge-panel.ts`:95-110 expose the relevant prompt construction.
+This establishes unchanged declared delivery inputs; actual later runtime delivery/isolation remains unmeasured.
+
+PINNED MECHANISM AND KR-01 ASSESSMENT
+
+[MEASURED] Every evaluator read used `git show 6e6d0a92965a15ec473c661887b2b9c5037fedcf:<path>`.
+The object exists and is a commit.
+No claim below uses the current context-lab checkout's source as though it were the pin.
+No evaluator code, checkout, build or state was changed or executed.
+
+| Measured source | Mechanism relevant to this correction |
+|---|---|
+| E/episode.ts:235-253 | Classification precedes the workspace snapshot; a behavior-failed phase can retain its snapshot and ends the episode. |
+| E/run-conductor.ts:353-377 | Phase state controls eligibility; only valid-phase outcomes enter the judge material and only valid-phase headings are parsed into answers. Raw scored-file content is retained separately. |
+| E/blinder.ts:100-124 | A usable cell contributes only valid-phase properties; null/undefined/blank answers are recorded as absent, and only nonempty answers create units. |
+| E/answer-parser.ts:18-29 | The expected heading determines extraction; absent/unrecognized headings remain null and whitespace-only bodies remain empty. |
+| E/tally.ts:66-90 | Non-behavior-invalid cells are excluded; ended properties receive the bottom score; incomplete properties remain incomplete; absent answers receive the bottom score; missing units/votes remain incomplete. |
+| E/validity-classifier.ts:53, 77-107 | Failure class, not saved text, determines retry eligibility; isolation/infrastructure can retry, behavior cannot. Timeout classification depends on actual trace state and prior ambiguous timeout count. |
+| E/run-conductor.ts:321-348 | At most two reader-cell attempts; all attempts are retained, with no retry after behavior failure. |
+| E/judge-panel.ts:134-152, 199-221 | Votes must satisfy the pinned numeric validation; tool-using replies are discarded, pending outputs have at most three prompts, and unresolved slots retain null values/reasons. |
+
+[ASSESSMENT] KR-01 is resolved by A:44-70 and :76-82.
+The new definition ties present/reached material to a valid property phase, not to the existence or completeness of the saved file.
+The explicit precedence clause and correction banner intercept the original conflicting wording instead of rewriting it out of history.
+The following are source-derived boundary conclusions, not executed failure observations:
+
+| Boundary case | Corrected disposition | Why it resolves rather than hides KR-01 |
+|---|---|---|
+| Partial saved file, sole phase ends on behavior failure | 24 ended zeroes; 48 explicit `not cast: ended phase` slots; retain raw text/observations only. | All properties use the failed sole phase; no earlier valid phase can supply judged answers. Visible headings are not rescued. A:57, 64-66. |
+| Complete saved file, sole phase nevertheless ends on behavior failure | Exactly the same 24 zeroes and 48 not-cast slots. | Completeness of raw text cannot convert the phase to valid or create judge units. A:44, 57, 65. |
+| Valid phase, one heading missing/blank/unrecognized | That heading is a deterministic zero with two `not cast: missing answer` slots; present headings remain judge-eligible. | Missing answer is not an ended phase, and neither zero is a judge vote. A:46, 56, 66. |
+| Valid phase, answer file missing | All 24 headings absent: 24 deterministic zeroes and 48 missing-answer not-cast slots. | Valid completion and missing file are distinct from behavior failure, despite equal numeric totals. A:56. |
+| Valid phase, a nonempty but truncated/incomplete answer or malformed quotation | Both valid other-family votes are still required, then the unchanged rubric and downward-only quote/support checks apply. | Incomplete answer content is not an incomplete phase and cannot be reclassified absent to avoid votes. A:55, 61-62. |
+| Eligible answer has one or both required votes absent/invalid | No project gate verdict; retain actual replies and missing/invalid slot identities. | No author score fills the gap; panel bounded completion is not a favorable rerun. A:59, 68-70, 78. |
+| Required cell/phase has unresolved infrastructure, isolation or delivery failure, or is incomplete | No project gate verdict, even if other scores would already fail thresholds. | Preserve unresolved identities and actual attempts; do not replace missing evidence with reader zeroes. A:58, 76-78. |
+
+[SOURCE-DERIVED] A timeout while waiting for a model call is infrastructure; a first unknown-in-flight timeout is infrastructure and a later one is behavior; tool/working timeout, overflow and empty final-message cases follow the classifier's ordered checks (E/`validity-classifier.ts`:94-107).
+The amendment correctly defers to that actual classification and bounds behavior failure to no further retry.
+It does not claim that a cell whose final attempt is behavior-failed could never have had an earlier permitted infrastructure retry.
+All attempts remain part of the record.
+
+[SOURCE-DERIVED] A runner-valid cell can still contain incomplete required phase state; validity alone is insufficient for the project gate (E/`episode.ts`:229-233, 260; E/`run-conductor.ts`:353-357; E/`tally.ts`:77).
+A:58 and :78 explicitly keep this case no-verdict.
+
+[SOURCE-DERIVED] The runner's generic tally is not proof that the declared full population or two intended judges were realized.
+The conductor omits cells that did not pass their probe and restricts actual judges to passing judge profiles (E/`run-conductor.ts`:275-305).
+Its replay assigns votes from the recorded actual judges (E/`run-conductor.ts`:442-452), and its tally averages available complete assigned votes and excludes non-behavior-invalid cells (E/`tally.ts`:66-101).
+The project instead requires the fixed manifest identities and both intended other-family votes for eligible answers (A:49-59), plus intact delivery/isolation provenance (A:76-78; R:130-131).
+This stricter project accounting is necessary and explicit; the correction does not pretend the generic tally automatically enforces it.
+It still needs implementation/verification before a later run is relied on.
+
+THRESHOLDS, VALIDITY PRECEDENCE, AND HISTORICAL RESULTS
+
+[MEASURED] R:133-144 remains byte-identical in the preserved original body, and A:80 explicitly retains all five gate conditions:
+
+1. All six measurement-usable cells, with every outcome and vote slot accounted for.
+2. Every candidate heading has at least two of three conservative scores equal to 2, and no candidate score is 0.
+3. Each of the 15 controls independently has candidate sum at least predecessor sum.
+4. At least one heading has strictly greater candidate sum; an all-tie comparison does not establish improvement.
+5. No unresolved material candidate/comparison ambiguity or substantive measurement defect.
+
+[MEASURED] The minimum-of-two aggregation, downward-only quotation cap, exact-source checks, semantic support requirement and diagnostic separation are retained (R:77-102; A:55, 61-62, 70).
+No score threshold, question, key, control, quote rule, retry allowance or adverse-outcome rule was changed.
+
+[ASSESSMENT] Counting an accounted behavior-failed sole phase as usable is not treating it as a valid phase or comprehension evidence.
+It yields 24 zeroes and explicit uncast slots, satisfying accounting while remaining adverse performance.
+In an otherwise valid complete measurement, any candidate behavior-failed cell necessarily violates the no-candidate-zero condition.
+If any required input elsewhere is unresolved, no-verdict takes precedence rather than issuing a scored FAIL on an invalid measurement (A:78).
+A predecessor behavior-failed cell remains an accounted comparison member; it is neither an automatic candidate defect nor automatically an invalid comparison (A:81).
+The final non-author review of raw observations and unresolved material ambiguity remains mandatory, so this distinction is not permission to ignore a meaningful comparison problem.
+
+[ASSESSMENT] The original historical preregistration wording remains visible but is not a competing executable rule: R:3-4 directs the reader to A, and A:16-17 identifies the superseded present/reached, behavior-failure and associated missing-vote clauses.
+The rest of the body is preserved, including post-response substantive-defect no-verdict handling and the prohibition on selective favorable retries (R:118-124).
+This later readiness PASS does not alter K's exact frozen-target FAIL, regrade O, reinstate earlier rejected designs, or ratify the design.
+
+CHECKS ACTUALLY PERFORMED
+
+[MEASURED] All checks below completed with exit code 0:
+
+- Read-only Git inspection: exact candidate/parent/tree identities; complete parent-to-candidate diff; pinned evaluator object existence and source reads; source blob identities; scoped file enumeration.
+- `git diff --check ae83dc3574c7e84549b9e7097bc077495f8ac3b9 da024b29250e47bd19e44c660ba1bce535c379cb`.
+- Independent inline `node --input-type=module` content assertions: all 14 original packet files versus the parent; 13 unchanged files versus the candidate; exact three-line banner removal; preserved K versus its original commit; all 16 working packet files versus candidate blobs; all 57 O files and path membership versus all three relevant revisions and the worktree; exactly two changed candidate paths; SHA-256 and Git tree/blob measurements.
+- Independent inline declaration assertions: sole phase/no override/no trap pairs; 24 distinct judge properties and headings on scale `[0,2]`; one run and three distinct families; unchanged population/settings versus the earlier pack; 15/9 partition equality between manifest and coverage; 6/144/288 unique intended identities; unchanged source/delivery boundaries.
+- `node --test docs/reviews/admission-lifetime-assurance-r4/admission-input.test.mjs`: 5 tests, 5 passed, 0 failed/skipped/cancelled.
+
+Before running the last command, the entire test and both imports, `check-admission-input.mjs` and `project-admission-input.mjs`, were read and their working files checked against the candidate.
+They read static local inputs and test hashes, exact projection equality, landed in-memory source/reader mutations and missing projection boundary rejection; they do not invoke a runtime, model, judge, network, isolation probe or evaluator experiment.
+Their passing result verifies those properties, not fresh semantic fairness, runtime provenance or scoring reliability.
+No other test suite, author test result, style result or document result is claimed as independently executed here.
+
+FUTURE EXECUTION PREREQUISITES, NOT CORRECTION DEFECTS
+
+[MEASURED] The old `/tmp/agp-admission-assurance-r4-prep.HwH4LK/context-lab` checkout is absent.
+The pinned Git object was available in the sibling repository, so this did not block exact source review.
+No pinned runnable checkout/build was restored or certified here.
+P's conventional `register` and `records` directories were absent when checked; this is only that path observation, not a claim about all possible external execution history.
+
+Before any later execution can be relied on, the separate decision and prerequisites in A:84-89 and R:156-157 still apply:
+
+- Obtain the separate director execution selection; this PASS alone authorizes neither registration nor a run.
+- Restore or verify the exact evaluator checkout/build, revalidate the final frozen packet and its identities, and record common launch settings, limits, seed and six-way parallelism.
+- Register the final experiment and obtain actual required reader-arm/runtime and judge delivery/isolation checks, retaining their provenance.
+- Verify fail-closed project accounting of all 144 outcomes and 288 intended slots, including absent/ended/unresolved states, exact-input quotation checks and conservative scores; do not substitute the generic evaluator tally.
+- Preserve every attempt and raw outcome, then obtain the completed measurement's non-author gate decision before any separate ratification recommendation.
+
+No model reader/judge invocation, registration, isolation probe, synthetic failing reader, evaluator runtime experiment, AGP runtime test, network stimulus or vulnerability-triggering input was executed or created in this recheck.
+The new report is the only repository file written by this reviewer; no existing file was edited, staged, committed or pushed, and unrelated pre-existing dirty work was left alone.
+
+FINAL DISPOSITION
+
+[ASSESSMENT] PASS for the stated bounded KR-01 correction condition at candidate `da024b29250e47bd19e44c660ba1bce535c379cb`.
+No correction defect or missing prerequisite for this source/document recheck was established.
+The accounting boundary is unambiguous for both partial and complete retained failed-phase text, valid-phase missing answers, required missing/invalid votes, and unresolved infrastructure/isolation/delivery or incomplete phases.
+The complete fixed accounting identities, unchanged thresholds and historical records are preserved.
+Stop at instrument readiness for a separate execution decision; no scored assurance result or broader acceptance follows.
