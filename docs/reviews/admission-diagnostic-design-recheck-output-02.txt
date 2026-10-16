@@ -1,0 +1,101 @@
+ADMISSION DIAGNOSTIC D1/D2 RECHECK: READ-ONLY CHECK OUTPUT
+
+Reviewer: /root/admission_job_boundary_review
+Target: 5ffad4a1df8e7ffb0b275378910aa273b336185f
+Working directory: /home/apnex/taceng/agp
+2026-10-17 Australia/Melbourne
+
+Identity/preservation and inert arithmetic only. No evaluator was imported.
+No implementation, runtime-effect test, fixture construction or live call.
+
+Command:
+node --input-type=module <<'NODE'
+import assert from 'node:assert/strict';
+import fs from 'node:fs';
+import crypto from 'node:crypto';
+import {execFileSync} from 'node:child_process';
+const target='5ffad4a1df8e7ffb0b275378910aa273b336185f';
+const proposalPin='2fe758d44c2edb672f3622bc4ce6140143f3f2b5';
+const preservationPin='165990d828f217885e0e834863865a62c9aa6fb6';
+const git=(...args)=>execFileSync('git',args,{maxBuffer:32<<20});
+const sha=b=>crypto.createHash('sha256').update(b).digest('hex');
+const files=[
+ ['docs/reviews/admission-diagnostic-amendment-01.md','e6aee7d5056871989af0230affa75dfb1b02d07388262ea4c4a50d41982e7fda',target],
+ ['docs/reviews/admission-diagnostic-proposal.md','eec77efddca77cdfbc1fb5548d0e8b02126be2d8d3a616d2682040b65edbacc3',proposalPin],
+ ['docs/reviews/admission-diagnostic-source-findings.md','439ccfdeb30be37f25347f581a99764fb806d97a99b87085efbc2621b947b9de',proposalPin],
+ ['docs/reviews/admission-diagnostic-design-review-01.txt','6d4fc259dfdd663ef78344f1fd955ca400502fe1c5867cb38b188f1c398fd722',preservationPin],
+ ['docs/reviews/admission-diagnostic-design-review-output-01.txt','9f99f4a664ab6813cf791ca2b20c71d16d3fb7471a91492dd9ccac90fda87063',preservationPin]
+];
+assert.equal(git('rev-parse','HEAD').toString().trim(),target);
+console.log('HEAD='+target);
+for(const [file,hash,pin] of files){
+ const b=fs.readFileSync(file);
+ assert.equal(sha(b),hash);
+ assert.deepEqual(b,git('show',target+':'+file));
+ assert.deepEqual(b,git('show',pin+':'+file));
+ console.log(JSON.stringify({file,sha256:sha(b),bytes:b.length,originalPin:pin,workingEqualsTargetAndOriginal:true}));
+}
+const changes=git('diff','--name-status',preservationPin,target).toString();
+assert.equal(changes,'A\tdocs/reviews/admission-diagnostic-amendment-01.md\n');
+console.log('Complete committed delta from preserved review: '+changes.trim());
+const frozen=['docs/reviews/admission-lifetime-assurance','docs/reviews/admission-lifetime-assurance-r4','docs/reviews/admission-evaluation-preparation','docs/reviews/admission-evaluator-qualification','packages','cli'];
+assert.equal(git('diff','--name-only',proposalPin,target,'--',...frozen).toString(),'');
+assert.equal(git('diff','--name-only',target,'--',...files.map(f=>f[0]),...frozen).toString(),'');
+console.log('Frozen scoped committed/working content unchanged: PASS');
+const cases=JSON.parse(fs.readFileSync('docs/reviews/admission-evaluation-preparation/admission-scoring-cases.json'));
+const present=cases.cases.filter(c=>c.answer!==null).length;
+const absent=cases.cases.filter(c=>c.answer===null).length;
+const families=3,other=2,batch=6;
+const jobs=families*Math.ceil(present*other/batch);
+const counts={presentCases:present,absentCases:absent,expectedRawScores:cases.cases.filter(c=>c.answer!==null).map(c=>c.expectedRawScore),presentUnits:present*families,absentUnits:absent*families,jobs,plannedCastSlots:present*families*other,explicitUncastSlots:absent*families*other,readerCells:2*families,decisionsPerReader:24,totalReaderDecisions:2*families*24,firstAttemptInvocations:families+jobs+2*families,maximumInvocations:families+3*jobs+2*families,proposedProviderRequestCeiling:120,proposedDrivenUSD:20,proposedElapsedMinutes:90};
+assert.equal(present,7);assert.equal(absent,1);assert.equal(jobs,9);
+assert.equal(counts.plannedCastSlots,42);assert.equal(counts.explicitUncastSlots,6);
+assert.equal(counts.firstAttemptInvocations,18);assert.equal(counts.maximumInvocations,36);
+console.log(JSON.stringify(counts,null,2));
+const kit='/home/apnex/taceng/mission-kit',kitPin='ae217c932e50737d0595db9523502a1257b7a4bd';
+assert.equal(git('-C',kit,'rev-parse','HEAD').toString().trim(),kitPin);
+assert.equal(git('-C',kit,'status','--porcelain').toString(),'');
+console.log('Mission-kit cache clean at previously remote-verified guidance pin '+kitPin+'; no fresh remote query in this recheck.');
+console.log('Read-only identity/preservation and inert arithmetic only; no evaluator import, runtime-effect test, fixture construction or live call.');
+NODE
+
+Exit status: 0
+Complete output:
+HEAD=5ffad4a1df8e7ffb0b275378910aa273b336185f
+{"file":"docs/reviews/admission-diagnostic-amendment-01.md","sha256":"e6aee7d5056871989af0230affa75dfb1b02d07388262ea4c4a50d41982e7fda","bytes":7708,"originalPin":"5ffad4a1df8e7ffb0b275378910aa273b336185f","workingEqualsTargetAndOriginal":true}
+{"file":"docs/reviews/admission-diagnostic-proposal.md","sha256":"eec77efddca77cdfbc1fb5548d0e8b02126be2d8d3a616d2682040b65edbacc3","bytes":15571,"originalPin":"2fe758d44c2edb672f3622bc4ce6140143f3f2b5","workingEqualsTargetAndOriginal":true}
+{"file":"docs/reviews/admission-diagnostic-source-findings.md","sha256":"439ccfdeb30be37f25347f581a99764fb806d97a99b87085efbc2621b947b9de","bytes":6303,"originalPin":"2fe758d44c2edb672f3622bc4ce6140143f3f2b5","workingEqualsTargetAndOriginal":true}
+{"file":"docs/reviews/admission-diagnostic-design-review-01.txt","sha256":"6d4fc259dfdd663ef78344f1fd955ca400502fe1c5867cb38b188f1c398fd722","bytes":18986,"originalPin":"165990d828f217885e0e834863865a62c9aa6fb6","workingEqualsTargetAndOriginal":true}
+{"file":"docs/reviews/admission-diagnostic-design-review-output-01.txt","sha256":"9f99f4a664ab6813cf791ca2b20c71d16d3fb7471a91492dd9ccac90fda87063","bytes":5438,"originalPin":"165990d828f217885e0e834863865a62c9aa6fb6","workingEqualsTargetAndOriginal":true}
+Complete committed delta from preserved review: A	docs/reviews/admission-diagnostic-amendment-01.md
+Frozen scoped committed/working content unchanged: PASS
+{
+  "presentCases": 7,
+  "absentCases": 1,
+  "expectedRawScores": [
+    2,
+    2,
+    1,
+    1,
+    1,
+    0,
+    0
+  ],
+  "presentUnits": 21,
+  "absentUnits": 3,
+  "jobs": 9,
+  "plannedCastSlots": 42,
+  "explicitUncastSlots": 6,
+  "readerCells": 6,
+  "decisionsPerReader": 24,
+  "totalReaderDecisions": 144,
+  "firstAttemptInvocations": 18,
+  "maximumInvocations": 36,
+  "proposedProviderRequestCeiling": 120,
+  "proposedDrivenUSD": 20,
+  "proposedElapsedMinutes": 90
+}
+Mission-kit cache clean at previously remote-verified guidance pin ae217c932e50737d0595db9523502a1257b7a4bd; no fresh remote query in this recheck.
+Read-only identity/preservation and inert arithmetic only; no evaluator import, runtime-effect test, fixture construction or live call.
+
+
