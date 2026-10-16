@@ -1,0 +1,90 @@
+ADMISSION DIAGNOSTIC DESIGN REVIEW: READ-ONLY CHECK OUTPUT
+Reviewer: /root/admission_job_boundary_review
+Target: 2fe758d44c2edb672f3622bc4ce6140143f3f2b5
+Working directory: /home/apnex/taceng/agp
+2026-10-17 Australia/Melbourne
+
+These are identity/preservation and inert arithmetic checks, not an execution test.
+Source inspection is described and cited in the separate review; no evaluator was imported.
+
+Command:
+node --input-type=module <<'NODE'
+import assert from 'node:assert/strict';
+import fs from 'node:fs';
+import crypto from 'node:crypto';
+import {execFileSync} from 'node:child_process';
+const target='2fe758d44c2edb672f3622bc4ce6140143f3f2b5';
+const files={
+ 'docs/reviews/admission-diagnostic-proposal.md':'eec77efddca77cdfbc1fb5548d0e8b02126be2d8d3a616d2682040b65edbacc3',
+ 'docs/reviews/admission-diagnostic-source-findings.md':'439ccfdeb30be37f25347f581a99764fb806d97a99b87085efbc2621b947b9de',
+ 'docs/reviews/admission-evaluation-preparation/admission-scoring-cases.json':'cb5a4f9416ab8673535b66260159672fcfef0a6be4d6772d75cdc0ef9e5a2436',
+ 'docs/reviews/admission-evaluation-preparation/admission-scoring-policy.mjs':'c92a6540eb1b4d01d84225e4abcd7e7c19800904e95888081bd4592f3c3d20fb',
+ 'docs/reviews/admission-evaluator-qualification/admission-qualification-profile.json':'d101581d489ba78b1cede08439c8a0132f02dfa4936aab8bc837bd5b3611892b'
+};
+const git=(...args)=>execFileSync('git',args,{maxBuffer:32<<20});
+assert.equal(git('rev-parse','HEAD').toString().trim(),target);
+for(const [file,hash] of Object.entries(files)){
+ const b=fs.readFileSync(file);
+ assert.deepEqual(b,git('show',target+':'+file));
+ assert.equal(crypto.createHash('sha256').update(b).digest('hex'),hash);
+ console.log(JSON.stringify({file,sha256:hash,bytes:b.length}));
+}
+const cases=JSON.parse(fs.readFileSync('docs/reviews/admission-evaluation-preparation/admission-scoring-cases.json'));
+const present=cases.cases.filter(c=>c.answer!==null).length,absent=cases.cases.filter(c=>c.answer===null).length;
+const families=3,other=2,batch=6;
+const jobs=families*Math.ceil(present*other/batch);
+const stage1=families,stage3=2*families;
+const first=stage1+jobs+stage3,max=stage1+3*jobs+stage3;
+assert.equal(present,7);assert.equal(absent,1);assert.equal(jobs,9);assert.equal(first,18);assert.equal(max,36);
+console.log(JSON.stringify({presentCases:present,absentCases:absent,expectedScores:cases.cases.filter(c=>c.answer!==null).map(c=>c.expectedRawScore),presentUnits:present*families,absentUnits:absent*families,unitsPerJudge:present*other,jobs,castSlots:present*families*other,uncastSlots:absent*families*other,firstAttemptRuntimeCalls:first,maximumRuntimeCalls:max,firstAttemptSumOfIndividualWallMaxMinutes:(stage1*60+jobs*900+stage3*1200)/60,allAttemptsSumOfIndividualWallMaxMinutes:(stage1*60+jobs*3*900+stage3*1200)/60,proposedGlobalMinutes:90,proposedProviderRequests:120,proposedUSD:20},null,2));
+const scope=['docs/reviews/admission-lifetime-assurance','docs/reviews/admission-lifetime-assurance-r4','docs/reviews/admission-evaluation-preparation','docs/reviews/admission-evaluator-qualification','packages','cli'];
+assert.equal(git('diff','--name-only','60dab84e7f02e4f4b917163f357af8c10ea2f554',target,'--',...scope).toString(),'');
+assert.equal(git('diff','--name-only',target,'--',...Object.keys(files),...scope).toString(),'');
+console.log('Frozen policy/profile/records and implementation preservation: PASS; exact target unchanged.');
+console.log('Arithmetic and identity checks only. No imported evaluator, tests, runtime, model, provider, probe, sandbox or conductor executed.');
+NODE
+
+Exit status: 0
+Complete output:
+{"file":"docs/reviews/admission-diagnostic-proposal.md","sha256":"eec77efddca77cdfbc1fb5548d0e8b02126be2d8d3a616d2682040b65edbacc3","bytes":15571}
+{"file":"docs/reviews/admission-diagnostic-source-findings.md","sha256":"439ccfdeb30be37f25347f581a99764fb806d97a99b87085efbc2621b947b9de","bytes":6303}
+{"file":"docs/reviews/admission-evaluation-preparation/admission-scoring-cases.json","sha256":"cb5a4f9416ab8673535b66260159672fcfef0a6be4d6772d75cdc0ef9e5a2436","bytes":4311}
+{"file":"docs/reviews/admission-evaluation-preparation/admission-scoring-policy.mjs","sha256":"c92a6540eb1b4d01d84225e4abcd7e7c19800904e95888081bd4592f3c3d20fb","bytes":7728}
+{"file":"docs/reviews/admission-evaluator-qualification/admission-qualification-profile.json","sha256":"d101581d489ba78b1cede08439c8a0132f02dfa4936aab8bc837bd5b3611892b","bytes":1607}
+{
+  "presentCases": 7,
+  "absentCases": 1,
+  "expectedScores": [
+    2,
+    2,
+    1,
+    1,
+    1,
+    0,
+    0
+  ],
+  "presentUnits": 21,
+  "absentUnits": 3,
+  "unitsPerJudge": 14,
+  "jobs": 9,
+  "castSlots": 42,
+  "uncastSlots": 6,
+  "firstAttemptRuntimeCalls": 18,
+  "maximumRuntimeCalls": 36,
+  "firstAttemptSumOfIndividualWallMaxMinutes": 258,
+  "allAttemptsSumOfIndividualWallMaxMinutes": 528,
+  "proposedGlobalMinutes": 90,
+  "proposedProviderRequests": 120,
+  "proposedUSD": 20
+}
+Frozen policy/profile/records and implementation preservation: PASS; exact target unchanged.
+Arithmetic and identity checks only. No imported evaluator, tests, runtime, model, provider, probe, sandbox or conductor executed.
+
+
+Canonical guidance pin verification:
+git ls-remote https://github.com/apnex/mission-kit.git refs/heads/main
+Exit status: 0
+ae217c932e50737d0595db9523502a1257b7a4bd	refs/heads/main
+
+No model/provider/probe/sandbox/conductor calls, runtime-effect tests or source edits.
+

@@ -1,0 +1,292 @@
+ADMISSION DIAGNOSTIC: INDEPENDENT ADVERSARIAL DESIGN AND SCOPED M7 REVIEW
+
+Tier 3 analytical judgment, 2026-10-17 Australia/Melbourne.
+Reviewed checkpoint: 2fe758d44c2edb672f3622bc4ce6140143f3f2b5
+Verdict: FAIL - revise before implementation: independent semantic-review resources and authority are not explicitly bounded by, or distinguished from, the proposed "total" diagnostic spend claim. No execution/spending is approved.
+
+IDENTITY, INDEPENDENCE AND METHOD
+
+Work: B53's proposed evaluation-repair diagnostic, not AGP mechanism verification.
+Target: docs/reviews/admission-diagnostic-proposal.md
+SHA256: eec77efddca77cdfbc1fb5548d0e8b02126be2d8d3a616d2682040b65edbacc3
+Supporting author Tier 2: docs/reviews/admission-diagnostic-source-findings.md
+SHA256: 439ccfdeb30be37f25347f581a99764fb806d97a99b87085efbc2621b947b9de
+Both working files were byte-verified against the exact target.
+
+Reviewer: /root/admission_job_boundary_review; non-author of this proposal,
+not a scored fresh reader or calibration judge. I authored earlier independent
+preparation/qualification reviews. That continuity is not a second independent
+source, and this verdict does not enlarge any earlier PASS. No delegation.
+
+Constitution: /home/apnex/taceng/AGENTS.md; canonical mission-kit main
+ae217c932e50737d0595db9523502a1257b7a4bd, independently reverified by
+git ls-remote, read through git show without switching the clean cache.
+Read the complete INDEX, research-artefacts skill, M7, A0/A1-A14, R3,
+W10/W22, E7/E8, C2, M1/M2, RU2/RU3 and applicable style guidance.
+This is a scoped design/M7 gate, not a production/upstream M1 audit,
+an M2 live test, or an exact-artifact implementation/readiness result.
+
+Plan written before target investigation: establish exact identities; read
+proposal, findings and prior selected repair; trace only stage, cap, recording,
+classification and budget-relevant public interfaces; check inert arithmetic;
+interrogate the design against the axioms; preserve a new verdict and output.
+Vocabulary retained: runtime invocation, provider request, reservation, raw
+judgment, uncast slot, zero-call readiness, PREP-L1/L2/L3.
+Parked: new evaluator project, live/provider discovery, runtime-effect tests,
+security/fault inputs, implementation, fresh assurance and upstream contact.
+
+BLOCKING FINDING AND REQUIRED DELTAS
+
+F1 - Resource/authority ambiguity, not a numerical miscount.
+Proposal:36-43 allocates 36 runtime invocations and 120 provider requests to
+stages 1-3 and recommends USD 20 "total maximum attributable spend".
+Proposal:102,116,127,131 also requires independent semantic assessment of all
+42 calibration reasons and six 24-question reader outputs, with judgment
+between stages. It never names that review path or states whether ordinary
+author/reviewer session work is outside the dollar claim. Nor does it account
+for additional driven/model-based reviews if those are used.
+
+Two implementers could therefore follow the text differently: one uses already
+authorized non-author review work, while another adds a paid scoring/review
+round outside the enumerated calls yet still reports the headline total.
+The latter would introduce hidden calls, cost and possibly altered independence.
+I did not observe such calls; this is a design ambiguity with a concrete
+downstream consumer, not a measured overrun. The author's later explanation
+of intent does not amend the frozen target.
+
+D1 - Before implementation, name the semantic-review workflow and its authority.
+Explicitly distinguish ordinary authorized author/reviewer work from additional
+driven/model/provider review invocations. If ordinary session work is outside
+the proposed monetary envelope, name the envelope accordingly and say that the
+excluded work is not free or included. Prohibit relabeling an extra experiment,
+scorer or model invocation as ordinary review. Any additional driven review
+must have prospectively selected call/request/spend accounting; recompute the
+ceilings if it is included, or obtain explicit separate authority. Record which
+review is required after each stage and how its completion controls progression.
+This review does not select the future reviewer, resources or monetary allowance.
+
+D2 - Order Stage 0 explicitly: capability/trace/containment feasibility FIRST,
+before producing the two long documents, authoring a driver or investing in the
+full packet. Inventory only existing supported mechanisms and already accepted
+evidence. An unavailable/unknown prerequisite must produce a terminal zero-call
+gap record, with owner and revival trigger. Preparing a request for later
+approval is permitted by the proposal; sending it or implementing generic
+budget/trace infrastructure in AGP is not. This makes the proposal's existing
+stop rule operational and keeps a bounded diagnostic from becoming an evaluator
+programme by sunk-cost pressure.
+
+A revised proposal addressing D1/D2 needs a separate exact-artifact design
+recheck. No implementation started, no override was observed, and this FAIL
+does not overturn the earlier static qualification or the evaluation-repair
+purpose.
+
+ESTABLISHED FACTS AND BOUNDED ASSESSMENT
+
+- Measured arithmetic: seven present literal cases x three synthetic origin
+  families = 21 present units; each is assigned two other-family judges.
+  Each judge receives 14 units, batched 6/6/2: nine jobs, 42 planned cast slots.
+  Three absent units yield six explicit uncast slots, never model-scored zeros.
+  First-attempt calls = 3 + 9 + 6 = 18; maximum = 3 + 27 + 6 = 36.
+  Source fit: pinned judge-panel.ts groups by judge/scenario/phase/answer form.
+  The single-scenario requirement is necessary; separate scenarios per case
+  would change the job schedule. Capture-only scheduling must prove the actual
+  rendered packet, not rely on this arithmetic alone.
+
+- Measured arithmetic: sums of individual wall maxima are 258 minutes for the
+  first-attempt path and 528 with all allowed completion attempts, versus the
+  proposed global 90 minutes. This is not a contradiction because the proposal
+  explicitly makes global limits ceilings, not a promise of completion.
+  The global deadline must dominate and include inter-stage review delay;
+  no reset/pause silently extends it. A resource-limited run cannot claim
+  qualification. Neither USD 20 adequacy nor 120-request adequacy was measured.
+
+- Source-derived cap boundary: at e705b3d749400d0a79efe98e5338e9c84a1695b8,
+  adapters.ts accepts positive integer outputTokenMax for OpenCode and places
+  it in OPENCODE_EXPERIMENTAL_OUTPUT_TOKEN_MAX; Codex accepts reasoningEffort
+  only. Its route method reports declared settings, not a captured request or
+  backend enforcement. The proposal accurately leaves Codex uncapped at this
+  seam and treats 8192/32000/65536 as diagnostic hypotheses. No provider
+  capability, price, quota equivalence or historical Gemini-stop cause follows.
+
+- Source-derived missing capability: Invocation/Adapter, Outcome and
+  PanelOptions provide no aggregate currency reservation or authoritative
+  provider-request admission ledger. Outcome exposes aggregate tokens, not
+  billable-request multiplicity. Public interfaces permit stage composition,
+  but they do not establish an executable bounded-spend path.
+  The provider/account might have a supported facility elsewhere; that was
+  neither established nor disproved. The design correctly refuses to assume
+  it exists. Missing support is a zero-call readiness stop, not permission
+  for an AGP-local proxy, private hook, altered runtime or silent pin upgrade.
+
+- Source-derived retention/stop risk: judgeAll stores initial job prompt and
+  reduced final/tools/error replies, catches job failures and proceeds to other
+  jobs. A rejected call or thrown exception alone does not stop the panel.
+  The wrapper must durably record actual Invocations/Outcomes/throws, and its
+  latched refusal must cover every later delegation, including built-in retries.
+  OpenCode's parser can retain a length finish in trace while common stop.reason
+  is completed; checking that common field alone would miss the proposed stop.
+  No runtime or fault input was executed to demonstrate these source paths.
+
+- Source-derived cancellation limit: runtime-sandbox.ts buffers event lines
+  until its local process returns; adapters.ts writes events afterward.
+  A return-time recorder alone cannot promise complete partial event retention
+  if a supervisor kills the recorder as well. Zero-call readiness must identify
+  the actual owner-supported persistence and supervisor boundary, including
+  exceptions/deadline loss. Missing evidence must remain missing, never an
+  invented complete Outcome. Local kill never settles remote spend reservations.
+
+- Semantic design fit, not observed judge performance: the unchanged literal
+  cases distinguish accurate proposal status from withheld renewal, omission,
+  missing supporting excerpt and wrong decisions. The mixed wrong/conflict
+  source and the aggregate-zero precedence remain essential. The fresh rendered
+  case/key/source mapping needs review before calls; family labels are fixtures,
+  and repetitions do not create independent semantic observations.
+
+- Reader design fit, not observed completion: two coherent unrelated documents,
+  24 distinct decisions each and six real file-writing episodes address a gap
+  that the earlier two-line fake episode could not. Byte-envelope similarity
+  is only workload sizing; correct concise output must not fail a length minimum.
+  Actual keys and documents do not yet exist as a reviewed diagnostic packet,
+  so difficulty, coverage, leakage exclusion and completion remain unqualified.
+
+CLAIMS EACH STAGE MAY MAKE
+
+0: May establish supported capability availability, immutable packet identity,
+   capture-only fidelity and exact readiness. May terminate at zero calls for
+   missing reservation, request attribution, supported observation, accepted
+   containment, reviewer authority/resources or exact source/configuration.
+   It cannot establish model semantics or provider enforcement by declaration.
+1: May observe one ordinary tools-off response and request/usage attribution
+   per member in judge delivery mode. Not isolation proof, reader-setting
+   confirmation, backend-cap proof or reader-file-volume evidence.
+2: May establish that the three judges applied the fixed distinctions on this
+   development packet, if all 42 raw votes/reasons pass independent assessment.
+   Not general judge reliability, independent observations from duplicated
+   family labels, or future assurance validity.
+3: May establish all six diagnostic cells' complete grounded file output under
+   their exact role profiles, if independently assessed. Not AGP superiority,
+   a diagnosis of old Gemini stops, whole-conductor compatibility or adoption.
+Success can support proposing fresh assurance preparation only.
+
+MANDATORY GUARDRAILS FOR A REVISED DESIGN AND LATER CLOSEOUT
+
+G1. Preserve original FAIL/NO VERDICT, policy, cases, population, assurance
+    settings and all earlier reports. New role caps and diagnostic shape require
+    a separately reviewed profile/guard delta; the old zero-call profile is not
+    execution authority. Any changed evaluator needs scoped compatibility review.
+G2. Keep declarations and actual composition instruction-only, no onRequest,
+    hooks/transforms, continuation, phase overrides, traps or hidden extra calls.
+    Keep original member identities/settings except the explicitly selected
+    OpenCode role caps. No model fallback or omission.
+G3. Reserve runtime slots before delegation and provider request/worst-case
+    spend before each supported billable operation, including hidden retries,
+    tool turns and unresolved remote work. Unknown limits/cost/attribution stop
+    at zero; observed aggregate tokens or final invoices are not enforcement.
+    No automatic ceiling increase, unapproved quota conversion or configuration
+    mutation. Requests inside a single runtime invocation are not a single call.
+G4. Retain complete call/request/job identities, initial and retry prompts,
+    outcomes/throws, event streams and original raw votes. Keep denied
+    delegations distinct from actual paid invocations. Demonstrate the exact
+    retention/supervisor seam without model or security-trigger traffic; if the
+    public support is missing, stop and record the gap rather than copy internals.
+G5. Check literal expected scores and unchanged policy diagnostics before
+    aggregation/caps; independently assess every reason, favorable or unfavorable.
+    Only syntactically missing votes may receive the public completion retry.
+    Never retry, replace, rescore or repair an accepted unfavorable/defective
+    vote. A stop-latched panel may emit refused job records but no further
+    paid delegation. Incomplete cast slots cannot be called successful casts.
+G6. Freeze independent keys, source mappings, distinct reader questions and
+    meaningful volume before calls. Withhold reader keys/reference answers.
+    Use public real classification and preserve its raw cause. One reader
+    attempt is diagnostic-only: it does not amend future assurance's classified
+    retry policy. No continuation, repair prompt or removal of a failed family.
+G7. Keep stage failure, resource-limited/missing-evidence no-qualification,
+    behavior failure and infrastructure disposition distinct. Halt on known
+    defects before further paid work; finish the specified independent review
+    before entering the next stage. Record unknowns rather than infer causes.
+G8. Later exact-artifact readiness must prove D1/D2, the actual 9-job/48-slot
+    schedule, every call-producing path's guard, complete normal capture,
+    cap/profile/version identities and resource/record-stop behavior using
+    allowed no-model methods. Director approval of that exact packet remains
+    separate. No live smoke, probe or security/fault reproduction is smuggled
+    into readiness or the 36-call budget.
+
+SCOPED M7 MAPPING, LAYERS AND TENSIONS
+
+The changed procedure holds durable records, coordinates independent author/
+reviewer roles and places model judgment on the critical path. Stateful,
+multi-agent and LLM-in-the-loop commitments bind. It composes with unchanged
+context-lab; it does not claim responsibility for all of that component's internals.
+This is not a fully reconciled declarative system, so A2 is supporting direction.
+
+A1  load-bearing: durable reservations, stop latch and complete identity maps;
+    no invisible consumption or unrecoverable in-process-only audit claims.
+A2  supporting: selected limits/roles become guarded configuration; old profile
+    cannot silently drift into a live one.
+A3  load-bearing: existing public seams; missing generic budget/trace facilities
+    remain owner-side gaps. D2 prevents consumer-local evaluator accretion.
+A4  load-bearing: preserve prior failed history and every actual attempt;
+    no final-only record is reported as complete request evidence.
+A5  load-bearing: reviewers receive full source/key/answer/reason relations;
+    client declaration, emitted request and backend observation remain distinct.
+A6  supporting: reuse policy and public components; explicit reviewer handoff
+    avoids repeated experiments or a human relaying missing records.
+A7  load-bearing: typed fail-closed stops and durable unknown reservations;
+    stopping a diagnostic is not permission to heal it by favorable retry.
+A8  load-bearing: design, exact readiness, director execution choice and
+    completed judgment are separate gates. This material design gap stays FAIL.
+A9  not materially implicated as deployment qualification: no production change
+    or resilience proof is offered; diagnostic success cannot imply either.
+A10 supporting: unavailable capabilities become precise separately selected
+    owner-side work, not a hidden workaround.
+A11 load-bearing: deterministic counting/quote/identity checks; genuinely
+    cognitive semantic judgment stays independent, with D1's explicit resources.
+A12 load-bearing: role-specific caps and meaningful distinct workload; no
+    byte-padding substitute or claim that a configured cap is backend behavior.
+A13 load-bearing, unresolved: proposal preparation is not spending authority;
+    D1 prevents a nominal total ceiling from hiding extra review work.
+A14 load-bearing: bank exact failure/gap records with revival conditions;
+    bounded learning must not turn into an open-ended evaluator project.
+
+Layers: intent selects preparation only; configuration binds role/profile and
+resource units; composition uses public runtime/panel/episode seams; state/audit
+retains reservations and attempts; perception separates declarations from actual
+observations; integrity gates semantic judgment before progression; learning
+routes missing prerequisites to separately approved work.
+
+Tensions and resolutions:
+- Independent semantic quality versus finite resources: required judgment cannot
+  be omitted or declared free. D1 must make the review and budget boundary explicit.
+- Useful representative workload versus speculative preparation: D2 performs
+  capability checks first; no long-fixture/driver investment on an unknown path.
+- Strict stops versus built-in retries: preserve source-owned missing-vote
+  retries only while the global admission latch remains open.
+- Learning versus historical integrity: one bounded diagnostic may fail or stop;
+  it does not tune against fresh assurance, regrade history or change AGP.
+- Source knowledge versus live claims: exact public fit is necessary, not proof
+  that provider budgets, transport, isolation or reader completion work.
+
+PRESERVATION, OUTPUT AND CONSEQUENCE
+
+Measured: target hashes and original case/policy/static-profile hashes match;
+no changes from AGP 60dab84e7f02e4f4b917163f357af8c10ea2f554 to the target
+in either frozen assurance directory, preparation, qualification, packages or
+CLI. The working reviewed files also match the target. No implementation
+tests were run; checks were file/Git identity and inert arithmetic only.
+
+Complete check command/output:
+docs/reviews/admission-diagnostic-design-review-output-01.txt
+SHA256: 9f99f4a664ab6813cf791ca2b20c71d16d3fb7471a91492dd9ccac90fda87063
+
+Read-only source conclusions above identify functions at the exact evaluator
+pin; they are not measured runtime behavior. No provider/account capability,
+actual bill, price, cap efficacy or proposed packet's completion was observed.
+Prior source findings were read, not treated as independent execution evidence.
+
+Keep the proposal and this FAIL unchanged. Revive on a prospective D1/D2
+clarification and independent design recheck; missing capability revives only
+when supported owner-side evidence or separately selected work changes it.
+No code implementation or live spending proceeds under this verdict.
+No AGP ratification/implementation, B53 closure, B56 acceptance, publication,
+push, upstream contact or Zorg message is authorized.
+
