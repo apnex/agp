@@ -1,0 +1,1582 @@
+{
+  "kind": "direct-peer-assurance-key-audit-checks",
+  "status": "PASS for author commit/capture/preservation checks; independent instrument verdict is FAIL",
+  "measuredAt": "2026-10-17T09:28:09.870Z",
+  "authority": {
+    "selection": "Director replied continue after the recommendation to locally commit exactly the twelve-file source packet and commission one fresh read-only key audit.",
+    "allowed": [
+      "one local-only commit of the prepared twelve-file packet",
+      "one fresh read-only independent key audit",
+      "retain the full review and bounded author checks",
+      "reconcile B51 board status and append the verification entry"
+    ],
+    "notSelected": [
+      "question/key correction or an amended/new correction commit",
+      "another audit or bounded recheck",
+      "push or publication",
+      "provider/runtime/profile or spending selection",
+      "scored reader/judge execution",
+      "AGP or consumer runtime changes",
+      "contract ratification"
+    ],
+    "completed": "One local source-packet commit and one fresh non-author key audit; no experiment execution."
+  },
+  "guidance": {
+    "canonicalMainAtStartAndCloseout": "d09461e8d9588fba8e59f4a63d0f93418f773dbe",
+    "cache": "/home/apnex/taceng/mission-kit",
+    "cacheClean": true,
+    "canonicalMeasurement": "gh api repos/apnex/mission-kit/commits/main --jq .sha",
+    "localMeasurements": [
+      "git rev-parse HEAD",
+      "git status --short"
+    ],
+    "productAxiomPinUnchanged": "5026604d3ef695651c21b24bd78410c7fec04b58",
+    "used": "M2 prospectively committed key before independent audit; K27 discoverable naming; A4 complete retained report; A12 fresh bounded audit context; E7/E8 and R3 separate the independent verdict from author evidence; AR3 keeps the selected move and next gate current."
+  },
+  "commit": {
+    "command": "git commit -m \"Freeze direct peer assurance inputs before key audit\"",
+    "sha": "669cbd78fe3d6d369324a11a6a901cdf92bf4e66",
+    "parent": "0aa6be75ccacf4e2c3770a49c5ea39970a25a98a",
+    "committedAt": "2026-10-17T20:16:24+11:00",
+    "subject": "Freeze direct peer assurance inputs before key audit",
+    "exitCode": 0,
+    "output": "[main 669cbd7] Freeze direct peer assurance inputs before key audit\n 12 files changed, 3992 insertions(+)\n create mode 100644 docs/reviews/direct-peer-send-assurance/direct-peer-answer-key.json\n create mode 100644 docs/reviews/direct-peer-send-assurance/direct-peer-assurance-preparation.md\n create mode 100644 docs/reviews/direct-peer-send-assurance/direct-peer-input-manifest.json\n create mode 100644 docs/reviews/direct-peer-send-assurance/direct-peer-packet.test.mjs\n create mode 100644 docs/reviews/direct-peer-send-assurance/direct-peer-preparation-checks.json\n create mode 100644 docs/reviews/direct-peer-send-assurance/direct-peer-questions.json\n create mode 100644 docs/reviews/direct-peer-send-assurance/direct-peer-reader-instructions.md\n create mode 100644 docs/reviews/direct-peer-send-assurance/project-direct-peer-readings.mjs\n create mode 100644 docs/reviews/direct-peer-send-assurance/readings/m73/direct-peer-reading.txt\n create mode 100644 docs/reviews/direct-peer-send-assurance/readings/r28/direct-peer-reading.txt\n create mode 100644 docs/reviews/direct-peer-send-assurance/sources/direct-peer-adoption.txt\n create mode 100644 docs/reviews/direct-peer-send-assurance/sources/direct-peer-contract.txt\n",
+    "files": [
+      {
+        "path": "docs/reviews/direct-peer-send-assurance/direct-peer-answer-key.json",
+        "bytes": 22768,
+        "sha256": "4c33425a044d58ea7e846bcf84c36b760e6a9e9d3e9b65c552237fccfb80158b",
+        "committedSha256": "4c33425a044d58ea7e846bcf84c36b760e6a9e9d3e9b65c552237fccfb80158b",
+        "unchanged": true
+      },
+      {
+        "path": "docs/reviews/direct-peer-send-assurance/direct-peer-assurance-preparation.md",
+        "bytes": 14110,
+        "sha256": "c621f566fdd1660ac06387f2d471219bb77e944df8c1dd28bf58d5dc5b1796c5",
+        "committedSha256": "c621f566fdd1660ac06387f2d471219bb77e944df8c1dd28bf58d5dc5b1796c5",
+        "unchanged": true
+      },
+      {
+        "path": "docs/reviews/direct-peer-send-assurance/direct-peer-input-manifest.json",
+        "bytes": 4818,
+        "sha256": "ab61b6992b8809412aba48c7f8940825aabb29be7484f41269b6fd04f0aa6c3a",
+        "committedSha256": "ab61b6992b8809412aba48c7f8940825aabb29be7484f41269b6fd04f0aa6c3a",
+        "unchanged": true
+      },
+      {
+        "path": "docs/reviews/direct-peer-send-assurance/direct-peer-packet.test.mjs",
+        "bytes": 6393,
+        "sha256": "f2166bba41bf3e34620ea41310bbee151390991fc05c05d1dcb8843a46210dd1",
+        "committedSha256": "f2166bba41bf3e34620ea41310bbee151390991fc05c05d1dcb8843a46210dd1",
+        "unchanged": true
+      },
+      {
+        "path": "docs/reviews/direct-peer-send-assurance/direct-peer-preparation-checks.json",
+        "bytes": 66152,
+        "sha256": "5631965d5fb89db3d8927b9408d87cf01110210e7b207220c1220ff2bdf2da8e",
+        "committedSha256": "5631965d5fb89db3d8927b9408d87cf01110210e7b207220c1220ff2bdf2da8e",
+        "unchanged": true
+      },
+      {
+        "path": "docs/reviews/direct-peer-send-assurance/direct-peer-questions.json",
+        "bytes": 3931,
+        "sha256": "3cbfb0919eee4edc9fe383c3181e32e750d83c79bf138d26346dd93a13401838",
+        "committedSha256": "3cbfb0919eee4edc9fe383c3181e32e750d83c79bf138d26346dd93a13401838",
+        "unchanged": true
+      },
+      {
+        "path": "docs/reviews/direct-peer-send-assurance/direct-peer-reader-instructions.md",
+        "bytes": 1556,
+        "sha256": "4a2d14bc351b6147e20c50e479adee3fd3afca25af271d6ad5e4d3805ece3533",
+        "committedSha256": "4a2d14bc351b6147e20c50e479adee3fd3afca25af271d6ad5e4d3805ece3533",
+        "unchanged": true
+      },
+      {
+        "path": "docs/reviews/direct-peer-send-assurance/project-direct-peer-readings.mjs",
+        "bytes": 4633,
+        "sha256": "43425609ee945eaa26a0f17a76a2b4e8a4920caecc43045a5c98763419cc658a",
+        "committedSha256": "43425609ee945eaa26a0f17a76a2b4e8a4920caecc43045a5c98763419cc658a",
+        "unchanged": true
+      },
+      {
+        "path": "docs/reviews/direct-peer-send-assurance/readings/m73/direct-peer-reading.txt",
+        "bytes": 30267,
+        "sha256": "ef5fa5b5c01ab166b2396848fda5502325ba6dbf9f05bd025ff9d443ff0b4729",
+        "committedSha256": "ef5fa5b5c01ab166b2396848fda5502325ba6dbf9f05bd025ff9d443ff0b4729",
+        "unchanged": true
+      },
+      {
+        "path": "docs/reviews/direct-peer-send-assurance/readings/r28/direct-peer-reading.txt",
+        "bytes": 47149,
+        "sha256": "78aac6e348b8c839396120ba29d5df556acee6ba45c132c2f23606ac9dc102ea",
+        "committedSha256": "78aac6e348b8c839396120ba29d5df556acee6ba45c132c2f23606ac9dc102ea",
+        "unchanged": true
+      },
+      {
+        "path": "docs/reviews/direct-peer-send-assurance/sources/direct-peer-adoption.txt",
+        "bytes": 21251,
+        "sha256": "a4915b471b9ab1b330fc8524beb5441c6857ad1416c63ea6be240cb9f67ed06c",
+        "committedSha256": "a4915b471b9ab1b330fc8524beb5441c6857ad1416c63ea6be240cb9f67ed06c",
+        "unchanged": true
+      },
+      {
+        "path": "docs/reviews/direct-peer-send-assurance/sources/direct-peer-contract.txt",
+        "bytes": 34955,
+        "sha256": "bede054da088b516f55e09aa02e111a9dfdb61b57ead5b493cc90f4f2110119a",
+        "committedSha256": "bede054da088b516f55e09aa02e111a9dfdb61b57ead5b493cc90f4f2110119a",
+        "unchanged": true
+      }
+    ],
+    "exactSelectedSet": true,
+    "stagedDiffEmptyAfterCommit": true,
+    "originalWorkingChangesExcluded": true,
+    "verification": "Before commit, the staged path set equalled the twelve selected paths and every staged blob matched its measured bytes/hash. After commit, diff-tree reported that exact set and committed blobs matched both the prepared fingerprints and working bytes."
+  },
+  "audit": {
+    "agent": "/root/direct_peer_assurance_key_audit",
+    "taskName": "direct_peer_assurance_key_audit",
+    "forkTurns": "none",
+    "reviewerRole": "fresh non-author key auditor; not a scored reader",
+    "targetCommit": "669cbd78fe3d6d369324a11a6a901cdf92bf4e66",
+    "manifestSha256": "ab61b6992b8809412aba48c7f8940825aabb29be7484f41269b6fd04f0aa6c3a",
+    "requestedScope": "Read both whole inputs and source snapshots, every question/key, projection and proposed protocol; challenge semantic correctness, requested versus scored duties, control fairness, fidelity, blinding, scoring and invalid-evidence joins. Do not answer probes as a reader or establish runtime readiness.",
+    "toolScope": "Read-only file/source/git/hash inspection; no edits, tests, project-code execution, services, provider access or other agents.",
+    "verdict": {
+      "kind": "independent key/comparison-instrument verdict",
+      "result": "FAIL",
+      "executionReadiness": "NOT REVIEWED",
+      "questionsReviewed": 12,
+      "blockingFindings": 2,
+      "nonblockingRecommendations": 2,
+      "report": {
+        "path": "docs/reviews/direct-peer-send-assurance/direct-peer-key-audit-01.txt",
+        "bytes": 10685,
+        "sha256": "7d1be78844a73cb4bbcfae3de2cda634992c97a7f11f599b13267abd3611d2db",
+        "exactStoredReport": true
+      },
+      "evidenceBoundary": "This report is the auditor's verdict and reasoning, not author integrity evidence and not a reader-performance outcome."
+    },
+    "independenceLimits": "One fresh non-author session, not a claim of cross-family independence or multiple independent measurements.",
+    "capture": "The complete returned report is preserved without abridgment as text, with one terminating newline. Its bytes equal the stored report payload used for the write. Original Markdown/Unicode and report qualifiers are retained.",
+    "frozenStatusHandling": "Preparation-only and uncommitted statements in the source packet describe its authoring checkpoint. They were not rewritten; the current director selection authorized this commit and audit.",
+    "noScoredAnswersCollected": true
+  },
+  "disposition": {
+    "state": "Findings accepted for prospective correction; nothing corrected in this turn.",
+    "F1": {
+      "status": "accepted, blocking",
+      "targets": [
+        "direct-peer-answer-key.json:169",
+        "direct-peer-questions.json:30",
+        "readings/m73/direct-peer-reading.txt:241",
+        "readings/m73/direct-peer-reading.txt:319"
+      ],
+      "finding": "The Q07 key requires the consumer to validate origin, but the reading assigns ingress/source origin equality to AGP capture and expressly assigns configured-mode validation to operation-call.",
+      "authorCheck": "Read the question, complete Q07 key and the origin/capture/mode passages; using captured origin is not a requirement to revalidate it independently in the consumer.",
+      "recommendedCorrection": "Require use of AGP's captured origin/association and preservation of the target on every branch; retain configured-mode validation. Remove the unassigned consumer-origin validation requirement.",
+      "notProposed": "Do not alter the AGP design merely to justify the answer key."
+    },
+    "F2": {
+      "status": "accepted, blocking",
+      "targets": [
+        "direct-peer-questions.json:46",
+        "direct-peer-answer-key.json:279",
+        "direct-peer-answer-key.json:294",
+        "readings/m73/direct-peer-reading.txt:284",
+        "readings/r28/direct-peer-reading.txt:492"
+      ],
+      "finding": "Any known current accounting limitation and where available are conditional, while the support note mandates a cap for an honest absence of the current ledger diagnosis.",
+      "authorCheck": "The baseline states the metadata-budget obligation; the candidate supplies the current handler-ledger observation. Those are different facts, and a normative obligation cannot establish today's implementation.",
+      "recommendedCorrection": "Make the current-accounting diagnosis an explicit common-question duty and align required decisions/support wording. Preserve the difference between a faithful but incomplete required diagnosis and a wrong invented claim; an unselected formula/API remains a correct scoped answer.",
+      "alternative": "Keep the conditional wording and remove the automatic cap for that clause.",
+      "reasoning": "Explicit diagnosis matches the stated maintainer actionability objective without changing either reading or pretending the baseline supplies an implementation observation."
+    },
+    "nonblocking": [
+      {
+        "topic": "Version-neutral judge qualifications",
+        "disposition": "Carry into the prospective rubric correction/execution-readiness requirements.",
+        "reasoning": "Role metadata may be withheld, but substantive grounding and scope qualifications must survive into the judge rubric; do not blindly drop whole support notes.",
+        "notDone": "No renderer or execution binding was changed or selected."
+      },
+      {
+        "topic": "Unavailable seven closeout hooks",
+        "disposition": "State the supplied-input limit explicitly in prospective rubric/instructions; do not score hidden hook contents.",
+        "reasoning": "The current readings mention but do not supply the prior cross-check. It is not needed as an additional scored duty; inlining more material is unnecessary unless a later question genuinely needs it.",
+        "notDone": "No source snapshot, reader material or prior independent design review was edited."
+      }
+    ],
+    "priorVerdict": "The technical and scoped M7 review remains attached to its original frozen design. This audit neither reopens it nor supplies implementation or assurance acceptance.",
+    "nextRecommended": "Obtain approval to prepare and locally commit a corrected question/key checkpoint, carrying the rubric qualifications, then ask the same independent auditor for a bounded read-only recheck. Preserve this checkpoint and FAIL, with no push or reader execution."
+  },
+  "authorChecks": {
+    "environment": {
+      "node": "v24.12.0",
+      "platform": "linux",
+      "arch": "x64"
+    },
+    "precommit": [
+      {
+        "name": "precommit-packet",
+        "command": "node --test docs/reviews/direct-peer-send-assurance/direct-peer-packet.test.mjs",
+        "exitCode": 0,
+        "path": "/tmp/agp-direct-peer-key-audit.IMqKfC/precommit-packet.txt",
+        "bytes": 1215,
+        "sha256": "bedb9c4b13c65ca6a0a671a4f14196a93a36cd4df896420ea1646435ba28967d",
+        "text": "✔ Given the frozen packet, every listed artifact has its declared bytes and hash (8.577889ms)\n✔ Given full source snapshots, their measured original hashes are retained (1.483878ms)\n✔ Given the sources, both generated reading sets reproduce exactly (2.371021ms)\n✔ Given the candidate reading, its whole contract prefix equals the baseline (0.189507ms)\n✔ Given reader material, experimental protocol and provenance are withheld (0.475393ms)\n✔ Given questions and key, every question has one prospective key and coverage role (0.406921ms)\n✔ Given grounding excerpts, each occurs in its declared reading set (38.746438ms)\n✔ Given a duplicate question identifier, coverage validation fails (1.009506ms)\n✔ Given an absent grounding excerpt, the membership check fails without editing inputs (0.581419ms)\n✔ Given a removed source boundary, projection refuses to silently select another range (0.383506ms)\n✔ Given a changed artifact byte, its frozen digest no longer matches (0.198987ms)\n✔ Given the complete reader payload, both readings fit the declared common bound (2.940615ms)\nℹ tests 12\nℹ suites 0\nℹ pass 12\nℹ fail 0\nℹ cancelled 0\nℹ skipped 0\nℹ todo 0\nℹ duration_ms 112.45177\n"
+      },
+      {
+        "name": "precommit-docs",
+        "command": "tools/check-docs.sh docs/reviews/direct-peer-send-assurance/direct-peer-assurance-preparation.md docs/reviews/direct-peer-send-assurance/direct-peer-reader-instructions.md",
+        "exitCode": 0,
+        "path": "/tmp/agp-direct-peer-key-audit.IMqKfC/precommit-docs.txt",
+        "bytes": 196,
+        "sha256": "76f028e91959bea64454f3a43e673c12154328ce6152f1f91f72310623e388f8",
+        "text": "\nclean: 2 file(s), rule S13.\n\nclean: 2 file(s), rule S6.\n\nclean: 2 file(s), rule S10.\n\nclean: 2 file(s), rule S12.\n\nclean: 2 file(s), rule S8.\ndocs: 2 file(s) clean against S6, S8, S10, S12, S13.\n"
+      },
+      {
+        "name": "precommit-whitespace",
+        "command": "git diff --check",
+        "exitCode": 0,
+        "path": "/tmp/agp-direct-peer-key-audit.IMqKfC/precommit-whitespace.txt",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "text": ""
+      }
+    ],
+    "postAudit": [
+      {
+        "name": "post-audit-packet",
+        "command": "node --test docs/reviews/direct-peer-send-assurance/direct-peer-packet.test.mjs",
+        "exitCode": 0,
+        "path": "/tmp/agp-direct-peer-key-audit.IMqKfC/post-audit-packet.txt",
+        "bytes": 1215,
+        "sha256": "f2421b9dd41b91833b991253473bcc90a2e7763c86afdd80706e3446ffeb994b",
+        "text": "✔ Given the frozen packet, every listed artifact has its declared bytes and hash (10.43457ms)\n✔ Given full source snapshots, their measured original hashes are retained (1.307099ms)\n✔ Given the sources, both generated reading sets reproduce exactly (2.135779ms)\n✔ Given the candidate reading, its whole contract prefix equals the baseline (0.220178ms)\n✔ Given reader material, experimental protocol and provenance are withheld (0.504998ms)\n✔ Given questions and key, every question has one prospective key and coverage role (0.293741ms)\n✔ Given grounding excerpts, each occurs in its declared reading set (42.360595ms)\n✔ Given a duplicate question identifier, coverage validation fails (1.209746ms)\n✔ Given an absent grounding excerpt, the membership check fails without editing inputs (0.84777ms)\n✔ Given a removed source boundary, projection refuses to silently select another range (0.572664ms)\n✔ Given a changed artifact byte, its frozen digest no longer matches (0.325334ms)\n✔ Given the complete reader payload, both readings fit the declared common bound (3.043316ms)\nℹ tests 12\nℹ suites 0\nℹ pass 12\nℹ fail 0\nℹ cancelled 0\nℹ skipped 0\nℹ todo 0\nℹ duration_ms 127.784214\n"
+      },
+      {
+        "name": "post-audit-records",
+        "command": "node --test test/conformance/board-record.test.js test/conformance/record-integrity.test.js test/conformance/architecture-record.test.js",
+        "exitCode": 0,
+        "path": "/tmp/agp-direct-peer-key-audit.IMqKfC/post-audit-records.txt",
+        "bytes": 1870,
+        "sha256": "b9365387891c0c41edb390ce3a918b2339996ee4d000686ce4b5c177cd85d5f7",
+        "text": "✔ Given the confirmed intent record, when its numbered subsections are read, then every number is unique and ordered (4.762451ms)\n✔ Given the reconciled architecture, when its current paths and scope owners are resolved, then none points at a fictional module or a forked deferred list (5.377086ms)\n✔ Given the triage ledger, when each candidate is read, then it is scored on both dimensions and cites a record (6.340703ms)\n✔ Given every record cited by the board, when the link is resolved, then the target and its anchor exist (88.663201ms)\n✔ Given the held section, when each item is read, then it is scored and carries a revival trigger (0.738064ms)\n✔ Given the decisions required, when each is read, then it names exactly what it blocks (0.858084ms)\n✔ Given every board identifier, when the ledger and milestones are compared, then neither contains an item the other omits (1.030069ms)\n✔ Given every board item, when its ledger status is compared with where it sits, then the board does not disagree with itself about its state (9.020871ms)\n✔ Given the milestones, when each is read, then no landed item is presented as a live move and the closed count matches the closed set (2.623574ms)\n✔ Given every record that cites a board item, when the citation is resolved, then the item exists on the board (27.774438ms)\n✔ Given the architecture maturity table, when a reopen trigger is read, then it names a condition that has not already happened (1.372539ms)\n✔ Given confirmed intent, when a row says it was amended, then it names the decision that amended it (1.550245ms)\n✔ Given every ratified decision, when it is checked against the vision, then it has been absorbed or explicitly ruled not to change purpose (1.230964ms)\nℹ tests 13\nℹ suites 0\nℹ pass 13\nℹ fail 0\nℹ cancelled 0\nℹ skipped 0\nℹ todo 0\nℹ duration_ms 153.063525\n"
+      },
+      {
+        "name": "post-audit-docs",
+        "command": "tools/check-docs.sh docs/BOARD.md docs/VERIFICATION.md",
+        "exitCode": 0,
+        "path": "/tmp/agp-direct-peer-key-audit.IMqKfC/post-audit-docs.txt",
+        "bytes": 196,
+        "sha256": "76f028e91959bea64454f3a43e673c12154328ce6152f1f91f72310623e388f8",
+        "text": "\nclean: 2 file(s), rule S13.\n\nclean: 2 file(s), rule S6.\n\nclean: 2 file(s), rule S10.\n\nclean: 2 file(s), rule S12.\n\nclean: 2 file(s), rule S8.\ndocs: 2 file(s) clean against S6, S8, S10, S12, S13.\n"
+      },
+      {
+        "name": "post-audit-whitespace",
+        "command": "git diff --check",
+        "exitCode": 0,
+        "path": "/tmp/agp-direct-peer-key-audit.IMqKfC/post-audit-whitespace.txt",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "text": ""
+      }
+    ],
+    "summary": {
+      "packetTests": {
+        "tests": 12,
+        "pass": 12,
+        "fail": 0,
+        "skipped": 0
+      },
+      "recordTests": {
+        "tests": 13,
+        "pass": 13,
+        "fail": 0,
+        "skipped": 0
+      },
+      "docs": {
+        "files": 2,
+        "rules": [
+          "S6",
+          "S8",
+          "S10",
+          "S12",
+          "S13"
+        ],
+        "pass": true
+      },
+      "whitespacePass": true,
+      "targetedLinks": [
+        {
+          "from": "docs/BOARD.md",
+          "target": "VERIFICATION.md#455-direct-peer-assurance-local-commit-and-key-audit",
+          "exists": true,
+          "anchorExists": true
+        },
+        {
+          "from": "docs/BOARD.md",
+          "target": "reviews/direct-peer-send-assurance/direct-peer-key-audit-01.txt",
+          "exists": true,
+          "anchorExists": true
+        },
+        {
+          "from": "docs/BOARD.md",
+          "target": "VERIFICATION.md#455-direct-peer-assurance-local-commit-and-key-audit",
+          "exists": true,
+          "anchorExists": true
+        },
+        {
+          "from": "docs/VERIFICATION.md",
+          "target": "reviews/direct-peer-send-assurance/direct-peer-key-audit-01.txt",
+          "exists": true,
+          "anchorExists": true
+        },
+        {
+          "from": "docs/VERIFICATION.md",
+          "target": "reviews/direct-peer-send-assurance/direct-peer-key-audit-checks-01.json",
+          "exists": true,
+          "anchorExists": true
+        }
+      ]
+    },
+    "meaning": "These deterministic checks pass while the semantic key gate fails. Neither hash agreement nor quotation membership resolves F1/F2."
+  },
+  "preservation": {
+    "initialDirtyCount": 59,
+    "committedFormerlyUntrackedFiles": 12,
+    "preservedPriorWorkingFiles": 45,
+    "preservedCommittedInputFiles": 12,
+    "preservedTotal": 57,
+    "unchangedFiles": [
+      {
+        "path": "docs/design/mechanisms.md",
+        "bytes": 30420,
+        "sha256": "3d00bc685488f81e54d31e12cd00f579f86421db00ee37fb9de26c4d1b74a99d",
+        "afterBytes": 30420,
+        "afterSha256": "3d00bc685488f81e54d31e12cd00f579f86421db00ee37fb9de26c4d1b74a99d",
+        "unchanged": true
+      },
+      {
+        "path": "docs/design/direct-peer-send.md",
+        "bytes": 35367,
+        "sha256": "c62574382b91cfd30a443ba5e16b23d10dae797c3278539277666f0a316eedea",
+        "afterBytes": 35367,
+        "afterSha256": "c62574382b91cfd30a443ba5e16b23d10dae797c3278539277666f0a316eedea",
+        "unchanged": true
+      },
+      {
+        "path": "docs/reviews/admission-lifecycle-comparison.md",
+        "bytes": 25009,
+        "sha256": "27a39f7fccc8e6ac4fab52340edbf9cff1235462ba8256e3f66ecf122be8dcea",
+        "afterBytes": 25009,
+        "afterSha256": "27a39f7fccc8e6ac4fab52340edbf9cff1235462ba8256e3f66ecf122be8dcea",
+        "unchanged": true
+      },
+      {
+        "path": "docs/reviews/admission-lifetime-adoption.md",
+        "bytes": 12915,
+        "sha256": "d6a53fc231d1ba03db5f39661ab2d8629409d05b83d532fdf0ee24f305af59d0",
+        "afterBytes": 12915,
+        "afterSha256": "d6a53fc231d1ba03db5f39661ab2d8629409d05b83d532fdf0ee24f305af59d0",
+        "unchanged": true
+      },
+      {
+        "path": "docs/reviews/admission-lifetime-correction-r2.md",
+        "bytes": 53917,
+        "sha256": "b89a3328ae7cd41feb38a498b75b16fe06d47f232d9c09dffe42542438f005fb",
+        "afterBytes": 53917,
+        "afterSha256": "b89a3328ae7cd41feb38a498b75b16fe06d47f232d9c09dffe42542438f005fb",
+        "unchanged": true
+      },
+      {
+        "path": "docs/reviews/admission-lifetime-correction-r3.md",
+        "bytes": 56562,
+        "sha256": "6ccf9ba0e7d94b83897fade8f865fe3fb1328db292d92cce4d5cc85bc28fc2f2",
+        "afterBytes": 56562,
+        "afterSha256": "6ccf9ba0e7d94b83897fade8f865fe3fb1328db292d92cce4d5cc85bc28fc2f2",
+        "unchanged": true
+      },
+      {
+        "path": "docs/reviews/admission-lifetime-correction.md",
+        "bytes": 41424,
+        "sha256": "01bae9c2446bf6ff6d8e0027735976f5ff84c4216d31942c2d8fef80ffde0ed0",
+        "afterBytes": 41424,
+        "afterSha256": "01bae9c2446bf6ff6d8e0027735976f5ff84c4216d31942c2d8fef80ffde0ed0",
+        "unchanged": true
+      },
+      {
+        "path": "docs/reviews/admission-lifetime-independent-review-r2.md",
+        "bytes": 6348,
+        "sha256": "01a30e624c63a4d2e3f466595c62514ee97ab2d4c4d164988975103df0d31979",
+        "afterBytes": 6348,
+        "afterSha256": "01a30e624c63a4d2e3f466595c62514ee97ab2d4c4d164988975103df0d31979",
+        "unchanged": true
+      },
+      {
+        "path": "docs/reviews/admission-lifetime-independent-review-r3.md",
+        "bytes": 8325,
+        "sha256": "8f1b4cf8c725bc083ebb2d299fa12263bbb15f701f299ea1e26bb6055b3cbf8f",
+        "afterBytes": 8325,
+        "afterSha256": "8f1b4cf8c725bc083ebb2d299fa12263bbb15f701f299ea1e26bb6055b3cbf8f",
+        "unchanged": true
+      },
+      {
+        "path": "docs/reviews/admission-lifetime-independent-review.md",
+        "bytes": 10956,
+        "sha256": "7ef3974fa4d54aa2724b539bf7a34fc8ef03992f350ad37fd2d006005940fe1f",
+        "afterBytes": 10956,
+        "afterSha256": "7ef3974fa4d54aa2724b539bf7a34fc8ef03992f350ad37fd2d006005940fe1f",
+        "unchanged": true
+      },
+      {
+        "path": "docs/reviews/browser-carrier-feasibility.md",
+        "bytes": 15480,
+        "sha256": "c57dd0a9dc8071d761bba1ffb9fb4ce5a7aa66313d944ece46cad283e1fe797c",
+        "afterBytes": 15480,
+        "afterSha256": "c57dd0a9dc8071d761bba1ffb9fb4ce5a7aa66313d944ece46cad283e1fe797c",
+        "unchanged": true
+      },
+      {
+        "path": "docs/reviews/browser-peer-feasibility.md",
+        "bytes": 14996,
+        "sha256": "f66876ba9ce4f0c926c33143460bcf196372747a69197703aab6517e757501c3",
+        "afterBytes": 14996,
+        "afterSha256": "f66876ba9ce4f0c926c33143460bcf196372747a69197703aab6517e757501c3",
+        "unchanged": true
+      },
+      {
+        "path": "docs/reviews/browser-peer-scale-amendment.md",
+        "bytes": 8597,
+        "sha256": "af67268de3f5d573f49b17111cce26d2ab50b043d96fac614575fd2f0ab941af",
+        "afterBytes": 8597,
+        "afterSha256": "af67268de3f5d573f49b17111cce26d2ab50b043d96fac614575fd2f0ab941af",
+        "unchanged": true
+      },
+      {
+        "path": "docs/reviews/direct-peer-send-adoption-checks.json",
+        "bytes": 35422,
+        "sha256": "f50ace1eb44e470d9406e6475f72c6639e069622487bb63d20fd775426106f98",
+        "afterBytes": 35422,
+        "afterSha256": "f50ace1eb44e470d9406e6475f72c6639e069622487bb63d20fd775426106f98",
+        "unchanged": true
+      },
+      {
+        "path": "docs/reviews/direct-peer-send-adoption.md",
+        "bytes": 21251,
+        "sha256": "a4915b471b9ab1b330fc8524beb5441c6857ad1416c63ea6be240cb9f67ed06c",
+        "afterBytes": 21251,
+        "afterSha256": "a4915b471b9ab1b330fc8524beb5441c6857ad1416c63ea6be240cb9f67ed06c",
+        "unchanged": true
+      },
+      {
+        "path": "docs/reviews/direct-peer-send-assurance/direct-peer-answer-key.json",
+        "bytes": 22768,
+        "sha256": "4c33425a044d58ea7e846bcf84c36b760e6a9e9d3e9b65c552237fccfb80158b",
+        "afterBytes": 22768,
+        "afterSha256": "4c33425a044d58ea7e846bcf84c36b760e6a9e9d3e9b65c552237fccfb80158b",
+        "unchanged": true
+      },
+      {
+        "path": "docs/reviews/direct-peer-send-assurance/direct-peer-assurance-preparation.md",
+        "bytes": 14110,
+        "sha256": "c621f566fdd1660ac06387f2d471219bb77e944df8c1dd28bf58d5dc5b1796c5",
+        "afterBytes": 14110,
+        "afterSha256": "c621f566fdd1660ac06387f2d471219bb77e944df8c1dd28bf58d5dc5b1796c5",
+        "unchanged": true
+      },
+      {
+        "path": "docs/reviews/direct-peer-send-assurance/direct-peer-input-manifest.json",
+        "bytes": 4818,
+        "sha256": "ab61b6992b8809412aba48c7f8940825aabb29be7484f41269b6fd04f0aa6c3a",
+        "afterBytes": 4818,
+        "afterSha256": "ab61b6992b8809412aba48c7f8940825aabb29be7484f41269b6fd04f0aa6c3a",
+        "unchanged": true
+      },
+      {
+        "path": "docs/reviews/direct-peer-send-assurance/direct-peer-packet.test.mjs",
+        "bytes": 6393,
+        "sha256": "f2166bba41bf3e34620ea41310bbee151390991fc05c05d1dcb8843a46210dd1",
+        "afterBytes": 6393,
+        "afterSha256": "f2166bba41bf3e34620ea41310bbee151390991fc05c05d1dcb8843a46210dd1",
+        "unchanged": true
+      },
+      {
+        "path": "docs/reviews/direct-peer-send-assurance/direct-peer-preparation-checks.json",
+        "bytes": 66152,
+        "sha256": "5631965d5fb89db3d8927b9408d87cf01110210e7b207220c1220ff2bdf2da8e",
+        "afterBytes": 66152,
+        "afterSha256": "5631965d5fb89db3d8927b9408d87cf01110210e7b207220c1220ff2bdf2da8e",
+        "unchanged": true
+      },
+      {
+        "path": "docs/reviews/direct-peer-send-assurance/direct-peer-questions.json",
+        "bytes": 3931,
+        "sha256": "3cbfb0919eee4edc9fe383c3181e32e750d83c79bf138d26346dd93a13401838",
+        "afterBytes": 3931,
+        "afterSha256": "3cbfb0919eee4edc9fe383c3181e32e750d83c79bf138d26346dd93a13401838",
+        "unchanged": true
+      },
+      {
+        "path": "docs/reviews/direct-peer-send-assurance/direct-peer-reader-instructions.md",
+        "bytes": 1556,
+        "sha256": "4a2d14bc351b6147e20c50e479adee3fd3afca25af271d6ad5e4d3805ece3533",
+        "afterBytes": 1556,
+        "afterSha256": "4a2d14bc351b6147e20c50e479adee3fd3afca25af271d6ad5e4d3805ece3533",
+        "unchanged": true
+      },
+      {
+        "path": "docs/reviews/direct-peer-send-assurance/project-direct-peer-readings.mjs",
+        "bytes": 4633,
+        "sha256": "43425609ee945eaa26a0f17a76a2b4e8a4920caecc43045a5c98763419cc658a",
+        "afterBytes": 4633,
+        "afterSha256": "43425609ee945eaa26a0f17a76a2b4e8a4920caecc43045a5c98763419cc658a",
+        "unchanged": true
+      },
+      {
+        "path": "docs/reviews/direct-peer-send-assurance/readings/m73/direct-peer-reading.txt",
+        "bytes": 30267,
+        "sha256": "ef5fa5b5c01ab166b2396848fda5502325ba6dbf9f05bd025ff9d443ff0b4729",
+        "afterBytes": 30267,
+        "afterSha256": "ef5fa5b5c01ab166b2396848fda5502325ba6dbf9f05bd025ff9d443ff0b4729",
+        "unchanged": true
+      },
+      {
+        "path": "docs/reviews/direct-peer-send-assurance/readings/r28/direct-peer-reading.txt",
+        "bytes": 47149,
+        "sha256": "78aac6e348b8c839396120ba29d5df556acee6ba45c132c2f23606ac9dc102ea",
+        "afterBytes": 47149,
+        "afterSha256": "78aac6e348b8c839396120ba29d5df556acee6ba45c132c2f23606ac9dc102ea",
+        "unchanged": true
+      },
+      {
+        "path": "docs/reviews/direct-peer-send-assurance/sources/direct-peer-adoption.txt",
+        "bytes": 21251,
+        "sha256": "a4915b471b9ab1b330fc8524beb5441c6857ad1416c63ea6be240cb9f67ed06c",
+        "afterBytes": 21251,
+        "afterSha256": "a4915b471b9ab1b330fc8524beb5441c6857ad1416c63ea6be240cb9f67ed06c",
+        "unchanged": true
+      },
+      {
+        "path": "docs/reviews/direct-peer-send-assurance/sources/direct-peer-contract.txt",
+        "bytes": 34955,
+        "sha256": "bede054da088b516f55e09aa02e111a9dfdb61b57ead5b493cc90f4f2110119a",
+        "afterBytes": 34955,
+        "afterSha256": "bede054da088b516f55e09aa02e111a9dfdb61b57ead5b493cc90f4f2110119a",
+        "unchanged": true
+      },
+      {
+        "path": "docs/reviews/direct-peer-send-design-checks.json",
+        "bytes": 30521,
+        "sha256": "e25314d9da912015a2e1b6c6202147cb2cd7f1fc72b6a9f68d1185e1b82048aa",
+        "afterBytes": 30521,
+        "afterSha256": "e25314d9da912015a2e1b6c6202147cb2cd7f1fc72b6a9f68d1185e1b82048aa",
+        "unchanged": true
+      },
+      {
+        "path": "docs/reviews/direct-peer-send-design-review.md",
+        "bytes": 10136,
+        "sha256": "5d5da0bef33fa6587455e91a4c672b9bb0a0be91f78aae71351929c697f066ab",
+        "afterBytes": 10136,
+        "afterSha256": "5d5da0bef33fa6587455e91a4c672b9bb0a0be91f78aae71351929c697f066ab",
+        "unchanged": true
+      },
+      {
+        "path": "docs/reviews/direct-peer-send-draft-checks.json",
+        "bytes": 31214,
+        "sha256": "e1937d8cacf1abff3b08ee1159044515b7493d32b15f1afbd190dd463b6fc24b",
+        "afterBytes": 31214,
+        "afterSha256": "e1937d8cacf1abff3b08ee1159044515b7493d32b15f1afbd190dd463b6fc24b",
+        "unchanged": true
+      },
+      {
+        "path": "docs/reviews/direct-peer-send-draft-response.md",
+        "bytes": 4142,
+        "sha256": "f37d32da1df0c740aa3b371cbfedf8f2f5634444b2f0c6ecb7656b721653b3b8",
+        "afterBytes": 4142,
+        "afterSha256": "f37d32da1df0c740aa3b371cbfedf8f2f5634444b2f0c6ecb7656b721653b3b8",
+        "unchanged": true
+      },
+      {
+        "path": "docs/reviews/direct-peer-send-independent-review.txt",
+        "bytes": 14503,
+        "sha256": "2f9b2e8044abcf8829539c8a68aed3e36fb4ba6eb0aa0d77315be2b284092656",
+        "afterBytes": 14503,
+        "afterSha256": "2f9b2e8044abcf8829539c8a68aed3e36fb4ba6eb0aa0d77315be2b284092656",
+        "unchanged": true
+      },
+      {
+        "path": "docs/reviews/direct-peer-send-lifecycle-checks.json",
+        "bytes": 22497,
+        "sha256": "d518d33717e328bd0f652f8cf2f90d33368a45531694c8b2fd634442ab4ee933",
+        "afterBytes": 22497,
+        "afterSha256": "d518d33717e328bd0f652f8cf2f90d33368a45531694c8b2fd634442ab4ee933",
+        "unchanged": true
+      },
+      {
+        "path": "docs/reviews/direct-peer-send-lifecycle-response.md",
+        "bytes": 3367,
+        "sha256": "72d2122f7ff8fd618d753c7139231d436c8d6985922a79575f97825031d0318a",
+        "afterBytes": 3367,
+        "afterSha256": "72d2122f7ff8fd618d753c7139231d436c8d6985922a79575f97825031d0318a",
+        "unchanged": true
+      },
+      {
+        "path": "docs/reviews/evidence/browser-feasibility-chrome136.json",
+        "bytes": 4117,
+        "sha256": "7559df9db7497cb5d36431a737196c6aea1cf2951cfb94ab196b56ea098ba42a",
+        "afterBytes": 4117,
+        "afterSha256": "7559df9db7497cb5d36431a737196c6aea1cf2951cfb94ab196b56ea098ba42a",
+        "unchanged": true
+      },
+      {
+        "path": "docs/reviews/evidence/browser-feasibility-chrome151.json",
+        "bytes": 4201,
+        "sha256": "a24b766999ef503bcc6e40637b28df620ec3ddad8e602d90bdc7a262347aecdb",
+        "afterBytes": 4201,
+        "afterSha256": "a24b766999ef503bcc6e40637b28df620ec3ddad8e602d90bdc7a262347aecdb",
+        "unchanged": true
+      },
+      {
+        "path": "docs/reviews/evidence/direct-peer-send-before-d61.txt",
+        "bytes": 28449,
+        "sha256": "6e8122f93ffb2496426cdc3d5f45cf7ffbf52c97bf5b1d695083acf9db7d26e7",
+        "afterBytes": 28449,
+        "afterSha256": "6e8122f93ffb2496426cdc3d5f45cf7ffbf52c97bf5b1d695083acf9db7d26e7",
+        "unchanged": true
+      },
+      {
+        "path": "docs/reviews/evidence/direct-peer-send-before-d62.txt",
+        "bytes": 32448,
+        "sha256": "2a91d6c8d8263bc39a94880d93d95506fa7ab0e5d359f4f150d84153a0b6b251",
+        "afterBytes": 32448,
+        "afterSha256": "2a91d6c8d8263bc39a94880d93d95506fa7ab0e5d359f4f150d84153a0b6b251",
+        "unchanged": true
+      },
+      {
+        "path": "docs/reviews/evidence/direct-peer-send-design-review-input.txt",
+        "bytes": 34955,
+        "sha256": "bede054da088b516f55e09aa02e111a9dfdb61b57ead5b493cc90f4f2110119a",
+        "afterBytes": 34955,
+        "afterSha256": "bede054da088b516f55e09aa02e111a9dfdb61b57ead5b493cc90f4f2110119a",
+        "unchanged": true
+      },
+      {
+        "path": "docs/reviews/evidence/operation-call-acceptance/case-logs/honest-call-ending.test.js.log.txt",
+        "bytes": 6718,
+        "sha256": "8f525d67bb18e688e9296a137a7ef9fd63b8741fabb8b86fb07d207966fcebc0",
+        "afterBytes": 6718,
+        "afterSha256": "8f525d67bb18e688e9296a137a7ef9fd63b8741fabb8b86fb07d207966fcebc0",
+        "unchanged": true
+      },
+      {
+        "path": "docs/reviews/evidence/operation-call-acceptance/case-logs/not-delivered-signal.test.js.log.txt",
+        "bytes": 1584,
+        "sha256": "b50ad78897b667d4fa8a6207efd2262bf53ff036a4e286e23a34432644bab567",
+        "afterBytes": 1584,
+        "afterSha256": "b50ad78897b667d4fa8a6207efd2262bf53ff036a4e286e23a34432644bab567",
+        "unchanged": true
+      },
+      {
+        "path": "docs/reviews/evidence/operation-call-acceptance/case-logs/request-correlation.test.js.log.txt",
+        "bytes": 921,
+        "sha256": "6e541c909ab23946a6358f36260dd6bcb5915e45f06bc4a2e967f00b58fee5ec",
+        "afterBytes": 921,
+        "afterSha256": "6e541c909ab23946a6358f36260dd6bcb5915e45f06bc4a2e967f00b58fee5ec",
+        "unchanged": true
+      },
+      {
+        "path": "docs/reviews/evidence/operation-call-acceptance/cert-o.txt",
+        "bytes": 39031,
+        "sha256": "e1cb917a0b21b994df126f37643b955002025fbb0ff4d20b6c5def738805fd88",
+        "afterBytes": 39031,
+        "afterSha256": "e1cb917a0b21b994df126f37643b955002025fbb0ff4d20b6c5def738805fd88",
+        "unchanged": true
+      },
+      {
+        "path": "docs/reviews/evidence/operation-call-acceptance/checkouts-o.json",
+        "bytes": 577,
+        "sha256": "46fe733dc9799e3a3294c097cdb206b1493cd2199559e5b9d9da896a775ad36b",
+        "afterBytes": 577,
+        "afterSha256": "46fe733dc9799e3a3294c097cdb206b1493cd2199559e5b9d9da896a775ad36b",
+        "unchanged": true
+      },
+      {
+        "path": "docs/reviews/evidence/operation-call-acceptance/run-o.out",
+        "bytes": 126,
+        "sha256": "c7b317357c4b6119ef28fdf2442a1b3efd4d987da65a163227e28fad2a9bc9ac",
+        "afterBytes": 126,
+        "afterSha256": "c7b317357c4b6119ef28fdf2442a1b3efd4d987da65a163227e28fad2a9bc9ac",
+        "unchanged": true
+      },
+      {
+        "path": "docs/reviews/reply-isolation-checks.json",
+        "bytes": 25821,
+        "sha256": "86214a7346f68a21e6c9985914681ad4631154600aa3d30524afc77619f59469",
+        "afterBytes": 25821,
+        "afterSha256": "86214a7346f68a21e6c9985914681ad4631154600aa3d30524afc77619f59469",
+        "unchanged": true
+      },
+      {
+        "path": "docs/reviews/reply-isolation-handoff.json",
+        "bytes": 28313,
+        "sha256": "ffc76f817ab2aefdeb5e743398b7abf8e7cafd953fc75cac6a593bbaffbf15bd",
+        "afterBytes": 28313,
+        "afterSha256": "ffc76f817ab2aefdeb5e743398b7abf8e7cafd953fc75cac6a593bbaffbf15bd",
+        "unchanged": true
+      },
+      {
+        "path": "docs/reviews/reply-isolation-qualifications-handoff.json",
+        "bytes": 12025,
+        "sha256": "867db9ebb9943180435224a3149063654e500b955eef257a6be40da26b0f8e30",
+        "afterBytes": 12025,
+        "afterSha256": "867db9ebb9943180435224a3149063654e500b955eef257a6be40da26b0f8e30",
+        "unchanged": true
+      },
+      {
+        "path": "docs/reviews/reply-isolation-qualifications.md",
+        "bytes": 6401,
+        "sha256": "1719559114f768594911fbe125096c84d01fbb4f89105628e1e90808aa39e376",
+        "afterBytes": 6401,
+        "afterSha256": "1719559114f768594911fbe125096c84d01fbb4f89105628e1e90808aa39e376",
+        "unchanged": true
+      },
+      {
+        "path": "docs/reviews/reply-isolation-response.md",
+        "bytes": 6467,
+        "sha256": "d6ed8be5a6b3f59530f83d4952f8e125769997d16ba78f44f8667fb15ce89210",
+        "afterBytes": 6467,
+        "afterSha256": "d6ed8be5a6b3f59530f83d4952f8e125769997d16ba78f44f8667fb15ce89210",
+        "unchanged": true
+      },
+      {
+        "path": "docs/reviews/reply-isolation-review.md",
+        "bytes": 21966,
+        "sha256": "213d60b6c74f4dc3a3adc8765566dc3a67f6bac360e8f042509f2b93f5a1a2f6",
+        "afterBytes": 21966,
+        "afterSha256": "213d60b6c74f4dc3a3adc8765566dc3a67f6bac360e8f042509f2b93f5a1a2f6",
+        "unchanged": true
+      },
+      {
+        "path": "docs/reviews/reply-isolation-sources.json",
+        "bytes": 15924,
+        "sha256": "1c2fc0b7d6edc6e8fdc144cb6a25087b1eae2a9c197127e40f48c4ee64692b39",
+        "afterBytes": 15924,
+        "afterSha256": "1c2fc0b7d6edc6e8fdc144cb6a25087b1eae2a9c197127e40f48c4ee64692b39",
+        "unchanged": true
+      },
+      {
+        "path": "docs/reviews/zorg-requirements-review.md",
+        "bytes": 20218,
+        "sha256": "2fa0c3348b3b0f765d009a2632b0fdb59e7c54d01f768edd88b6ebd17cfed933",
+        "afterBytes": 20218,
+        "afterSha256": "2fa0c3348b3b0f765d009a2632b0fdb59e7c54d01f768edd88b6ebd17cfed933",
+        "unchanged": true
+      },
+      {
+        "path": "docs/reviews/zorg-review-reply-assessment.md",
+        "bytes": 11620,
+        "sha256": "af653f0b819bb8845cf56e095bcbcdcaa21d25e911e11395f5cfffc676a1f3c6",
+        "afterBytes": 11620,
+        "afterSha256": "af653f0b819bb8845cf56e095bcbcdcaa21d25e911e11395f5cfffc676a1f3c6",
+        "unchanged": true
+      },
+      {
+        "path": "docs/reviews/zorg-review-response.md",
+        "bytes": 8303,
+        "sha256": "f76295f2c26678321c011d33bc1d1dc838133afbd1ca7de5b459b9c0f614bd17",
+        "afterBytes": 8303,
+        "afterSha256": "f76295f2c26678321c011d33bc1d1dc838133afbd1ca7de5b459b9c0f614bd17",
+        "unchanged": true
+      },
+      {
+        "path": "docs/surveys/shared-transport-survey.md",
+        "bytes": 23687,
+        "sha256": "f096f84b74ac861f02c1203bce6726748fbd4c57f22bfadab13a7b68e56d093e",
+        "afterBytes": 23687,
+        "afterSha256": "f096f84b74ac861f02c1203bce6726748fbd4c57f22bfadab13a7b68e56d093e",
+        "unchanged": true
+      },
+      {
+        "path": "scripts/browser-feasibility.mjs",
+        "bytes": 9367,
+        "sha256": "e3161585c822b369db1e99f87474cd6e6fbeb8c1d7c7b445a33090db75380455",
+        "afterBytes": 9367,
+        "afterSha256": "e3161585c822b369db1e99f87474cd6e6fbeb8c1d7c7b445a33090db75380455",
+        "unchanged": true
+      }
+    ],
+    "inspectedSourceCount": 58,
+    "inspectedSources": [
+      {
+        "path": "/home/apnex/taceng/agp/VISION.md",
+        "bytes": 9750,
+        "sha256": "7450b55418271077c412faade2c2be5018c0f7c335cf2aa4806f8aaf22b9cb60",
+        "afterBytes": 9750,
+        "afterSha256": "7450b55418271077c412faade2c2be5018c0f7c335cf2aa4806f8aaf22b9cb60",
+        "unchanged": true
+      },
+      {
+        "path": "/home/apnex/taceng/agp/docs/ARCHITECTURE.md",
+        "bytes": 35520,
+        "sha256": "ae0a4a5ed55fc596fbed386b1e88090b5642f16c72c93e7daddfefe22d55813d",
+        "afterBytes": 35520,
+        "afterSha256": "ae0a4a5ed55fc596fbed386b1e88090b5642f16c72c93e7daddfefe22d55813d",
+        "unchanged": true
+      },
+      {
+        "path": "/home/apnex/taceng/agp/docs/DECISIONS.md",
+        "bytes": 82825,
+        "sha256": "eb5eff64200afa01e84cb6493754a0fd2782ef9cd40da3a4ccc87d64c6c26a50",
+        "afterBytes": 82825,
+        "afterSha256": "eb5eff64200afa01e84cb6493754a0fd2782ef9cd40da3a4ccc87d64c6c26a50",
+        "unchanged": true
+      },
+      {
+        "path": "/home/apnex/taceng/agp/docs/design/axioms.md",
+        "bytes": 8536,
+        "sha256": "26564a9ac5678f296150e736de2ac0b0e0f43ae3429053e4c3c3cb0325b0c29b",
+        "afterBytes": 8536,
+        "afterSha256": "26564a9ac5678f296150e736de2ac0b0e0f43ae3429053e4c3c3cb0325b0c29b",
+        "unchanged": true
+      },
+      {
+        "path": "/home/apnex/taceng/agp/docs/design/contracts.md",
+        "bytes": 36240,
+        "sha256": "8c7eea3f49d28dcaa119a454e272f6d5b0165a432996f61f5cc96c18ae41b7e9",
+        "afterBytes": 36240,
+        "afterSha256": "8c7eea3f49d28dcaa119a454e272f6d5b0165a432996f61f5cc96c18ae41b7e9",
+        "unchanged": true
+      },
+      {
+        "path": "/home/apnex/taceng/agp/docs/design/destination-selection.md",
+        "bytes": 14033,
+        "sha256": "d4372bc87b62c9b4aafa14f388e47da959490796a054fefcdaba14ca151690e5",
+        "afterBytes": 14033,
+        "afterSha256": "d4372bc87b62c9b4aafa14f388e47da959490796a054fefcdaba14ca151690e5",
+        "unchanged": true
+      },
+      {
+        "path": "/home/apnex/taceng/agp/docs/design/fsm.md",
+        "bytes": 24366,
+        "sha256": "e2b5658bbb5793521e0b6427df4bd63c2c3e19b21f45b5d26a83e4ea682cfb92",
+        "afterBytes": 24366,
+        "afterSha256": "e2b5658bbb5793521e0b6427df4bd63c2c3e19b21f45b5d26a83e4ea682cfb92",
+        "unchanged": true
+      },
+      {
+        "path": "/home/apnex/taceng/agp/docs/design/routing.md",
+        "bytes": 55201,
+        "sha256": "b55497efe328fbb4edfcbda8dcc1074e91f534789c4f254756039ea076f6c961",
+        "afterBytes": 55201,
+        "afterSha256": "b55497efe328fbb4edfcbda8dcc1074e91f534789c4f254756039ea076f6c961",
+        "unchanged": true
+      },
+      {
+        "path": "/home/apnex/taceng/agp/docs/design/sdk.md",
+        "bytes": 35748,
+        "sha256": "87f079a5e9a796b0e203249b5501ed8a351537d152135a09ab33e603338649a7",
+        "afterBytes": 35748,
+        "afterSha256": "87f079a5e9a796b0e203249b5501ed8a351537d152135a09ab33e603338649a7",
+        "unchanged": true
+      },
+      {
+        "path": "/home/apnex/taceng/agp/docs/reviews/admission-lifecycle-comparison.md",
+        "bytes": 25009,
+        "sha256": "27a39f7fccc8e6ac4fab52340edbf9cff1235462ba8256e3f66ecf122be8dcea",
+        "afterBytes": 25009,
+        "afterSha256": "27a39f7fccc8e6ac4fab52340edbf9cff1235462ba8256e3f66ecf122be8dcea",
+        "unchanged": true
+      },
+      {
+        "path": "/home/apnex/taceng/agp/docs/reviews/direct-peer-send-draft-checks.json",
+        "bytes": 31214,
+        "sha256": "e1937d8cacf1abff3b08ee1159044515b7493d32b15f1afbd190dd463b6fc24b",
+        "afterBytes": 31214,
+        "afterSha256": "e1937d8cacf1abff3b08ee1159044515b7493d32b15f1afbd190dd463b6fc24b",
+        "unchanged": true
+      },
+      {
+        "path": "/home/apnex/taceng/agp/docs/reviews/direct-peer-send-draft-response.md",
+        "bytes": 4142,
+        "sha256": "f37d32da1df0c740aa3b371cbfedf8f2f5634444b2f0c6ecb7656b721653b3b8",
+        "afterBytes": 4142,
+        "afterSha256": "f37d32da1df0c740aa3b371cbfedf8f2f5634444b2f0c6ecb7656b721653b3b8",
+        "unchanged": true
+      },
+      {
+        "path": "/home/apnex/taceng/agp/docs/surveys/shared-transport-survey.md",
+        "bytes": 23687,
+        "sha256": "f096f84b74ac861f02c1203bce6726748fbd4c57f22bfadab13a7b68e56d093e",
+        "afterBytes": 23687,
+        "afterSha256": "f096f84b74ac861f02c1203bce6726748fbd4c57f22bfadab13a7b68e56d093e",
+        "unchanged": true
+      },
+      {
+        "path": "/home/apnex/taceng/agp/package.json",
+        "bytes": 2386,
+        "sha256": "ca26d9fb685cc0b2e49a531224c1c3ac5ad6f930135e68e6ab4c38e15ecea1b3",
+        "afterBytes": 2386,
+        "afterSha256": "ca26d9fb685cc0b2e49a531224c1c3ac5ad6f930135e68e6ab4c38e15ecea1b3",
+        "unchanged": true
+      },
+      {
+        "path": "/home/apnex/taceng/agp/packages/core/package.json",
+        "bytes": 1306,
+        "sha256": "7e2572f6b8fa010b456768c419fab5f5a9de0d663fafe8a0966375631f456237",
+        "afterBytes": 1306,
+        "afterSha256": "7e2572f6b8fa010b456768c419fab5f5a9de0d663fafe8a0966375631f456237",
+        "unchanged": true
+      },
+      {
+        "path": "/home/apnex/taceng/agp/packages/core/scripts/generate-contracts.mjs",
+        "bytes": 48632,
+        "sha256": "b2b0305cb86c2465b085edf3a520a61cd2c0ae8cc1ff3919adc0e91300d956c5",
+        "afterBytes": 48632,
+        "afterSha256": "b2b0305cb86c2465b085edf3a520a61cd2c0ae8cc1ff3919adc0e91300d956c5",
+        "unchanged": true
+      },
+      {
+        "path": "/home/apnex/taceng/agp/packages/core/src/code-types.generated.ts",
+        "bytes": 3644,
+        "sha256": "42e3e7a03243d1c9c3850b75145005423acef447673d014054bd117aa7a00537",
+        "afterBytes": 3644,
+        "afterSha256": "42e3e7a03243d1c9c3850b75145005423acef447673d014054bd117aa7a00537",
+        "unchanged": true
+      },
+      {
+        "path": "/home/apnex/taceng/agp/packages/core/src/errors.ts",
+        "bytes": 1785,
+        "sha256": "299a3a012308ab7d670a197f93146904d3d4e1a12d1c9e705179a2e01b97adfa",
+        "afterBytes": 1785,
+        "afterSha256": "299a3a012308ab7d670a197f93146904d3d4e1a12d1c9e705179a2e01b97adfa",
+        "unchanged": true
+      },
+      {
+        "path": "/home/apnex/taceng/agp/packages/core/src/index.ts",
+        "bytes": 332,
+        "sha256": "a6c196a271be77e1e831fa72b374eedfb38529f925c1677dcf6e8d0d8de1982f",
+        "afterBytes": 332,
+        "afterSha256": "a6c196a271be77e1e831fa72b374eedfb38529f925c1677dcf6e8d0d8de1982f",
+        "unchanged": true
+      },
+      {
+        "path": "/home/apnex/taceng/agp/packages/core/src/routing.ts",
+        "bytes": 58530,
+        "sha256": "e80bb08cf3715355b1d38d6cd04b4fb89f3b3abea26f75d3775f82d902abba6a",
+        "afterBytes": 58530,
+        "afterSha256": "e80bb08cf3715355b1d38d6cd04b4fb89f3b3abea26f75d3775f82d902abba6a",
+        "unchanged": true
+      },
+      {
+        "path": "/home/apnex/taceng/agp/packages/core/src/schema-documents.generated.ts",
+        "bytes": 179544,
+        "sha256": "231e2fb814e46e6fb67a6e219b29c83d328b411c1a840eb5c05d289fe3edc26d",
+        "afterBytes": 179544,
+        "afterSha256": "231e2fb814e46e6fb67a6e219b29c83d328b411c1a840eb5c05d289fe3edc26d",
+        "unchanged": true
+      },
+      {
+        "path": "/home/apnex/taceng/agp/packages/core/src/schema.ts",
+        "bytes": 4286,
+        "sha256": "ed6a025bf3a749c85d42895b5661c6d51b47393119b53a4f0778bc2bb00d3e91",
+        "afterBytes": 4286,
+        "afterSha256": "ed6a025bf3a749c85d42895b5661c6d51b47393119b53a4f0778bc2bb00d3e91",
+        "unchanged": true
+      },
+      {
+        "path": "/home/apnex/taceng/agp/packages/core/src/schemas/v1/catalog.json",
+        "bytes": 44564,
+        "sha256": "fbe8f1d72a5e87422137489a773d5bebca2be82bcf71a53beceed86f42af5b5f",
+        "afterBytes": 44564,
+        "afterSha256": "fbe8f1d72a5e87422137489a773d5bebca2be82bcf71a53beceed86f42af5b5f",
+        "unchanged": true
+      },
+      {
+        "path": "/home/apnex/taceng/agp/packages/core/src/schemas/v1/codes/sdk-error-code.schema.json",
+        "bytes": 1085,
+        "sha256": "05db17eda973944009a77182ed8b3bc5eb3fcd3f63e8eb532e2802d5241fe980",
+        "afterBytes": 1085,
+        "afterSha256": "05db17eda973944009a77182ed8b3bc5eb3fcd3f63e8eb532e2802d5241fe980",
+        "unchanged": true
+      },
+      {
+        "path": "/home/apnex/taceng/agp/packages/core/src/schemas/v1/operations/pre-identity-controller-snapshot.schema.json",
+        "bytes": 3716,
+        "sha256": "44bcce788ca44b57feb3ccb981335e098d4210af60ec370402ed8063cbd9c76f",
+        "afterBytes": 3716,
+        "afterSha256": "44bcce788ca44b57feb3ccb981335e098d4210af60ec370402ed8063cbd9c76f",
+        "unchanged": true
+      },
+      {
+        "path": "/home/apnex/taceng/agp/packages/core/src/schemas/v1/operations/session-snapshot.schema.json",
+        "bytes": 2799,
+        "sha256": "339e6d2a3ab3c4582409d89990972c968569222abe4f7ad71d7741fe29459b85",
+        "afterBytes": 2799,
+        "afterSha256": "339e6d2a3ab3c4582409d89990972c968569222abe4f7ad71d7741fe29459b85",
+        "unchanged": true
+      },
+      {
+        "path": "/home/apnex/taceng/agp/packages/core/src/schemas/v1/sdk/endpoint-delivery-context.schema.json",
+        "bytes": 1526,
+        "sha256": "21336e0f9a4a93d3a2d58ace8b765185c956478a44b548842c26b62a66113fbb",
+        "afterBytes": 1526,
+        "afterSha256": "21336e0f9a4a93d3a2d58ace8b765185c956478a44b548842c26b62a66113fbb",
+        "unchanged": true
+      },
+      {
+        "path": "/home/apnex/taceng/agp/packages/core/src/schemas/v1/sdk/identity-admission-result.schema.json",
+        "bytes": 1172,
+        "sha256": "a81671e6a81f45cc7feb1e4e226933eedc67bcd73412dbb0a5b664be2dd53986",
+        "afterBytes": 1172,
+        "afterSha256": "a81671e6a81f45cc7feb1e4e226933eedc67bcd73412dbb0a5b664be2dd53986",
+        "unchanged": true
+      },
+      {
+        "path": "/home/apnex/taceng/agp/packages/core/src/schemas/v1/sdk/send-policy.schema.json",
+        "bytes": 988,
+        "sha256": "b4a215c752e45a9a26a6d67a09d1a7f1943617af45702768d498ffb94cee3239",
+        "afterBytes": 988,
+        "afterSha256": "b4a215c752e45a9a26a6d67a09d1a7f1943617af45702768d498ffb94cee3239",
+        "unchanged": true
+      },
+      {
+        "path": "/home/apnex/taceng/agp/packages/core/src/semantic-rules/v1/semantic-rules.catalog.json",
+        "bytes": 8002,
+        "sha256": "f99381362c93a6207f04f8562ed9c1c7dbad104288f4af714a37facef6cbc58e",
+        "afterBytes": 8002,
+        "afterSha256": "f99381362c93a6207f04f8562ed9c1c7dbad104288f4af714a37facef6cbc58e",
+        "unchanged": true
+      },
+      {
+        "path": "/home/apnex/taceng/agp/packages/core/src/types.ts",
+        "bytes": 27660,
+        "sha256": "ab98ffd07445d778ccb4afc54827bea18b35f59619ebcb236b8d4a0e706479c1",
+        "afterBytes": 27660,
+        "afterSha256": "ab98ffd07445d778ccb4afc54827bea18b35f59619ebcb236b8d4a0e706479c1",
+        "unchanged": true
+      },
+      {
+        "path": "/home/apnex/taceng/agp/packages/node/package.json",
+        "bytes": 1085,
+        "sha256": "7e7122def538ca406f03033b39ca134a5cd904c426cb8b77d2ccd36b5b77641f",
+        "afterBytes": 1085,
+        "afterSha256": "7e7122def538ca406f03033b39ca134a5cd904c426cb8b77d2ccd36b5b77641f",
+        "unchanged": true
+      },
+      {
+        "path": "/home/apnex/taceng/agp/packages/node/src/controller.ts",
+        "bytes": 1187,
+        "sha256": "5e8ef5f7ea8f7965192f696f5d5a7d7ffe2c6c86855aae2c99c94d0077a0ccbf",
+        "afterBytes": 1187,
+        "afterSha256": "5e8ef5f7ea8f7965192f696f5d5a7d7ffe2c6c86855aae2c99c94d0077a0ccbf",
+        "unchanged": true
+      },
+      {
+        "path": "/home/apnex/taceng/agp/packages/node/src/data-plane.ts",
+        "bytes": 25355,
+        "sha256": "b42241bb09e6114ee9974f832f653d93dd089e86a6453ad824e7e31b233eda4f",
+        "afterBytes": 25355,
+        "afterSha256": "b42241bb09e6114ee9974f832f653d93dd089e86a6453ad824e7e31b233eda4f",
+        "unchanged": true
+      },
+      {
+        "path": "/home/apnex/taceng/agp/packages/node/src/endpoint-registry.ts",
+        "bytes": 3100,
+        "sha256": "142325468206c5cf69f8e273d2ddbb2407e383cf590cad34d608195622a4627e",
+        "afterBytes": 3100,
+        "afterSha256": "142325468206c5cf69f8e273d2ddbb2407e383cf590cad34d608195622a4627e",
+        "unchanged": true
+      },
+      {
+        "path": "/home/apnex/taceng/agp/packages/node/src/handler-ledger.ts",
+        "bytes": 2390,
+        "sha256": "a448d174e1f860904d04c038b69e6745e2aade160241a15a5d3b36c126be456e",
+        "afterBytes": 2390,
+        "afterSha256": "a448d174e1f860904d04c038b69e6745e2aade160241a15a5d3b36c126be456e",
+        "unchanged": true
+      },
+      {
+        "path": "/home/apnex/taceng/agp/packages/node/src/index.ts",
+        "bytes": 2251,
+        "sha256": "dcbb70074f8d30d581d9025b616ed0b1dd2e508fa88612a624c7f0eb42002c8b",
+        "afterBytes": 2251,
+        "afterSha256": "dcbb70074f8d30d581d9025b616ed0b1dd2e508fa88612a624c7f0eb42002c8b",
+        "unchanged": true
+      },
+      {
+        "path": "/home/apnex/taceng/agp/packages/node/src/node.ts",
+        "bytes": 81222,
+        "sha256": "964b82337a0b67b0659729b049976692b5048a6873ec2f614986e3d9fdd5e4aa",
+        "afterBytes": 81222,
+        "afterSha256": "964b82337a0b67b0659729b049976692b5048a6873ec2f614986e3d9fdd5e4aa",
+        "unchanged": true
+      },
+      {
+        "path": "/home/apnex/taceng/agp/packages/node/src/routing-adapter.ts",
+        "bytes": 1705,
+        "sha256": "eef0fdf17aa26145dedfedcc67ec9855cf79ba27e10fb113becf9efa84298995",
+        "afterBytes": 1705,
+        "afterSha256": "eef0fdf17aa26145dedfedcc67ec9855cf79ba27e10fb113becf9efa84298995",
+        "unchanged": true
+      },
+      {
+        "path": "/home/apnex/taceng/agp/packages/node/src/send-admission.ts",
+        "bytes": 2979,
+        "sha256": "22fe0522486eaf2a2e5dc696405feef56ea29cc67a36bfa229a90250886015b5",
+        "afterBytes": 2979,
+        "afterSha256": "22fe0522486eaf2a2e5dc696405feef56ea29cc67a36bfa229a90250886015b5",
+        "unchanged": true
+      },
+      {
+        "path": "/home/apnex/taceng/agp/packages/node/src/session-controller.ts",
+        "bytes": 33994,
+        "sha256": "6640bce12b23fb5423e2b7753e69f596c9ae91e784e1a1e9ec21dd1bcb6e71be",
+        "afterBytes": 33994,
+        "afterSha256": "6640bce12b23fb5423e2b7753e69f596c9ae91e784e1a1e9ec21dd1bcb6e71be",
+        "unchanged": true
+      },
+      {
+        "path": "/home/apnex/taceng/agp/packages/node/src/session-writer.ts",
+        "bytes": 13379,
+        "sha256": "aa400931af619e2724c2073ae28a69d440017eda9fee8c84f4097c796145e18d",
+        "afterBytes": 13379,
+        "afterSha256": "aa400931af619e2724c2073ae28a69d440017eda9fee8c84f4097c796145e18d",
+        "unchanged": true
+      },
+      {
+        "path": "/home/apnex/taceng/agp/packages/node/test/contract/disposition-types.test.js",
+        "bytes": 987,
+        "sha256": "c460f7b5a1c4e674749ad123b4d147c2307559125dd5290a7bc472ed773bc0d8",
+        "afterBytes": 987,
+        "afterSha256": "c460f7b5a1c4e674749ad123b4d147c2307559125dd5290a7bc472ed773bc0d8",
+        "unchanged": true
+      },
+      {
+        "path": "/home/apnex/taceng/agp/packages/node/test/fixtures/disposition-consumer.mts",
+        "bytes": 2467,
+        "sha256": "599804d410def6ca069d7d422150b4cf8969e9db430237ab950827d368c7c623",
+        "afterBytes": 2467,
+        "afterSha256": "599804d410def6ca069d7d422150b4cf8969e9db430237ab950827d368c7c623",
+        "unchanged": true
+      },
+      {
+        "path": "/home/apnex/taceng/agp/packages/protocol/src/schemas/v1/wire/data-body.schema.json",
+        "bytes": 1966,
+        "sha256": "493bbee248e99847fbfb5df3d8385052b43939d31da5d61d32ae1cff1fa6df25",
+        "afterBytes": 1966,
+        "afterSha256": "493bbee248e99847fbfb5df3d8385052b43939d31da5d61d32ae1cff1fa6df25",
+        "unchanged": true
+      },
+      {
+        "path": "/home/apnex/taceng/agp/packages/transport/src/schemas/v1/contracts/transport-peer-evidence.schema.json",
+        "bytes": 2457,
+        "sha256": "9927593a233dd711bba3aec6a00d74c982018b54abe8a566370933112cf1ad2a",
+        "afterBytes": 2457,
+        "afterSha256": "9927593a233dd711bba3aec6a00d74c982018b54abe8a566370933112cf1ad2a",
+        "unchanged": true
+      },
+      {
+        "path": "/home/apnex/taceng/agp/schemas/agp-v1.schema-catalog.json",
+        "bytes": 60728,
+        "sha256": "6d466ef833bd5cfe37de4e98426a5367ea3a8ff286067b3b6ad274ba7925ef76",
+        "afterBytes": 60728,
+        "afterSha256": "6d466ef833bd5cfe37de4e98426a5367ea3a8ff286067b3b6ad274ba7925ef76",
+        "unchanged": true
+      },
+      {
+        "path": "/home/apnex/taceng/agp/schemas/agp-v1.semantic-rules.json",
+        "bytes": 23079,
+        "sha256": "7734d4ebd482754c150123652492187811ec3c6b99025aecb6cb87260664eb6f",
+        "afterBytes": 23079,
+        "afterSha256": "7734d4ebd482754c150123652492187811ec3c6b99025aecb6cb87260664eb6f",
+        "unchanged": true
+      },
+      {
+        "path": "/home/apnex/taceng/agp/scripts/generate-schema-catalog.mjs",
+        "bytes": 4729,
+        "sha256": "00a7cfb8f7c7bb971958e1d0033ca8a038d03761071c45b5e1c599b489c017bc",
+        "afterBytes": 4729,
+        "afterSha256": "00a7cfb8f7c7bb971958e1d0033ca8a038d03761071c45b5e1c599b489c017bc",
+        "unchanged": true
+      },
+      {
+        "path": "/home/apnex/taceng/caller-identity/CONTRACT.md",
+        "bytes": 22122,
+        "sha256": "a2fddcaf8707beb781db3072811dd1cd7ef5efea0eebecc0d5f2cca362c7d6c2",
+        "afterBytes": 22122,
+        "afterSha256": "a2fddcaf8707beb781db3072811dd1cd7ef5efea0eebecc0d5f2cca362c7d6c2",
+        "unchanged": true
+      },
+      {
+        "path": "/home/apnex/taceng/caller-identity/src/session-records.ts",
+        "bytes": 3926,
+        "sha256": "8773169ab72ed4c4f7abf33dc56fc183b6eb9fb04e8271931499b96e51c692e2",
+        "afterBytes": 3926,
+        "afterSha256": "8773169ab72ed4c4f7abf33dc56fc183b6eb9fb04e8271931499b96e51c692e2",
+        "unchanged": true
+      },
+      {
+        "path": "/home/apnex/taceng/credential-issuer/CONTRACT.md",
+        "bytes": 16119,
+        "sha256": "6c8543d75bcaa1cdc9430d18019dd3c57b4bb966031ff48b48fae98310dbdf6f",
+        "afterBytes": 16119,
+        "afterSha256": "6c8543d75bcaa1cdc9430d18019dd3c57b4bb966031ff48b48fae98310dbdf6f",
+        "unchanged": true
+      },
+      {
+        "path": "/home/apnex/taceng/operation-call/CONTRACT.md",
+        "bytes": 11392,
+        "sha256": "e79d3564a3003b8ec899a8aaa766f8b1c5618c019066fc3b88b5a5c7638b76af",
+        "afterBytes": 11392,
+        "afterSha256": "e79d3564a3003b8ec899a8aaa766f8b1c5618c019066fc3b88b5a5c7638b76af",
+        "unchanged": true
+      },
+      {
+        "path": "/home/apnex/taceng/operation-call/src/host.ts",
+        "bytes": 13927,
+        "sha256": "88cfcc88e9c5974cb5ac308f7bd0a4e9141856386d504e2fc9ac684b5d13b577",
+        "afterBytes": 13927,
+        "afterSha256": "88cfcc88e9c5974cb5ac308f7bd0a4e9141856386d504e2fc9ac684b5d13b577",
+        "unchanged": true
+      },
+      {
+        "path": "/home/apnex/taceng/zorg/docs/DECISIONS.md",
+        "bytes": 123657,
+        "sha256": "5c238c358a1b9498317f4b4eea60b40c18e0cf0d55a779b6d1ad90e757d9ee99",
+        "afterBytes": 123657,
+        "afterSha256": "5c238c358a1b9498317f4b4eea60b40c18e0cf0d55a779b6d1ad90e757d9ee99",
+        "unchanged": true
+      },
+      {
+        "path": "/home/apnex/taceng/zorg/upstream/agp-direct-peer-send-draft-reply.md",
+        "bytes": 9618,
+        "sha256": "c939950c970f9d5cc92063c7e3cd555ed3cd412bbac75d557509a8f345674d5b",
+        "afterBytes": 9618,
+        "afterSha256": "c939950c970f9d5cc92063c7e3cd555ed3cd412bbac75d557509a8f345674d5b",
+        "unchanged": true
+      },
+      {
+        "path": "/home/apnex/taceng/zorg/upstream/agp-direct-peer-send-draft-response.md",
+        "bytes": 4142,
+        "sha256": "f37d32da1df0c740aa3b371cbfedf8f2f5634444b2f0c6ecb7656b721653b3b8",
+        "afterBytes": 4142,
+        "afterSha256": "f37d32da1df0c740aa3b371cbfedf8f2f5634444b2f0c6ecb7656b721653b3b8",
+        "unchanged": true
+      },
+      {
+        "path": "/home/apnex/taceng/zorg/upstream/agp-direct-peer-send-lifecycle-reply.md",
+        "bytes": 6413,
+        "sha256": "390679b05b37a7883e792984d8c66857b64780e988923dac09aa19983c3ea080",
+        "afterBytes": 6413,
+        "afterSha256": "390679b05b37a7883e792984d8c66857b64780e988923dac09aa19983c3ea080",
+        "unchanged": true
+      }
+    ],
+    "repositoryHeads": [
+      {
+        "repo": ".",
+        "head": "0aa6be75ccacf4e2c3770a49c5ea39970a25a98a",
+        "after": "669cbd78fe3d6d369324a11a6a901cdf92bf4e66"
+      },
+      {
+        "repo": "../zorg",
+        "head": "56350495934b90c63a17950bafaac71e16d7568e",
+        "after": "56350495934b90c63a17950bafaac71e16d7568e"
+      },
+      {
+        "repo": "../caller-identity",
+        "head": "df4778e1cd5a0c2e9628492355f2475d2709ef51",
+        "after": "df4778e1cd5a0c2e9628492355f2475d2709ef51"
+      },
+      {
+        "repo": "../credential-issuer",
+        "head": "ea5e34fd08d0b4764d3af09614f1a2a3593b20e7",
+        "after": "ea5e34fd08d0b4764d3af09614f1a2a3593b20e7"
+      },
+      {
+        "repo": "../operation-call",
+        "head": "3bfff2c7f9a6dee26fb9e3897b7c41a5437ea931",
+        "after": "3bfff2c7f9a6dee26fb9e3897b7c41a5437ea931"
+      },
+      {
+        "repo": "../mission-kit",
+        "head": "d09461e8d9588fba8e59f4a63d0f93418f773dbe",
+        "after": "d09461e8d9588fba8e59f4a63d0f93418f773dbe"
+      }
+    ],
+    "board": {
+      "before": {
+        "path": "docs/BOARD.md",
+        "bytes": 46681,
+        "sha256": "1e71224d068938799f592c2a5a3cbae02cd55496f6fb92a285d5e2fc33441153"
+      },
+      "after": {
+        "path": "docs/BOARD.md",
+        "bytes": 46709,
+        "sha256": "e3177ccd35bbdd19714534743e7e0adda3f868b864d1cd040223f21d3a39ca4d"
+      },
+      "exactSelectedEdits": true,
+      "edits": [
+        [
+          "| 4 | `B51` | Prospective assurance packet prepared; commit and independent key audit remain | [Questions, key and frozen readings](reviews/direct-peer-send-assurance/direct-peer-assurance-preparation.md) cover eight controls and four adoption-planning duties; obtain local-commit and fresh key-audit approval before execution readiness, with B53/B6 implementation gates unchanged |",
+          "| 4 | `B51` | Assurance packet committed locally; independent key audit FAIL | [Key audit](VERIFICATION.md#455-direct-peer-assurance-local-commit-and-key-audit) found two grading mismatches, not a new AGP design defect; correct the instrument prospectively and obtain a bounded independent recheck before execution readiness, with B53/B6 implementation gates unchanged |"
+        ],
+        [
+          "Status: the scale amendment is drafted, not ratified; the direct-peer design has independent technical and scoped axiom PASS, an adoption packet and prospective reader material, while key audit, documentation assurance, ratification, implementation and the declared credential-lifecycle API remain open.\\",
+          "Status: the scale amendment is drafted, not ratified; the direct-peer design retains technical and scoped axiom PASS, while its committed assurance instrument has key-audit FAIL; key correction/recheck, documentation assurance, ratification, implementation and the declared credential-lifecycle API remain open.\\"
+        ],
+        [
+          "| `B51` | Obtain approval to commit the source packet and commission a fresh read-only key audit | [Assurance preparation](reviews/direct-peer-send-assurance/direct-peer-assurance-preparation.md#6-execution-seam-and-preparation-stop) fixes questions, key and readings without selecting a provider or executing readers; runtime support is unbuilt, B6/B53 gates remain, and server push is deferred |",
+          "| `B51` | Correct the two key findings prospectively, then obtain a bounded independent recheck | [Independent audit](reviews/direct-peer-send-assurance/direct-peer-key-audit-01.txt) found an unsupported consumer duty and conditional-question/scoring mismatch; retain the committed FAIL and frozen readings, with no provider, reader execution or runtime change selected |"
+        ],
+        [
+          "| Do we approve a local-only commit of the direct-peer assurance source packet, followed by one fresh read-only key audit? | `B51` prospective provenance and independent key correctness; [preparation](reviews/direct-peer-send-assurance/direct-peer-assurance-preparation.md) is complete locally, but no reader execution, provider selection or push is authorized |",
+          "| Do we approve a corrected direct-peer question/key checkpoint, local commit and bounded read-only recheck by the same independent auditor? | `B51` instrument correctness after the [key-audit FAIL](VERIFICATION.md#455-direct-peer-assurance-local-commit-and-key-audit); preserve the prior checkpoint/verdict, address the two required findings and rubric qualifications, with no reader execution, provider setup or push |"
+        ]
+      ],
+      "scope": "Four existing B51/status/authority lines replaced. No score, open-state or build-order movement."
+    },
+    "verification": {
+      "path": "docs/VERIFICATION.md",
+      "bytes": 308255,
+      "sha256": "4a703057e7e79bf6c937d691efbb1cffba5519a1a899f26bacb811dfd9913b75",
+      "prior": {
+        "path": "docs/VERIFICATION.md",
+        "bytes": 304917,
+        "sha256": "240f0c051dfa4577a2065e631b9a4038b4aacacd5722f3ef37d35394229c0427"
+      },
+      "appendBytes": 3338,
+      "appendCount": 1,
+      "strippedSha256": "240f0c051dfa4577a2065e631b9a4038b4aacacd5722f3ef37d35394229c0427",
+      "strippedBytes": 304917,
+      "appendOnly": true,
+      "append": "### 4.55 Direct peer assurance local commit and key audit\n\nThe director selected the recommended local-only twelve-file assurance-packet commit and one fresh read-only key audit with \"continue\".\\\nCommit `669cbd78fe3d6d369324a11a6a901cdf92bf4e66` contains exactly the twelve prepared source-packet files and no earlier working changes.\\\nThe packet's pre-commit authority/status sentences remain historical provenance; this selection authorized the local commit and audit, not reader execution, provider setup, a push or implementation.\n\nThe [independent review](reviews/direct-peer-send-assurance/direct-peer-key-audit-01.txt) reports KEY/COMPARISON-INSTRUMENT FAIL after reviewing all twelve questions against both complete readings and their source snapshots.\\\nExecution readiness was not reviewed; the verdict is about the instrument, not the previously reviewed AGP design.\n\n| Finding | Defect and prospective disposition |\n|---|---|\n| F1, Q07 | The key adds operation-call origin validation, while the supplied contract assigns the origin-equality check to AGP capture and requires the consumer to use that captured target and validate configured mode; remove the unsupported consumer obligation |\n| F2, Q11 | The question requests any known accounting limitation and the key says where available, but its support note automatically caps an honest absence statement; explicitly require the current-state diagnosis in the question/key or remove the conditional clause's automatic cap |\n| Non-blocking rubric qualification | Preserve version-neutral grading qualifications when withholding role/support metadata from judges; do not discard semantic exceptions with the blinding data |\n| Non-blocking external cross-check | The candidate mentions seven review closeout hooks without supplying their contents; identify that limit and never score guessed or unavailable obligations |\n\nThe author accepts both blocking findings after checking the question/key and the cited ownership/accounting text.\\\nFor F2, the recommended correction is to ask explicitly for the current accounting diagnosis, preserving the intended actionable-planning duty while keeping a faithful gap distinct from a wrong answer.\\\nNo question, key, source snapshot or reading is corrected in this step; the failed checkpoint and full verdict remain intact.\n\nThe auditor found the remaining ten keys sound within their stated scope and the declared projection consistent with the source snapshots.\\\nThose findings are not executed comprehension assurance, an exhaustive contract test, runtime acceptance or a new technical/M7 verdict.\\\nThe [author checks](reviews/direct-peer-send-assurance/direct-peer-key-audit-checks-01.json) retain commit/blob identity, pre-commit checks, review capture, narrow board changes and preservation evidence separately from that verdict.\n\nB51 retains its score, open status and build-order position; B53 and B6 remain separate implementation and production-lifecycle gates.\\\nNext obtain approval for a prospectively corrected question/key checkpoint, local commit and bounded recheck by the same independent auditor.\\\nNo push, scored reader/judge run, execution configuration, normative contract change, AGP runtime change or consumer edit occurred; audit records and this board/verification update remain local and uncommitted.\n\n---\n\n"
+    },
+    "stagedNameDiff": "",
+    "trackedImplementationNameDiff": "",
+    "statusAtCapture": [
+      {
+        "status": " M",
+        "path": "docs/BOARD.md"
+      },
+      {
+        "status": " M",
+        "path": "docs/VERIFICATION.md"
+      },
+      {
+        "status": " M",
+        "path": "docs/design/mechanisms.md"
+      },
+      {
+        "status": "??",
+        "path": "docs/design/direct-peer-send.md"
+      },
+      {
+        "status": "??",
+        "path": "docs/reviews/admission-lifecycle-comparison.md"
+      },
+      {
+        "status": "??",
+        "path": "docs/reviews/admission-lifetime-adoption.md"
+      },
+      {
+        "status": "??",
+        "path": "docs/reviews/admission-lifetime-correction-r2.md"
+      },
+      {
+        "status": "??",
+        "path": "docs/reviews/admission-lifetime-correction-r3.md"
+      },
+      {
+        "status": "??",
+        "path": "docs/reviews/admission-lifetime-correction.md"
+      },
+      {
+        "status": "??",
+        "path": "docs/reviews/admission-lifetime-independent-review-r2.md"
+      },
+      {
+        "status": "??",
+        "path": "docs/reviews/admission-lifetime-independent-review-r3.md"
+      },
+      {
+        "status": "??",
+        "path": "docs/reviews/admission-lifetime-independent-review.md"
+      },
+      {
+        "status": "??",
+        "path": "docs/reviews/browser-carrier-feasibility.md"
+      },
+      {
+        "status": "??",
+        "path": "docs/reviews/browser-peer-feasibility.md"
+      },
+      {
+        "status": "??",
+        "path": "docs/reviews/browser-peer-scale-amendment.md"
+      },
+      {
+        "status": "??",
+        "path": "docs/reviews/direct-peer-send-adoption-checks.json"
+      },
+      {
+        "status": "??",
+        "path": "docs/reviews/direct-peer-send-adoption.md"
+      },
+      {
+        "status": "??",
+        "path": "docs/reviews/direct-peer-send-assurance/direct-peer-key-audit-01.txt"
+      },
+      {
+        "status": "??",
+        "path": "docs/reviews/direct-peer-send-assurance/direct-peer-key-audit-checks-01.json"
+      },
+      {
+        "status": "??",
+        "path": "docs/reviews/direct-peer-send-design-checks.json"
+      },
+      {
+        "status": "??",
+        "path": "docs/reviews/direct-peer-send-design-review.md"
+      },
+      {
+        "status": "??",
+        "path": "docs/reviews/direct-peer-send-draft-checks.json"
+      },
+      {
+        "status": "??",
+        "path": "docs/reviews/direct-peer-send-draft-response.md"
+      },
+      {
+        "status": "??",
+        "path": "docs/reviews/direct-peer-send-independent-review.txt"
+      },
+      {
+        "status": "??",
+        "path": "docs/reviews/direct-peer-send-lifecycle-checks.json"
+      },
+      {
+        "status": "??",
+        "path": "docs/reviews/direct-peer-send-lifecycle-response.md"
+      },
+      {
+        "status": "??",
+        "path": "docs/reviews/evidence/browser-feasibility-chrome136.json"
+      },
+      {
+        "status": "??",
+        "path": "docs/reviews/evidence/browser-feasibility-chrome151.json"
+      },
+      {
+        "status": "??",
+        "path": "docs/reviews/evidence/direct-peer-send-before-d61.txt"
+      },
+      {
+        "status": "??",
+        "path": "docs/reviews/evidence/direct-peer-send-before-d62.txt"
+      },
+      {
+        "status": "??",
+        "path": "docs/reviews/evidence/direct-peer-send-design-review-input.txt"
+      },
+      {
+        "status": "??",
+        "path": "docs/reviews/evidence/operation-call-acceptance/case-logs/honest-call-ending.test.js.log.txt"
+      },
+      {
+        "status": "??",
+        "path": "docs/reviews/evidence/operation-call-acceptance/case-logs/not-delivered-signal.test.js.log.txt"
+      },
+      {
+        "status": "??",
+        "path": "docs/reviews/evidence/operation-call-acceptance/case-logs/request-correlation.test.js.log.txt"
+      },
+      {
+        "status": "??",
+        "path": "docs/reviews/evidence/operation-call-acceptance/cert-o.txt"
+      },
+      {
+        "status": "??",
+        "path": "docs/reviews/evidence/operation-call-acceptance/checkouts-o.json"
+      },
+      {
+        "status": "??",
+        "path": "docs/reviews/evidence/operation-call-acceptance/run-o.out"
+      },
+      {
+        "status": "??",
+        "path": "docs/reviews/reply-isolation-checks.json"
+      },
+      {
+        "status": "??",
+        "path": "docs/reviews/reply-isolation-handoff.json"
+      },
+      {
+        "status": "??",
+        "path": "docs/reviews/reply-isolation-qualifications-handoff.json"
+      },
+      {
+        "status": "??",
+        "path": "docs/reviews/reply-isolation-qualifications.md"
+      },
+      {
+        "status": "??",
+        "path": "docs/reviews/reply-isolation-response.md"
+      },
+      {
+        "status": "??",
+        "path": "docs/reviews/reply-isolation-review.md"
+      },
+      {
+        "status": "??",
+        "path": "docs/reviews/reply-isolation-sources.json"
+      },
+      {
+        "status": "??",
+        "path": "docs/reviews/zorg-requirements-review.md"
+      },
+      {
+        "status": "??",
+        "path": "docs/reviews/zorg-review-reply-assessment.md"
+      },
+      {
+        "status": "??",
+        "path": "docs/reviews/zorg-review-response.md"
+      },
+      {
+        "status": "??",
+        "path": "docs/surveys/shared-transport-survey.md"
+      },
+      {
+        "status": "??",
+        "path": "scripts/browser-feasibility.mjs"
+      }
+    ],
+    "newUncommittedRecords": [
+      "docs/reviews/direct-peer-send-assurance/direct-peer-key-audit-01.txt",
+      "docs/reviews/direct-peer-send-assurance/direct-peer-key-audit-checks-01.json"
+    ],
+    "selfDigest": "Excluded from its own body to avoid circularity; measured separately at final readback."
+  },
+  "activity": {
+    "commitsCreated": 1,
+    "commitAmended": false,
+    "pushesPerformed": false,
+    "independentAuditorsInvoked": 1,
+    "followupAuditInvocations": 0,
+    "scoredReadersInvoked": 0,
+    "scoredJudgesInvoked": 0,
+    "providerOrHarnessSetup": false,
+    "runtimeTestsRun": false,
+    "questionOrKeyEdits": false,
+    "inputProjectionEdits": false,
+    "normativeContractEdits": false,
+    "consumerEdits": false,
+    "externalCorrespondence": false,
+    "postAuditRecordsCommitted": false,
+    "basis": "Recorded task actions and the accompanying bounded local preservation checks; no remote synchronization or liveness claim."
+  },
+  "mechanics": "Bind the full independent verdict to the committed packet, retain exact author-check outputs and derive the next B51 move from the unresolved key findings.",
+  "rationale": "An author can verify file identity without proving that a grading requirement is asked or supported. The separate semantic audit must be allowed to fail despite passing integrity tests.",
+  "consequence": "Using this key unchanged could penalize faithful readers for an invented obligation or an information gap they were only conditionally asked to diagnose."
+}

@@ -1,0 +1,152 @@
+# Direct-peer source-packet key audit
+
+**KEY/COMPARISON-INSTRUMENT: FAIL.**  
+**Execution readiness: NOT REVIEWED.**
+
+Twelve keys reviewed; two blocking scoring mismatches found.
+No changes were made.
+
+## 1. Checkpoint, independence and scope
+
+Inspected repository: `/home/apnex/taceng/agp`.
+
+- Commit: `669cbd78fe3d6d369324a11a6a901cdf92bf4e66`
+- Packet: `docs/reviews/direct-peer-send-assurance/`
+- Manifest SHA256: `ab61b6992b8809412aba48c7f8940825aabb29be7484f41269b6fd04f0aa6c3a`
+
+Measured: the commit contains twelve packet files; the working packet matches that checkpoint; the manifest and its listed artifact hashes match.
+The packet remained unchanged at the final check.
+
+I did not author the packet and was not a scored reader.
+This was a fresh, non-author source/key audit, not an assertion of model-family independence or executed documentation assurance.
+
+I read every required file completely, including both whole readings, both original snapshots, all questions, every key requirement/wrong conclusion/support note, the protocol, manifest and projection source.
+I also inspected the packet-test source without executing it.
+Author-produced checks were not treated as an independent verdict.
+
+I read the applicable standing context and mission-kit routing, M2, C2 and gate/independence guidance.
+The inspected clean guidance cache was at `d09461e8d9588fba8e59f4a63d0f93418f773dbe`.
+Frozen pre-commit status statements were treated as provenance, with current authority supplied by the audit instruction.
+
+The findings below are semantic judgments grounded in that inspected text.
+They neither re-ratify the technical design nor assess runtime acceptance.
+
+## 2. Coverage disposition
+
+References below use the common reading's section numbers; the candidate preserves that entire reading.
+
+| Question | Disposition |
+|---|---|
+| Q01 | Sound. Sections 2, 5, 6 and 7 support direct-candidate filtering, unchanged ordinary routing, refusal and existing packet constraints. |
+| Q02 | Sound. Sections 3, 4 and 6 support conditional instance continuity, replacement-session checks, non-reuse and the physical-process limitation. |
+| Q03 | Sound. Explicit support checks, absent-context refusal, no authentication downgrade and independent protection selection are supported. |
+| Q04 | Sound. Snapshot timing, owned immutable values and the writer-admission boundary are supported. Nested immutability is a valid derivation from the baseline; literal anti-`readonly` wording must not be demanded. |
+| Q05 | Sound. The four conjunctive release conditions, continuous handoff accounting, unknown-state handling and unselected lifecycle API are present. Explicit invalidation and settlement remain a valid route to resolving unknown state. |
+| Q06 | Sound. The proposed shortcuts contradict direct filtering, exact ownership, guarded installation and synchronous shared-send commitment. |
+| Q07 | **Blocking mismatch F1.** Branch coverage and captured authority are supported; the additional consumer origin-validation requirement is not established. |
+| Q08 | Sound. Writer admission, consumer branch evidence, browser protection and scale evidence are correctly distinguished. |
+| Q09 | Sound. The candidate supplies the requested concrete absorption inventory. A baseline location gap can legitimately remain actionable-plan incompleteness because locating those surfaces is explicitly requested. |
+| Q10 | Sound. The dependencies, safe parallel preparation, separate B6 gate, B53 integration and prohibition on published stubs are supported. |
+| Q11 | **Blocking mismatch F2.** Retention ownership and unselected formulas/APIs are sound, but a conditional accounting-diagnosis request receives an unconditional incompleteness cap. |
+| Q12 | Sound within the supplied scope. Approval, implementation evidence, publication authority, producer ownership and deferred choices are distinguished. Unprovided external closeout-hook contents cannot become additional scored obligations. |
+
+The questions cover maintainer duties beyond the added inventory.
+They are not an exhaustive test of every schema or acceptance clause, and should not be represented as one.
+
+## 3. Blocking findings
+
+### F1 — Medium: Q07 introduces an unsupported consumer obligation
+
+The [key at line 169](/home/apnex/taceng/agp/docs/reviews/direct-peer-send-assurance/direct-peer-answer-key.json:169) requires:
+
+> “Validate origin and configured mode”
+
+But the [question](/home/apnex/taceng/agp/docs/reviews/direct-peer-send-assurance/direct-peer-questions.json:30) asks where operation-call obtains its restriction and how branches preserve it.
+
+The reading assigns the origin-equality condition to AGP's direct-context construction:
+
+> “populate `directPeer` only when the exact ingress is admitted, its remote node equals `source.originNodeId`”
+
+That is [baseline line 241](/home/apnex/taceng/agp/docs/reviews/direct-peer-send-assurance/readings/m73/direct-peer-reading.txt:241).
+The expressly assigned operation-call validation is:
+
+> “validate its configured mode against the captured association”
+
+That is [baseline line 319](/home/apnex/taceng/agp/docs/reviews/direct-peer-send-assurance/readings/m73/direct-peer-reading.txt:319).
+
+Using AGP's captured origin and performing another consumer-side origin validation are different obligations.
+Neither reading specifies the latter.
+The key's supporting mode-validation quotation does not entail it.
+
+Consequently, a correct answer that trusts the supplied AGP context and preserves its target can be marked incomplete for omitting a new validation step.
+That makes this nominal control depend on an obligation unavailable from its baseline.
+
+**Required correction:** require use of the captured origin and validation of configured mode, without separately scoring consumer origin validation.
+If another check is genuinely intended, its ownership and the corresponding question must first be established prospectively; it cannot be supplied by the key.
+
+### F2 — Medium: Q11's conditional request conflicts with its mandatory score cap
+
+The [question at line 46](/home/apnex/taceng/agp/docs/reviews/direct-peer-send-assurance/direct-peer-questions.json:46) asks for:
+
+> “any known current accounting limitation”
+
+The [required decision at line 279](/home/apnex/taceng/agp/docs/reviews/direct-peer-send-assurance/direct-peer-answer-key.json:279) similarly says:
+
+> “Identify the stated current handler-ledger limitation where available”
+
+Yet the [support note at line 294](/home/apnex/taceng/agp/docs/reviews/direct-peer-send-assurance/direct-peer-answer-key.json:294) makes an honest gap about the existing ledger implementation score 1 unless a grounded derivation supplies that diagnosis.
+
+The baseline establishes the required accounting property:
+
+> “account for the added metadata … rather than count only payload bytes”
+
+See [baseline line 284](/home/apnex/taceng/agp/docs/reviews/direct-peer-send-assurance/readings/m73/direct-peer-reading.txt:284).
+It does not establish the current ledger implementation.
+The specific current-state observation appears in the [candidate at line 492](/home/apnex/taceng/agp/docs/reviews/direct-peer-send-assurance/readings/r28/direct-peer-reading.txt:492).
+
+A reader can therefore satisfy the conditional clause by identifying that no current-ledger observation is supplied, while still specifying the required inventory, charging and release work.
+The support note nevertheless mandates a downgrade on that ground alone.
+
+This is not an objection to scoring genuinely needed missing implementation information as incomplete.
+It is a mismatch between the conditional task actually asked and the mandatory diagnostic task graded.
+
+**Required correction:** either make the current-state diagnosis an explicit required task in the common question and align the key, or retain the conditional wording and remove the automatic cap for that clause.
+Continue distinguishing missing information from wrong claims, and do not infer today's implementation from a normative requirement.
+
+## 4. Projection, controls and scoring
+
+Measured relational checks support the declared projection:
+
+- The candidate's first 30,267 bytes equal the complete baseline.
+- Source-to-reading differences match the declared cover, administrative removals, qualifier normalization and reference rendering.
+- Mechanism, lifetime, ownership and acceptance material remains available.
+- Reading plus instructions/questions totals 35,754 bytes for baseline and 52,636 bytes for candidate, below the declared source-payload ceiling.
+
+These measurements do not establish actual delivery, model context fit or enforced response limits.
+
+Seven controls are supportable from the baseline without author memory.
+Q07 becomes a fair eighth control once F1 is corrected.
+The key otherwise accepts grounded derivation and correctly avoids forcing selected byte formulas, lifecycle APIs or excluded guarantees.
+
+The prospective lower-score rule, per-control non-regression, all-tie retention of baseline, separate diagnostic categories and invalid-evidence handling can support an honest small descriptive comparison.
+The two findings prevent approval of the current instrument.
+Hash and quotation-membership tests cannot resolve them.
+
+Two non-blocking recommendations remain:
+
+1. [Key line 15](/home/apnex/taceng/agp/docs/reviews/direct-peer-send-assurance/direct-peer-answer-key.json:15) withholds support notes from judges, although those notes contain grading qualifications.
+   Explicitly preserve their version-neutral substance in the judge rubric while removing role metadata.
+2. [Candidate line 504](/home/apnex/taceng/agp/docs/reviews/direct-peer-send-assurance/readings/r28/direct-peer-reading.txt:504) refers to an independent review's “seven closeout hooks,” which are not supplied.
+   Identify that unavailable cross-check explicitly, or inline it if its contents become necessary.
+   I have not guessed those contents or treated them as hidden scoring requirements.
+
+## 5. Future execution and stop
+
+Provider/family profiles, public context-lab binding and revision, isolation evidence, eligible-response semantics, order, budgets, enforcement and replayable vote accounting remain future execution-readiness work.
+Their absence is not either blocking finding.
+The packet does not claim those gates passed.
+
+Corrections must be prospective before any scored reader.
+This verdict supplies no execution, implementation, ratification or publication authority.
+
+**Stop:** no edits, staging, commits, pushes, tests, harnesses, services, reader/judge invocations, runtime work or additional agents were performed.

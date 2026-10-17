@@ -1,6 +1,6 @@
 {
   "kind": "direct-peer-assurance-answer-key",
-  "status": "prospective author key; uncommitted and not independently audited",
+  "status": "prospective corrected author key; bounded independent recheck required before use",
   "scoring": {
     "0": "A materially wrong required decision, an invented authority/guarantee, or no answer to the question.",
     "1": "No wrong required decision, but an asked decision/location/diagnosis remains incomplete, uncertain or unsupported. Record a faithful information gap separately from a wrong answer.",
@@ -12,7 +12,8 @@
     "An intended scope exclusion or genuinely unselected API/formula can be a fully correct answer; do not force a guessed design choice.",
     "An honest missing fact needed for the requested actionable plan is scored incomplete, not wrong; retain that diagnosis separately.",
     "A valid quote must occur in the assigned reading and entail the claim; quote membership alone does not prove semantic support.",
-    "The author role mapping and support notes are withheld from scored readers and anonymous judges; the future renderer must preserve the version-neutral rubric and substantive required decisions without role/order metadata."
+    "The author role mapping, grounding role labels and arm-specific support notes are withheld from scored readers and anonymous judges. Judges must receive the common scoring/rules, each question's required decisions and wrong conclusions, and every applicable judgeGuidance item. Withholding metadata must not discard substantive grading qualifications; the future renderer must prove their complete delivery without role/order metadata.",
+    "The readings refer to an independent review's seven closeout hooks without supplying their contents. Those unavailable contents are not additional scored obligations; judge only the asked duties against supplied material."
   ],
   "entries": [
     {
@@ -166,7 +167,7 @@
       "duty": "Carry the same restriction through every consumer reply",
       "required": [
         "Derive target from AGP's captured direct delivery context, not handler-supplied JSON evidence or a later swept lookup.",
-        "Validate origin and configured mode and preserve the explicit target/protection policy for every sending branch.",
+        "Use the captured origin and association, validate configured mode, and preserve the explicit target/protection policy for every sending branch.",
         "Include answers, malformed/input refusals, descriptions, evidence or handler failures, and both stages of failed-end fallback; equivalent grouping is acceptable.",
         "Refuse sending when required context or support is absent; neither fallback nor handler data authorizes changing target, mode or protection."
       ],
@@ -182,6 +183,9 @@
         "Protects only successful answers",
         "Lets handler evidence choose authority",
         "Weakens the fallback restriction"
+      ],
+      "judgeGuidance": [
+        "Do not require an additional consumer-side origin-equality validation step: the reading assigns that check to AGP's direct-context construction. Using the captured origin and validating configured mode satisfies this part of the consumer duty."
       ]
     },
     {
@@ -233,11 +237,15 @@
           "Keep `AbortSignal` process-local, outside the policy schema"
         ]
       },
-      "supportNote": "The shared contract supplies ownership and coherence rules but not the complete concrete source/generation inventory. A grounded absence statement is faithful, not wrong; if it leaves the requested implementation locations unresolved, record incomplete actionability (1), not a wrong decision (0). Do not demand every literal filename when equivalent definite locations are grounded, or assume an alternative grounded derivation cannot exist.",
+      "supportNote": "The shared contract supplies ownership and coherence rules but not the complete concrete source/generation inventory; the supplement adds that inventory. This arm-specific observation is not judge-delivery material.",
       "wrong": [
         "Publishes declarations without implementation support",
         "Hand-edits only generated copies",
         "Puts AbortSignal or association secrets on the data wire"
+      ],
+      "judgeGuidance": [
+        "A grounded absence statement is faithful, not wrong. If it leaves an explicitly requested implementation location unresolved, record incomplete actionability (1), not a wrong decision (0).",
+        "Do not demand every literal filename when equivalent definite locations are grounded, and do not assume an alternative grounded derivation cannot exist."
       ]
     },
     {
@@ -262,11 +270,13 @@
           "Schema/type preparation and routing work can be prepared without selecting the B6 API."
         ]
       },
-      "supportNote": "Require the dependencies, not verbatim stage names or a ban on safe parallel preparation. The shared contract may support a grounded derivation; do not cap it merely for lacking the supplement.",
       "wrong": [
         "Blocks all B51 adoption on B6 API selection",
         "Activates association on uncorrected callback continuation",
         "Publishes stub as behavioral support"
+      ],
+      "judgeGuidance": [
+        "Require the dependencies, not verbatim stage names or a ban on safe parallel preparation. Accept any valid derivation from the assigned text; never cap a response merely because it lacks wording or detail from another reading."
       ]
     },
     {
@@ -276,7 +286,7 @@
       "required": [
         "Inventory association state per admitted controller and AGP-retained context/target copies during handler/send work; name finite reservations and release ownership.",
         "Include metadata, not payload alone, in applicable budgets and verify release; do not retain closed controllers, carrier objects or unbounded history for late replies.",
-        "Identify the stated current handler-ledger limitation where available: it charges supplied bytes and the delivery path currently supplies payload bytes; do not invent a current implementation fact from general requirements.",
+        "Diagnose current handler-ledger accounting from supplied evidence: it charges the supplied byte count and the delivery path supplies payload bytes. If the reading does not establish current accounting, identify that information gap instead of inferring implementation from a normative requirement; the explicit diagnosis then remains incomplete, not wrong.",
         "Distinguish application-owned retention beyond AGP's handler lifetime.",
         "No exact metadata-byte formula or B6 observation API is selected by these readings; those gaps do not authorize an invented formula, API, or capacity claim."
       ],
@@ -291,11 +301,15 @@
           "Inventory every AGP-retained association or target copy, name its finite reservation and release point"
         ]
       },
-      "supportNote": "The absence of an exact formula/API is the correct scoped answer and does not reduce the score. An honest gap about the existing ledger implementation is faithful but leaves that requested implementation diagnosis incomplete; score 1 unless a grounded derivation in the assigned reading supplies it.",
+      "supportNote": "The baseline supplies the metadata-budget requirement, while the candidate supplies the current handler-ledger observation. Neither establishes a selected byte formula or lifecycle-observation API. These arm-specific observations are withheld from judges; the version-neutral grading qualifications are in judgeGuidance.",
       "wrong": [
         "Assumes existing payload-only accounting already includes all metadata",
         "Keeps unbounded controller history",
         "Invents a selected byte formula or lifecycle API"
+      ],
+      "judgeGuidance": [
+        "An honest gap about existing ledger accounting leaves this question's explicitly requested current-state diagnosis incomplete: score 1 if the other decisions are safe, not 0 merely for that gap. A grounded derivation can complete the diagnosis; a guess about implementation cannot.",
+        "The absence of an exact selected formula or lifecycle API is the correct scoped answer and does not reduce the score. Do not infer current implementation from a normative accounting requirement."
       ]
     },
     {
@@ -321,12 +335,23 @@
           "No further Zorg policy question is needed for B51's agreed shapes"
         ]
       },
-      "supportNote": "The common status states what is not complete, not a standalone claim that every absent activity is an adoption gate. Judge obligations against the assigned text. A materially correct inference is not automatically a grounded complete answer.",
       "wrong": [
         "Treats author checks or technical review as ratification/runtime proof",
         "Publishes without authority",
         "Selects deferred identity or lifecycle policy by implication"
+      ],
+      "judgeGuidance": [
+        "A status statement that an activity is unfinished does not by itself establish that the activity is an adoption gate. Judge obligations against the assigned text; a materially correct inference is not automatically a grounded complete answer."
       ]
     }
-  ]
+  ],
+  "correction": {
+    "previousPacketCommit": "669cbd78fe3d6d369324a11a6a901cdf92bf4e66",
+    "priorAudit": "direct-peer-key-audit-01.txt",
+    "record": "direct-peer-key-correction-01.json",
+    "findings": [
+      "F1",
+      "F2"
+    ]
+  }
 }

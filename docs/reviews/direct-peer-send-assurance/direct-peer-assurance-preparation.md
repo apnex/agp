@@ -1,5 +1,13 @@
 # Direct peer send assurance preparation
 
+Correction banner: the [prospective key correction](direct-peer-key-correction-01.json) addresses the [independent key-audit FAIL](direct-peer-key-audit-01.txt).\
+The director selected correction, a new local commit and one bounded read-only recheck by the same auditor; no push, execution setup, scored reader run or runtime change is authorized.\
+It supersedes only the identified Q07/Q11 grading clauses and judge-delivery qualifications; the original body below remains as authored at `669cbd78fe3d6d369324a11a6a901cdf92bf4e66`, and the current questions/key require recheck.
+
+Judges must receive the common scoring/rules and each question's required decisions, wrong conclusions and all applicable `judgeGuidance`, without private role/order data, grounding role labels or `supportNote`.\
+The referenced seven review closeout hooks are not supplied and cannot become extra scored obligations.\
+Both source snapshots, both readings and common reader instructions are unchanged; future execution readiness must prove complete judge delivery rather than assume it.
+
 Status: prospective author packet; not committed, independently audited, registered or executed.\
 Authority: the director selected preparation of fresh-reader questions, an answer key and frozen reading sets with "continue".\
 This step authorizes no commit, independent-agent invocation, scoring run, runtime change, ratification or publication.

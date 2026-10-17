@@ -1,10 +1,10 @@
 {
   "kind": "direct-peer-assurance-input-manifest",
-  "status": "prospective source packet; not committed or independently audited",
-  "authority": "Preparation only; commit, new independent-agent work, execution and publication are unselected",
+  "status": "prospective corrected source packet; bounded independent recheck required before use",
+  "authority": "Director selected correction, a new local checkpoint and a bounded read-only recheck by the same auditor; no push, execution setup or scored run is authorized",
   "sourceRevision": "0aa6be75ccacf4e2c3770a49c5ea39970a25a98a",
   "processGuidance": {
-    "canonicalMain": "3a984cf61f26798cd9627aa6fa295621b07672d3",
+    "canonicalMain": "d09461e8d9588fba8e59f4a63d0f93418f773dbe",
     "productAxiomPinUnchanged": "5026604d3ef695651c21b24bd78410c7fec04b58"
   },
   "sources": [
@@ -44,7 +44,8 @@
     "other reading",
     "repository",
     "conversation history",
-    "previous review/reader material"
+    "previous review/reader material",
+    "correction record and key-audit records"
   ],
   "coverage": {
     "controls": [
@@ -115,13 +116,13 @@
     },
     {
       "path": "direct-peer-questions.json",
-      "bytes": 3931,
-      "sha256": "3cbfb0919eee4edc9fe383c3181e32e750d83c79bf138d26346dd93a13401838"
+      "bytes": 4079,
+      "sha256": "891ba24063719c3d70dcf03471a46e1c4933f1cef8f75a014a659ea35ea3b239"
     },
     {
       "path": "direct-peer-answer-key.json",
-      "bytes": 22768,
-      "sha256": "4c33425a044d58ea7e846bcf84c36b760e6a9e9d3e9b65c552237fccfb80158b"
+      "bytes": 24719,
+      "sha256": "07fefda326d5f1773bfb9375fa81e061161bf945c13967ee0cbb950c164c97dc"
     },
     {
       "path": "direct-peer-reader-instructions.md",
@@ -140,12 +141,33 @@
     },
     {
       "path": "direct-peer-assurance-preparation.md",
-      "bytes": 14110,
-      "sha256": "c621f566fdd1660ac06387f2d471219bb77e944df8c1dd28bf58d5dc5b1796c5"
+      "bytes": 15178,
+      "sha256": "b752ad17627d767389e5e82413d519d86b48f7d1352da93c2f2bef2c1b1b96b4"
+    },
+    {
+      "path": "direct-peer-key-audit-01.txt",
+      "bytes": 10685,
+      "sha256": "7d1be78844a73cb4bbcfae3de2cda634992c97a7f11f599b13267abd3611d2db"
+    },
+    {
+      "path": "direct-peer-key-audit-checks-01.json",
+      "bytes": 79399,
+      "sha256": "d2020ec60031e993d6f179540cd263f57c521494782ae1077141944323966203"
+    },
+    {
+      "path": "direct-peer-key-correction-01.json",
+      "bytes": 5172,
+      "sha256": "9c16f8fd219d23d49a83b8bf258ee45c4c848a47988327819de05bd8f09e3ee1"
     }
   ],
   "selfHash": "Excluded to avoid a circular manifest; a later commit supplies immutable provenance",
   "mechanics": "Pure source projection and hashes bind exact reader material; questions and key are separate",
   "rationale": "A cold reader must reason from the delivered contract without author history or key leakage",
-  "consequence": "Unfrozen or incomplete delivery could turn a guess, control regression or failed invocation into false assurance"
+  "consequence": "Unfrozen or incomplete delivery could turn a guess, control regression or failed invocation into false assurance",
+  "correction": {
+    "previousPacketCommit": "669cbd78fe3d6d369324a11a6a901cdf92bf4e66",
+    "priorVerdict": "direct-peer-key-audit-01.txt",
+    "record": "direct-peer-key-correction-01.json",
+    "scope": "Q07/Q11 grading and explicit version-neutral judge qualifications; source snapshots, readings and common reader instructions unchanged"
+  }
 }

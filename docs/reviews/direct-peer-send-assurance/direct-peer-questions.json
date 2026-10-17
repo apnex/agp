@@ -43,7 +43,7 @@
     },
     {
       "id": "Q11",
-      "prompt": "What work must the implementation owner do before claiming the new association/context retention is bounded? Identify the retained values, charging and release responsibilities, any known current accounting limitation, and any byte formula or lifecycle-observation API the reading does not establish."
+      "prompt": "What work must the implementation owner do before claiming the new association/context retention is bounded? Diagnose what the current handler ledger charges, then identify the retained values and charging and release responsibilities needed for the new metadata. Distinguish what the reading establishes about current accounting from what it leaves unknown, and state whether a metadata-byte formula or lifecycle-observation API has been selected."
     },
     {
       "id": "Q12",

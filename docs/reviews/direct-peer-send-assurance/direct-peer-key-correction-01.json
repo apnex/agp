@@ -1,0 +1,66 @@
+{
+  "kind": "direct-peer-assurance-key-correction",
+  "status": "prospective author correction; independent bounded recheck pending",
+  "authority": "Director selected correction, one new local checkpoint and a bounded read-only recheck by the same auditor with continue. No push, provider setup, scored execution, ratification or runtime change is selected.",
+  "previousPacketCommit": "669cbd78fe3d6d369324a11a6a901cdf92bf4e66",
+  "priorVerdict": {
+    "path": "direct-peer-key-audit-01.txt",
+    "sha256": "7d1be78844a73cb4bbcfae3de2cda634992c97a7f11f599b13267abd3611d2db",
+    "result": "FAIL",
+    "scope": "key/comparison instrument; not execution readiness"
+  },
+  "scope": {
+    "workingSources": [
+      "direct-peer-questions.json",
+      "direct-peer-answer-key.json",
+      "direct-peer-input-manifest.json"
+    ],
+    "historicalRecord": "Only a correction banner is prepended to direct-peer-assurance-preparation.md; its original body remains unchanged.",
+    "superseded": "Q07's additional consumer origin-validation requirement; Q11's conditional diagnosis wording; ambiguous judge delivery of grading qualifications. The unavailable seven-hook cross-check is expressly excluded as an extra scoring obligation.",
+    "preserved": [
+      "both complete source snapshots",
+      "both reader projections",
+      "common reader instructions",
+      "projection function and packet-test source",
+      "question order and all prompts except Q11",
+      "all required decisions except the identified Q07 and Q11 clauses",
+      "all grounding excerpts and wrong-conclusion lists",
+      "population, thresholds, conservative scoring, quote caps, validity rules, limits and execution prerequisites",
+      "the full prior FAIL and author-check record"
+    ],
+    "oldRevisionAccess": "The original questions/key/manifest and preparation body remain available at previousPacketCommit. Prior report line references identify that checkpoint, not a later working line number."
+  },
+  "corrections": [
+    {
+      "id": "F1",
+      "action": "Use captured origin/association and validate configured mode; remove the unassigned consumer origin-equality check.",
+      "reason": "AGP owns direct-context origin equality. The key must not invent a second consumer obligation or alter the product design to justify it."
+    },
+    {
+      "id": "F2",
+      "action": "Make current handler-ledger diagnosis an explicit common-question duty and align the required key decision and judge guidance.",
+      "reason": "The assessment is of actionable implementation guidance. A faithful missing required diagnosis is incomplete rather than wrong; an unselected formula/API remains a correct scoped answer.",
+      "alternativeNotSelected": "Retain the conditional wording and remove the diagnosis cap."
+    },
+    {
+      "id": "judge-qualifications",
+      "action": "Place version-neutral qualifications in per-entry judgeGuidance and require full delivery alongside required/wrong and the common scoring/rules; keep only arm-specific commentary in private supportNote.",
+      "reason": "Removing arm metadata must not remove the scoring qualifications. This defines source requirements; no renderer is implemented or validated."
+    },
+    {
+      "id": "unavailable-hooks",
+      "action": "Add a common judge rule that the unsupplied seven closeout-hook contents are not additional scored obligations.",
+      "reason": "A reference is not delivered context. No reader-source expansion or guessed external requirement is needed for these questions."
+    }
+  ],
+  "delivery": {
+    "readers": "Unchanged instructions, the corrected common questions and exactly one unchanged assigned reading. No key, correction record, historical review or provenance.",
+    "judges": "Anonymous reader/question units and necessary supplied-text support, plus common scoring/rules and each entry's required, wrong and any judgeGuidance values. No role map, grounding role labels, supportNote, arm/order, correction or prior-review metadata.",
+    "proofStillRequired": "A selected public execution binding must demonstrate complete rendering and isolation before readers/judges run. Field names and this requirement alone are not delivery evidence."
+  },
+  "next": "Commit the corrected source and preserved audit records, then obtain one bounded read-only recheck from the same independent auditor. A PASS would precede execution-readiness work, not authorize scored execution.",
+  "exemplar": "Follows the prospective scope/precedence and preserved-history pattern of docs/reviews/admission-lifetime-assurance-r4/admission-accounting-amendment-01.md without inheriting its evaluator or runtime rules.",
+  "mechanics": "Bind the corrected key/question pair and explicit judge qualifications to a new manifest/checkpoint while leaving the readings and original FAIL intact.",
+  "rationale": "A grader must assess what the question asks and supplied text supports, not an unassigned duty or a hidden exception.",
+  "consequence": "Without correction, faithful readers can be marked incomplete for not inventing a consumer check or for treating a conditional question as conditional."
+}
