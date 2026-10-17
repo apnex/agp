@@ -1,0 +1,515 @@
+{
+  "recordKind": "admission-diagnostic-stage-0a-author-evidence",
+  "date": "2026-10-17",
+  "timezone": "Australia/Melbourne",
+  "scope": "Read-only file/Git inspection and existing evidence metadata; not runtime/provider enforcement, isolation, deployment or independent readiness evidence.",
+  "diagnosticInvocations": 0,
+  "providerRequestsMadeByInventory": 0,
+  "credentialOrAccountQueries": 0,
+  "externalWrites": 0,
+  "priorInputs": {
+    "agpAtInspection": "d8305fcdda94613c116e6530af44458336d9d4ee",
+    "qualifiedEvaluator": "e705b3d749400d0a79efe98e5338e9c84a1695b8",
+    "ownerCommittedDocsAtInspection": "ecb2f5f29d6aba8c58e9588d34b677b516ef03d8",
+    "sources": [
+      {
+        "revision": "e705b3d749400d0a79efe98e5338e9c84a1695b8",
+        "file": "README.md",
+        "bytes": 1344,
+        "sha256": "cc5a5025eb78f1d823eac7e177466519be0c064eddb474f55b4a091921ce7c40",
+        "blob": "021b7fafa3caf2d718bd5faab9d246ef5dd89a65"
+      },
+      {
+        "revision": "e705b3d749400d0a79efe98e5338e9c84a1695b8",
+        "file": "VISION.md",
+        "bytes": 5382,
+        "sha256": "e6c09b2de208a66058a94c38c03ab5e23e943b12d14b4697e163a3cd63b40bca",
+        "blob": "cd0f04b84e7f735d302834dedc381931d6762b91"
+      },
+      {
+        "revision": "e705b3d749400d0a79efe98e5338e9c84a1695b8",
+        "file": "docs/ARCHITECTURE-TARGET.md",
+        "bytes": 19848,
+        "sha256": "d03e745307428000cdc8b81b2103d49be1a84b379c451b1895d4fa07d8acf5cc",
+        "blob": "d07d140867dbdc4d5d0bedfddc3b0aa9a092fa79"
+      },
+      {
+        "revision": "e705b3d749400d0a79efe98e5338e9c84a1695b8",
+        "file": "docs/BACKLOG.md",
+        "bytes": 8913,
+        "sha256": "06ba10ee6080d591327b3d024c0d5b048c6af2ae682d0b5dad0a4ba5b052df88",
+        "blob": "5be1864693a2bd5998a3818698e4688974bbbe0a"
+      },
+      {
+        "revision": "e705b3d749400d0a79efe98e5338e9c84a1695b8",
+        "file": "docs/BOARD.md",
+        "bytes": 6370,
+        "sha256": "62461bdba0a60ca3509ce0e17f1cc609655477bac729d10c803ec71897c198a2",
+        "blob": "cac1a067af014c3da9b3467274d62f76cf7de405"
+      },
+      {
+        "revision": "e705b3d749400d0a79efe98e5338e9c84a1695b8",
+        "file": "docs/DELTAS/DELTA-1.md",
+        "bytes": 42359,
+        "sha256": "977710afb308e1b9ebf30b1d240301cd695209c3bdf060f23a6b72cf1ae21e77",
+        "blob": "73c4768288c101b1ed3ae75d09ae75f42dbcddfc"
+      },
+      {
+        "revision": "e705b3d749400d0a79efe98e5338e9c84a1695b8",
+        "file": "docs/DELTAS/DELTA-2.md",
+        "bytes": 46862,
+        "sha256": "793266dbc66efbb7ee34970a1c60566c07cc14d76974477bd5c8b8441ab4e7cc",
+        "blob": "9baeec4de52e5538425f6aa21b45c58a25619898"
+      },
+      {
+        "revision": "e705b3d749400d0a79efe98e5338e9c84a1695b8",
+        "file": "docs/DELTAS/DELTA-3.md",
+        "present": false
+      },
+      {
+        "revision": "e705b3d749400d0a79efe98e5338e9c84a1695b8",
+        "file": "packages/core/src/index.ts",
+        "bytes": 3161,
+        "sha256": "c41b5f5abb6a8dab173714c4860b9b7a53b6ae28d0c0140f907035e16632694c",
+        "blob": "ac7b7b6940628e2b7c6ef5cc7cee83a212d024bd"
+      },
+      {
+        "revision": "e705b3d749400d0a79efe98e5338e9c84a1695b8",
+        "file": "packages/core/src/adapters.ts",
+        "bytes": 23092,
+        "sha256": "4aa7d64d3f03e9a99b67d0a03369dc12cbdeca9b90d55d78351a4eead246a081",
+        "blob": "d0f0554147d82d79267483ede44c294b360e099e"
+      },
+      {
+        "revision": "e705b3d749400d0a79efe98e5338e9c84a1695b8",
+        "file": "packages/core/src/outcome.ts",
+        "bytes": 4721,
+        "sha256": "dc92082dc548135a9582c3f8a694daa4b147422558adea03be39fb2b2c63791f",
+        "blob": "3279c72394f1486d01f0736f5a7373afe6a97733"
+      },
+      {
+        "revision": "e705b3d749400d0a79efe98e5338e9c84a1695b8",
+        "file": "packages/core/src/runtime-sandbox.ts",
+        "bytes": 3780,
+        "sha256": "16d2f4d233a816a93687d8e4e933f0b8ee18666c708086d80aa9a3b4504b7f44",
+        "blob": "1b9670de7f6f9162dd80eece5e3b8edab1b18231"
+      },
+      {
+        "revision": "e705b3d749400d0a79efe98e5338e9c84a1695b8",
+        "file": "packages/core/src/run-conductor.ts",
+        "bytes": 44364,
+        "sha256": "a05a3b08f92e6ec2890530c7c9ce01833e80db2f8bd6631930908ba8c45ff8ef",
+        "blob": "c164fc7747643eee35ae8895552c243fd39f5d97"
+      },
+      {
+        "revision": "ecb2f5f29d6aba8c58e9588d34b677b516ef03d8",
+        "file": "README.md",
+        "bytes": 1344,
+        "sha256": "cc5a5025eb78f1d823eac7e177466519be0c064eddb474f55b4a091921ce7c40",
+        "blob": "021b7fafa3caf2d718bd5faab9d246ef5dd89a65"
+      },
+      {
+        "revision": "ecb2f5f29d6aba8c58e9588d34b677b516ef03d8",
+        "file": "VISION.md",
+        "bytes": 5382,
+        "sha256": "e6c09b2de208a66058a94c38c03ab5e23e943b12d14b4697e163a3cd63b40bca",
+        "blob": "cd0f04b84e7f735d302834dedc381931d6762b91"
+      },
+      {
+        "revision": "ecb2f5f29d6aba8c58e9588d34b677b516ef03d8",
+        "file": "docs/ARCHITECTURE-TARGET.md",
+        "bytes": 19848,
+        "sha256": "d03e745307428000cdc8b81b2103d49be1a84b379c451b1895d4fa07d8acf5cc",
+        "blob": "d07d140867dbdc4d5d0bedfddc3b0aa9a092fa79"
+      },
+      {
+        "revision": "ecb2f5f29d6aba8c58e9588d34b677b516ef03d8",
+        "file": "docs/BACKLOG.md",
+        "bytes": 9150,
+        "sha256": "63459bbfa8c954316f3724c075b71acffaeb7ec12e26e61476ef0355d915524d",
+        "blob": "662b9b061e2412efb40feb5a5ddd7ef95b9ae848"
+      },
+      {
+        "revision": "ecb2f5f29d6aba8c58e9588d34b677b516ef03d8",
+        "file": "docs/BOARD.md",
+        "bytes": 6039,
+        "sha256": "66f739886fe15c1633b092cebaafd29204f07ddb827ef7ec00bc92f251cae752",
+        "blob": "1b056cdf847ae6cf2b601e2aef1f714a944b2c03"
+      },
+      {
+        "revision": "ecb2f5f29d6aba8c58e9588d34b677b516ef03d8",
+        "file": "docs/DELTAS/DELTA-1.md",
+        "bytes": 42359,
+        "sha256": "977710afb308e1b9ebf30b1d240301cd695209c3bdf060f23a6b72cf1ae21e77",
+        "blob": "73c4768288c101b1ed3ae75d09ae75f42dbcddfc"
+      },
+      {
+        "revision": "ecb2f5f29d6aba8c58e9588d34b677b516ef03d8",
+        "file": "docs/DELTAS/DELTA-2.md",
+        "bytes": 47271,
+        "sha256": "e6ff1183136974320a68b459235c70200c05fd3be03e1ba205b0f42c4fa550ab",
+        "blob": "ce46c2ac523296c251a3f79426fce877b8a847ce"
+      },
+      {
+        "revision": "ecb2f5f29d6aba8c58e9588d34b677b516ef03d8",
+        "file": "docs/DELTAS/DELTA-3.md",
+        "bytes": 29336,
+        "sha256": "b4f6726a8cba30752a0e4a16a2692f3e3b7b548356d4ee684b8389e3f65703ba",
+        "blob": "e907885a1bb4b2f534f2942123aab4e53af5dccb"
+      },
+      {
+        "revision": "ecb2f5f29d6aba8c58e9588d34b677b516ef03d8",
+        "file": "packages/core/src/index.ts",
+        "bytes": 3555,
+        "sha256": "2c06bb9d403dbbff7c4b6cddd52102c4bead08ae7ec6717ffd44f4195b52968b",
+        "blob": "255bb24f99bd96ae5a63e317c9a6e70de6e2a7cb"
+      },
+      {
+        "revision": "ecb2f5f29d6aba8c58e9588d34b677b516ef03d8",
+        "file": "packages/core/src/adapters.ts",
+        "bytes": 23146,
+        "sha256": "aef4833003a875599a449370916fc919accc7b71019e8089a668f5ceeb501fbb",
+        "blob": "059f0f5079051b1d759143422ac5082f389b26b0"
+      },
+      {
+        "revision": "ecb2f5f29d6aba8c58e9588d34b677b516ef03d8",
+        "file": "packages/core/src/outcome.ts",
+        "bytes": 4721,
+        "sha256": "dc92082dc548135a9582c3f8a694daa4b147422558adea03be39fb2b2c63791f",
+        "blob": "3279c72394f1486d01f0736f5a7373afe6a97733"
+      },
+      {
+        "revision": "ecb2f5f29d6aba8c58e9588d34b677b516ef03d8",
+        "file": "packages/core/src/runtime-sandbox.ts",
+        "bytes": 3780,
+        "sha256": "16d2f4d233a816a93687d8e4e933f0b8ee18666c708086d80aa9a3b4504b7f44",
+        "blob": "1b9670de7f6f9162dd80eece5e3b8edab1b18231"
+      },
+      {
+        "revision": "ecb2f5f29d6aba8c58e9588d34b677b516ef03d8",
+        "file": "packages/core/src/run-conductor.ts",
+        "bytes": 48095,
+        "sha256": "408ed6b4706829b1d2bb5d1d8bfac61fefffaf656806a20292506a63402a968c",
+        "blob": "861f65766fa7a5fff5847b9bb36f9c13ae952498"
+      }
+    ],
+    "evidence": [
+      {
+        "file": "docs/reviews/admission-diagnostic-proposal.md",
+        "bytes": 15571,
+        "sha256": "eec77efddca77cdfbc1fb5548d0e8b02126be2d8d3a616d2682040b65edbacc3"
+      },
+      {
+        "file": "docs/reviews/admission-diagnostic-amendment-01.md",
+        "bytes": 7708,
+        "sha256": "e6aee7d5056871989af0230affa75dfb1b02d07388262ea4c4a50d41982e7fda"
+      },
+      {
+        "file": "docs/reviews/admission-diagnostic-source-findings.md",
+        "bytes": 6303,
+        "sha256": "439ccfdeb30be37f25347f581a99764fb806d97a99b87085efbc2621b947b9de"
+      },
+      {
+        "file": "docs/reviews/admission-diagnostic-design-recheck-02.txt",
+        "bytes": 14590,
+        "sha256": "80bc5dbd22ddbe2ad4c77c10b9ae6ba7fe2cf9098af36a3eca4a5a971f33f418"
+      },
+      {
+        "file": "docs/reviews/admission-evaluator-qualification/admission-qualification-profile.json",
+        "bytes": 1607,
+        "sha256": "d101581d489ba78b1cede08439c8a0132f02dfa4936aab8bc837bd5b3611892b"
+      },
+      {
+        "file": "docs/reviews/admission-evaluator-qualification/admission-qualification-review-01.txt",
+        "bytes": 11963,
+        "sha256": "c282b24a84c2b838719b839f6355f8941c091c5f599e9eab60309df9c8c9d515"
+      },
+      {
+        "file": "docs/reviews/admission-lifetime-assurance-r4/admission-provider-config.json",
+        "bytes": 755,
+        "sha256": "98668a42f2fb4e913b07a539b40df560d7cf6051dfe15226602e2f22cd37e7b0"
+      },
+      {
+        "file": "docs/reviews/admission-lifetime-assurance-r4/admission-execution-config.json",
+        "bytes": 1259,
+        "sha256": "c0122a30db551238bbe1d362977b3938b62f911a06e45b8057515ed625af94c4"
+      },
+      {
+        "file": "docs/reviews/admission-lifetime-assurance-r4/admission-provider-readiness-06.txt",
+        "bytes": 18339,
+        "sha256": "8b6a3d99e13e31357bf15d040eba45afebe2d9f60949768d92b2163156244f76"
+      },
+      {
+        "file": "docs/reviews/admission-lifetime-assurance-r4/admission-gate-review-01.txt",
+        "bytes": 14753,
+        "sha256": "7197bfae7413f1ca76d47f0adbf2f376bb8a97a4731e2d427c18244f883689f9"
+      },
+      {
+        "file": "docs/reviews/admission-lifetime-assurance-r4/records/2026-10-16-060526-admission-clarity/run.json",
+        "bytes": 76396,
+        "sha256": "52535ef37dcccd976863eb21424557b85a19a41238fb082b8bab1cdcee6fc053"
+      }
+    ],
+    "retainedRunProjection": {
+      "file": "docs/reviews/admission-lifetime-assurance-r4/records/2026-10-16-060526-admission-clarity/run.json",
+      "method": {
+        "package": "@apnex/context-lab-core",
+        "version": "0.0.0",
+        "revision": "6e6d0a92965a15ec473c661887b2b9c5037fedcf"
+      },
+      "runtimes": {
+        "opencode": "1.19.2",
+        "codex": "codex-cli 0.162.1"
+      },
+      "recordedRouteIds": [],
+      "readerProfiles": [
+        {
+          "arm": "m42",
+          "member": "c",
+          "pass": true,
+          "reasonCount": 0
+        },
+        {
+          "arm": "m42",
+          "member": "g",
+          "pass": true,
+          "reasonCount": 0
+        },
+        {
+          "arm": "m42",
+          "member": "o",
+          "pass": true,
+          "reasonCount": 0
+        },
+        {
+          "arm": "x19",
+          "member": "c",
+          "pass": true,
+          "reasonCount": 0
+        },
+        {
+          "arm": "x19",
+          "member": "g",
+          "pass": true,
+          "reasonCount": 0
+        },
+        {
+          "arm": "x19",
+          "member": "o",
+          "pass": true,
+          "reasonCount": 0
+        }
+      ],
+      "judgeProfiles": [
+        {
+          "arm": "judges",
+          "member": "c",
+          "pass": true,
+          "reasonCount": 0
+        },
+        {
+          "arm": "judges",
+          "member": "g",
+          "pass": true,
+          "reasonCount": 0
+        },
+        {
+          "arm": "judges",
+          "member": "o",
+          "pass": true,
+          "reasonCount": 0
+        }
+      ],
+      "snapshotPopulation": [
+        {
+          "id": "c",
+          "runtime": "opencode",
+          "model": "litellm-nexus/claude-opus-5-5",
+          "family": "claude",
+          "settings": null
+        },
+        {
+          "id": "g",
+          "runtime": "opencode",
+          "model": "litellm-nexus/gemini-3.8-flash",
+          "family": "gemini",
+          "settings": null
+        },
+        {
+          "id": "o",
+          "runtime": "codex",
+          "model": "gpt-6-astra",
+          "family": "gpt",
+          "settings": {
+            "reasoningEffort": "high"
+          }
+        }
+      ]
+    },
+    "beforeReconciliation": [
+      {
+        "file": "docs/BOARD.md",
+        "sha256": "ebab6e68b96a89efc9018c2c135b1cca4a17ae0dfe187f4e4cd16228e3379e7a",
+        "bytes": 45149,
+        "boardRows": [
+          "| `B53` | Bound identity admission and release expired connections | `I2` | `P2` | [`MX21`](VERIFICATION.md#46-open-findings-from-sweeps), [admission-timeout finding](VERIFICATION.md#421-identity-admission-timeout-and-teardown-finding) | open |",
+          "| 2 | `B53` | Diagnostic design/M7 recheck PASS; capability inventory next | [Amended diagnostic](reviews/admission-diagnostic-amendment-01.md) requires supported budget, trace, retention and containment evidence before fixtures or driver work; [independent review](reviews/admission-diagnostic-design-recheck-02.txt) is design-only, not readiness or live authority |",
+          "| `B53` | Inventory supported diagnostic capabilities before packet construction | [Stage 0a](reviews/admission-diagnostic-amendment-01.md#d2---capability-inventory-precedes-packet-construction) is read-only and makes no diagnostic calls; establish budget/trace/retention/containment support and review workflow, or record an exact owner-side gap and stop; preparation and live execution remain later selections |",
+          "| Do we select the amended diagnostic's zero-call capability inventory, or park this assurance path? | Replacement `B53` qualification; [design/M7 recheck](reviews/admission-diagnostic-design-recheck-02.txt) is PASS, but supported request/spend guards, observation, retention and accepted containment remain unestablished; this choice grants no packet construction, live cap, monetary allowance or execution authority |",
+          "| Do we ratify the clarified admission contract after valid fresh-reader assurance? | `B53` adoption and implementation; [revision 4](reviews/admission-lifetime-correction-r4.md) retains independent technical and scoped M7 PASS, while the prior assurance FAIL remains unchanged and the completed new comparison supplies no valid assurance verdict |"
+        ]
+      },
+      {
+        "file": "docs/VERIFICATION.md",
+        "sha256": "2031e3c7ed920c89c32387d5d8d96ba8ef1562ceb00bbaa3bc59e45488bb3f8f",
+        "bytes": 278846
+      }
+    ],
+    "claimBoundary": "File/Git identity and existing record metadata only. No invocation, credential/account read, capability enforcement or fresh isolation measurement."
+  },
+  "sourceInventoryCommand": {
+    "cmd": "node --input-type=module <<'NODE'\nimport assert from 'node:assert/strict';\nimport fs from 'node:fs';\nimport crypto from 'node:crypto';\nimport {execFileSync} from 'node:child_process';\nconst agp='d8305fcdda94613c116e6530af44458336d9d4ee';\nconst pin='e705b3d749400d0a79efe98e5338e9c84a1695b8';\nconst owner='ecb2f5f29d6aba8c58e9588d34b677b516ef03d8';\nconst root='/home/apnex/taceng/context-lab';\nconst sha=b=>crypto.createHash('sha256').update(b).digest('hex');\nconst git=(cwd,...args)=>execFileSync('git',['-C',cwd,...args],{maxBuffer:32<<20});\nassert.equal(git(process.cwd(),'rev-parse','HEAD').toString().trim(),agp);\nconst paths=['README.md','VISION.md','docs/ARCHITECTURE-TARGET.md','docs/BACKLOG.md','docs/BOARD.md','docs/DELTAS/DELTA-1.md','docs/DELTAS/DELTA-2.md','docs/DELTAS/DELTA-3.md','packages/core/src/index.ts','packages/core/src/adapters.ts','packages/core/src/outcome.ts','packages/core/src/runtime-sandbox.ts','packages/core/src/run-conductor.ts'];\nconst sources=[];\nfor(const revision of [pin,owner])for(const file of paths){\n const exists=execFileSync('git',['-C',root,'ls-tree','--name-only',revision,'--',file],{encoding:'utf8'}).trim();\n if(!exists){sources.push({revision,file,present:false});continue;}\n const bytes=git(root,'show',revision+':'+file);\n sources.push({revision,file,bytes:bytes.length,sha256:sha(bytes),blob:git(root,'rev-parse',revision+':'+file).toString().trim()});\n}\nconst records=['docs/reviews/admission-diagnostic-proposal.md','docs/reviews/admission-diagnostic-amendment-01.md','docs/reviews/admission-diagnostic-source-findings.md','docs/reviews/admission-diagnostic-design-recheck-02.txt','docs/reviews/admission-evaluator-qualification/admission-qualification-profile.json','docs/reviews/admission-evaluator-qualification/admission-qualification-review-01.txt','docs/reviews/admission-lifetime-assurance-r4/admission-provider-config.json','docs/reviews/admission-lifetime-assurance-r4/admission-execution-config.json','docs/reviews/admission-lifetime-assurance-r4/admission-provider-readiness-06.txt','docs/reviews/admission-lifetime-assurance-r4/admission-gate-review-01.txt','docs/reviews/admission-lifetime-assurance-r4/records/2026-10-16-060526-admission-clarity/run.json'];\nconst evidence=records.map(file=>{const bytes=fs.readFileSync(file);assert.deepEqual(bytes,git(process.cwd(),'show',agp+':'+file));return{file,bytes:bytes.length,sha256:sha(bytes)};});\nconst run=JSON.parse(fs.readFileSync(records.at(-1)));\nconst projection={file:records.at(-1),method:run.method,runtimes:run.runtimes,recordedRouteIds:Object.keys(run.routes??{}),readerProfiles:run.probes.map(({arm,member,pass,reasons})=>({arm,member,pass,reasonCount:reasons.length})),judgeProfiles:run.judgeProbes.map(({arm,member,pass,reasons})=>({arm,member,pass,reasonCount:reasons.length})),snapshotPopulation:run.snapshot.population.map(({id,runtime,model,family,settings})=>({id,runtime,model,family,settings:settings??null}))};\nassert.equal(projection.readerProfiles.length,6);assert.equal(projection.judgeProfiles.length,3);\nassert.ok([...projection.readerProfiles,...projection.judgeProfiles].every(p=>p.pass&&p.reasonCount===0));\nconst before=['docs/BOARD.md','docs/VERIFICATION.md'].map(file=>{const bytes=fs.readFileSync(file);return{file,sha256:sha(bytes),bytes:bytes.length,boardRows:file.endsWith('BOARD.md')?bytes.toString().split('\\n').filter(l=>l.startsWith('|')&&l.includes('`B53`')):undefined};});\nconsole.log(JSON.stringify({agpAtInspection:agp,qualifiedEvaluator:pin,ownerCommittedDocsAtInspection:owner,sources,evidence,retainedRunProjection:projection,beforeReconciliation:before,claimBoundary:'File/Git identity and existing record metadata only. No invocation, credential/account read, capability enforcement or fresh isolation measurement.'},null,2));\nNODE",
+    "workdir": "/home/apnex/taceng/agp",
+    "chunk_id": "4650ec",
+    "wall_time_seconds": 0.352440437,
+    "exit_code": 0,
+    "original_token_count": 3505,
+    "output": "{\n  \"agpAtInspection\": \"d8305fcdda94613c116e6530af44458336d9d4ee\",\n  \"qualifiedEvaluator\": \"e705b3d749400d0a79efe98e5338e9c84a1695b8\",\n  \"ownerCommittedDocsAtInspection\": \"ecb2f5f29d6aba8c58e9588d34b677b516ef03d8\",\n  \"sources\": [\n    {\n      \"revision\": \"e705b3d749400d0a79efe98e5338e9c84a1695b8\",\n      \"file\": \"README.md\",\n      \"bytes\": 1344,\n      \"sha256\": \"cc5a5025eb78f1d823eac7e177466519be0c064eddb474f55b4a091921ce7c40\",\n      \"blob\": \"021b7fafa3caf2d718bd5faab9d246ef5dd89a65\"\n    },\n    {\n      \"revision\": \"e705b3d749400d0a79efe98e5338e9c84a1695b8\",\n      \"file\": \"VISION.md\",\n      \"bytes\": 5382,\n      \"sha256\": \"e6c09b2de208a66058a94c38c03ab5e23e943b12d14b4697e163a3cd63b40bca\",\n      \"blob\": \"cd0f04b84e7f735d302834dedc381931d6762b91\"\n    },\n    {\n      \"revision\": \"e705b3d749400d0a79efe98e5338e9c84a1695b8\",\n      \"file\": \"docs/ARCHITECTURE-TARGET.md\",\n      \"bytes\": 19848,\n      \"sha256\": \"d03e745307428000cdc8b81b2103d49be1a84b379c451b1895d4fa07d8acf5cc\",\n      \"blob\": \"d07d140867dbdc4d5d0bedfddc3b0aa9a092fa79\"\n    },\n    {\n      \"revision\": \"e705b3d749400d0a79efe98e5338e9c84a1695b8\",\n      \"file\": \"docs/BACKLOG.md\",\n      \"bytes\": 8913,\n      \"sha256\": \"06ba10ee6080d591327b3d024c0d5b048c6af2ae682d0b5dad0a4ba5b052df88\",\n      \"blob\": \"5be1864693a2bd5998a3818698e4688974bbbe0a\"\n    },\n    {\n      \"revision\": \"e705b3d749400d0a79efe98e5338e9c84a1695b8\",\n      \"file\": \"docs/BOARD.md\",\n      \"bytes\": 6370,\n      \"sha256\": \"62461bdba0a60ca3509ce0e17f1cc609655477bac729d10c803ec71897c198a2\",\n      \"blob\": \"cac1a067af014c3da9b3467274d62f76cf7de405\"\n    },\n    {\n      \"revision\": \"e705b3d749400d0a79efe98e5338e9c84a1695b8\",\n      \"file\": \"docs/DELTAS/DELTA-1.md\",\n      \"bytes\": 42359,\n      \"sha256\": \"977710afb308e1b9ebf30b1d240301cd695209c3bdf060f23a6b72cf1ae21e77\",\n      \"blob\": \"73c4768288c101b1ed3ae75d09ae75f42dbcddfc\"\n    },\n    {\n      \"revision\": \"e705b3d749400d0a79efe98e5338e9c84a1695b8\",\n      \"file\": \"docs/DELTAS/DELTA-2.md\",\n      \"bytes\": 46862,\n      \"sha256\": \"793266dbc66efbb7ee34970a1c60566c07cc14d76974477bd5c8b8441ab4e7cc\",\n      \"blob\": \"9baeec4de52e5538425f6aa21b45c58a25619898\"\n    },\n    {\n      \"revision\": \"e705b3d749400d0a79efe98e5338e9c84a1695b8\",\n      \"file\": \"docs/DELTAS/DELTA-3.md\",\n      \"present\": false\n    },\n    {\n      \"revision\": \"e705b3d749400d0a79efe98e5338e9c84a1695b8\",\n      \"file\": \"packages/core/src/index.ts\",\n      \"bytes\": 3161,\n      \"sha256\": \"c41b5f5abb6a8dab173714c4860b9b7a53b6ae28d0c0140f907035e16632694c\",\n      \"blob\": \"ac7b7b6940628e2b7c6ef5cc7cee83a212d024bd\"\n    },\n    {\n      \"revision\": \"e705b3d749400d0a79efe98e5338e9c84a1695b8\",\n      \"file\": \"packages/core/src/adapters.ts\",\n      \"bytes\": 23092,\n      \"sha256\": \"4aa7d64d3f03e9a99b67d0a03369dc12cbdeca9b90d55d78351a4eead246a081\",\n      \"blob\": \"d0f0554147d82d79267483ede44c294b360e099e\"\n    },\n    {\n      \"revision\": \"e705b3d749400d0a79efe98e5338e9c84a1695b8\",\n      \"file\": \"packages/core/src/outcome.ts\",\n      \"bytes\": 4721,\n      \"sha256\": \"dc92082dc548135a9582c3f8a694daa4b147422558adea03be39fb2b2c63791f\",\n      \"blob\": \"3279c72394f1486d01f0736f5a7373afe6a97733\"\n    },\n    {\n      \"revision\": \"e705b3d749400d0a79efe98e5338e9c84a1695b8\",\n      \"file\": \"packages/core/src/runtime-sandbox.ts\",\n      \"bytes\": 3780,\n      \"sha256\": \"16d2f4d233a816a93687d8e4e933f0b8ee18666c708086d80aa9a3b4504b7f44\",\n      \"blob\": \"1b9670de7f6f9162dd80eece5e3b8edab1b18231\"\n    },\n    {\n      \"revision\": \"e705b3d749400d0a79efe98e5338e9c84a1695b8\",\n      \"file\": \"packages/core/src/run-conductor.ts\",\n      \"bytes\": 44364,\n      \"sha256\": \"a05a3b08f92e6ec2890530c7c9ce01833e80db2f8bd6631930908ba8c45ff8ef\",\n      \"blob\": \"c164fc7747643eee35ae8895552c243fd39f5d97\"\n    },\n    {\n      \"revision\": \"ecb2f5f29d6aba8c58e9588d34b677b516ef03d8\",\n      \"file\": \"README.md\",\n      \"bytes\": 1344,\n      \"sha256\": \"cc5a5025eb78f1d823eac7e177466519be0c064eddb474f55b4a091921ce7c40\",\n      \"blob\": \"021b7fafa3caf2d718bd5faab9d246ef5dd89a65\"\n    },\n    {\n      \"revision\": \"ecb2f5f29d6aba8c58e9588d34b677b516ef03d8\",\n      \"file\": \"VISION.md\",\n      \"bytes\": 5382,\n      \"sha256\": \"e6c09b2de208a66058a94c38c03ab5e23e943b12d14b4697e163a3cd63b40bca\",\n      \"blob\": \"cd0f04b84e7f735d302834dedc381931d6762b91\"\n    },\n    {\n      \"revision\": \"ecb2f5f29d6aba8c58e9588d34b677b516ef03d8\",\n      \"file\": \"docs/ARCHITECTURE-TARGET.md\",\n      \"bytes\": 19848,\n      \"sha256\": \"d03e745307428000cdc8b81b2103d49be1a84b379c451b1895d4fa07d8acf5cc\",\n      \"blob\": \"d07d140867dbdc4d5d0bedfddc3b0aa9a092fa79\"\n    },\n    {\n      \"revision\": \"ecb2f5f29d6aba8c58e9588d34b677b516ef03d8\",\n      \"file\": \"docs/BACKLOG.md\",\n      \"bytes\": 9150,\n      \"sha256\": \"63459bbfa8c954316f3724c075b71acffaeb7ec12e26e61476ef0355d915524d\",\n      \"blob\": \"662b9b061e2412efb40feb5a5ddd7ef95b9ae848\"\n    },\n    {\n      \"revision\": \"ecb2f5f29d6aba8c58e9588d34b677b516ef03d8\",\n      \"file\": \"docs/BOARD.md\",\n      \"bytes\": 6039,\n      \"sha256\": \"66f739886fe15c1633b092cebaafd29204f07ddb827ef7ec00bc92f251cae752\",\n      \"blob\": \"1b056cdf847ae6cf2b601e2aef1f714a944b2c03\"\n    },\n    {\n      \"revision\": \"ecb2f5f29d6aba8c58e9588d34b677b516ef03d8\",\n      \"file\": \"docs/DELTAS/DELTA-1.md\",\n      \"bytes\": 42359,\n      \"sha256\": \"977710afb308e1b9ebf30b1d240301cd695209c3bdf060f23a6b72cf1ae21e77\",\n      \"blob\": \"73c4768288c101b1ed3ae75d09ae75f42dbcddfc\"\n    },\n    {\n      \"revision\": \"ecb2f5f29d6aba8c58e9588d34b677b516ef03d8\",\n      \"file\": \"docs/DELTAS/DELTA-2.md\",\n      \"bytes\": 47271,\n      \"sha256\": \"e6ff1183136974320a68b459235c70200c05fd3be03e1ba205b0f42c4fa550ab\",\n      \"blob\": \"ce46c2ac523296c251a3f79426fce877b8a847ce\"\n    },\n    {\n      \"revision\": \"ecb2f5f29d6aba8c58e9588d34b677b516ef03d8\",\n      \"file\": \"docs/DELTAS/DELTA-3.md\",\n      \"bytes\": 29336,\n      \"sha256\": \"b4f6726a8cba30752a0e4a16a2692f3e3b7b548356d4ee684b8389e3f65703ba\",\n      \"blob\": \"e907885a1bb4b2f534f2942123aab4e53af5dccb\"\n    },\n    {\n      \"revision\": \"ecb2f5f29d6aba8c58e9588d34b677b516ef03d8\",\n      \"file\": \"packages/core/src/index.ts\",\n      \"bytes\": 3555,\n      \"sha256\": \"2c06bb9d403dbbff7c4b6cddd52102c4bead08ae7ec6717ffd44f4195b52968b\",\n      \"blob\": \"255bb24f99bd96ae5a63e317c9a6e70de6e2a7cb\"\n    },\n    {\n      \"revision\": \"ecb2f5f29d6aba8c58e9588d34b677b516ef03d8\",\n      \"file\": \"packages/core/src/adapters.ts\",\n      \"bytes\": 23146,\n      \"sha256\": \"aef4833003a875599a449370916fc919accc7b71019e8089a668f5ceeb501fbb\",\n      \"blob\": \"059f0f5079051b1d759143422ac5082f389b26b0\"\n    },\n    {\n      \"revision\": \"ecb2f5f29d6aba8c58e9588d34b677b516ef03d8\",\n      \"file\": \"packages/core/src/outcome.ts\",\n      \"bytes\": 4721,\n      \"sha256\": \"dc92082dc548135a9582c3f8a694daa4b147422558adea03be39fb2b2c63791f\",\n      \"blob\": \"3279c72394f1486d01f0736f5a7373afe6a97733\"\n    },\n    {\n      \"revision\": \"ecb2f5f29d6aba8c58e9588d34b677b516ef03d8\",\n      \"file\": \"packages/core/src/runtime-sandbox.ts\",\n      \"bytes\": 3780,\n      \"sha256\": \"16d2f4d233a816a93687d8e4e933f0b8ee18666c708086d80aa9a3b4504b7f44\",\n      \"blob\": \"1b9670de7f6f9162dd80eece5e3b8edab1b18231\"\n    },\n    {\n      \"revision\": \"ecb2f5f29d6aba8c58e9588d34b677b516ef03d8\",\n      \"file\": \"packages/core/src/run-conductor.ts\",\n      \"bytes\": 48095,\n      \"sha256\": \"408ed6b4706829b1d2bb5d1d8bfac61fefffaf656806a20292506a63402a968c\",\n      \"blob\": \"861f65766fa7a5fff5847b9bb36f9c13ae952498\"\n    }\n  ],\n  \"evidence\": [\n    {\n      \"file\": \"docs/reviews/admission-diagnostic-proposal.md\",\n      \"bytes\": 15571,\n      \"sha256\": \"eec77efddca77cdfbc1fb5548d0e8b02126be2d8d3a616d2682040b65edbacc3\"\n    },\n    {\n      \"file\": \"docs/reviews/admission-diagnostic-amendment-01.md\",\n      \"bytes\": 7708,\n      \"sha256\": \"e6aee7d5056871989af0230affa75dfb1b02d07388262ea4c4a50d41982e7fda\"\n    },\n    {\n      \"file\": \"docs/reviews/admission-diagnostic-source-findings.md\",\n      \"bytes\": 6303,\n      \"sha256\": \"439ccfdeb30be37f25347f581a99764fb806d97a99b87085efbc2621b947b9de\"\n    },\n    {\n      \"file\": \"docs/reviews/admission-diagnostic-design-recheck-02.txt\",\n      \"bytes\": 14590,\n      \"sha256\": \"80bc5dbd22ddbe2ad4c77c10b9ae6ba7fe2cf9098af36a3eca4a5a971f33f418\"\n    },\n    {\n      \"file\": \"docs/reviews/admission-evaluator-qualification/admission-qualification-profile.json\",\n      \"bytes\": 1607,\n      \"sha256\": \"d101581d489ba78b1cede08439c8a0132f02dfa4936aab8bc837bd5b3611892b\"\n    },\n    {\n      \"file\": \"docs/reviews/admission-evaluator-qualification/admission-qualification-review-01.txt\",\n      \"bytes\": 11963,\n      \"sha256\": \"c282b24a84c2b838719b839f6355f8941c091c5f599e9eab60309df9c8c9d515\"\n    },\n    {\n      \"file\": \"docs/reviews/admission-lifetime-assurance-r4/admission-provider-config.json\",\n      \"bytes\": 755,\n      \"sha256\": \"98668a42f2fb4e913b07a539b40df560d7cf6051dfe15226602e2f22cd37e7b0\"\n    },\n    {\n      \"file\": \"docs/reviews/admission-lifetime-assurance-r4/admission-execution-config.json\",\n      \"bytes\": 1259,\n      \"sha256\": \"c0122a30db551238bbe1d362977b3938b62f911a06e45b8057515ed625af94c4\"\n    },\n    {\n      \"file\": \"docs/reviews/admission-lifetime-assurance-r4/admission-provider-readiness-06.txt\",\n      \"bytes\": 18339,\n      \"sha256\": \"8b6a3d99e13e31357bf15d040eba45afebe2d9f60949768d92b2163156244f76\"\n    },\n    {\n      \"file\": \"docs/reviews/admission-lifetime-assurance-r4/admission-gate-review-01.txt\",\n      \"bytes\": 14753,\n      \"sha256\": \"7197bfae7413f1ca76d47f0adbf2f376bb8a97a4731e2d427c18244f883689f9\"\n    },\n    {\n      \"file\": \"docs/reviews/admission-lifetime-assurance-r4/records/2026-10-16-060526-admission-clarity/run.json\",\n      \"bytes\": 76396,\n      \"sha256\": \"52535ef37dcccd976863eb21424557b85a19a41238fb082b8bab1cdcee6fc053\"\n    }\n  ],\n  \"retainedRunProjection\": {\n    \"file\": \"docs/reviews/admission-lifetime-assurance-r4/records/2026-10-16-060526-admission-clarity/run.json\",\n    \"method\": {\n      \"package\": \"@apnex/context-lab-core\",\n      \"version\": \"0.0.0\",\n      \"revision\": \"6e6d0a92965a15ec473c661887b2b9c5037fedcf\"\n    },\n    \"runtimes\": {\n      \"opencode\": \"1.19.2\",\n      \"codex\": \"codex-cli 0.162.1\"\n    },\n    \"recordedRouteIds\": [],\n    \"readerProfiles\": [\n      {\n        \"arm\": \"m42\",\n        \"member\": \"c\",\n        \"pass\": true,\n        \"reasonCount\": 0\n      },\n      {\n        \"arm\": \"m42\",\n        \"member\": \"g\",\n        \"pass\": true,\n        \"reasonCount\": 0\n      },\n      {\n        \"arm\": \"m42\",\n        \"member\": \"o\",\n        \"pass\": true,\n        \"reasonCount\": 0\n      },\n      {\n        \"arm\": \"x19\",\n        \"member\": \"c\",\n        \"pass\": true,\n        \"reasonCount\": 0\n      },\n      {\n        \"arm\": \"x19\",\n        \"member\": \"g\",\n        \"pass\": true,\n        \"reasonCount\": 0\n      },\n      {\n        \"arm\": \"x19\",\n        \"member\": \"o\",\n        \"pass\": true,\n        \"reasonCount\": 0\n      }\n    ],\n    \"judgeProfiles\": [\n      {\n        \"arm\": \"judges\",\n        \"member\": \"c\",\n        \"pass\": true,\n        \"reasonCount\": 0\n      },\n      {\n        \"arm\": \"judges\",\n        \"member\": \"g\",\n        \"pass\": true,\n        \"reasonCount\": 0\n      },\n      {\n        \"arm\": \"judges\",\n        \"member\": \"o\",\n        \"pass\": true,\n        \"reasonCount\": 0\n      }\n    ],\n    \"snapshotPopulation\": [\n      {\n        \"id\": \"c\",\n        \"runtime\": \"opencode\",\n        \"model\": \"litellm-nexus/claude-opus-5-5\",\n        \"family\": \"claude\",\n        \"settings\": null\n      },\n      {\n        \"id\": \"g\",\n        \"runtime\": \"opencode\",\n        \"model\": \"litellm-nexus/gemini-3.8-flash\",\n        \"family\": \"gemini\",\n        \"settings\": null\n      },\n      {\n        \"id\": \"o\",\n        \"runtime\": \"codex\",\n        \"model\": \"gpt-6-astra\",\n        \"family\": \"gpt\",\n        \"settings\": {\n          \"reasoningEffort\": \"high\"\n        }\n      }\n    ]\n  },\n  \"beforeReconciliation\": [\n    {\n      \"file\": \"docs/BOARD.md\",\n      \"sha256\": \"ebab6e68b96a89efc9018c2c135b1cca4a17ae0dfe187f4e4cd16228e3379e7a\",\n      \"bytes\": 45149,\n      \"boardRows\": [\n        \"| `B53` | Bound identity admission and release expired connections | `I2` | `P2` | [`MX21`](VERIFICATION.md#46-open-findings-from-sweeps), [admission-timeout finding](VERIFICATION.md#421-identity-admission-timeout-and-teardown-finding) | open |\",\n        \"| 2 | `B53` | Diagnostic design/M7 recheck PASS; capability inventory next | [Amended diagnostic](reviews/admission-diagnostic-amendment-01.md) requires supported budget, trace, retention and containment evidence before fixtures or driver work; [independent review](reviews/admission-diagnostic-design-recheck-02.txt) is design-only, not readiness or live authority |\",\n        \"| `B53` | Inventory supported diagnostic capabilities before packet construction | [Stage 0a](reviews/admission-diagnostic-amendment-01.md#d2---capability-inventory-precedes-packet-construction) is read-only and makes no diagnostic calls; establish budget/trace/retention/containment support and review workflow, or record an exact owner-side gap and stop; preparation and live execution remain later selections |\",\n        \"| Do we select the amended diagnostic's zero-call capability inventory, or park this assurance path? | Replacement `B53` qualification; [design/M7 recheck](reviews/admission-diagnostic-design-recheck-02.txt) is PASS, but supported request/spend guards, observation, retention and accepted containment remain unestablished; this choice grants no packet construction, live cap, monetary allowance or execution authority |\",\n        \"| Do we ratify the clarified admission contract after valid fresh-reader assurance? | `B53` adoption and implementation; [revision 4](reviews/admission-lifetime-correction-r4.md) retains independent technical and scoped M7 PASS, while the prior assurance FAIL remains unchanged and the completed new comparison supplies no valid assurance verdict |\"\n      ]\n    },\n    {\n      \"file\": \"docs/VERIFICATION.md\",\n      \"sha256\": \"2031e3c7ed920c89c32387d5d8d96ba8ef1562ceb00bbaa3bc59e45488bb3f8f\",\n      \"bytes\": 278846\n    }\n  ],\n  \"claimBoundary\": \"File/Git identity and existing record metadata only. No invocation, credential/account read, capability enforcement or fresh isolation measurement.\"\n}\n"
+  },
+  "capabilitySearchesAndCaptures": [
+    {
+      "cmd": "git diff e705b3d749400d0a79efe98e5338e9c84a1695b8 ecb2f5f29d6aba8c58e9588d34b677b516ef03d8 -- README.md VISION.md docs/ARCHITECTURE-TARGET.md",
+      "workdir": "/home/apnex/taceng/context-lab",
+      "chunk_id": "f20ae3",
+      "wall_time_seconds": 0.000023247,
+      "exit_code": 0,
+      "original_token_count": 0,
+      "output": ""
+    },
+    {
+      "cmd": "git grep -n -i -E 'budget|reserv|currency|spend|pricing|provider.?request|request.?id|persist|cancel|deadline|retry' ecb2f5f29d6aba8c58e9588d34b677b516ef03d8 -- README.md VISION.md docs/ARCHITECTURE-TARGET.md docs/BACKLOG.md docs/BOARD.md docs/DELTAS packages/core/src/index.ts packages/core/src/outcome.ts",
+      "workdir": "/home/apnex/taceng/context-lab",
+      "chunk_id": "932851",
+      "wall_time_seconds": 0.000024272,
+      "exit_code": 0,
+      "original_token_count": 1664,
+      "output": "ecb2f5f29d6aba8c58e9588d34b677b516ef03d8:docs/ARCHITECTURE-TARGET.md:229:**A comparison** applies its declared rule; an A/A-calibrated rule extends a flagged property by its declared runs and reports a flag that persists at the larger size.\necb2f5f29d6aba8c58e9588d34b677b516ef03d8:docs/BACKLOG.md:30:| **B12** | S4 | A8 signal | **CLOSED** - mission-kit's A/A experiment was recorded before running, calibrated on a 450-cell run (F14, `2026-10-14-004707-aa`) and repeated on a second 450-cell run (F15, `2026-10-14-053958-aa`) with 0 persisting flags under `aa-gate`; M4.3 retains the further arm-guess and repeat checks (Delta-2 stage 5). **Repeatability is not tested.** No recorded experiment has been repeated and compared under its declared rule. | `[V, docs/ARCHITECTURE-TARGET.md section 8; docs/DELTAS/DELTA-2.md Record, stage 5]` | CLOSED - Delta-2 stage 5 (0024) |\necb2f5f29d6aba8c58e9588d34b677b516ef03d8:docs/DELTAS/DELTA-2.md:41:- **The threshold deriver.** Its input is one A/A run: two identical arms, A and B, at nine runs per cell. For each scenario and member it pools the present cell runs of both arms - eighteen when none is excluded. A property's drop between two sets is standardised: `d = (rateA - rateB) / sqrt(2 p (1 - p) / n)`, `p` the property's rate over both sets together, `n` the outcomes per set, and `d = 0` where `p` is 0 or 1. For a size `k` of 3 or 9, with the generator the blinder uses seeded by the experiment's hash and `k`, it draws 1000 splits: for each, in sorted order of scenario and member, it shuffles that pool and takes the first `k'` runs as set A and the next `k'` as set B, where `k' = min(k, floor(n_pool / 2))`; every property uses the same split. Per split it takes the largest `d` over `m` properties - `m` declared by the comparison rule, by default every property the experiment holds. The threshold for size `k` is the nine-hundredth of the 1000 sorted largest values, and a drop flags only when strictly greater. It also reports, from nested splits whose first three runs per side form the size-3 sets, how often the two-stage rule below flags a persisting drop; and, as a drift check, where the actual arm A against arm B largest drop falls among the splits. It records `m`, the split count, the run id and both thresholds, and refuses a pool of fewer than twelve present runs.\necb2f5f29d6aba8c58e9588d34b677b516ef03d8:docs/DELTAS/DELTA-2.md:44:- **The comparator.** Two arms of one result, or two results, under a declared rule: per-property tolerance, a property absent from the head or with no mean counted as a drop; the A/A rule - flag a property whose standardised drop exceeds the size-3 threshold, then, given results of base and head at nine runs supplied by the caller, report as persisting a flagged property whose drop at nine exceeds the size-9 threshold; or improve-without-worsening across families. It refuses inputs that differ in anything but the variant revisions under comparison - scenarios, population, runs per cell, trap assignment - and a threshold set whose `m` differs from the property count compared. Its output holds exactly `rule`, `inputs`, `flags`, `heldOut`, `exposed`, `limits`.\necb2f5f29d6aba8c58e9588d34b677b516ef03d8:docs/DELTAS/DELTA-2.md:115:| F12 | 4 | On fixtures, each rule flags exactly the properties its definition in section 1 flags, including a property absent from the head or with no mean, and a flagged property persisting or not at size 9 read from a tally restricted to runs 1 to 3; the comparator refuses inputs differing in scenarios, population, runs per cell or trap assignment, and a threshold set of another `m`; its output's keys are exactly those section 1 lists. |\necb2f5f29d6aba8c58e9588d34b677b516ef03d8:docs/DELTAS/DELTA-2.md:118:| F15 | 5 | A further run of the same recorded A/A experiment at the same pinned revision, started after F14's thresholds were recorded, is compared arm against arm under the A/A rule - cell runs 1 to 3 against the size-3 threshold, then flagged properties over all nine against the size-9 threshold - and the count of persisting flags is recorded; if it is above zero, the result states that the gate cannot tell a change from noise at this size, the falsifier of mission-kit's standing-suite design, section 12. |\necb2f5f29d6aba8c58e9588d34b677b516ef03d8:docs/DELTAS/DELTA-2.md:157:**Settled at ratification (`0019`):** the gate's shape - one run with base and head as arms, as recommended and drafted, or two runs; the reading of mission-kit's gate rule as the largest standardised drop over `m` properties at the ninetieth percentile, a flag being one property or more, with persistence tested on nested sets; and the stated variation and default of the A/A and handoff experiments - 0.25 pooled, defaulting to no change indicated.\necb2f5f29d6aba8c58e9588d34b677b516ef03d8:docs/DELTAS/DELTA-2.md:224:Also fixed from its findings: the A/A rule reads three runs in its first stage and nine for persistence, refusing other counts; a property absent from the head under the A/A rule persists when it is absent at nine too, so F15's count includes it; the deriver takes only a run of nine runs per cell, and `context-lab thresholds` refuses a comparison whose two arms deliver different things; the run command's flags are read by a tested function.\\\necb2f5f29d6aba8c58e9588d34b677b516ef03d8:docs/DELTAS/DELTA-2.md:251:Compared arm against arm (`on-trigger` vs `on-trigger-b`) under `aa-gate` (`COMPARE.json` in the run directory): 0 flags at size 3 and 0 persisting flags at size 9.\\\necb2f5f29d6aba8c58e9588d34b677b516ef03d8:docs/DELTAS/DELTA-2.md:270:| F15 satisfied either way, and citing a falsifier the architecture does not hold | blocking | Reworded to record the count of persisting flags and its consequence; citation corrected to mission-kit's design, section 12 |\necb2f5f29d6aba8c58e9588d34b677b516ef03d8:docs/DELTAS/DELTA-3.md:135:- **Code quote check is surface-level, and applies between stage 1 and stage 2.** Checking that `words(quote)` is 1-25 words and a subset of `words(outcome)` catches fabricated words and over-long quotes before spending verifier calls; it does not check whether the quote supports the finding in context, which is the stage-2 verifier's job. When counting already-verified legacy records (`l-02`), recorded stage-2 verifier verdicts stand (`G9`).\necb2f5f29d6aba8c58e9588d34b677b516ef03d8:docs/DELTAS/DELTA-3.md:137:- **Live zorg run is one scenario.** `l-02` already ran 78 readers across all 13 briefs; G9 proves exact parity on all 78 readers and 26 findings, and G10 proves the live pipeline end-to-end on one brief rather than re-spending 78 readers.\n"
+    },
+    {
+      "cmd": "git diff e705b3d749400d0a79efe98e5338e9c84a1695b8 ecb2f5f29d6aba8c58e9588d34b677b516ef03d8 -- packages/core/src/adapters.ts packages/core/src/outcome.ts",
+      "workdir": "/home/apnex/taceng/context-lab",
+      "chunk_id": "b0f89d",
+      "wall_time_seconds": 0.000026871,
+      "exit_code": 0,
+      "original_token_count": 535,
+      "output": "diff --git a/packages/core/src/adapters.ts b/packages/core/src/adapters.ts\nindex d0f0554..059f0f5 100644\n--- a/packages/core/src/adapters.ts\n+++ b/packages/core/src/adapters.ts\n@@ -197,7 +197,7 @@ export function opencodeAdapter(opts: OpencodeOptions = {}): Adapter {\n \t\t\tfor (const d of [\"config/opencode\", \"data\", \"state\", \"cache\"]) fs.mkdirSync(path.join(inv.work, d), { recursive: true });\n \t\t\tif (inv.continueFrom) fs.cpSync(path.join(inv.continueFrom.work, \"data\"), path.join(inv.work, \"data\"), { recursive: true });\n \t\t\tif (fs.existsSync(operatorCache)) fs.cpSync(operatorCache, path.join(inv.work, \"cache\", \"opencode\"), { recursive: true });\n-\t\t\tconst onRequest = inv.arm.onRequest.map((o) => o.path);\n+\t\t\tconst onRequest = inv.tools === \"off\" ? [] : inv.arm.onRequest.map((o) => o.path);\n \t\t\tconst permission = inv.tools === \"off\"\n \t\t\t\t? Object.fromEntries([\"edit\", \"bash\", \"read\", \"webfetch\", \"websearch\", \"task\", \"glob\", \"grep\", \"list\", \"external_directory\"].map((k) => [k, \"deny\"]))\n \t\t\t\t: { edit: \"allow\", bash: \"allow\", read: \"allow\", webfetch: \"deny\", websearch: \"deny\", task: \"deny\", external_directory: onRequest.length ? Object.fromEntries([[\"*\", \"deny\"], ...onRequest.map((o) => [`${o}/**`, \"allow\"])]) : \"deny\" };\n@@ -338,7 +338,7 @@ export function codexAdapter(opts: CodexOptions = {}): Adapter {\n \t\t\t\t: [\"exec\", ...common, \"-C\", workspace, inv.mode === \"stdin\" ? \"-\" : inv.prompt];\n \t\t\tconst secrets = authSecrets(auth);\n \t\t\tconst r = await runSandboxed({\n-\t\t\t\tinstall: vendor, writable: inv.tools === \"off\" ? [inv.work] : [inv.work, inv.workspace], readOnly: inv.arm.onRequest.map((o) => o.path), home, cwd: workspace,\n+\t\t\t\tinstall: vendor, writable: inv.tools === \"off\" ? [inv.work] : [inv.work, inv.workspace], readOnly: inv.tools === \"off\" ? [] : inv.arm.onRequest.map((o) => o.path), home, cwd: workspace,\n \t\t\t\tcommand: [binary, ...args], env: { PATH: \"/usr/bin:/bin\", PWD: workspace, HOME: home, CODEX_HOME: codexHome }, stdin: inv.mode === \"stdin\" ? inv.prompt : null, timeLimitSeconds: inv.timeLimitSeconds,\n \t\t\t});\n \t\t\t// The login copy and Codex's own databases are removed, so no run record carries them.\n"
+    },
+    {
+      "cmd": "node --input-type=module <<'NODE'\nimport fs from 'node:fs';\nimport crypto from 'node:crypto';\nconst file='docs/reviews/admission-lifetime-assurance-r4/admission-provider-config.json';\nconst bytes=fs.readFileSync(file);const config=JSON.parse(bytes);\nconst paths=[];function keys(value,prefix=''){if(value&&typeof value==='object')for(const [key,v]of Object.entries(value)){const p=prefix?prefix+'.'+key:key;paths.push(p);keys(v,p);}}\nkeys(config);\nconsole.log(JSON.stringify({file,sha256:crypto.createHash('sha256').update(bytes).digest('hex'),configurationKeyPaths:paths,providers:Object.entries(config.provider??{}).map(([id,p])=>({id,client:p.npm,baseURL:p.options?.baseURL,credentialSourceKind:/^\\{env:[A-Za-z_][A-Za-z0-9_]*\\}$/.test(p.options?.apiKey??'')?'environment reference':'not printed',models:Object.entries(p.models??{}).map(([id,m])=>({id,limits:m.limit,client:m.provider?.npm??p.npm,optionKeys:Object.keys(m.options??{})}))})),scope:'Frozen sanitized declaration only. No environment, credential store, provider or account queried.'},null,2));\nNODE",
+      "workdir": "/home/apnex/taceng/agp",
+      "chunk_id": "f273f5",
+      "wall_time_seconds": 0.166200516,
+      "exit_code": 0,
+      "original_token_count": 617,
+      "output": "{\n  \"file\": \"docs/reviews/admission-lifetime-assurance-r4/admission-provider-config.json\",\n  \"sha256\": \"98668a42f2fb4e913b07a539b40df560d7cf6051dfe15226602e2f22cd37e7b0\",\n  \"configurationKeyPaths\": [\n    \"provider\",\n    \"provider.litellm-nexus\",\n    \"provider.litellm-nexus.npm\",\n    \"provider.litellm-nexus.options\",\n    \"provider.litellm-nexus.options.baseURL\",\n    \"provider.litellm-nexus.options.apiKey\",\n    \"provider.litellm-nexus.models\",\n    \"provider.litellm-nexus.models.claude-opus-5-5\",\n    \"provider.litellm-nexus.models.claude-opus-5-5.name\",\n    \"provider.litellm-nexus.models.claude-opus-5-5.reasoning\",\n    \"provider.litellm-nexus.models.claude-opus-5-5.options\",\n    \"provider.litellm-nexus.models.claude-opus-5-5.options.thinking\",\n    \"provider.litellm-nexus.models.claude-opus-5-5.options.thinking.type\",\n    \"provider.litellm-nexus.models.claude-opus-5-5.options.output_config\",\n    \"provider.litellm-nexus.models.claude-opus-5-5.options.output_config.effort\",\n    \"provider.litellm-nexus.models.claude-opus-5-5.limit\",\n    \"provider.litellm-nexus.models.claude-opus-5-5.limit.context\",\n    \"provider.litellm-nexus.models.claude-opus-5-5.limit.output\",\n    \"provider.litellm-nexus.models.gemini-3.8-flash\",\n    \"provider.litellm-nexus.models.gemini-3.8-flash.name\",\n    \"provider.litellm-nexus.models.gemini-3.8-flash.limit\",\n    \"provider.litellm-nexus.models.gemini-3.8-flash.limit.context\",\n    \"provider.litellm-nexus.models.gemini-3.8-flash.limit.output\",\n    \"provider.litellm-nexus.models.gemini-3.8-flash.provider\",\n    \"provider.litellm-nexus.models.gemini-3.8-flash.provider.npm\"\n  ],\n  \"providers\": [\n    {\n      \"id\": \"litellm-nexus\",\n      \"client\": \"@ai-sdk/anthropic\",\n      \"baseURL\": \"http://100.80.94.9:4000/v1\",\n      \"credentialSourceKind\": \"environment reference\",\n      \"models\": [\n        {\n          \"id\": \"claude-opus-5-5\",\n          \"limits\": {\n            \"context\": 1000000,\n            \"output\": 128000\n          },\n          \"client\": \"@ai-sdk/anthropic\",\n          \"optionKeys\": [\n            \"thinking\",\n            \"output_config\"\n          ]\n        },\n        {\n          \"id\": \"gemini-3.8-flash\",\n          \"limits\": {\n            \"context\": 1048576,\n            \"output\": 65536\n          },\n          \"client\": \"@ai-sdk/openai-compatible\",\n          \"optionKeys\": []\n        }\n      ]\n    }\n  ],\n  \"scope\": \"Frozen sanitized declaration only. No environment, credential store, provider or account queried.\"\n}\n"
+    },
+    {
+      "cmd": "rg --files docs/reviews/admission-lifetime-assurance-r4/records -g run.json",
+      "workdir": "/home/apnex/taceng/agp",
+      "chunk_id": "a62c37",
+      "wall_time_seconds": 0.000026225,
+      "exit_code": 0,
+      "original_token_count": 25,
+      "output": "docs/reviews/admission-lifetime-assurance-r4/records/2026-10-16-060526-admission-clarity/run.json\n"
+    },
+    {
+      "cmd": "sed -n '144,170p' docs/reviews/admission-lifetime-assurance-r4/admission-gate-review-01.txt",
+      "workdir": "/home/apnex/taceng/agp",
+      "chunk_id": "7fa798",
+      "wall_time_seconds": 0.000024485,
+      "exit_code": 0,
+      "original_token_count": 463,
+      "output": "   A16 scope penalty is a substantive scoring defect. The frozen invalidity rule\n   requires NO VERDICT, not PASS, rescoring, or a valid-measurement FAIL. Numerical\n   failure and ended-phase zeros remain explicitly recorded despite that limit.\n\nMEASURED PROVENANCE AND NO-MODEL RECONCILIATION\n\nIndependent checks at 2026-10-16T06:28:26.519Z (tool output 1f597d, exit 0):\n- HEAD is the reviewed evidence commit; all 92 committed packet files match its\n  Git blobs, and all 40 execution-checkpoint files match the receipt and Git.\n- Evaluator /tmp/agp-admission-resume.9mKplT/context-lab is clean at\n  6e6d0a92965a15ec473c661887b2b9c5037fedcf. Public checkPack passes. Receipt issues\n  are empty; registration hash is\n  21eff1aeafa1d667413e2678f16064fbbe39b9417f1758c149b3540660aac10c.\n- The receipt binds readiness-06 hash\n  8b6a3d99e13e31357bf15d040eba45afebe2d9f60949768d92b2163156244f76,\n  preserved in 8e2abcc53bef3b233ce9097b1464f44b6ef105ba before execution. Recorded\n  OpenCode 1.19.2, Codex 0.162.1 and bubblewrap 0.4.1 match the amended config.\n- Registration precedes receipt and run validation. All six reader and three\n  judge profile probes have their exact canary/leak questions, expected canaries\n  or NONE, UNKNOWN leak responses, zero tool calls and no failure reasons. The\n  recorded probed stage precedes scored execution; the frozen public invocation\n  wrapper enforces that nine-profile gate. No unresolved delivery/isolation gap\n  was found within those preregistered checks; this is not arbitrary attestation.\n- All six raw phase outcomes/prompts/classifications reconcile; valid saved\n  snapshot files exactly match the retained scored files and public extraction.\n  The two ended snapshots have no answer file. All six sessions are distinct/new.\n- Public blind replay matches all 96 units (ignoring only generated timestamps),\n"
+    },
+    {
+      "cmd": "sed -n '170,196p' docs/reviews/admission-evaluator-qualification/admission-qualification-review-01.txt",
+      "workdir": "/home/apnex/taceng/agp",
+      "chunk_id": "645e86",
+      "wall_time_seconds": 0.000028139,
+      "exit_code": 0,
+      "original_token_count": 426,
+      "output": "The pre-build M7 commitments are realized at the bounded public seams:\nA1/A4 full truthful records and preserved failures; A3 one reused panel;\nA7 deterministic preconditions; A8 separate exact-artifact review; A11 unchanged\nraw judgments and independent semantic authority; A12/A13 no invented budget\nor live inference; A14 explicit revival triggers. This closes Q1-Q7 under the\nexisting G1-G6, not a new production M1 audit or live M2 result.\n\nConsequence: resolve only PREP-L1's candidate-compatibility portion for this\nexact revision and shape. Real delivery, sandbox/isolation, complete real\ninvocation capture, provider enforcement and whole-conductor behavior remain\nunqualified. Probe/classifier original/candidate blob identity was reverified\nbut neither was invoked; no broader all-attempt retention claim follows.\n\nPREP-L2 still needs a separately selected finite-budget diagnostic with exact\ncaps, runtime/version prerequisites, sanitized client/backend observations,\nfrozen unrelated expected cases, representative reader/file output and stops.\nPREP-L3 still needs fresh audited questions/readers and independent completed\nassurance judgment. Any future execution entry point must enforce the reviewed\nrestrictions and retain complete invocation evidence before calls.\nA different revision, nonempty onRequest, altered settings or wider phase/run\nshape revives review; it is not covered by this PASS.\n\nNo model/provider/sandbox/probe/conductor/resume/registration invocation, fault\nor security-trigger reproduction, source patch, commit or delegation occurred.\nNo AGP implementation, ratification, publication, B53 closure, B56 change, push,\nupstream contact or Zorg authority is implied.\n\n"
+    },
+    {
+      "cmd": "git diff e705b3d749400d0a79efe98e5338e9c84a1695b8 ecb2f5f29d6aba8c58e9588d34b677b516ef03d8 -- packages/core/src/runtime-sandbox.ts",
+      "workdir": "/home/apnex/taceng/context-lab",
+      "chunk_id": "2c109c",
+      "wall_time_seconds": 0.000023272,
+      "exit_code": 0,
+      "original_token_count": 0,
+      "output": ""
+    }
+  ],
+  "authorChecks": [
+    {
+      "cmd": "tools/check-docs.sh docs/reviews/admission-diagnostic-capability-findings.md docs/reviews/admission-diagnostic-capability-result.md docs/BOARD.md docs/VERIFICATION.md > /tmp/agp-admission-capability.HT7H1f/docs-output-01.txt 2>&1",
+      "workdir": "/home/apnex/taceng/agp",
+      "chunk_id": "ce5ce3",
+      "wall_time_seconds": 0.563671725,
+      "exit_code": 0,
+      "original_token_count": 0,
+      "output": "",
+      "capturedOutput": "\nclean: 4 file(s), rule S13.\n\nclean: 4 file(s), rule S6.\n\nclean: 4 file(s), rule S10.\n\nclean: 4 file(s), rule S12.\n\nclean: 4 file(s), rule S8.\ndocs: 4 file(s) clean against S6, S8, S10, S12, S13.\n"
+    },
+    {
+      "cmd": "node --test --test-reporter=tap test/conformance/board-record.test.js test/conformance/record-integrity.test.js test/conformance/architecture-record.test.js > /tmp/agp-admission-capability.HT7H1f/record-output-01.txt 2>&1",
+      "workdir": "/home/apnex/taceng/agp",
+      "chunk_id": "0d0040",
+      "wall_time_seconds": 0.380202143,
+      "exit_code": 0,
+      "original_token_count": 0,
+      "output": "",
+      "capturedOutput": "TAP version 13\n# Subtest: Given the confirmed intent record, when its numbered subsections are read, then every number is unique and ordered\nok 1 - Given the confirmed intent record, when its numbered subsections are read, then every number is unique and ordered\n  ---\n  duration_ms: 33.054386\n  type: 'test'\n  ...\n# Subtest: Given the reconciled architecture, when its current paths and scope owners are resolved, then none points at a fictional module or a forked deferred list\nok 2 - Given the reconciled architecture, when its current paths and scope owners are resolved, then none points at a fictional module or a forked deferred list\n  ---\n  duration_ms: 19.912818\n  type: 'test'\n  ...\n# Subtest: Given the triage ledger, when each candidate is read, then it is scored on both dimensions and cites a record\nok 3 - Given the triage ledger, when each candidate is read, then it is scored on both dimensions and cites a record\n  ---\n  duration_ms: 21.330448\n  type: 'test'\n  ...\n# Subtest: Given every record cited by the board, when the link is resolved, then the target and its anchor exist\nok 4 - Given every record cited by the board, when the link is resolved, then the target and its anchor exist\n  ---\n  duration_ms: 260.149252\n  type: 'test'\n  ...\n# Subtest: Given the held section, when each item is read, then it is scored and carries a revival trigger\nok 5 - Given the held section, when each item is read, then it is scored and carries a revival trigger\n  ---\n  duration_ms: 1.765387\n  type: 'test'\n  ...\n# Subtest: Given the decisions required, when each is read, then it names exactly what it blocks\nok 6 - Given the decisions required, when each is read, then it names exactly what it blocks\n  ---\n  duration_ms: 2.524204\n  type: 'test'\n  ...\n# Subtest: Given every board identifier, when the ledger and milestones are compared, then neither contains an item the other omits\nok 7 - Given every board identifier, when the ledger and milestones are compared, then neither contains an item the other omits\n  ---\n  duration_ms: 4.087926\n  type: 'test'\n  ...\n# Subtest: Given every board item, when its ledger status is compared with where it sits, then the board does not disagree with itself about its state\nok 8 - Given every board item, when its ledger status is compared with where it sits, then the board does not disagree with itself about its state\n  ---\n  duration_ms: 27.056532\n  type: 'test'\n  ...\n# Subtest: Given the milestones, when each is read, then no landed item is presented as a live move and the closed count matches the closed set\nok 9 - Given the milestones, when each is read, then no landed item is presented as a live move and the closed count matches the closed set\n  ---\n  duration_ms: 11.895212\n  type: 'test'\n  ...\n# Subtest: Given every record that cites a board item, when the citation is resolved, then the item exists on the board\nok 10 - Given every record that cites a board item, when the citation is resolved, then the item exists on the board\n  ---\n  duration_ms: 95.683628\n  type: 'test'\n  ...\n# Subtest: Given the architecture maturity table, when a reopen trigger is read, then it names a condition that has not already happened\nok 11 - Given the architecture maturity table, when a reopen trigger is read, then it names a condition that has not already happened\n  ---\n  duration_ms: 6.301701\n  type: 'test'\n  ...\n# Subtest: Given confirmed intent, when a row says it was amended, then it names the decision that amended it\nok 12 - Given confirmed intent, when a row says it was amended, then it names the decision that amended it\n  ---\n  duration_ms: 3.122909\n  type: 'test'\n  ...\n# Subtest: Given every ratified decision, when it is checked against the vision, then it has been absorbed or explicitly ruled not to change purpose\nok 13 - Given every ratified decision, when it is checked against the vision, then it has been absorbed or explicitly ruled not to change purpose\n  ---\n  duration_ms: 5.071584\n  type: 'test'\n  ...\n1..13\n# tests 13\n# suites 0\n# pass 13\n# fail 0\n# cancelled 0\n# skipped 0\n# todo 0\n# duration_ms 450.852026\n"
+    },
+    {
+      "cmd": "tools/check-docs.sh docs/reviews/admission-diagnostic-capability-findings.md docs/reviews/admission-diagnostic-capability-result.md docs/BOARD.md docs/VERIFICATION.md > /tmp/agp-admission-capability.HT7H1f/docs-output-02.txt 2>&1",
+      "workdir": "/home/apnex/taceng/agp",
+      "chunk_id": "aa6bef",
+      "wall_time_seconds": 0.665397858,
+      "exit_code": 0,
+      "original_token_count": 0,
+      "output": "",
+      "capturedOutput": "\nclean: 4 file(s), rule S13.\n\nclean: 4 file(s), rule S6.\n\nclean: 4 file(s), rule S10.\n\nclean: 4 file(s), rule S12.\n\nclean: 4 file(s), rule S8.\ndocs: 4 file(s) clean against S6, S8, S10, S12, S13.\n"
+    },
+    {
+      "cmd": "node --test --test-reporter=tap test/conformance/board-record.test.js test/conformance/record-integrity.test.js test/conformance/architecture-record.test.js > /tmp/agp-admission-capability.HT7H1f/record-output-02.txt 2>&1",
+      "workdir": "/home/apnex/taceng/agp",
+      "chunk_id": "51a096",
+      "wall_time_seconds": 0.638773429,
+      "exit_code": 0,
+      "original_token_count": 0,
+      "output": "",
+      "capturedOutput": "TAP version 13\n# Subtest: Given the confirmed intent record, when its numbered subsections are read, then every number is unique and ordered\nok 1 - Given the confirmed intent record, when its numbered subsections are read, then every number is unique and ordered\n  ---\n  duration_ms: 17.208274\n  type: 'test'\n  ...\n# Subtest: Given the reconciled architecture, when its current paths and scope owners are resolved, then none points at a fictional module or a forked deferred list\nok 2 - Given the reconciled architecture, when its current paths and scope owners are resolved, then none points at a fictional module or a forked deferred list\n  ---\n  duration_ms: 35.166518\n  type: 'test'\n  ...\n# Subtest: Given the triage ledger, when each candidate is read, then it is scored on both dimensions and cites a record\nok 3 - Given the triage ledger, when each candidate is read, then it is scored on both dimensions and cites a record\n  ---\n  duration_ms: 22.317315\n  type: 'test'\n  ...\n# Subtest: Given every record cited by the board, when the link is resolved, then the target and its anchor exist\nok 4 - Given every record cited by the board, when the link is resolved, then the target and its anchor exist\n  ---\n  duration_ms: 439.076609\n  type: 'test'\n  ...\n# Subtest: Given the held section, when each item is read, then it is scored and carries a revival trigger\nok 5 - Given the held section, when each item is read, then it is scored and carries a revival trigger\n  ---\n  duration_ms: 2.052689\n  type: 'test'\n  ...\n# Subtest: Given the decisions required, when each is read, then it names exactly what it blocks\nok 6 - Given the decisions required, when each is read, then it names exactly what it blocks\n  ---\n  duration_ms: 3.088645\n  type: 'test'\n  ...\n# Subtest: Given every board identifier, when the ledger and milestones are compared, then neither contains an item the other omits\nok 7 - Given every board identifier, when the ledger and milestones are compared, then neither contains an item the other omits\n  ---\n  duration_ms: 5.336176\n  type: 'test'\n  ...\n# Subtest: Given every board item, when its ledger status is compared with where it sits, then the board does not disagree with itself about its state\nok 8 - Given every board item, when its ledger status is compared with where it sits, then the board does not disagree with itself about its state\n  ---\n  duration_ms: 53.62006\n  type: 'test'\n  ...\n# Subtest: Given the milestones, when each is read, then no landed item is presented as a live move and the closed count matches the closed set\nok 9 - Given the milestones, when each is read, then no landed item is presented as a live move and the closed count matches the closed set\n  ---\n  duration_ms: 10.120094\n  type: 'test'\n  ...\n# Subtest: Given every record that cites a board item, when the citation is resolved, then the item exists on the board\nok 10 - Given every record that cites a board item, when the citation is resolved, then the item exists on the board\n  ---\n  duration_ms: 137.697481\n  type: 'test'\n  ...\n# Subtest: Given the architecture maturity table, when a reopen trigger is read, then it names a condition that has not already happened\nok 11 - Given the architecture maturity table, when a reopen trigger is read, then it names a condition that has not already happened\n  ---\n  duration_ms: 8.277063\n  type: 'test'\n  ...\n# Subtest: Given confirmed intent, when a row says it was amended, then it names the decision that amended it\nok 12 - Given confirmed intent, when a row says it was amended, then it names the decision that amended it\n  ---\n  duration_ms: 2.281814\n  type: 'test'\n  ...\n# Subtest: Given every ratified decision, when it is checked against the vision, then it has been absorbed or explicitly ruled not to change purpose\nok 13 - Given every ratified decision, when it is checked against the vision, then it has been absorbed or explicitly ruled not to change purpose\n  ---\n  duration_ms: 3.979683\n  type: 'test'\n  ...\n1..13\n# tests 13\n# suites 0\n# pass 13\n# fail 0\n# cancelled 0\n# skipped 0\n# todo 0\n# duration_ms 655.074585\n"
+    },
+    {
+      "cmd": "node --input-type=module > /tmp/agp-admission-capability.HT7H1f/static-output-01.txt 2>&1 <<'NODE'\nimport assert from 'node:assert/strict';\nimport fs from 'node:fs';\nimport path from 'node:path';\nimport crypto from 'node:crypto';\nimport {execFileSync} from 'node:child_process';\nconst record=JSON.parse(fs.readFileSync('docs/reviews/admission-diagnostic-capability-checks.json'));\nconst evidence=record.priorInputs;\nconst root=process.cwd();\nconst upstream='/home/apnex/taceng/context-lab';\nconst sha=b=>crypto.createHash('sha256').update(b).digest('hex');\nconst git=(cwd,...args)=>execFileSync('git',['-C',cwd,...args],{maxBuffer:32<<20});\nassert.equal(git(root,'rev-parse','HEAD').toString().trim(),evidence.agpAtInspection);\nassert.equal(record.diagnosticInvocations,0);\nassert.equal(record.providerRequestsMadeByInventory,0);\nfor(const source of evidence.sources){\n const spec=source.revision+':'+source.file;\n if(source.present===false){\n  assert.equal(git(upstream,'ls-tree','--name-only',source.revision,'--',source.file).length,0);\n }else{\n  const bytes=git(upstream,'show',spec);\n  assert.equal(bytes.length,source.bytes);\n  assert.equal(sha(bytes),source.sha256);\n  assert.equal(git(upstream,'rev-parse',spec).toString().trim(),source.blob);\n }\n}\nfor(const entry of evidence.evidence){\n const bytes=fs.readFileSync(entry.file);\n assert.equal(bytes.length,entry.bytes);\n assert.equal(sha(bytes),entry.sha256);\n assert.deepEqual(bytes,git(root,'show',evidence.agpAtInspection+':'+entry.file));\n}\nassert.equal(git(root,'diff','--exit-code',evidence.agpAtInspection,'--','docs/reviews','packages','cli','rustcli','schemas').length,0);\nconst run=JSON.parse(fs.readFileSync(evidence.retainedRunProjection.file));\nassert.equal(run.method.revision,'6e6d0a92965a15ec473c661887b2b9c5037fedcf');\nassert.notEqual(run.method.revision,evidence.qualifiedEvaluator);\nassert.equal(Object.hasOwn(run,'routes'),false);\nassert.equal(run.probes.length,6);\nassert.equal(run.judgeProbes.length,3);\nassert.ok([...run.probes,...run.judgeProbes].every(p=>p.pass===true&&p.reasons.length===0));\nconst profile=JSON.parse(fs.readFileSync('docs/reviews/admission-evaluator-qualification/admission-qualification-profile.json'));\nassert.equal(profile.evaluatorAdoptedForLiveUse,false);\nconst docs=['docs/reviews/admission-diagnostic-capability-findings.md','docs/reviews/admission-diagnostic-capability-result.md'];\nconst links=[];\nconst headingSlug=s=>s.toLowerCase().replace(/[\\x60*_]/g,'').replace(/[^\\p{L}\\p{N}\\s-]/gu,'').trim().replace(/\\s/g,'-');\nfor(const file of docs){\n const contents=fs.readFileSync(file,'utf8');\n for(const match of contents.matchAll(/\\[[^\\]]*\\]\\(([^)]+)\\)/g)){\n  const target=match[1];\n  if(target.startsWith('https:')){\n   const m=/^https:\\/\\/github\\.com\\/apnex\\/context-lab\\/blob\\/([0-9a-f]{40})\\/([^#]+)(?:#.*)?$/.exec(target);\n   assert.ok(m,target);\n   git(upstream,'cat-file','-e',m[1]+':'+m[2]);\n   links.push({file,target,checked:'pinned local Git object; no remote freshness claim'});\n  }else{\n   const [name,anchor]=target.split('#');\n   const destination=path.resolve(path.dirname(file),name||path.basename(file));\n   assert.ok(fs.existsSync(destination),target);\n   if(anchor){\n    const headings=fs.readFileSync(destination,'utf8').split('\\n').filter(l=>/^#{1,6} /.test(l)).map(l=>headingSlug(l.replace(/^#{1,6} /,'')));\n    assert.ok(headings.includes(anchor),target);\n   }\n   links.push({file,target,checked:'local file and anchor where supplied'});\n  }\n }\n}\nconst board=fs.readFileSync('docs/BOARD.md','utf8');\nconst beforeBoard=evidence.beforeReconciliation.find(e=>e.file==='docs/BOARD.md');\nconst afterRows=board.split('\\n').filter(l=>l.startsWith('|')&&l.includes('\\x60B53\\x60'));\nassert.equal(afterRows.length,beforeBoard.boardRows.length);\nassert.equal(afterRows[0],beforeBoard.boardRows[0]);\nassert.equal(afterRows.at(-1),beforeBoard.boardRows.at(-1));\nlet reversed=board;\nconst replaceOnce=(s,from,to)=>{\n assert.equal(s.split(from).length,2);\n return s.replace(from,to);\n};\nfor(let i=1;i<afterRows.length-1;i++)reversed=replaceOnce(reversed,afterRows[i],beforeBoard.boardRows[i]);\nconst newParagraph=[\n'The director selected that read-only inventory; the [completed stage 0a result](reviews/admission-diagnostic-capability-result.md) is a terminal zero-call stop, not a diagnostic FAIL or readiness PASS.\\\\',\n'The [pinned source inventory](reviews/admission-diagnostic-capability-findings.md) identifies missing supported request/spend, trace and retention evidence, while retaining the old isolation/delivery acceptance within its original scope.\\\\',\n'Actual deployed provider/account capabilities remain unknown; the next recommendation is approval for a bounded owner request, not packet construction or an AGP-local evaluator project.\\\\'\n].join('\\n');\nconst oldParagraph='The next recommendation is only a read-only inventory of existing supported capabilities and accepted evidence; unknown prerequisites end that attempt with an owner and revival trigger, not an AGP-local evaluator project.\\\\';\nreversed=replaceOnce(reversed,newParagraph,oldParagraph);\nassert.equal(sha(reversed),beforeBoard.sha256);\nassert.equal(Buffer.byteLength(reversed),beforeBoard.bytes);\nassert.ok(!board.includes(\"Do we select the amended diagnostic's zero-call capability inventory\"));\nfor(const item of ['B53','B56']){\n const line=board.split('\\n').find(l=>l.startsWith('| \\x60'+item+'\\x60 |')&&l.includes(' | \\x60I'));\n assert.ok(line?.endsWith('| open |'),item);\n}\nconst verification=fs.readFileSync('docs/VERIFICATION.md','utf8');\nconst start=verification.indexOf('### 4.45 Admission diagnostic capability inventory and zero-call stop\\n');\nconst end=verification.indexOf('## 5. Modular test architecture\\n');\nassert.ok(start>0&&end>start);\nconst previousVerification=verification.slice(0,start)+verification.slice(end);\nconst beforeVerification=evidence.beforeReconciliation.find(e=>e.file==='docs/VERIFICATION.md');\nassert.equal(sha(previousVerification),beforeVerification.sha256);\nassert.equal(Buffer.byteLength(previousVerification),beforeVerification.bytes);\nconst documents=[...docs,'docs/BOARD.md','docs/VERIFICATION.md'].map(file=>{\n const bytes=fs.readFileSync(file);\n return{file,sha256:sha(bytes),bytes:bytes.length};\n});\nconsole.log(JSON.stringify({\n disposition:'PASS - author static identities, links and record preservation only',\n sourceIdentitiesChecked:evidence.sources.length,\n frozenEvidenceFilesChecked:evidence.evidence.length,\n untouchedTrackedAreas:['docs/reviews','packages','cli','rustcli','schemas'],\n oldProfiles:{readers:6,judges:3,acceptedAtOldScopeOnly:true},\n links,documents,\n board:{beforeSha256:beforeBoard.sha256,afterSha256:sha(board),beforeRows:beforeBoard.boardRows,afterRows,onlyDeclaredChanges:true,scoresStatusOrderPreserved:true},\n verification:{beforeSha256:beforeVerification.sha256,afterSha256:sha(verification),onlyAppendedSection:true},\n limits:'No runtime capability, deployment, isolation or independent readiness tested.'\n},null,2));\nNODE",
+      "workdir": "/home/apnex/taceng/agp",
+      "chunk_id": "d8649f",
+      "wall_time_seconds": 0.349215465,
+      "exit_code": 0,
+      "original_token_count": 0,
+      "output": "",
+      "capturedOutput": "{\n  \"disposition\": \"PASS - author static identities, links and record preservation only\",\n  \"sourceIdentitiesChecked\": 26,\n  \"frozenEvidenceFilesChecked\": 11,\n  \"untouchedTrackedAreas\": [\n    \"docs/reviews\",\n    \"packages\",\n    \"cli\",\n    \"rustcli\",\n    \"schemas\"\n  ],\n  \"oldProfiles\": {\n    \"readers\": 6,\n    \"judges\": 3,\n    \"acceptedAtOldScopeOnly\": true\n  },\n  \"links\": [\n    {\n      \"file\": \"docs/reviews/admission-diagnostic-capability-findings.md\",\n      \"target\": \"admission-diagnostic-capability-checks.json\",\n      \"checked\": \"local file and anchor where supplied\"\n    },\n    {\n      \"file\": \"docs/reviews/admission-diagnostic-capability-findings.md\",\n      \"target\": \"https://github.com/apnex/context-lab/blob/e705b3d749400d0a79efe98e5338e9c84a1695b8/packages/core/src/adapters.ts\",\n      \"checked\": \"pinned local Git object; no remote freshness claim\"\n    },\n    {\n      \"file\": \"docs/reviews/admission-diagnostic-capability-findings.md\",\n      \"target\": \"https://github.com/apnex/context-lab/blob/e705b3d749400d0a79efe98e5338e9c84a1695b8/packages/core/src/run-conductor.ts\",\n      \"checked\": \"pinned local Git object; no remote freshness claim\"\n    },\n    {\n      \"file\": \"docs/reviews/admission-diagnostic-capability-findings.md\",\n      \"target\": \"https://github.com/apnex/context-lab/blob/e705b3d749400d0a79efe98e5338e9c84a1695b8/packages/core/src/adapters.ts\",\n      \"checked\": \"pinned local Git object; no remote freshness claim\"\n    },\n    {\n      \"file\": \"docs/reviews/admission-diagnostic-capability-findings.md\",\n      \"target\": \"https://github.com/apnex/context-lab/blob/e705b3d749400d0a79efe98e5338e9c84a1695b8/packages/core/src/outcome.ts\",\n      \"checked\": \"pinned local Git object; no remote freshness claim\"\n    },\n    {\n      \"file\": \"docs/reviews/admission-diagnostic-capability-findings.md\",\n      \"target\": \"https://github.com/apnex/context-lab/blob/e705b3d749400d0a79efe98e5338e9c84a1695b8/packages/core/src/adapters.ts\",\n      \"checked\": \"pinned local Git object; no remote freshness claim\"\n    },\n    {\n      \"file\": \"docs/reviews/admission-diagnostic-capability-findings.md\",\n      \"target\": \"https://github.com/apnex/context-lab/blob/e705b3d749400d0a79efe98e5338e9c84a1695b8/packages/core/src/runtime-sandbox.ts\",\n      \"checked\": \"pinned local Git object; no remote freshness claim\"\n    },\n    {\n      \"file\": \"docs/reviews/admission-diagnostic-capability-findings.md\",\n      \"target\": \"admission-lifetime-assurance-r4/admission-provider-config.json\",\n      \"checked\": \"local file and anchor where supplied\"\n    },\n    {\n      \"file\": \"docs/reviews/admission-diagnostic-capability-findings.md\",\n      \"target\": \"admission-lifetime-assurance-r4/admission-execution-config.json\",\n      \"checked\": \"local file and anchor where supplied\"\n    },\n    {\n      \"file\": \"docs/reviews/admission-diagnostic-capability-findings.md\",\n      \"target\": \"admission-lifetime-assurance-r4/records/2026-10-16-060526-admission-clarity/run.json\",\n      \"checked\": \"local file and anchor where supplied\"\n    },\n    {\n      \"file\": \"docs/reviews/admission-diagnostic-capability-findings.md\",\n      \"target\": \"admission-lifetime-assurance-r4/admission-gate-review-01.txt\",\n      \"checked\": \"local file and anchor where supplied\"\n    },\n    {\n      \"file\": \"docs/reviews/admission-diagnostic-capability-findings.md\",\n      \"target\": \"admission-evaluator-qualification/admission-qualification-profile.json\",\n      \"checked\": \"local file and anchor where supplied\"\n    },\n    {\n      \"file\": \"docs/reviews/admission-diagnostic-capability-findings.md\",\n      \"target\": \"admission-evaluator-qualification/admission-qualification-review-01.txt\",\n      \"checked\": \"local file and anchor where supplied\"\n    },\n    {\n      \"file\": \"docs/reviews/admission-diagnostic-capability-findings.md\",\n      \"target\": \"admission-diagnostic-design-recheck-02.txt\",\n      \"checked\": \"local file and anchor where supplied\"\n    },\n    {\n      \"file\": \"docs/reviews/admission-diagnostic-capability-result.md\",\n      \"target\": \"admission-diagnostic-capability-findings.md\",\n      \"checked\": \"local file and anchor where supplied\"\n    },\n    {\n      \"file\": \"docs/reviews/admission-diagnostic-capability-result.md\",\n      \"target\": \"admission-diagnostic-amendment-01.md#d2---capability-inventory-precedes-packet-construction\",\n      \"checked\": \"local file and anchor where supplied\"\n    },\n    {\n      \"file\": \"docs/reviews/admission-diagnostic-capability-result.md\",\n      \"target\": \"admission-diagnostic-proposal.md\",\n      \"checked\": \"local file and anchor where supplied\"\n    }\n  ],\n  \"documents\": [\n    {\n      \"file\": \"docs/reviews/admission-diagnostic-capability-findings.md\",\n      \"sha256\": \"15096f8d05aedcce8b7e57d361231693b4ef55f725fa90a4707bad83c64278f9\",\n      \"bytes\": 5535\n    },\n    {\n      \"file\": \"docs/reviews/admission-diagnostic-capability-result.md\",\n      \"sha256\": \"c3ec2b84cf3349734da9f509be7d49ab9b81fed3b404badf87b3eea92da23887\",\n      \"bytes\": 5198\n    },\n    {\n      \"file\": \"docs/BOARD.md\",\n      \"sha256\": \"3c83d185426b1bcdf30a6c35e10e0c0e9a886dead81eeeaf528f2b993eb4588b\",\n      \"bytes\": 45417\n    },\n    {\n      \"file\": \"docs/VERIFICATION.md\",\n      \"sha256\": \"f66c62d67c462cf2257a8598e4433a6aba1cd1a79930adb1daf827ca13d1b5ec\",\n      \"bytes\": 282144\n    }\n  ],\n  \"board\": {\n    \"beforeSha256\": \"ebab6e68b96a89efc9018c2c135b1cca4a17ae0dfe187f4e4cd16228e3379e7a\",\n    \"afterSha256\": \"3c83d185426b1bcdf30a6c35e10e0c0e9a886dead81eeeaf528f2b993eb4588b\",\n    \"beforeRows\": [\n      \"| `B53` | Bound identity admission and release expired connections | `I2` | `P2` | [`MX21`](VERIFICATION.md#46-open-findings-from-sweeps), [admission-timeout finding](VERIFICATION.md#421-identity-admission-timeout-and-teardown-finding) | open |\",\n      \"| 2 | `B53` | Diagnostic design/M7 recheck PASS; capability inventory next | [Amended diagnostic](reviews/admission-diagnostic-amendment-01.md) requires supported budget, trace, retention and containment evidence before fixtures or driver work; [independent review](reviews/admission-diagnostic-design-recheck-02.txt) is design-only, not readiness or live authority |\",\n      \"| `B53` | Inventory supported diagnostic capabilities before packet construction | [Stage 0a](reviews/admission-diagnostic-amendment-01.md#d2---capability-inventory-precedes-packet-construction) is read-only and makes no diagnostic calls; establish budget/trace/retention/containment support and review workflow, or record an exact owner-side gap and stop; preparation and live execution remain later selections |\",\n      \"| Do we select the amended diagnostic's zero-call capability inventory, or park this assurance path? | Replacement `B53` qualification; [design/M7 recheck](reviews/admission-diagnostic-design-recheck-02.txt) is PASS, but supported request/spend guards, observation, retention and accepted containment remain unestablished; this choice grants no packet construction, live cap, monetary allowance or execution authority |\",\n      \"| Do we ratify the clarified admission contract after valid fresh-reader assurance? | `B53` adoption and implementation; [revision 4](reviews/admission-lifetime-correction-r4.md) retains independent technical and scoped M7 PASS, while the prior assurance FAIL remains unchanged and the completed new comparison supplies no valid assurance verdict |\"\n    ],\n    \"afterRows\": [\n      \"| `B53` | Bound identity admission and release expired connections | `I2` | `P2` | [`MX21`](VERIFICATION.md#46-open-findings-from-sweeps), [admission-timeout finding](VERIFICATION.md#421-identity-admission-timeout-and-teardown-finding) | open |\",\n      \"| 2 | `B53` | Capability inventory complete; diagnostic stopped before calls | [Stage 0a result](reviews/admission-diagnostic-capability-result.md) records unestablished request/spend guards, observation, retention and exact-profile containment evidence; the bounded owner request is drafted, not sent, and no packet or runtime work is selected |\",\n      \"| `B53` | Obtain owner evidence before reconsidering the diagnostic path | [Terminal inventory result](reviews/admission-diagnostic-capability-result.md#draft-owner-request---not-sent) names each gap, responsible role and revival evidence; sending the drafted request requires approval, while preparation and live execution remain later selections |\",\n      \"| Do we send the bounded capability request to the runtime/provider owners, or leave this diagnostic path parked? | Replacement `B53` qualification; the [completed zero-call inventory](reviews/admission-diagnostic-capability-result.md) requires owner evidence before reconsideration; no packet construction, live cap, spending or execution follows from this choice |\",\n      \"| Do we ratify the clarified admission contract after valid fresh-reader assurance? | `B53` adoption and implementation; [revision 4](reviews/admission-lifetime-correction-r4.md) retains independent technical and scoped M7 PASS, while the prior assurance FAIL remains unchanged and the completed new comparison supplies no valid assurance verdict |\"\n    ],\n    \"onlyDeclaredChanges\": true,\n    \"scoresStatusOrderPreserved\": true\n  },\n  \"verification\": {\n    \"beforeSha256\": \"2031e3c7ed920c89c32387d5d8d96ba8ef1562ceb00bbaa3bc59e45488bb3f8f\",\n    \"afterSha256\": \"f66c62d67c462cf2257a8598e4433a6aba1cd1a79930adb1daf827ca13d1b5ec\",\n    \"onlyAppendedSection\": true\n  },\n  \"limits\": \"No runtime capability, deployment, isolation or independent readiness tested.\"\n}\n"
+    }
+  ],
+  "authorOrchestrationFailures": [
+    {
+      "phase": "Author static-check capture construction",
+      "result": "SyntaxError: Unexpected token ']'",
+      "cause": "Unescaped JavaScript template-literal backticks in the capture wrapper",
+      "effect": "functions.exec parsing failed before the shell/static check ran; no filesystem or runtime action occurred."
+    }
+  ],
+  "finalDisposition": "STOP - no supported path established; zero diagnostic calls. Not diagnostic FAIL, independent readiness PASS or proof of provider incapability.",
+  "publication": "Only new capability records are intended for a scoped local commit. Board/verification remain mixed local edits; no push or sibling message."
+}
