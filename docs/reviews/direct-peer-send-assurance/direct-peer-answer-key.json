@@ -1,0 +1,332 @@
+{
+  "kind": "direct-peer-assurance-answer-key",
+  "status": "prospective author key; uncommitted and not independently audited",
+  "scoring": {
+    "0": "A materially wrong required decision, an invented authority/guarantee, or no answer to the question.",
+    "1": "No wrong required decision, but an asked decision/location/diagnosis remains incomplete, uncertain or unsupported. Record a faithful information gap separately from a wrong answer.",
+    "2": "All asked decisions are correct, sufficiently actionable and grounded in assigned text or a valid derivation; intended unresolved choices are identified without invention."
+  },
+  "rules": [
+    "Score the question asked, not every ancillary implementation detail; equivalent terminology and valid grounded derivations are accepted.",
+    "Grounding quotations below are nonexclusive audit aids, not required wording or a ceiling on support available in either reading.",
+    "An intended scope exclusion or genuinely unselected API/formula can be a fully correct answer; do not force a guessed design choice.",
+    "An honest missing fact needed for the requested actionable plan is scored incomplete, not wrong; retain that diagnosis separately.",
+    "A valid quote must occur in the assigned reading and entail the claim; quote membership alone does not prove semantic support.",
+    "The author role mapping and support notes are withheld from scored readers and anonymous judges; the future renderer must preserve the version-neutral rubric and substantive required decisions without role/order metadata."
+  ],
+  "entries": [
+    {
+      "id": "Q01",
+      "role": "control",
+      "duty": "Preserve ordinary routing while applying the new restriction",
+      "required": [
+        "Ordinary send and ordinary any/preferred/pinned behavior, including local delivery and multi-hop pins, remain unchanged.",
+        "Restricted sends filter eligible routes for the named endpoint and target origin to direct session candidates before canonical selection; an ordinary winner cannot mask an eligible direct candidate.",
+        "Only local or indirect reachability cannot satisfy the restriction: refuse before admission, without fallback or waiting for a connection.",
+        "The restricted method derives the pinned selector and hopLimit 1; there is no new identity-bearing data wire."
+      ],
+      "grounding": {
+        "shared": [
+          "Ordinary `send()`, `any`, `preferred` and `pinned` behavior remain unchanged, including existing multi-hop pins and local delivery.",
+          "Query the candidate table for the named endpoint and target origin, restricting it to direct session next hops before choosing a candidate",
+          "Restricted packets carry the existing pinned selector and `hopLimit: 1`."
+        ]
+      },
+      "wrong": [
+        "Redefines every pin as direct-only",
+        "Uses a local binding or relay to satisfy restricted send",
+        "Selects unrestricted winner once and ignores other eligible direct candidates"
+      ]
+    },
+    {
+      "id": "Q02",
+      "role": "control",
+      "duty": "Preserve authorized instance continuity across reconnection",
+      "required": [
+        "A replacement is eligible before send admission only with the same target node and exactly equal association: mode, and for authenticated mode issuer, principal and instanceBinding; route, protection and ordinary admission conditions must also hold.",
+        "Fresh credentials or session identifiers may differ for the same authorized binding; source export must be checked on the replacement.",
+        "A new allocation receives a different instanceBinding even for reused node/principal, so an older captured target does not match it.",
+        "Continuity is conditional on the issuer/verifier binding and protecting credentials; it does not distinguish physical processes holding identical credential material."
+      ],
+      "grounding": {
+        "shared": [
+          "Authenticated equality additionally requires exact equality of `issuer`, `principal` and `instanceBinding`",
+          "Source export is checked on the replacement session, not borrowed from the old one.",
+          "Every new allocation of a previously released node identity gets a different identifier, including across issuer generations.",
+          "it cannot distinguish physical processes that possess identical credentials."
+        ]
+      },
+      "wrong": [
+        "Treats equal node/principal alone as continuity across later allocations",
+        "Claims unique physical-process identity",
+        "Allows post-commit packet migration"
+      ]
+    },
+    {
+      "id": "Q03",
+      "role": "control",
+      "duty": "Refuse unsupported or downgraded use",
+      "required": [
+        "Check support at composition/startup and refuse unsupported use; never fall back to ordinary send.",
+        "No directPeer or no explicit admitted association gives no restricted-reply authority; legacy allow remains usable for ordinary operations and is not implicit unauthenticated mode.",
+        "Failed or missing proof in an authenticated policy is denied, not downgraded; unauthenticated operation requires explicit host policy.",
+        "The host selects minimumProtection explicitly and independently of authentication; authentication alone proves no channel confidentiality."
+      ],
+      "grounding": {
+        "shared": [
+          "A consumer requiring this contract must check support when composing its node and refuse startup/use if unavailable.",
+          "No fallback to `send()` is permitted.",
+          "Zorg's `D60` requires explicit authentication mode, denial of failed proof without downgrade, and configured authority namespaces.",
+          "Both `target` and `minimumProtection` are required; the latter must be selected by host policy, never inferred from authentication mode."
+        ]
+      },
+      "wrong": [
+        "Fallback to send on older runtime",
+        "Absence or failed proof becomes unauthenticated authority",
+        "Infers confidentiality from authenticated mode alone"
+      ]
+    },
+    {
+      "id": "Q04",
+      "role": "control",
+      "duty": "Respect immutable capture and the admission boundary",
+      "required": [
+        "Validate and snapshot the association when accepting the callback result, install only on the exact successful guarded commit, and copy direct delivery context before scheduling the handler.",
+        "Snapshot/validate the send target and protection before asynchronous yield; owned nested plain-data values, not readonly typing or only an outer freeze, carry the guarantee.",
+        "A successful receipt proves writer admission, not remote delivery or operation success.",
+        "Cancellation/deadline may prevent admission and must be rechecked at commit; after commit the same writer owns the packet and cancellation, timeout or reconnection cannot revoke, move or replay it."
+      ],
+      "grounding": {
+        "shared": [
+          "Validate and snapshot the admission association at the boundary where the callback result is accepted.",
+          "Copy the node identity and association into the immutable delivery context before scheduling the handler",
+          "The public boundary snapshots and validates the target and protection requirement before any asynchronous yield.",
+          "A successful receipt means admission, not remote delivery or operation success.",
+          "After commit, the writer owns the packet even while it waits for credit."
+        ]
+      },
+      "wrong": [
+        "Snapshots later from session lookup",
+        "Treats a receipt as remote delivery",
+        "Revokes or replays an already admitted packet"
+      ]
+    },
+    {
+      "id": "Q05",
+      "role": "control",
+      "duty": "Assign lease ownership without inventing a lifecycle API",
+      "required": [
+        "The issuer owns lease allocation, outstanding credentials, renewal, finite capacity, grace and serialized reclamation.",
+        "Release requires all four conditions together: no usable key, no pending use able to publish, no live admitted controller, and elapsed authoritative grace; unknown or stale observation retains the lease.",
+        "The boundary owes per-redemption handoff or terminal pre-admission invalidation under one absolute opening deadline, and exact admitted-controller liveness/termination.",
+        "Allow is not guarded commit or reservation transfer; account continuously across transfer and distinguish terminal authority loss from physically retained work.",
+        "The exact snapshot-versus-lifecycle-query/callback API remains unselected; current incomplete snapshots cannot establish absence or exact incarnation."
+      ],
+      "grounding": {
+        "shared": [
+          "Reclamation requires all of these conditions together:",
+          "Observation failure or stale/incomplete information means unknown, not absent",
+          "An `IdentityAdmissionPort.evaluate` result of `allow` is not the identity-commit fact.",
+          "The composition must account continuously for the use across that transfer",
+          "Whether the lifetime fact arrives through a complete snapshot with an exact association and incarnation or an explicit lifecycle query/callback remains to be designed with the owners."
+        ]
+      },
+      "wrong": [
+        "TTL alone proves safe release",
+        "Allow transfers pending reservation",
+        "Chooses a producer API or infers absence from missing fields"
+      ]
+    },
+    {
+      "id": "Q06",
+      "role": "control",
+      "duty": "Keep one atomic enforcement path with exact ownership",
+      "required": [
+        "Reject the proposed composition: filtering only today's unrestricted winner can miss an eligible direct route.",
+        "Use a declared core/node constrained query carrying or establishing exact controller ownership; a reusable public node/session pair or operations snapshot is insufficient authority.",
+        "Validate/copy a callback result without granting authority; association installation must occur only at the exact guarded commit after expiry/terminal/collision checks, coordinated with B53.",
+        "One shared send mechanism must enforce eligibility and ordinary checks through a synchronous guard recheck and admission to that same writer; an ordinary-send fallback or asynchronous gap cannot supply the restriction."
+      ],
+      "grounding": {
+        "shared": [
+          "Candidate resolution must preserve exact internal controller ownership; matching public session strings alone is insufficient.",
+          "Routing remains owned by the core; node enforcement uses a declared routing port",
+          "Install it only on the exact controller whose current admission successfully commits",
+          "Recheck the admission guard at commit and admit synchronously to that same writer, without an asynchronous identity callback between eligibility and commitment."
+        ]
+      },
+      "wrong": [
+        "Accepts any of the proposed pair-only, callback-allow or ordinary-fallback shortcuts",
+        "Creates separate browser and CLI enforcement"
+      ]
+    },
+    {
+      "id": "Q07",
+      "role": "control",
+      "duty": "Carry the same restriction through every consumer reply",
+      "required": [
+        "Derive target from AGP's captured direct delivery context, not handler-supplied JSON evidence or a later swept lookup.",
+        "Validate origin and configured mode and preserve the explicit target/protection policy for every sending branch.",
+        "Include answers, malformed/input refusals, descriptions, evidence or handler failures, and both stages of failed-end fallback; equivalent grouping is acceptable.",
+        "Refuse sending when required context or support is absent; neither fallback nor handler data authorizes changing target, mode or protection."
+      ],
+      "grounding": {
+        "shared": [
+          "Operation-call must derive its target from AGP's captured delivery context, not handler-supplied JSON evidence.",
+          "Operation-call must validate its configured mode against the captured association before any reply branch sends.",
+          "Its two-stage failed-end fallback must retain the same target, protection requirement and restricted method.",
+          "Same restriction on answers, malformed/input refusals, descriptions, evidence/handler failures and failed-end fallback"
+        ]
+      },
+      "wrong": [
+        "Protects only successful answers",
+        "Lets handler evidence choose authority",
+        "Weakens the fallback restriction"
+      ]
+    },
+    {
+      "id": "Q08",
+      "role": "control",
+      "duty": "Match acceptance evidence to the claimed boundary",
+      "required": [
+        "Observe zero data/reverse-binding admission to disallowed writers and expected admission to the eligible exact writer; endpoint refusal alone is insufficient isolation evidence.",
+        "Consumer branch coverage requires actual all-branch adoption evidence; method presence or a dependency pin is not behavioral acceptance.",
+        "In-process or trusted-development success does not establish browser confidentiality; carrier acceptance remains separate.",
+        "Hundreds-of-peers capacity needs the B54 operating envelope and evidence, not inference from peer connectivity or functional examples."
+      ],
+      "grounding": {
+        "shared": [
+          "Admission to a disallowed writer must be observed as zero; endpoint refusal by itself is not evidence of reply isolation.",
+          "One admission to the matching direct writer, with the requested association and protection",
+          "A pinned dependency alone is not a behavioral acceptance result",
+          "Loopback or trusted-development results do not establish browser confidentiality",
+          "operating-envelope/resource decisions remain `B54`"
+        ]
+      },
+      "wrong": [
+        "Uses endpoint refusal as sufficient isolation proof",
+        "Treats dependency pin as all-branch acceptance",
+        "Claims browser/scale acceptance from in-process examples"
+      ]
+    },
+    {
+      "id": "Q09",
+      "role": "integration",
+      "duty": "Locate and absorb the producer contract coherently",
+      "required": [
+        "Locate @agp/core data types and the core contract generator; modify schema source and the allow/context/error definitions rather than independently editing generated projections.",
+        "Locate the core schema catalog/document exports/code union and composed catalog, and require package-root schema/type discovery agreement.",
+        "Locate AgpNode's implementation/interface and node package exports, including structural implementers and compile-time checks.",
+        "Name the SDK, contract ownership, routing/FSM, destination/mechanism and contextual semantic-rule documentation obligations.",
+        "Keep AbortSignal process-local, schema-back the data policy, and use the existing pin/hop-limit wire without association/secrets or a new wire error."
+      ],
+      "grounding": {
+        "shared": [
+          "Public types, core-owned schemas, generated exports/catalogs, runtime validation and documentation must land together.",
+          "No association or secret is added to the AGP data wire."
+        ],
+        "integration": [
+          "packages/core/scripts/generate-contracts.mjs",
+          "packages/core/src/schema-documents.generated.ts",
+          "packages/core/src/code-types.generated.ts",
+          "packages/node/src/index.ts",
+          "Keep `AbortSignal` process-local, outside the policy schema"
+        ]
+      },
+      "supportNote": "The shared contract supplies ownership and coherence rules but not the complete concrete source/generation inventory. A grounded absence statement is faithful, not wrong; if it leaves the requested implementation locations unresolved, record incomplete actionability (1), not a wrong decision (0). Do not demand every literal filename when equivalent definite locations are grounded, or assume an alternative grounded derivation cannot exist.",
+      "wrong": [
+        "Publishes declarations without implementation support",
+        "Hand-edits only generated copies",
+        "Puts AbortSignal or association secrets on the data wire"
+      ]
+    },
+    {
+      "id": "Q10",
+      "role": "integration",
+      "duty": "Sequence implementation without collapsing separate gates",
+      "required": [
+        "Adoption/ratification and implementation selection precede the implementation sequence; the preparation itself grants no authority.",
+        "Prepare shapes/snapshotting and exact routing, integrate guarded capture, then shared enforcement/accounting and consumer migration/acceptance before coherent publication; parallel work is allowed if these dependencies hold.",
+        "B51 data/routing preparation does not require choosing B6's producer API; production issuer reclamation still does.",
+        "Runtime association installation must integrate B53's guarded-commit repair after its own gates, not use today's uncorrected continuation.",
+        "Do not publish a type-only or stub restricted-send promise; public declarations, schemas and functioning enforcement must agree."
+      ],
+      "grounding": {
+        "shared": [
+          "Public types, core-owned schemas, generated exports/catalogs, runtime validation and documentation must land together.",
+          "the `B51` admission integration must honor `B53`'s guarded commit"
+        ],
+        "integration": [
+          "The rows are dependency-ordered work packages, not permission to implement or independently publish each intermediate state.",
+          "incomplete runtime work remains unpublished, with no public stub or types-only restricted-send promise",
+          "Schema/type preparation and routing work can be prepared without selecting the B6 API."
+        ]
+      },
+      "supportNote": "Require the dependencies, not verbatim stage names or a ban on safe parallel preparation. The shared contract may support a grounded derivation; do not cap it merely for lacking the supplement.",
+      "wrong": [
+        "Blocks all B51 adoption on B6 API selection",
+        "Activates association on uncorrected callback continuation",
+        "Publishes stub as behavioral support"
+      ]
+    },
+    {
+      "id": "Q11",
+      "role": "integration",
+      "duty": "Turn finite retention into an owned accounting obligation",
+      "required": [
+        "Inventory association state per admitted controller and AGP-retained context/target copies during handler/send work; name finite reservations and release ownership.",
+        "Include metadata, not payload alone, in applicable budgets and verify release; do not retain closed controllers, carrier objects or unbounded history for late replies.",
+        "Identify the stated current handler-ledger limitation where available: it charges supplied bytes and the delivery path currently supplies payload bytes; do not invent a current implementation fact from general requirements.",
+        "Distinguish application-owned retention beyond AGP's handler lifetime.",
+        "No exact metadata-byte formula or B6 observation API is selected by these readings; those gaps do not authorize an invented formula, API, or capacity claim."
+      ],
+      "grounding": {
+        "shared": [
+          "AGP retains one bounded association per admitted controller and bounded value copies while its own handler/send work retains them.",
+          "Implementation must account for the added metadata in the relevant retained-memory budgets rather than count only payload bytes.",
+          "Applications own any delivery context they retain beyond AGP's handler lifetime."
+        ],
+        "integration": [
+          "charges the supplied byte count; today's delivery path supplies payload bytes.",
+          "Inventory every AGP-retained association or target copy, name its finite reservation and release point"
+        ]
+      },
+      "supportNote": "The absence of an exact formula/API is the correct scoped answer and does not reduce the score. An honest gap about the existing ledger implementation is faithful but leaves that requested implementation diagnosis incomplete; score 1 unless a grounded derivation in the assigned reading supplies it.",
+      "wrong": [
+        "Assumes existing payload-only accounting already includes all metadata",
+        "Keeps unbounded controller history",
+        "Invents a selected byte formula or lifecycle API"
+      ]
+    },
+    {
+      "id": "Q12",
+      "role": "integration",
+      "duty": "Separate approval, implementation acceptance and publication",
+      "required": [
+        "Technical/M7 review alone does not ratify or establish runtime acceptance; required fresh-reader assurance and director ratification/implementation selection remain.",
+        "Record the producer decision with explicit absorption into owning normative contracts, then implement and independently verify the coherent producer change and consumer adoption.",
+        "Keep normative AGP rules in AGP; consumers reference them and document their own migration/evidence rather than copy a second specification.",
+        "Publish an exact coherent revision with owner duties only under the applicable publication authority; a pin is not acceptance.",
+        "Do not silently choose a credential format, browser mechanism, lifecycle observation API or other deferred identity policy; B6/B50/B54 retain their separate acceptance gates."
+      ],
+      "grounding": {
+        "shared": [
+          "The producer contract stays in AGP; consumer repositories should reference it and document their own composition.",
+          "The admission repair, disposition acceptance and browser deployment evidence do not close through this contract draft."
+        ],
+        "integration": [
+          "fresh-reader assurance remains before ratification.",
+          "No decision number is reserved by this recommendation, and preparation is not ratification.",
+          "Separate approval to commit/push or publish as needed",
+          "No further Zorg policy question is needed for B51's agreed shapes"
+        ]
+      },
+      "supportNote": "The common status states what is not complete, not a standalone claim that every absent activity is an adoption gate. Judge obligations against the assigned text. A materially correct inference is not automatically a grounded complete answer.",
+      "wrong": [
+        "Treats author checks or technical review as ratification/runtime proof",
+        "Publishes without authority",
+        "Selects deferred identity or lifecycle policy by implication"
+      ]
+    }
+  ]
+}

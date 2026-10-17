@@ -1,0 +1,151 @@
+{
+  "kind": "direct-peer-assurance-input-manifest",
+  "status": "prospective source packet; not committed or independently audited",
+  "authority": "Preparation only; commit, new independent-agent work, execution and publication are unselected",
+  "sourceRevision": "0aa6be75ccacf4e2c3770a49c5ea39970a25a98a",
+  "processGuidance": {
+    "canonicalMain": "3a984cf61f26798cd9627aa6fa295621b07672d3",
+    "productAxiomPinUnchanged": "5026604d3ef695651c21b24bd78410c7fec04b58"
+  },
+  "sources": [
+    {
+      "path": "sources/direct-peer-contract.txt",
+      "originalPath": "docs/reviews/evidence/direct-peer-send-design-review-input.txt",
+      "originalBytes": 34955,
+      "originalSha256": "bede054da088b516f55e09aa02e111a9dfdb61b57ead5b493cc90f4f2110119a"
+    },
+    {
+      "path": "sources/direct-peer-adoption.txt",
+      "originalPath": "docs/reviews/direct-peer-send-adoption.md",
+      "originalBytes": 21251,
+      "originalSha256": "a4915b471b9ab1b330fc8524beb5441c6857ad1416c63ea6be240cb9f67ed06c"
+    }
+  ],
+  "arms": {
+    "baseline": {
+      "label": "m73",
+      "path": "readings/m73/direct-peer-reading.txt"
+    },
+    "candidate": {
+      "label": "r28",
+      "path": "readings/r28/direct-peer-reading.txt"
+    }
+  },
+  "readerFiles": [
+    "direct-peer-reader-instructions.md",
+    "direct-peer-questions.json",
+    "exactly one assigned reading under neutral filename"
+  ],
+  "withheld": [
+    "this manifest",
+    "answer key",
+    "preparation protocol",
+    "source snapshots",
+    "other reading",
+    "repository",
+    "conversation history",
+    "previous review/reader material"
+  ],
+  "coverage": {
+    "controls": [
+      "Q01",
+      "Q02",
+      "Q03",
+      "Q04",
+      "Q05",
+      "Q06",
+      "Q07",
+      "Q08"
+    ],
+    "integration": [
+      "Q09",
+      "Q10",
+      "Q11",
+      "Q12"
+    ],
+    "weight": "equal"
+  },
+  "proposedPopulation": {
+    "readings": 2,
+    "readersPerReading": 3,
+    "families": 3,
+    "readerCells": 6,
+    "questionOutcomes": 72,
+    "otherFamilyVoteSlots": 144,
+    "profiles": null,
+    "executionOrder": null
+  },
+  "limits": {
+    "readerPayloadBytes": 65536,
+    "responseBytes": 24576,
+    "wrapperAccounting": "additional measured common harness wrapper must be validated against actual model context limits; no truncation",
+    "enforcement": "execution binding not selected"
+  },
+  "execution": {
+    "component": "context-lab",
+    "componentEntry": "mission-kit/components/C2-context-lab.md",
+    "componentRevision": null,
+    "publicPack": null,
+    "providers": null,
+    "spendingLimit": null,
+    "timeLimit": null,
+    "readiness": "not established",
+    "modelCalls": 0
+  },
+  "artifacts": [
+    {
+      "path": "sources/direct-peer-contract.txt",
+      "bytes": 34955,
+      "sha256": "bede054da088b516f55e09aa02e111a9dfdb61b57ead5b493cc90f4f2110119a"
+    },
+    {
+      "path": "sources/direct-peer-adoption.txt",
+      "bytes": 21251,
+      "sha256": "a4915b471b9ab1b330fc8524beb5441c6857ad1416c63ea6be240cb9f67ed06c"
+    },
+    {
+      "path": "readings/m73/direct-peer-reading.txt",
+      "bytes": 30267,
+      "sha256": "ef5fa5b5c01ab166b2396848fda5502325ba6dbf9f05bd025ff9d443ff0b4729"
+    },
+    {
+      "path": "readings/r28/direct-peer-reading.txt",
+      "bytes": 47149,
+      "sha256": "78aac6e348b8c839396120ba29d5df556acee6ba45c132c2f23606ac9dc102ea"
+    },
+    {
+      "path": "direct-peer-questions.json",
+      "bytes": 3931,
+      "sha256": "3cbfb0919eee4edc9fe383c3181e32e750d83c79bf138d26346dd93a13401838"
+    },
+    {
+      "path": "direct-peer-answer-key.json",
+      "bytes": 22768,
+      "sha256": "4c33425a044d58ea7e846bcf84c36b760e6a9e9d3e9b65c552237fccfb80158b"
+    },
+    {
+      "path": "direct-peer-reader-instructions.md",
+      "bytes": 1556,
+      "sha256": "4a2d14bc351b6147e20c50e479adee3fd3afca25af271d6ad5e4d3805ece3533"
+    },
+    {
+      "path": "project-direct-peer-readings.mjs",
+      "bytes": 4633,
+      "sha256": "43425609ee945eaa26a0f17a76a2b4e8a4920caecc43045a5c98763419cc658a"
+    },
+    {
+      "path": "direct-peer-packet.test.mjs",
+      "bytes": 6393,
+      "sha256": "f2166bba41bf3e34620ea41310bbee151390991fc05c05d1dcb8843a46210dd1"
+    },
+    {
+      "path": "direct-peer-assurance-preparation.md",
+      "bytes": 14110,
+      "sha256": "c621f566fdd1660ac06387f2d471219bb77e944df8c1dd28bf58d5dc5b1796c5"
+    }
+  ],
+  "selfHash": "Excluded to avoid a circular manifest; a later commit supplies immutable provenance",
+  "mechanics": "Pure source projection and hashes bind exact reader material; questions and key are separate",
+  "rationale": "A cold reader must reason from the delivered contract without author history or key leakage",
+  "consequence": "Unfrozen or incomplete delivery could turn a guess, control regression or failed invocation into false assurance"
+}

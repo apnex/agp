@@ -1,0 +1,53 @@
+{
+  "kind": "direct-peer-reader-questions",
+  "questions": [
+    {
+      "id": "Q01",
+      "prompt": "How does restricted direct-peer selection differ from ordinary pinned sending? Explain what happens when a different route wins ordinary selection, when only indirect or local reachability exists, and which packet constraints apply."
+    },
+    {
+      "id": "Q02",
+      "prompt": "A request's reply is attempted after its original connection closes. What permits a replacement connection to receive it, what prevents a later allocation of the same node identity from matching, and what does this say about physical-process identity?"
+    },
+    {
+      "id": "Q03",
+      "prompt": "What must a consumer do if the node lacks the restricted-send method, if delivery has no direct-peer association, or if authentication fails? How are explicit unauthenticated use and the minimum channel-protection requirement chosen?"
+    },
+    {
+      "id": "Q04",
+      "prompt": "At what points must admission association and send-target values become immutable, and what does a successful receipt prove? Explain what cancellation, timeout or reconnection can change before and after writer admission."
+    },
+    {
+      "id": "Q05",
+      "prompt": "Who owns issuer lease reclamation, which conditions must hold together, and what two facts must the binding/AGP boundary supply? Explain whether an allow result transfers a reservation, how unknown state is treated, and which lifecycle API has actually been selected."
+    },
+    {
+      "id": "Q06",
+      "prompt": "An implementer proposes choosing today's route winner, finding a controller by its public node/session pair, installing the association when the admission callback says allow, then calling ordinary send. Assess this composition and identify the required routing, commit and shared-send boundaries."
+    },
+    {
+      "id": "Q07",
+      "prompt": "Where must operation-call obtain the reply restriction, and which reply branches must preserve it? Explain whether handler-supplied evidence or a failed-end fallback can select a different target, mode or protection floor."
+    },
+    {
+      "id": "Q08",
+      "prompt": "What observations would establish direct-send isolation and successful eligible admission? Assess whether endpoint refusal, a dependency pin, or passing in-process examples would also establish every consumer branch, browser confidentiality or the intended hundreds-of-peers operating envelope."
+    },
+    {
+      "id": "Q09",
+      "prompt": "Plan the producer's public-contract change. Locate the data-type owner, the schema-authoring and generated-export surfaces, the public node method/export boundary and the normative documentation families. Explain what is data versus process-local capability, whether wire changes are needed, and which exact locations your reading does not establish."
+    },
+    {
+      "id": "Q10",
+      "prompt": "Order the work from adoption through a usable restricted-send implementation and consumer migration. Distinguish what can be prepared before the B6 lifecycle API is chosen, what depends on B53, and whether intermediate type declarations or a method stub can be published as support."
+    },
+    {
+      "id": "Q11",
+      "prompt": "What work must the implementation owner do before claiming the new association/context retention is bounded? Identify the retained values, charging and release responsibilities, any known current accounting limitation, and any byte formula or lifecycle-observation API the reading does not establish."
+    },
+    {
+      "id": "Q12",
+      "prompt": "What remains between technical design review and an approved, published producer contract that Zorg can adopt? Identify the authority and evidence needed, how producer and consumer documents should relate, and whether new identity policy or lifecycle API choices may be silently supplied during adoption."
+    }
+  ]
+}
