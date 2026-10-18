@@ -364,7 +364,11 @@ export class DispositionEngine {
       }),
     });
     try {
-      void batch.controller.writeControl(this.#options.encode(message));
+      void batch.controller.writeControl(this.#options.encode(message)).catch(
+        (cause: unknown) => {
+          this.#options.onWriteFailure(batch.controller, cause);
+        },
+      );
     } catch (cause) {
       this.#options.onWriteFailure(batch.controller, cause);
     }

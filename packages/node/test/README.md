@@ -24,6 +24,7 @@ The compile-only disposition consumer resolves built public package declarations
 | `contract/label-binding-exact-identity.test.js` | Reverse lookup uses exact retained controller identity and performs no RIB lookup | Destination forwarding |
 | `contract/label-binding-refid.test.js` | Wrong-refId error input cannot consume a matching token | Successful consumption |
 | `contract/disposition-relay.test.js` | Transit delivery, refusal, and uncertainty use recorded ingress, retain denominators, translate labels once, and measure a batch before applying any of it | Direct current-hop failures, release under load |
+| `contract/disposition-write-observation.test.js` | Each flush entry point registers a rejection handler on the exact-controller write before returning, while fulfilled writes retain their disposition and do not report failure | Rejected-write recovery, process survival, and teardown races |
 | `contract/session-hold-ttl.test.js` | Public inbound hold TTL decreases with monotonic time without a revision | Outbound keepalive suppression |
 | `contract/session-id-pair-scope.test.js` | Equal six-hex IDs coexist for different peers, including accepted pre-identity controllers | Cross-dial winner selection |
 | `contract/label-binding-expiry.test.js` | Expiry is a working backstop when nothing reports back, so capacity is a bound on what is outstanding rather than a lifetime total | Release by disposition, relay |
