@@ -1,0 +1,37 @@
+{
+  "kind": "browser-scale-reader-questions",
+  "questions": [
+    {
+      "id": "Q01",
+      "prompt": "An application needs a central connection point for browser, CLI and service peers. What is AGP for, and may that topology position use a privileged protocol role or a separate node implementation? Distinguish topology placement from protocol responsibility."
+    },
+    {
+      "id": "Q02",
+      "prompt": "The application needs correlated replies, change fan-out and recovery after a disconnection. Which of these duties belong to AGP, and what does a successful send establish about delivery, persistence and automatic replay?"
+    },
+    {
+      "id": "Q03",
+      "prompt": "Who owns channel protection and the decision that an authenticated peer may claim an identity? Does deployment scale itself select a new credential mechanism or remove the supplied security constraints?"
+    },
+    {
+      "id": "Q04",
+      "prompt": "A maintainer wants to adopt a changed deployment scope and announce production support. What authority and records are required, and what can possession of this intent reading alone authorize or prove?"
+    },
+    {
+      "id": "Q05",
+      "prompt": "Classify these deployments against the stated scale intent: a twelve-node star, a star with three hundred concurrently established direct peers at one node, a three-hundred-node line, and a three-hundred-node full mesh. Separate an included engineering target, a target outside the stated scope, and a verified capacity claim; do not infer a protocol prohibition merely from omitted scope."
+    },
+    {
+      "id": "Q06",
+      "prompt": "During a stable qualification window after convergence, the chosen peer population stays connected and the node refuses safely within its resource guards, but required application routes and message exchanges remain unavailable under the intended workload. Does this establish useful supported capacity? Distinguish correctness of refusal from workload service, and identify what the reading does not establish."
+    },
+    {
+      "id": "Q07",
+      "prompt": "An operator counts five hundred open browser tabs and raises a configured session limit to five hundred. What peer count, route count, resource budget and supported workload can be concluded from those facts and the reading? What additional information is needed before making a capacity claim?"
+    },
+    {
+      "id": "Q08",
+      "prompt": "There is no general performance target. May a deployment qualification still specify a workload and resource limits, and may slow work be ignored if it moves deadlines or exhausts a bound? State which numerical choices and guarantees this reading actually supplies or leaves open."
+    }
+  ]
+}

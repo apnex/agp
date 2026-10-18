@@ -1,0 +1,296 @@
+# AGP intent reading
+
+Use the supplied text as the intent to interpret for this exercise.
+This reading is not an adoption record or evidence of current implementation.
+Only the text below is supplied; reference labels do not provide access to other documents.
+
+---
+# Agent Gateway Protocol - Vision
+
+**Status: enduring.**\
+This document states why AGP exists and what it will never be.\
+It carries no current state, no roadmap, and no schedule.\
+Where the system is now belongs to `docs/VERIFICATION.md`, and what happens next belongs to `docs/BOARD.md`.
+
+Holding this document authorises nothing.\
+It does not ratify a decision, certify a gate, approve a wire change, or promote code.\
+Those powers belong to `docs/DECISIONS.md` and `docs/GATES.md` respectively, and a direction change is recorded there first and absorbed here afterwards.
+
+---
+
+## North star
+
+> Give named application endpoints the routing guarantees of an interior
+> gateway protocol, so any component can reach any other by name across a
+> topology no one centrally administers.
+
+Three terms in that sentence carry weight, so this document defines them rather than leaving them to the reader.
+
+**Routing guarantees** means the properties an interior gateway protocol provides and a message bus does not: every node computes reachability from state it holds, selection is deterministic, paths cannot loop, withdrawal is atomic, and a message with no usable route is refused before it is sent rather than accepted and lost.
+
+**By name** means an endpoint is the unit of reachability, optionally qualified by which instance of it the sender wants.\
+A sender names the endpoint, and may name the instance advertising it where one advertiser is not interchangeable with another; it never names a host, port, address, or intermediate node.\
+Naming the endpoint alone means any advertiser may serve the message, which is a consequence of addressing rather than a choice, and the qualification exists so that the choice can be made deliberately.\
+The name is what propagates, and the topology is what changes underneath it.
+
+**No one centrally administers** means there is no broker, no registry, no controller, and no node whose failure removes reachability that other nodes could have computed.\
+Every node runs the same implementation, and its position in a topology is configuration rather than identity.
+
+---
+
+## Why AGP exists
+
+Software components increasingly need to address each other by name across topologies that nobody owns end to end.\
+The available answers each solve a different problem.
+
+A broker centralises delivery and becomes the thing that must not fail.\
+A service mesh solves reachability at the infrastructure layer, which means it cannot see application endpoints and cannot be embedded.\
+Remote procedure calls need an address before they can start.\
+Publish and subscribe routes by topic, which is a different question from routing to a named destination.
+
+Interior gateway protocols solved a structurally identical problem decades ago, for a different unit.\
+Each node maintains its own view, exchanges reachability with its neighbours, selects one path deterministically, and refuses to forward what it cannot justify.\
+That model degrades gracefully, survives partial failure, and requires no central authority.
+
+AGP applies that model where the reachable unit is a named application endpoint rather than an address prefix.\
+The protocol is BGP-inspired and deliberately not BGP-compatible: the mechanisms are borrowed where they fit, adapted where the unit differs, and departed from where a message plane is not a packet plane.\
+`docs/design/mechanisms.md` records which is which for every mechanism, so a resemblance is never mistaken for a conformance claim.
+
+---
+
+## What AGP is
+
+A protocol and an embeddable runtime.
+
+Its control plane, data plane, management plane, and wire carriage are separable concerns rather than layers of one thing, so a carrier can be replaced without touching routing and a management surface can be added without the kernel knowing.
+
+What each concern owns, and the interfaces between them, is architecture and is held by `docs/ARCHITECTURE.md`.\
+This document names no component and describes no duty, because a vision that has grown one is an architecture wearing the wrong title.
+
+AGP is a library first.\
+It is embedded by an application that owns its own lifecycle, configuration, and deployment, and it does not assume a process, a scheduler, or an operator.
+
+---
+
+## What AGP is not
+
+The boundary is the half of an intent statement that travels, so it is stated positively rather than left as an absence.
+
+**Not a message broker.**\
+There is no central node, no store, and no delivery agent.\
+A node forwards or refuses; it never accepts custody on behalf of a destination.
+
+**Not a durable queue.**\
+Nothing is persisted, replayed, or retried, and securing delivery is never an obligation this layer accepts.\
+A send that resolves means one node admitted it against a route it can justify, and that is all it means.\
+Whether the message reached its destination is reported back where that can be known, and such a report is an observation rather than a guarantee: nothing re-sends what it says failed.
+
+**Not a remote procedure call framework.**\
+There is no request and response pairing, no service contract, and no interface description.\
+A correlated reply is an application concern built on one-way delivery.
+
+**Not a publish and subscribe bus.**\
+Endpoints are addressed, not subscribed.\
+There are no topics, no fan-out, and no subscription state.
+
+**Not a service mesh.**\
+AGP does not own infrastructure, inject sidecars, terminate traffic for workloads that did not ask, or implement deployment policy.
+
+**Not an agent framework, and not itself agentic.**\
+AGP carries messages for agentic systems; it contains no cognition, no model, no orchestration, and no autonomy.\
+The name describes what it serves, not what it does.\
+`docs/design/axioms.md` records the axioms this exclusion makes inapplicable.
+
+**Not a security product.**\
+The transport can protect a channel and report what it observed.\
+Deciding whether an authenticated peer may claim an identity is deployment policy, and AGP supplies the evidence rather than the ruling.
+
+---
+
+## What success means
+
+Four dimensions.\
+They are not weighted, and they do not collapse.
+
+**Correctness under adversity.**\
+Every forwarding outcome is justified by state the forwarding node holds, and remains so under loss, saturation, races, and partial failure.\
+The measure is that adversity produces a refusal or a reconvergence, never a wrong delivery and never a silent one.
+
+**Sovereignty of contracts.**\
+Any one concern can be replaced without editing another.\
+The measure is that a substitution is a substitution rather than a migration.
+
+**Cold-reader comprehension.**\
+A reader with no prior context reaches the same conclusions from the record that the author held.\
+The measure is that a question about why something is the way it is has a written answer.
+
+**Reach.**\
+The same node implementation runs wherever a topology needs it, without a variant, a fork, or a privileged path.
+
+A programme strong on three of these and weak on one is not mostly successful.\
+It has one unmet dimension, and which one it is carries more information than any average of the four.\
+Collapsing them into a score would hide exactly the signal that says what to do next.
+
+---
+
+## Authority
+
+Held by the director.\
+Drafted by anyone; ratified only by the director, because intent is the one input no other role may supply.
+
+This statement is amended, never quietly rewritten.\
+A ruling that changes direction is recorded as a decision and absorbed here, so the reasoning behind a change survives the change.
+
+Where this narrative and a machine-verified record disagree about operational state, the record governs.\
+This document states purpose, and purpose is not evidence.
+
+---
+
+## Related records
+
+| Record | Holds |
+|---|---|
+| `docs/DECISIONS.md` | Confirmed intent and the ratified decision register |
+| `docs/design/mechanisms.md` | Every mechanism, its analogue, and every deliberate departure and deferral |
+| `docs/ARCHITECTURE.md` | The current architecture and its scope boundary |
+| `docs/VERIFICATION.md` | What is proved, and what is knowingly unproved |
+| `docs/BOARD.md` | The live, triaged set of next moves |
+
+---
+
+## Mechanics, rationale, and consequence
+
+### Mechanics
+
+The north star is one quotable sentence whose load-bearing terms this document defines.\
+The boundary is stated positively.\
+Success is a set of dimensions with an explicit refusal to collapse them.\
+Authority names one holder, and the document carries no point-in-time state.
+
+### Rationale
+
+A programme is asked, repeatedly, whether some proposal is in scope.\
+Without a written purpose that question is answered from whoever is in the room, which works while the founder is present and stops working the moment they are not.\
+Stating the boundary positively matters more than stating the purpose, because the exclusions are what a proposal actually collides with.
+
+### Consequence of violation
+
+- Purpose left unwritten makes every scope question a matter of memory, and the
+  answer changes with the reader.
+- A purpose with no stated exclusions has not been bounded, and anything can be
+  argued into it by resemblance.
+- A single success score hides its weakest dimension, which is the one that
+  should be driving the next move.
+- Point-in-time state under an enduring status makes one line declare the
+  currency of both, and the stale half is trusted because the fresh half is.
+- An intent statement that reads as an approval will eventually be cited as one.
+
+---
+
+## 2. Confirmed intent
+
+**Editorial correction (`B34`):** subsection numbers now follow document order.\
+Performance intent was the first 2.5 and is now 2.4; governing principles were 2.4 and are now 2.5; anti-goals were the second 2.5 and are now 2.6.\
+The recorded intent text is unchanged.
+
+Every decision below realizes intent that was confirmed by the project owner before design began.\
+That intent is recorded here rather than in a separate survey artifact, so a reader reaches the authority from the decision it authorizes.
+
+Confirmed intent is amended only by a numbered decision.\
+An amendment written as prose alone cannot be seen by the gate that checks whether a change of direction reached the vision, so a row below that says it was amended must name the decision that amended it.\
+This is enforced by `test/conformance/record-integrity.test.js`, and it is the rule `D30` exists to satisfy retrospectively.
+
+### 2.1 Composite intent envelope
+
+Replace AGP's behaviorally separate hub router and spoke client with one `AgpNode` runtime created through `createNode()`.\
+Configuration may make a node listen, dial configured adjacencies, expose endpoints, and permit or deny transit, but these are capabilities of the same implementation rather than protocol roles backed by different code.\
+Topologies are assembled by composing identical node instances; terms such as hub, spoke, edge, or transit describe a node's configured placement and adjacencies only.
+
+The control plane is symmetric.\
+Nodes exchange endpoint routes in both directions and export their selected routes, including selected learned routes needed for transit.\
+Each route retains final origin separately from its immediate next-hop session and carries an ordered node path sufficient to reject control-plane loops.
+
+Every locally originated or received data message consults the same local selected RIB.\
+A local route miss rejects before wire admission; a transit route miss produces no onward data packet and returns a correlated nonfatal error toward the source.
+
+This is a coordinated replacement, not a compatibility-facade migration.\
+AGP v1 is rewritten in place to the symmetric target state, and interoperability with the old v1 language is explicitly not required.
+
+### 2.2 Confirmed intent by question
+
+The confirmed answers below are the authority cited by `authorities[].kind` of `survey` in `design/traceability.json`.
+
+| Ref | Confirmed intent |
+|---|---|
+| `Q1(b)` | A data path is gated by the local selected RIB, or by the local candidate RIB where a message names the instance it is for. Amended by `D30` on 2026-08-23; see below |
+| `Q1/Q3/Q6` | One uniform node runtime, created through a single `createNode()` factory, with a stable operational surface |
+| `Q4(a)` | Either side of an adjacency may exchange endpoint routes |
+| `Q4(b)` | A selected learned route may be exported to other peers for multi-hop transit |
+| `Q4(c)` | Ordered path provenance rejects control-plane loops |
+| `Q5(a)` | A local route miss rejects before wire admission |
+| `Q5(b)` | A transit route miss emits no onward data packet |
+| `Q5(c)` | A correlated nonfatal failure travels back toward the source |
+| `Q6(c)` | Management HTTP and `agpctl` remain stable where their semantics remain true |
+| Aggregate | Listener, dialer, local delivery, and transit behavior compose inside the same implementation |
+
+`Q1(b)` was confirmed before design began as **every data path is gated by the local selected RIB**, and it is amended above rather than replaced so that the requirement it authorises keeps its reference.\
+The original wording is preserved in this sentence because a reader six months from now must be able to tell that the candidate RIB was admitted later, and by whom.
+
+The amendment was made by the project owner on 2026-08-23, on the question of whether a message may reach a specific advertiser of an endpoint rather than always the selected one.\
+Addressing an endpoint by name alone means any advertiser may serve the message, which is anycast, and it arrived as a consequence of addressing rather than as a choice.
+
+What the amendment does not do is loosen anything else.\
+`D6` still selects deterministically, still governs what is advertised, and still decides what an unqualified message follows.\
+Every candidate was accepted under `D5`, so its path is loop-free by construction.\
+A message names a destination, never a path: choosing the path would be traffic engineering and remains out of scope.
+
+### 2.3 Confirmed transport security intent
+
+AGP is expected to run over the public internet.\
+No other encryption layer may be assumed present, so the transport provides its own confidentiality rather than relying on a mesh, tunnel, or trusted network.
+
+Dedicated certificate infrastructure is explicitly excluded.\
+A deployment must be able to secure a topology with distributed key material alone, with no certificate authority, issuance, expiry, or revocation machinery.
+
+Encryption is a transport concern.\
+The AGP control plane has no knowledge of, and no responsibility for, how a channel is protected; it consumes only the observed evidence that a channel reports.
+
+The target scale is small and known: fewer than twenty nodes, in star and line topologies.
+
+### 2.4 Confirmed performance intent
+
+There is no performance target, and the absence is deliberate rather than an omission awaiting a number.\
+The standard is that AGP should be excellent, and that opportunities to improve it are taken as they are found.
+
+Two consequences follow, and they point in opposite directions.\
+A cost that is merely higher than some other system's is not a defect, so no measurement obliges a change on its own.\
+And an opportunity found is not deferred for want of a threshold to justify it, because there is no threshold and waiting for one is how an unwritten standard becomes an unmet one.
+
+This does not license slowness that breaks something else.\
+A cost that moves a deadline, exhausts a bound, or blocks the loop another obligation runs on is a correctness fault wearing a performance costume, and it is scored as the fault it is rather than as the number it presents.
+
+### 2.5 Governing principles
+
+Three principles anchor the design and outrank convenience:
+
+- **One node abstraction.** Topology differences arise from configuration, never
+  from a second implementation.
+- **No selected route means no forwarding.** Every forwarding outcome is
+  justified by local canonical route state.
+- **Loop-safe selected-route propagation.** Operational views expose that same
+  state rather than reconstructing it independently.
+
+### 2.6 Confirmed anti-goals
+
+These were excluded at intent capture, not discovered later.\
+Their re-entry conditions are held in `design/mechanisms.md` as `F01` through `F07`.
+
+| Excluded | Reason |
+|---|---|
+| Multiple eligible-path export, metrics, and policy-based selection | Deferred to a future routing-policy phase |
+| A uniform runtime that still uses an implicit default route to one central node | Superseded by symmetric route exchange; it would be a cosmetic unification |
+| Long-lived `createRouter()` or `createSpoke()` compatibility facades | Authority explicitly removed compatibility as a constraint |
+| Redesigning management HTTP or `agpctl` merely because the runtime changed | Operators are protected consumers; change only on proven semantic mismatch |
+| Compatibility negotiation with the old AGP v1 wire behavior | v1 is replaced in place by authority |
+
+---

@@ -1,0 +1,170 @@
+{
+  "kind": "browser-scale-assurance-inputs",
+  "status": "prospective author packet; not committed, audited, registered or executed",
+  "sourceHead": "a09e4bcda9d668b52ff3212c3813fad30fa7ac10",
+  "guidanceRevision": "b1f5cfbdab466f4496d0ef6b4bf7b36bd4722d23",
+  "sources": [
+    {
+      "id": "vision",
+      "path": "sources/browser-scale-vision.txt",
+      "sourceSha256": "7450b55418271077c412faade2c2be5018c0f7c335cf2aa4806f8aaf22b9cb60",
+      "originalPath": "VISION.md",
+      "selection": "whole file",
+      "originalFileSha256": "7450b55418271077c412faade2c2be5018c0f7c335cf2aa4806f8aaf22b9cb60"
+    },
+    {
+      "id": "intent",
+      "path": "sources/browser-scale-confirmed-intent.txt",
+      "sourceSha256": "4d311b9dc1c55715b31a2a3dc5cfe69236dc5a9cc1242071f284e5dc57c31cce",
+      "originalPath": "docs/DECISIONS.md",
+      "selection": "## 2. Confirmed intent inclusive through the byte before ## 3. Decision records",
+      "originalFileSha256": "eb5eff64200afa01e84cb6493754a0fd2782ef9cd40da3a4ccc87d64c6c26a50"
+    },
+    {
+      "id": "amendment",
+      "path": "sources/browser-scale-amendment.txt",
+      "sourceSha256": "1579675e8263508338c007f243b23d2b2b2ecb857d342d7664f14589f319cda3",
+      "originalPath": "docs/reviews/browser-peer-scale-amendment.md",
+      "selection": "whole file",
+      "originalFileSha256": "1579675e8263508338c007f243b23d2b2b2ecb857d342d7664f14589f319cda3"
+    }
+  ],
+  "arms": {
+    "baseline": {
+      "path": "readings/k84/browser-scale-reading.txt",
+      "sha256": "55e09bc9ad660b66bcc2c1eb0b689e66554282e438cd4ad5cc3b7bc9bcb2bb44"
+    },
+    "candidate": {
+      "path": "readings/s17/browser-scale-reading.txt",
+      "sha256": "7c150f4f0d48e57af1191561cbccf0c3a59cb1050ab21430a94fb3ca2fde1bd9"
+    }
+  },
+  "artifacts": [
+    {
+      "path": "browser-scale-assurance-preparation.md",
+      "bytes": 11167,
+      "sha256": "5a699d10a7b4fed150d571171175adfc4c468a8bc70c03161b09c649a6401b38"
+    },
+    {
+      "path": "browser-scale-reader-instructions.md",
+      "bytes": 1214,
+      "sha256": "07a286cf13e04c491e7f087be2ce20721b438d8194ccfd6836d4009eac0fdf01"
+    },
+    {
+      "path": "browser-scale-questions.json",
+      "bytes": 2732,
+      "sha256": "f540a58bfb9d2ebe8a3bf0519289b6b2f74185e29a61d2b138916956a3e5c63f"
+    },
+    {
+      "path": "browser-scale-answer-key.json",
+      "bytes": 16240,
+      "sha256": "cd1d54b0a92a7795f461534b7237d0137f6226f13026f5c4964e1cd98d88ed0b"
+    },
+    {
+      "path": "project-browser-scale-readings.mjs",
+      "bytes": 2667,
+      "sha256": "048584c410a3c0716d162fdb3af222a932af20cba11cc4fe393eb53ca16222db"
+    },
+    {
+      "path": "browser-scale-packet.test.mjs",
+      "bytes": 6478,
+      "sha256": "32527b7e08d1f94c917d2cb31fe815211937f7a152423d77b0357b29978853af"
+    },
+    {
+      "path": "sources/browser-scale-vision.txt",
+      "bytes": 9750,
+      "sha256": "7450b55418271077c412faade2c2be5018c0f7c335cf2aa4806f8aaf22b9cb60"
+    },
+    {
+      "path": "sources/browser-scale-confirmed-intent.txt",
+      "bytes": 7568,
+      "sha256": "4d311b9dc1c55715b31a2a3dc5cfe69236dc5a9cc1242071f284e5dc57c31cce"
+    },
+    {
+      "path": "sources/browser-scale-amendment.txt",
+      "bytes": 10676,
+      "sha256": "1579675e8263508338c007f243b23d2b2b2ecb857d342d7664f14589f319cda3"
+    },
+    {
+      "path": "readings/k84/browser-scale-reading.txt",
+      "bytes": 17264,
+      "sha256": "55e09bc9ad660b66bcc2c1eb0b689e66554282e438cd4ad5cc3b7bc9bcb2bb44"
+    },
+    {
+      "path": "readings/s17/browser-scale-reading.txt",
+      "bytes": 17702,
+      "sha256": "7c150f4f0d48e57af1191561cbccf0c3a59cb1050ab21430a94fb3ca2fde1bd9"
+    }
+  ],
+  "limits": {
+    "readerPayloadBytes": 65536,
+    "readerResponseBytes": 24576,
+    "sourceProjectionBytes": 262144
+  },
+  "population": {
+    "readings": 2,
+    "familiesPerReading": 3,
+    "readerCells": 6,
+    "questionsPerReader": 8,
+    "questionOutcomes": 48,
+    "otherFamilyVotesPerAnswer": 2,
+    "expectedVoteSlots": 96
+  },
+  "contextLabOwnerReply": {
+    "path": "/home/apnex/taceng/context-lab/incoming/agp-assurance-compatibility-review-response.md",
+    "sha256": "f4f13be336ee61991a375dea7debfe6954e78593f0e5dda8a4f77e09d0c4e06b",
+    "claimedDeliveryRevision": "adf4b465f757eb09c1e74ee77f3dc3b6277512a0",
+    "localHeadAtRead": "10793f1b7e7a18ba1d2608d785ec77c0d4c5e627",
+    "acceptance": "owner claims read; implementation-level acceptance not performed for this preparation"
+  },
+  "plan": {
+    "scope": "Prepare, not execute or ratify, a fresh-reader comparison of prior confirmed intent and its proposed scale-only amendment.",
+    "readings": [
+      "M2/M11/C2 requirements and public owner response",
+      "Nearest existing assurance protocol and source readings",
+      "VISION and confirmed-intent section; exact proposed replacement"
+    ],
+    "outputs": [
+      "Draft preparation and authority record",
+      "Shared reader instructions and purpose-derived questions",
+      "Reading-specific answer key with controls",
+      "Deterministically projected blind readings and source manifest",
+      "Local validation and board/verification checkpoint"
+    ],
+    "preserve": [
+      "Uniform node contract",
+      "required routes and message exchanges",
+      "operating envelope",
+      "declared target versus verified support",
+      "prior records and all unrelated work"
+    ],
+    "lookFor": [
+      "A policy re-aim must not mark a faithful baseline answer wrong",
+      "Input closure/blinding without historical status labels",
+      "Model-free preparation versus frozen key and execution authority",
+      "Current public execution prerequisites versus unreviewed owner assertions"
+    ],
+    "parked": [
+      "No provider/model selection or paid calls",
+      "No load or fault experiments",
+      "No generic harness implementation",
+      "No code/default changes, ratification or outbound response",
+      "No new survey: direction and preparation task are fixed"
+    ]
+  },
+  "excludedFromReaderDelivery": [
+    "this manifest",
+    "answer key",
+    "preparation protocol",
+    "source snapshots",
+    "checks and tests",
+    "other reading",
+    "repository",
+    "conversation history",
+    "prior reviews"
+  ],
+  "excludedFromArtifactHashSet": [
+    "browser-scale-input-manifest.json (self reference)",
+    "browser-scale-preparation-checks.json (author results recorded after input capture)"
+  ]
+}
