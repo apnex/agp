@@ -1,6 +1,6 @@
 {
   "kind": "browser-scale-assurance-inputs",
-  "status": "prospective author packet; not committed, audited, registered or executed",
+  "status": "author correction after independent key audit FAIL; not committed, independently rechecked, registered or executed",
   "sourceHead": "a09e4bcda9d668b52ff3212c3813fad30fa7ac10",
   "guidanceRevision": "b1f5cfbdab466f4496d0ef6b4bf7b36bd4722d23",
   "sources": [
@@ -42,8 +42,8 @@
   "artifacts": [
     {
       "path": "browser-scale-assurance-preparation.md",
-      "bytes": 11167,
-      "sha256": "5a699d10a7b4fed150d571171175adfc4c468a8bc70c03161b09c649a6401b38"
+      "bytes": 13075,
+      "sha256": "feba52b9eefb8adc5018a3986da89be49cc66babbd9c3c26ca81671fc441b612"
     },
     {
       "path": "browser-scale-reader-instructions.md",
@@ -57,8 +57,8 @@
     },
     {
       "path": "browser-scale-answer-key.json",
-      "bytes": 16240,
-      "sha256": "cd1d54b0a92a7795f461534b7237d0137f6226f13026f5c4964e1cd98d88ed0b"
+      "bytes": 16336,
+      "sha256": "b23f1c52e5c07217f6955fe3b6f8aec5f0f7eb0e0ad857be9f8c90e2ab521955"
     },
     {
       "path": "project-browser-scale-readings.mjs",
@@ -67,8 +67,8 @@
     },
     {
       "path": "browser-scale-packet.test.mjs",
-      "bytes": 6478,
-      "sha256": "32527b7e08d1f94c917d2cb31fe815211937f7a152423d77b0357b29978853af"
+      "bytes": 14888,
+      "sha256": "a8cdee00160934ee5c771bee25e24c393bbe2792b6e39854bff624d1afcda2ca"
     },
     {
       "path": "sources/browser-scale-vision.txt",
@@ -94,6 +94,36 @@
       "path": "readings/s17/browser-scale-reading.txt",
       "bytes": 17702,
       "sha256": "7c150f4f0d48e57af1191561cbccf0c3a59cb1050ab21430a94fb3ca2fde1bd9"
+    },
+    {
+      "path": "browser-scale-key-audit-01.txt",
+      "bytes": 11492,
+      "sha256": "b2eaa7315a8108bff0da81cc0990093ddb58a20a21cd20e94c4179f9d9171053"
+    },
+    {
+      "path": "browser-scale-key-correction.md",
+      "bytes": 6080,
+      "sha256": "41019fc623dd14845a2cd587259a4da55a06fd4db4cda3077b02689dd3acf90e"
+    },
+    {
+      "path": "browser-scale-comparison-rule.json",
+      "bytes": 1047,
+      "sha256": "92013ba4cb4e6d1d067233e5c7a419536066aeecf36fefa6f9b6f4d0c2d4fae4"
+    },
+    {
+      "path": "project-browser-scale-judge-key.mjs",
+      "bytes": 1759,
+      "sha256": "ab04356abb19a249b0df2365f934181ce372ea57e829d5dc83b2d6ca3f7840dc"
+    },
+    {
+      "path": "readings/k84/browser-scale-judge-key.json",
+      "bytes": 11847,
+      "sha256": "358708aa3e4c5f5a69b07a4cdd46681688670ab4b937cd16a1bdddaa55b38507"
+    },
+    {
+      "path": "readings/s17/browser-scale-judge-key.json",
+      "bytes": 12936,
+      "sha256": "ba75c101e32c54bf0be3209472f04d0367918efa8663061a2b766d66910b4387"
     }
   ],
   "limits": {
@@ -161,10 +191,82 @@
     "other reading",
     "repository",
     "conversation history",
-    "prior reviews"
+    "prior reviews",
+    "judge-key projections",
+    "comparison rule",
+    "correction history"
   ],
   "excludedFromArtifactHashSet": [
     "browser-scale-input-manifest.json (self reference)",
-    "browser-scale-preparation-checks.json (author results recorded after input capture)"
+    "browser-scale-preparation-checks.json (author results recorded after input capture)",
+    "browser-scale-key-correction-checks.json (author correction results recorded after input capture)"
+  ],
+  "correction": {
+    "reviewedCommit": "94ace293ad3ffc60fa048ac6f963d37d6c618314",
+    "previousManifestSha256": "05cf67daf62c5eda5ff11758fcc056cc6179406ecb989ba531cd0308342c6d89",
+    "originalGuidanceRevision": "b1f5cfbdab466f4496d0ef6b4bf7b36bd4722d23",
+    "guidanceRevision": "4f53fdf4dbac1f2d9ea8d784a72ca494ce50307a",
+    "reviewer": "/root/browser_scale_key_audit",
+    "originalVerdict": "FAIL; retained against the reviewed commit",
+    "rawReport": {
+      "path": "browser-scale-key-audit-01.txt",
+      "sha256": "b2eaa7315a8108bff0da81cc0990093ddb58a20a21cd20e94c4179f9d9171053"
+    },
+    "record": "browser-scale-key-correction.md",
+    "currentDisposition": "Author correction pending scoped commit and independent recheck"
+  },
+  "judgeKeys": {
+    "baseline": {
+      "path": "readings/k84/browser-scale-judge-key.json",
+      "sha256": "358708aa3e4c5f5a69b07a4cdd46681688670ab4b937cd16a1bdddaa55b38507"
+    },
+    "candidate": {
+      "path": "readings/s17/browser-scale-judge-key.json",
+      "sha256": "ba75c101e32c54bf0be3209472f04d0367918efa8663061a2b766d66910b4387"
+    }
+  },
+  "correctionPlan": {
+    "scope": "Correct only the two established browser-scale key/protocol defects; preserve original independent FAIL, source readings, scale proposal and prior evidence.",
+    "readOrder": [
+      "Current packet and independent review",
+      "Nearest correction record and tracking rows",
+      "Applicable M2/C2, local-check and writing guidance"
+    ],
+    "outputs": [
+      "Raw browser-scale key audit 01",
+      "Prospective correction record and current protocol/key",
+      "Explicit label-free judge key projection and retained per-reading projections",
+      "Numeric comparison declaration with regression cases in packet tests",
+      "Updated manifest, checks and B54 tracking checkpoint"
+    ],
+    "vocabulary": [
+      "question-specific non-regression",
+      "reading-specific requirements",
+      "judge-visible key",
+      "NO VERDICT",
+      "author checks versus independent review"
+    ],
+    "checks": [
+      "Original all-four-scale-regressions case rejected",
+      "Any question regression cannot be offset; all-tie no improvement; valid gain remains possible",
+      "Every applicable key field retained exactly; private metadata omitted; no old/new mapping prose",
+      "Sources, readings, questions, reader instructions, old evidence and unrelated dirty files preserved"
+    ],
+    "parked": [
+      "No scale re-aim changes",
+      "No scoring engine, private harness or provider/execution setup",
+      "No actual reader answers or scored run",
+      "No independent re-review, commit, push or sibling-repo contact in this step"
+    ]
+  },
+  "excludedFromJudgeDelivery": [
+    "author answer key and unassigned branch",
+    "this manifest and reading-role map",
+    "preparation protocol and comparison rule",
+    "other questions' keys and the other reading",
+    "review and correction history",
+    "source paths and revision metadata",
+    "repository and conversation history",
+    "checks, tests and projector implementation"
   ]
 }

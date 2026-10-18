@@ -1,0 +1,20 @@
+{
+  "kind": "browser-scale-numeric-comparison-rule",
+  "status": "prospective author correction; independent recheck required",
+  "scope": "Numeric conditions only, after complete eligible accounting and conservative score derivation; passing these conditions is not the complete comparison verdict.",
+  "questionIds": ["Q01", "Q02", "Q03", "Q04", "Q05", "Q06", "Q07", "Q08"],
+  "readersPerReading": 3,
+  "scoreDomain": [0, 1, 2],
+  "candidate": {
+    "fullScore": 2,
+    "minimumFullScoresPerQuestion": 2,
+    "forbiddenScores": [0]
+  },
+  "nonRegressionQuestions": ["Q01", "Q02", "Q03", "Q04", "Q05", "Q06", "Q07", "Q08"],
+  "minimumStrictQuestionGains": 1,
+  "allTieDisposition": "No measured comprehension improvement; retain the baseline on that claim, without deciding policy ratification.",
+  "remainingConditions": [
+    "Complete eligible accounting, including both required judgments for every present eligible answer.",
+    "All raw observations and reasons inspected, with no unresolved material ambiguity or instrument defect."
+  ]
+}

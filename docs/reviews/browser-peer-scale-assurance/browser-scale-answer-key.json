@@ -1,22 +1,27 @@
 {
   "kind": "browser-scale-answer-key",
-  "status": "prospective author key; not frozen, independently audited or used for scoring",
+  "status": "author correction after key audit 01; not independently rechecked or used for scoring",
+  "correction": {
+    "reviewedCommit": "94ace293ad3ffc60fa048ac6f963d37d6c618314",
+    "record": "browser-scale-key-correction.md",
+    "priorVerdict": "FAIL; retained against the reviewed commit"
+  },
   "scoring": {
     "0": "Materially wrong decision, invented authority or guarantee, or no substantive answer from an eligible completed reader.",
     "1": "Safe but incomplete, uncertain or insufficiently grounded.",
     "2": "All asked decisions faithfully interpret the assigned reading, are sufficiently actionable and grounded; justified absence and valid explicitly labelled inference can receive full credit."
   },
   "rules": [
-    "Interpret each assigned reading on its own terms. A faithful old-scope answer is not wrong, and a justified absence is not penalized for failing to assert the proposed policy.",
+    "Interpret the assigned reading on its own terms. A faithful answer about its stated scope is not wrong, and a justified absence is not penalized for failing to assert an undeclared policy.",
     "The common requirements and the assigned reading's requirements both apply. Never import the other reading's policy or grounding.",
     "Grounding excerpts are nonexclusive audit aids, not mandatory wording or an exhaustive list of support. Award full credit to valid derivations from other supplied text.",
     "Do not require external documents, source code, Zorg-specific arrangements, exact defaults, route ceilings, an authentication design or unasked obligations.",
     "Positive claims need supporting quotations from the assigned text; membership is a code check and entailment is judgment. Missing or invalid positive-claim support caps an otherwise safe answer at 1 and never raises a zero.",
     "A correct absence claim needs no fabricated quotation; an explicitly qualified inference can receive 2 when its quoted premises justify it.",
     "Preserve wrong decision, missing decision, unsupported inference, justified absence, ambiguity and quotation/format defects as separate diagnostics.",
-    "The common exercise cover prevents current-state or adoption inferences for both readings; it does not prefer either policy.",
+    "The exercise cover prevents current-state or adoption inferences; it supplies no implementation evidence or adoption authority.",
     "A substantive scoring, extraction, key or projection defect after answers exist means NO VERDICT, not rescoring toward the intended outcome.",
-    "Judges must receive the exact question, complete common scoring/rules, applicable common and reading-specific requirements, wrong conclusions, and the assigned reading, without role/order labels or the alternate reading. Public delivery of the reading-specific key remains to be validated."
+    "Judge the supplied answer against the exact question, all applicable requirements and the assigned reading. Do not infer treatment order or substitute another policy."
   ],
   "entries": [
     {
@@ -142,8 +147,8 @@
         "No supplied measurement establishes a supported workload for any of the four examples."
       ],
       "wrong": [
-        "Grade the baseline's faithful small-scope answer as incorrect because the preferred direction is larger.",
-        "Treat the candidate target as verified support for every runtime/workload or all large topologies.",
+        "Treat a faithful reading of the stated scale as incorrect because a different scope is preferred.",
+        "Treat a deployment target as verified support for every runtime/workload or all large topologies.",
         "Confuse a scope omission with proof that the protocol cannot ever represent the topology."
       ],
       "grounding": [

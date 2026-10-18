@@ -1,0 +1,172 @@
+{
+  "scoring": {
+    "0": "Materially wrong decision, invented authority or guarantee, or no substantive answer from an eligible completed reader.",
+    "1": "Safe but incomplete, uncertain or insufficiently grounded.",
+    "2": "All asked decisions faithfully interpret the assigned reading, are sufficiently actionable and grounded; justified absence and valid explicitly labelled inference can receive full credit."
+  },
+  "rules": [
+    "Interpret the assigned reading on its own terms. A faithful answer about its stated scope is not wrong, and a justified absence is not penalized for failing to assert an undeclared policy.",
+    "The common requirements and the assigned reading's requirements both apply. Never import the other reading's policy or grounding.",
+    "Grounding excerpts are nonexclusive audit aids, not mandatory wording or an exhaustive list of support. Award full credit to valid derivations from other supplied text.",
+    "Do not require external documents, source code, Zorg-specific arrangements, exact defaults, route ceilings, an authentication design or unasked obligations.",
+    "Positive claims need supporting quotations from the assigned text; membership is a code check and entailment is judgment. Missing or invalid positive-claim support caps an otherwise safe answer at 1 and never raises a zero.",
+    "A correct absence claim needs no fabricated quotation; an explicitly qualified inference can receive 2 when its quoted premises justify it.",
+    "Preserve wrong decision, missing decision, unsupported inference, justified absence, ambiguity and quotation/format defects as separate diagnostics.",
+    "The exercise cover prevents current-state or adoption inferences; it supplies no implementation evidence or adoption authority.",
+    "A substantive scoring, extraction, key or projection defect after answers exist means NO VERDICT, not rescoring toward the intended outcome.",
+    "Judge the supplied answer against the exact question, all applicable requirements and the assigned reading. Do not infer treatment order or substitute another policy."
+  ],
+  "entries": [
+    {
+      "id": "Q01",
+      "required": [
+        "AGP gives named application endpoints routing across a topology and is an embeddable library.",
+        "A hub is configured topology placement; it does not authorize privileged protocol behavior or a second node implementation.",
+        "Browser, CLI and service placement does not alter the one-node boundary; do not infer current runtime portability from that intent."
+      ],
+      "wrong": [
+        "Introduce a browser-only protocol node or privileged hub implementation.",
+        "Treat library reach as proof that all runtimes already work."
+      ],
+      "grounding": [
+        "Every node runs the same implementation, and its position in a topology is configuration rather than identity.",
+        "AGP is a library first."
+      ]
+    },
+    {
+      "id": "Q02",
+      "required": [
+        "Correlated replies and application fan-out are application concerns; AGP supplies addressed one-way delivery, not RPC or publish/subscribe.",
+        "A successful send establishes local admission against a justified route, not guaranteed destination delivery.",
+        "AGP does not take durable custody or replay uncertain application work; recovery/resynchronization cannot be inferred as an AGP delivery guarantee.",
+        "The supplied text does not specify a concrete reconnection or application-resumption policy; do not turn the no-message-retry boundary into a prohibition on transport reconnection."
+      ],
+      "wrong": [
+        "Treat a resolved send as durable or end-to-end delivery.",
+        "Put RPC correlation, topic fan-out or replay of uncertain operations inside AGP."
+      ],
+      "grounding": [
+        "A send that resolves means one node admitted it against a route it can justify, and that is all it means.",
+        "A correlated reply is an application concern built on one-way delivery.",
+        "There are no topics, no fan-out, and no subscription state.",
+        "Nothing is persisted, replayed, or retried, and securing delivery is never an obligation this layer accepts."
+      ]
+    },
+    {
+      "id": "Q03",
+      "required": [
+        "Transport owns channel confidentiality and observed evidence; deployment policy decides whether an authenticated peer may claim an identity.",
+        "The supplied security intent does not assume an outer encryption layer and retains the ability to secure the topology with distributed key material without dedicated certificate infrastructure.",
+        "Peer scale alone neither selects a new credential mechanism nor silently changes those security boundaries."
+      ],
+      "wrong": [
+        "Move encryption into the AGP control plane or authentication policy into channel evidence.",
+        "Treat peer count as authority to replace the recorded security intent."
+      ],
+      "grounding": [
+        "The transport can protect a channel and report what it observed.",
+        "Deciding whether an authenticated peer may claim an identity is deployment policy, and AGP supplies the evidence rather than the ruling.",
+        "A deployment must be able to secure a topology with distributed key material alone, with no certificate authority, issuance, expiry, or revocation machinery."
+      ]
+    },
+    {
+      "id": "Q04",
+      "required": [
+        "The director holds ratification authority; changing confirmed intent requires a numbered decision and accounting for its effect on the vision.",
+        "Reading a vision or intent statement grants no authority to ratify, certify a gate, approve a wire change or promote code.",
+        "A production-support claim needs applicable verification evidence and the appropriate gates, not purpose or the exercise text alone; do not invent a specific completed gate or current implementation."
+      ],
+      "wrong": [
+        "Adopt changed intent without director authority or its numbered decision.",
+        "Treat this reading, preparation or a target as verified production support."
+      ],
+      "grounding": [
+        "Drafted by anyone; ratified only by the director, because intent is the one input no other role may supply.",
+        "Confirmed intent is amended only by a numbered decision.",
+        "It does not ratify a decision, certify a gate, approve a wire change, or promote code.",
+        "This document states purpose, and purpose is not evidence."
+      ]
+    },
+    {
+      "id": "Q05",
+      "required": [
+        "Distinguish declared deployment intent from measured runtime capacity, and omission from a protocol-level prohibition.",
+        "A twelve-node star is within the small-star deployment target; this is not itself a verified support result.",
+        "No supplied measurement establishes a supported workload for any of the four examples.",
+        "The three-hundred-direct-peer star fits the qualitative hundreds-of-direct-peers target; this does not set an exact supported maximum or active workload.",
+        "The large line and full mesh are not included by this scale passage; small lines remain included."
+      ],
+      "wrong": [
+        "Treat a faithful reading of the stated scale as incorrect because a different scope is preferred.",
+        "Treat a deployment target as verified support for every runtime/workload or all large topologies.",
+        "Confuse a scope omission with proof that the protocol cannot ever represent the topology."
+      ],
+      "grounding": [
+        "This document states purpose, and purpose is not evidence.",
+        "Intended deployments include small star and line topologies and stars with hundreds of concurrently established direct peers connected to one node, including browser, CLI and service applications.",
+        "A supported capacity is stated against a defined and verified operating envelope, not inferred from a configurable limit."
+      ]
+    },
+    {
+      "id": "Q06",
+      "required": [
+        "Connected peers and safe refusal do not demonstrate useful service for required routes and exchanges that remain unavailable during the stated stable workload.",
+        "Refusal may preserve routing correctness; that fact does not establish that the chosen workload is served or by itself prove a protocol breach.",
+        "The reading supplies no measured result, numerical acceptance thresholds or implementation diagnosis for this scenario.",
+        "Apply the explicit operating-envelope and usable-routes/exchanges requirement; a connected population alone does not satisfy it."
+      ],
+      "wrong": [
+        "Certify the workload solely because sessions stay connected and refusal is bounded.",
+        "Infer durable delivery from useful-capacity wording.",
+        "Assert the precise code cause or an unmeasured protocol violation."
+      ],
+      "grounding": [
+        "A node forwards or refuses; it never accepts custody on behalf of a destination.",
+        "A send that resolves means one node admitted it against a route it can justify, and that is all it means.",
+        "This document states purpose, and purpose is not evidence.",
+        "A supported capacity is stated against a defined and verified operating envelope, not inferred from a configurable limit.",
+        "Within that envelope, the required routes and message exchanges must remain usable under AGP's contract."
+      ]
+    },
+    {
+      "id": "Q07",
+      "required": [
+        "Tabs, actual direct connections/peers, route names and resource use are not interchangeable counts; the stated observations do not establish their mapping.",
+        "A configured session allowance is not measured capacity or a complete aggregate resource budget.",
+        "A claim needs the actual connection arrangement, relevant route population, workload and reference-resource evidence; exact figures and the application's sharing arrangement are not supplied.",
+        "Additional measurement inputs may be proposed as such, but must not be misrepresented as quantities or mechanisms declared by the reading.",
+        "The scale passage counts concurrently established direct peers at one node; it does not count tabs or supply the application's connection-sharing model."
+      ],
+      "wrong": [
+        "Equate tabs with peers, peers with routes, or a configured limit with support.",
+        "Import actual Zorg worker arrangements, session defaults or snapshot ceilings not present in the reading."
+      ],
+      "grounding": [
+        "It is embedded by an application that owns its own lifecycle, configuration, and deployment, and it does not assume a process, a scheduler, or an operator.",
+        "This document states purpose, and purpose is not evidence.",
+        "Intended deployments include small star and line topologies and stars with hundreds of concurrently established direct peers connected to one node, including browser, CLI and service applications.",
+        "A supported capacity is stated against a defined and verified operating envelope, not inferred from a configurable limit."
+      ]
+    },
+    {
+      "id": "Q08",
+      "required": [
+        "The absence of a general performance target does not excuse work that breaks deadlines, exhausts a bound or blocks another obligation; those are correctness faults.",
+        "A deployment qualification can specify a workload and resource conditions without silently creating a universal throughput promise; distinguish this reasoning from any numbers actually stated.",
+        "The reading supplies no numerical throughput, memory, queue or latency guarantee; do not invent exact deployment budgets.",
+        "The hundreds-of-direct-peers target requires a defined and verified operating envelope; exact workload and resource figures remain unspecified."
+      ],
+      "wrong": [
+        "Ignore missed deadlines or exhausted bounds because there is no performance target.",
+        "Invent a global throughput goal or declare workload-specific qualification forbidden."
+      ],
+      "grounding": [
+        "There is no performance target, and the absence is deliberate rather than an omission awaiting a number.",
+        "A cost that moves a deadline, exhausts a bound, or blocks the loop another obligation runs on is a correctness fault wearing a performance costume, and it is scored as the fault it is rather than as the number it presents.",
+        "Intended deployments include small star and line topologies and stars with hundreds of concurrently established direct peers connected to one node, including browser, CLI and service applications.",
+        "A supported capacity is stated against a defined and verified operating envelope, not inferred from a configurable limit.",
+        "Within that envelope, the required routes and message exchanges must remain usable under AGP's contract."
+      ]
+    }
+  ]
+}

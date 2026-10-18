@@ -1,8 +1,8 @@
 # Browser peer scale assurance preparation
 
-Status: prospective author preparation, not frozen, independently audited or executed.\
-Authority: the director selected preparation of fresh-reader assurance for the [scale amendment](sources/browser-scale-amendment.txt).\
-This step selects no commit, reader invocation, provider, spending, implementation or ratification.
+Status: author correction after key audit 01; independent recheck and scored execution remain outstanding.\
+Authority: the director selected correction of the two protocol defects, not a change to the [scale amendment](sources/browser-scale-amendment.txt).\
+The earlier committed packet's FAIL is retained in the [independent review](browser-scale-key-audit-01.txt); the [correction record](browser-scale-key-correction.md) distinguishes that verdict from this uncommitted repair.
 
 Tier 3 - proposed experiment and interpretation rules.\
 The source snapshots and [input manifest](browser-scale-input-manifest.json) retain the source evidence separately.
@@ -55,6 +55,14 @@ Before scoring, a fresh key auditor must inspect the complete readings, question
 It must check projection fidelity, whether each duty was actually asked, whether the controls are fair, and whether the proposed improvement criterion is appropriate for this re-aim.\
 The key and protocol must be committed before that audit so their precedence is provable; the audit is not a scored reader response.
 
+The [judge-key projection](project-browser-scale-judge-key.mjs) selects one reading's requirements and appends them to the common requirements, preserving their order and wording.\
+It retains the complete scoring definitions, common rules, wrong conclusions and applicable grounding excerpts, but omits status, correction history, role fields and the unassigned branch.\
+The retained projections are [one judge key](readings/k84/browser-scale-judge-key.json) and [the other judge key](readings/s17/browser-scale-judge-key.json); their reading association belongs only in the analyst manifest, not in a judge prompt or filename.
+
+Judge delivery must contain the exact question, answer under review, assigned reading, complete scoring/rules and that question's projected entry.\
+It must not add the author key, protocol, comparison rule, review history, other questions' keys, role map, source paths or revision metadata.\
+The public execution binding must establish this exact selection and isolation; the pure projection neither delivers prompts nor proves blinding in a live invocation.
+
 ---
 
 ## 3. Reader population and judging
@@ -89,9 +97,13 @@ A proposed documentation-comprehension PASS requires all five conditions:
 
 1. Complete eligible accounting, including both required judgments for every present eligible answer.
 2. Every candidate question has at least two conservative scores of 2 and no zero.
-3. No control's candidate sum is below its baseline sum; gains elsewhere cannot offset a control regression.
+3. For every question Q01 through Q08, the candidate sum is at least its baseline sum; no gain can offset a regression on any question.
 4. At least one question has a higher candidate sum; an all-tie result retains the baseline on measured comprehension and demonstrates no improvement.
 5. All raw observations and reasons have been inspected, with no unresolved material ambiguity or instrument defect.
+
+The [numeric rule](browser-scale-comparison-rule.json) fixes conditions 2 through 4 for the packet's arithmetic checks; it is not a substitute for conditions 1 and 5.\
+**Correction after key audit 01:** the former condition 3 protected only controls and could hide four scale-question regressions behind one control gain.\
+The [correction record](browser-scale-key-correction.md#1-comparison-correction) preserves that rule and the rejected logical example; no observed reader results informed this amendment.
 
 A valid comparison missing a condition is FAIL under this proposed rule; a substantive key, projection, extraction or scoring defect is `NO VERDICT`.\
 Two of three readers hedging on the same decision triggers an ambiguity review before blaming the key; a deliberately unselected quantity is not a hedge.\
@@ -114,7 +126,7 @@ This directory is a source packet, not a validated executable context-lab pack.
 | Input delivery | Same instructions/questions and exactly one reading; prove assigned delivery and isolation rather than relying on a warning not to look |
 | Reader payload | At most 64 KiB UTF-8 for reading, instructions and questions; separately account for wrappers and the selected model's context limit without silent input truncation |
 | Response | Same 24 KiB UTF-8 bound for every reader; validate extraction, completion and overflow treatment before use; a scored-text bound is not a capture-memory or spending bound |
-| Judge delivery | Exact common rules plus the applicable reading-specific key and assigned-text support; no role/order metadata or alternate reading; validate a public binding before selecting serialization or batching |
+| Judge delivery | Exact question, answer and assigned reading plus complete scoring/rules and its entry from the retained judge-key projection; no private role mapping, unassigned material or rewritten requirements; validate the public binding before selecting serialization or batching |
 | Complete accounting | Record every planned cell, answer and vote slot, every dispatch and attempt, effective retry policy, eligibility and actual prompts; reconcile interrupted or absent records without inventing completion |
 | Resources | Pin component/runtime/model profiles, request/time/spending bounds and retention; obtain separate execution authority |
 
@@ -129,13 +141,13 @@ Neither an earlier experiment's readiness record nor a pending owner response is
 
 ## 6. Next gates
 
-1. Validate and preserve this prospective packet and exact author checks.
-2. Obtain approval for a scoped local commit of this packet, including its source snapshots; no push or commit of unrelated work is required.
-3. Have a fresh auditor review the committed key and protocol before any scored reader sees them; preserve findings and correct prospectively.
+1. Preserve the original FAIL and validate the prospective correction with exact author checks.
+2. Obtain approval for a scoped local commit of the correction; no push or commit of unrelated work is required.
+3. Have an independent auditor recheck the committed correction and semantic completeness of both judge projections before any scored reader runs.
 4. Review and validate the public execution binding, freeze settings and obtain separate execution approval.
 5. Run the complete comparison, obtain independent interpretation, then return to the director for the scale-intent decision.
 
-The [preparation checks](browser-scale-preparation-checks.json) record only author-side document and input-integrity results.\
+The [preparation checks](browser-scale-preparation-checks.json) remain historical; the [correction checks](browser-scale-key-correction-checks.json) record the new author-side results.\
 The normative vision, decision register, amendment and existing assurance packets remain unchanged.
 
 Mechanics: isolate the proposed intent passage within common source context and check faithful interpretation against each reading's own policy.\
