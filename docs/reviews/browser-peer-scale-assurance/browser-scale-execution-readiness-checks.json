@@ -1,0 +1,625 @@
+{
+  "kind": "browser-scale-execution-readiness-author-checks",
+  "status": "Complete author public-contract assessment and local integrity checks; scored execution NOT READY",
+  "authority": "Retain independent key recheck PASS and assess public context-lab support against the unchanged browser-scale packet; no scored runs, provider calls, private harness, commits, push or sibling writes.",
+  "plan": {
+    "scope": "Retain independent key recheck PASS and assess public context-lab support against the unchanged browser-scale packet; no scored runs, provider calls, private harness, commits, push or sibling writes.",
+    "readOrder": [
+      "Frozen AGP protocol and independent review; nearest readiness/handoff records",
+      "Current context-lab owner response, public README/operations/schema and cited public capability records",
+      "Compare each packet prerequisite against declared public support, keeping delivered-contract evidence separate from unvalidated behavior"
+    ],
+    "outputs": [
+      "browser-scale-key-recheck-02.txt: full independent report",
+      "browser-scale-key-recheck-checks-02.json: identity, invocation limits and prior before/after check",
+      "browser-scale-execution-readiness.md: bounded public-capability assessment and best next action",
+      "browser-scale-execution-readiness-checks.json: source identities, commands/results and scoped preservation",
+      "B54 board rows, MX22 current finding and appended verification checkpoint"
+    ],
+    "vocabulary": [
+      "NO VERDICT",
+      "assigned reading",
+      "reading-specific key",
+      "eligible completed reader",
+      "exact per-question judge delivery",
+      "planned cells",
+      "vote slots",
+      "request/spend bounds",
+      "retention"
+    ],
+    "lookFor": [
+      "Frozen-format extraction without reader instruction changes",
+      "Complete per-question rules/requirements delivery",
+      "Cross-family numeric judging and code grounding cap",
+      "Complete accounting across interrupts and missing answers",
+      "Hard output/capture/context bounds",
+      "Exact model profiles, retries, request/time/spend limits",
+      "Replay/retention support",
+      "Pack validation evidence versus merely documented capability"
+    ],
+    "parked": [
+      "No scope or key changes",
+      "No ad hoc execution or scoring engine",
+      "No new design or survey",
+      "No model/provider selection or contact",
+      "No new independent agent",
+      "No repo cleanup or unrelated board reprioritization",
+      "No external handoff without a separate selected action"
+    ]
+  },
+  "sourceIdentity": {
+    "measuredAt": "2026-10-18T04:53:55.217Z",
+    "environment": {
+      "node": "v24.12.0",
+      "platform": "linux",
+      "arch": "x64"
+    },
+    "contextLab": {
+      "head": "ce9d513bb39d3469ca0af46a0320c6bf9cbbe469",
+      "ownerDeliveredRevision": "adf4b465f757eb09c1e74ee77f3dc3b6277512a0",
+      "deliveredAncestorOfHead": true,
+      "ancestryExitCode": 0,
+      "trackedPublicDocsClean": true
+    },
+    "files": [
+      {
+        "path": "/home/apnex/taceng/context-lab/README.md",
+        "bytes": 3736,
+        "sha256": "28a57f9a8b0b0876e05205a47278c29e681d848e2daff5afd2a2c3fa7ae579a7"
+      },
+      {
+        "path": "/home/apnex/taceng/context-lab/docs/OPERATIONS.md",
+        "bytes": 31797,
+        "sha256": "7ee8e2b6d7eb5d32fa297505e4f3c77ac9e4dfc00fa4370c80c8e28c821a7607"
+      },
+      {
+        "path": "/home/apnex/taceng/context-lab/incoming/agp-assurance-compatibility-review-response.md",
+        "bytes": 11228,
+        "sha256": "f4f13be336ee61991a375dea7debfe6954e78593f0e5dda8a4f77e09d0c4e06b"
+      },
+      {
+        "path": "/home/apnex/taceng/context-lab/incoming/agp-assurance-compatibility-correction-response.md",
+        "bytes": 8859,
+        "sha256": "eb2383187cdf8d05ccf5da7b0f3e9dbca40d1ff63da7b7a839a974535b84d904"
+      },
+      {
+        "path": "/home/apnex/taceng/context-lab/incoming/agp-assurance-capability-feedback-response.md",
+        "bytes": 4810,
+        "sha256": "67aa9b96c32789003db28015625bc188f9c8ec785cc3ee0e2a4898731ed0b50e"
+      },
+      {
+        "path": "/home/apnex/taceng/context-lab/incoming/agp-admission-diagnostic-correction-response.md",
+        "bytes": 14387,
+        "sha256": "8d365d9faf48c8ca00b58a9ec1b07b938776ed0f0b50f61f642af997c0db60dd"
+      },
+      {
+        "path": "/home/apnex/taceng/mission-kit/components/C2-context-lab.md",
+        "bytes": 9846,
+        "sha256": "690f6c0159e0387ce43c42fca0a841091ce81258677a20818dedbf992ccc7bbb"
+      }
+    ],
+    "measurementCommand": "node --input-type=module -e 'import fs from \"node:fs\";import cp from \"node:child_process\";import crypto from \"node:crypto\";const paths=[\"/home/apnex/taceng/context-lab/README.md\",\"/home/apnex/taceng/context-lab/docs/OPERATIONS.md\",\"/home/apnex/taceng/context-lab/incoming/agp-assurance-compatibility-review-response.md\",\"/home/apnex/taceng/context-lab/incoming/agp-assurance-compatibility-correction-response.md\",\"/home/apnex/taceng/context-lab/incoming/agp-assurance-capability-feedback-response.md\",\"/home/apnex/taceng/context-lab/incoming/agp-admission-diagnostic-correction-response.md\",\"/home/apnex/taceng/mission-kit/components/C2-context-lab.md\"];const sha=b=>crypto.createHash(\"sha256\").update(b).digest(\"hex\");const files=paths.map(path=>{const b=fs.readFileSync(path);return{path,bytes:b.length,sha256:sha(b)}});const repo=\"/home/apnex/taceng/context-lab\";const git=(...a)=>cp.execFileSync(\"git\",a,{cwd:repo,encoding:\"utf8\"}).trim();const delivered=git(\"rev-parse\",\"adf4b465f757eb09c1e74ee77f3dc3b6277512a0^{commit}\");const ancestor=cp.spawnSync(\"git\",[\"merge-base\",\"--is-ancestor\",delivered,\"HEAD\"],{cwd:repo});console.log(JSON.stringify({measuredAt:new Date().toISOString(),environment:{node:process.version,platform:process.platform,arch:process.arch},contextLab:{head:git(\"rev-parse\",\"HEAD\"),ownerDeliveredRevision:delivered,deliveredAncestorOfHead:ancestor.status===0,ancestryExitCode:ancestor.status,trackedPublicDocsClean:git(\"diff\",\"HEAD\",\"--\",\"README.md\",\"docs/OPERATIONS.md\")===\"\"},files},null,2));'"
+  },
+  "independentReview": {
+    "record": "browser-scale-key-recheck-checks-02.json",
+    "report": "browser-scale-key-recheck-02.txt",
+    "scope": "Static preparation key/protocol PASS only; author checks below do not extend it"
+  },
+  "assessment": {
+    "level": "Tier 3 interpretation of public contracts and attributed owner claims",
+    "implementationRead": false,
+    "publicBindingValidated": false,
+    "scoredExecutionAuthorized": false,
+    "noProviderCalls": true,
+    "noNewAgents": true,
+    "noSiblingWrites": true
+  },
+  "validations": [
+    {
+      "name": "packet",
+      "command": "node --test docs/reviews/browser-peer-scale-assurance/browser-scale-packet.test.mjs",
+      "cwd": "/home/apnex/taceng/agp",
+      "chunk_id": "ca3eae",
+      "wall_time_seconds": 0.000023026,
+      "original_token_count": 771,
+      "output": "✔ Given the prepared packet, when its artifacts are read, then every declared byte count and digest matches (144.98832ms)\n✔ Given source snapshots, when hashed, then each preserves its declared source bytes (26.210534ms)\n✔ Given the source snapshots, when projected, then both readings reproduce exactly (6.983786ms)\n✔ Given the paired readings, when the proposed scale passage is reversed, then all other text is identical (1.546928ms)\n✔ Given reader material, when checked for provenance, then private labels and amendment administration are absent (0.702397ms)\n✔ Given questions and key, when coverage is checked, then eight questions have reading-specific keys and four controls (5.442793ms)\n✔ Given key excerpts, when membership is checked, then each belongs to its assigned reading (189.417995ms)\n✔ Given a duplicated question identifier, when coverage is checked, then the malformed packet is rejected (22.704601ms)\n✔ Given a missing excerpt, when grounding is checked, then the malformed key is rejected (4.056734ms)\n✔ Given a removed intent boundary, when projection runs, then it refuses an alternate source range (11.759111ms)\n✔ Given a changed input byte, when checked against the source digest, then its identity no longer matches (8.76033ms)\n✔ Given complete reader material, when measured, then both payloads fit the common bound (53.246167ms)\n✔ Given the corrected author key, when projected, then both retained judge keys reproduce exactly (14.716512ms)\n✔ Given either judge projection, when its fields are compared, then all applicable grading content is retained without private metadata (30.214006ms)\n✔ Given additional private author metadata, when projecting, then it is omitted and neither source nor projected arrays share mutation (2.19528ms)\n✔ Given reintroduced treatment wording, when checking judge text, then each known disclosure is detected (10.64384ms)\n✔ Given invalid judge-key inputs, when projecting, then unknown roles, missing branches and duplicated identifiers are refused (19.264882ms)\n✔ Given the numeric rule, when compared with the questions, then every duty is protected and the original floor and strict-gain requirements remain (0.484977ms)\n✔ Given the audit's four-regression example, when applying the corrected rule, then it fails while restoring the former control-only scope admits it (5.842972ms)\n✔ Given a regression on any one question, when another question gains more, then the aggregate improvement cannot hide the regression (1.334354ms)\n✔ Given equal complete scores, when applying the numeric rule, then a tie is not an improvement (5.927521ms)\n✔ Given one strict gain with no regression, when all candidate floors hold, then the numeric conditions can pass (0.353865ms)\n✔ Given improvement elsewhere, when a candidate answer set misses the full-score floor or contains zero, then the numeric conditions fail (0.358845ms)\n✔ Given incomplete or invalid score fixtures, when checking numeric conditions, then they are rejected rather than treated as reader failures (31.033025ms)\nℹ tests 24\nℹ suites 0\nℹ pass 24\nℹ fail 0\nℹ cancelled 0\nℹ skipped 0\nℹ todo 0\nℹ duration_ms 1126.202041\n",
+      "exit_code": 0
+    },
+    {
+      "name": "records",
+      "command": "node --test test/conformance/board-record.test.js test/conformance/record-integrity.test.js test/conformance/architecture-record.test.js",
+      "cwd": "/home/apnex/taceng/agp",
+      "chunk_id": "8ef85b",
+      "wall_time_seconds": 0.000022075,
+      "original_token_count": 394,
+      "output": "✔ Given the confirmed intent record, when its numbered subsections are read, then every number is unique and ordered (23.722595ms)\n✔ Given the reconciled architecture, when its current paths and scope owners are resolved, then none points at a fictional module or a forked deferred list (54.542171ms)\n✔ Given the triage ledger, when each candidate is read, then it is scored on both dimensions and cites a record (51.812478ms)\n✔ Given every record cited by the board, when the link is resolved, then the target and its anchor exist (852.376357ms)\n✔ Given the held section, when each item is read, then it is scored and carries a revival trigger (7.387373ms)\n✔ Given the decisions required, when each is read, then it names exactly what it blocks (5.910317ms)\n✔ Given every board identifier, when the ledger and milestones are compared, then neither contains an item the other omits (4.080156ms)\n✔ Given every board item, when its ledger status is compared with where it sits, then the board does not disagree with itself about its state (95.615813ms)\n✔ Given the milestones, when each is read, then no landed item is presented as a live move and the closed count matches the closed set (46.202194ms)\n✔ Given every record that cites a board item, when the citation is resolved, then the item exists on the board (266.342772ms)\n✔ Given the architecture maturity table, when a reopen trigger is read, then it names a condition that has not already happened (7.663892ms)\n✔ Given confirmed intent, when a row says it was amended, then it names the decision that amended it (3.803265ms)\n✔ Given every ratified decision, when it is checked against the vision, then it has been absorbed or explicitly ruled not to change purpose (5.241925ms)\nℹ tests 13\nℹ suites 0\nℹ pass 13\nℹ fail 0\nℹ cancelled 0\nℹ skipped 0\nℹ todo 0\nℹ duration_ms 1342.452228\n",
+      "exit_code": 0
+    },
+    {
+      "name": "documentation",
+      "command": "tools/check-docs.sh docs/reviews/browser-peer-scale-assurance/browser-scale-execution-readiness.md docs/BOARD.md docs/VERIFICATION.md",
+      "cwd": "/home/apnex/taceng/agp",
+      "chunk_id": "f450db",
+      "wall_time_seconds": 0.000020246,
+      "original_token_count": 42,
+      "output": "\nclean: 3 file(s), rule S13.\n\nclean: 3 file(s), rule S6.\n\nclean: 3 file(s), rule S10.\n\nclean: 3 file(s), rule S12.\n\nclean: 3 file(s), rule S8.\ndocs: 3 file(s) clean against S6, S8, S10, S12, S13.\n",
+      "exit_code": 0
+    },
+    {
+      "name": "whitespace",
+      "command": "git diff --check",
+      "cwd": "/home/apnex/taceng/agp",
+      "chunk_id": "e2c6ae",
+      "wall_time_seconds": 0.106027131,
+      "exit_code": 0,
+      "original_token_count": 0,
+      "output": ""
+    },
+    {
+      "name": "links",
+      "command": "node --input-type=module -e '\nimport fs from \"node:fs\";\nimport path from \"node:path\";\nimport assert from \"node:assert/strict\";\nconst files=[\"docs/reviews/browser-peer-scale-assurance/browser-scale-execution-readiness.md\",\"docs/BOARD.md\",\"docs/VERIFICATION.md\"];\nconst slug=s=>s.trim().toLowerCase().replace(/[`*_~]/gu,\"\").replace(/[.,:;!?()[\\]{}'\\''\"\\\\/|<>@#$%^&+=]/gu,\"\").replace(/\\s/gu,\"-\");\nconst broken=[];let count=0;\nfor(const file of files){\n const body=fs.readFileSync(file,\"utf8\");\n for(const m of body.matchAll(/\\]\\(([^)\\s]*)\\)/gu)){\n  const ref=m[1];if(/^[a-z][a-z\\d+.-]*:/iu.test(ref))continue;\n  const [relative,anchor]=ref.split(\"#\");\n  const target=relative?path.resolve(path.dirname(file),relative):path.resolve(file);\n  count++;\n  if(!fs.existsSync(target)){broken.push({file,ref,reason:\"missing target\"});continue;}\n  if(anchor&&target.endsWith(\".md\")){\n   const headings=new Set([...fs.readFileSync(target,\"utf8\").matchAll(/^#{1,6}\\s+(.+?)\\s*$/gmu)].map(m=>slug(m[1])));\n   if(!headings.has(anchor))broken.push({file,ref,reason:\"missing heading\"});\n  }\n }\n}\nassert.ok(count>50,\"empty or incomplete link population\");\nassert.deepEqual(broken,[]);\nconsole.log(JSON.stringify({result:\"PASS\",files,localReferences:count,broken}));\n'",
+      "cwd": "/home/apnex/taceng/agp",
+      "chunk_id": "9c2dff",
+      "wall_time_seconds": 0.000032088,
+      "original_token_count": 46,
+      "output": "{\"result\":\"PASS\",\"files\":[\"docs/reviews/browser-peer-scale-assurance/browser-scale-execution-readiness.md\",\"docs/BOARD.md\",\"docs/VERIFICATION.md\"],\"localReferences\":533,\"broken\":[]}\n",
+      "exit_code": 0
+    }
+  ],
+  "scopePreservation": {
+    "command": "node --input-type=module -e 'import fs from \"node:fs\";import cp from \"node:child_process\";import path from \"node:path\";import crypto from \"node:crypto\";import assert from \"node:assert/strict\";\nconst agp=\"/home/apnex/taceng/agp\";\nconst recordPath=\"docs/reviews/browser-peer-scale-assurance/browser-scale-execution-readiness-checks.json\";\nconst record=JSON.parse(fs.readFileSync(recordPath,\"utf8\"));\nconst sha=b=>crypto.createHash(\"sha256\").update(b).digest(\"hex\");\nconst git=(cwd,...args)=>cp.execFileSync(\"git\",args,{cwd,encoding:\"utf8\"});\nconst tracking=new Set(record.trackingChanges.map(e=>e[0]));\nconst results=[];\nfor(const [cwd,before] of Object.entries(record.baseline).filter(([k])=>k.startsWith(\"/\"))) {\n assert.equal(git(cwd,\"rev-parse\",\"HEAD\").trim(),before.head);\n assert.equal(git(cwd,\"rev-parse\",\"refs/remotes/origin/main\").trim(),before.origin);\n assert.equal(git(cwd,\"diff\",\"--cached\",\"--binary\"),before.index);\n const dirty=git(cwd,\"ls-files\",\"--modified\",\"--others\",\"--exclude-standard\",\"-z\").split(\"\\0\").filter(Boolean);\n const expected=cwd===agp?[...before.dirty,...record.allowedNewFiles]:before.dirty;\n assert.deepEqual([...dirty].sort(),[...expected].sort());\n if(cwd!==agp)assert.equal(git(cwd,\"status\",\"--porcelain=v1\",\"--untracked-files=all\"),before.status);\n let unchanged=0;\n for(const [p,h] of Object.entries(before.files)){\n  if(cwd===agp&&tracking.has(p))continue;\n  assert.equal(sha(fs.readFileSync(path.join(cwd,p))),h,p+\" changed\");unchanged++;\n }\n results.push({repository:cwd,head:before.head,localOrigin:before.origin,indexUnchanged:true,indexEmpty:before.index===\"\",dirtyPaths:dirty.length,unchangedComparedFiles:unchanged,newFiles:cwd===agp?record.allowedNewFiles:[]});\n}\nfor(const file of tracking){\n let text=fs.readFileSync(file,\"utf8\");\n for(const [p,oldText,newText] of record.trackingChanges.filter(e=>e[0]===file)) {\n  assert.equal(text.split(newText).length-1,1,p+\" replacement not unique\");\n  text=text.replace(newText,oldText);\n }\n if(file===\"docs/VERIFICATION.md\"){\n  assert.equal(text.split(record.addedVerificationSection).length-1,1,\"new checkpoint not unique\");\n  text=text.replace(record.addedVerificationSection,\"\");\n }\n assert.equal(sha(Buffer.from(text)),record.baseline[agp].files[file],file+\" inverse-content mismatch\");\n}\nfor(const source of record.sourceIdentity.files)assert.equal(sha(fs.readFileSync(source.path)),source.sha256,source.path+\" changed\");\nconst packet=git(agp,\"ls-files\",\"docs/reviews/browser-peer-scale-assurance\",\"-z\").split(\"\\0\").filter(Boolean);\nassert.equal(packet.length,20);\nfor(const p of [...packet,\"VISION.md\",\"docs/DECISIONS.md\"])assert.equal(sha(fs.readFileSync(p)),sha(cp.execFileSync(\"git\",[\"show\",record.baseline[agp].head+\":\"+p],{cwd:agp})),p+\" differs from reviewed commit\");\nconst review=JSON.parse(fs.readFileSync(\"docs/reviews/browser-peer-scale-assurance/browser-scale-key-recheck-checks-02.json\",\"utf8\"));\nassert.equal(sha(fs.readFileSync(review.independentReview.report.path)),review.independentReview.report.sha256);\nconst artifacts=[...record.allowedNewFiles.filter(p=>p!==recordPath),\"docs/BOARD.md\",\"docs/VERIFICATION.md\"].map(p=>{const b=fs.readFileSync(p);return{path:p,bytes:b.length,sha256:sha(b)}});\nconsole.log(JSON.stringify({result:\"PASS\",repositories:results,committedPacketFilesUnchanged:packet.length,normativeFilesMatchReviewedCommit:[\"VISION.md\",\"docs/DECISIONS.md\"],otherDirtyFilesUnchanged:record.baseline[agp].dirty.length-tracking.size,exactTrackingEdits:record.trackingChanges.map(([file,oldText,newText])=>({file,oldText,newText})),verificationHistoryPreserved:true,sourceIdentityFilesPreserved:record.sourceIdentity.files.length,rawReportMatchesCapturedDigest:true,artifacts,scope:\"File bytes, Git state, allowed path set and inverse-content preservation only; not independent semantic or execution assurance\"},null,2));'",
+    "cwd": "/home/apnex/taceng/agp",
+    "chunk_id": "a0cffc",
+    "wall_time_seconds": 0.636630665,
+    "exit_code": 0,
+    "original_token_count": 1564,
+    "output": "{\n  \"result\": \"PASS\",\n  \"repositories\": [\n    {\n      \"repository\": \"/home/apnex/taceng/agp\",\n      \"head\": \"a98c03fcfe3bfdaeee32c8943971ecc32eb4f898\",\n      \"localOrigin\": \"f16266aaafa66f6301d7afbf09c55e3a1f990274\",\n      \"indexUnchanged\": true,\n      \"indexEmpty\": true,\n      \"dirtyPaths\": 85,\n      \"unchangedComparedFiles\": 101,\n      \"newFiles\": [\n        \"docs/reviews/browser-peer-scale-assurance/browser-scale-key-recheck-02.txt\",\n        \"docs/reviews/browser-peer-scale-assurance/browser-scale-key-recheck-checks-02.json\",\n        \"docs/reviews/browser-peer-scale-assurance/browser-scale-execution-readiness.md\",\n        \"docs/reviews/browser-peer-scale-assurance/browser-scale-execution-readiness-checks.json\"\n      ]\n    },\n    {\n      \"repository\": \"/home/apnex/taceng/context-lab\",\n      \"head\": \"ce9d513bb39d3469ca0af46a0320c6bf9cbbe469\",\n      \"localOrigin\": \"ce9d513bb39d3469ca0af46a0320c6bf9cbbe469\",\n      \"indexUnchanged\": true,\n      \"indexEmpty\": true,\n      \"dirtyPaths\": 16,\n      \"unchangedComparedFiles\": 19,\n      \"newFiles\": []\n    }\n  ],\n  \"committedPacketFilesUnchanged\": 20,\n  \"normativeFilesMatchReviewedCommit\": [\n    \"VISION.md\",\n    \"docs/DECISIONS.md\"\n  ],\n  \"otherDirtyFilesUnchanged\": 79,\n  \"exactTrackingEdits\": [\n    {\n      \"file\": \"docs/BOARD.md\",\n      \"oldText\": \"| `B54` | Decide peer-scale intent and define its operating envelope | `I3` | `P3` | [`MX22`](VERIFICATION.md#46-open-findings-from-sweeps), [key audit and correction](VERIFICATION.md#475-browser-peer-scale-key-audit-and-correction) | open |\",\n      \"newText\": \"| `B54` | Decide peer-scale intent and define its operating envelope | `I3` | `P3` | [`MX22`](VERIFICATION.md#46-open-findings-from-sweeps), [key recheck and execution readiness](VERIFICATION.md#476-browser-peer-scale-key-recheck-and-execution-readiness) | open |\"\n    },\n    {\n      \"file\": \"docs/BOARD.md\",\n      \"oldText\": \"| 3 | `B54` | Correction committed locally; independent key/protocol recheck remains | [Commit checkpoint](VERIFICATION.md#475-browser-peer-scale-key-audit-and-correction) preserves the original FAIL and the exact correction; execution readiness, ratification and the operating envelope remain open |\",\n      \"newText\": \"| 3 | `B54` | Independent key/protocol recheck PASS; public execution binding remains | [Readiness assessment](VERIFICATION.md#476-browser-peer-scale-key-recheck-and-execution-readiness) separates the retained PASS from unvalidated judge-key delivery, accounting and resource bounds; ratification and the operating envelope remain open |\"\n    },\n    {\n      \"file\": \"docs/BOARD.md\",\n      \"oldText\": \"Status: the scale packet's original independent key audit remains FAIL, with the correction committed locally and awaiting recheck; the direct-peer design retains technical and scoped axiom PASS, and its separate corrected assurance instrument has bounded key-recheck PASS.\\\\\",\n      \"newText\": \"Status: the corrected scale packet has independent key/protocol recheck PASS, with the original FAIL retained and scored execution not ready; the direct-peer design retains technical and scoped axiom PASS, and its separate corrected assurance instrument has bounded key-recheck PASS.\\\\\"\n    },\n    {\n      \"file\": \"docs/BOARD.md\",\n      \"oldText\": \"| `B54` | Authorize one fresh independent key/protocol recheck of the committed correction | [Commit checkpoint](VERIFICATION.md#475-browser-peer-scale-key-audit-and-correction) fixes the review target without claiming closure of the original FAIL; public execution validation and separate scored-reader approval still follow |\",\n      \"newText\": \"| `B54` | Resolve the public pack binding and AGP acceptance map without model calls | [Readiness assessment](reviews/browser-peer-scale-assurance/browser-scale-execution-readiness.md) identifies the reading-specific key composition and remaining validation/resource prerequisites; no scored execution is selected |\"\n    },\n    {\n      \"file\": \"docs/VERIFICATION.md\",\n      \"oldText\": \"| `MX22` | The director intends hundreds of concurrent browser peers against one node, while confirmed intent still targets fewer than twenty nodes. Current configurable limits do not establish support for the expanded use case. | Open, `B54`; [section 4.75](#475-browser-peer-scale-key-audit-and-correction) records independent key audit FAIL and locally committed correction awaiting independent recheck; execution readiness, fresh-reader assurance, ratification and the operating envelope remain open |\",\n      \"newText\": \"| `MX22` | The director intends hundreds of concurrent browser peers against one node, while confirmed intent still targets fewer than twenty nodes. Current configurable limits do not establish support for the expanded use case. | Open, `B54`; [section 4.76](#476-browser-peer-scale-key-recheck-and-execution-readiness) retains independent key/protocol recheck PASS; public execution binding, resource bounds, fresh-reader assurance, ratification and the operating envelope remain open |\"\n    }\n  ],\n  \"verificationHistoryPreserved\": true,\n  \"sourceIdentityFilesPreserved\": 7,\n  \"rawReportMatchesCapturedDigest\": true,\n  \"artifacts\": [\n    {\n      \"path\": \"docs/reviews/browser-peer-scale-assurance/browser-scale-key-recheck-02.txt\",\n      \"bytes\": 9073,\n      \"sha256\": \"b1f4d949b9fa35dbafe806223a2de49a4e3db9095d916f5a2c907c7854cf2dd8\"\n    },\n    {\n      \"path\": \"docs/reviews/browser-peer-scale-assurance/browser-scale-key-recheck-checks-02.json\",\n      \"bytes\": 43401,\n      \"sha256\": \"4f64c7888c044cbaf634f0786c9671d37216ad93455cac7a93021a74ff05a096\"\n    },\n    {\n      \"path\": \"docs/reviews/browser-peer-scale-assurance/browser-scale-execution-readiness.md\",\n      \"bytes\": 10949,\n      \"sha256\": \"e2c98b8a95d5291873480c0e3ee8b0ef8366475797743470ee4771b9221e3d44\"\n    },\n    {\n      \"path\": \"docs/BOARD.md\",\n      \"bytes\": 47442,\n      \"sha256\": \"3a989fddaee11735ef53fe561ebecbefad4f83e12520c487d7c32883031f185b\"\n    },\n    {\n      \"path\": \"docs/VERIFICATION.md\",\n      \"bytes\": 382697,\n      \"sha256\": \"0601ddf3cf3071bbc35ddde30b70e830b125089104d4bbb3c6da830fc6b2ec6f\"\n    }\n  ],\n  \"scope\": \"File bytes, Git state, allowed path set and inverse-content preservation only; not independent semantic or execution assurance\"\n}\n",
+    "result": {
+      "result": "PASS",
+      "repositories": [
+        {
+          "repository": "/home/apnex/taceng/agp",
+          "head": "a98c03fcfe3bfdaeee32c8943971ecc32eb4f898",
+          "localOrigin": "f16266aaafa66f6301d7afbf09c55e3a1f990274",
+          "indexUnchanged": true,
+          "indexEmpty": true,
+          "dirtyPaths": 85,
+          "unchangedComparedFiles": 101,
+          "newFiles": [
+            "docs/reviews/browser-peer-scale-assurance/browser-scale-key-recheck-02.txt",
+            "docs/reviews/browser-peer-scale-assurance/browser-scale-key-recheck-checks-02.json",
+            "docs/reviews/browser-peer-scale-assurance/browser-scale-execution-readiness.md",
+            "docs/reviews/browser-peer-scale-assurance/browser-scale-execution-readiness-checks.json"
+          ]
+        },
+        {
+          "repository": "/home/apnex/taceng/context-lab",
+          "head": "ce9d513bb39d3469ca0af46a0320c6bf9cbbe469",
+          "localOrigin": "ce9d513bb39d3469ca0af46a0320c6bf9cbbe469",
+          "indexUnchanged": true,
+          "indexEmpty": true,
+          "dirtyPaths": 16,
+          "unchangedComparedFiles": 19,
+          "newFiles": []
+        }
+      ],
+      "committedPacketFilesUnchanged": 20,
+      "normativeFilesMatchReviewedCommit": [
+        "VISION.md",
+        "docs/DECISIONS.md"
+      ],
+      "otherDirtyFilesUnchanged": 79,
+      "exactTrackingEdits": [
+        {
+          "file": "docs/BOARD.md",
+          "oldText": "| `B54` | Decide peer-scale intent and define its operating envelope | `I3` | `P3` | [`MX22`](VERIFICATION.md#46-open-findings-from-sweeps), [key audit and correction](VERIFICATION.md#475-browser-peer-scale-key-audit-and-correction) | open |",
+          "newText": "| `B54` | Decide peer-scale intent and define its operating envelope | `I3` | `P3` | [`MX22`](VERIFICATION.md#46-open-findings-from-sweeps), [key recheck and execution readiness](VERIFICATION.md#476-browser-peer-scale-key-recheck-and-execution-readiness) | open |"
+        },
+        {
+          "file": "docs/BOARD.md",
+          "oldText": "| 3 | `B54` | Correction committed locally; independent key/protocol recheck remains | [Commit checkpoint](VERIFICATION.md#475-browser-peer-scale-key-audit-and-correction) preserves the original FAIL and the exact correction; execution readiness, ratification and the operating envelope remain open |",
+          "newText": "| 3 | `B54` | Independent key/protocol recheck PASS; public execution binding remains | [Readiness assessment](VERIFICATION.md#476-browser-peer-scale-key-recheck-and-execution-readiness) separates the retained PASS from unvalidated judge-key delivery, accounting and resource bounds; ratification and the operating envelope remain open |"
+        },
+        {
+          "file": "docs/BOARD.md",
+          "oldText": "Status: the scale packet's original independent key audit remains FAIL, with the correction committed locally and awaiting recheck; the direct-peer design retains technical and scoped axiom PASS, and its separate corrected assurance instrument has bounded key-recheck PASS.\\",
+          "newText": "Status: the corrected scale packet has independent key/protocol recheck PASS, with the original FAIL retained and scored execution not ready; the direct-peer design retains technical and scoped axiom PASS, and its separate corrected assurance instrument has bounded key-recheck PASS.\\"
+        },
+        {
+          "file": "docs/BOARD.md",
+          "oldText": "| `B54` | Authorize one fresh independent key/protocol recheck of the committed correction | [Commit checkpoint](VERIFICATION.md#475-browser-peer-scale-key-audit-and-correction) fixes the review target without claiming closure of the original FAIL; public execution validation and separate scored-reader approval still follow |",
+          "newText": "| `B54` | Resolve the public pack binding and AGP acceptance map without model calls | [Readiness assessment](reviews/browser-peer-scale-assurance/browser-scale-execution-readiness.md) identifies the reading-specific key composition and remaining validation/resource prerequisites; no scored execution is selected |"
+        },
+        {
+          "file": "docs/VERIFICATION.md",
+          "oldText": "| `MX22` | The director intends hundreds of concurrent browser peers against one node, while confirmed intent still targets fewer than twenty nodes. Current configurable limits do not establish support for the expanded use case. | Open, `B54`; [section 4.75](#475-browser-peer-scale-key-audit-and-correction) records independent key audit FAIL and locally committed correction awaiting independent recheck; execution readiness, fresh-reader assurance, ratification and the operating envelope remain open |",
+          "newText": "| `MX22` | The director intends hundreds of concurrent browser peers against one node, while confirmed intent still targets fewer than twenty nodes. Current configurable limits do not establish support for the expanded use case. | Open, `B54`; [section 4.76](#476-browser-peer-scale-key-recheck-and-execution-readiness) retains independent key/protocol recheck PASS; public execution binding, resource bounds, fresh-reader assurance, ratification and the operating envelope remain open |"
+        }
+      ],
+      "verificationHistoryPreserved": true,
+      "sourceIdentityFilesPreserved": 7,
+      "rawReportMatchesCapturedDigest": true,
+      "artifacts": [
+        {
+          "path": "docs/reviews/browser-peer-scale-assurance/browser-scale-key-recheck-02.txt",
+          "bytes": 9073,
+          "sha256": "b1f4d949b9fa35dbafe806223a2de49a4e3db9095d916f5a2c907c7854cf2dd8"
+        },
+        {
+          "path": "docs/reviews/browser-peer-scale-assurance/browser-scale-key-recheck-checks-02.json",
+          "bytes": 43401,
+          "sha256": "4f64c7888c044cbaf634f0786c9671d37216ad93455cac7a93021a74ff05a096"
+        },
+        {
+          "path": "docs/reviews/browser-peer-scale-assurance/browser-scale-execution-readiness.md",
+          "bytes": 10949,
+          "sha256": "e2c98b8a95d5291873480c0e3ee8b0ef8366475797743470ee4771b9221e3d44"
+        },
+        {
+          "path": "docs/BOARD.md",
+          "bytes": 47442,
+          "sha256": "3a989fddaee11735ef53fe561ebecbefad4f83e12520c487d7c32883031f185b"
+        },
+        {
+          "path": "docs/VERIFICATION.md",
+          "bytes": 382697,
+          "sha256": "0601ddf3cf3071bbc35ddde30b70e830b125089104d4bbb3c6da830fc6b2ec6f"
+        }
+      ],
+      "scope": "File bytes, Git state, allowed path set and inverse-content preservation only; not independent semantic or execution assurance"
+    }
+  },
+  "exclusions": [
+    "No scored results",
+    "No browser capacity claim",
+    "No implementation acceptance",
+    "No source/key/protocol change",
+    "No ratification",
+    "No commit or push"
+  ],
+  "baseline": {
+    "command": "node --input-type=module -e 'import fs from \"node:fs\"; import cp from \"node:child_process\"; import crypto from \"node:crypto\"; import path from \"node:path\";\nconst hash = b => crypto.createHash(\"sha256\").update(b).digest(\"hex\");\nconst git=(cwd,...args)=>cp.execFileSync(\"git\",args,{cwd,encoding:\"utf8\"});\nconst roots=[\"/home/apnex/taceng/agp\",\"/home/apnex/taceng/context-lab\"];\nconst result={};\nfor(const cwd of roots) {\n const dirty=git(cwd,\"ls-files\",\"--modified\",\"--others\",\"--exclude-standard\",\"-z\").split(\"\\0\").filter(Boolean);\n const tracked=git(cwd,\"ls-files\",\"docs/reviews/browser-peer-scale-assurance\",\"docs/VISION.md\",\"docs/DECISIONS.md\",\"README.md\",\"docs/OPERATIONS.md\",\"-z\").split(\"\\0\").filter(Boolean);\n const files=Object.fromEntries([...new Set([...dirty,...tracked])].sort().filter(p=>fs.statSync(path.join(cwd,p)).isFile()).map(p=>[p,hash(fs.readFileSync(path.join(cwd,p)))]));\n result[cwd]={head:git(cwd,\"rev-parse\",\"HEAD\").trim(),origin:git(cwd,\"rev-parse\",\"refs/remotes/origin/main\").trim(),status:git(cwd,\"status\",\"--porcelain=v1\",\"--untracked-files=all\"),index:git(cwd,\"diff\",\"--cached\",\"--binary\"),dirty,tracked,files};\n}\nconsole.log(JSON.stringify(result,null,2));'",
+    "cwd": "/home/apnex/taceng/agp",
+    "/home/apnex/taceng/agp": {
+      "head": "a98c03fcfe3bfdaeee32c8943971ecc32eb4f898",
+      "origin": "f16266aaafa66f6301d7afbf09c55e3a1f990274",
+      "status": " M docs/BOARD.md\n M docs/VERIFICATION.md\n M docs/design/mechanisms.md\n?? docs/design/admission-use-lifecycle.md\n?? docs/design/direct-peer-send.md\n?? docs/reviews/admission-acquisition-handoff-checks.json\n?? docs/reviews/admission-acquisition-independent-review.txt\n?? docs/reviews/admission-acquisition-review-checks.json\n?? docs/reviews/admission-acquisition-review.md\n?? docs/reviews/admission-diagnostic-correction-checks.json\n?? docs/reviews/admission-diagnostic-correction-handoff-checks.json\n?? docs/reviews/admission-diagnostic-correction-handoff.md\n?? docs/reviews/admission-diagnostic-correction-request.md\n?? docs/reviews/admission-lifecycle-comparison.md\n?? docs/reviews/admission-lifetime-adoption.md\n?? docs/reviews/admission-lifetime-correction-r2.md\n?? docs/reviews/admission-lifetime-correction-r3.md\n?? docs/reviews/admission-lifetime-correction.md\n?? docs/reviews/admission-lifetime-independent-review-r2.md\n?? docs/reviews/admission-lifetime-independent-review-r3.md\n?? docs/reviews/admission-lifetime-independent-review.md\n?? docs/reviews/admission-redemption-independent-review.txt\n?? docs/reviews/admission-redemption-review-checks.json\n?? docs/reviews/admission-redemption-timing-checks.json\n?? docs/reviews/admission-use-lifecycle-checks.json\n?? docs/reviews/admission-use-lifecycle-fit-handoff-checks.json\n?? docs/reviews/admission-use-lifecycle-fit-request.md\n?? docs/reviews/admission-use-lifecycle-fit-response.md\n?? docs/reviews/browser-carrier-feasibility.md\n?? docs/reviews/browser-peer-feasibility.md\n?? docs/reviews/browser-peer-scale-amendment.md\n?? docs/reviews/browser-peer-scale-revision-checks.json\n?? docs/reviews/context-lab-assurance-correction-handoff-checks.json\n?? docs/reviews/context-lab-assurance-correction-request.md\n?? docs/reviews/context-lab-assurance-feedback.md\n?? docs/reviews/direct-peer-send-adoption-checks.json\n?? docs/reviews/direct-peer-send-adoption.md\n?? docs/reviews/direct-peer-send-assurance/direct-peer-acceptance-mapping-checks.json\n?? docs/reviews/direct-peer-send-assurance/direct-peer-acceptance-mapping.md\n?? docs/reviews/direct-peer-send-assurance/direct-peer-context-lab-contract-request.md\n?? docs/reviews/direct-peer-send-assurance/direct-peer-context-lab-handoff-checks.json\n?? docs/reviews/direct-peer-send-assurance/direct-peer-context-lab-handoff.md\n?? docs/reviews/direct-peer-send-assurance/direct-peer-context-lab-request-checks.json\n?? docs/reviews/direct-peer-send-assurance/direct-peer-key-recheck-02.txt\n?? docs/reviews/direct-peer-send-assurance/direct-peer-key-recheck-checks-02.json\n?? docs/reviews/direct-peer-send-design-checks.json\n?? docs/reviews/direct-peer-send-design-review.md\n?? docs/reviews/direct-peer-send-draft-checks.json\n?? docs/reviews/direct-peer-send-draft-response.md\n?? docs/reviews/direct-peer-send-independent-review.txt\n?? docs/reviews/direct-peer-send-lifecycle-checks.json\n?? docs/reviews/direct-peer-send-lifecycle-response.md\n?? docs/reviews/disposition-repair-publication.json\n?? docs/reviews/evidence/admission-acquisition-review-input.txt\n?? docs/reviews/evidence/admission-redemption-review-input.txt\n?? docs/reviews/evidence/admission-use-lifecycle-before-acquisition.txt\n?? docs/reviews/evidence/browser-feasibility-chrome136.json\n?? docs/reviews/evidence/browser-feasibility-chrome151.json\n?? docs/reviews/evidence/direct-peer-send-before-d61.txt\n?? docs/reviews/evidence/direct-peer-send-before-d62.txt\n?? docs/reviews/evidence/direct-peer-send-design-review-input.txt\n?? docs/reviews/evidence/operation-call-acceptance/case-logs/honest-call-ending.test.js.log.txt\n?? docs/reviews/evidence/operation-call-acceptance/case-logs/not-delivered-signal.test.js.log.txt\n?? docs/reviews/evidence/operation-call-acceptance/case-logs/request-correlation.test.js.log.txt\n?? docs/reviews/evidence/operation-call-acceptance/cert-o.txt\n?? docs/reviews/evidence/operation-call-acceptance/checkouts-o.json\n?? docs/reviews/evidence/operation-call-acceptance/run-o.out\n?? docs/reviews/reply-isolation-checks.json\n?? docs/reviews/reply-isolation-handoff.json\n?? docs/reviews/reply-isolation-qualifications-handoff.json\n?? docs/reviews/reply-isolation-qualifications.md\n?? docs/reviews/reply-isolation-response.md\n?? docs/reviews/reply-isolation-review.md\n?? docs/reviews/reply-isolation-sources.json\n?? docs/reviews/upstream-feedback-handoff-checks.json\n?? docs/reviews/upstream-reply-reconciliation-checks.json\n?? docs/reviews/zorg-requirements-review.md\n?? docs/reviews/zorg-review-reply-assessment.md\n?? docs/reviews/zorg-review-response.md\n?? docs/surveys/shared-transport-survey.md\n?? scripts/browser-feasibility.mjs\n",
+      "index": "",
+      "dirty": [
+        "docs/design/admission-use-lifecycle.md",
+        "docs/design/direct-peer-send.md",
+        "docs/reviews/admission-acquisition-handoff-checks.json",
+        "docs/reviews/admission-acquisition-independent-review.txt",
+        "docs/reviews/admission-acquisition-review-checks.json",
+        "docs/reviews/admission-acquisition-review.md",
+        "docs/reviews/admission-diagnostic-correction-checks.json",
+        "docs/reviews/admission-diagnostic-correction-handoff-checks.json",
+        "docs/reviews/admission-diagnostic-correction-handoff.md",
+        "docs/reviews/admission-diagnostic-correction-request.md",
+        "docs/reviews/admission-lifecycle-comparison.md",
+        "docs/reviews/admission-lifetime-adoption.md",
+        "docs/reviews/admission-lifetime-correction-r2.md",
+        "docs/reviews/admission-lifetime-correction-r3.md",
+        "docs/reviews/admission-lifetime-correction.md",
+        "docs/reviews/admission-lifetime-independent-review-r2.md",
+        "docs/reviews/admission-lifetime-independent-review-r3.md",
+        "docs/reviews/admission-lifetime-independent-review.md",
+        "docs/reviews/admission-redemption-independent-review.txt",
+        "docs/reviews/admission-redemption-review-checks.json",
+        "docs/reviews/admission-redemption-timing-checks.json",
+        "docs/reviews/admission-use-lifecycle-checks.json",
+        "docs/reviews/admission-use-lifecycle-fit-handoff-checks.json",
+        "docs/reviews/admission-use-lifecycle-fit-request.md",
+        "docs/reviews/admission-use-lifecycle-fit-response.md",
+        "docs/reviews/browser-carrier-feasibility.md",
+        "docs/reviews/browser-peer-feasibility.md",
+        "docs/reviews/browser-peer-scale-amendment.md",
+        "docs/reviews/browser-peer-scale-revision-checks.json",
+        "docs/reviews/context-lab-assurance-correction-handoff-checks.json",
+        "docs/reviews/context-lab-assurance-correction-request.md",
+        "docs/reviews/context-lab-assurance-feedback.md",
+        "docs/reviews/direct-peer-send-adoption-checks.json",
+        "docs/reviews/direct-peer-send-adoption.md",
+        "docs/reviews/direct-peer-send-assurance/direct-peer-acceptance-mapping-checks.json",
+        "docs/reviews/direct-peer-send-assurance/direct-peer-acceptance-mapping.md",
+        "docs/reviews/direct-peer-send-assurance/direct-peer-context-lab-contract-request.md",
+        "docs/reviews/direct-peer-send-assurance/direct-peer-context-lab-handoff-checks.json",
+        "docs/reviews/direct-peer-send-assurance/direct-peer-context-lab-handoff.md",
+        "docs/reviews/direct-peer-send-assurance/direct-peer-context-lab-request-checks.json",
+        "docs/reviews/direct-peer-send-assurance/direct-peer-key-recheck-02.txt",
+        "docs/reviews/direct-peer-send-assurance/direct-peer-key-recheck-checks-02.json",
+        "docs/reviews/direct-peer-send-design-checks.json",
+        "docs/reviews/direct-peer-send-design-review.md",
+        "docs/reviews/direct-peer-send-draft-checks.json",
+        "docs/reviews/direct-peer-send-draft-response.md",
+        "docs/reviews/direct-peer-send-independent-review.txt",
+        "docs/reviews/direct-peer-send-lifecycle-checks.json",
+        "docs/reviews/direct-peer-send-lifecycle-response.md",
+        "docs/reviews/disposition-repair-publication.json",
+        "docs/reviews/evidence/admission-acquisition-review-input.txt",
+        "docs/reviews/evidence/admission-redemption-review-input.txt",
+        "docs/reviews/evidence/admission-use-lifecycle-before-acquisition.txt",
+        "docs/reviews/evidence/browser-feasibility-chrome136.json",
+        "docs/reviews/evidence/browser-feasibility-chrome151.json",
+        "docs/reviews/evidence/direct-peer-send-before-d61.txt",
+        "docs/reviews/evidence/direct-peer-send-before-d62.txt",
+        "docs/reviews/evidence/direct-peer-send-design-review-input.txt",
+        "docs/reviews/evidence/operation-call-acceptance/case-logs/honest-call-ending.test.js.log.txt",
+        "docs/reviews/evidence/operation-call-acceptance/case-logs/not-delivered-signal.test.js.log.txt",
+        "docs/reviews/evidence/operation-call-acceptance/case-logs/request-correlation.test.js.log.txt",
+        "docs/reviews/evidence/operation-call-acceptance/cert-o.txt",
+        "docs/reviews/evidence/operation-call-acceptance/checkouts-o.json",
+        "docs/reviews/evidence/operation-call-acceptance/run-o.out",
+        "docs/reviews/reply-isolation-checks.json",
+        "docs/reviews/reply-isolation-handoff.json",
+        "docs/reviews/reply-isolation-qualifications-handoff.json",
+        "docs/reviews/reply-isolation-qualifications.md",
+        "docs/reviews/reply-isolation-response.md",
+        "docs/reviews/reply-isolation-review.md",
+        "docs/reviews/reply-isolation-sources.json",
+        "docs/reviews/upstream-feedback-handoff-checks.json",
+        "docs/reviews/upstream-reply-reconciliation-checks.json",
+        "docs/reviews/zorg-requirements-review.md",
+        "docs/reviews/zorg-review-reply-assessment.md",
+        "docs/reviews/zorg-review-response.md",
+        "docs/surveys/shared-transport-survey.md",
+        "scripts/browser-feasibility.mjs",
+        "docs/BOARD.md",
+        "docs/VERIFICATION.md",
+        "docs/design/mechanisms.md"
+      ],
+      "tracked": [
+        "README.md",
+        "docs/DECISIONS.md",
+        "docs/reviews/browser-peer-scale-assurance/browser-scale-answer-key.json",
+        "docs/reviews/browser-peer-scale-assurance/browser-scale-assurance-preparation.md",
+        "docs/reviews/browser-peer-scale-assurance/browser-scale-comparison-rule.json",
+        "docs/reviews/browser-peer-scale-assurance/browser-scale-input-manifest.json",
+        "docs/reviews/browser-peer-scale-assurance/browser-scale-key-audit-01.txt",
+        "docs/reviews/browser-peer-scale-assurance/browser-scale-key-correction-checks.json",
+        "docs/reviews/browser-peer-scale-assurance/browser-scale-key-correction.md",
+        "docs/reviews/browser-peer-scale-assurance/browser-scale-packet.test.mjs",
+        "docs/reviews/browser-peer-scale-assurance/browser-scale-preparation-checks.json",
+        "docs/reviews/browser-peer-scale-assurance/browser-scale-questions.json",
+        "docs/reviews/browser-peer-scale-assurance/browser-scale-reader-instructions.md",
+        "docs/reviews/browser-peer-scale-assurance/project-browser-scale-judge-key.mjs",
+        "docs/reviews/browser-peer-scale-assurance/project-browser-scale-readings.mjs",
+        "docs/reviews/browser-peer-scale-assurance/readings/k84/browser-scale-judge-key.json",
+        "docs/reviews/browser-peer-scale-assurance/readings/k84/browser-scale-reading.txt",
+        "docs/reviews/browser-peer-scale-assurance/readings/s17/browser-scale-judge-key.json",
+        "docs/reviews/browser-peer-scale-assurance/readings/s17/browser-scale-reading.txt",
+        "docs/reviews/browser-peer-scale-assurance/sources/browser-scale-amendment.txt",
+        "docs/reviews/browser-peer-scale-assurance/sources/browser-scale-confirmed-intent.txt",
+        "docs/reviews/browser-peer-scale-assurance/sources/browser-scale-vision.txt"
+      ],
+      "files": {
+        "README.md": "3b640b6b3cb086d6e9fbd70dfacee8bb59d212d38557f1cddfa48319036544ef",
+        "docs/BOARD.md": "afb3f904933cf7cf91bfe1ed591368e50fc1881cc667245d567cc5bfb462c904",
+        "docs/DECISIONS.md": "eb5eff64200afa01e84cb6493754a0fd2782ef9cd40da3a4ccc87d64c6c26a50",
+        "docs/VERIFICATION.md": "cc82e2ae9fc725aef231291c051a7af89f3ab0d52726180c17dfe18b61499f65",
+        "docs/design/admission-use-lifecycle.md": "49a57e583eb0fbd6d46933273d376936e8cafc6ae95ec4944750ec2878b82097",
+        "docs/design/direct-peer-send.md": "c62574382b91cfd30a443ba5e16b23d10dae797c3278539277666f0a316eedea",
+        "docs/design/mechanisms.md": "3d00bc685488f81e54d31e12cd00f579f86421db00ee37fb9de26c4d1b74a99d",
+        "docs/reviews/admission-acquisition-handoff-checks.json": "3b86449d256459f7526b96eac209a34e3c96823acc7bdeb89d273c27fc764a67",
+        "docs/reviews/admission-acquisition-independent-review.txt": "3a67d83b8dabcef9a7028947ea3c040488422840eae7e541e4a67703d2d859e6",
+        "docs/reviews/admission-acquisition-review-checks.json": "bcec739d9abe87d2749cd93fe854eaed5a998a1820b1e327bfa7e075e510cdef",
+        "docs/reviews/admission-acquisition-review.md": "0f979875b53bad4b09e9e658e99912e0f3504ea8c09aed029f4d99bcfb4f848d",
+        "docs/reviews/admission-diagnostic-correction-checks.json": "aedc25300e0384daec329e5588346e618dd9cafcb639befea16dec131d435698",
+        "docs/reviews/admission-diagnostic-correction-handoff-checks.json": "4730a294a8b393030201184aa4becef77d702329002b85a5b55c00f029331d02",
+        "docs/reviews/admission-diagnostic-correction-handoff.md": "8b1f91220787bbad196d22d5ee06c97804d71bc3feddd7bbc0549ce159574645",
+        "docs/reviews/admission-diagnostic-correction-request.md": "bc65b758725d381f4fd0275b8b03f043182bddcd1af0bfde9c4e29b22cbebf05",
+        "docs/reviews/admission-lifecycle-comparison.md": "27a39f7fccc8e6ac4fab52340edbf9cff1235462ba8256e3f66ecf122be8dcea",
+        "docs/reviews/admission-lifetime-adoption.md": "d6a53fc231d1ba03db5f39661ab2d8629409d05b83d532fdf0ee24f305af59d0",
+        "docs/reviews/admission-lifetime-correction-r2.md": "b89a3328ae7cd41feb38a498b75b16fe06d47f232d9c09dffe42542438f005fb",
+        "docs/reviews/admission-lifetime-correction-r3.md": "6ccf9ba0e7d94b83897fade8f865fe3fb1328db292d92cce4d5cc85bc28fc2f2",
+        "docs/reviews/admission-lifetime-correction.md": "01bae9c2446bf6ff6d8e0027735976f5ff84c4216d31942c2d8fef80ffde0ed0",
+        "docs/reviews/admission-lifetime-independent-review-r2.md": "01a30e624c63a4d2e3f466595c62514ee97ab2d4c4d164988975103df0d31979",
+        "docs/reviews/admission-lifetime-independent-review-r3.md": "8f1b4cf8c725bc083ebb2d299fa12263bbb15f701f299ea1e26bb6055b3cbf8f",
+        "docs/reviews/admission-lifetime-independent-review.md": "7ef3974fa4d54aa2724b539bf7a34fc8ef03992f350ad37fd2d006005940fe1f",
+        "docs/reviews/admission-redemption-independent-review.txt": "e5a7352feb878ba4d4192a67388b6a5b3f54a9cdf8e9fc8360df1f942f85ca30",
+        "docs/reviews/admission-redemption-review-checks.json": "1911627a380ac5abcdfd90510d7891682a7185ecb93d26d5742873f45263fe44",
+        "docs/reviews/admission-redemption-timing-checks.json": "196fd797c061ba079e342bf4176a0d45a0aa3d5595ae0f76e127bc5b40c60e4e",
+        "docs/reviews/admission-use-lifecycle-checks.json": "c1778ad0f1361ab8e5e6bde3319243b9c73b158cd8185412e9c4b4cf1abc3199",
+        "docs/reviews/admission-use-lifecycle-fit-handoff-checks.json": "417ef53f4edc6b28d4366f7eefd1baa461e19b23a11b89ac88c1d6cb399eebe8",
+        "docs/reviews/admission-use-lifecycle-fit-request.md": "7e180ac181630d8c6bebce986b78701ab9be694c975ca715e3f00f0aaaa001c9",
+        "docs/reviews/admission-use-lifecycle-fit-response.md": "189e4ed221767c8b43d82823d3b93997c5e492e6b352416dc64e68429360bab4",
+        "docs/reviews/browser-carrier-feasibility.md": "c57dd0a9dc8071d761bba1ffb9fb4ce5a7aa66313d944ece46cad283e1fe797c",
+        "docs/reviews/browser-peer-feasibility.md": "f66876ba9ce4f0c926c33143460bcf196372747a69197703aab6517e757501c3",
+        "docs/reviews/browser-peer-scale-amendment.md": "1579675e8263508338c007f243b23d2b2b2ecb857d342d7664f14589f319cda3",
+        "docs/reviews/browser-peer-scale-assurance/browser-scale-answer-key.json": "b23f1c52e5c07217f6955fe3b6f8aec5f0f7eb0e0ad857be9f8c90e2ab521955",
+        "docs/reviews/browser-peer-scale-assurance/browser-scale-assurance-preparation.md": "feba52b9eefb8adc5018a3986da89be49cc66babbd9c3c26ca81671fc441b612",
+        "docs/reviews/browser-peer-scale-assurance/browser-scale-comparison-rule.json": "92013ba4cb4e6d1d067233e5c7a419536066aeecf36fefa6f9b6f4d0c2d4fae4",
+        "docs/reviews/browser-peer-scale-assurance/browser-scale-input-manifest.json": "4e863486d1b0a524bbe8160e48f635cc0cbb1abdc2665e2dec291d8ae5e83901",
+        "docs/reviews/browser-peer-scale-assurance/browser-scale-key-audit-01.txt": "b2eaa7315a8108bff0da81cc0990093ddb58a20a21cd20e94c4179f9d9171053",
+        "docs/reviews/browser-peer-scale-assurance/browser-scale-key-correction-checks.json": "7c6b5e13ec88f2527e1e92d09b4dec47238e3cb2cb592f4057d081ffdb5b543a",
+        "docs/reviews/browser-peer-scale-assurance/browser-scale-key-correction.md": "41019fc623dd14845a2cd587259a4da55a06fd4db4cda3077b02689dd3acf90e",
+        "docs/reviews/browser-peer-scale-assurance/browser-scale-packet.test.mjs": "a8cdee00160934ee5c771bee25e24c393bbe2792b6e39854bff624d1afcda2ca",
+        "docs/reviews/browser-peer-scale-assurance/browser-scale-preparation-checks.json": "098ca45216119ef1da384e3a5ce86e57018b7d72802cc0b2e9b9a612ff802379",
+        "docs/reviews/browser-peer-scale-assurance/browser-scale-questions.json": "f540a58bfb9d2ebe8a3bf0519289b6b2f74185e29a61d2b138916956a3e5c63f",
+        "docs/reviews/browser-peer-scale-assurance/browser-scale-reader-instructions.md": "07a286cf13e04c491e7f087be2ce20721b438d8194ccfd6836d4009eac0fdf01",
+        "docs/reviews/browser-peer-scale-assurance/project-browser-scale-judge-key.mjs": "ab04356abb19a249b0df2365f934181ce372ea57e829d5dc83b2d6ca3f7840dc",
+        "docs/reviews/browser-peer-scale-assurance/project-browser-scale-readings.mjs": "048584c410a3c0716d162fdb3af222a932af20cba11cc4fe393eb53ca16222db",
+        "docs/reviews/browser-peer-scale-assurance/readings/k84/browser-scale-judge-key.json": "358708aa3e4c5f5a69b07a4cdd46681688670ab4b937cd16a1bdddaa55b38507",
+        "docs/reviews/browser-peer-scale-assurance/readings/k84/browser-scale-reading.txt": "55e09bc9ad660b66bcc2c1eb0b689e66554282e438cd4ad5cc3b7bc9bcb2bb44",
+        "docs/reviews/browser-peer-scale-assurance/readings/s17/browser-scale-judge-key.json": "ba75c101e32c54bf0be3209472f04d0367918efa8663061a2b766d66910b4387",
+        "docs/reviews/browser-peer-scale-assurance/readings/s17/browser-scale-reading.txt": "7c150f4f0d48e57af1191561cbccf0c3a59cb1050ab21430a94fb3ca2fde1bd9",
+        "docs/reviews/browser-peer-scale-assurance/sources/browser-scale-amendment.txt": "1579675e8263508338c007f243b23d2b2b2ecb857d342d7664f14589f319cda3",
+        "docs/reviews/browser-peer-scale-assurance/sources/browser-scale-confirmed-intent.txt": "4d311b9dc1c55715b31a2a3dc5cfe69236dc5a9cc1242071f284e5dc57c31cce",
+        "docs/reviews/browser-peer-scale-assurance/sources/browser-scale-vision.txt": "7450b55418271077c412faade2c2be5018c0f7c335cf2aa4806f8aaf22b9cb60",
+        "docs/reviews/browser-peer-scale-revision-checks.json": "553268d5c2c94c6203f42c3f13ac632f8c47a639796e0ed2546da607be8b728a",
+        "docs/reviews/context-lab-assurance-correction-handoff-checks.json": "28db01a5a6dae662338773afba1b282f611780a7af61fa5921533c6f87aef278",
+        "docs/reviews/context-lab-assurance-correction-request.md": "205c64cd52b50224c33fc5b2cdfbf11f370c298a9ee3c73365c4422be2330ca4",
+        "docs/reviews/context-lab-assurance-feedback.md": "d8e5f5f539b009a53b6966b24f478e938f440a1a0b035efa675bc36a01bea4c5",
+        "docs/reviews/direct-peer-send-adoption-checks.json": "f50ace1eb44e470d9406e6475f72c6639e069622487bb63d20fd775426106f98",
+        "docs/reviews/direct-peer-send-adoption.md": "a4915b471b9ab1b330fc8524beb5441c6857ad1416c63ea6be240cb9f67ed06c",
+        "docs/reviews/direct-peer-send-assurance/direct-peer-acceptance-mapping-checks.json": "3d22d4de45e8b0b06f029bee5dafacc1bcfadfc87ec708efc9fe143146ef1888",
+        "docs/reviews/direct-peer-send-assurance/direct-peer-acceptance-mapping.md": "dcd30d480575007dbf71d82cbb7cd3edb1119be33fa6a706609ba74d402a2ec4",
+        "docs/reviews/direct-peer-send-assurance/direct-peer-context-lab-contract-request.md": "b9227b06087d98b21089e168021cd7527ef0252724600bcd83b5c83e7a75ebdc",
+        "docs/reviews/direct-peer-send-assurance/direct-peer-context-lab-handoff-checks.json": "0a96464c0984bfe21301e60693930a438b8fa95e1cd0091c7dca6a64221f9fa2",
+        "docs/reviews/direct-peer-send-assurance/direct-peer-context-lab-handoff.md": "2c2c9c09e972e4e1a3259ad0665dd968cc6a946356d7c9f8f1209449f3eb422e",
+        "docs/reviews/direct-peer-send-assurance/direct-peer-context-lab-request-checks.json": "42ccf6673a02ad90e2fbdddcd407f54ed1074170ccc4ea35343ef52f135e8dd4",
+        "docs/reviews/direct-peer-send-assurance/direct-peer-key-recheck-02.txt": "2078d3391fa500acebd14e97c16bdfa51ef9fe0d23061714fac6eee438b7a7be",
+        "docs/reviews/direct-peer-send-assurance/direct-peer-key-recheck-checks-02.json": "87a73b75583194b8b0626ebefbdbbaf053bd8f4c2c97ec0429b2525e53d60e46",
+        "docs/reviews/direct-peer-send-design-checks.json": "e25314d9da912015a2e1b6c6202147cb2cd7f1fc72b6a9f68d1185e1b82048aa",
+        "docs/reviews/direct-peer-send-design-review.md": "5d5da0bef33fa6587455e91a4c672b9bb0a0be91f78aae71351929c697f066ab",
+        "docs/reviews/direct-peer-send-draft-checks.json": "e1937d8cacf1abff3b08ee1159044515b7493d32b15f1afbd190dd463b6fc24b",
+        "docs/reviews/direct-peer-send-draft-response.md": "f37d32da1df0c740aa3b371cbfedf8f2f5634444b2f0c6ecb7656b721653b3b8",
+        "docs/reviews/direct-peer-send-independent-review.txt": "2f9b2e8044abcf8829539c8a68aed3e36fb4ba6eb0aa0d77315be2b284092656",
+        "docs/reviews/direct-peer-send-lifecycle-checks.json": "d518d33717e328bd0f652f8cf2f90d33368a45531694c8b2fd634442ab4ee933",
+        "docs/reviews/direct-peer-send-lifecycle-response.md": "72d2122f7ff8fd618d753c7139231d436c8d6985922a79575f97825031d0318a",
+        "docs/reviews/disposition-repair-publication.json": "23125558521ea33b6bd7712f3772328b60bc84402776762eb9e0efd790fc0e98",
+        "docs/reviews/evidence/admission-acquisition-review-input.txt": "2a2d73991919584990df6ac57a9d3f4eb78d8f4b5c7c8fc162d4c88db61b6900",
+        "docs/reviews/evidence/admission-redemption-review-input.txt": "49a57e583eb0fbd6d46933273d376936e8cafc6ae95ec4944750ec2878b82097",
+        "docs/reviews/evidence/admission-use-lifecycle-before-acquisition.txt": "63ea4be2c888fe56eb6fd077a9521959c48b203e8f8751b909f43f05adeb5268",
+        "docs/reviews/evidence/browser-feasibility-chrome136.json": "7559df9db7497cb5d36431a737196c6aea1cf2951cfb94ab196b56ea098ba42a",
+        "docs/reviews/evidence/browser-feasibility-chrome151.json": "a24b766999ef503bcc6e40637b28df620ec3ddad8e602d90bdc7a262347aecdb",
+        "docs/reviews/evidence/direct-peer-send-before-d61.txt": "6e8122f93ffb2496426cdc3d5f45cf7ffbf52c97bf5b1d695083acf9db7d26e7",
+        "docs/reviews/evidence/direct-peer-send-before-d62.txt": "2a91d6c8d8263bc39a94880d93d95506fa7ab0e5d359f4f150d84153a0b6b251",
+        "docs/reviews/evidence/direct-peer-send-design-review-input.txt": "bede054da088b516f55e09aa02e111a9dfdb61b57ead5b493cc90f4f2110119a",
+        "docs/reviews/evidence/operation-call-acceptance/case-logs/honest-call-ending.test.js.log.txt": "8f525d67bb18e688e9296a137a7ef9fd63b8741fabb8b86fb07d207966fcebc0",
+        "docs/reviews/evidence/operation-call-acceptance/case-logs/not-delivered-signal.test.js.log.txt": "b50ad78897b667d4fa8a6207efd2262bf53ff036a4e286e23a34432644bab567",
+        "docs/reviews/evidence/operation-call-acceptance/case-logs/request-correlation.test.js.log.txt": "6e541c909ab23946a6358f36260dd6bcb5915e45f06bc4a2e967f00b58fee5ec",
+        "docs/reviews/evidence/operation-call-acceptance/cert-o.txt": "e1cb917a0b21b994df126f37643b955002025fbb0ff4d20b6c5def738805fd88",
+        "docs/reviews/evidence/operation-call-acceptance/checkouts-o.json": "46fe733dc9799e3a3294c097cdb206b1493cd2199559e5b9d9da896a775ad36b",
+        "docs/reviews/evidence/operation-call-acceptance/run-o.out": "c7b317357c4b6119ef28fdf2442a1b3efd4d987da65a163227e28fad2a9bc9ac",
+        "docs/reviews/reply-isolation-checks.json": "86214a7346f68a21e6c9985914681ad4631154600aa3d30524afc77619f59469",
+        "docs/reviews/reply-isolation-handoff.json": "ffc76f817ab2aefdeb5e743398b7abf8e7cafd953fc75cac6a593bbaffbf15bd",
+        "docs/reviews/reply-isolation-qualifications-handoff.json": "867db9ebb9943180435224a3149063654e500b955eef257a6be40da26b0f8e30",
+        "docs/reviews/reply-isolation-qualifications.md": "1719559114f768594911fbe125096c84d01fbb4f89105628e1e90808aa39e376",
+        "docs/reviews/reply-isolation-response.md": "d6ed8be5a6b3f59530f83d4952f8e125769997d16ba78f44f8667fb15ce89210",
+        "docs/reviews/reply-isolation-review.md": "213d60b6c74f4dc3a3adc8765566dc3a67f6bac360e8f042509f2b93f5a1a2f6",
+        "docs/reviews/reply-isolation-sources.json": "1c2fc0b7d6edc6e8fdc144cb6a25087b1eae2a9c197127e40f48c4ee64692b39",
+        "docs/reviews/upstream-feedback-handoff-checks.json": "808f515151c810ebafe153c49db309b4ce074a4fc656e7e44d0832a712631785",
+        "docs/reviews/upstream-reply-reconciliation-checks.json": "d6e2b588deaf4e8003e72861f97d06befd869c25c4a25f19b7db5848f064d811",
+        "docs/reviews/zorg-requirements-review.md": "2fa0c3348b3b0f765d009a2632b0fdb59e7c54d01f768edd88b6ebd17cfed933",
+        "docs/reviews/zorg-review-reply-assessment.md": "af653f0b819bb8845cf56e095bcbcdcaa21d25e911e11395f5cfffc676a1f3c6",
+        "docs/reviews/zorg-review-response.md": "f76295f2c26678321c011d33bc1d1dc838133afbd1ca7de5b459b9c0f614bd17",
+        "docs/surveys/shared-transport-survey.md": "f096f84b74ac861f02c1203bce6726748fbd4c57f22bfadab13a7b68e56d093e",
+        "scripts/browser-feasibility.mjs": "e3161585c822b369db1e99f87474cd6e6fbeb8c1d7c7b445a33090db75380455"
+      }
+    },
+    "/home/apnex/taceng/context-lab": {
+      "head": "ce9d513bb39d3469ca0af46a0320c6bf9cbbe469",
+      "origin": "ce9d513bb39d3469ca0af46a0320c6bf9cbbe469",
+      "status": "?? incoming/agp-admission-diagnostic-capability-request.md\n?? incoming/agp-admission-diagnostic-capability-response.md\n?? incoming/agp-admission-diagnostic-correction-request.md\n?? incoming/agp-admission-diagnostic-correction-response.md\n?? incoming/agp-assurance-capability-feedback-response.md\n?? incoming/agp-assurance-capability-feedback.md\n?? incoming/agp-assurance-compatibility-correction-response.md\n?? incoming/agp-assurance-compatibility-review-response.md\n?? incoming/agp-assurance-compatibility-review.md\n?? incoming/agp-assurance-correction-request.md\n?? incoming/agp-direct-peer-assurance-contract-request.md\n?? incoming/agp-direct-peer-assurance-contract-response.md\n?? incoming/zorg-review-sockets-request.md\n?? incoming/zorg-review-sockets-response.md\n?? incoming/zorg-review-tools-mode-request.md\n?? incoming/zorg-review-tools-mode-response.md\n",
+      "index": "",
+      "dirty": [
+        "incoming/agp-admission-diagnostic-capability-request.md",
+        "incoming/agp-admission-diagnostic-capability-response.md",
+        "incoming/agp-admission-diagnostic-correction-request.md",
+        "incoming/agp-admission-diagnostic-correction-response.md",
+        "incoming/agp-assurance-capability-feedback-response.md",
+        "incoming/agp-assurance-capability-feedback.md",
+        "incoming/agp-assurance-compatibility-correction-response.md",
+        "incoming/agp-assurance-compatibility-review-response.md",
+        "incoming/agp-assurance-compatibility-review.md",
+        "incoming/agp-assurance-correction-request.md",
+        "incoming/agp-direct-peer-assurance-contract-request.md",
+        "incoming/agp-direct-peer-assurance-contract-response.md",
+        "incoming/zorg-review-sockets-request.md",
+        "incoming/zorg-review-sockets-response.md",
+        "incoming/zorg-review-tools-mode-request.md",
+        "incoming/zorg-review-tools-mode-response.md"
+      ],
+      "tracked": [
+        "README.md",
+        "docs/DECISIONS.md",
+        "docs/OPERATIONS.md"
+      ],
+      "files": {
+        "README.md": "28a57f9a8b0b0876e05205a47278c29e681d848e2daff5afd2a2c3fa7ae579a7",
+        "docs/DECISIONS.md": "a088cb984946bf5cb9730d7e46c2698e6f0c35d0660519b4b3cf8b0dbd050e5a",
+        "docs/OPERATIONS.md": "7ee8e2b6d7eb5d32fa297505e4f3c77ac9e4dfc00fa4370c80c8e28c821a7607",
+        "incoming/agp-admission-diagnostic-capability-request.md": "a28c10993dbc919f03ee73307fd645be5d3f2fa3a78207fe88ce046c417d1e19",
+        "incoming/agp-admission-diagnostic-capability-response.md": "f3e74ece7eee1eda14dde069ce05c3aade3317784ec1c5f74f652eed27052ecc",
+        "incoming/agp-admission-diagnostic-correction-request.md": "f6596e8c7437b673ac598b42f3ca913e19ad8afc4b039619b892aaddac5fce03",
+        "incoming/agp-admission-diagnostic-correction-response.md": "8d365d9faf48c8ca00b58a9ec1b07b938776ed0f0b50f61f642af997c0db60dd",
+        "incoming/agp-assurance-capability-feedback-response.md": "67aa9b96c32789003db28015625bc188f9c8ec785cc3ee0e2a4898731ed0b50e",
+        "incoming/agp-assurance-capability-feedback.md": "39dc09b740bb6b5de273961ffb26e3e0a9951fa1a387ea1ddedfe25a37e0b8eb",
+        "incoming/agp-assurance-compatibility-correction-response.md": "eb2383187cdf8d05ccf5da7b0f3e9dbca40d1ff63da7b7a839a974535b84d904",
+        "incoming/agp-assurance-compatibility-review-response.md": "f4f13be336ee61991a375dea7debfe6954e78593f0e5dda8a4f77e09d0c4e06b",
+        "incoming/agp-assurance-compatibility-review.md": "b4838c8f5bc777c28bf851b2094f72726361eb460bf15913eb201409809057d3",
+        "incoming/agp-assurance-correction-request.md": "fba2e75e6245fdf0b0f5f81c1c342c28eadc03d34e3a0903f9b5674078a61179",
+        "incoming/agp-direct-peer-assurance-contract-request.md": "e4791ef59b32cd477677c99b3c4675e7edc70c1992bac5baf7d257e74639a0b7",
+        "incoming/agp-direct-peer-assurance-contract-response.md": "7c43b3f23f7f307285e9cad7d004d0c019521b9fed5d264e13693af46a5cccfc",
+        "incoming/zorg-review-sockets-request.md": "c0966a46bf45c6037d1a8512072d3e04fd1b6d116c07cfbd7432c43c846c9c5c",
+        "incoming/zorg-review-sockets-response.md": "eef49fc499ebdbc3600418cb185550d534b1c1c59f0ebe2d514281725a6036e7",
+        "incoming/zorg-review-tools-mode-request.md": "6e1c10c57212f072153576cce5d881a4ed8a97e211912af8660807076b8a2fa5",
+        "incoming/zorg-review-tools-mode-response.md": "d7ba98480fbb625e969c532aac9832dfb82aff35df9b82ee54cfc1b157683c59"
+      }
+    }
+  },
+  "trackingChanges": [
+    [
+      "docs/BOARD.md",
+      "| `B54` | Decide peer-scale intent and define its operating envelope | `I3` | `P3` | [`MX22`](VERIFICATION.md#46-open-findings-from-sweeps), [key audit and correction](VERIFICATION.md#475-browser-peer-scale-key-audit-and-correction) | open |",
+      "| `B54` | Decide peer-scale intent and define its operating envelope | `I3` | `P3` | [`MX22`](VERIFICATION.md#46-open-findings-from-sweeps), [key recheck and execution readiness](VERIFICATION.md#476-browser-peer-scale-key-recheck-and-execution-readiness) | open |"
+    ],
+    [
+      "docs/BOARD.md",
+      "| 3 | `B54` | Correction committed locally; independent key/protocol recheck remains | [Commit checkpoint](VERIFICATION.md#475-browser-peer-scale-key-audit-and-correction) preserves the original FAIL and the exact correction; execution readiness, ratification and the operating envelope remain open |",
+      "| 3 | `B54` | Independent key/protocol recheck PASS; public execution binding remains | [Readiness assessment](VERIFICATION.md#476-browser-peer-scale-key-recheck-and-execution-readiness) separates the retained PASS from unvalidated judge-key delivery, accounting and resource bounds; ratification and the operating envelope remain open |"
+    ],
+    [
+      "docs/BOARD.md",
+      "Status: the scale packet's original independent key audit remains FAIL, with the correction committed locally and awaiting recheck; the direct-peer design retains technical and scoped axiom PASS, and its separate corrected assurance instrument has bounded key-recheck PASS.\\",
+      "Status: the corrected scale packet has independent key/protocol recheck PASS, with the original FAIL retained and scored execution not ready; the direct-peer design retains technical and scoped axiom PASS, and its separate corrected assurance instrument has bounded key-recheck PASS.\\"
+    ],
+    [
+      "docs/BOARD.md",
+      "| `B54` | Authorize one fresh independent key/protocol recheck of the committed correction | [Commit checkpoint](VERIFICATION.md#475-browser-peer-scale-key-audit-and-correction) fixes the review target without claiming closure of the original FAIL; public execution validation and separate scored-reader approval still follow |",
+      "| `B54` | Resolve the public pack binding and AGP acceptance map without model calls | [Readiness assessment](reviews/browser-peer-scale-assurance/browser-scale-execution-readiness.md) identifies the reading-specific key composition and remaining validation/resource prerequisites; no scored execution is selected |"
+    ],
+    [
+      "docs/VERIFICATION.md",
+      "| `MX22` | The director intends hundreds of concurrent browser peers against one node, while confirmed intent still targets fewer than twenty nodes. Current configurable limits do not establish support for the expanded use case. | Open, `B54`; [section 4.75](#475-browser-peer-scale-key-audit-and-correction) records independent key audit FAIL and locally committed correction awaiting independent recheck; execution readiness, fresh-reader assurance, ratification and the operating envelope remain open |",
+      "| `MX22` | The director intends hundreds of concurrent browser peers against one node, while confirmed intent still targets fewer than twenty nodes. Current configurable limits do not establish support for the expanded use case. | Open, `B54`; [section 4.76](#476-browser-peer-scale-key-recheck-and-execution-readiness) retains independent key/protocol recheck PASS; public execution binding, resource bounds, fresh-reader assurance, ratification and the operating envelope remain open |"
+    ]
+  ],
+  "addedVerificationSection": "### 4.76 Browser peer scale key recheck and execution readiness\n\nOne fresh, non-author, read-only auditor returned PASS for the complete corrected packet at `a98c03fcfe3bfdaeee32c8943971ecc32eb4f898`.\\\nThe [full report](reviews/browser-peer-scale-assurance/browser-scale-key-recheck-02.txt) is retained unchanged with [invocation and preservation evidence](reviews/browser-peer-scale-assurance/browser-scale-key-recheck-checks-02.json).\\\nBoth original protocol blockers are resolved at that revision, and all eight keys are supportable for both readings; the original FAIL remains historical evidence.\n\nThis is static key/protocol assurance, not a scored comparison, four-input review, execution authorization, ratification or capacity certification.\\\nThe review's before/after check found all 103 compared working files unchanged, including the 20 committed packet files and 81 pre-existing dirty paths.\n\nThe [public-capability assessment](reviews/browser-peer-scale-assurance/browser-scale-execution-readiness.md) finds scored execution NOT READY.\\\nContext-lab now documents heading extraction, bounded measurement, assigned-reading delivery and corrected interrupted-reader/throwing-judge accounting.\\\nThose owner claims do not establish this packet's exact reading-specific key delivery, extraction/eligibility, resource bounds or retention.\n\nNext: resolve the public pack binding and AGP acceptance map without model calls, routing an unexpressible requirement to the component owner.\\\nA two-experiment composition is a candidate public binding, not an approved or validated design.\\\nDo not substitute the generic comparator or the older direct-peer controls-only rule for this packet's all-question acceptance predicate.\n\nThe [author checks](reviews/browser-peer-scale-assurance/browser-scale-execution-readiness-checks.json) retain packet, record, documentation, link and scope-preservation results separately from the independent verdict.\\\nAll 20 original packet files, normative sources and unrelated work remain unchanged; only four board entries, the current `MX22` row and this checkpoint change the shared tracking records.\\\n`B54` remains open at `I3`/`P3` and third in build order.\n\nNo scored runs, provider calls, new agents, implementation changes, sibling writes, commit or push occurred in this recording/readiness step.\\\nThe board and new evidence remain local and uncommitted; the previously recorded local upstream reference is unchanged.\n\n---\n\n",
+  "allowedNewFiles": [
+    "docs/reviews/browser-peer-scale-assurance/browser-scale-key-recheck-02.txt",
+    "docs/reviews/browser-peer-scale-assurance/browser-scale-key-recheck-checks-02.json",
+    "docs/reviews/browser-peer-scale-assurance/browser-scale-execution-readiness.md",
+    "docs/reviews/browser-peer-scale-assurance/browser-scale-execution-readiness-checks.json"
+  ],
+  "summary": {
+    "packetTests": {
+      "tests": 24,
+      "pass": 24,
+      "fail": 0
+    },
+    "recordTests": {
+      "tests": 13,
+      "pass": 13,
+      "fail": 0
+    },
+    "documentation": {
+      "files": 3,
+      "pass": true
+    },
+    "links": {
+      "localReferences": 533,
+      "broken": 0
+    },
+    "whitespace": {
+      "scope": "Tracked unstaged diff",
+      "pass": true
+    },
+    "verbatimReview": {
+      "bytes": 9073,
+      "fullReturnedReportMatches": true
+    },
+    "preservation": {
+      "committedPacketFiles": 20,
+      "otherPreExistingDirtyFiles": 79,
+      "contextLabComparedFiles": 19,
+      "headsAndIndexesUnchanged": true
+    },
+    "limits": "Author integrity checks do not validate a context-lab pack or extend the independent static key/protocol PASS."
+  },
+  "skillsApplied": {
+    "researchArtefacts": "Raw independent verdict retained whole and separate from Tier 3 public-capability assessment; source hashes and limits recorded.",
+    "writing": "Repository-native evidence format, explicit prerequisites and descriptive browser-scale filenames; no external Page created."
+  }
+}

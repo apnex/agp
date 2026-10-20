@@ -1,0 +1,50 @@
+PASS — the preparation packet at `a98c03fcfe3bfdaeee32c8943971ecc32eb4f898` is substantively suitable to proceed to separate execution-readiness work. Both original blockers are resolved at this revision; I found no new substantive blocker.
+
+This is one fresh, non-author, static M2 key audit—not a scored comparison, four-input review, execution authorization, ratification or capacity certification.
+
+## Original blockers
+
+1. **High: gains could conceal question-level regressions — resolved.**  
+   The revised predicate requires candidate sums to meet or exceed baseline sums for every question, conjunctively. Therefore a gain elsewhere cannot compensate for any question’s regression. The original logical example—47 baseline points versus 44 candidate points—is rejected on Q05–Q08. The candidate floor remains two full scores and no zero per question; at least one strict gain remains necessary; all ties establish no improvement. The prose, numeric declaration and inspected test logic agree. Acceptance criterion met. ([Protocol:96](/home/apnex/taceng/agp/docs/reviews/browser-peer-scale-assurance/browser-scale-assurance-preparation.md:96), [numeric rule:5](/home/apnex/taceng/agp/docs/reviews/browser-peer-scale-assurance/browser-scale-comparison-rule.json:5), [static tests:213](/home/apnex/taceng/agp/docs/reviews/browser-peer-scale-assurance/browser-scale-packet.test.mjs:213))
+
+   This is question-sum protection, not a promise that every model family improves. Complete accounting, conservative lower-of-two judging, the grounding cap, ambiguity review and `NO VERDICT` for invalid evidence remain intact. Faithfully applying a different policy is expressly not a gain. ([Protocol:70](/home/apnex/taceng/agp/docs/reviews/browser-peer-scale-assurance/browser-scale-assurance-preparation.md:70), [interpretation boundary:108](/home/apnex/taceng/agp/docs/reviews/browser-peer-scale-assurance/browser-scale-assurance-preparation.md:108))
+
+2. **Medium: judge material disclosed treatment mapping — resolved.**  
+   The neutral rewrites preserve faithful-policy credit, justified absence and the prohibition against converting targets into verified support. They no longer label either policy as original, proposed, baseline or candidate. ([Common rules:14](/home/apnex/taceng/agp/docs/reviews/browser-peer-scale-assurance/browser-scale-answer-key.json:14), [Q05 wrong conclusions:149](/home/apnex/taceng/agp/docs/reviews/browser-peer-scale-assurance/browser-scale-answer-key.json:149))
+
+   I independently compared both retained judge keys field by field: all scoring definitions, ten common rules, eight identifiers, applicable requirements, wrong conclusions and grounding entries match their source exactly, in order. The projector explicitly excludes administrative metadata and the unassigned branch. Necessary assigned-policy content remains visible; that is not disclosure of treatment order. Acceptance criterion met for this static preparation. ([Projector:15](/home/apnex/taceng/agp/docs/reviews/browser-peer-scale-assurance/project-browser-scale-judge-key.mjs:15))
+
+   The per-question delivery contract is coherent: exact question, answer, assigned reading, complete scoring/rules and only that question’s projected entry. The retained whole-key files are not themselves authorized whole-file judge payloads. Actual delivery isolation remains unvalidated, expressly rather than silently. ([Delivery contract:58](/home/apnex/taceng/agp/docs/reviews/browser-peer-scale-assurance/browser-scale-assurance-preparation.md:58))
+
+## All eight keys
+
+“PASS” below means supportable and responsive for both readings, not successful reader performance.
+
+| Questions | Disposition |
+|---|---|
+| Q01 | PASS both. Purpose, library embedding and identical-node/configured-topology boundaries support the requirements; current portability is not assumed. [Reading:37](/home/apnex/taceng/agp/docs/reviews/browser-peer-scale-assurance/readings/k84/browser-scale-reading.txt:37), [node contract:205](/home/apnex/taceng/agp/docs/reviews/browser-peer-scale-assurance/readings/k84/browser-scale-reading.txt:205) |
+| Q02 | PASS both. Application correlation/fan-out, local admission and non-durable delivery are explicit. The key correctly distinguishes message replay from an unspecified reconnection policy. [Reading:79](/home/apnex/taceng/agp/docs/reviews/browser-peer-scale-assurance/readings/k84/browser-scale-reading.txt:79), [key:58](/home/apnex/taceng/agp/docs/reviews/browser-peer-scale-assurance/browser-scale-answer-key.json:58) |
+| Q03 | PASS both. Channel protection/evidence, identity-policy ownership and retained security constraints are supplied; no credential design is demanded. [Reading:104](/home/apnex/taceng/agp/docs/reviews/browser-peer-scale-assurance/readings/k84/browser-scale-reading.txt:104), [security intent:249](/home/apnex/taceng/agp/docs/reviews/browser-peer-scale-assurance/readings/k84/browser-scale-reading.txt:249) |
+| Q04 | PASS both. Director ratification, numbered amendments and vision reconciliation are supported. No inaccessible gate’s detailed requirements or completed verification are invented. [Authority:138](/home/apnex/taceng/agp/docs/reviews/browser-peer-scale-assurance/readings/k84/browser-scale-reading.txt:138), [amendment rule:199](/home/apnex/taceng/agp/docs/reviews/browser-peer-scale-assurance/readings/k84/browser-scale-reading.txt:199) |
+| Q05 | PASS both. The branches distinguish the small star/line scope from hundreds of direct peers in a star. Neither omission nor intent becomes protocol impossibility or measured capacity. [Baseline:258](/home/apnex/taceng/agp/docs/reviews/browser-peer-scale-assurance/readings/k84/browser-scale-reading.txt:258), [candidate:258](/home/apnex/taceng/agp/docs/reviews/browser-peer-scale-assurance/readings/s17/browser-scale-reading.txt:258) |
+| Q06 | PASS both. The scenario supplies service unavailability. Baseline credit permits justified inference or identifying the absent qualification rule; candidate credit applies the explicit usability requirement. No code diagnosis is required. [Key:181](/home/apnex/taceng/agp/docs/reviews/browser-peer-scale-assurance/browser-scale-answer-key.json:181) |
+| Q07 | PASS both. Tabs, peers, routes and resource limits cannot be equated from the supplied observations. Additional evidence is asked for, not secretly supplied by excluded implementation/Zorg material. [Question:29](/home/apnex/taceng/agp/docs/reviews/browser-peer-scale-assurance/browser-scale-questions.json:29), [key:217](/home/apnex/taceng/agp/docs/reviews/browser-peer-scale-assurance/browser-scale-answer-key.json:217) |
+| Q08 | PASS both. No general performance target does not excuse deadline/bound failures. Workload qualification is a permissible qualified inference for baseline and explicit for candidate; numerical budgets remain open. [Performance intent:262](/home/apnex/taceng/agp/docs/reviews/browser-peer-scale-assurance/readings/k84/browser-scale-reading.txt:262), [key:254](/home/apnex/taceng/agp/docs/reviews/browser-peer-scale-assurance/browser-scale-answer-key.json:254) |
+
+Controls remain fair. Nonexclusive grounding, justified absence and labelled inference preserve full-credit paths for either policy.
+
+## Inspection and limits
+
+I independently resolved the revision and enumerated its 20 packet files. I read the complete requested substantive material and inspected both projectors and packet tests statically. Independent comparisons established:
+
+- All 17 manifest-listed artifact byte counts and SHA-256 digests match.
+- All 54 applicable grounding entries occur in their assigned readings under whitespace normalization.
+- Source-to-reading differences are the declared reference rendering, assembly boundaries and scale replacement.
+- Sources, readings, questions, instructions, reading projector and historical preparation checks are unchanged from `94ace293ad3ffc60fa048ac6f963d37d6c618314`.
+- Vision and confirmed-intent snapshots also match their declared committed source; amendment provenance beyond its committed snapshot was not independently established.
+
+I read standing guidance and Mission Kit’s ledger/applicable entries, including M2, M11, A12 and C2. Mission Kit is locally clean at `0afdc40d0c7a92a94b023664776e876b513a6c91`; the canonical-remote match is supplied evidence, not my measurement. Those four guidance files are unchanged from both packet-recorded guidance revisions.
+
+Historical author checks and “uncommitted” labels were not treated as independent closure or current Git identity. I executed no tests, projectors, runtime experiments, scored readers or judgments; made no additional model/provider calls, external contact or writes.
+
+Delivery/isolation, extraction/completion/overflow, eligibility/accounting, resource settings and separate execution approval remain the packet’s explicit next-stage prerequisites—not new findings. ([Prerequisites:118](/home/apnex/taceng/agp/docs/reviews/browser-peer-scale-assurance/browser-scale-assurance-preparation.md:118))
