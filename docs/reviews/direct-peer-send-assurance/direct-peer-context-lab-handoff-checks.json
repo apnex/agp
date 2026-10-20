@@ -1,0 +1,620 @@
+{
+  "kind": "direct-peer-context-lab-owner-handoff-checks",
+  "status": "Local placement and author checks complete; no owner acknowledgment or execution-readiness verdict claimed",
+  "authority": {
+    "selection": "Director replied continue to Continue - approve owner delivery only.",
+    "scope": "Place the already-approved request in the confirmed context-lab local incoming folder and record delivery; no experiment, pack construction, implementation, commit, push or agent invocation."
+  },
+  "guidance": {
+    "revision": "672d5c3414934dacd11b9562c1cff9c0e7cc2d31",
+    "skills": [
+      "pages:write-page, honoring the existing local review/handoff format",
+      "write-discoverable-code, naming the direct-peer request and handoff distinctly from admission work"
+    ],
+    "influence": "A short delivery cover clarifies the draft's historical status while preserving the approved request verbatim; the record separates placement from acknowledgment and readiness.",
+    "exemplar": "docs/reviews/admission-diagnostic-owner-handoff.md"
+  },
+  "routing": {
+    "destination": "/home/apnex/taceng/context-lab/incoming/agp-direct-peer-assurance-contract-request.md",
+    "basis": "Existing context-lab incoming folder contains an AGP admission request and a maintainer response addressed to it.",
+    "inspectedExistingFiles": [
+      {
+        "path": "/home/apnex/taceng/context-lab/incoming/agp-admission-diagnostic-capability-request.md",
+        "bytes": 5316,
+        "sha256": "a28c10993dbc919f03ee73307fd645be5d3f2fa3a78207fe88ce046c417d1e19"
+      },
+      {
+        "path": "/home/apnex/taceng/context-lab/incoming/agp-admission-diagnostic-capability-response.md",
+        "bytes": 14066,
+        "sha256": "f3e74ece7eee1eda14dde069ce05c3aade3317784ec1c5f74f652eed27052ecc"
+      }
+    ],
+    "scope": "Only the admission response header and opening summary were read to establish routing/separate-request identity; its capability answer was not assessed or adopted.",
+    "recipientRules": "No nested AGENTS.md found by rg --files -g AGENTS.md -g '!node_modules' -g '!dist' /home/apnex/taceng/context-lab; /home/apnex/taceng/AGENTS.md applies.",
+    "noOverwrite": "Destination did not exist at handoff preflight; existing incoming files preserved."
+  },
+  "placement": {
+    "measuredAt": "2026-10-17T10:44:08.675Z",
+    "source": {
+      "path": "/home/apnex/taceng/agp/docs/reviews/direct-peer-send-assurance/direct-peer-context-lab-contract-request.md",
+      "bytes": 8914,
+      "sha256": "b9227b06087d98b21089e168021cd7527ef0252724600bcd83b5c83e7a75ebdc"
+    },
+    "placed": {
+      "path": "/home/apnex/taceng/context-lab/incoming/agp-direct-peer-assurance-contract-request.md",
+      "bytes": 9617,
+      "sha256": "e4791ef59b32cd477677c99b3c4675e7edc70c1992bac5baf7d257e74639a0b7"
+    },
+    "coverBytes": 703,
+    "bodyByteIdentical": true,
+    "cover": "Delivery cover: AGP's director approved this owner handoff with \"continue\".\\\nThe complete [AGP request](/home/apnex/taceng/agp/docs/reviews/direct-peer-send-assurance/direct-peer-context-lab-contract-request.md) follows verbatim.\\\nIts local-draft status records authorship; this copy is now placed in context-lab's `incoming` folder for the maintainer's response.\n\nPlease answer the four contract questions in a separate reply in this folder and identify its path.\\\nThe assessed checkpoints remain historical references; identify any newer supported contract in your answer.\\\nThis is delivery of an information request only, not approval for implementation, provider setup, probes or model calls.\n\n---\n\n",
+    "mechanicalCheck": "The placed file equals the 703-byte UTF-8 cover followed by every byte of the approved source, with no trailing or interior changes."
+  },
+  "beforeState": {
+    "measuredAt": "2026-10-17T10:43:39.240Z",
+    "agp": {
+      "head": "a09e4bcda9d668b52ff3212c3813fad30fa7ac10",
+      "status": " M docs/BOARD.md\n M docs/VERIFICATION.md\n M docs/design/mechanisms.md\n?? docs/design/direct-peer-send.md\n?? docs/reviews/admission-lifecycle-comparison.md\n?? docs/reviews/admission-lifetime-adoption.md\n?? docs/reviews/admission-lifetime-correction-r2.md\n?? docs/reviews/admission-lifetime-correction-r3.md\n?? docs/reviews/admission-lifetime-correction.md\n?? docs/reviews/admission-lifetime-independent-review-r2.md\n?? docs/reviews/admission-lifetime-independent-review-r3.md\n?? docs/reviews/admission-lifetime-independent-review.md\n?? docs/reviews/browser-carrier-feasibility.md\n?? docs/reviews/browser-peer-feasibility.md\n?? docs/reviews/browser-peer-scale-amendment.md\n?? docs/reviews/direct-peer-send-adoption-checks.json\n?? docs/reviews/direct-peer-send-adoption.md\n?? docs/reviews/direct-peer-send-assurance/direct-peer-context-lab-contract-request.md\n?? docs/reviews/direct-peer-send-assurance/direct-peer-context-lab-request-checks.json\n?? docs/reviews/direct-peer-send-assurance/direct-peer-key-recheck-02.txt\n?? docs/reviews/direct-peer-send-assurance/direct-peer-key-recheck-checks-02.json\n?? docs/reviews/direct-peer-send-design-checks.json\n?? docs/reviews/direct-peer-send-design-review.md\n?? docs/reviews/direct-peer-send-draft-checks.json\n?? docs/reviews/direct-peer-send-draft-response.md\n?? docs/reviews/direct-peer-send-independent-review.txt\n?? docs/reviews/direct-peer-send-lifecycle-checks.json\n?? docs/reviews/direct-peer-send-lifecycle-response.md\n?? docs/reviews/evidence/browser-feasibility-chrome136.json\n?? docs/reviews/evidence/browser-feasibility-chrome151.json\n?? docs/reviews/evidence/direct-peer-send-before-d61.txt\n?? docs/reviews/evidence/direct-peer-send-before-d62.txt\n?? docs/reviews/evidence/direct-peer-send-design-review-input.txt\n?? docs/reviews/evidence/operation-call-acceptance/case-logs/honest-call-ending.test.js.log.txt\n?? docs/reviews/evidence/operation-call-acceptance/case-logs/not-delivered-signal.test.js.log.txt\n?? docs/reviews/evidence/operation-call-acceptance/case-logs/request-correlation.test.js.log.txt\n?? docs/reviews/evidence/operation-call-acceptance/cert-o.txt\n?? docs/reviews/evidence/operation-call-acceptance/checkouts-o.json\n?? docs/reviews/evidence/operation-call-acceptance/run-o.out\n?? docs/reviews/reply-isolation-checks.json\n?? docs/reviews/reply-isolation-handoff.json\n?? docs/reviews/reply-isolation-qualifications-handoff.json\n?? docs/reviews/reply-isolation-qualifications.md\n?? docs/reviews/reply-isolation-response.md\n?? docs/reviews/reply-isolation-review.md\n?? docs/reviews/reply-isolation-sources.json\n?? docs/reviews/zorg-requirements-review.md\n?? docs/reviews/zorg-review-reply-assessment.md\n?? docs/reviews/zorg-review-response.md\n?? docs/surveys/shared-transport-survey.md\n?? scripts/browser-feasibility.mjs\n",
+      "index": "",
+      "dirtyFileCount": 51
+    },
+    "context": {
+      "head": "f323a93ebe1effc7145d1e8a41b2268204f76f5f",
+      "status": "?? incoming/agp-admission-diagnostic-capability-request.md\n?? incoming/agp-admission-diagnostic-capability-response.md\n",
+      "index": "",
+      "trackedDiff": ""
+    },
+    "packetFileCount": 19
+  },
+  "currentStateEdits": {
+    "board": {
+      "path": "docs/BOARD.md",
+      "before": {
+        "path": "/home/apnex/taceng/agp/docs/BOARD.md",
+        "bytes": 46797,
+        "sha256": "8b53cb8e1eb8ae7a926588adf3f0280b77e7935944f154910b05b48326f3b1a2"
+      },
+      "after": {
+        "path": "docs/BOARD.md",
+        "bytes": 46350,
+        "sha256": "6533620d796d9622b420d94d11c2d1d5d88a7a102c694362992abf7beb58b0ab"
+      },
+      "edits": [
+        {
+          "old": "| 4 | `B51` | Public-contract assessment complete; owner request drafted locally | [Contract request](VERIFICATION.md#457-direct-peer-context-lab-contract-request) records the retry conflict and output/record/limit questions; select delivery before expecting a reply, with no execution-readiness verdict or change to B53/B6 implementation gates |",
+          "next": "| 4 | `B51` | Contract request placed with context-lab; owner reply pending | [Owner handoff](VERIFICATION.md#458-direct-peer-context-lab-owner-handoff) preserves the approved request and confirms local placement, not acknowledgment or execution readiness; assess the owner's supported bindings before selecting preparation |"
+        },
+        {
+          "old": "Status: the scale amendment is drafted, not ratified; the direct-peer design retains technical and scoped axiom PASS, and the corrected assurance instrument has bounded key-recheck PASS; public-contract assessment is complete and the owner request is drafted but unsent; execution readiness, documentation assurance, ratification, implementation and the declared credential-lifecycle API remain open.\\",
+          "next": "Status: the scale amendment is drafted, not ratified; the direct-peer design retains technical and scoped axiom PASS, and the corrected assurance instrument has bounded key-recheck PASS; public-contract assessment is complete and the owner request is placed locally with context-lab, with a direct-peer reply pending; execution readiness, documentation assurance, ratification, implementation and the declared credential-lifecycle API remain open.\\"
+        },
+        {
+          "old": "| `B51` | Review the local contract request and select owner delivery | [Draft request](reviews/direct-peer-send-assurance/direct-peer-context-lab-contract-request.md) asks context-lab to resolve retry policy and identify supported output, record and limit bindings; AGP retains acceptance policy, while profiles, order, budgets and readiness remain unselected or unestablished |",
+          "next": "| `B51` | Assess context-lab's direct-peer contract reply when available | [Handoff](reviews/direct-peer-send-assurance/direct-peer-context-lab-handoff.md) records the request placed locally, without acknowledgment; the owner reply is the next input for retry/output/record/limit compatibility, not permission to construct a pack or execute |"
+        },
+        {
+          "old": "| Do we approve delivery of the local direct-peer contract request to context-lab through a confirmed owner destination? | `B51` owner clarification after the [public-contract assessment](VERIFICATION.md#457-direct-peer-context-lab-contract-request); the [request](reviews/direct-peer-send-assurance/direct-peer-context-lab-contract-request.md) is drafted, not delivered or acknowledged, and selects no pack construction or execution |",
+          "next": null
+        }
+      ]
+    },
+    "verification": {
+      "path": "docs/VERIFICATION.md",
+      "before": {
+        "path": "/home/apnex/taceng/agp/docs/VERIFICATION.md",
+        "bytes": 315493,
+        "sha256": "d6823f6136fcf582f3c7dff02ee7eff80d93c58fa3f8d89a895fd286cc1e9d68"
+      },
+      "after": {
+        "path": "docs/VERIFICATION.md",
+        "bytes": 317626,
+        "sha256": "25a1d39da7d6344ccb246161b3d6114a36dac016c0316c4f1399475e9151ac89"
+      },
+      "insertBefore": "## 5. Modular test architecture",
+      "append": "### 4.58 Direct peer context-lab owner handoff\n\nThe director selected delivery of the local direct-peer contract request with \"continue\".\\\nContext-lab's existing `incoming` folder contains the earlier AGP admission request and a maintainer response, establishing the local handoff route without creating a new channel or contacting another owner.\n\nThe [handoff record](reviews/direct-peer-send-assurance/direct-peer-context-lab-handoff.md) identifies the [placed request](/home/apnex/taceng/context-lab/incoming/agp-direct-peer-assurance-contract-request.md) and exact source/delivery hashes.\\\nA 703-byte delivery cover clarifies current placement and the source's historical draft status; the full 8,914-byte approved request follows unchanged.\\\nThe original draft, prior check record, assurance packet, original key-audit FAIL and bounded recheck remain untouched.\n\nOnly the new request was added to context-lab by this handoff.\\\nThe [author checks](reviews/direct-peer-send-assurance/direct-peer-context-lab-handoff-checks.json) record placement equality, prior-file preservation and local documentation/record validation.\\\nPlacement is not acknowledgment, acceptance, a new independent verdict or an execution-readiness result.\n\nThe delivery-selection question leaves the board, with its ruling retained here.\\\nThree other B51 current-state entries now identify the owner reply as the next input; B51's score, open status and position, and B53/B6's separate gates, are unchanged.\\\nThe admission response already in the incoming folder is not a reply to this request and was not assessed as part of this delivery.\n\nMechanics: preserve the approved text and identify the reply dependency.\\\nRationale: resolve public execution bindings with their owner before preparing the comparison.\\\nConsequence: acknowledgment or a proposed capability cannot silently alter the frozen measurement rules or authorize execution.\n\nNo provider setup, execution-pack construction, model call, experiment, new agent, normative/runtime change, commit or push occurred.\\\nThese handoff and board/verification changes remain local and uncommitted.\n\n---\n\n"
+    },
+    "handoff": {
+      "path": "docs/reviews/direct-peer-send-assurance/direct-peer-context-lab-handoff.md",
+      "bytes": 2967,
+      "sha256": "2c2c9c09e972e4e1a3259ad0665dd968cc6a946356d7c9f8f1209449f3eb422e"
+    }
+  },
+  "checks": {
+    "measuredAt": "2026-10-17T10:45:58.453Z",
+    "runs": [
+      {
+        "name": "docs-style",
+        "command": "tools/check-docs.sh docs/BOARD.md docs/VERIFICATION.md docs/reviews/direct-peer-send-assurance/direct-peer-context-lab-handoff.md /home/apnex/taceng/context-lab/incoming/agp-direct-peer-assurance-contract-request.md",
+        "cwd": "/home/apnex/taceng/agp",
+        "exitCode": 0,
+        "output": "\nclean: 4 file(s), rule S13.\n\nclean: 4 file(s), rule S6.\n\nclean: 4 file(s), rule S10.\n\nclean: 4 file(s), rule S12.\n\nclean: 4 file(s), rule S8.\ndocs: 4 file(s) clean against S6, S8, S10, S12, S13.\n",
+        "log": {
+          "path": "/tmp/agp-direct-peer-handoff-checks.eKyqsg/docs-style.txt",
+          "bytes": 196,
+          "sha256": "561d082e7328a9bdf0635169112a6afefc435c8d48d95031c60e47dd97a523d7"
+        }
+      },
+      {
+        "name": "records",
+        "command": "node --test test/conformance/board-record.test.js test/conformance/record-integrity.test.js test/conformance/architecture-record.test.js",
+        "cwd": "/home/apnex/taceng/agp",
+        "exitCode": 0,
+        "output": "✔ Given the confirmed intent record, when its numbered subsections are read, then every number is unique and ordered (8.762106ms)\n✔ Given the reconciled architecture, when its current paths and scope owners are resolved, then none points at a fictional module or a forked deferred list (7.678868ms)\n✔ Given the triage ledger, when each candidate is read, then it is scored on both dimensions and cites a record (27.492902ms)\n✔ Given every record cited by the board, when the link is resolved, then the target and its anchor exist (126.126427ms)\n✔ Given the held section, when each item is read, then it is scored and carries a revival trigger (0.747498ms)\n✔ Given the decisions required, when each is read, then it names exactly what it blocks (0.800452ms)\n✔ Given every board identifier, when the ledger and milestones are compared, then neither contains an item the other omits (0.859858ms)\n✔ Given every board item, when its ledger status is compared with where it sits, then the board does not disagree with itself about its state (20.096288ms)\n✔ Given the milestones, when each is read, then no landed item is presented as a live move and the closed count matches the closed set (4.279007ms)\n✔ Given every record that cites a board item, when the citation is resolved, then the item exists on the board (58.188855ms)\n✔ Given the architecture maturity table, when a reopen trigger is read, then it names a condition that has not already happened (3.877197ms)\n✔ Given confirmed intent, when a row says it was amended, then it names the decision that amended it (1.51206ms)\n✔ Given every ratified decision, when it is checked against the vision, then it has been absorbed or explicitly ruled not to change purpose (1.209048ms)\nℹ tests 13\nℹ suites 0\nℹ pass 13\nℹ fail 0\nℹ cancelled 0\nℹ skipped 0\nℹ todo 0\nℹ duration_ms 231.42404\n",
+        "log": {
+          "path": "/tmp/agp-direct-peer-handoff-checks.eKyqsg/records.txt",
+          "bytes": 1871,
+          "sha256": "6714dd7515a431f3f39d1d9a0b6ae7c5ebe8b0c851b8f1952b05594f590e61d5"
+        }
+      },
+      {
+        "name": "packet",
+        "command": "node --test docs/reviews/direct-peer-send-assurance/direct-peer-packet.test.mjs",
+        "cwd": "/home/apnex/taceng/agp",
+        "exitCode": 0,
+        "output": "✔ Given the frozen packet, every listed artifact has its declared bytes and hash (13.396401ms)\n✔ Given full source snapshots, their measured original hashes are retained (1.852248ms)\n✔ Given the sources, both generated reading sets reproduce exactly (3.698888ms)\n✔ Given the candidate reading, its whole contract prefix equals the baseline (0.284374ms)\n✔ Given reader material, experimental protocol and provenance are withheld (0.545381ms)\n✔ Given questions and key, every question has one prospective key and coverage role (0.570025ms)\n✔ Given grounding excerpts, each occurs in its declared reading set (54.15902ms)\n✔ Given a duplicate question identifier, coverage validation fails (1.57711ms)\n✔ Given an absent grounding excerpt, the membership check fails without editing inputs (0.761518ms)\n✔ Given a removed source boundary, projection refuses to silently select another range (0.495146ms)\n✔ Given a changed artifact byte, its frozen digest no longer matches (0.270851ms)\n✔ Given the complete reader payload, both readings fit the declared common bound (4.357056ms)\nℹ tests 12\nℹ suites 0\nℹ pass 12\nℹ fail 0\nℹ cancelled 0\nℹ skipped 0\nℹ todo 0\nℹ duration_ms 162.948822\n",
+        "log": {
+          "path": "/tmp/agp-direct-peer-handoff-checks.eKyqsg/packet.txt",
+          "bytes": 1215,
+          "sha256": "392daf54729ef2814d21261f39e5a2a929c2ee46a5491c95dccbc247defa9e17"
+        }
+      },
+      {
+        "name": "tracked-whitespace",
+        "command": "git diff --check -- docs/BOARD.md docs/VERIFICATION.md",
+        "cwd": "/home/apnex/taceng/agp",
+        "exitCode": 0,
+        "output": "",
+        "log": {
+          "path": "/tmp/agp-direct-peer-handoff-checks.eKyqsg/tracked-whitespace.txt",
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      }
+    ],
+    "links": [
+      {
+        "source": "docs/reviews/direct-peer-send-assurance/direct-peer-context-lab-handoff.md",
+        "target": "direct-peer-context-lab-contract-request.md",
+        "resolved": "/home/apnex/taceng/agp/docs/reviews/direct-peer-send-assurance/direct-peer-context-lab-contract-request.md",
+        "exists": true,
+        "anchorValid": null
+      },
+      {
+        "source": "docs/reviews/direct-peer-send-assurance/direct-peer-context-lab-handoff.md",
+        "target": "/home/apnex/taceng/context-lab/incoming/agp-direct-peer-assurance-contract-request.md",
+        "resolved": "/home/apnex/taceng/context-lab/incoming/agp-direct-peer-assurance-contract-request.md",
+        "exists": true,
+        "anchorValid": null
+      },
+      {
+        "source": "docs/reviews/direct-peer-send-assurance/direct-peer-context-lab-handoff.md",
+        "target": "direct-peer-context-lab-handoff-checks.json",
+        "resolved": "/home/apnex/taceng/agp/docs/reviews/direct-peer-send-assurance/direct-peer-context-lab-handoff-checks.json",
+        "exists": true,
+        "anchorValid": null
+      },
+      {
+        "source": "docs/reviews/direct-peer-send-assurance/direct-peer-context-lab-handoff.md",
+        "target": "../admission-diagnostic-owner-handoff.md",
+        "resolved": "/home/apnex/taceng/agp/docs/reviews/admission-diagnostic-owner-handoff.md",
+        "exists": true,
+        "anchorValid": null
+      },
+      {
+        "source": "/home/apnex/taceng/context-lab/incoming/agp-direct-peer-assurance-contract-request.md",
+        "target": "/home/apnex/taceng/agp/docs/reviews/direct-peer-send-assurance/direct-peer-context-lab-contract-request.md",
+        "resolved": "/home/apnex/taceng/agp/docs/reviews/direct-peer-send-assurance/direct-peer-context-lab-contract-request.md",
+        "exists": true,
+        "anchorValid": null
+      },
+      {
+        "source": "docs/BOARD.md",
+        "target": "VERIFICATION.md#458-direct-peer-context-lab-owner-handoff",
+        "resolved": "/home/apnex/taceng/agp/docs/VERIFICATION.md",
+        "exists": true,
+        "anchorValid": true
+      },
+      {
+        "source": "docs/BOARD.md",
+        "target": "reviews/direct-peer-send-assurance/direct-peer-context-lab-handoff.md",
+        "resolved": "/home/apnex/taceng/agp/docs/reviews/direct-peer-send-assurance/direct-peer-context-lab-handoff.md",
+        "exists": true,
+        "anchorValid": null
+      },
+      {
+        "source": "docs/VERIFICATION.md",
+        "target": "reviews/direct-peer-send-assurance/direct-peer-context-lab-handoff.md",
+        "resolved": "/home/apnex/taceng/agp/docs/reviews/direct-peer-send-assurance/direct-peer-context-lab-handoff.md",
+        "exists": true,
+        "anchorValid": null
+      },
+      {
+        "source": "docs/VERIFICATION.md",
+        "target": "/home/apnex/taceng/context-lab/incoming/agp-direct-peer-assurance-contract-request.md",
+        "resolved": "/home/apnex/taceng/context-lab/incoming/agp-direct-peer-assurance-contract-request.md",
+        "exists": true,
+        "anchorValid": null
+      },
+      {
+        "source": "docs/VERIFICATION.md",
+        "target": "reviews/direct-peer-send-assurance/direct-peer-context-lab-handoff-checks.json",
+        "resolved": "/home/apnex/taceng/agp/docs/reviews/direct-peer-send-assurance/direct-peer-context-lab-handoff-checks.json",
+        "exists": true,
+        "anchorValid": null
+      }
+    ],
+    "preservation": {
+      "agpHeadAfter": "a09e4bcda9d668b52ff3212c3813fad30fa7ac10",
+      "contextHeadAfter": "f323a93ebe1effc7145d1e8a41b2268204f76f5f",
+      "indexEmpty": true,
+      "unchangedExistingFiles": [
+        {
+          "path": "/home/apnex/taceng/agp/docs/design/mechanisms.md",
+          "bytes": 30420,
+          "sha256": "3d00bc685488f81e54d31e12cd00f579f86421db00ee37fb9de26c4d1b74a99d"
+        },
+        {
+          "path": "/home/apnex/taceng/agp/docs/design/direct-peer-send.md",
+          "bytes": 35367,
+          "sha256": "c62574382b91cfd30a443ba5e16b23d10dae797c3278539277666f0a316eedea"
+        },
+        {
+          "path": "/home/apnex/taceng/agp/docs/reviews/admission-lifecycle-comparison.md",
+          "bytes": 25009,
+          "sha256": "27a39f7fccc8e6ac4fab52340edbf9cff1235462ba8256e3f66ecf122be8dcea"
+        },
+        {
+          "path": "/home/apnex/taceng/agp/docs/reviews/admission-lifetime-adoption.md",
+          "bytes": 12915,
+          "sha256": "d6a53fc231d1ba03db5f39661ab2d8629409d05b83d532fdf0ee24f305af59d0"
+        },
+        {
+          "path": "/home/apnex/taceng/agp/docs/reviews/admission-lifetime-correction-r2.md",
+          "bytes": 53917,
+          "sha256": "b89a3328ae7cd41feb38a498b75b16fe06d47f232d9c09dffe42542438f005fb"
+        },
+        {
+          "path": "/home/apnex/taceng/agp/docs/reviews/admission-lifetime-correction-r3.md",
+          "bytes": 56562,
+          "sha256": "6ccf9ba0e7d94b83897fade8f865fe3fb1328db292d92cce4d5cc85bc28fc2f2"
+        },
+        {
+          "path": "/home/apnex/taceng/agp/docs/reviews/admission-lifetime-correction.md",
+          "bytes": 41424,
+          "sha256": "01bae9c2446bf6ff6d8e0027735976f5ff84c4216d31942c2d8fef80ffde0ed0"
+        },
+        {
+          "path": "/home/apnex/taceng/agp/docs/reviews/admission-lifetime-independent-review-r2.md",
+          "bytes": 6348,
+          "sha256": "01a30e624c63a4d2e3f466595c62514ee97ab2d4c4d164988975103df0d31979"
+        },
+        {
+          "path": "/home/apnex/taceng/agp/docs/reviews/admission-lifetime-independent-review-r3.md",
+          "bytes": 8325,
+          "sha256": "8f1b4cf8c725bc083ebb2d299fa12263bbb15f701f299ea1e26bb6055b3cbf8f"
+        },
+        {
+          "path": "/home/apnex/taceng/agp/docs/reviews/admission-lifetime-independent-review.md",
+          "bytes": 10956,
+          "sha256": "7ef3974fa4d54aa2724b539bf7a34fc8ef03992f350ad37fd2d006005940fe1f"
+        },
+        {
+          "path": "/home/apnex/taceng/agp/docs/reviews/browser-carrier-feasibility.md",
+          "bytes": 15480,
+          "sha256": "c57dd0a9dc8071d761bba1ffb9fb4ce5a7aa66313d944ece46cad283e1fe797c"
+        },
+        {
+          "path": "/home/apnex/taceng/agp/docs/reviews/browser-peer-feasibility.md",
+          "bytes": 14996,
+          "sha256": "f66876ba9ce4f0c926c33143460bcf196372747a69197703aab6517e757501c3"
+        },
+        {
+          "path": "/home/apnex/taceng/agp/docs/reviews/browser-peer-scale-amendment.md",
+          "bytes": 8597,
+          "sha256": "af67268de3f5d573f49b17111cce26d2ab50b043d96fac614575fd2f0ab941af"
+        },
+        {
+          "path": "/home/apnex/taceng/agp/docs/reviews/direct-peer-send-adoption-checks.json",
+          "bytes": 35422,
+          "sha256": "f50ace1eb44e470d9406e6475f72c6639e069622487bb63d20fd775426106f98"
+        },
+        {
+          "path": "/home/apnex/taceng/agp/docs/reviews/direct-peer-send-adoption.md",
+          "bytes": 21251,
+          "sha256": "a4915b471b9ab1b330fc8524beb5441c6857ad1416c63ea6be240cb9f67ed06c"
+        },
+        {
+          "path": "/home/apnex/taceng/agp/docs/reviews/direct-peer-send-assurance/direct-peer-context-lab-contract-request.md",
+          "bytes": 8914,
+          "sha256": "b9227b06087d98b21089e168021cd7527ef0252724600bcd83b5c83e7a75ebdc"
+        },
+        {
+          "path": "/home/apnex/taceng/agp/docs/reviews/direct-peer-send-assurance/direct-peer-context-lab-request-checks.json",
+          "bytes": 64411,
+          "sha256": "42ccf6673a02ad90e2fbdddcd407f54ed1074170ccc4ea35343ef52f135e8dd4"
+        },
+        {
+          "path": "/home/apnex/taceng/agp/docs/reviews/direct-peer-send-assurance/direct-peer-key-recheck-02.txt",
+          "bytes": 8765,
+          "sha256": "2078d3391fa500acebd14e97c16bdfa51ef9fe0d23061714fac6eee438b7a7be"
+        },
+        {
+          "path": "/home/apnex/taceng/agp/docs/reviews/direct-peer-send-assurance/direct-peer-key-recheck-checks-02.json",
+          "bytes": 99507,
+          "sha256": "87a73b75583194b8b0626ebefbdbbaf053bd8f4c2c97ec0429b2525e53d60e46"
+        },
+        {
+          "path": "/home/apnex/taceng/agp/docs/reviews/direct-peer-send-design-checks.json",
+          "bytes": 30521,
+          "sha256": "e25314d9da912015a2e1b6c6202147cb2cd7f1fc72b6a9f68d1185e1b82048aa"
+        },
+        {
+          "path": "/home/apnex/taceng/agp/docs/reviews/direct-peer-send-design-review.md",
+          "bytes": 10136,
+          "sha256": "5d5da0bef33fa6587455e91a4c672b9bb0a0be91f78aae71351929c697f066ab"
+        },
+        {
+          "path": "/home/apnex/taceng/agp/docs/reviews/direct-peer-send-draft-checks.json",
+          "bytes": 31214,
+          "sha256": "e1937d8cacf1abff3b08ee1159044515b7493d32b15f1afbd190dd463b6fc24b"
+        },
+        {
+          "path": "/home/apnex/taceng/agp/docs/reviews/direct-peer-send-draft-response.md",
+          "bytes": 4142,
+          "sha256": "f37d32da1df0c740aa3b371cbfedf8f2f5634444b2f0c6ecb7656b721653b3b8"
+        },
+        {
+          "path": "/home/apnex/taceng/agp/docs/reviews/direct-peer-send-independent-review.txt",
+          "bytes": 14503,
+          "sha256": "2f9b2e8044abcf8829539c8a68aed3e36fb4ba6eb0aa0d77315be2b284092656"
+        },
+        {
+          "path": "/home/apnex/taceng/agp/docs/reviews/direct-peer-send-lifecycle-checks.json",
+          "bytes": 22497,
+          "sha256": "d518d33717e328bd0f652f8cf2f90d33368a45531694c8b2fd634442ab4ee933"
+        },
+        {
+          "path": "/home/apnex/taceng/agp/docs/reviews/direct-peer-send-lifecycle-response.md",
+          "bytes": 3367,
+          "sha256": "72d2122f7ff8fd618d753c7139231d436c8d6985922a79575f97825031d0318a"
+        },
+        {
+          "path": "/home/apnex/taceng/agp/docs/reviews/evidence/browser-feasibility-chrome136.json",
+          "bytes": 4117,
+          "sha256": "7559df9db7497cb5d36431a737196c6aea1cf2951cfb94ab196b56ea098ba42a"
+        },
+        {
+          "path": "/home/apnex/taceng/agp/docs/reviews/evidence/browser-feasibility-chrome151.json",
+          "bytes": 4201,
+          "sha256": "a24b766999ef503bcc6e40637b28df620ec3ddad8e602d90bdc7a262347aecdb"
+        },
+        {
+          "path": "/home/apnex/taceng/agp/docs/reviews/evidence/direct-peer-send-before-d61.txt",
+          "bytes": 28449,
+          "sha256": "6e8122f93ffb2496426cdc3d5f45cf7ffbf52c97bf5b1d695083acf9db7d26e7"
+        },
+        {
+          "path": "/home/apnex/taceng/agp/docs/reviews/evidence/direct-peer-send-before-d62.txt",
+          "bytes": 32448,
+          "sha256": "2a91d6c8d8263bc39a94880d93d95506fa7ab0e5d359f4f150d84153a0b6b251"
+        },
+        {
+          "path": "/home/apnex/taceng/agp/docs/reviews/evidence/direct-peer-send-design-review-input.txt",
+          "bytes": 34955,
+          "sha256": "bede054da088b516f55e09aa02e111a9dfdb61b57ead5b493cc90f4f2110119a"
+        },
+        {
+          "path": "/home/apnex/taceng/agp/docs/reviews/evidence/operation-call-acceptance/case-logs/honest-call-ending.test.js.log.txt",
+          "bytes": 6718,
+          "sha256": "8f525d67bb18e688e9296a137a7ef9fd63b8741fabb8b86fb07d207966fcebc0"
+        },
+        {
+          "path": "/home/apnex/taceng/agp/docs/reviews/evidence/operation-call-acceptance/case-logs/not-delivered-signal.test.js.log.txt",
+          "bytes": 1584,
+          "sha256": "b50ad78897b667d4fa8a6207efd2262bf53ff036a4e286e23a34432644bab567"
+        },
+        {
+          "path": "/home/apnex/taceng/agp/docs/reviews/evidence/operation-call-acceptance/case-logs/request-correlation.test.js.log.txt",
+          "bytes": 921,
+          "sha256": "6e541c909ab23946a6358f36260dd6bcb5915e45f06bc4a2e967f00b58fee5ec"
+        },
+        {
+          "path": "/home/apnex/taceng/agp/docs/reviews/evidence/operation-call-acceptance/cert-o.txt",
+          "bytes": 39031,
+          "sha256": "e1cb917a0b21b994df126f37643b955002025fbb0ff4d20b6c5def738805fd88"
+        },
+        {
+          "path": "/home/apnex/taceng/agp/docs/reviews/evidence/operation-call-acceptance/checkouts-o.json",
+          "bytes": 577,
+          "sha256": "46fe733dc9799e3a3294c097cdb206b1493cd2199559e5b9d9da896a775ad36b"
+        },
+        {
+          "path": "/home/apnex/taceng/agp/docs/reviews/evidence/operation-call-acceptance/run-o.out",
+          "bytes": 126,
+          "sha256": "c7b317357c4b6119ef28fdf2442a1b3efd4d987da65a163227e28fad2a9bc9ac"
+        },
+        {
+          "path": "/home/apnex/taceng/agp/docs/reviews/reply-isolation-checks.json",
+          "bytes": 25821,
+          "sha256": "86214a7346f68a21e6c9985914681ad4631154600aa3d30524afc77619f59469"
+        },
+        {
+          "path": "/home/apnex/taceng/agp/docs/reviews/reply-isolation-handoff.json",
+          "bytes": 28313,
+          "sha256": "ffc76f817ab2aefdeb5e743398b7abf8e7cafd953fc75cac6a593bbaffbf15bd"
+        },
+        {
+          "path": "/home/apnex/taceng/agp/docs/reviews/reply-isolation-qualifications-handoff.json",
+          "bytes": 12025,
+          "sha256": "867db9ebb9943180435224a3149063654e500b955eef257a6be40da26b0f8e30"
+        },
+        {
+          "path": "/home/apnex/taceng/agp/docs/reviews/reply-isolation-qualifications.md",
+          "bytes": 6401,
+          "sha256": "1719559114f768594911fbe125096c84d01fbb4f89105628e1e90808aa39e376"
+        },
+        {
+          "path": "/home/apnex/taceng/agp/docs/reviews/reply-isolation-response.md",
+          "bytes": 6467,
+          "sha256": "d6ed8be5a6b3f59530f83d4952f8e125769997d16ba78f44f8667fb15ce89210"
+        },
+        {
+          "path": "/home/apnex/taceng/agp/docs/reviews/reply-isolation-review.md",
+          "bytes": 21966,
+          "sha256": "213d60b6c74f4dc3a3adc8765566dc3a67f6bac360e8f042509f2b93f5a1a2f6"
+        },
+        {
+          "path": "/home/apnex/taceng/agp/docs/reviews/reply-isolation-sources.json",
+          "bytes": 15924,
+          "sha256": "1c2fc0b7d6edc6e8fdc144cb6a25087b1eae2a9c197127e40f48c4ee64692b39"
+        },
+        {
+          "path": "/home/apnex/taceng/agp/docs/reviews/zorg-requirements-review.md",
+          "bytes": 20218,
+          "sha256": "2fa0c3348b3b0f765d009a2632b0fdb59e7c54d01f768edd88b6ebd17cfed933"
+        },
+        {
+          "path": "/home/apnex/taceng/agp/docs/reviews/zorg-review-reply-assessment.md",
+          "bytes": 11620,
+          "sha256": "af653f0b819bb8845cf56e095bcbcdcaa21d25e911e11395f5cfffc676a1f3c6"
+        },
+        {
+          "path": "/home/apnex/taceng/agp/docs/reviews/zorg-review-response.md",
+          "bytes": 8303,
+          "sha256": "f76295f2c26678321c011d33bc1d1dc838133afbd1ca7de5b459b9c0f614bd17"
+        },
+        {
+          "path": "/home/apnex/taceng/agp/docs/surveys/shared-transport-survey.md",
+          "bytes": 23687,
+          "sha256": "f096f84b74ac861f02c1203bce6726748fbd4c57f22bfadab13a7b68e56d093e"
+        },
+        {
+          "path": "/home/apnex/taceng/agp/scripts/browser-feasibility.mjs",
+          "bytes": 9367,
+          "sha256": "e3161585c822b369db1e99f87474cd6e6fbeb8c1d7c7b445a33090db75380455"
+        },
+        {
+          "path": "/home/apnex/taceng/agp/docs/reviews/direct-peer-send-assurance/direct-peer-answer-key.json",
+          "bytes": 24719,
+          "sha256": "07fefda326d5f1773bfb9375fa81e061161bf945c13967ee0cbb950c164c97dc"
+        },
+        {
+          "path": "/home/apnex/taceng/agp/docs/reviews/direct-peer-send-assurance/direct-peer-assurance-preparation.md",
+          "bytes": 15178,
+          "sha256": "b752ad17627d767389e5e82413d519d86b48f7d1352da93c2f2bef2c1b1b96b4"
+        },
+        {
+          "path": "/home/apnex/taceng/agp/docs/reviews/direct-peer-send-assurance/direct-peer-input-manifest.json",
+          "bytes": 5802,
+          "sha256": "9a78da3b27721a851fa3f928b0cab502b01ea98a5dd39a7a41d0be442b30d2a6"
+        },
+        {
+          "path": "/home/apnex/taceng/agp/docs/reviews/direct-peer-send-assurance/direct-peer-key-audit-01.txt",
+          "bytes": 10685,
+          "sha256": "7d1be78844a73cb4bbcfae3de2cda634992c97a7f11f599b13267abd3611d2db"
+        },
+        {
+          "path": "/home/apnex/taceng/agp/docs/reviews/direct-peer-send-assurance/direct-peer-key-audit-checks-01.json",
+          "bytes": 79399,
+          "sha256": "d2020ec60031e993d6f179540cd263f57c521494782ae1077141944323966203"
+        },
+        {
+          "path": "/home/apnex/taceng/agp/docs/reviews/direct-peer-send-assurance/direct-peer-key-correction-01.json",
+          "bytes": 5172,
+          "sha256": "9c16f8fd219d23d49a83b8bf258ee45c4c848a47988327819de05bd8f09e3ee1"
+        },
+        {
+          "path": "/home/apnex/taceng/agp/docs/reviews/direct-peer-send-assurance/direct-peer-packet.test.mjs",
+          "bytes": 6393,
+          "sha256": "f2166bba41bf3e34620ea41310bbee151390991fc05c05d1dcb8843a46210dd1"
+        },
+        {
+          "path": "/home/apnex/taceng/agp/docs/reviews/direct-peer-send-assurance/direct-peer-preparation-checks.json",
+          "bytes": 66152,
+          "sha256": "5631965d5fb89db3d8927b9408d87cf01110210e7b207220c1220ff2bdf2da8e"
+        },
+        {
+          "path": "/home/apnex/taceng/agp/docs/reviews/direct-peer-send-assurance/direct-peer-questions.json",
+          "bytes": 4079,
+          "sha256": "891ba24063719c3d70dcf03471a46e1c4933f1cef8f75a014a659ea35ea3b239"
+        },
+        {
+          "path": "/home/apnex/taceng/agp/docs/reviews/direct-peer-send-assurance/direct-peer-reader-instructions.md",
+          "bytes": 1556,
+          "sha256": "4a2d14bc351b6147e20c50e479adee3fd3afca25af271d6ad5e4d3805ece3533"
+        },
+        {
+          "path": "/home/apnex/taceng/agp/docs/reviews/direct-peer-send-assurance/project-direct-peer-readings.mjs",
+          "bytes": 4633,
+          "sha256": "43425609ee945eaa26a0f17a76a2b4e8a4920caecc43045a5c98763419cc658a"
+        },
+        {
+          "path": "/home/apnex/taceng/agp/docs/reviews/direct-peer-send-assurance/readings/m73/direct-peer-reading.txt",
+          "bytes": 30267,
+          "sha256": "ef5fa5b5c01ab166b2396848fda5502325ba6dbf9f05bd025ff9d443ff0b4729"
+        },
+        {
+          "path": "/home/apnex/taceng/agp/docs/reviews/direct-peer-send-assurance/readings/r28/direct-peer-reading.txt",
+          "bytes": 47149,
+          "sha256": "78aac6e348b8c839396120ba29d5df556acee6ba45c132c2f23606ac9dc102ea"
+        },
+        {
+          "path": "/home/apnex/taceng/agp/docs/reviews/direct-peer-send-assurance/sources/direct-peer-adoption.txt",
+          "bytes": 21251,
+          "sha256": "a4915b471b9ab1b330fc8524beb5441c6857ad1416c63ea6be240cb9f67ed06c"
+        },
+        {
+          "path": "/home/apnex/taceng/agp/docs/reviews/direct-peer-send-assurance/sources/direct-peer-contract.txt",
+          "bytes": 34955,
+          "sha256": "bede054da088b516f55e09aa02e111a9dfdb61b57ead5b493cc90f4f2110119a"
+        }
+      ],
+      "changedExisting": [
+        "/home/apnex/taceng/agp/docs/BOARD.md",
+        "/home/apnex/taceng/agp/docs/VERIFICATION.md"
+      ],
+      "newAgpFiles": [
+        "/home/apnex/taceng/agp/docs/reviews/direct-peer-send-assurance/direct-peer-context-lab-handoff-checks.json",
+        "/home/apnex/taceng/agp/docs/reviews/direct-peer-send-assurance/direct-peer-context-lab-handoff.md"
+      ],
+      "newContextFiles": [
+        "incoming/agp-direct-peer-assurance-contract-request.md"
+      ],
+      "contextStatusAfter": "?? incoming/agp-admission-diagnostic-capability-request.md\n?? incoming/agp-admission-diagnostic-capability-response.md\n?? incoming/agp-direct-peer-assurance-contract-request.md\n",
+      "contextExistingPreserved": [
+        {
+          "path": "/home/apnex/taceng/context-lab/incoming/agp-admission-diagnostic-capability-request.md",
+          "bytes": 5316,
+          "sha256": "a28c10993dbc919f03ee73307fd645be5d3f2fa3a78207fe88ce046c417d1e19"
+        },
+        {
+          "path": "/home/apnex/taceng/context-lab/incoming/agp-admission-diagnostic-capability-response.md",
+          "bytes": 14066,
+          "sha256": "f3e74ece7eee1eda14dde069ce05c3aade3317784ec1c5f74f652eed27052ecc"
+        }
+      ],
+      "boardExactDeclaredEdits": true,
+      "verificationAppendOnly": true,
+      "requestBodyByteIdentical": true,
+      "method": "Compared every pre-existing dirty AGP file and every assurance-directory file by byte length/SHA-256; only BOARD and VERIFICATION differ. The board equals its prior text after exactly three replacements and one row deletion; removing the one verification append recreates its prior SHA-256. Checked all existing context-lab incoming hashes, empty tracked diff and unchanged index; only the new request appeared."
+    },
+    "editorial": "Read back the handoff and delivery cover against the retained request and previous owner-handoff exemplar; the cover changes delivery status only and adds no experiment requirement.",
+    "limits": "Author checks establish file placement, integrity and record consistency, not independent documentation assurance, owner receipt or runtime readiness."
+  },
+  "activity": {
+    "externalFilesAdded": 1,
+    "existingExternalFilesEdited": 0,
+    "modelCalls": 0,
+    "experiments": 0,
+    "newAgents": 0,
+    "providerSetup": 0,
+    "executionPacksConstructed": 0,
+    "normativeOrRuntimeChanges": 0,
+    "commits": 0,
+    "pushes": 0
+  },
+  "nextInput": "A distinct owner reply to the direct-peer request; the existing admission reply is separate and remains available for a separately selected review.",
+  "mechanics": "Preserve approved source bytes, add a delivery cover, and bind the current board state to a measured handoff record.",
+  "rationale": "The owner receives exact questions while future work can distinguish local placement from acknowledgment or execution authority.",
+  "consequence": "Neither an earlier admission reply nor a successful file write establishes direct-peer compatibility or permission to execute."
+}

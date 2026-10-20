@@ -1,0 +1,124 @@
+# Direct-peer source-packet key recheck
+
+**KEY/COMPARISON-INSTRUMENT RECHECK: PASS.**\
+**EXECUTION READINESS: NOT REVIEWED.**
+
+Both blocking findings are resolved at the corrected checkpoint.
+The two nonblocking qualifications are now explicit source requirements.
+No regression requiring correction was found within this bounded recheck.
+
+## 1. Reviewed checkpoint and scope
+
+Repository: `/home/apnex/taceng/agp`  
+Packet: `docs/reviews/direct-peer-send-assurance/`
+
+- Reviewed commit: `a09e4bcda9d668b52ff3212c3813fad30fa7ac10`
+- Verified parent: `669cbd78fe3d6d369324a11a6a901cdf92bf4e66`
+- Manifest SHA256: `9a78da3b27721a851fa3f928b0cab502b01ea98a5dd39a7a41d0be442b30d2a6`
+- Preserved original review SHA256: `7d1be78844a73cb4bbcfae3de2cda634992c97a7f11f599b13267abd3611d2db`
+
+Measured: the working packet matches the reviewed commit, the supplied hashes match, and the original author-check record is unchanged.
+The commit changes seven packet files and no runtime source.
+
+I am the same non-author auditor who returned the original FAIL.
+Session continuity is intentional; this is not a fresh independent sample, a scored-reader response or a model-family independence claim.
+
+I compared the parent and corrected checkpoints, read the current questions, key, common rules, preparation document, manifest and correction record, and consulted the relevant unchanged reading passages.
+I also read the preserved original report.
+The applicable guidance files used matched mission-kit revision `d09461e8d9588fba8e59f4a63d0f93418f773dbe`.
+
+Scope was limited to F1/Q07, F2/Q11, judge-facing qualifications, the unavailable closeout hooks and regressions introduced by those deltas.
+The dispositions below are semantic review judgments; integrity and preservation statements are measured file/git/hash results.
+
+## 2. Findings and dispositions
+
+| Item | Previous status | Recheck disposition |
+|---|---|---|
+| F1: Q07 consumer origin validation | Medium, blocking | Resolved |
+| F2: Q11 conditional diagnosis versus mandatory grading | Medium, blocking | Resolved |
+| Version-neutral judge qualifications | Nonblocking recommendation | Resolved at the source-contract level |
+| Unsupplied seven closeout hooks | Nonblocking qualification | Explicitly excluded from additional scored duties |
+
+### F1: Q07 now preserves the documented ownership boundary
+
+The [corrected requirement](/home/apnex/taceng/agp/docs/reviews/direct-peer-send-assurance/direct-peer-answer-key.json:170) now says:
+
+> “Use the captured origin and association, validate configured mode”
+
+The [judge guidance](/home/apnex/taceng/agp/docs/reviews/direct-peer-send-assurance/direct-peer-answer-key.json:188) explicitly prohibits demanding an additional consumer-side origin-equality check.
+
+This matches the supplied text.
+AGP's [direct-context construction](/home/apnex/taceng/agp/docs/reviews/direct-peer-send-assurance/readings/m73/direct-peer-reading.txt:241) owns ingress/source-origin equality, while [operation-call's stated validation](/home/apnex/taceng/agp/docs/reviews/direct-peer-send-assurance/readings/m73/direct-peer-reading.txt:319) concerns configured mode.
+
+The correction removes the invented consumer obligation without weakening captured authority, all-branch protection or failed-end fallback requirements.
+Q07 is now supportable as a baseline control without author memory.
+
+### F2: Q11 now explicitly requests the diagnosis being graded
+
+The [corrected question](/home/apnex/taceng/agp/docs/reviews/direct-peer-send-assurance/direct-peer-questions.json:46) expressly asks:
+
+> “Diagnose what the current handler ledger charges”
+
+It also requires separating established current accounting from unknown information.
+The previous conditional “any known” clause is gone.
+
+The [required decision](/home/apnex/taceng/agp/docs/reviews/direct-peer-send-assurance/direct-peer-answer-key.json:289) and [judge guidance](/home/apnex/taceng/agp/docs/reviews/direct-peer-send-assurance/direct-peer-answer-key.json:311) now consistently distinguish:
+
+- A grounded current-state diagnosis.
+- A faithful missing diagnosis, scored incomplete rather than wrong when the other decisions are safe.
+- An unselected formula or lifecycle API, whose correctly identified absence does not reduce the score.
+
+The candidate's [handler-ledger observation](/home/apnex/taceng/agp/docs/reviews/direct-peer-send-assurance/readings/r28/direct-peer-reading.txt:492) supports the diagnostic requirement.
+The baseline's [metadata-budget requirement](/home/apnex/taceng/agp/docs/reviews/direct-peer-send-assurance/readings/m73/direct-peer-reading.txt:283) remains normative rather than proof of today's implementation.
+
+The question and grading obligation now align.
+Valid grounded derivation remains allowed; the correction does not require inventing implementation facts or selecting deferred policy.
+
+### Judge qualifications are preserved without private arm commentary
+
+[Common rule 15](/home/apnex/taceng/agp/docs/reviews/direct-peer-send-assurance/direct-peer-answer-key.json:15) requires delivery of the common scoring/rules, required decisions, wrong conclusions and every applicable `judgeGuidance` item.
+
+The qualifications previously mixed into private support notes are now explicit judge-facing guidance for Q09, Q10, Q11 and Q12.
+They preserve equivalent locations, grounded derivation, safe parallel preparation, faithful-gap treatment, unselected-choice treatment and the distinction between unfinished activity and an adoption gate.
+
+The [correction record's delivery boundary](/home/apnex/taceng/agp/docs/reviews/direct-peer-send-assurance/direct-peer-key-correction-01.json:56) separately withholds role maps, grounding role labels, private support notes, arm/order information and correction/prior-review metadata.
+
+This resolves the source-level ambiguity.
+It does not prove that a future renderer actually delivers or isolates those fields; that proof remains expressly required.
+
+### The missing closeout hooks cannot become hidden scoring requirements
+
+[Common rule 16](/home/apnex/taceng/agp/docs/reviews/direct-peer-send-assurance/direct-peer-answer-key.json:16) and the [preparation banner](/home/apnex/taceng/agp/docs/reviews/direct-peer-send-assurance/direct-peer-assurance-preparation.md:7) explicitly exclude the unsupplied seven-hook contents from additional scored obligations.
+
+The [reference remains in the candidate](/home/apnex/taceng/agp/docs/reviews/direct-peer-send-assurance/readings/r28/direct-peer-reading.txt:504), preserving the reading.
+Its unavailable contents have not been guessed or silently incorporated into the key.
+This is a scoring-scope resolution, not a claim that the external cross-check has been supplied or completed.
+
+## 3. Preservation and regression checks
+
+Measured comparisons confirm:
+
+- Both source snapshots, both readings, common reader instructions, projection function, packet-test source and original author-check record are unchanged.
+- Only Q11's prompt changed; question order remains Q01-Q12.
+- Required-decision changes are confined to the identified Q07 and Q11 clauses.
+- Grounding excerpts and wrong-conclusion lists are unchanged.
+- Population, equal weighting, conservative scoring, quotation caps, validity rules, thresholds and execution prerequisites remain unchanged.
+- The preparation document's original body is preserved beneath an explicit correction banner.
+- The candidate still contains the complete byte-identical baseline prefix.
+
+The revised reader payloads total 35,902 bytes and 52,784 bytes respectively, below the declared 65,536-byte ceiling.
+That is source-size accounting, not proof of runtime delivery or model context fit.
+
+No newly introduced conflict was found between the corrections, common rules and assigned-input restriction.
+The original FAIL remains the correct historical verdict for its original checkpoint; this PASS applies to the corrected checkpoint and bounded recheck.
+
+## 4. Boundary and stop
+
+This PASS establishes that the reviewed corrections resolve the identified source-key defects.
+It does not establish documentation effectiveness, technical/design approval, ratification, runtime acceptance, publication authority or experiment execution.
+
+Provider/family profiles, public execution binding, isolation, judge rendering, eligible-response semantics, order, budgets and enforcement remain unreviewed execution-readiness matters.
+Their absence is not a defect in these source corrections, and this report authorizes none of that work.
+
+**Stop:** no files were edited; no tests, harnesses, runtime services, reader/judge invocations, provider setup, new agents, staging, commits, pushes or publication were performed.
+This completes the one authorized bounded recheck.

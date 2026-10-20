@@ -1,0 +1,1118 @@
+{
+  "kind": "direct-peer-context-lab-contract-request-author-checks",
+  "status": "Local unsent draft; author checks passed; no independent execution-readiness verdict",
+  "authority": {
+    "selection": "Director replied continue to the recommendation to draft one focused owner request locally without sending it.",
+    "included": [
+      "Local owner-request draft",
+      "Narrow B51 board updates and verification append",
+      "Read-only source comparison and local documentation/integrity checks"
+    ],
+    "excluded": [
+      "Delivery to context-lab or Zorg",
+      "Execution-pack construction",
+      "Provider setup or credentials inspection",
+      "Model calls or experiments",
+      "New or re-engaged agents",
+      "Frozen packet, normative contract or runtime changes",
+      "Commit or push"
+    ]
+  },
+  "guidance": {
+    "revision": "6d320185288fbec355259c70fbf8a38ca4ed9f85",
+    "source": "Validated mission-kit main/local checkpoint measured during this turn",
+    "skills": [
+      "pages:write-page, using the established local repository destination",
+      "write-discoverable-code, for searchable artifact names"
+    ],
+    "influence": "Owner-facing questions use a descriptive draft title, explicit reply requirements and source references; author checks are not represented as independent assurance."
+  },
+  "priorReadOnlyAssessment": {
+    "sourcePacket": "a09e4bcda9d668b52ff3212c3813fad30fa7ac10",
+    "publicContextLab": "7388c9a68c446dc7b2a3db17613c9983973908a5",
+    "guidance": "242e6bc466166d211e55d8940b66de32c393f4c1",
+    "conclusion": "Purpose fits; exact execution compatibility and readiness not established. Do not run yet.",
+    "supported": [
+      "One scenario with one fresh phase, two arms and three distinct-family members at runsPerCell=1 can express six reader cells.",
+      "Pinned source/variant declarations, include filters, delivery modes, canaries and leakage probes exist.",
+      "Cross-family judge assignment, declared 0..2 property scales, key/rubric/judgeInstructions fields, and stored votes/reasons exist."
+    ],
+    "findings": [
+      {
+        "id": "retry-policy",
+        "kind": "documented contract conflict",
+        "agp": "Preparation section 5 row Runtime or infrastructure failure: no automatic retry authorized.",
+        "contextLab": "Architecture section 7 and completed Delta-4 H1 specify one automatic rerun of infrastructure/isolation failures; the complete public pack/experiment schema and run flags document no retry-policy setting.",
+        "needed": "Owner identify a supported no-retry binding, or propose an explicitly reviewed pre-execution method amendment. Do not silently switch AGP's accounting."
+      },
+      {
+        "id": "eligible-response-and-unit-delivery",
+        "kind": "public-contract readiness gap",
+        "agp": "Only eligible user-visible response under pre-audited extraction, individual reader/question units and assigned-text grounding; incomplete invocation is not an inferred empty answer.",
+        "contextLab": "Outcome is named final message/diff/events; answerHeading splitting requires scoredFile in public scenario schema. No public raw-event eligibility mapping for final responses, full record schema, or transcript splitting and per-unit support binding demonstrated here.",
+        "needed": "Declare the exact supported output surface and eligible/failure/truncation semantics. If using scoredFile, amend the reader task prospectively; do not execute original response-only task and infer its file output. Demonstrate complete common rubric/required/wrong/judgeGuidance delivery and role/supportNote exclusion."
+      },
+      {
+        "id": "project-owned-decision-rule",
+        "kind": "composition obligation; not automatically a context-lab defect",
+        "agp": "Two votes per present answer; conservative lower score plus quote cap; 144 expected vote slots including absence; per-question candidate floor and controls non-regression, strict improvement, invalid evidence no verdict.",
+        "contextLab": "Public comparisons offer aa/tolerance/improve. Improve means every head property mean at least base and pooled increase; it does not express the whole AGP rule. Hooks receive pre-judge outcomes, not final votes.",
+        "needed": "Agree a stable complete record/export contract for AGP's deterministic acceptance calculation; keep execution/judging in context-lab. Do not copy a runner or claim generic compare equals AGP assurance."
+      },
+      {
+        "id": "bounds-and-authority",
+        "kind": "public-contract readiness gap plus unselected operator choices",
+        "agp": "64KiB source payload, separate measured wrapper, identical enforced 24KiB UTF-8 response bound, explicit truncation, spend/time, fixed profiles and order.",
+        "contextLab": "Public docs list opencode outputTokenMax and hook timeLimitSeconds; no uniform response-byte enforcement or runtime spend/time field in inspected public schema/CLI. Documentation does not prove the implementation lacks another public mechanism.",
+        "needed": "Owner name supported boundary/enforcement. Select and freeze profiles/order/budgets only after compatibility is established; no credentials inspected or provider chosen."
+      }
+    ],
+    "counterexample": "As a mathematical illustration, all baseline question scores 0 and all candidate scores 1 satisfy the documented improve inequalities but violate AGP's at-least-two-2s-per-candidate-question requirement. This is not an executed experiment or claim of observed model behavior.",
+    "nextRecommended": "Draft a single bounded contract-clarification request to context-lab, separating the retry conflict from missing public output/record/limit bindings and AGP-owned acceptance. Do not construct a pack, run a smoke, amend the audited rules, or send a request without the next selection.",
+    "preservation": {
+      "measuredAt": "2026-10-17T10:09:15.438Z",
+      "agpHead": "a09e4bcda9d668b52ff3212c3813fad30fa7ac10",
+      "agpStatusUnchanged": true,
+      "indexEmpty": true,
+      "inspectedFileEntriesUnchanged": 66,
+      "uniqueUnchangedFiles": 66,
+      "packetManifestHashesMatch": true,
+      "changedPaths": [],
+      "publicDocs": [
+        {
+          "path": "README.md",
+          "revision": "7388c9a68c446dc7b2a3db17613c9983973908a5",
+          "bytes": 3736,
+          "sha256": "28a57f9a8b0b0876e05205a47278c29e681d848e2daff5afd2a2c3fa7ae579a7"
+        },
+        {
+          "path": "docs/OPERATIONS.md",
+          "revision": "7388c9a68c446dc7b2a3db17613c9983973908a5",
+          "bytes": 27991,
+          "sha256": "93efbb954b9137954c031df237806ae5293d1da60b6c77247bfd45426f552969"
+        },
+        {
+          "path": "VISION.md",
+          "revision": "7388c9a68c446dc7b2a3db17613c9983973908a5",
+          "bytes": 5382,
+          "sha256": "e6c09b2de208a66058a94c38c03ab5e23e943b12d14b4697e163a3cd63b40bca"
+        },
+        {
+          "path": "docs/ARCHITECTURE-TARGET.md",
+          "revision": "7388c9a68c446dc7b2a3db17613c9983973908a5",
+          "bytes": 21153,
+          "sha256": "a40a891ee5f55627c28407a30225f8aada90c52dd74bf52651ce1f649913195f"
+        },
+        {
+          "path": "docs/DECISIONS.md",
+          "revision": "7388c9a68c446dc7b2a3db17613c9983973908a5",
+          "bytes": 28794,
+          "sha256": "1cc07ab24a4cb1b32f43f4f3d6d092171dfe15b828da21d5008bef08f5a65f62"
+        },
+        {
+          "path": "docs/DELTAS/DELTA-1.md",
+          "revision": "7388c9a68c446dc7b2a3db17613c9983973908a5",
+          "bytes": 42359,
+          "sha256": "977710afb308e1b9ebf30b1d240301cd695209c3bdf060f23a6b72cf1ae21e77"
+        },
+        {
+          "path": "docs/DELTAS/DELTA-4.md",
+          "revision": "7388c9a68c446dc7b2a3db17613c9983973908a5",
+          "bytes": 22284,
+          "sha256": "389acf7eb920b49d9e1da3b4da36c512d8c3d6a6ded0d90ede38b2bfcfcb9541"
+        }
+      ],
+      "assessment": "read-only public-contract fit assessment; no execution-readiness gate verdict",
+      "activity": {
+        "fileEdits": 0,
+        "commits": 0,
+        "pushes": 0,
+        "modelRuns": 0,
+        "newAgents": 0,
+        "tests": 0,
+        "implementationSourcesRead": 0
+      }
+    }
+  },
+  "request": {
+    "path": "docs/reviews/direct-peer-send-assurance/direct-peer-context-lab-contract-request.md",
+    "bytes": 8914,
+    "sha256": "b9227b06087d98b21089e168021cd7527ef0252724600bcd83b5c83e7a75ebdc"
+  },
+  "currentStateEdits": {
+    "board": {
+      "path": "docs/BOARD.md",
+      "replacements": [
+        {
+          "old": "| 4 | `B51` | Corrected assurance key committed locally; bounded recheck PASS | [Key recheck](VERIFICATION.md#456-direct-peer-assurance-key-correction-and-recheck) resolves the two instrument defects; assess execution readiness against context-lab's public contract next, without treating this as reader assurance or changing B53/B6 implementation gates |",
+          "next": "| 4 | `B51` | Public-contract assessment complete; owner request drafted locally | [Contract request](VERIFICATION.md#457-direct-peer-context-lab-contract-request) records the retry conflict and output/record/limit questions; select delivery before expecting a reply, with no execution-readiness verdict or change to B53/B6 implementation gates |"
+        },
+        {
+          "old": "Status: the scale amendment is drafted, not ratified; the direct-peer design retains technical and scoped axiom PASS, and the corrected assurance instrument has bounded key-recheck PASS; execution readiness, documentation assurance, ratification, implementation and the declared credential-lifecycle API remain open.\\",
+          "next": "Status: the scale amendment is drafted, not ratified; the direct-peer design retains technical and scoped axiom PASS, and the corrected assurance instrument has bounded key-recheck PASS; public-contract assessment is complete and the owner request is drafted but unsent; execution readiness, documentation assurance, ratification, implementation and the declared credential-lifecycle API remain open.\\"
+        },
+        {
+          "old": "| `B51` | Assess execution readiness against context-lab's public execution contract | [Bounded recheck](reviews/direct-peer-send-assurance/direct-peer-key-recheck-02.txt) passes the source-key corrections; complete judge rendering, isolation, eligible responses, profiles, order, budgets and enforcement remain unreviewed, with no setup or scored run selected |",
+          "next": "| `B51` | Review the local contract request and select owner delivery | [Draft request](reviews/direct-peer-send-assurance/direct-peer-context-lab-contract-request.md) asks context-lab to resolve retry policy and identify supported output, record and limit bindings; AGP retains acceptance policy, while profiles, order, budgets and readiness remain unselected or unestablished |"
+        },
+        {
+          "old": "| Do we select a read-only execution-readiness assessment against context-lab's public contract? | `B51` execution planning after the [bounded key-recheck PASS](VERIFICATION.md#456-direct-peer-assurance-key-correction-and-recheck); identify supported bindings and gaps without provider setup, execution-pack construction, model calls, a new agent or push |",
+          "next": "| Do we approve delivery of the local direct-peer contract request to context-lab through a confirmed owner destination? | `B51` owner clarification after the [public-contract assessment](VERIFICATION.md#457-direct-peer-context-lab-contract-request); the [request](reviews/direct-peer-send-assurance/direct-peer-context-lab-contract-request.md) is drafted, not delivered or acknowledged, and selects no pack construction or execution |"
+        }
+      ],
+      "sha256Before": "d0825e90244a64beeb7df40b2bf2174a2ad7ef955436cd8d9d351383c8f5a2fe",
+      "sha256After": "8b53cb8e1eb8ae7a926588adf3f0280b77e7935944f154910b05b48326f3b1a2"
+    },
+    "verification": {
+      "path": "docs/VERIFICATION.md",
+      "insertBefore": "## 5. Modular test architecture",
+      "append": "### 4.57 Direct peer context-lab contract request\n\nThe director selected the read-only public-contract assessment with \"continue\", then selected a local, unsent owner-request draft with a further \"continue\".\\\nThe assessment examined context-lab's public documents at `7388c9a68c446dc7b2a3db17613c9983973908a5`, not its implementation or a running configuration.\\\nIts conclusion is purpose fit with execution compatibility unestablished, not an independent execution-readiness verdict or a new failure of the corrected assurance key.\n\n| Finding | Disposition in the local request |\n|---|---|\n| Documented retry conflict | AGP authorizes no automatic runtime/infrastructure retry; context-lab's runtime contract and completed Delta-4 H1 specify a rerun; ask for a supported no-retry binding or a separately reviewed prospective amendment |\n| Eligible response and judge delivery | Ask for event-to-answer eligibility, response splitting without an implicit scored-file task change, complete judge qualifications and withheld role metadata |\n| Complete records and acceptance | Ask for a stable export accounting for all 72 expected outcomes and 144 vote slots; AGP owns conservative scoring and acceptance, which generic `improve` does not implement in full |\n| Limits and operator choices | Ask for supported byte/time/spend enforcement and failure accounting; profiles, order and budgets remain unselected |\n\nThe [draft request](reviews/direct-peer-send-assurance/direct-peer-context-lab-contract-request.md) carries the concrete requirements, source references and requested owner reply.\\\nIts four questions distinguish a documented conflict, missing public bindings and project-owned decision logic; they do not assert that uninspected runtime code lacks every possible facility.\\\nThe source packet remains a source packet, not an executable context-lab pack.\n\nDuring drafting, context-lab's observed head was `477e53882cb109ef1b05dbcd1605f60ef98167ae`.\\\nThe intervening commit adds decision 0030; the cited operations, architecture and Delta-4 files are byte-identical to the assessed checkpoint, so it does not settle these questions.\\\nThe [author-check record](reviews/direct-peer-send-assurance/direct-peer-context-lab-request-checks.json) retains the complete prior assessment, source identities, exact current edits, local checks and preservation measurements.\n\nOnly this append and four B51 current-state entries change the existing board/verification files.\\\nB51's score, open status and position are unchanged, as are B53 and B6's separate gates.\\\nThe answered assessment-selection question leaves the board; the next decision concerns delivering the draft through a confirmed owner destination, not waiting for a response to an unsent request.\n\nThe corrected source packet, original FAIL, bounded key-recheck PASS and all prior assurance records remain unchanged.\\\nThese are author documentation checks, not fresh-reader assurance or a new independent verdict.\\\nNo delivery to another project, provider setup, execution-pack construction, model call, new agent, normative/runtime change, commit or push occurred in this step.\n\nMechanics: preserve the audited experiment and ask the execution owner for supported bindings.\\\nRationale: settle compatibility before choosing or constructing the execution setup.\\\nConsequence: silently changing retries, output surfaces, validity or aggregation would measure a different experiment.\n\n---\n\n",
+      "sha256Before": "1c0e75d149ee40532c984889beb20eaef71b46981023d6202f257746bf94b020",
+      "sha256After": "d6823f6136fcf582f3c7dff02ee7eff80d93c58fa3f8d89a895fd286cc1e9d68"
+    }
+  },
+  "sourceRecheck": {
+    "assessedContextLab": "7388c9a68c446dc7b2a3db17613c9983973908a5",
+    "observedContextLab": "477e53882cb109ef1b05dbcd1605f60ef98167ae",
+    "documents": [
+      {
+        "path": "README.md",
+        "revision": "7388c9a68c446dc7b2a3db17613c9983973908a5",
+        "bytes": 3736,
+        "sha256": "28a57f9a8b0b0876e05205a47278c29e681d848e2daff5afd2a2c3fa7ae579a7",
+        "observedRevision": "477e53882cb109ef1b05dbcd1605f60ef98167ae",
+        "observedBytes": 3736,
+        "observedSha256": "28a57f9a8b0b0876e05205a47278c29e681d848e2daff5afd2a2c3fa7ae579a7",
+        "unchangedAtObservedHead": true
+      },
+      {
+        "path": "docs/OPERATIONS.md",
+        "revision": "7388c9a68c446dc7b2a3db17613c9983973908a5",
+        "bytes": 27991,
+        "sha256": "93efbb954b9137954c031df237806ae5293d1da60b6c77247bfd45426f552969",
+        "observedRevision": "477e53882cb109ef1b05dbcd1605f60ef98167ae",
+        "observedBytes": 27991,
+        "observedSha256": "93efbb954b9137954c031df237806ae5293d1da60b6c77247bfd45426f552969",
+        "unchangedAtObservedHead": true
+      },
+      {
+        "path": "VISION.md",
+        "revision": "7388c9a68c446dc7b2a3db17613c9983973908a5",
+        "bytes": 5382,
+        "sha256": "e6c09b2de208a66058a94c38c03ab5e23e943b12d14b4697e163a3cd63b40bca",
+        "observedRevision": "477e53882cb109ef1b05dbcd1605f60ef98167ae",
+        "observedBytes": 5382,
+        "observedSha256": "e6c09b2de208a66058a94c38c03ab5e23e943b12d14b4697e163a3cd63b40bca",
+        "unchangedAtObservedHead": true
+      },
+      {
+        "path": "docs/ARCHITECTURE-TARGET.md",
+        "revision": "7388c9a68c446dc7b2a3db17613c9983973908a5",
+        "bytes": 21153,
+        "sha256": "a40a891ee5f55627c28407a30225f8aada90c52dd74bf52651ce1f649913195f",
+        "observedRevision": "477e53882cb109ef1b05dbcd1605f60ef98167ae",
+        "observedBytes": 21153,
+        "observedSha256": "a40a891ee5f55627c28407a30225f8aada90c52dd74bf52651ce1f649913195f",
+        "unchangedAtObservedHead": true
+      },
+      {
+        "path": "docs/DECISIONS.md",
+        "revision": "7388c9a68c446dc7b2a3db17613c9983973908a5",
+        "bytes": 28794,
+        "sha256": "1cc07ab24a4cb1b32f43f4f3d6d092171dfe15b828da21d5008bef08f5a65f62",
+        "observedRevision": "477e53882cb109ef1b05dbcd1605f60ef98167ae",
+        "observedBytes": 30467,
+        "observedSha256": "a088cb984946bf5cb9730d7e46c2698e6f0c35d0660519b4b3cf8b0dbd050e5a",
+        "unchangedAtObservedHead": false
+      },
+      {
+        "path": "docs/DELTAS/DELTA-1.md",
+        "revision": "7388c9a68c446dc7b2a3db17613c9983973908a5",
+        "bytes": 42359,
+        "sha256": "977710afb308e1b9ebf30b1d240301cd695209c3bdf060f23a6b72cf1ae21e77",
+        "observedRevision": "477e53882cb109ef1b05dbcd1605f60ef98167ae",
+        "observedBytes": 42359,
+        "observedSha256": "977710afb308e1b9ebf30b1d240301cd695209c3bdf060f23a6b72cf1ae21e77",
+        "unchangedAtObservedHead": true
+      },
+      {
+        "path": "docs/DELTAS/DELTA-4.md",
+        "revision": "7388c9a68c446dc7b2a3db17613c9983973908a5",
+        "bytes": 22284,
+        "sha256": "389acf7eb920b49d9e1da3b4da36c512d8c3d6a6ded0d90ede38b2bfcfcb9541",
+        "observedRevision": "477e53882cb109ef1b05dbcd1605f60ef98167ae",
+        "observedBytes": 22284,
+        "observedSha256": "389acf7eb920b49d9e1da3b4da36c512d8c3d6a6ded0d90ede38b2bfcfcb9541",
+        "unchangedAtObservedHead": true
+      }
+    ],
+    "interveningCommits": "477e53882cb109ef1b05dbcd1605f60ef98167ae 0030: record consumer operations guide and self-evaluation (2.80/10 -> 10.00/10)\n",
+    "changedPaths": "docs/DECISIONS.md\n",
+    "publicDocumentDiff": "diff --git a/docs/DECISIONS.md b/docs/DECISIONS.md\nindex f952f12..ffd4e08 100644\n--- a/docs/DECISIONS.md\n+++ b/docs/DECISIONS.md\n@@ -49,6 +49,7 @@ They are not copied here; this register starts at the vision.\n | 0027 | 2026-10-17 | Delta-3 is complete: every exit criterion (G1 to G12) was evaluated green by an agent that built none of the code, milestone M3 is done (`B1`, `B11`, `B18` closed), and milestone M4 (Hardening: `M4.1` `B4`, `M4.2` `B7`, `M4.3` `B5`) is selected next as Delta-4. | director | ratified | - |\n | 0028 | 2026-10-17 | Delta-4 is ratified, revision 2: end-to-end failure injection across all 9 fault modes (`H1`), provider fault characterisation in `Result.faults` and `docs/probes/2026-10-17-provider-faults.json` (`H2`), per-scenario and per-property arm-guess blinding (`notBlind` when `all >= 6 && rate >= 0.75 && rate > baseRate + 0.25`, `H3`), and closing `B4`, `B5`, `B7` and milestone M4 (`H4`). | director | ratified | - |\n | 0029 | 2026-10-17 | Delta-4 is complete: every exit criterion (H1 to H4) was evaluated green by an agent that built none of the code, closing `B4`, `B5` and `B7` and completing milestone M4 (all four planned milestones M1-M4 on context-lab's board are done). | director | ratified | - |\n+| 0030 | 2026-10-17 | `README.md` (in `S4`/`S9` four-journey layout) and `docs/OPERATIONS.md` document all 13 CLI commands, the complete `context-lab.pack/1` schema, a copy-pasteable minimal pack, and step-by-step operator workflows, verified by dogfooding `context-lab` on itself across all 5 models with `packages/` excluded (`2.80/10 -> 10.00/10`, `P0` `0/5 -> 5/5` passing `checkPack`). | director | ratified | - |\n \n ---\n \n@@ -445,3 +446,15 @@ The director replied \"continue\" to a list whose first pick was this option, and\n \n **Source.**\\\n `[V, director ruling 2026-10-17; docs/DELTAS/DELTA-4.md Record, closing evaluation]`\n+\n+### 0030\n+\n+**Ruling.**\\\n+`README.md` (restructured to `mission-kit` `S4`/`S9` four-journey layout) and `docs/OPERATIONS.md` provide the consumer operations and pack authoring guide for `context-lab`: all 13 CLI commands, the complete `context-lab.pack/1` schema (`pack.json`, `experiments/*.json`, `scenarios/*.json`, `hooks/*.mjs`), a copy-pasteable minimal pack, and step-by-step operator workflows across `M1`-`M4`.\\\n+Verified by dogfooding `context-lab` on itself (`mission-kit` `0097`, run `2026-10-17-100515-c2`) across all 5 models (`c`, `a`, `f`, `x`, `o`) with `packages/` excluded from the delivered variant: cold-agent pack authoring (`P0`, scored by `checkPack`) rose from `0.00/2` (`0/5` models) on baseline (`2ffda23`) to `2.00/2` (`5/5` models, zero defects) on head (`5cd7366`), and total score rose from `2.80/10` to `10.00/10`.\n+\n+**Alternatives refuted.**\\\n+Keeping the 33-line Delta-1 `README.md` without a pack schema or operations guide - refuted by the baseline arm of `2026-10-17-100515-c2`, where 0 of 5 models could construct a valid pack without reading `packages/core/src/`.\n+\n+**Source.**\\\n+`[V, director ruling 2026-10-17; mission-kit docs/DECISIONS.md 0097; mission-kit docs/evals/runs/context-lab/2026-10-17-100515-c2/RESULT.md]`\n",
+    "conclusion": "Only docs/DECISIONS.md changed between the assessed and observed context-lab checkpoints, adding decision 0030; the relevant public contracts remain unchanged."
+  },
+  "checks": {
+    "measuredAt": "2026-10-17T10:27:07.980Z",
+    "runtime": "node --test documentation/source-packet checks only; no experiment/runtime invocation",
+    "runs": [
+      {
+        "name": "docs-style",
+        "command": "tools/check-docs.sh docs/BOARD.md docs/VERIFICATION.md docs/reviews/direct-peer-send-assurance/direct-peer-context-lab-contract-request.md",
+        "cwd": "/home/apnex/taceng/agp",
+        "exitCode": 0,
+        "log": {
+          "path": "/tmp/agp-direct-peer-request-checks.UhwiGd/docs-style.txt",
+          "bytes": 196,
+          "sha256": "ab12ac35a1c841af4c4394330da0725fb6a07f8ae1f9c96be23644c053988a1a"
+        },
+        "output": "\nclean: 3 file(s), rule S13.\n\nclean: 3 file(s), rule S6.\n\nclean: 3 file(s), rule S10.\n\nclean: 3 file(s), rule S12.\n\nclean: 3 file(s), rule S8.\ndocs: 3 file(s) clean against S6, S8, S10, S12, S13.\n"
+      },
+      {
+        "name": "record-integrity",
+        "command": "node --test test/conformance/board-record.test.js test/conformance/record-integrity.test.js test/conformance/architecture-record.test.js",
+        "cwd": "/home/apnex/taceng/agp",
+        "exitCode": 0,
+        "log": {
+          "path": "/tmp/agp-direct-peer-request-checks.UhwiGd/record-integrity.txt",
+          "bytes": 1872,
+          "sha256": "812d51d5a307aa96a7f115eca2dc2bf8cb1a5f5edecc7c51a29b5f1bfe56d090"
+        },
+        "output": "✔ Given the confirmed intent record, when its numbered subsections are read, then every number is unique and ordered (8.960602ms)\n✔ Given the reconciled architecture, when its current paths and scope owners are resolved, then none points at a fictional module or a forked deferred list (6.970713ms)\n✔ Given the triage ledger, when each candidate is read, then it is scored on both dimensions and cites a record (7.482784ms)\n✔ Given every record cited by the board, when the link is resolved, then the target and its anchor exist (109.620133ms)\n✔ Given the held section, when each item is read, then it is scored and carries a revival trigger (0.801056ms)\n✔ Given the decisions required, when each is read, then it names exactly what it blocks (0.756559ms)\n✔ Given every board identifier, when the ledger and milestones are compared, then neither contains an item the other omits (0.809148ms)\n✔ Given every board item, when its ledger status is compared with where it sits, then the board does not disagree with itself about its state (12.683633ms)\n✔ Given the milestones, when each is read, then no landed item is presented as a live move and the closed count matches the closed set (3.565192ms)\n✔ Given every record that cites a board item, when the citation is resolved, then the item exists on the board (50.796865ms)\n✔ Given the architecture maturity table, when a reopen trigger is read, then it names a condition that has not already happened (1.782308ms)\n✔ Given confirmed intent, when a row says it was amended, then it names the decision that amended it (1.144942ms)\n✔ Given every ratified decision, when it is checked against the vision, then it has been absorbed or explicitly ruled not to change purpose (1.295385ms)\nℹ tests 13\nℹ suites 0\nℹ pass 13\nℹ fail 0\nℹ cancelled 0\nℹ skipped 0\nℹ todo 0\nℹ duration_ms 187.458941\n"
+      },
+      {
+        "name": "packet-integrity",
+        "command": "node --test docs/reviews/direct-peer-send-assurance/direct-peer-packet.test.mjs",
+        "cwd": "/home/apnex/taceng/agp",
+        "exitCode": 0,
+        "log": {
+          "path": "/tmp/agp-direct-peer-request-checks.UhwiGd/packet-integrity.txt",
+          "bytes": 1216,
+          "sha256": "df7bd9f987e8655a544cd3bbf78f5b4a7815c9e305de59cbcd4fe550dd0e2f42"
+        },
+        "output": "✔ Given the frozen packet, every listed artifact has its declared bytes and hash (14.156545ms)\n✔ Given full source snapshots, their measured original hashes are retained (2.308185ms)\n✔ Given the sources, both generated reading sets reproduce exactly (2.751637ms)\n✔ Given the candidate reading, its whole contract prefix equals the baseline (0.215095ms)\n✔ Given reader material, experimental protocol and provenance are withheld (0.372817ms)\n✔ Given questions and key, every question has one prospective key and coverage role (0.275038ms)\n✔ Given grounding excerpts, each occurs in its declared reading set (49.705351ms)\n✔ Given a duplicate question identifier, coverage validation fails (1.665003ms)\n✔ Given an absent grounding excerpt, the membership check fails without editing inputs (1.01456ms)\n✔ Given a removed source boundary, projection refuses to silently select another range (0.698624ms)\n✔ Given a changed artifact byte, its frozen digest no longer matches (0.288942ms)\n✔ Given the complete reader payload, both readings fit the declared common bound (4.600089ms)\nℹ tests 12\nℹ suites 0\nℹ pass 12\nℹ fail 0\nℹ cancelled 0\nℹ skipped 0\nℹ todo 0\nℹ duration_ms 148.949547\n"
+      },
+      {
+        "name": "tracked-whitespace",
+        "command": "git diff --check -- docs/BOARD.md docs/VERIFICATION.md",
+        "cwd": "/home/apnex/taceng/agp",
+        "exitCode": 0,
+        "log": {
+          "path": "/tmp/agp-direct-peer-request-checks.UhwiGd/tracked-whitespace.txt",
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "output": ""
+      }
+    ],
+    "links": {
+      "method": "Resolve local file/heading references and pinned context-lab links against git show at the exact cited revision; no claim about a rendered web preview.",
+      "checked": [
+        {
+          "source": "docs/reviews/direct-peer-send-assurance/direct-peer-context-lab-contract-request.md",
+          "target": "/home/apnex/taceng/agp/docs/reviews/direct-peer-send-assurance/direct-peer-assurance-preparation.md",
+          "resolved": "/home/apnex/taceng/agp/docs/reviews/direct-peer-send-assurance/direct-peer-assurance-preparation.md",
+          "anchorValid": null
+        },
+        {
+          "source": "docs/reviews/direct-peer-send-assurance/direct-peer-context-lab-contract-request.md",
+          "target": "/home/apnex/taceng/agp/docs/reviews/direct-peer-send-assurance/direct-peer-answer-key.json",
+          "resolved": "/home/apnex/taceng/agp/docs/reviews/direct-peer-send-assurance/direct-peer-answer-key.json",
+          "anchorValid": null
+        },
+        {
+          "source": "docs/reviews/direct-peer-send-assurance/direct-peer-context-lab-contract-request.md",
+          "target": "/home/apnex/taceng/agp/docs/reviews/direct-peer-send-assurance/direct-peer-key-recheck-02.txt",
+          "resolved": "/home/apnex/taceng/agp/docs/reviews/direct-peer-send-assurance/direct-peer-key-recheck-02.txt",
+          "anchorValid": null
+        },
+        {
+          "source": "docs/reviews/direct-peer-send-assurance/direct-peer-context-lab-contract-request.md",
+          "target": "https://github.com/apnex/context-lab/blob/7388c9a68c446dc7b2a3db17613c9983973908a5/docs/ARCHITECTURE-TARGET.md#7-run-time",
+          "resolved": "7388c9a68c446dc7b2a3db17613c9983973908a5:docs/ARCHITECTURE-TARGET.md",
+          "anchorValid": true
+        },
+        {
+          "source": "docs/reviews/direct-peer-send-assurance/direct-peer-context-lab-contract-request.md",
+          "target": "https://github.com/apnex/context-lab/blob/7388c9a68c446dc7b2a3db17613c9983973908a5/docs/DELTAS/DELTA-4.md#5-binary-exit-criteria",
+          "resolved": "7388c9a68c446dc7b2a3db17613c9983973908a5:docs/DELTAS/DELTA-4.md",
+          "anchorValid": true
+        },
+        {
+          "source": "docs/reviews/direct-peer-send-assurance/direct-peer-context-lab-contract-request.md",
+          "target": "https://github.com/apnex/context-lab/blob/7388c9a68c446dc7b2a3db17613c9983973908a5/docs/OPERATIONS.md",
+          "resolved": "7388c9a68c446dc7b2a3db17613c9983973908a5:docs/OPERATIONS.md",
+          "anchorValid": null
+        },
+        {
+          "source": "docs/reviews/direct-peer-send-assurance/direct-peer-context-lab-contract-request.md",
+          "target": "https://github.com/apnex/context-lab/blob/7388c9a68c446dc7b2a3db17613c9983973908a5/docs/OPERATIONS.md#33-scenariosidjson-schema",
+          "resolved": "7388c9a68c446dc7b2a3db17613c9983973908a5:docs/OPERATIONS.md",
+          "anchorValid": true
+        },
+        {
+          "source": "docs/reviews/direct-peer-send-assurance/direct-peer-context-lab-contract-request.md",
+          "target": "/home/apnex/taceng/agp/docs/reviews/direct-peer-send-assurance/direct-peer-reader-instructions.md",
+          "resolved": "/home/apnex/taceng/agp/docs/reviews/direct-peer-send-assurance/direct-peer-reader-instructions.md",
+          "anchorValid": null
+        },
+        {
+          "source": "docs/reviews/direct-peer-send-assurance/direct-peer-context-lab-contract-request.md",
+          "target": "https://github.com/apnex/context-lab/blob/7388c9a68c446dc7b2a3db17613c9983973908a5/docs/ARCHITECTURE-TARGET.md#6-entities-the-pack-interfaces",
+          "resolved": "7388c9a68c446dc7b2a3db17613c9983973908a5:docs/ARCHITECTURE-TARGET.md",
+          "anchorValid": true
+        },
+        {
+          "source": "docs/BOARD.md",
+          "target": "VERIFICATION.md#457-direct-peer-context-lab-contract-request",
+          "resolved": "/home/apnex/taceng/agp/docs/VERIFICATION.md",
+          "anchorValid": true
+        },
+        {
+          "source": "docs/BOARD.md",
+          "target": "reviews/direct-peer-send-assurance/direct-peer-context-lab-contract-request.md",
+          "resolved": "/home/apnex/taceng/agp/docs/reviews/direct-peer-send-assurance/direct-peer-context-lab-contract-request.md",
+          "anchorValid": null
+        },
+        {
+          "source": "docs/BOARD.md",
+          "target": "VERIFICATION.md#457-direct-peer-context-lab-contract-request",
+          "resolved": "/home/apnex/taceng/agp/docs/VERIFICATION.md",
+          "anchorValid": true
+        },
+        {
+          "source": "docs/BOARD.md",
+          "target": "reviews/direct-peer-send-assurance/direct-peer-context-lab-contract-request.md",
+          "resolved": "/home/apnex/taceng/agp/docs/reviews/direct-peer-send-assurance/direct-peer-context-lab-contract-request.md",
+          "anchorValid": null
+        },
+        {
+          "source": "docs/VERIFICATION.md",
+          "target": "reviews/direct-peer-send-assurance/direct-peer-context-lab-contract-request.md",
+          "resolved": "/home/apnex/taceng/agp/docs/reviews/direct-peer-send-assurance/direct-peer-context-lab-contract-request.md",
+          "anchorValid": null
+        },
+        {
+          "source": "docs/VERIFICATION.md",
+          "target": "reviews/direct-peer-send-assurance/direct-peer-context-lab-request-checks.json",
+          "resolved": "/home/apnex/taceng/agp/docs/reviews/direct-peer-send-assurance/direct-peer-context-lab-request-checks.json",
+          "anchorValid": null
+        }
+      ]
+    },
+    "editorial": {
+      "exemplar": "docs/reviews/admission-diagnostic-owner-request.md",
+      "comparison": "Retains from/to, a bounded capability request, explicit requirements and source/reply pointers; four numbered contract questions replace the older request's provider profile; no provider choices or B53 execution rules are inherited.",
+      "review": "Read title and section outline, checked all four questions against AGP preparation sections 4-6 and corrected judge-delivery guidance, and distinguished documented retry conflict from unknown public bindings and AGP-owned acceptance.",
+      "qualification": "Author reading and deterministic integrity checks only; not a cold-reader or independent-agent verdict."
+    },
+    "preservation": {
+      "headBefore": "a09e4bcda9d668b52ff3212c3813fad30fa7ac10",
+      "headAfter": "a09e4bcda9d668b52ff3212c3813fad30fa7ac10",
+      "indexEmpty": true,
+      "changedExisting": [
+        "docs/BOARD.md",
+        "docs/VERIFICATION.md"
+      ],
+      "newPaths": [
+        "docs/reviews/direct-peer-send-assurance/direct-peer-context-lab-contract-request.md",
+        "docs/reviews/direct-peer-send-assurance/direct-peer-context-lab-request-checks.json"
+      ],
+      "beforeDirty": [
+        {
+          "path": "docs/BOARD.md",
+          "bytes": 46626,
+          "sha256": "d0825e90244a64beeb7df40b2bf2174a2ad7ef955436cd8d9d351383c8f5a2fe"
+        },
+        {
+          "path": "docs/VERIFICATION.md",
+          "bytes": 312047,
+          "sha256": "1c0e75d149ee40532c984889beb20eaef71b46981023d6202f257746bf94b020"
+        },
+        {
+          "path": "docs/design/mechanisms.md",
+          "bytes": 30420,
+          "sha256": "3d00bc685488f81e54d31e12cd00f579f86421db00ee37fb9de26c4d1b74a99d"
+        },
+        {
+          "path": "docs/design/direct-peer-send.md",
+          "bytes": 35367,
+          "sha256": "c62574382b91cfd30a443ba5e16b23d10dae797c3278539277666f0a316eedea"
+        },
+        {
+          "path": "docs/reviews/admission-lifecycle-comparison.md",
+          "bytes": 25009,
+          "sha256": "27a39f7fccc8e6ac4fab52340edbf9cff1235462ba8256e3f66ecf122be8dcea"
+        },
+        {
+          "path": "docs/reviews/admission-lifetime-adoption.md",
+          "bytes": 12915,
+          "sha256": "d6a53fc231d1ba03db5f39661ab2d8629409d05b83d532fdf0ee24f305af59d0"
+        },
+        {
+          "path": "docs/reviews/admission-lifetime-correction-r2.md",
+          "bytes": 53917,
+          "sha256": "b89a3328ae7cd41feb38a498b75b16fe06d47f232d9c09dffe42542438f005fb"
+        },
+        {
+          "path": "docs/reviews/admission-lifetime-correction-r3.md",
+          "bytes": 56562,
+          "sha256": "6ccf9ba0e7d94b83897fade8f865fe3fb1328db292d92cce4d5cc85bc28fc2f2"
+        },
+        {
+          "path": "docs/reviews/admission-lifetime-correction.md",
+          "bytes": 41424,
+          "sha256": "01bae9c2446bf6ff6d8e0027735976f5ff84c4216d31942c2d8fef80ffde0ed0"
+        },
+        {
+          "path": "docs/reviews/admission-lifetime-independent-review-r2.md",
+          "bytes": 6348,
+          "sha256": "01a30e624c63a4d2e3f466595c62514ee97ab2d4c4d164988975103df0d31979"
+        },
+        {
+          "path": "docs/reviews/admission-lifetime-independent-review-r3.md",
+          "bytes": 8325,
+          "sha256": "8f1b4cf8c725bc083ebb2d299fa12263bbb15f701f299ea1e26bb6055b3cbf8f"
+        },
+        {
+          "path": "docs/reviews/admission-lifetime-independent-review.md",
+          "bytes": 10956,
+          "sha256": "7ef3974fa4d54aa2724b539bf7a34fc8ef03992f350ad37fd2d006005940fe1f"
+        },
+        {
+          "path": "docs/reviews/browser-carrier-feasibility.md",
+          "bytes": 15480,
+          "sha256": "c57dd0a9dc8071d761bba1ffb9fb4ce5a7aa66313d944ece46cad283e1fe797c"
+        },
+        {
+          "path": "docs/reviews/browser-peer-feasibility.md",
+          "bytes": 14996,
+          "sha256": "f66876ba9ce4f0c926c33143460bcf196372747a69197703aab6517e757501c3"
+        },
+        {
+          "path": "docs/reviews/browser-peer-scale-amendment.md",
+          "bytes": 8597,
+          "sha256": "af67268de3f5d573f49b17111cce26d2ab50b043d96fac614575fd2f0ab941af"
+        },
+        {
+          "path": "docs/reviews/direct-peer-send-adoption-checks.json",
+          "bytes": 35422,
+          "sha256": "f50ace1eb44e470d9406e6475f72c6639e069622487bb63d20fd775426106f98"
+        },
+        {
+          "path": "docs/reviews/direct-peer-send-adoption.md",
+          "bytes": 21251,
+          "sha256": "a4915b471b9ab1b330fc8524beb5441c6857ad1416c63ea6be240cb9f67ed06c"
+        },
+        {
+          "path": "docs/reviews/direct-peer-send-assurance/direct-peer-key-recheck-02.txt",
+          "bytes": 8765,
+          "sha256": "2078d3391fa500acebd14e97c16bdfa51ef9fe0d23061714fac6eee438b7a7be"
+        },
+        {
+          "path": "docs/reviews/direct-peer-send-assurance/direct-peer-key-recheck-checks-02.json",
+          "bytes": 99507,
+          "sha256": "87a73b75583194b8b0626ebefbdbbaf053bd8f4c2c97ec0429b2525e53d60e46"
+        },
+        {
+          "path": "docs/reviews/direct-peer-send-design-checks.json",
+          "bytes": 30521,
+          "sha256": "e25314d9da912015a2e1b6c6202147cb2cd7f1fc72b6a9f68d1185e1b82048aa"
+        },
+        {
+          "path": "docs/reviews/direct-peer-send-design-review.md",
+          "bytes": 10136,
+          "sha256": "5d5da0bef33fa6587455e91a4c672b9bb0a0be91f78aae71351929c697f066ab"
+        },
+        {
+          "path": "docs/reviews/direct-peer-send-draft-checks.json",
+          "bytes": 31214,
+          "sha256": "e1937d8cacf1abff3b08ee1159044515b7493d32b15f1afbd190dd463b6fc24b"
+        },
+        {
+          "path": "docs/reviews/direct-peer-send-draft-response.md",
+          "bytes": 4142,
+          "sha256": "f37d32da1df0c740aa3b371cbfedf8f2f5634444b2f0c6ecb7656b721653b3b8"
+        },
+        {
+          "path": "docs/reviews/direct-peer-send-independent-review.txt",
+          "bytes": 14503,
+          "sha256": "2f9b2e8044abcf8829539c8a68aed3e36fb4ba6eb0aa0d77315be2b284092656"
+        },
+        {
+          "path": "docs/reviews/direct-peer-send-lifecycle-checks.json",
+          "bytes": 22497,
+          "sha256": "d518d33717e328bd0f652f8cf2f90d33368a45531694c8b2fd634442ab4ee933"
+        },
+        {
+          "path": "docs/reviews/direct-peer-send-lifecycle-response.md",
+          "bytes": 3367,
+          "sha256": "72d2122f7ff8fd618d753c7139231d436c8d6985922a79575f97825031d0318a"
+        },
+        {
+          "path": "docs/reviews/evidence/browser-feasibility-chrome136.json",
+          "bytes": 4117,
+          "sha256": "7559df9db7497cb5d36431a737196c6aea1cf2951cfb94ab196b56ea098ba42a"
+        },
+        {
+          "path": "docs/reviews/evidence/browser-feasibility-chrome151.json",
+          "bytes": 4201,
+          "sha256": "a24b766999ef503bcc6e40637b28df620ec3ddad8e602d90bdc7a262347aecdb"
+        },
+        {
+          "path": "docs/reviews/evidence/direct-peer-send-before-d61.txt",
+          "bytes": 28449,
+          "sha256": "6e8122f93ffb2496426cdc3d5f45cf7ffbf52c97bf5b1d695083acf9db7d26e7"
+        },
+        {
+          "path": "docs/reviews/evidence/direct-peer-send-before-d62.txt",
+          "bytes": 32448,
+          "sha256": "2a91d6c8d8263bc39a94880d93d95506fa7ab0e5d359f4f150d84153a0b6b251"
+        },
+        {
+          "path": "docs/reviews/evidence/direct-peer-send-design-review-input.txt",
+          "bytes": 34955,
+          "sha256": "bede054da088b516f55e09aa02e111a9dfdb61b57ead5b493cc90f4f2110119a"
+        },
+        {
+          "path": "docs/reviews/evidence/operation-call-acceptance/case-logs/honest-call-ending.test.js.log.txt",
+          "bytes": 6718,
+          "sha256": "8f525d67bb18e688e9296a137a7ef9fd63b8741fabb8b86fb07d207966fcebc0"
+        },
+        {
+          "path": "docs/reviews/evidence/operation-call-acceptance/case-logs/not-delivered-signal.test.js.log.txt",
+          "bytes": 1584,
+          "sha256": "b50ad78897b667d4fa8a6207efd2262bf53ff036a4e286e23a34432644bab567"
+        },
+        {
+          "path": "docs/reviews/evidence/operation-call-acceptance/case-logs/request-correlation.test.js.log.txt",
+          "bytes": 921,
+          "sha256": "6e541c909ab23946a6358f36260dd6bcb5915e45f06bc4a2e967f00b58fee5ec"
+        },
+        {
+          "path": "docs/reviews/evidence/operation-call-acceptance/cert-o.txt",
+          "bytes": 39031,
+          "sha256": "e1cb917a0b21b994df126f37643b955002025fbb0ff4d20b6c5def738805fd88"
+        },
+        {
+          "path": "docs/reviews/evidence/operation-call-acceptance/checkouts-o.json",
+          "bytes": 577,
+          "sha256": "46fe733dc9799e3a3294c097cdb206b1493cd2199559e5b9d9da896a775ad36b"
+        },
+        {
+          "path": "docs/reviews/evidence/operation-call-acceptance/run-o.out",
+          "bytes": 126,
+          "sha256": "c7b317357c4b6119ef28fdf2442a1b3efd4d987da65a163227e28fad2a9bc9ac"
+        },
+        {
+          "path": "docs/reviews/reply-isolation-checks.json",
+          "bytes": 25821,
+          "sha256": "86214a7346f68a21e6c9985914681ad4631154600aa3d30524afc77619f59469"
+        },
+        {
+          "path": "docs/reviews/reply-isolation-handoff.json",
+          "bytes": 28313,
+          "sha256": "ffc76f817ab2aefdeb5e743398b7abf8e7cafd953fc75cac6a593bbaffbf15bd"
+        },
+        {
+          "path": "docs/reviews/reply-isolation-qualifications-handoff.json",
+          "bytes": 12025,
+          "sha256": "867db9ebb9943180435224a3149063654e500b955eef257a6be40da26b0f8e30"
+        },
+        {
+          "path": "docs/reviews/reply-isolation-qualifications.md",
+          "bytes": 6401,
+          "sha256": "1719559114f768594911fbe125096c84d01fbb4f89105628e1e90808aa39e376"
+        },
+        {
+          "path": "docs/reviews/reply-isolation-response.md",
+          "bytes": 6467,
+          "sha256": "d6ed8be5a6b3f59530f83d4952f8e125769997d16ba78f44f8667fb15ce89210"
+        },
+        {
+          "path": "docs/reviews/reply-isolation-review.md",
+          "bytes": 21966,
+          "sha256": "213d60b6c74f4dc3a3adc8765566dc3a67f6bac360e8f042509f2b93f5a1a2f6"
+        },
+        {
+          "path": "docs/reviews/reply-isolation-sources.json",
+          "bytes": 15924,
+          "sha256": "1c2fc0b7d6edc6e8fdc144cb6a25087b1eae2a9c197127e40f48c4ee64692b39"
+        },
+        {
+          "path": "docs/reviews/zorg-requirements-review.md",
+          "bytes": 20218,
+          "sha256": "2fa0c3348b3b0f765d009a2632b0fdb59e7c54d01f768edd88b6ebd17cfed933"
+        },
+        {
+          "path": "docs/reviews/zorg-review-reply-assessment.md",
+          "bytes": 11620,
+          "sha256": "af653f0b819bb8845cf56e095bcbcdcaa21d25e911e11395f5cfffc676a1f3c6"
+        },
+        {
+          "path": "docs/reviews/zorg-review-response.md",
+          "bytes": 8303,
+          "sha256": "f76295f2c26678321c011d33bc1d1dc838133afbd1ca7de5b459b9c0f614bd17"
+        },
+        {
+          "path": "docs/surveys/shared-transport-survey.md",
+          "bytes": 23687,
+          "sha256": "f096f84b74ac861f02c1203bce6726748fbd4c57f22bfadab13a7b68e56d093e"
+        },
+        {
+          "path": "scripts/browser-feasibility.mjs",
+          "bytes": 9367,
+          "sha256": "e3161585c822b369db1e99f87474cd6e6fbeb8c1d7c7b445a33090db75380455"
+        }
+      ],
+      "beforePacket": [
+        {
+          "path": "docs/reviews/direct-peer-send-assurance/direct-peer-answer-key.json",
+          "bytes": 24719,
+          "sha256": "07fefda326d5f1773bfb9375fa81e061161bf945c13967ee0cbb950c164c97dc"
+        },
+        {
+          "path": "docs/reviews/direct-peer-send-assurance/direct-peer-assurance-preparation.md",
+          "bytes": 15178,
+          "sha256": "b752ad17627d767389e5e82413d519d86b48f7d1352da93c2f2bef2c1b1b96b4"
+        },
+        {
+          "path": "docs/reviews/direct-peer-send-assurance/direct-peer-input-manifest.json",
+          "bytes": 5802,
+          "sha256": "9a78da3b27721a851fa3f928b0cab502b01ea98a5dd39a7a41d0be442b30d2a6"
+        },
+        {
+          "path": "docs/reviews/direct-peer-send-assurance/direct-peer-key-audit-01.txt",
+          "bytes": 10685,
+          "sha256": "7d1be78844a73cb4bbcfae3de2cda634992c97a7f11f599b13267abd3611d2db"
+        },
+        {
+          "path": "docs/reviews/direct-peer-send-assurance/direct-peer-key-audit-checks-01.json",
+          "bytes": 79399,
+          "sha256": "d2020ec60031e993d6f179540cd263f57c521494782ae1077141944323966203"
+        },
+        {
+          "path": "docs/reviews/direct-peer-send-assurance/direct-peer-key-correction-01.json",
+          "bytes": 5172,
+          "sha256": "9c16f8fd219d23d49a83b8bf258ee45c4c848a47988327819de05bd8f09e3ee1"
+        },
+        {
+          "path": "docs/reviews/direct-peer-send-assurance/direct-peer-key-recheck-02.txt",
+          "bytes": 8765,
+          "sha256": "2078d3391fa500acebd14e97c16bdfa51ef9fe0d23061714fac6eee438b7a7be"
+        },
+        {
+          "path": "docs/reviews/direct-peer-send-assurance/direct-peer-key-recheck-checks-02.json",
+          "bytes": 99507,
+          "sha256": "87a73b75583194b8b0626ebefbdbbaf053bd8f4c2c97ec0429b2525e53d60e46"
+        },
+        {
+          "path": "docs/reviews/direct-peer-send-assurance/direct-peer-packet.test.mjs",
+          "bytes": 6393,
+          "sha256": "f2166bba41bf3e34620ea41310bbee151390991fc05c05d1dcb8843a46210dd1"
+        },
+        {
+          "path": "docs/reviews/direct-peer-send-assurance/direct-peer-preparation-checks.json",
+          "bytes": 66152,
+          "sha256": "5631965d5fb89db3d8927b9408d87cf01110210e7b207220c1220ff2bdf2da8e"
+        },
+        {
+          "path": "docs/reviews/direct-peer-send-assurance/direct-peer-questions.json",
+          "bytes": 4079,
+          "sha256": "891ba24063719c3d70dcf03471a46e1c4933f1cef8f75a014a659ea35ea3b239"
+        },
+        {
+          "path": "docs/reviews/direct-peer-send-assurance/direct-peer-reader-instructions.md",
+          "bytes": 1556,
+          "sha256": "4a2d14bc351b6147e20c50e479adee3fd3afca25af271d6ad5e4d3805ece3533"
+        },
+        {
+          "path": "docs/reviews/direct-peer-send-assurance/project-direct-peer-readings.mjs",
+          "bytes": 4633,
+          "sha256": "43425609ee945eaa26a0f17a76a2b4e8a4920caecc43045a5c98763419cc658a"
+        },
+        {
+          "path": "docs/reviews/direct-peer-send-assurance/readings/m73/direct-peer-reading.txt",
+          "bytes": 30267,
+          "sha256": "ef5fa5b5c01ab166b2396848fda5502325ba6dbf9f05bd025ff9d443ff0b4729"
+        },
+        {
+          "path": "docs/reviews/direct-peer-send-assurance/readings/r28/direct-peer-reading.txt",
+          "bytes": 47149,
+          "sha256": "78aac6e348b8c839396120ba29d5df556acee6ba45c132c2f23606ac9dc102ea"
+        },
+        {
+          "path": "docs/reviews/direct-peer-send-assurance/sources/direct-peer-adoption.txt",
+          "bytes": 21251,
+          "sha256": "a4915b471b9ab1b330fc8524beb5441c6857ad1416c63ea6be240cb9f67ed06c"
+        },
+        {
+          "path": "docs/reviews/direct-peer-send-assurance/sources/direct-peer-contract.txt",
+          "bytes": 34955,
+          "sha256": "bede054da088b516f55e09aa02e111a9dfdb61b57ead5b493cc90f4f2110119a"
+        }
+      ],
+      "unchangedFiles": [
+        {
+          "path": "docs/design/mechanisms.md",
+          "bytes": 30420,
+          "sha256": "3d00bc685488f81e54d31e12cd00f579f86421db00ee37fb9de26c4d1b74a99d"
+        },
+        {
+          "path": "docs/design/direct-peer-send.md",
+          "bytes": 35367,
+          "sha256": "c62574382b91cfd30a443ba5e16b23d10dae797c3278539277666f0a316eedea"
+        },
+        {
+          "path": "docs/reviews/admission-lifecycle-comparison.md",
+          "bytes": 25009,
+          "sha256": "27a39f7fccc8e6ac4fab52340edbf9cff1235462ba8256e3f66ecf122be8dcea"
+        },
+        {
+          "path": "docs/reviews/admission-lifetime-adoption.md",
+          "bytes": 12915,
+          "sha256": "d6a53fc231d1ba03db5f39661ab2d8629409d05b83d532fdf0ee24f305af59d0"
+        },
+        {
+          "path": "docs/reviews/admission-lifetime-correction-r2.md",
+          "bytes": 53917,
+          "sha256": "b89a3328ae7cd41feb38a498b75b16fe06d47f232d9c09dffe42542438f005fb"
+        },
+        {
+          "path": "docs/reviews/admission-lifetime-correction-r3.md",
+          "bytes": 56562,
+          "sha256": "6ccf9ba0e7d94b83897fade8f865fe3fb1328db292d92cce4d5cc85bc28fc2f2"
+        },
+        {
+          "path": "docs/reviews/admission-lifetime-correction.md",
+          "bytes": 41424,
+          "sha256": "01bae9c2446bf6ff6d8e0027735976f5ff84c4216d31942c2d8fef80ffde0ed0"
+        },
+        {
+          "path": "docs/reviews/admission-lifetime-independent-review-r2.md",
+          "bytes": 6348,
+          "sha256": "01a30e624c63a4d2e3f466595c62514ee97ab2d4c4d164988975103df0d31979"
+        },
+        {
+          "path": "docs/reviews/admission-lifetime-independent-review-r3.md",
+          "bytes": 8325,
+          "sha256": "8f1b4cf8c725bc083ebb2d299fa12263bbb15f701f299ea1e26bb6055b3cbf8f"
+        },
+        {
+          "path": "docs/reviews/admission-lifetime-independent-review.md",
+          "bytes": 10956,
+          "sha256": "7ef3974fa4d54aa2724b539bf7a34fc8ef03992f350ad37fd2d006005940fe1f"
+        },
+        {
+          "path": "docs/reviews/browser-carrier-feasibility.md",
+          "bytes": 15480,
+          "sha256": "c57dd0a9dc8071d761bba1ffb9fb4ce5a7aa66313d944ece46cad283e1fe797c"
+        },
+        {
+          "path": "docs/reviews/browser-peer-feasibility.md",
+          "bytes": 14996,
+          "sha256": "f66876ba9ce4f0c926c33143460bcf196372747a69197703aab6517e757501c3"
+        },
+        {
+          "path": "docs/reviews/browser-peer-scale-amendment.md",
+          "bytes": 8597,
+          "sha256": "af67268de3f5d573f49b17111cce26d2ab50b043d96fac614575fd2f0ab941af"
+        },
+        {
+          "path": "docs/reviews/direct-peer-send-adoption-checks.json",
+          "bytes": 35422,
+          "sha256": "f50ace1eb44e470d9406e6475f72c6639e069622487bb63d20fd775426106f98"
+        },
+        {
+          "path": "docs/reviews/direct-peer-send-adoption.md",
+          "bytes": 21251,
+          "sha256": "a4915b471b9ab1b330fc8524beb5441c6857ad1416c63ea6be240cb9f67ed06c"
+        },
+        {
+          "path": "docs/reviews/direct-peer-send-assurance/direct-peer-key-recheck-02.txt",
+          "bytes": 8765,
+          "sha256": "2078d3391fa500acebd14e97c16bdfa51ef9fe0d23061714fac6eee438b7a7be"
+        },
+        {
+          "path": "docs/reviews/direct-peer-send-assurance/direct-peer-key-recheck-checks-02.json",
+          "bytes": 99507,
+          "sha256": "87a73b75583194b8b0626ebefbdbbaf053bd8f4c2c97ec0429b2525e53d60e46"
+        },
+        {
+          "path": "docs/reviews/direct-peer-send-design-checks.json",
+          "bytes": 30521,
+          "sha256": "e25314d9da912015a2e1b6c6202147cb2cd7f1fc72b6a9f68d1185e1b82048aa"
+        },
+        {
+          "path": "docs/reviews/direct-peer-send-design-review.md",
+          "bytes": 10136,
+          "sha256": "5d5da0bef33fa6587455e91a4c672b9bb0a0be91f78aae71351929c697f066ab"
+        },
+        {
+          "path": "docs/reviews/direct-peer-send-draft-checks.json",
+          "bytes": 31214,
+          "sha256": "e1937d8cacf1abff3b08ee1159044515b7493d32b15f1afbd190dd463b6fc24b"
+        },
+        {
+          "path": "docs/reviews/direct-peer-send-draft-response.md",
+          "bytes": 4142,
+          "sha256": "f37d32da1df0c740aa3b371cbfedf8f2f5634444b2f0c6ecb7656b721653b3b8"
+        },
+        {
+          "path": "docs/reviews/direct-peer-send-independent-review.txt",
+          "bytes": 14503,
+          "sha256": "2f9b2e8044abcf8829539c8a68aed3e36fb4ba6eb0aa0d77315be2b284092656"
+        },
+        {
+          "path": "docs/reviews/direct-peer-send-lifecycle-checks.json",
+          "bytes": 22497,
+          "sha256": "d518d33717e328bd0f652f8cf2f90d33368a45531694c8b2fd634442ab4ee933"
+        },
+        {
+          "path": "docs/reviews/direct-peer-send-lifecycle-response.md",
+          "bytes": 3367,
+          "sha256": "72d2122f7ff8fd618d753c7139231d436c8d6985922a79575f97825031d0318a"
+        },
+        {
+          "path": "docs/reviews/evidence/browser-feasibility-chrome136.json",
+          "bytes": 4117,
+          "sha256": "7559df9db7497cb5d36431a737196c6aea1cf2951cfb94ab196b56ea098ba42a"
+        },
+        {
+          "path": "docs/reviews/evidence/browser-feasibility-chrome151.json",
+          "bytes": 4201,
+          "sha256": "a24b766999ef503bcc6e40637b28df620ec3ddad8e602d90bdc7a262347aecdb"
+        },
+        {
+          "path": "docs/reviews/evidence/direct-peer-send-before-d61.txt",
+          "bytes": 28449,
+          "sha256": "6e8122f93ffb2496426cdc3d5f45cf7ffbf52c97bf5b1d695083acf9db7d26e7"
+        },
+        {
+          "path": "docs/reviews/evidence/direct-peer-send-before-d62.txt",
+          "bytes": 32448,
+          "sha256": "2a91d6c8d8263bc39a94880d93d95506fa7ab0e5d359f4f150d84153a0b6b251"
+        },
+        {
+          "path": "docs/reviews/evidence/direct-peer-send-design-review-input.txt",
+          "bytes": 34955,
+          "sha256": "bede054da088b516f55e09aa02e111a9dfdb61b57ead5b493cc90f4f2110119a"
+        },
+        {
+          "path": "docs/reviews/evidence/operation-call-acceptance/case-logs/honest-call-ending.test.js.log.txt",
+          "bytes": 6718,
+          "sha256": "8f525d67bb18e688e9296a137a7ef9fd63b8741fabb8b86fb07d207966fcebc0"
+        },
+        {
+          "path": "docs/reviews/evidence/operation-call-acceptance/case-logs/not-delivered-signal.test.js.log.txt",
+          "bytes": 1584,
+          "sha256": "b50ad78897b667d4fa8a6207efd2262bf53ff036a4e286e23a34432644bab567"
+        },
+        {
+          "path": "docs/reviews/evidence/operation-call-acceptance/case-logs/request-correlation.test.js.log.txt",
+          "bytes": 921,
+          "sha256": "6e541c909ab23946a6358f36260dd6bcb5915e45f06bc4a2e967f00b58fee5ec"
+        },
+        {
+          "path": "docs/reviews/evidence/operation-call-acceptance/cert-o.txt",
+          "bytes": 39031,
+          "sha256": "e1cb917a0b21b994df126f37643b955002025fbb0ff4d20b6c5def738805fd88"
+        },
+        {
+          "path": "docs/reviews/evidence/operation-call-acceptance/checkouts-o.json",
+          "bytes": 577,
+          "sha256": "46fe733dc9799e3a3294c097cdb206b1493cd2199559e5b9d9da896a775ad36b"
+        },
+        {
+          "path": "docs/reviews/evidence/operation-call-acceptance/run-o.out",
+          "bytes": 126,
+          "sha256": "c7b317357c4b6119ef28fdf2442a1b3efd4d987da65a163227e28fad2a9bc9ac"
+        },
+        {
+          "path": "docs/reviews/reply-isolation-checks.json",
+          "bytes": 25821,
+          "sha256": "86214a7346f68a21e6c9985914681ad4631154600aa3d30524afc77619f59469"
+        },
+        {
+          "path": "docs/reviews/reply-isolation-handoff.json",
+          "bytes": 28313,
+          "sha256": "ffc76f817ab2aefdeb5e743398b7abf8e7cafd953fc75cac6a593bbaffbf15bd"
+        },
+        {
+          "path": "docs/reviews/reply-isolation-qualifications-handoff.json",
+          "bytes": 12025,
+          "sha256": "867db9ebb9943180435224a3149063654e500b955eef257a6be40da26b0f8e30"
+        },
+        {
+          "path": "docs/reviews/reply-isolation-qualifications.md",
+          "bytes": 6401,
+          "sha256": "1719559114f768594911fbe125096c84d01fbb4f89105628e1e90808aa39e376"
+        },
+        {
+          "path": "docs/reviews/reply-isolation-response.md",
+          "bytes": 6467,
+          "sha256": "d6ed8be5a6b3f59530f83d4952f8e125769997d16ba78f44f8667fb15ce89210"
+        },
+        {
+          "path": "docs/reviews/reply-isolation-review.md",
+          "bytes": 21966,
+          "sha256": "213d60b6c74f4dc3a3adc8765566dc3a67f6bac360e8f042509f2b93f5a1a2f6"
+        },
+        {
+          "path": "docs/reviews/reply-isolation-sources.json",
+          "bytes": 15924,
+          "sha256": "1c2fc0b7d6edc6e8fdc144cb6a25087b1eae2a9c197127e40f48c4ee64692b39"
+        },
+        {
+          "path": "docs/reviews/zorg-requirements-review.md",
+          "bytes": 20218,
+          "sha256": "2fa0c3348b3b0f765d009a2632b0fdb59e7c54d01f768edd88b6ebd17cfed933"
+        },
+        {
+          "path": "docs/reviews/zorg-review-reply-assessment.md",
+          "bytes": 11620,
+          "sha256": "af653f0b819bb8845cf56e095bcbcdcaa21d25e911e11395f5cfffc676a1f3c6"
+        },
+        {
+          "path": "docs/reviews/zorg-review-response.md",
+          "bytes": 8303,
+          "sha256": "f76295f2c26678321c011d33bc1d1dc838133afbd1ca7de5b459b9c0f614bd17"
+        },
+        {
+          "path": "docs/surveys/shared-transport-survey.md",
+          "bytes": 23687,
+          "sha256": "f096f84b74ac861f02c1203bce6726748fbd4c57f22bfadab13a7b68e56d093e"
+        },
+        {
+          "path": "scripts/browser-feasibility.mjs",
+          "bytes": 9367,
+          "sha256": "e3161585c822b369db1e99f87474cd6e6fbeb8c1d7c7b445a33090db75380455"
+        },
+        {
+          "path": "docs/reviews/direct-peer-send-assurance/direct-peer-answer-key.json",
+          "bytes": 24719,
+          "sha256": "07fefda326d5f1773bfb9375fa81e061161bf945c13967ee0cbb950c164c97dc"
+        },
+        {
+          "path": "docs/reviews/direct-peer-send-assurance/direct-peer-assurance-preparation.md",
+          "bytes": 15178,
+          "sha256": "b752ad17627d767389e5e82413d519d86b48f7d1352da93c2f2bef2c1b1b96b4"
+        },
+        {
+          "path": "docs/reviews/direct-peer-send-assurance/direct-peer-input-manifest.json",
+          "bytes": 5802,
+          "sha256": "9a78da3b27721a851fa3f928b0cab502b01ea98a5dd39a7a41d0be442b30d2a6"
+        },
+        {
+          "path": "docs/reviews/direct-peer-send-assurance/direct-peer-key-audit-01.txt",
+          "bytes": 10685,
+          "sha256": "7d1be78844a73cb4bbcfae3de2cda634992c97a7f11f599b13267abd3611d2db"
+        },
+        {
+          "path": "docs/reviews/direct-peer-send-assurance/direct-peer-key-audit-checks-01.json",
+          "bytes": 79399,
+          "sha256": "d2020ec60031e993d6f179540cd263f57c521494782ae1077141944323966203"
+        },
+        {
+          "path": "docs/reviews/direct-peer-send-assurance/direct-peer-key-correction-01.json",
+          "bytes": 5172,
+          "sha256": "9c16f8fd219d23d49a83b8bf258ee45c4c848a47988327819de05bd8f09e3ee1"
+        },
+        {
+          "path": "docs/reviews/direct-peer-send-assurance/direct-peer-packet.test.mjs",
+          "bytes": 6393,
+          "sha256": "f2166bba41bf3e34620ea41310bbee151390991fc05c05d1dcb8843a46210dd1"
+        },
+        {
+          "path": "docs/reviews/direct-peer-send-assurance/direct-peer-preparation-checks.json",
+          "bytes": 66152,
+          "sha256": "5631965d5fb89db3d8927b9408d87cf01110210e7b207220c1220ff2bdf2da8e"
+        },
+        {
+          "path": "docs/reviews/direct-peer-send-assurance/direct-peer-questions.json",
+          "bytes": 4079,
+          "sha256": "891ba24063719c3d70dcf03471a46e1c4933f1cef8f75a014a659ea35ea3b239"
+        },
+        {
+          "path": "docs/reviews/direct-peer-send-assurance/direct-peer-reader-instructions.md",
+          "bytes": 1556,
+          "sha256": "4a2d14bc351b6147e20c50e479adee3fd3afca25af271d6ad5e4d3805ece3533"
+        },
+        {
+          "path": "docs/reviews/direct-peer-send-assurance/project-direct-peer-readings.mjs",
+          "bytes": 4633,
+          "sha256": "43425609ee945eaa26a0f17a76a2b4e8a4920caecc43045a5c98763419cc658a"
+        },
+        {
+          "path": "docs/reviews/direct-peer-send-assurance/readings/m73/direct-peer-reading.txt",
+          "bytes": 30267,
+          "sha256": "ef5fa5b5c01ab166b2396848fda5502325ba6dbf9f05bd025ff9d443ff0b4729"
+        },
+        {
+          "path": "docs/reviews/direct-peer-send-assurance/readings/r28/direct-peer-reading.txt",
+          "bytes": 47149,
+          "sha256": "78aac6e348b8c839396120ba29d5df556acee6ba45c132c2f23606ac9dc102ea"
+        },
+        {
+          "path": "docs/reviews/direct-peer-send-assurance/sources/direct-peer-adoption.txt",
+          "bytes": 21251,
+          "sha256": "a4915b471b9ab1b330fc8524beb5441c6857ad1416c63ea6be240cb9f67ed06c"
+        },
+        {
+          "path": "docs/reviews/direct-peer-send-assurance/sources/direct-peer-contract.txt",
+          "bytes": 34955,
+          "sha256": "bede054da088b516f55e09aa02e111a9dfdb61b57ead5b493cc90f4f2110119a"
+        }
+      ],
+      "boardReversal": "Reversing exactly the four recorded replacements reproduces the entire prior board text byte-for-byte.",
+      "verificationReversal": "Removing exactly the recorded appended section reproduces the prior verification bytes and SHA-256.",
+      "externalBefore": [
+        {
+          "repo": "/home/apnex/taceng/context-lab",
+          "head": "477e53882cb109ef1b05dbcd1605f60ef98167ae",
+          "status": "?? incoming/agp-admission-diagnostic-capability-request.md\n?? incoming/agp-admission-diagnostic-capability-response.md\n"
+        },
+        {
+          "repo": "/home/apnex/taceng/zorg",
+          "head": "56350495934b90c63a17950bafaac71e16d7568e",
+          "status": ""
+        },
+        {
+          "repo": "/home/apnex/taceng/mission-kit",
+          "head": "6d320185288fbec355259c70fbf8a38ca4ed9f85",
+          "status": ""
+        }
+      ],
+      "externalAfter": [
+        {
+          "repo": "/home/apnex/taceng/context-lab",
+          "head": "477e53882cb109ef1b05dbcd1605f60ef98167ae",
+          "status": "?? incoming/agp-admission-diagnostic-capability-request.md\n?? incoming/agp-admission-diagnostic-capability-response.md\n"
+        },
+        {
+          "repo": "/home/apnex/taceng/zorg",
+          "head": "56350495934b90c63a17950bafaac71e16d7568e",
+          "status": ""
+        },
+        {
+          "repo": "/home/apnex/taceng/mission-kit",
+          "head": "6d320185288fbec355259c70fbf8a38ca4ed9f85",
+          "status": ""
+        }
+      ]
+    }
+  },
+  "activity": {
+    "modelCalls": 0,
+    "newAgents": 0,
+    "externalDeliveries": 0,
+    "providerSetup": 0,
+    "executionPacksConstructed": 0,
+    "frozenPacketEdits": 0,
+    "normativeOrRuntimeChanges": 0,
+    "commits": 0,
+    "pushes": 0
+  },
+  "mechanics": "Bind the local request and narrow board edits to exact sources, full prior assessment and local check output.",
+  "rationale": "Make the owner questions actionable without silently changing the frozen experiment or claiming readiness from a public-contract reading.",
+  "consequence": "A delivery, execution or assurance claim drawn from this author record would exceed both its evidence and the director's selection."
+}

@@ -1,0 +1,315 @@
+{
+  "schemaVersion": 1,
+  "kind": "direct-peer-assurance-acceptance-mapping-author-checks",
+  "status": "Local preparation checked; no implemented execution binding, runtime acceptance or independent assurance verdict.",
+  "checkedAt": "2026-10-18 00:33:26 UTC",
+  "authority": "The director selected the recommended preparation of outcome/vote accounting and judge-payload mapping with continue.",
+  "artifact": {
+    "path": "/home/apnex/taceng/agp/docs/reviews/direct-peer-send-assurance/direct-peer-acceptance-mapping.md",
+    "sha256": "dcd30d480575007dbf71d82cbb7cd3edb1119be33fa6a706609ba74d402a2ec4",
+    "bytes": 19737
+  },
+  "sources": {
+    "direct-peer-input-manifest.json": {
+      "sha256": "9a78da3b27721a851fa3f928b0cab502b01ea98a5dd39a7a41d0be442b30d2a6",
+      "bytes": 5802
+    },
+    "sources/direct-peer-contract.txt": {
+      "sha256": "bede054da088b516f55e09aa02e111a9dfdb61b57ead5b493cc90f4f2110119a",
+      "bytes": 34955
+    },
+    "sources/direct-peer-adoption.txt": {
+      "sha256": "a4915b471b9ab1b330fc8524beb5441c6857ad1416c63ea6be240cb9f67ed06c",
+      "bytes": 21251
+    },
+    "readings/m73/direct-peer-reading.txt": {
+      "sha256": "ef5fa5b5c01ab166b2396848fda5502325ba6dbf9f05bd025ff9d443ff0b4729",
+      "bytes": 30267
+    },
+    "readings/r28/direct-peer-reading.txt": {
+      "sha256": "78aac6e348b8c839396120ba29d5df556acee6ba45c132c2f23606ac9dc102ea",
+      "bytes": 47149
+    },
+    "direct-peer-questions.json": {
+      "sha256": "891ba24063719c3d70dcf03471a46e1c4933f1cef8f75a014a659ea35ea3b239",
+      "bytes": 4079
+    },
+    "direct-peer-answer-key.json": {
+      "sha256": "07fefda326d5f1773bfb9375fa81e061161bf945c13967ee0cbb950c164c97dc",
+      "bytes": 24719
+    },
+    "direct-peer-reader-instructions.md": {
+      "sha256": "4a2d14bc351b6147e20c50e479adee3fd3afca25af271d6ad5e4d3805ece3533",
+      "bytes": 1556
+    },
+    "project-direct-peer-readings.mjs": {
+      "sha256": "43425609ee945eaa26a0f17a76a2b4e8a4920caecc43045a5c98763419cc658a",
+      "bytes": 4633
+    },
+    "direct-peer-packet.test.mjs": {
+      "sha256": "f2166bba41bf3e34620ea41310bbee151390991fc05c05d1dcb8843a46210dd1",
+      "bytes": 6393
+    },
+    "direct-peer-assurance-preparation.md": {
+      "sha256": "b752ad17627d767389e5e82413d519d86b48f7d1352da93c2f2bef2c1b1b96b4",
+      "bytes": 15178
+    },
+    "direct-peer-key-audit-01.txt": {
+      "sha256": "7d1be78844a73cb4bbcfae3de2cda634992c97a7f11f599b13267abd3611d2db",
+      "bytes": 10685
+    },
+    "direct-peer-key-audit-checks-01.json": {
+      "sha256": "d2020ec60031e993d6f179540cd263f57c521494782ae1077141944323966203",
+      "bytes": 79399
+    },
+    "direct-peer-key-correction-01.json": {
+      "sha256": "9c16f8fd219d23d49a83b8bf258ee45c4c848a47988327819de05bd8f09e3ee1",
+      "bytes": 5172
+    }
+  },
+  "publicContract": {
+    "revision": "d17feb9ea7cec067176804e7e3c25f92281e6d04",
+    "sha256": "65f23b88f36aaef0bcca31cf454496962a4843026ab935e63633099afcc4fd14"
+  },
+  "ownerReplies": [
+    {
+      "path": "/home/apnex/taceng/context-lab/incoming/agp-assurance-capability-feedback-response.md",
+      "sha256": "67aa9b96c32789003db28015625bc188f9c8ec785cc3ee0e2a4898731ed0b50e",
+      "unchanged": true
+    },
+    {
+      "path": "/home/apnex/taceng/context-lab/incoming/agp-direct-peer-assurance-contract-response.md",
+      "sha256": "7c43b3f23f7f307285e9cad7d004d0c019521b9fed5d264e13693af46a5cccfc",
+      "unchanged": true
+    }
+  ],
+  "ownerWorkObserved": {
+    "correctionCommit": "49d7ccbe6bf3a418ae3a69861a3b0e6e374be495",
+    "laterHead": "286bd65b45bbe9af9a28a6a0894b7da43a80c302",
+    "correctionCommitDescriptionInspected": true,
+    "changedImplementationReviewed": false,
+    "separateCorrectionResponsePresent": false,
+    "workingTreeStatus": " M packages/core/test/judging.test.ts\n?? incoming/agp-admission-diagnostic-capability-request.md\n?? incoming/agp-admission-diagnostic-capability-response.md\n?? incoming/agp-admission-diagnostic-correction-request.md\n?? incoming/agp-admission-diagnostic-correction-response.md\n?? incoming/agp-assurance-capability-feedback-response.md\n?? incoming/agp-assurance-capability-feedback.md\n?? incoming/agp-assurance-correction-request.md\n?? incoming/agp-direct-peer-assurance-contract-request.md\n?? incoming/agp-direct-peer-assurance-contract-response.md\n?? incoming/zorg-review-tools-mode-request.md\n?? incoming/zorg-review-tools-mode-response.md\n",
+    "interpretation": "Concurrent owner work, not AGP changes or verified compatibility; assess a fixed owner revision and reply next."
+  },
+  "measurements": {
+    "artifact": {
+      "path": "/home/apnex/taceng/agp/docs/reviews/direct-peer-send-assurance/direct-peer-acceptance-mapping.md",
+      "sha256": "dcd30d480575007dbf71d82cbb7cd3edb1119be33fa6a706609ba74d402a2ec4",
+      "bytes": 19737
+    },
+    "enumeratedPopulation": {
+      "cells": 6,
+      "questionOutcomes": 72,
+      "expectedVoteSlots": 144,
+      "unique": true,
+      "sameFamilySlots": 0
+    },
+    "keyInventoryMatchesDocument": true,
+    "sourceProjection": {
+      "kind": "allowlisted source inventory only; no actual judge prompt rendered",
+      "commonSha256": "16fdc39117494173a95b788ef0d7e9f70299d9c9b89b2e6810a8bccfbc7749d8",
+      "questions": [
+        {
+          "id": "Q01",
+          "sha256": "df372421dccbb8ecc9df382f1b3e651dbee2f8b44169726f3793097e70f327f3"
+        },
+        {
+          "id": "Q02",
+          "sha256": "746e7158f3fe81af59f0ed082edc38046e4e5a6b0c07665fd60463955b1b1aa7"
+        },
+        {
+          "id": "Q03",
+          "sha256": "60aa950d858bb1152214c007b257313e4175ae51deb2b3bfc8301011204c4381"
+        },
+        {
+          "id": "Q04",
+          "sha256": "1c37ee0c2b3891470542dfabef512533c16f7f8dceed35eec729ec37feaf6471"
+        },
+        {
+          "id": "Q05",
+          "sha256": "b80971ac9c9b200da4d6ef837e9e992435a1b29476e8f3c337b064267aa1af74"
+        },
+        {
+          "id": "Q06",
+          "sha256": "6ba24becad12e01d95701b60facb00278055424edbcae2e724b97187801f7b79"
+        },
+        {
+          "id": "Q07",
+          "sha256": "e9b91406f985e360542d9ff105c66f3dda008691578749f4b6bdfa9ec180918a"
+        },
+        {
+          "id": "Q08",
+          "sha256": "2f2266f66798f946eabdef8800a95c0d8c58f8cafd574f72e2ca625967cc8b85"
+        },
+        {
+          "id": "Q09",
+          "sha256": "bca8e7354778a3f893f1056de67a204ade65c7822a506da42d87e719c5f8bf61"
+        },
+        {
+          "id": "Q10",
+          "sha256": "c5bd05480567e1ce7d9eceaa1daa06dcf330a367c50c8d528554b4a5fc4e9810"
+        },
+        {
+          "id": "Q11",
+          "sha256": "556097068206fd335d2424b8c967f2d12b9ce88cbbb5297b9d476e2396153939"
+        },
+        {
+          "id": "Q12",
+          "sha256": "85d0c4e2989f7e07db474947f738c77b90b6bc3cf32faa00b059706472563bed"
+        }
+      ]
+    },
+    "payloadBytes": {
+      "baseline": 35902,
+      "candidate": 52784
+    },
+    "existingLocalLinksChecked": 7,
+    "pendingReceiptLink": "direct-peer-acceptance-mapping-checks.json",
+    "headingContractDifferenceConfirmed": true,
+    "arithmeticExamples": [
+      {
+        "name": "all ties",
+        "floor": true,
+        "controls": true,
+        "strict": false,
+        "numericConditions": false
+      },
+      {
+        "name": "strict Q09 improvement",
+        "floor": true,
+        "controls": true,
+        "strict": true,
+        "numericConditions": true
+      },
+      {
+        "name": "control regression despite another gain",
+        "floor": true,
+        "controls": false,
+        "strict": true,
+        "numericConditions": false
+      },
+      {
+        "name": "candidate zero despite two top scores",
+        "floor": false,
+        "controls": false,
+        "strict": false,
+        "numericConditions": false
+      },
+      {
+        "name": "candidate floor despite mean improvement",
+        "floor": false,
+        "controls": true,
+        "strict": true,
+        "numericConditions": false
+      },
+      {
+        "name": "integration regression allowed with floor and another gain",
+        "floor": true,
+        "controls": true,
+        "strict": true,
+        "numericConditions": true
+      }
+    ],
+    "quoteCapExamples": [
+      {
+        "votes": [
+          2,
+          2
+        ],
+        "cap": 1,
+        "result": 1
+      },
+      {
+        "votes": [
+          0,
+          2
+        ],
+        "cap": 1,
+        "result": 0
+      },
+      {
+        "votes": [
+          2,
+          2
+        ],
+        "cap": 2,
+        "result": 2
+      }
+    ],
+    "scope": "Offline source, arithmetic and document checks only; no runtime binding or independent assurance result."
+  },
+  "commands": {
+    "packet": {
+      "command": "node --test docs/reviews/direct-peer-send-assurance/direct-peer-packet.test.mjs",
+      "cwd": "/home/apnex/taceng/agp",
+      "exitCode": 0,
+      "output": "✔ Given the frozen packet, every listed artifact has its declared bytes and hash (7.106049ms)\n✔ Given full source snapshots, their measured original hashes are retained (0.926952ms)\n✔ Given the sources, both generated reading sets reproduce exactly (2.033155ms)\n✔ Given the candidate reading, its whole contract prefix equals the baseline (0.142508ms)\n✔ Given reader material, experimental protocol and provenance are withheld (0.303992ms)\n✔ Given questions and key, every question has one prospective key and coverage role (0.235656ms)\n✔ Given grounding excerpts, each occurs in its declared reading set (39.918053ms)\n✔ Given a duplicate question identifier, coverage validation fails (0.976528ms)\n✔ Given an absent grounding excerpt, the membership check fails without editing inputs (0.606993ms)\n✔ Given a removed source boundary, projection refuses to silently select another range (0.459072ms)\n✔ Given a changed artifact byte, its frozen digest no longer matches (0.236855ms)\n✔ Given the complete reader payload, both readings fit the declared common bound (7.289327ms)\nℹ tests 12\nℹ suites 0\nℹ pass 12\nℹ fail 0\nℹ cancelled 0\nℹ skipped 0\nℹ todo 0\nℹ duration_ms 114.210039\n"
+    },
+    "mapping": {
+      "command": "node --input-type=module <<'NODE'\nimport fs from 'node:fs';\nimport path from 'node:path';\nimport crypto from 'node:crypto';\nimport assert from 'node:assert/strict';\nimport {execFileSync} from 'node:child_process';\nconst root='/home/apnex/taceng/agp';\nconst packet=path.join(root,'docs/reviews/direct-peer-send-assurance');\nconst read=p=>fs.readFileSync(path.join(packet,p),'utf8');\nconst sha=data=>crypto.createHash('sha256').update(data).digest('hex');\nconst mapping=read('direct-peer-acceptance-mapping.md');\nconst manifest=JSON.parse(read('direct-peer-input-manifest.json'));\nconst key=JSON.parse(read('direct-peer-answer-key.json'));\nconst questions=JSON.parse(read('direct-peer-questions.json'));\nconst families=['family-1','family-2','family-3'];\nconst cells=Object.values(manifest.arms).flatMap(arm=>families.map(f=>[arm.label,f]));\nconst outcomes=cells.flatMap(([arm,f])=>questions.questions.map(q=>[arm,f,q.id]));\nconst slots=outcomes.flatMap(([arm,f,q])=>families.filter(j=>j!==f).map(j=>[arm,f,q,j]));\nassert.equal(cells.length,6); assert.equal(outcomes.length,72); assert.equal(slots.length,144);\nassert.equal(new Set(slots.map(s=>JSON.stringify(s))).size,144);\nassert.ok(slots.every(s=>s[1]!==s[3]));\nconst tableRows=[...mapping.matchAll(/^\\| (Q\\d{2}) \\| (\\d+) \\| (\\d+) \\| (\\d+) \\|$/gm)].map(m=>[m[1],...m.slice(2).map(Number)]);\nassert.deepEqual(tableRows,key.entries.map(q=>[q.id,q.required.length,q.wrong.length,q.judgeGuidance?.length??0]));\nassert.equal(key.entries.reduce((n,q)=>n+q.required.length,0),53);\nassert.equal(key.entries.reduce((n,q)=>n+q.wrong.length,0),35);\nassert.equal(key.entries.reduce((n,q)=>n+(q.judgeGuidance?.length??0),0),7);\nassert.equal(Object.keys(key.scoring).length,3); assert.equal(key.rules.length,7);\nassert.deepEqual(key.entries.map(q=>q.id),questions.questions.map(q=>q.id));\nassert.deepEqual(key.entries.filter(q=>q.role==='control').map(q=>q.id),manifest.coverage.controls);\nconst projections=key.entries.map(entry=>({id:entry.id,question:questions.questions.find(q=>q.id===entry.id).prompt,required:entry.required,wrong:entry.wrong,judgeGuidance:entry.judgeGuidance??[]}));\nfor(const p of projections) assert.deepEqual(Object.keys(p),['id','question','required','wrong','judgeGuidance']);\nconst payloadBytes=Object.fromEntries(Object.entries(manifest.arms).map(([role,arm])=>{\n const total=Buffer.byteLength(read(arm.path))+Buffer.byteLength(read('direct-peer-reader-instructions.md'))+Buffer.byteLength(read('direct-peer-questions.json'));\n assert.ok(total<=manifest.limits.readerPayloadBytes);\n return [role,total];\n}));\nassert.deepEqual(payloadBytes,{baseline:35902,candidate:52784});\nassert.equal(manifest.limits.readerPayloadBytes,65536); assert.equal(manifest.limits.responseBytes,24576);\nconst links=[...mapping.matchAll(/\\]\\(([^)\\s]+)\\)/g)].map(([,target])=>({target,resolved:path.resolve(packet,target.split('#')[0])}));\nfor(const link of links) if(!link.resolved.endsWith('/direct-peer-acceptance-mapping-checks.json')) assert.ok(fs.existsSync(link.resolved),link.target);\nassert.ok(!/[^\\x00-\\x7f]/u.test(mapping));\nassert.ok(!/[ \\t]+$/m.test(mapping));\nconst instructions=read('direct-peer-reader-instructions.md');\nconst operations=execFileSync('git',['show','d17feb9ea7cec067176804e7e3c25f92281e6d04:docs/OPERATIONS.md'],{cwd:'/home/apnex/taceng/context-lab',encoding:'utf8'});\nassert.ok(instructions.includes('using its identifier as a heading'));\nassert.ok(!instructions.includes('###'));\nassert.ok(operations.includes('### <answerHeading>'));\n// Arithmetic illustrations only: this is not a public-record reader or execution scorer.\nconst vectors=()=>Object.fromEntries(questions.questions.map(q=>[q.id,[2,2,2]]));\nconst calculate=(baseline,candidate)=>{\n const sum=v=>v.reduce((a,b)=>a+b,0);\n const floor=Object.values(candidate).every(v=>v.filter(s=>s===2).length>=2&&!v.includes(0));\n const controls=manifest.coverage.controls.every(q=>sum(candidate[q])>=sum(baseline[q]));\n const strict=questions.questions.some(({id})=>sum(candidate[id])>sum(baseline[id]));\n return {floor,controls,strict,numericConditions:floor&&controls&&strict};\n};\nconst cases=[];\nfunction example(name,modify,expected) {\n const baseline=vectors(); const candidate=vectors();\n modify(baseline,candidate);\n const result=calculate(baseline,candidate);\n assert.equal(result.numericConditions,expected,name);\n cases.push({name,...result});\n}\nexample('all ties',()=>{},false);\nexample('strict Q09 improvement',b=>{b.Q09=[2,2,1];},true);\nexample('control regression despite another gain',(b,c)=>{b.Q09=[2,2,1];c.Q01=[2,2,1];},false);\nexample('candidate zero despite two top scores',(b,c)=>{c.Q01=[2,2,0];},false);\nexample('candidate floor despite mean improvement',(b,c)=>{b.Q01=[0,0,0];c.Q01=[2,1,1];},false);\nexample('integration regression allowed with floor and another gain',(b,c)=>{c.Q09=[2,2,1];b.Q12=[2,2,1];},true);\nconst quoteCaps=[{votes:[2,2],cap:1,result:1},{votes:[0,2],cap:1,result:0},{votes:[2,2],cap:2,result:2}];\nfor(const t of quoteCaps) assert.equal(Math.min(...t.votes,t.cap),t.result);\nconsole.log(JSON.stringify({\n artifact:{path:path.join(packet,'direct-peer-acceptance-mapping.md'),sha256:sha(mapping),bytes:Buffer.byteLength(mapping)},\n enumeratedPopulation:{cells:cells.length,questionOutcomes:outcomes.length,expectedVoteSlots:slots.length,unique:true,sameFamilySlots:0},\n keyInventoryMatchesDocument:true,\n sourceProjection:{kind:'allowlisted source inventory only; no actual judge prompt rendered',commonSha256:sha(JSON.stringify({scoring:key.scoring,rules:key.rules})),questions:projections.map(p=>({id:p.id,sha256:sha(JSON.stringify(p))}))},\n payloadBytes,\n existingLocalLinksChecked:links.filter(l=>!l.resolved.endsWith('/direct-peer-acceptance-mapping-checks.json')).length,\n pendingReceiptLink:'direct-peer-acceptance-mapping-checks.json',\n headingContractDifferenceConfirmed:true,\n arithmeticExamples:cases,\n quoteCapExamples:quoteCaps,\n scope:'Offline source, arithmetic and document checks only; no runtime binding or independent assurance result.'\n},null,2));\nNODE",
+      "cwd": "/home/apnex/taceng/agp",
+      "exitCode": 0,
+      "output": "{\n  \"artifact\": {\n    \"path\": \"/home/apnex/taceng/agp/docs/reviews/direct-peer-send-assurance/direct-peer-acceptance-mapping.md\",\n    \"sha256\": \"dcd30d480575007dbf71d82cbb7cd3edb1119be33fa6a706609ba74d402a2ec4\",\n    \"bytes\": 19737\n  },\n  \"enumeratedPopulation\": {\n    \"cells\": 6,\n    \"questionOutcomes\": 72,\n    \"expectedVoteSlots\": 144,\n    \"unique\": true,\n    \"sameFamilySlots\": 0\n  },\n  \"keyInventoryMatchesDocument\": true,\n  \"sourceProjection\": {\n    \"kind\": \"allowlisted source inventory only; no actual judge prompt rendered\",\n    \"commonSha256\": \"16fdc39117494173a95b788ef0d7e9f70299d9c9b89b2e6810a8bccfbc7749d8\",\n    \"questions\": [\n      {\n        \"id\": \"Q01\",\n        \"sha256\": \"df372421dccbb8ecc9df382f1b3e651dbee2f8b44169726f3793097e70f327f3\"\n      },\n      {\n        \"id\": \"Q02\",\n        \"sha256\": \"746e7158f3fe81af59f0ed082edc38046e4e5a6b0c07665fd60463955b1b1aa7\"\n      },\n      {\n        \"id\": \"Q03\",\n        \"sha256\": \"60aa950d858bb1152214c007b257313e4175ae51deb2b3bfc8301011204c4381\"\n      },\n      {\n        \"id\": \"Q04\",\n        \"sha256\": \"1c37ee0c2b3891470542dfabef512533c16f7f8dceed35eec729ec37feaf6471\"\n      },\n      {\n        \"id\": \"Q05\",\n        \"sha256\": \"b80971ac9c9b200da4d6ef837e9e992435a1b29476e8f3c337b064267aa1af74\"\n      },\n      {\n        \"id\": \"Q06\",\n        \"sha256\": \"6ba24becad12e01d95701b60facb00278055424edbcae2e724b97187801f7b79\"\n      },\n      {\n        \"id\": \"Q07\",\n        \"sha256\": \"e9b91406f985e360542d9ff105c66f3dda008691578749f4b6bdfa9ec180918a\"\n      },\n      {\n        \"id\": \"Q08\",\n        \"sha256\": \"2f2266f66798f946eabdef8800a95c0d8c58f8cafd574f72e2ca625967cc8b85\"\n      },\n      {\n        \"id\": \"Q09\",\n        \"sha256\": \"bca8e7354778a3f893f1056de67a204ade65c7822a506da42d87e719c5f8bf61\"\n      },\n      {\n        \"id\": \"Q10\",\n        \"sha256\": \"c5bd05480567e1ce7d9eceaa1daa06dcf330a367c50c8d528554b4a5fc4e9810\"\n      },\n      {\n        \"id\": \"Q11\",\n        \"sha256\": \"556097068206fd335d2424b8c967f2d12b9ce88cbbb5297b9d476e2396153939\"\n      },\n      {\n        \"id\": \"Q12\",\n        \"sha256\": \"85d0c4e2989f7e07db474947f738c77b90b6bc3cf32faa00b059706472563bed\"\n      }\n    ]\n  },\n  \"payloadBytes\": {\n    \"baseline\": 35902,\n    \"candidate\": 52784\n  },\n  \"existingLocalLinksChecked\": 7,\n  \"pendingReceiptLink\": \"direct-peer-acceptance-mapping-checks.json\",\n  \"headingContractDifferenceConfirmed\": true,\n  \"arithmeticExamples\": [\n    {\n      \"name\": \"all ties\",\n      \"floor\": true,\n      \"controls\": true,\n      \"strict\": false,\n      \"numericConditions\": false\n    },\n    {\n      \"name\": \"strict Q09 improvement\",\n      \"floor\": true,\n      \"controls\": true,\n      \"strict\": true,\n      \"numericConditions\": true\n    },\n    {\n      \"name\": \"control regression despite another gain\",\n      \"floor\": true,\n      \"controls\": false,\n      \"strict\": true,\n      \"numericConditions\": false\n    },\n    {\n      \"name\": \"candidate zero despite two top scores\",\n      \"floor\": false,\n      \"controls\": false,\n      \"strict\": false,\n      \"numericConditions\": false\n    },\n    {\n      \"name\": \"candidate floor despite mean improvement\",\n      \"floor\": false,\n      \"controls\": true,\n      \"strict\": true,\n      \"numericConditions\": false\n    },\n    {\n      \"name\": \"integration regression allowed with floor and another gain\",\n      \"floor\": true,\n      \"controls\": true,\n      \"strict\": true,\n      \"numericConditions\": true\n    }\n  ],\n  \"quoteCapExamples\": [\n    {\n      \"votes\": [\n        2,\n        2\n      ],\n      \"cap\": 1,\n      \"result\": 1\n    },\n    {\n      \"votes\": [\n        0,\n        2\n      ],\n      \"cap\": 1,\n      \"result\": 0\n    },\n    {\n      \"votes\": [\n        2,\n        2\n      ],\n      \"cap\": 2,\n      \"result\": 2\n    }\n  ],\n  \"scope\": \"Offline source, arithmetic and document checks only; no runtime binding or independent assurance result.\"\n}\n"
+    },
+    "style": {
+      "command": "node /home/apnex/taceng/mission-kit/tools/s6-one-sentence-per-line.mjs --check docs/reviews/direct-peer-send-assurance/direct-peer-acceptance-mapping.md",
+      "cwd": "/home/apnex/taceng/agp",
+      "initialExitCode": 1,
+      "correction": "Applied the existing S6 formatter to the new draft only.",
+      "exitCode": 0,
+      "output": "\nclean: 1 file(s), rule S6.\n"
+    },
+    "whitespace": {
+      "command": "git diff --check",
+      "cwd": "/home/apnex/taceng/agp",
+      "exitCode": 0
+    }
+  },
+  "preservation": {
+    "checkpoint": "After the draft and tracking edits, before creation of this check record.",
+    "agpHead": "a09e4bcda9d668b52ff3212c3813fad30fa7ac10",
+    "headUnchanged": true,
+    "stagedDiffSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "stagedStateUnchanged": true,
+    "priorChangedFileCount": 77,
+    "priorFilesUnchangedExcept": [
+      "docs/BOARD.md",
+      "docs/VERIFICATION.md"
+    ],
+    "newFilesAtCheckpoint": [
+      "docs/reviews/direct-peer-send-assurance/direct-peer-acceptance-mapping.md"
+    ],
+    "tracking": {
+      "fourBoardReplacementsOnly": true,
+      "verificationAppendOnly": true,
+      "boardSha256": "a090980ad15aedcbf47e540493fb0d7478340ca29cee27651b2139cd2ec2f387",
+      "verificationSha256": "b3af3bb2c78ec5cc52784218b7c624c2f961e9c8dd8150c660d948709f10f510"
+    },
+    "boardReversalMatchesBaselineSha256": "c86db58331e245fcedf51c73fb879d93d7e1f80be49486ec6a1df1a21c57ff0d",
+    "verificationAppendRemovalMatchesBaselineSha256": "2a3471a9c50e6273922ca0c57210c802735f1a81bc1ce208f460fcd97e149271",
+    "receiptAddedAfterCheckpoint": "docs/reviews/direct-peer-send-assurance/direct-peer-acceptance-mapping-checks.json"
+  },
+  "unestablished": [
+    "Actual judge payload rendering, assigned-text support and diagnostic serialization",
+    "Reader heading extraction, ambiguous/partial output and truncation eligibility",
+    "New owner correction implementation and public-record replay",
+    "Selected runtime/model/provider profiles, order, retry policies and whole-run budgets",
+    "Independent review, execution approval, fresh-reader assurance and AGP adoption"
+  ],
+  "boundaries": {
+    "executablePackCreated": false,
+    "acceptanceRuntimeImplemented": false,
+    "providerOrModelCallsPerformed": false,
+    "reviewAgentsStarted": false,
+    "consumerFilesEdited": false,
+    "productCodeChanged": false,
+    "frozenProtocolChanged": false,
+    "staged": false,
+    "committed": false,
+    "pushed": false
+  },
+  "mechanics": "Enumerate from the frozen declaration, preserve source-to-payload associations, and check document arithmetic without creating a runner.",
+  "rationale": "Missing evidence and grading qualifications must survive the translation into AGP acceptance.",
+  "consequence": "Author checks cannot be mistaken for implemented extraction, eligible judge delivery or an assurance verdict."
+}
