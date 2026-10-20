@@ -1,0 +1,457 @@
+{
+  "kind": "direct-peer-send-lifecycle-reconciliation",
+  "status": "D61 incorporated into the shared draft; focused lifecycle clarification placed in Zorg incoming. Author documentation and preservation checks passed; design approval remains open.",
+  "authority": "Director continued incorporation of D61 and resolution of the lifecycle boundary; no implementation, ratification, commit or push selected.",
+  "guidanceMain": "b09fc28d8e710d9a8939f57557d0bda46cf89919",
+  "sourceHeads": {
+    "agp": "0aa6be75ccacf4e2c3770a49c5ea39970a25a98a",
+    "zorg": "a2edadca5129eff7894ee9a2050cc9c950a3e684",
+    "callerIdentity": "8c681b865553808fcfb63232e2fe60e73ded7e75",
+    "credentialIssuer": "4180aa438efe383a28adbea37566f21f51ba52a8",
+    "operationCall": "3bfff2c7f9a6dee26fb9e3897b7c41a5437ea931"
+  },
+  "sourceFiles": [
+    {
+      "repo": "agp",
+      "root": "/home/apnex/taceng/agp",
+      "path": "VISION.md",
+      "sha256": "7450b55418271077c412faade2c2be5018c0f7c335cf2aa4806f8aaf22b9cb60"
+    },
+    {
+      "repo": "agp",
+      "root": "/home/apnex/taceng/agp",
+      "path": "docs/design/axioms.md",
+      "sha256": "26564a9ac5678f296150e736de2ac0b0e0f43ae3429053e4c3c3cb0325b0c29b"
+    },
+    {
+      "repo": "agp",
+      "root": "/home/apnex/taceng/agp",
+      "path": "docs/surveys/shared-transport-survey.md",
+      "sha256": "f096f84b74ac861f02c1203bce6726748fbd4c57f22bfadab13a7b68e56d093e"
+    },
+    {
+      "repo": "agp",
+      "root": "/home/apnex/taceng/agp",
+      "path": "docs/reviews/admission-lifecycle-comparison.md",
+      "sha256": "27a39f7fccc8e6ac4fab52340edbf9cff1235462ba8256e3f66ecf122be8dcea"
+    },
+    {
+      "repo": "agp",
+      "root": "/home/apnex/taceng/agp",
+      "path": "docs/reviews/direct-peer-send-draft-response.md",
+      "sha256": "f37d32da1df0c740aa3b371cbfedf8f2f5634444b2f0c6ecb7656b721653b3b8"
+    },
+    {
+      "repo": "agp",
+      "root": "/home/apnex/taceng/agp",
+      "path": "docs/reviews/direct-peer-send-draft-checks.json",
+      "sha256": "e1937d8cacf1abff3b08ee1159044515b7493d32b15f1afbd190dd463b6fc24b"
+    },
+    {
+      "repo": "agp",
+      "root": "/home/apnex/taceng/agp",
+      "path": "packages/core/src/types.ts",
+      "sha256": "ab98ffd07445d778ccb4afc54827bea18b35f59619ebcb236b8d4a0e706479c1"
+    },
+    {
+      "repo": "agp",
+      "root": "/home/apnex/taceng/agp",
+      "path": "packages/node/src/node.ts",
+      "sha256": "964b82337a0b67b0659729b049976692b5048a6873ec2f614986e3d9fdd5e4aa"
+    },
+    {
+      "repo": "agp",
+      "root": "/home/apnex/taceng/agp",
+      "path": "packages/core/src/schemas/v1/operations/pre-identity-controller-snapshot.schema.json",
+      "sha256": "44bcce788ca44b57feb3ccb981335e098d4210af60ec370402ed8063cbd9c76f"
+    },
+    {
+      "repo": "agp",
+      "root": "/home/apnex/taceng/agp",
+      "path": "packages/core/src/schemas/v1/operations/session-snapshot.schema.json",
+      "sha256": "339e6d2a3ab3c4582409d89990972c968569222abe4f7ad71d7741fe29459b85"
+    },
+    {
+      "repo": "zorg",
+      "root": "/home/apnex/taceng/zorg",
+      "path": "upstream/agp-direct-peer-send-draft-reply.md",
+      "sha256": "c939950c970f9d5cc92063c7e3cd555ed3cd412bbac75d557509a8f345674d5b"
+    },
+    {
+      "repo": "zorg",
+      "root": "/home/apnex/taceng/zorg",
+      "path": "upstream/agp-direct-peer-send-draft-response.md",
+      "sha256": "f37d32da1df0c740aa3b371cbfedf8f2f5634444b2f0c6ecb7656b721653b3b8"
+    },
+    {
+      "repo": "zorg",
+      "root": "/home/apnex/taceng/zorg",
+      "path": "docs/DECISIONS.md",
+      "sha256": "bc5d92001eff06c7dd186a12982594f70af1bb7b33b31245fa4adc5757c634c6"
+    },
+    {
+      "repo": "callerIdentity",
+      "root": "/home/apnex/taceng/caller-identity",
+      "path": "CONTRACT.md",
+      "sha256": "0637dbe81470bdf7e4dfb05383f972125ab8774d937fc77e81a126eeb29cf9b5"
+    },
+    {
+      "repo": "callerIdentity",
+      "root": "/home/apnex/taceng/caller-identity",
+      "path": "src/session-records.ts",
+      "sha256": "8773169ab72ed4c4f7abf33dc56fc183b6eb9fb04e8271931499b96e51c692e2"
+    },
+    {
+      "repo": "credentialIssuer",
+      "root": "/home/apnex/taceng/credential-issuer",
+      "path": "CONTRACT.md",
+      "sha256": "1dce04300978d6f6acf1740f234995a6d9d42e2ad82b747fcb6fa840bbd5174a"
+    },
+    {
+      "repo": "operationCall",
+      "root": "/home/apnex/taceng/operation-call",
+      "path": "CONTRACT.md",
+      "sha256": "e79d3564a3003b8ec899a8aaa766f8b1c5618c019066fc3b88b5a5c7638b76af"
+    },
+    {
+      "repo": "operationCall",
+      "root": "/home/apnex/taceng/operation-call",
+      "path": "src/host.ts",
+      "sha256": "88cfcc88e9c5974cb5ac308f7bd0a4e9141856386d504e2fc9ac684b5d13b577"
+    }
+  ],
+  "feedbackDiscovery": {
+    "latestLocalReply": "upstream/agp-direct-peer-send-draft-reply.md",
+    "zorgLocalHead": "a2edadca5129eff7894ee9a2050cc9c950a3e684",
+    "remoteMain": "d4be4913062126322b243641658da87daf5c0ffe",
+    "remoteIsAncestor": true,
+    "newerLocalReplyFound": false,
+    "scope": "Zorg upstream including ignored incoming, component heads and remote main; user asked for any newer path/revision while work continued."
+  },
+  "contractPath": "docs/design/direct-peer-send.md",
+  "frozenOriginalPath": "docs/reviews/evidence/direct-peer-send-before-d61.txt",
+  "frozenOriginalSha256": "6e8122f93ffb2496426cdc3d5f45cf7ffbf52c97bf5b1d695083acf9db7d26e7",
+  "retainedResponsePath": "docs/reviews/direct-peer-send-lifecycle-response.md",
+  "incomingResponsePath": "/home/apnex/taceng/zorg/upstream/incoming/agp-direct-peer-send-lifecycle-response.md",
+  "intent": "Existing fixed drafting brief and survey remain; D61 reconciles consumer commitments without inventing stakeholder picks or choosing a lifecycle API.",
+  "remaining": "Declared binding-aware lifecycle facts and ownership transfer; no snapshot extension or lifecycle-handle shape selected.",
+  "preservationBefore": [
+    {
+      "path": "docs/reviews/admission-lifecycle-comparison.md",
+      "sha256": "27a39f7fccc8e6ac4fab52340edbf9cff1235462ba8256e3f66ecf122be8dcea"
+    },
+    {
+      "path": "docs/reviews/admission-lifetime-adoption.md",
+      "sha256": "d6a53fc231d1ba03db5f39661ab2d8629409d05b83d532fdf0ee24f305af59d0"
+    },
+    {
+      "path": "docs/reviews/admission-lifetime-correction-r2.md",
+      "sha256": "b89a3328ae7cd41feb38a498b75b16fe06d47f232d9c09dffe42542438f005fb"
+    },
+    {
+      "path": "docs/reviews/admission-lifetime-correction-r3.md",
+      "sha256": "6ccf9ba0e7d94b83897fade8f865fe3fb1328db292d92cce4d5cc85bc28fc2f2"
+    },
+    {
+      "path": "docs/reviews/admission-lifetime-correction.md",
+      "sha256": "01bae9c2446bf6ff6d8e0027735976f5ff84c4216d31942c2d8fef80ffde0ed0"
+    },
+    {
+      "path": "docs/reviews/admission-lifetime-independent-review-r2.md",
+      "sha256": "01a30e624c63a4d2e3f466595c62514ee97ab2d4c4d164988975103df0d31979"
+    },
+    {
+      "path": "docs/reviews/admission-lifetime-independent-review-r3.md",
+      "sha256": "8f1b4cf8c725bc083ebb2d299fa12263bbb15f701f299ea1e26bb6055b3cbf8f"
+    },
+    {
+      "path": "docs/reviews/admission-lifetime-independent-review.md",
+      "sha256": "7ef3974fa4d54aa2724b539bf7a34fc8ef03992f350ad37fd2d006005940fe1f"
+    },
+    {
+      "path": "docs/reviews/browser-carrier-feasibility.md",
+      "sha256": "c57dd0a9dc8071d761bba1ffb9fb4ce5a7aa66313d944ece46cad283e1fe797c"
+    },
+    {
+      "path": "docs/reviews/browser-peer-feasibility.md",
+      "sha256": "f66876ba9ce4f0c926c33143460bcf196372747a69197703aab6517e757501c3"
+    },
+    {
+      "path": "docs/reviews/browser-peer-scale-amendment.md",
+      "sha256": "af67268de3f5d573f49b17111cce26d2ab50b043d96fac614575fd2f0ab941af"
+    },
+    {
+      "path": "docs/reviews/direct-peer-send-draft-checks.json",
+      "sha256": "e1937d8cacf1abff3b08ee1159044515b7493d32b15f1afbd190dd463b6fc24b"
+    },
+    {
+      "path": "docs/reviews/direct-peer-send-draft-response.md",
+      "sha256": "f37d32da1df0c740aa3b371cbfedf8f2f5634444b2f0c6ecb7656b721653b3b8"
+    },
+    {
+      "path": "docs/reviews/evidence/browser-feasibility-chrome136.json",
+      "sha256": "7559df9db7497cb5d36431a737196c6aea1cf2951cfb94ab196b56ea098ba42a"
+    },
+    {
+      "path": "docs/reviews/evidence/browser-feasibility-chrome151.json",
+      "sha256": "a24b766999ef503bcc6e40637b28df620ec3ddad8e602d90bdc7a262347aecdb"
+    },
+    {
+      "path": "docs/reviews/evidence/operation-call-acceptance/case-logs/honest-call-ending.test.js.log.txt",
+      "sha256": "8f525d67bb18e688e9296a137a7ef9fd63b8741fabb8b86fb07d207966fcebc0"
+    },
+    {
+      "path": "docs/reviews/evidence/operation-call-acceptance/case-logs/not-delivered-signal.test.js.log.txt",
+      "sha256": "b50ad78897b667d4fa8a6207efd2262bf53ff036a4e286e23a34432644bab567"
+    },
+    {
+      "path": "docs/reviews/evidence/operation-call-acceptance/case-logs/request-correlation.test.js.log.txt",
+      "sha256": "6e541c909ab23946a6358f36260dd6bcb5915e45f06bc4a2e967f00b58fee5ec"
+    },
+    {
+      "path": "docs/reviews/evidence/operation-call-acceptance/cert-o.txt",
+      "sha256": "e1cb917a0b21b994df126f37643b955002025fbb0ff4d20b6c5def738805fd88"
+    },
+    {
+      "path": "docs/reviews/evidence/operation-call-acceptance/checkouts-o.json",
+      "sha256": "46fe733dc9799e3a3294c097cdb206b1493cd2199559e5b9d9da896a775ad36b"
+    },
+    {
+      "path": "docs/reviews/evidence/operation-call-acceptance/run-o.out",
+      "sha256": "c7b317357c4b6119ef28fdf2442a1b3efd4d987da65a163227e28fad2a9bc9ac"
+    },
+    {
+      "path": "docs/reviews/reply-isolation-checks.json",
+      "sha256": "86214a7346f68a21e6c9985914681ad4631154600aa3d30524afc77619f59469"
+    },
+    {
+      "path": "docs/reviews/reply-isolation-handoff.json",
+      "sha256": "ffc76f817ab2aefdeb5e743398b7abf8e7cafd953fc75cac6a593bbaffbf15bd"
+    },
+    {
+      "path": "docs/reviews/reply-isolation-qualifications-handoff.json",
+      "sha256": "867db9ebb9943180435224a3149063654e500b955eef257a6be40da26b0f8e30"
+    },
+    {
+      "path": "docs/reviews/reply-isolation-qualifications.md",
+      "sha256": "1719559114f768594911fbe125096c84d01fbb4f89105628e1e90808aa39e376"
+    },
+    {
+      "path": "docs/reviews/reply-isolation-response.md",
+      "sha256": "d6ed8be5a6b3f59530f83d4952f8e125769997d16ba78f44f8667fb15ce89210"
+    },
+    {
+      "path": "docs/reviews/reply-isolation-review.md",
+      "sha256": "213d60b6c74f4dc3a3adc8765566dc3a67f6bac360e8f042509f2b93f5a1a2f6"
+    },
+    {
+      "path": "docs/reviews/reply-isolation-sources.json",
+      "sha256": "1c2fc0b7d6edc6e8fdc144cb6a25087b1eae2a9c197127e40f48c4ee64692b39"
+    },
+    {
+      "path": "docs/reviews/zorg-requirements-review.md",
+      "sha256": "2fa0c3348b3b0f765d009a2632b0fdb59e7c54d01f768edd88b6ebd17cfed933"
+    },
+    {
+      "path": "docs/reviews/zorg-review-reply-assessment.md",
+      "sha256": "af653f0b819bb8845cf56e095bcbcdcaa21d25e911e11395f5cfffc676a1f3c6"
+    },
+    {
+      "path": "docs/reviews/zorg-review-response.md",
+      "sha256": "f76295f2c26678321c011d33bc1d1dc838133afbd1ca7de5b459b9c0f614bd17"
+    },
+    {
+      "path": "docs/surveys/shared-transport-survey.md",
+      "sha256": "f096f84b74ac861f02c1203bce6726748fbd4c57f22bfadab13a7b68e56d093e"
+    },
+    {
+      "path": "scripts/browser-feasibility.mjs",
+      "sha256": "e3161585c822b369db1e99f87474cd6e6fbeb8c1d7c7b445a33090db75380455"
+    },
+    {
+      "path": "docs/design/mechanisms.md",
+      "sha256": "3d00bc685488f81e54d31e12cd00f579f86421db00ee37fb9de26c4d1b74a99d"
+    }
+  ],
+  "boardChanges": [
+    {
+      "line": 228,
+      "before": "| 4 | `B51` | Shared contract drafted; Zorg resolved mode and namespace intent, while instance-binding lifetime remains open | [Draft](design/direct-peer-send.md) proposes explicit restricted sending, immutable association and one-hop enforcement; [response](reviews/direct-peer-send-draft-response.md) asks Zorg to agree a distinct instance binding or complete retirement rule before final types and design approval |",
+      "after": "| 4 | `B51` | Zorg accepts the instance binding and public shape; AGP design review and lease-lifecycle integration remain | [Reconciled draft](design/direct-peer-send.md) carries D61's agreement; [lifecycle response](reviews/direct-peer-send-lifecycle-response.md) identifies the missing pending-use/session observation contract, to resolve with B6 owners before production lease integration |"
+    },
+    {
+      "line": 294,
+      "before": "Status: the scale amendment is drafted, not ratified; the direct-peer send contract is drafted with Zorg's explicit mode and namespace choices, while instance-binding lifetime, API review and the joint credential lifecycle remain open.\\",
+      "after": "Status: the scale amendment is drafted, not ratified; Zorg has accepted the direct-peer instance binding and public shape, while AGP design review, declared lease-lifecycle integration and the joint credential lifecycle remain open.\\"
+    },
+    {
+      "line": 302,
+      "before": "| `B51` | Review the direct-peer send draft and agree instance-binding lifetime with Zorg | [Draft and new reply](VERIFICATION.md#450-direct-peer-send-draft-and-zorg-lifetime-review) separate caller timeout from late host replies; a non-secret instance-binding identifier is proposed, not agreed; public types, shared enforcement and consumer acceptance remain unbuilt, and server push is deferred |",
+      "after": "| `B51` | Review the reconciled direct-peer design and resolve the declared lease-lifecycle boundary with B6 owners | [D61 reconciliation](VERIFICATION.md#451-direct-peer-agreement-and-lease-lifecycle-boundary) records consumer agreement and the current snapshot mismatch; public types, shared enforcement and consumer acceptance remain unbuilt, and server push is deferred |"
+    },
+    {
+      "line": 344,
+      "before": "| Will admission supply a distinct instance-binding identifier, or establish retirement of every old reply authority before node identity reuse? | `B51` final association and implementation; the [draft](design/direct-peer-send.md) incorporates Zorg's mode and namespace decisions, but its caller-bound retention rule does not establish host reply retirement; public API and design review remain, and ordinary D26 behavior is unchanged |",
+      "after": "| What declared lifecycle contract proves a binding has no outstanding credential, pending admission or live session before issuer reclamation? | `B51`/`B6` production lease integration and final design approval; [D61 reconciliation](VERIFICATION.md#451-direct-peer-agreement-and-lease-lifecycle-boundary) records the selected instance binding and public shape, but current connection snapshots do not supply the assumed association; ordinary D26 behavior is unchanged |"
+    }
+  ],
+  "reviewStatus": "Author reconciliation; AGP adversarial design and axiom-alignment verdicts remain outstanding.",
+  "nonClaims": [
+    "No runtime verification or vulnerability reproduction",
+    "No independent or fresh-reader assurance",
+    "No normative schema or implementation changes",
+    "No commit or push",
+    "Incoming placement is not acknowledgment or ratification"
+  ],
+  "checks": {
+    "scope": "Author documentation and record-integrity checks, not runtime or independent assurance",
+    "commands": [
+      {
+        "kind": "docs",
+        "path": "/tmp/agp-direct-peer-lifecycle.Y4E6Gc/docs-check.txt",
+        "command": "tools/check-docs.sh docs/design/direct-peer-send.md docs/reviews/direct-peer-send-lifecycle-response.md docs/BOARD.md docs/VERIFICATION.md /home/apnex/taceng/zorg/upstream/incoming/agp-direct-peer-send-lifecycle-response.md",
+        "exitCode": 0,
+        "output": "\nclean: 5 file(s), rule S13.\n\nclean: 5 file(s), rule S6.\n\nclean: 5 file(s), rule S10.\n\nclean: 5 file(s), rule S12.\n\nclean: 5 file(s), rule S8.\ndocs: 5 file(s) clean against S6, S8, S10, S12, S13.\n",
+        "sha256": "b0f1522a350971892c324ebad7ce249605d9056115c121b521d73a5e14e9f00e"
+      },
+      {
+        "kind": "records",
+        "path": "/tmp/agp-direct-peer-lifecycle.Y4E6Gc/record-check.txt",
+        "command": "node --test test/conformance/board-record.test.js test/conformance/record-integrity.test.js test/conformance/architecture-record.test.js",
+        "exitCode": 0,
+        "output": "✔ Given the confirmed intent record, when its numbered subsections are read, then every number is unique and ordered (4.727705ms)\n✔ Given the reconciled architecture, when its current paths and scope owners are resolved, then none points at a fictional module or a forked deferred list (5.736136ms)\n✔ Given the triage ledger, when each candidate is read, then it is scored on both dimensions and cites a record (7.384247ms)\n✔ Given every record cited by the board, when the link is resolved, then the target and its anchor exist (85.449685ms)\n✔ Given the held section, when each item is read, then it is scored and carries a revival trigger (0.689856ms)\n✔ Given the decisions required, when each is read, then it names exactly what it blocks (0.768246ms)\n✔ Given every board identifier, when the ledger and milestones are compared, then neither contains an item the other omits (0.778599ms)\n✔ Given every board item, when its ledger status is compared with where it sits, then the board does not disagree with itself about its state (6.217445ms)\n✔ Given the milestones, when each is read, then no landed item is presented as a live move and the closed count matches the closed set (2.483569ms)\n✔ Given every record that cites a board item, when the citation is resolved, then the item exists on the board (31.549963ms)\n✔ Given the architecture maturity table, when a reopen trigger is read, then it names a condition that has not already happened (1.517345ms)\n✔ Given confirmed intent, when a row says it was amended, then it names the decision that amended it (1.72263ms)\n✔ Given every ratified decision, when it is checked against the vision, then it has been absorbed or explicitly ruled not to change purpose (1.180884ms)\nℹ tests 13\nℹ suites 0\nℹ pass 13\nℹ fail 0\nℹ cancelled 0\nℹ skipped 0\nℹ todo 0\nℹ duration_ms 153.716421\n",
+        "sha256": "7be482ce4cf41b6868c2ff22df55e1175bc0c7565bdfcf8cc51040227d2d870a"
+      },
+      {
+        "kind": "whitespace",
+        "path": "/tmp/agp-direct-peer-lifecycle.Y4E6Gc/whitespace-check.txt",
+        "command": "git diff --check",
+        "exitCode": 0,
+        "output": "",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      }
+    ],
+    "recordTests": {
+      "tests": 13,
+      "passed": 13,
+      "failed": 0,
+      "skipped": 0
+    },
+    "localLinks": [
+      {
+        "source": "docs/design/direct-peer-send.md",
+        "target": "../surveys/shared-transport-survey.md",
+        "exists": true
+      },
+      {
+        "source": "docs/design/direct-peer-send.md",
+        "target": "../../VISION.md",
+        "exists": true
+      },
+      {
+        "source": "docs/design/direct-peer-send.md",
+        "target": "destination-selection.md",
+        "exists": true
+      },
+      {
+        "source": "docs/design/direct-peer-send.md",
+        "target": "../../../zorg/upstream/agp-reply-isolation-reply.md",
+        "exists": true
+      },
+      {
+        "source": "docs/design/direct-peer-send.md",
+        "target": "../../../zorg/upstream/agp-reply-isolation-qualifications-reply.md",
+        "exists": true
+      },
+      {
+        "source": "docs/design/direct-peer-send.md",
+        "target": "../reviews/reply-isolation-qualifications.md",
+        "exists": true
+      },
+      {
+        "source": "docs/design/direct-peer-send.md",
+        "target": "../../../zorg/upstream/agp-direct-peer-send-draft-reply.md",
+        "exists": true
+      },
+      {
+        "source": "docs/design/direct-peer-send.md",
+        "target": "../reviews/direct-peer-send-draft-checks.json",
+        "exists": true
+      },
+      {
+        "source": "docs/design/direct-peer-send.md",
+        "target": "../reviews/evidence/direct-peer-send-before-d61.txt",
+        "exists": true
+      },
+      {
+        "source": "docs/design/direct-peer-send.md",
+        "target": "../reviews/direct-peer-send-lifecycle-checks.json",
+        "exists": true
+      },
+      {
+        "source": "docs/design/direct-peer-send.md",
+        "target": "axioms.md",
+        "exists": true
+      }
+    ],
+    "preservation": {
+      "draftExact": true,
+      "responseExact": true,
+      "incomingExact": true,
+      "frozenOriginalExact": true,
+      "boardOnlyExpectedChanges": true,
+      "verificationAppendOnly": true,
+      "preexistingDirtyFilesUnchanged": 34,
+      "reviewedSourceFilesUnchanged": 18,
+      "sourceHeadsAfter": {
+        "agp": "0aa6be75ccacf4e2c3770a49c5ea39970a25a98a",
+        "zorg": "a2edadca5129eff7894ee9a2050cc9c950a3e684",
+        "callerIdentity": "8c681b865553808fcfb63232e2fe60e73ded7e75",
+        "credentialIssuer": "4180aa438efe383a28adbea37566f21f51ba52a8",
+        "operationCall": "3bfff2c7f9a6dee26fb9e3897b7c41a5437ea931"
+      },
+      "sourceHeadsUnchanged": true,
+      "zorgTrackedStatus": "",
+      "boardChangedLines": [
+        228,
+        294,
+        302,
+        344
+      ],
+      "verificationAddition": "4.51 Direct peer agreement and lease lifecycle boundary"
+    },
+    "artifacts": [
+      {
+        "path": "docs/design/direct-peer-send.md",
+        "sha256": "2a91d6c8d8263bc39a94880d93d95506fa7ab0e5d359f4f150d84153a0b6b251",
+        "bytes": 32448
+      },
+      {
+        "path": "docs/BOARD.md",
+        "sha256": "ec6d709a0b9894657357f68392145fd7f25207ad866678b7956f75460dc8ca0c",
+        "bytes": 45874
+      },
+      {
+        "path": "docs/VERIFICATION.md",
+        "sha256": "f9863b97b6536ce2caf6f7c3dd2389964e7940696339d2deb5c5929413483e8d",
+        "bytes": 297444
+      },
+      {
+        "path": "docs/reviews/direct-peer-send-lifecycle-response.md",
+        "sha256": "72d2122f7ff8fd618d753c7139231d436c8d6985922a79575f97825031d0318a",
+        "bytes": 3367
+      },
+      {
+        "path": "docs/reviews/evidence/direct-peer-send-before-d61.txt",
+        "sha256": "6e8122f93ffb2496426cdc3d5f45cf7ffbf52c97bf5b1d695083acf9db7d26e7",
+        "bytes": 28449
+      },
+      {
+        "path": "/home/apnex/taceng/zorg/upstream/incoming/agp-direct-peer-send-lifecycle-response.md",
+        "sha256": "72d2122f7ff8fd618d753c7139231d436c8d6985922a79575f97825031d0318a",
+        "bytes": 3367
+      }
+    ],
+    "jsonParsed": true
+  }
+}

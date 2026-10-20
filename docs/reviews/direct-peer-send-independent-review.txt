@@ -1,0 +1,210 @@
+# Independent review of the D62 direct-peer send draft
+
+Technical verdict: PASS with implementation guardrails.\
+Scoped M7 verdict: PASS with implementation guardrails.\
+No blocking design change is required for the reviewed `B51` contract.
+
+These verdicts concern the proposed mechanism, not an implemented guarantee.
+They do not ratify the design, authorize implementation, close `B53`, select the `B6` lifecycle API, establish production issuer acceptance, or constitute M2 documentation assurance.
+
+---
+
+## 1. Identity and scope
+
+| Field | Reviewed value |
+|---|---|
+| Reviewer | Independent agent `/root/direct_peer_send_design_review` |
+| Work item | `B51`, direct-peer send and immutable admission association |
+| Artifact | `docs/design/direct-peer-send.md`, 34,955 bytes |
+| Artifact SHA256 | `bede054da088b516f55e09aa02e111a9dfdb61b57ead5b493cc90f4f2110119a` |
+| AGP source | `0aa6be75ccacf4e2c3770a49c5ea39970a25a98a` |
+| Zorg source | `56350495934b90c63a17950bafaac71e16d7568e` |
+| Caller-identity source | `df4778e1cd5a0c2e9628492355f2475d2709ef51` |
+| Credential-issuer source | `ea5e34fd08d0b4764d3af09614f1a2a3593b20e7` |
+| Operation-call source | `3bfff2c7f9a6dee26fb9e3897b7c41a5437ea931` |
+| Product axiom authority | `docs/design/axioms.md`, pinned to mission-kit `5026604d3ef695651c21b24bd78410c7fec04b58` |
+| Applicable product axioms | A3, A4, A8, A9 and A14 only |
+| Review method | Static source and document review; no edits, runtime execution or reproductions |
+
+The artifact hash was checked before and after the review and remained unchanged.
+
+The initial process-guidance reference was mission-kit `b09fc28d8e710d9a8939f57557d0bda46cf89919`.
+A fresh GitHub main lookup and local HEAD check instead measured `abedf32ee4be5bc46dd4f24d0c625cfbd525d61c`.
+The process files used for this review were unchanged against the initial reference.
+Unrelated dirty component documentation was excluded.
+The five product axioms were read directly from their pinned commit, not substituted with current-main versions.
+
+---
+
+## 2. Independent inputs and measured baseline
+
+Four input families informed the review:
+
+| Family | Directly examined material | Distinct question |
+|---|---|---|
+| AGP implementation and historical authority | Current routing, data plane, session controller, writer, admission guard, public types and schemas; ratified `Q1(b)`, `D7`, `D26`; commits `918f4a0057df120f2aadeebed3ab6ce06c29b213` and `e427b6d7b04e9be9b4565d8abc55653e9ceb806b` | Can the proposed restriction compose with the actual admission mechanism without changing ordinary pins? |
+| Consumer requirements and owning implementation | Zorg's original reply-isolation requirement and D59-D62 replies; all three owning contracts; `operation-call/src/host.ts` | Does the mechanism solve the consumer's actual reply and lifetime problem? |
+| IETF bearer-token security model | RFC 6750 sections 1.2 and 5.2 | Is possession-based continuity being confused with physical-process identity or channel confidentiality? |
+| ECMAScript language semantics | TC39 sections 6.1.4, 20.1.2.6 and 7.3.15 | Do plain strings and shallow freezing actually provide the bounded immutable values the contract requires? |
+
+AGP source, contracts and archaeology are counted together, not as independent corroboration of one another.
+Likewise, the consumer replies and contract amendments are one family.
+These are four independently produced constraint sources, not four independent runtime confirmations.
+
+Measured source facts:
+
+- `node.send()` reads selected option properties without an exhaustive unknown-property rejection at `packages/node/src/node.ts:589`.
+- Existing instance lookup returns one eligible candidate through `packages/core/src/routing.ts:596`; it does not supply the proposed constrained candidate query.
+- The current data-plane session lookup resolves a public node/session pair at `packages/node/src/data-plane.ts:73` and `packages/node/src/node.ts:447`.
+- Core routing internally retains exact controller ownership at `packages/core/src/routing.ts:159` and `:915`, but `CandidateRouteSnapshot` does not expose that ownership at `packages/core/src/types.ts:181`.
+- Local delivery precedes the onward hop-limit check at `packages/node/src/data-plane.ts:319` and `:354`; the wire schema permits `hopLimit: 1`.
+- Writer admission is synchronous bounded enqueue at `packages/node/src/session-writer.ts:112`; the send guard ends cancellation authority at commit in `packages/node/src/send-admission.ts`.
+- Current admission `allow` precedes identity retention and FSM resolution at `packages/node/src/session-controller.ts:581`.
+- Operation-call's normal and fallback replies share the send site at `operation-call/src/host.ts:163`; the handler can finish after arbitrary asynchronous work at `:209`.
+- Current connection types lack the association and exact incarnation needed by D62 at `packages/core/src/types.ts:486`; the runtime projection agrees at `packages/node/src/node.ts:1731`.
+
+These facts establish implementation work still owed.
+They do not contradict a draft that explicitly proposes those changes.
+
+---
+
+## 3. Technical assessment
+
+The mechanism is appropriate to the stated scope.
+
+It preserves named-endpoint routing, makes the stricter policy opt-in, permits legitimate reconnection before admission, and avoids adding request/reply coordination or credential issuance to AGP.
+The explicit method also provides a fail-closed support boundary that an optional property on the existing permissive API would not provide by itself.
+
+The following failure hypotheses were challenged:
+
+| Failure hypothesis | Assessment against the draft |
+|---|---|
+| An ordinary pin can still admit the reply onto another peer's channel | Addressed by direct-candidate filtering before selection and explicit refusal without ordinary-send fallback, lines 292-307 |
+| A later allocation of the same node and principal receives an older reply | Addressed by per-allocation `instanceBinding`, lines 99-113, conditional on issuer uniqueness and proof |
+| A replacement session inherits authority from a stale admission completion | Prohibited at lines 274-278; implementation must use the guarded commit owed by `B53`, not today's callback continuation |
+| A reply selected correctly is later migrated to another writer | Prohibited at lines 313-315; compatible with existing exact writer ownership |
+| The destination withdraws after admission and the receiver forwards elsewhere | The derived pin and one-hop budget address conforming AGP forwarding, lines 305-311; they do not constrain recipient application behavior |
+| Missing identity metadata silently becomes unauthenticated authority | Explicitly rejected by lines 198-213 and 280-281 |
+| A failure reply bypasses the restriction applied to successful replies | Explicitly prohibited at lines 355-357 and acceptance row 383; the consumer's shared reply site supports this integration |
+| Lease expiry is mistaken for proof that no admission or session remains | D62's conjunctive conditions and exact handoff/lifetime facts address this, lines 125-166 |
+| Authentication is mistaken for confidentiality or proof of a unique physical process | The draft separates these claims at lines 109 and 244-251 |
+
+Possession-based credentials cannot distinguish two processes holding the same credential material.
+Protection of bearer credentials and protection across TLS termination boundaries require separate assurance.
+The draft's explicit limitations and carrier ownership are consistent with that distinction. [RFC 6750](https://www.rfc-editor.org/rfc/rfc6750.html#section-5.2)
+
+The `B6` API deferral is acceptable here.
+B51 needs immutable association facts on committed controllers to enforce a send.
+Production issuer reclamation additionally needs the declared pending-use transfer and exact-controller lifetime interface.
+The draft neither implements nor substitutes a guessed interface for that second obligation.
+
+---
+
+## 4. Implementation guardrails
+
+These preserve requirements already present in the draft; they are not requests for another consumer requirements round.
+
+### Exact routing ownership
+
+The constrained query must carry or otherwise establish exact controller ownership through declared core/node contracts.
+Do not implement the guarantee by filtering an operations snapshot or resolving only `remoteNodeId` plus reusable `sessionId`.
+
+The query must filter before canonical selection.
+It must not call today's `routeToInstance()` once and reject its winner while overlooking an eligible constrained candidate.
+
+### Guarded identity commit
+
+Validate and snapshot the association without installing authority.
+Installation belongs to the exact successful guarded commit, after expiry, terminal-state and collision checks.
+
+`IdentityAdmissionPort.evaluate()` returning `allow` is neither that commit nor the issuer's reservation-transfer event.
+B51 integration must not bypass the separately owed `B53` correction.
+
+### Runtime value fidelity
+
+The association and target must become AGP-owned immutable plain-data values before asynchronous work can observe later caller mutation.
+Freezing only the outer object is insufficient.
+
+ECMAScript string length counts UTF-16 units, and strings may contain unpaired surrogates.
+Implementation must enforce the proposed scalar-value bound explicitly and preserve exact equality without normalization. [ECMAScript String type](https://tc39.es/ecma262/multipage/ecmascript-data-types-and-values.html#sec-ecmascript-language-types-string-type)
+
+`Object.freeze` fixes an object's own property attributes; it does not recursively freeze referenced objects or convert accessors into plain data.
+The admission reader must satisfy the draft's plain-data and immutable-copy requirements independently of a shallow freeze. [Object.freeze](https://tc39.es/ecma262/multipage/fundamental-objects.html#sec-object.freeze), [SetIntegrityLevel](https://tc39.es/ecma262/multipage/abstract-operations.html#sec-setintegritylevel)
+
+### One admission mechanism
+
+Ordinary and restricted sends must share source ownership, size/export precedence, cancellation commit, accounting, dispositions and writer ownership.
+The restriction changes candidate eligibility, not the meaning of successful admission.
+
+After commit, cancellation or reconnection cannot move or replay the packet.
+The restricted method must always derive its pin and one-hop budget.
+
+### Account for retained metadata
+
+The current handler ledger charges the supplied byte count at `packages/node/src/handler-ledger.ts:33`; local-delivery resolution currently supplies payload bytes.
+The added association/context cost therefore needs an explicit accounting implementation, not an assumption that existing byte gauges already include it.
+
+Copies must not retain closed controllers or carrier objects.
+Application-owned retention after the handler ends remains outside AGP's budget.
+
+### Preserve the support and ownership boundaries
+
+Types, schemas, runtime validation, exports and structural implementers must agree.
+Method presence is necessary but does not certify an adapter's behavior.
+
+Operation-call must preserve the same captured target and protection requirement on every reply branch.
+Issuer uniqueness, reclamation, bearer handling and deployment confidentiality remain their owners' acceptance obligations.
+
+---
+
+## 5. Scoped M7 mapping
+
+| Axiom | Weight | Alignment and remaining obligation |
+|---|---|---|
+| A3 | Load-bearing | Credential policy stays with admission/issuer owners; routing stays in core; node enforces equality and atomic writer selection; real operation-call demand earns the public surface |
+| A4 | Load-bearing | The draft preserves the lifetime finding, D61 selection and D62 obligations, and distinguishes agreement, proposal, implementation and acceptance |
+| A8 | Load-bearing | Review and ratification remain separate; schema/FSM/routing/node evidence must precede consumer claims; B53 and B6 cannot close through this document |
+| A9 | Supporting, scoped | Acceptance obligations cover withdrawal, replacement, stale authority, saturation and carrier differences; they are prospective sandbox obligations, not deployment conformance |
+| A14 | Supporting, scoped | Unknown-option downgrade and caller-bound/host-lifetime findings become durable constraints and acceptance obligations rather than informal cautions |
+
+No excluded product axiom is imported.
+No full A9 or A14 conformance is claimed.
+
+Layered duties remain coherent:
+
+- Issuer and identity policy establish the association's meaning and continuity.
+- Transport supplies immutable protection evidence.
+- Core supplies contracts and deterministic route facts.
+- Node captures authority and commits the restricted send.
+- Operation-call applies the restriction consistently.
+- Deployment proves carrier and issuer integration.
+
+The principal tensions are resolved rather than hidden:
+
+- Reconnect utility versus original-binding isolation: stable association within one allocation, different binding for later allocations.
+- Unified behavior versus independent carriers: one node predicate over neutral evidence.
+- Bounded retention versus arbitrarily late handlers: copied values and non-reused bindings, not retained controller history or a guessed timeout.
+- Progress versus incomplete lifecycle integration: B51 review can pass while B6 production reclamation remains gated.
+
+---
+
+## 6. Deltas and closeout hooks
+
+Required design corrections: none.\
+Accepted deviations or overrides: none.
+
+Before claiming implemented B51 behavior, the verifier must recheck:
+
+1. Exact-owner candidate resolution and zero admission to disallowed writers.
+2. Guarded association installation, including the B53 integration.
+3. Immutable runtime snapshots and schema/type agreement.
+4. Metadata accounting and release ownership.
+5. Shared admission precedence and unchanged ordinary routing.
+6. One-hop enforcement and no post-admission migration.
+7. Every operation-call reply branch and unsupported-runtime refusal.
+
+Production issuer closeout additionally requires the selected B6 producer contract and continuous reservation accounting across actual controller commit.
+Browser confidentiality and operating-envelope claims retain their separate acceptance owners.
+
+The next action is to carry these review guardrails into AGP's decision and implementation-selection record.
+No additional Zorg policy choice is needed to complete this B51 design review.

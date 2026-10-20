@@ -1,0 +1,619 @@
+{
+  "kind": "direct-peer-send-contract-draft-checks",
+  "status": "Contract draft and focused Zorg response authored; scoped author documentation and preservation checks passed. Design remains unratified.",
+  "authority": "Director's continue after the recommendation to draft the unified CLI/browser contract; no implementation or ratification selected.",
+  "contractPath": "docs/design/direct-peer-send.md",
+  "retainedResponsePath": "docs/reviews/direct-peer-send-draft-response.md",
+  "incomingResponsePath": "/home/apnex/taceng/zorg/upstream/incoming/agp-direct-peer-send-draft-response.md",
+  "inboxRule": ".gitignore:7:upstream/incoming/",
+  "sourceHeads": {
+    "agp": "0aa6be75ccacf4e2c3770a49c5ea39970a25a98a",
+    "zorg": "e035196e7e06371a8c4e97d3aa789f1a7d8550c1",
+    "callerIdentity": "bb621895091a6efce8b34dfe588b2dc845e78dd0",
+    "credentialIssuer": "6a397fb31947c0e7d9006eb84b17ab28aff053a4",
+    "operationCall": "58c5f0517249c84efc01c9a9dcfdea77a5774c39"
+  },
+  "sourceFiles": [
+    {
+      "repo": "agp",
+      "root": "/home/apnex/taceng/agp",
+      "path": "VISION.md",
+      "sha256": "7450b55418271077c412faade2c2be5018c0f7c335cf2aa4806f8aaf22b9cb60"
+    },
+    {
+      "repo": "agp",
+      "root": "/home/apnex/taceng/agp",
+      "path": "docs/design/axioms.md",
+      "sha256": "26564a9ac5678f296150e736de2ac0b0e0f43ae3429053e4c3c3cb0325b0c29b"
+    },
+    {
+      "repo": "agp",
+      "root": "/home/apnex/taceng/agp",
+      "path": "docs/design/destination-selection.md",
+      "sha256": "d4372bc87b62c9b4aafa14f388e47da959490796a054fefcdaba14ca151690e5"
+    },
+    {
+      "repo": "agp",
+      "root": "/home/apnex/taceng/agp",
+      "path": "docs/surveys/shared-transport-survey.md",
+      "sha256": "f096f84b74ac861f02c1203bce6726748fbd4c57f22bfadab13a7b68e56d093e"
+    },
+    {
+      "repo": "agp",
+      "root": "/home/apnex/taceng/agp",
+      "path": "docs/reviews/reply-isolation-review.md",
+      "sha256": "213d60b6c74f4dc3a3adc8765566dc3a67f6bac360e8f042509f2b93f5a1a2f6"
+    },
+    {
+      "repo": "agp",
+      "root": "/home/apnex/taceng/agp",
+      "path": "docs/reviews/reply-isolation-qualifications.md",
+      "sha256": "1719559114f768594911fbe125096c84d01fbb4f89105628e1e90808aa39e376"
+    },
+    {
+      "repo": "agp",
+      "root": "/home/apnex/taceng/agp",
+      "path": "packages/core/src/types.ts",
+      "sha256": "ab98ffd07445d778ccb4afc54827bea18b35f59619ebcb236b8d4a0e706479c1"
+    },
+    {
+      "repo": "agp",
+      "root": "/home/apnex/taceng/agp",
+      "path": "packages/core/src/routing.ts",
+      "sha256": "e80bb08cf3715355b1d38d6cd04b4fb89f3b3abea26f75d3775f82d902abba6a"
+    },
+    {
+      "repo": "agp",
+      "root": "/home/apnex/taceng/agp",
+      "path": "packages/core/src/errors.ts",
+      "sha256": "299a3a012308ab7d670a197f93146904d3d4e1a12d1c9e705179a2e01b97adfa"
+    },
+    {
+      "repo": "agp",
+      "root": "/home/apnex/taceng/agp",
+      "path": "packages/core/src/schemas/v1/sdk/send-policy.schema.json",
+      "sha256": "b4a215c752e45a9a26a6d67a09d1a7f1943617af45702768d498ffb94cee3239"
+    },
+    {
+      "repo": "agp",
+      "root": "/home/apnex/taceng/agp",
+      "path": "packages/core/src/schemas/v1/sdk/identity-admission-result.schema.json",
+      "sha256": "a81671e6a81f45cc7feb1e4e226933eedc67bcd73412dbb0a5b664be2dd53986"
+    },
+    {
+      "repo": "agp",
+      "root": "/home/apnex/taceng/agp",
+      "path": "packages/core/src/schemas/v1/sdk/endpoint-delivery-context.schema.json",
+      "sha256": "21336e0f9a4a93d3a2d58ace8b765185c956478a44b548842c26b62a66113fbb"
+    },
+    {
+      "repo": "agp",
+      "root": "/home/apnex/taceng/agp",
+      "path": "packages/core/src/schemas/v1/codes/sdk-error-code.schema.json",
+      "sha256": "05db17eda973944009a77182ed8b3bc5eb3fcd3f63e8eb532e2802d5241fe980"
+    },
+    {
+      "repo": "agp",
+      "root": "/home/apnex/taceng/agp",
+      "path": "packages/node/src/node.ts",
+      "sha256": "964b82337a0b67b0659729b049976692b5048a6873ec2f614986e3d9fdd5e4aa"
+    },
+    {
+      "repo": "agp",
+      "root": "/home/apnex/taceng/agp",
+      "path": "packages/node/src/index.ts",
+      "sha256": "dcbb70074f8d30d581d9025b616ed0b1dd2e508fa88612a624c7f0eb42002c8b"
+    },
+    {
+      "repo": "agp",
+      "root": "/home/apnex/taceng/agp",
+      "path": "packages/node/src/data-plane.ts",
+      "sha256": "b42241bb09e6114ee9974f832f653d93dd089e86a6453ad824e7e31b233eda4f"
+    },
+    {
+      "repo": "agp",
+      "root": "/home/apnex/taceng/agp",
+      "path": "packages/node/src/send-admission.ts",
+      "sha256": "22fe0522486eaf2a2e5dc696405feef56ea29cc67a36bfa229a90250886015b5"
+    },
+    {
+      "repo": "agp",
+      "root": "/home/apnex/taceng/agp",
+      "path": "packages/node/src/session-controller.ts",
+      "sha256": "6640bce12b23fb5423e2b7753e69f596c9ae91e784e1a1e9ec21dd1bcb6e71be"
+    },
+    {
+      "repo": "agp",
+      "root": "/home/apnex/taceng/agp",
+      "path": "packages/node/src/session-writer.ts",
+      "sha256": "aa400931af619e2724c2073ae28a69d440017eda9fee8c84f4097c796145e18d"
+    },
+    {
+      "repo": "agp",
+      "root": "/home/apnex/taceng/agp",
+      "path": "packages/node/src/routing-adapter.ts",
+      "sha256": "eef0fdf17aa26145dedfedcc67ec9855cf79ba27e10fb113becf9efa84298995"
+    },
+    {
+      "repo": "agp",
+      "root": "/home/apnex/taceng/agp",
+      "path": "packages/transport/src/schemas/v1/contracts/transport-peer-evidence.schema.json",
+      "sha256": "9927593a233dd711bba3aec6a00d74c982018b54abe8a566370933112cf1ad2a"
+    },
+    {
+      "repo": "agp",
+      "root": "/home/apnex/taceng/agp",
+      "path": "packages/management-http/src/server.ts",
+      "sha256": "a82bfb7fdceaf5ab8e579178e65f46a796623c0ed6aaa46efc6522785ecaacd0"
+    },
+    {
+      "repo": "zorg",
+      "root": "/home/apnex/taceng/zorg",
+      "path": "upstream/agp-reply-isolation-reply.md",
+      "sha256": "135478ee65f6e523139c0b252554d42f16a3249b59fa10c4109c47afd7a8b7bd"
+    },
+    {
+      "repo": "zorg",
+      "root": "/home/apnex/taceng/zorg",
+      "path": "docs/DECISIONS.md",
+      "sha256": "56aa2790523c6bcb32774906b7ac4cc740f5c4a7f5b75de04bdcd4af020f3b00"
+    },
+    {
+      "repo": "callerIdentity",
+      "root": "/home/apnex/taceng/caller-identity",
+      "path": "CONTRACT.md",
+      "sha256": "e3291730d50bf8536826ec774284d9376b57fbd6107c5aa2d91c6e61742c458d"
+    },
+    {
+      "repo": "credentialIssuer",
+      "root": "/home/apnex/taceng/credential-issuer",
+      "path": "CONTRACT.md",
+      "sha256": "a1b46e24d6012bf560aefa009ca280127d0ddf7147c2b2cab3760b1094a7fe7e"
+    },
+    {
+      "repo": "operationCall",
+      "root": "/home/apnex/taceng/operation-call",
+      "path": "CONTRACT.md",
+      "sha256": "4cdfe11c390bb9a6b3564d6108967ed151a60ea1592ed8bc9a180d7b93e397e0"
+    },
+    {
+      "repo": "operationCall",
+      "root": "/home/apnex/taceng/operation-call",
+      "path": "src/host.ts",
+      "sha256": "88cfcc88e9c5974cb5ac308f7bd0a4e9141856386d504e2fc9ac684b5d13b577"
+    },
+    {
+      "repo": "zorg",
+      "path": "upstream/agp-reply-isolation-qualifications-reply.md",
+      "root": "/home/apnex/taceng/zorg",
+      "sha256": "a446e63e4e76572e1052ce21632bba404d71000b5a11d7d8628464a8d268be9c"
+    },
+    {
+      "repo": "operationCall",
+      "path": "src/message-format.ts",
+      "root": "/home/apnex/taceng/operation-call",
+      "sha256": "49eb483bf5ae9c28a6ef3d592e826d3b24eb51769fb750a3428f182d11cd4cf7"
+    },
+    {
+      "repo": "operationCall",
+      "path": "src/caller.ts",
+      "root": "/home/apnex/taceng/operation-call",
+      "sha256": "d23fb114c307b2c27073d943ce85095b222d72a886086876ed479bd8530e7ad9"
+    },
+    {
+      "repo": "agp",
+      "path": "packages/protocol/src/schemas/v1/wire/data-body.schema.json",
+      "root": "/home/apnex/taceng/agp",
+      "sha256": "493bbee248e99847fbfb5df3d8385052b43939d31da5d61d32ae1cff1fa6df25"
+    }
+  ],
+  "concurrentInput": {
+    "previousHeads": {
+      "agp": "0aa6be75ccacf4e2c3770a49c5ea39970a25a98a",
+      "zorg": "951b8dbe3ab36a93d57b7dbf8ab011b2e0743873",
+      "callerIdentity": "bb621895091a6efce8b34dfe588b2dc845e78dd0",
+      "credentialIssuer": "6a397fb31947c0e7d9006eb84b17ab28aff053a4",
+      "operationCall": "58c5f0517249c84efc01c9a9dcfdea77a5774c39"
+    },
+    "files": [
+      {
+        "repo": "zorg",
+        "path": "upstream/agp-reply-isolation-qualifications-reply.md",
+        "root": "/home/apnex/taceng/zorg",
+        "sha256": "a446e63e4e76572e1052ce21632bba404d71000b5a11d7d8628464a8d268be9c"
+      },
+      {
+        "repo": "operationCall",
+        "path": "src/message-format.ts",
+        "root": "/home/apnex/taceng/operation-call",
+        "sha256": "49eb483bf5ae9c28a6ef3d592e826d3b24eb51769fb750a3428f182d11cd4cf7"
+      },
+      {
+        "repo": "operationCall",
+        "path": "src/caller.ts",
+        "root": "/home/apnex/taceng/operation-call",
+        "sha256": "d23fb114c307b2c27073d943ce85095b222d72a886086876ed479bd8530e7ad9"
+      },
+      {
+        "repo": "agp",
+        "path": "packages/protocol/src/schemas/v1/wire/data-body.schema.json",
+        "root": "/home/apnex/taceng/agp",
+        "sha256": "493bbee248e99847fbfb5df3d8385052b43939d31da5d61d32ae1cff1fa6df25"
+      }
+    ],
+    "heads": {
+      "agp": "0aa6be75ccacf4e2c3770a49c5ea39970a25a98a",
+      "zorg": "e035196e7e06371a8c4e97d3aa789f1a7d8550c1",
+      "callerIdentity": "bb621895091a6efce8b34dfe588b2dc845e78dd0",
+      "credentialIssuer": "6a397fb31947c0e7d9006eb84b17ab28aff053a4",
+      "operationCall": "58c5f0517249c84efc01c9a9dcfdea77a5774c39"
+    },
+    "previousFollowupReceivedIdentically": true,
+    "maxCallBoundDays": 24.85513480324074
+  },
+  "guidanceMain": "b09fc28d8e710d9a8939f57557d0bda46cf89919",
+  "intent": {
+    "survey": "docs/surveys/shared-transport-survey.md",
+    "bypass": "Fixed drafting brief explicitly selected by the director; no new stakeholder picks or closure of unresolved identity policy inferred."
+  },
+  "designInputs": {
+    "zorgModeAndNamespace": "D60 resolves these choices for drafting; consumer implementation remains future.",
+    "instanceContinuity": "D60's continuation-secret retention does not establish host reply retirement from the caller's bound.",
+    "recommendedChange": "Non-secret instanceBinding changes on new allocation and is compared with node, mode, issuer and principal; requires owner agreement.",
+    "api": "Explicit sendDirectPeer entry point, same shared admission path, explicit protection floor, existing pin and hopLimit 1; all proposed."
+  },
+  "reviewStatus": "Author draft only; joint ownership agreement, adversarial review, axiom-alignment verdict and implementation selection remain.",
+  "nonClaims": [
+    "No runtime verification or vulnerability reproduction",
+    "No independent or fresh-reader assurance",
+    "No normative schema or API implementation changed",
+    "No commit or push",
+    "Placement in incoming is not acknowledgment or ratification"
+  ],
+  "checks": {
+    "kind": "Author documentation, record-integrity and scope-preservation checks only",
+    "initialDocsFailure": {
+      "exitCode": 1,
+      "output": "\nclean: 5 file(s), rule S13.\n\nclean: 5 file(s), rule S6.\n\nclean: 5 file(s), rule S10.\nFAIL  S12  docs/design/direct-peer-send.md:124  blank line between introducer and the code block it introduces\nFAIL  S12  docs/design/direct-peer-send.md:176  blank line between introducer and the code block it introduces\n\n2 S12 failure(s) across 5 file(s).\n\nclean: 5 file(s), rule S8.\n",
+      "outputSha256": "a379e4550584cb677b72c6da8572fe0550de220014e982be9f9d8c6156469b90",
+      "correction": "Removed two blank lines between code-block introducers and the proposed TypeScript blocks, as required by S12; no design change.",
+      "firstRecheck": {
+        "exitCode": 0,
+        "output": "\nclean: 5 file(s), rule S13.\n\nclean: 5 file(s), rule S6.\n\nclean: 5 file(s), rule S10.\n\nclean: 5 file(s), rule S12.\n\nclean: 5 file(s), rule S8.\ndocs: 5 file(s) clean against S6, S8, S10, S12, S13.\n",
+        "outputSha256": "b0f1522a350971892c324ebad7ce249605d9056115c121b521d73a5e14e9f00e"
+      }
+    },
+    "final": [
+      {
+        "kind": "docs-final",
+        "command": "tools/check-docs.sh docs/design/direct-peer-send.md docs/reviews/direct-peer-send-draft-response.md docs/BOARD.md docs/VERIFICATION.md /home/apnex/taceng/zorg/upstream/incoming/agp-direct-peer-send-draft-response.md > /tmp/agp-direct-peer-send-draft.LPXcES/docs-check-03.txt 2>&1",
+        "exitCode": 0,
+        "output": "\nclean: 5 file(s), rule S13.\n\nclean: 5 file(s), rule S6.\n\nclean: 5 file(s), rule S10.\n\nclean: 5 file(s), rule S12.\n\nclean: 5 file(s), rule S8.\ndocs: 5 file(s) clean against S6, S8, S10, S12, S13.\n",
+        "outputSha256": "b0f1522a350971892c324ebad7ce249605d9056115c121b521d73a5e14e9f00e"
+      },
+      {
+        "kind": "records-final",
+        "command": "node --test test/conformance/board-record.test.js test/conformance/record-integrity.test.js test/conformance/architecture-record.test.js > /tmp/agp-direct-peer-send-draft.LPXcES/record-check-02.txt 2>&1",
+        "exitCode": 0,
+        "output": "✔ Given the confirmed intent record, when its numbered subsections are read, then every number is unique and ordered (5.875398ms)\n✔ Given the reconciled architecture, when its current paths and scope owners are resolved, then none points at a fictional module or a forked deferred list (5.344586ms)\n✔ Given the triage ledger, when each candidate is read, then it is scored on both dimensions and cites a record (9.739513ms)\n✔ Given every record cited by the board, when the link is resolved, then the target and its anchor exist (104.183523ms)\n✔ Given the held section, when each item is read, then it is scored and carries a revival trigger (0.909475ms)\n✔ Given the decisions required, when each is read, then it names exactly what it blocks (0.92043ms)\n✔ Given every board identifier, when the ledger and milestones are compared, then neither contains an item the other omits (0.995533ms)\n✔ Given every board item, when its ledger status is compared with where it sits, then the board does not disagree with itself about its state (8.62238ms)\n✔ Given the milestones, when each is read, then no landed item is presented as a live move and the closed count matches the closed set (3.022073ms)\n✔ Given every record that cites a board item, when the citation is resolved, then the item exists on the board (32.16722ms)\n✔ Given the architecture maturity table, when a reopen trigger is read, then it names a condition that has not already happened (1.76701ms)\n✔ Given confirmed intent, when a row says it was amended, then it names the decision that amended it (2.156105ms)\n✔ Given every ratified decision, when it is checked against the vision, then it has been absorbed or explicitly ruled not to change purpose (1.237905ms)\nℹ tests 13\nℹ suites 0\nℹ pass 13\nℹ fail 0\nℹ cancelled 0\nℹ skipped 0\nℹ todo 0\nℹ duration_ms 186.977001\n",
+        "outputSha256": "bd759f143451b7d8a10caae27b96d07efc15fef6d414977e91d373ccc79d0f92"
+      },
+      {
+        "kind": "whitespace-final",
+        "command": "git diff --check > /tmp/agp-direct-peer-send-draft.LPXcES/whitespace-check-02.txt 2>&1",
+        "exitCode": 0,
+        "output": "",
+        "outputSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      }
+    ],
+    "recordTests": {
+      "tests": 13,
+      "pass": 13,
+      "fail": 0,
+      "skipped": 0
+    },
+    "localDraftLinks": [
+      {
+        "source": "docs/design/direct-peer-send.md",
+        "target": "../surveys/shared-transport-survey.md",
+        "exists": true
+      },
+      {
+        "source": "docs/design/direct-peer-send.md",
+        "target": "../../VISION.md",
+        "exists": true
+      },
+      {
+        "source": "docs/design/direct-peer-send.md",
+        "target": "destination-selection.md",
+        "exists": true
+      },
+      {
+        "source": "docs/design/direct-peer-send.md",
+        "target": "../../../zorg/upstream/agp-reply-isolation-reply.md",
+        "exists": true
+      },
+      {
+        "source": "docs/design/direct-peer-send.md",
+        "target": "../../../zorg/upstream/agp-reply-isolation-qualifications-reply.md",
+        "exists": true
+      },
+      {
+        "source": "docs/design/direct-peer-send.md",
+        "target": "../reviews/reply-isolation-qualifications.md",
+        "exists": true
+      },
+      {
+        "source": "docs/design/direct-peer-send.md",
+        "target": "../reviews/direct-peer-send-draft-checks.json",
+        "exists": true
+      },
+      {
+        "source": "docs/design/direct-peer-send.md",
+        "target": "axioms.md",
+        "exists": true
+      }
+    ],
+    "jsonParsed": true
+  },
+  "preservation": {
+    "sourceHeadsAfter": {
+      "agp": "0aa6be75ccacf4e2c3770a49c5ea39970a25a98a",
+      "zorg": "e035196e7e06371a8c4e97d3aa789f1a7d8550c1",
+      "callerIdentity": "bb621895091a6efce8b34dfe588b2dc845e78dd0",
+      "credentialIssuer": "6a397fb31947c0e7d9006eb84b17ab28aff053a4",
+      "operationCall": "58c5f0517249c84efc01c9a9dcfdea77a5774c39"
+    },
+    "sourceHeadsUnchanged": true,
+    "reviewedSourceFilesUnchanged": 32,
+    "preexistingDirtyFiles": [
+      {
+        "path": "docs/reviews/admission-lifecycle-comparison.md",
+        "sha256": "27a39f7fccc8e6ac4fab52340edbf9cff1235462ba8256e3f66ecf122be8dcea",
+        "currentSha256": "27a39f7fccc8e6ac4fab52340edbf9cff1235462ba8256e3f66ecf122be8dcea",
+        "identical": true
+      },
+      {
+        "path": "docs/reviews/admission-lifetime-adoption.md",
+        "sha256": "d6a53fc231d1ba03db5f39661ab2d8629409d05b83d532fdf0ee24f305af59d0",
+        "currentSha256": "d6a53fc231d1ba03db5f39661ab2d8629409d05b83d532fdf0ee24f305af59d0",
+        "identical": true
+      },
+      {
+        "path": "docs/reviews/admission-lifetime-correction-r2.md",
+        "sha256": "b89a3328ae7cd41feb38a498b75b16fe06d47f232d9c09dffe42542438f005fb",
+        "currentSha256": "b89a3328ae7cd41feb38a498b75b16fe06d47f232d9c09dffe42542438f005fb",
+        "identical": true
+      },
+      {
+        "path": "docs/reviews/admission-lifetime-correction-r3.md",
+        "sha256": "6ccf9ba0e7d94b83897fade8f865fe3fb1328db292d92cce4d5cc85bc28fc2f2",
+        "currentSha256": "6ccf9ba0e7d94b83897fade8f865fe3fb1328db292d92cce4d5cc85bc28fc2f2",
+        "identical": true
+      },
+      {
+        "path": "docs/reviews/admission-lifetime-correction.md",
+        "sha256": "01bae9c2446bf6ff6d8e0027735976f5ff84c4216d31942c2d8fef80ffde0ed0",
+        "currentSha256": "01bae9c2446bf6ff6d8e0027735976f5ff84c4216d31942c2d8fef80ffde0ed0",
+        "identical": true
+      },
+      {
+        "path": "docs/reviews/admission-lifetime-independent-review-r2.md",
+        "sha256": "01a30e624c63a4d2e3f466595c62514ee97ab2d4c4d164988975103df0d31979",
+        "currentSha256": "01a30e624c63a4d2e3f466595c62514ee97ab2d4c4d164988975103df0d31979",
+        "identical": true
+      },
+      {
+        "path": "docs/reviews/admission-lifetime-independent-review-r3.md",
+        "sha256": "8f1b4cf8c725bc083ebb2d299fa12263bbb15f701f299ea1e26bb6055b3cbf8f",
+        "currentSha256": "8f1b4cf8c725bc083ebb2d299fa12263bbb15f701f299ea1e26bb6055b3cbf8f",
+        "identical": true
+      },
+      {
+        "path": "docs/reviews/admission-lifetime-independent-review.md",
+        "sha256": "7ef3974fa4d54aa2724b539bf7a34fc8ef03992f350ad37fd2d006005940fe1f",
+        "currentSha256": "7ef3974fa4d54aa2724b539bf7a34fc8ef03992f350ad37fd2d006005940fe1f",
+        "identical": true
+      },
+      {
+        "path": "docs/reviews/browser-carrier-feasibility.md",
+        "sha256": "c57dd0a9dc8071d761bba1ffb9fb4ce5a7aa66313d944ece46cad283e1fe797c",
+        "currentSha256": "c57dd0a9dc8071d761bba1ffb9fb4ce5a7aa66313d944ece46cad283e1fe797c",
+        "identical": true
+      },
+      {
+        "path": "docs/reviews/browser-peer-feasibility.md",
+        "sha256": "f66876ba9ce4f0c926c33143460bcf196372747a69197703aab6517e757501c3",
+        "currentSha256": "f66876ba9ce4f0c926c33143460bcf196372747a69197703aab6517e757501c3",
+        "identical": true
+      },
+      {
+        "path": "docs/reviews/browser-peer-scale-amendment.md",
+        "sha256": "af67268de3f5d573f49b17111cce26d2ab50b043d96fac614575fd2f0ab941af",
+        "currentSha256": "af67268de3f5d573f49b17111cce26d2ab50b043d96fac614575fd2f0ab941af",
+        "identical": true
+      },
+      {
+        "path": "docs/reviews/evidence/browser-feasibility-chrome136.json",
+        "sha256": "7559df9db7497cb5d36431a737196c6aea1cf2951cfb94ab196b56ea098ba42a",
+        "currentSha256": "7559df9db7497cb5d36431a737196c6aea1cf2951cfb94ab196b56ea098ba42a",
+        "identical": true
+      },
+      {
+        "path": "docs/reviews/evidence/browser-feasibility-chrome151.json",
+        "sha256": "a24b766999ef503bcc6e40637b28df620ec3ddad8e602d90bdc7a262347aecdb",
+        "currentSha256": "a24b766999ef503bcc6e40637b28df620ec3ddad8e602d90bdc7a262347aecdb",
+        "identical": true
+      },
+      {
+        "path": "docs/reviews/evidence/operation-call-acceptance/case-logs/honest-call-ending.test.js.log.txt",
+        "sha256": "8f525d67bb18e688e9296a137a7ef9fd63b8741fabb8b86fb07d207966fcebc0",
+        "currentSha256": "8f525d67bb18e688e9296a137a7ef9fd63b8741fabb8b86fb07d207966fcebc0",
+        "identical": true
+      },
+      {
+        "path": "docs/reviews/evidence/operation-call-acceptance/case-logs/not-delivered-signal.test.js.log.txt",
+        "sha256": "b50ad78897b667d4fa8a6207efd2262bf53ff036a4e286e23a34432644bab567",
+        "currentSha256": "b50ad78897b667d4fa8a6207efd2262bf53ff036a4e286e23a34432644bab567",
+        "identical": true
+      },
+      {
+        "path": "docs/reviews/evidence/operation-call-acceptance/case-logs/request-correlation.test.js.log.txt",
+        "sha256": "6e541c909ab23946a6358f36260dd6bcb5915e45f06bc4a2e967f00b58fee5ec",
+        "currentSha256": "6e541c909ab23946a6358f36260dd6bcb5915e45f06bc4a2e967f00b58fee5ec",
+        "identical": true
+      },
+      {
+        "path": "docs/reviews/evidence/operation-call-acceptance/cert-o.txt",
+        "sha256": "e1cb917a0b21b994df126f37643b955002025fbb0ff4d20b6c5def738805fd88",
+        "currentSha256": "e1cb917a0b21b994df126f37643b955002025fbb0ff4d20b6c5def738805fd88",
+        "identical": true
+      },
+      {
+        "path": "docs/reviews/evidence/operation-call-acceptance/checkouts-o.json",
+        "sha256": "46fe733dc9799e3a3294c097cdb206b1493cd2199559e5b9d9da896a775ad36b",
+        "currentSha256": "46fe733dc9799e3a3294c097cdb206b1493cd2199559e5b9d9da896a775ad36b",
+        "identical": true
+      },
+      {
+        "path": "docs/reviews/evidence/operation-call-acceptance/run-o.out",
+        "sha256": "c7b317357c4b6119ef28fdf2442a1b3efd4d987da65a163227e28fad2a9bc9ac",
+        "currentSha256": "c7b317357c4b6119ef28fdf2442a1b3efd4d987da65a163227e28fad2a9bc9ac",
+        "identical": true
+      },
+      {
+        "path": "docs/reviews/reply-isolation-checks.json",
+        "sha256": "86214a7346f68a21e6c9985914681ad4631154600aa3d30524afc77619f59469",
+        "currentSha256": "86214a7346f68a21e6c9985914681ad4631154600aa3d30524afc77619f59469",
+        "identical": true
+      },
+      {
+        "path": "docs/reviews/reply-isolation-handoff.json",
+        "sha256": "ffc76f817ab2aefdeb5e743398b7abf8e7cafd953fc75cac6a593bbaffbf15bd",
+        "currentSha256": "ffc76f817ab2aefdeb5e743398b7abf8e7cafd953fc75cac6a593bbaffbf15bd",
+        "identical": true
+      },
+      {
+        "path": "docs/reviews/reply-isolation-qualifications-handoff.json",
+        "sha256": "867db9ebb9943180435224a3149063654e500b955eef257a6be40da26b0f8e30",
+        "currentSha256": "867db9ebb9943180435224a3149063654e500b955eef257a6be40da26b0f8e30",
+        "identical": true
+      },
+      {
+        "path": "docs/reviews/reply-isolation-qualifications.md",
+        "sha256": "1719559114f768594911fbe125096c84d01fbb4f89105628e1e90808aa39e376",
+        "currentSha256": "1719559114f768594911fbe125096c84d01fbb4f89105628e1e90808aa39e376",
+        "identical": true
+      },
+      {
+        "path": "docs/reviews/reply-isolation-response.md",
+        "sha256": "d6ed8be5a6b3f59530f83d4952f8e125769997d16ba78f44f8667fb15ce89210",
+        "currentSha256": "d6ed8be5a6b3f59530f83d4952f8e125769997d16ba78f44f8667fb15ce89210",
+        "identical": true
+      },
+      {
+        "path": "docs/reviews/reply-isolation-review.md",
+        "sha256": "213d60b6c74f4dc3a3adc8765566dc3a67f6bac360e8f042509f2b93f5a1a2f6",
+        "currentSha256": "213d60b6c74f4dc3a3adc8765566dc3a67f6bac360e8f042509f2b93f5a1a2f6",
+        "identical": true
+      },
+      {
+        "path": "docs/reviews/reply-isolation-sources.json",
+        "sha256": "1c2fc0b7d6edc6e8fdc144cb6a25087b1eae2a9c197127e40f48c4ee64692b39",
+        "currentSha256": "1c2fc0b7d6edc6e8fdc144cb6a25087b1eae2a9c197127e40f48c4ee64692b39",
+        "identical": true
+      },
+      {
+        "path": "docs/reviews/zorg-requirements-review.md",
+        "sha256": "2fa0c3348b3b0f765d009a2632b0fdb59e7c54d01f768edd88b6ebd17cfed933",
+        "currentSha256": "2fa0c3348b3b0f765d009a2632b0fdb59e7c54d01f768edd88b6ebd17cfed933",
+        "identical": true
+      },
+      {
+        "path": "docs/reviews/zorg-review-reply-assessment.md",
+        "sha256": "af653f0b819bb8845cf56e095bcbcdcaa21d25e911e11395f5cfffc676a1f3c6",
+        "currentSha256": "af653f0b819bb8845cf56e095bcbcdcaa21d25e911e11395f5cfffc676a1f3c6",
+        "identical": true
+      },
+      {
+        "path": "docs/reviews/zorg-review-response.md",
+        "sha256": "f76295f2c26678321c011d33bc1d1dc838133afbd1ca7de5b459b9c0f614bd17",
+        "currentSha256": "f76295f2c26678321c011d33bc1d1dc838133afbd1ca7de5b459b9c0f614bd17",
+        "identical": true
+      },
+      {
+        "path": "docs/surveys/shared-transport-survey.md",
+        "sha256": "f096f84b74ac861f02c1203bce6726748fbd4c57f22bfadab13a7b68e56d093e",
+        "currentSha256": "f096f84b74ac861f02c1203bce6726748fbd4c57f22bfadab13a7b68e56d093e",
+        "identical": true
+      },
+      {
+        "path": "scripts/browser-feasibility.mjs",
+        "sha256": "e3161585c822b369db1e99f87474cd6e6fbeb8c1d7c7b445a33090db75380455",
+        "currentSha256": "e3161585c822b369db1e99f87474cd6e6fbeb8c1d7c7b445a33090db75380455",
+        "identical": true
+      },
+      {
+        "path": "docs/design/mechanisms.md",
+        "sha256": "3d00bc685488f81e54d31e12cd00f579f86421db00ee37fb9de26c4d1b74a99d",
+        "currentSha256": "3d00bc685488f81e54d31e12cd00f579f86421db00ee37fb9de26c4d1b74a99d",
+        "identical": true
+      }
+    ],
+    "boardSameLineCount": true,
+    "boardChangedLines": [
+      {
+        "line": 228,
+        "before": "| 4 | `B51` | Zorg chose direct-only scope and immutable association; shared contract drafting is next | [Follow-up](reviews/reply-isolation-qualifications.md) asks for explicit unauthenticated mode, trusted authority namespaces and node-identity ownership; all-branch adoption is committed by Zorg but unbuilt, and final AGP types and implementation remain unapproved |",
+        "after": "| 4 | `B51` | Shared contract drafted; Zorg resolved mode and namespace intent, while instance-binding lifetime remains open | [Draft](design/direct-peer-send.md) proposes explicit restricted sending, immutable association and one-hop enforcement; [response](reviews/direct-peer-send-draft-response.md) asks Zorg to agree a distinct instance binding or complete retirement rule before final types and design approval |"
+      },
+      {
+        "line": 294,
+        "before": "Status: the scale amendment is drafted, not ratified; Zorg's reply selects direct-only scope and immutable association, with three identity qualifications placed with Zorg for agreement before final AGP types, while the joint lifecycle proposal remains under review.\\",
+        "after": "Status: the scale amendment is drafted, not ratified; the direct-peer send contract is drafted with Zorg's explicit mode and namespace choices, while instance-binding lifetime, API review and the joint credential lifecycle remain open.\\"
+      },
+      {
+        "line": 302,
+        "before": "| `B51` | Draft the shared reply-isolation contract and resolve the three identity qualifications | [Zorg reply and follow-up](VERIFICATION.md#449-zorg-reply-and-contract-qualifications) support direct-only egress with immutable request authority; explicit unauthenticated mode, authority namespaces and node-identity ownership remain to be agreed; shared enforcement and consumer adoption remain unbuilt, and server push is deferred |",
+        "after": "| `B51` | Review the direct-peer send draft and agree instance-binding lifetime with Zorg | [Draft and new reply](VERIFICATION.md#450-direct-peer-send-draft-and-zorg-lifetime-review) separate caller timeout from late host replies; a non-secret instance-binding identifier is proposed, not agreed; public types, shared enforcement and consumer acceptance remain unbuilt, and server push is deferred |"
+      },
+      {
+        "line": 344,
+        "before": "| What selects unauthenticated reply mode, namespaces proved principals and authorizes reuse of a node identity? | `B51` final contract and implementation; the [qualifications placed with Zorg](reviews/reply-isolation-qualifications.md) narrow the remaining decisions after its direct-only and immutable-association selection; shared contract drafting can proceed, but final types remain unapproved and ordinary D26 behavior remains unchanged |",
+        "after": "| Will admission supply a distinct instance-binding identifier, or establish retirement of every old reply authority before node identity reuse? | `B51` final association and implementation; the [draft](design/direct-peer-send.md) incorporates Zorg's mode and namespace decisions, but its caller-bound retention rule does not establish host reply retirement; public API and design review remain, and ordinary D26 behavior is unchanged |"
+      }
+    ],
+    "verificationEarlierContentIdentical": true,
+    "verificationAddition": "4.50 Direct peer send draft and Zorg lifetime review",
+    "trackedZorgStatus": "",
+    "artifacts": [
+      {
+        "path": "docs/design/direct-peer-send.md",
+        "sha256": "6e8122f93ffb2496426cdc3d5f45cf7ffbf52c97bf5b1d695083acf9db7d26e7",
+        "bytes": 28449
+      },
+      {
+        "path": "docs/reviews/direct-peer-send-draft-response.md",
+        "sha256": "f37d32da1df0c740aa3b371cbfedf8f2f5634444b2f0c6ecb7656b721653b3b8",
+        "bytes": 4142
+      },
+      {
+        "path": "docs/BOARD.md",
+        "sha256": "6c3c7a5f395e605661108cc16ef88b0ba7da8e59a966a64043e562ea26300810",
+        "bytes": 45891
+      },
+      {
+        "path": "docs/VERIFICATION.md",
+        "sha256": "97032607654aa4395dbe7765f7da58c3b7412c5b5e6937fab03d43a70d4db079",
+        "bytes": 294897
+      },
+      {
+        "path": "/home/apnex/taceng/zorg/upstream/incoming/agp-direct-peer-send-draft-response.md",
+        "sha256": "f37d32da1df0c740aa3b371cbfedf8f2f5634444b2f0c6ecb7656b721653b3b8",
+        "bytes": 4142
+      }
+    ],
+    "retainedAndIncomingResponseIdentical": true,
+    "expectedDraftAndResponseVerified": true
+  }
+}

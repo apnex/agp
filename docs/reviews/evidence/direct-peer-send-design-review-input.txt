@@ -1,0 +1,452 @@
+# Direct peer send contract draft
+
+Status: proposed AGP contract for `B51`; not ratified, implemented or independently assured.\
+Audience: AGP maintainers and the owners of `caller-identity`, `credential-issuer` and `operation-call`.\
+Purpose: one direct-peer send mechanism for CLI and browser embedders, with explicit admission identity and no change to ordinary routing.
+
+The recommended design adds a restricted send entry point backed by AGP's existing serialized admission and writer path.\
+It captures an immutable admission association on direct delivery, permits an eligible replacement session before send admission, and refuses any other destination or relay.\
+Zorg's `D61` accepts the instance-binding identifier and proposed public shape; `D62` agrees the lifecycle ownership and exact facts needed for safe issuer reclamation.
+
+The association includes a non-secret `instanceBinding`, selected by Zorg in response to this draft.\
+It distinguishes a newly allocated binding from an older request after issuer state is reclaimed; it does not itself establish when reclamation is safe.\
+Consumer agreement is recorded below; AGP's design and axiom review remain outstanding.
+
+---
+
+## 1. Authority and current state
+
+The director selected this drafting step by replying "continue" to the recommendation to draft the unified CLI/browser contract while keeping unresolved identity policy explicit.\
+The [existing survey](../surveys/shared-transport-survey.md) remains load-bearing for shared semantics, application-owned offline work, truthful resource limits, delivery uncertainty and justified migration proposals.
+
+No new survey is run for this fixed drafting brief.\
+This is an explicit survey bypass for the brief, not a new intent envelope or authority to choose a different isolation guarantee.\
+The mixed survey sequencing picks remain preserved in the original record; reviewed Zorg input and the director's present drafting instruction permit this proposal, not transport implementation.\
+The subsequent instructions to continue incorporate `D61` and `D62` and authorize AGP design and axiom review, without selecting the lifecycle observation API or approving implementation.
+
+| Input | What it establishes |
+|---|---|
+| [AGP vision](../../VISION.md) and [destination selection](destination-selection.md) | Named endpoints, deterministic route selection, existing multi-hop pins, no RPC registry or deployment identity policy in AGP |
+| [Zorg's first reply](../../../zorg/upstream/agp-reply-isolation-reply.md), `D59` | Direct-only scope, immutable admission association, replacement sessions and all-branch consumer adoption |
+| [Zorg's qualification reply](../../../zorg/upstream/agp-reply-isolation-qualifications-reply.md), `D60` | Explicit authenticated/unauthenticated configuration, policy-owned issuer namespaces and proposed instance-continuation credentials |
+| [AGP's qualifications](../reviews/reply-isolation-qualifications.md) | No authentication downgrade, no implicit identity-namespace equivalence and an explicit node-ownership obligation |
+| [Zorg's draft reply](../../../zorg/upstream/agp-direct-peer-send-draft-reply.md), `D61` | Consumer selection of `instanceBinding`, bounded issuer leases, public shapes, protection requirement and all-branch restricted sends |
+| [Original draft checks](../reviews/direct-peer-send-draft-checks.json) and [preserved draft](../reviews/evidence/direct-peer-send-before-d61.txt) | The exact earlier draft and its point-in-time source and check record |
+| [Lifecycle reconciliation checks](../reviews/direct-peer-send-lifecycle-checks.json) and [preserved reconciled draft](../reviews/evidence/direct-peer-send-before-d62.txt) | Reviewed `D61` sources, exact earlier draft checkpoint and scope-preservation checks |
+| [Zorg's lifecycle reply](../../../zorg/upstream/agp-direct-peer-send-lifecycle-reply.md), `D62` | Agreed reclamation ownership, four conjunctive release conditions and two authoritative lifecycle facts; API selection remains joint `B6` / `B53` work |
+
+Measured source state: AGP's admission result carries allow or deny only, delivery context has flat `ingressNodeId` and `ingressSessionId` fields, and `operation-call` still uses an ordinary pinned send.\
+The updated consumer contracts state future adoption; they are not an implementation.
+
+Static inspection also shows that current `node.send()` reads known options without rejecting every unknown field.\
+Therefore adding a restriction only as a new optional property would allow an older runtime to ignore it; this is a compatibility inference, not a runtime reproduction.
+
+---
+
+## 2. Guarantee and ownership
+
+For a restricted send to a named endpoint, eligibility requires all of the following at the same serialized admission point:
+
+1. An eligible route advertises that endpoint from the target `originNodeId`.
+2. Its next hop is a session directly to that same node, not a local binding or another AGP peer.
+3. The exact route owner resolves to a live admitted controller.
+4. The controller's authorization association matches the requested association under section 4.
+5. Its immutable transport protection meets the sender's explicit minimum.
+6. Ordinary source ownership, acknowledged source export, encoded-size, capacity and cancellation rules permit admission.
+
+AGP selects deterministically among eligible direct candidates, then commits the packet to that exact controller's writer.\
+A successful receipt means admission, not remote delivery or operation success.\
+No eligible candidate means refusal before transfer, not a future-connection wait, an ordinary-send fallback or an offline queue.
+
+| Owner | Duty |
+|---|---|
+| Credential issuer and identity admission | Verify proof, canonicalize authority/principal meaning, authorize node ownership and instance-binding continuity |
+| Neutral transport and carrier | Establish truthful immutable channel evidence; protect the actual channel as claimed |
+| AGP core | Own bounded data contracts and deterministic routing queries, without credential policy |
+| AGP node | Capture accepted association, enforce direct eligibility atomically and retain exact writer ownership |
+| Operation-call and embedding application | Select host mode and protection requirement, capture request context and preserve the restriction on every reply branch |
+
+The destination remains a named endpoint qualified by its advertiser, not an arbitrary channel, host address or intermediate hop.\
+A TLS terminator belongs to the carrier's protection profile; an application proxy or shared worker originating the request is the peer itself.
+
+---
+
+## 3. Instance continuity and finite retention
+
+### Settled consumer choices
+
+Zorg's `D60` requires explicit authentication mode, denial of failed proof without downgrade, and configured authority namespaces.\
+`D61` additionally selects the non-secret instance-binding identifier, bounded non-evicting issuer leases and this draft's public shapes.\
+`D62` confirms the reclamation conditions and lifecycle ownership below, replacing the assumption that today's connection snapshot can establish absence.\
+The three owning component contracts record those commitments; their implementations and AGP's approval remain outstanding.
+
+The continuation secret stays with the instance and issuer.\
+Every fresh admission key still requires the caller's primary proof as well as that secret; AGP receives neither secret.
+
+### Preserved lifetime finding
+
+`D61` supersedes `D60`'s proposed maximum-call-bound quarantine.\
+The source finding that motivated that change remains:
+
+- Operation-call's request carries no call deadline.
+- Its caller's bound ends waiting locally.
+- Its host may await the handler and subsequently reply; the handler signal is the node-stop signal.
+
+Therefore a finite delay after disconnection does not establish that every older reply attempt has ended.\
+The approximately 25-day maximum caller bound never supplied that host-retirement guarantee.\
+The original finding and draft remain in the linked historical records; no runtime reproduction is claimed.
+
+### Selected instance binding
+
+The admission authority supplies an opaque, non-secret `instanceBinding`:
+
+- It identifies one authorized instance binding and stays equal across that binding's fresh credentials and replacement sessions.
+- Every new allocation of a previously released node identity gets a different identifier, including across issuer generations.
+- The verifier binds it to the credential's authorized node, issuer and principal; a peer's unsupported assertion is not proof.
+- Captured requests keep the old identifier, so a new binding cannot match merely by reusing the old node name and principal.
+- AGP compares the identifier but does not issue it, interpret it, persist it or receive the continuation secret.
+
+This proves continuity of an authorized instance credential, conditional on the owner's proof and secret-protection rules; it cannot distinguish physical processes that possess identical credentials.
+
+Zorg did not select the alternative of retiring every old handler and pending reply before node reuse.\
+With distinct instance bindings, issuer cleanup does not need to await operation completion.\
+It still needs to establish when no credential or connection can use the lease being released.
+
+### Agreed lease lifecycle obligations; producer API still open
+
+`D61` proposed using `operations.connections()` to find admitted or pending sessions for `(node, instanceBinding)`; `D62` supersedes that dependency after accepting the following source finding.\
+The current public snapshot supplies neither that association nor a binding identifier; its pending variant supplies only a local session identifier and optional adjacency identifier as identity-related fields.\
+An admitted entry supplies remote node and session identifiers, not the authorization association.\
+Both the public types and the runtime projection agree; the changes in this draft do not add such a snapshot field.
+
+The existing snapshot therefore cannot implement `D61`'s stated predicate without an additional declared association or lifecycle contract.\
+A missing field is not evidence that no binding is active, and a reusable public session identifier is not an exact controller-incarnation handle.
+
+The ownership split agreed in `D62` is:
+
+| Owner | Required fact or action |
+|---|---|
+| Credential issuer | Own lease allocation, outstanding usable credentials, renewal, expiry, capacity and the atomic reclaim decision |
+| Connection-attempt or transport-binding owner | Account for a redeemed use before AGP identity commit, and retain that reservation until exact terminal invalidation or ownership transfer |
+| AGP session owner | Supply authoritative identity-commit and terminal facts for the exact owned controller through a declared lifecycle boundary |
+| Host composition | Connect those boundaries without guessing from missing snapshot fields, exposing secrets or maintaining an unbounded shadow history |
+
+Reclamation requires all of these conditions together:
+
+1. No outstanding key can still authorize admission under the released binding; it has expired, been spent with its use still accounted for, or become irrevocably invalid for fresh admission.
+2. No verification, opening or handoff can still publish a session under that binding.
+3. No live admitted session uses that binding.
+4. The issuer's grace interval has elapsed from authoritative activity (issuance, redemption, renewal or admitted-session close), and the final check and release are serialized against issuance, redemption and renewal.
+
+A late completion must not revive a released binding.\
+A terminal notification for an older attempt must not release a replacement attempt's reservation.\
+Already-terminal transport work may still consume retained-resource budget; it cannot retain authority to publish a session, and dropping a lease does not erase that resource charge.
+
+Observation failure or stale/incomplete information means unknown, not absent: retain the binding or explicitly invalidate and settle its owned uses before release.\
+Capacity exhaustion refuses new allocation without live eviction or an unbounded waiting queue.\
+A configurable TTL is a reconnect grace policy, not proof that any of the other conditions holds.
+
+`D62` assigns the producer contract to the existing joint admission-lifecycle work (`B6`, coordinated with `B53`) so CLI and browser paths use the same ownership contract.\
+The issuer owns outstanding unredeemed keys and grace timing; the binding and AGP must provide these two facts:
+
+| Required fact | Proposed integration obligation, not an existing API |
+|---|---|
+| Per-redemption handoff or terminal pre-admission outcome | Successful binding-side redemption creates an issuer-owned pending reservation keyed by a unique `redemptionId`, under the single absolute opening deadline from redemption; carry that identifier or the one-shot presented credential into identity admission, then either confirm transfer to the exact committed controller or report terminal invalidation once the attempt cannot publish |
+| Exact admitted-controller lifetime | Establish whether that same controller incarnation with its immutable association is still live or terminal; a reusable public `sessionId` is not that identity |
+
+An `IdentityAdmissionPort.evaluate` result of `allow` is not the identity-commit fact.\
+The guarded AGP commit must win against expiry, terminal invalidation and collision resolution before a pending reservation transfers to admitted ownership.\
+The composition must account continuously for the use across that transfer; no interval may be interpreted as absence by reclamation.\
+Terminal authority loss and physical resource release remain distinct even if socket cleanup continues.
+
+Whether the lifetime fact arrives through a complete snapshot with an exact association and incarnation or an explicit lifecycle query/callback remains to be designed with the owners.\
+No new snapshot field, event stream or secret-bearing management surface is selected here.
+
+This remaining integration obligation does not reopen Zorg's instance-binding choice or add issuer state to AGP.\
+The restricted-send design can proceed through review with that obligation explicit; production lease integration cannot be accepted until its producer contract and consumer behavior satisfy it.
+
+---
+
+## 4. Proposed public data contracts
+
+Zorg agrees to these names and shapes under `D61`; they remain proposals pending AGP design review.\
+The authenticated variant includes the selected `instanceBinding`.
+
+Proposed association:
+```ts
+type PeerAuthorizationAssociation =
+  | {
+      readonly mode: "authenticated";
+      readonly issuer: string;
+      readonly principal: string;
+      readonly instanceBinding: string;
+    }
+  | {
+      readonly mode: "unauthenticated";
+    };
+
+interface DirectPeerDeliveryContext {
+  readonly originNodeId: NodeId;
+  readonly authorizationAssociation: PeerAuthorizationAssociation;
+}
+```
+
+Proposed additions to existing contracts:
+
+| Contract | Addition or rule |
+|---|---|
+| `IdentityAdmissionResult` | The allow branch may carry `authorizationAssociation: PeerAuthorizationAssociation`; the deny branch cannot carry it |
+| `EndpointDeliveryContext` | Optional `directPeer: DirectPeerDeliveryContext`, populated only for direct ingress with an explicit admitted association |
+| Legacy allow result without association | Remains usable for existing ordinary operations, but supplies no restricted-send authority; it is not translated into explicit unauthenticated mode |
+| Existing ingress identifiers | Preserve the flat `ingressNodeId` and `ingressSessionId` fields; no implied `to.ingress` API is introduced |
+
+Each association is a closed, plain-data value, validated and copied into AGP-owned immutable state.\
+A present `null`, malformed value, unknown mode or unexpected field is invalid, not equivalent to absence or unauthenticated admission.\
+Invalid admission metadata refuses admission through the existing admission-fault path; its lifecycle handling must compose with the admission repair.
+
+Proposed bounds: each authenticated string contains 1 to 256 Unicode scalar values, excluding control characters and unpaired surrogates.\
+Caller-identity and credential-issuer confirm those bounds fit their canonical identifiers under `D61`.\
+AGP performs exact equality with no trimming, case folding, URI normalization, principal remapping or proof-method equivalence.
+
+Equality requires the same `mode`.\
+Authenticated equality additionally requires exact equality of `issuer`, `principal` and `instanceBinding`; unauthenticated equality matches only another explicit unauthenticated association.\
+A mode change is not a transparent reconnect under this restriction.
+
+These are trusted-host policy values, not unforgeable capabilities against code holding the node API.\
+AGP does not reauthenticate a caller-supplied restriction: it enforces that restriction against admission-owned session facts.\
+Operation-call must derive its target from AGP's captured delivery context, not handler-supplied JSON evidence.
+
+---
+
+## 5. Restricted send entry point
+
+Recommend `AgpNode.sendDirectPeer(source, destination, payload, options)`, returning the existing `Promise<SendReceipt>`.\
+It requires the new surface explicitly; an older node lacking the method cannot silently execute an ordinary send.
+
+Proposed options:
+```ts
+interface DirectPeerSendPolicy {
+  readonly target: DirectPeerDeliveryContext;
+  readonly destinationSelector?: never;
+  readonly minimumProtection:
+    | "none"
+    | "integrity"
+    | "confidentiality-and-integrity";
+  readonly correlationId?: CorrelationId;
+  readonly timeoutMs?: number;
+}
+
+interface DirectPeerSendOptions extends DirectPeerSendPolicy {
+  readonly signal?: AbortSignal;
+}
+```
+
+The protection vocabulary is the existing neutral transport vocabulary, not a new browser or CLI profile.\
+Both `target` and `minimumProtection` are required; the latter must be selected by host policy, never inferred from authentication mode.
+
+| Minimum | Eligible observed protection |
+|---|---|
+| `none` | Any existing protection value; no channel-confidentiality claim |
+| `integrity` | `integrity` or `confidentiality-and-integrity` |
+| `confidentiality-and-integrity` | Only `confidentiality-and-integrity` |
+
+The method derives a pinned destination selector from `target.originNodeId`.\
+It accepts no independent `destinationSelector`, intermediate-hop selector or caller-supplied hop limit.\
+Conflicting or unknown options are rejected, not combined by precedence or silently dropped.
+
+The two public send methods share normalization, deadline/cancellation handling, serialized admission, accounting, disposition tracking and writer ownership.\
+The new method adds an eligibility constraint; it does not create another routing engine or another transport implementation.
+
+A consumer requiring this contract must check support when composing its node and refuse startup/use if unavailable.\
+No fallback to `send()` is permitted.\
+A pinned dependency alone is not a behavioral acceptance result; adapters and mocks must implement the actual contract.
+
+An option on ordinary `send()` remains an alternative only with an equally fail-closed version/support boundary.\
+The explicit entry point is preferred here because the existing runtime can ignore unknown options and the public method is readily detectable.\
+Zorg accepts the explicit method and startup support check under `D61`; AGP review must still assess migration costs and preserve one shared enforcement mechanism.
+
+---
+
+## 6. Capture and atomic admission
+
+### Session and request capture
+
+1. Validate and snapshot the admission association at the boundary where the callback result is accepted.
+2. Install it only on the exact controller whose current admission successfully commits; late results, expired admission and collision losers cannot install authority on a replacement controller.
+3. Keep the controller association immutable for that session's lifetime.
+4. When delivering a message locally, populate `directPeer` only when the exact ingress is admitted, its remote node equals `source.originNodeId`, and it carries an explicit association.
+5. Copy the node identity and association into the immutable delivery context before scheduling the handler; never reconstruct them from a later session-table lookup.
+
+A local delivery, relayed source or legacy session without an association has no `directPeer` value.\
+Absence refuses a consumer's restricted reply; it does not ask that consumer to infer unauthenticated mode.
+
+Credential TTL limits fresh admission, not an already admitted session or the captured association.\
+Routine key changes that preserve the association need not tear down a connection.\
+In-place changes of authorization, active revocation and retroactive cancellation of admitted work require a separate contract.
+
+### Send admission
+
+The public boundary snapshots and validates the target and protection requirement before any asynchronous yield.\
+Caller mutation cannot change an already requested restriction.
+
+Within the existing node executor:
+
+1. Check the admission deadline/cancellation and local source ownership.
+2. Query the candidate table for the named endpoint and target origin, restricting it to direct session next hops before choosing a candidate; an unrestricted selected route must not mask a usable direct candidate.
+3. Resolve candidates to their exact current controllers, applying association equality, protection and liveness, then use the existing deterministic routing order among eligible candidates.
+4. Refuse if none qualifies; do not use a local shortcut, another peer, another advertiser or a future reconnect.
+5. Apply existing return-token, packet-size, acknowledged source-export epoch and writer/label capacity checks to the chosen exact controller.
+6. Recheck the admission guard at commit and admit synchronously to that same writer, without an asynchronous identity callback between eligibility and commitment.
+
+Source export is checked on the replacement session, not borrowed from the old one.\
+Candidate resolution must preserve exact internal controller ownership; matching public session strings alone is insufficient.\
+Routing remains owned by the core; node enforcement uses a declared routing port, not an operations snapshot or a private table.
+
+Restricted packets carry the existing pinned selector and `hopLimit: 1`.\
+The current wire already admits that value, and current receive semantics permit local delivery but refuse onward AGP forwarding with no remaining hop.\
+This also bounds routing if the target endpoint disappears after sender admission; an ordinary conforming receiver cannot turn the reply into transit to a third peer.
+
+No association or secret is added to the AGP data wire.\
+This is a proposal for use of existing packet semantics, not a claim of completed cross-version conformance.\
+An authorized recipient can read its own bytes; AGP does not control what that application subsequently does with them.
+
+After commit, the writer owns the packet even while it waits for credit.\
+A route change, cancellation, timeout or replacement connection does not move or replay it.\
+Existing exact-controller return bindings for protocol dispositions are unchanged.
+
+### Retention
+
+AGP retains one bounded association per admitted controller and bounded value copies while its own handler/send work retains them.\
+Implementation must account for the added metadata in the relevant retained-memory budgets rather than count only payload bytes.\
+No closed-controller history, credential store, per-call registry or identity lease table is added to AGP.
+
+Applications own any delivery context they retain beyond AGP's handler lifetime.\
+Neither persisting that value nor restoring it after restart is certified continuation of an operation.
+
+---
+
+## 7. Refusals and compatibility
+
+Proposed local error behavior:
+
+| Condition | Result |
+|---|---|
+| Unsupported restricted-send surface | Consumer refuses composition/use; never call ordinary send as a fallback |
+| Invalid target, association, protection minimum or conflicting option | `OPTIONS_INVALID`, before admission |
+| No eligible direct endpoint route, association mismatch or insufficient protection | New local SDK code `DIRECT_PEER_UNAVAILABLE`; no packet or reverse binding admitted |
+| Source is not locally owned | Existing `SOURCE_NOT_OWNED` |
+| Chosen controller cannot supply usable return-token/writer ownership | Existing `NEXT_HOP_UNAVAILABLE` |
+| Encoded packet exceeds limit, source export is missing or capacity is full | Existing `MESSAGE_TOO_LARGE`, `SOURCE_NOT_ADVERTISED` or `QUEUE_FULL`, retaining their relative ordering |
+| Deadline or cancellation wins before commit | Existing `TIMEOUT` or `ABORTED`, with no later admission |
+| Failure after admission | Existing disposition/uncertainty contract; no safe-replay inference |
+
+The new eligibility error is local SDK vocabulary, not a new wire delivery-error code.\
+It reports that the requested constraint cannot currently be met without exposing another session's principal or credential.\
+Propose `retryable: false` for this combined policy refusal; a later application-selected attempt may reassess changed state, but AGP prescribes no automatic retry or weakening.
+
+Ordinary `send()`, `any`, `preferred` and `pinned` behavior remain unchanged, including existing multi-hop pins and local delivery.\
+Only the restricted method derives a pin and one-hop limit.\
+The management HTTP interface remains read-only; this proposal adds no management write route or separate CLI command.
+
+Public types, core-owned schemas, generated exports/catalogs, runtime validation and documentation must land together.\
+The optional admission field preserves existing allow results, while consumers requesting restricted delivery must supply explicit associations.\
+New required methods on `AgpNode` also require updates to structural implementers and test doubles.
+
+Operation-call must validate its configured mode against the captured association before any reply branch sends.\
+Its authenticated default and explicit trusted-development mode are consumer policy, not new global AGP defaults.\
+Its two-stage failed-end fallback must retain the same target, protection requirement and restricted method.
+
+---
+
+## 8. Acceptance obligations
+
+These are requirements for later verification, not executed tests or exploit reproductions.\
+Admission to a disallowed writer must be observed as zero; endpoint refusal by itself is not evidence of reply isolation.
+
+| Property | Required observation |
+|---|---|
+| Authenticated direct request and eligible original session | One admission to the matching direct writer, with the requested association and protection |
+| Same authorized instance reconnects before send admission | Replacement may be chosen with equal association and fresh session/credential identifiers |
+| Same node and principal under a new instance binding | No admission of an old request to the new binding |
+| Different issuer, principal, node or explicit mode | Refusal before data or reverse-label admission |
+| Missing, malformed or legacy association | No inferred authenticated or unauthenticated authority |
+| Explicit unauthenticated profile | Only a matching unauthenticated direct session is eligible; no authenticated-instance claim |
+| Protection floor | Each floor accepts exactly the observed protection values listed in section 5 |
+| Indirect route preferred over an eligible direct candidate | Restricted selection uses the direct candidate in canonical order, without changing ordinary selection |
+| Missing or withdrawn endpoint, local shortcut or only indirect reachability | Immediate admission refusal; no connection wait or relay fallback |
+| Target endpoint disappears after packet admission | Existing one-hop budget prevents onward AGP data forwarding by a conforming receiver |
+| Admission result or route ownership becomes stale | No authority installed on another controller and no split precheck/send decision |
+| Caller mutates its target before queued admission runs | Admission uses the validated immutable snapshot |
+| Deadline/cancellation and capacity boundaries | Existing precedence and no-later-admission guarantees remain intact |
+| Original controller and caller-identity record are gone | Captured values remain independent; no retained controller solely for late replies |
+| Failure after writer admission | No migration/replay; uncertainty and exact-controller disposition isolation remain unchanged |
+| Every operation-call reply branch | Same restriction on answers, malformed/input refusals, descriptions, evidence/handler failures and failed-end fallback |
+| Old runtime or incomplete adapter | Consumer refuses unsupported use; no silent ordinary send |
+| Ordinary send regression controls | Existing destination modes, multi-hop forwarding, local delivery, export ordering and delivery dispositions remain unchanged |
+| Public surface and data contracts | Package-root types and schemas express the same closed shapes and errors; consumer compilation covers the new method |
+| Carrier parity | One node policy across protected CLI/browser carriers; Loopback or trusted-development results do not establish browser confidentiality |
+
+Issuer acceptance must separately establish binding allocation, renewal/release, non-reuse of the public instance-binding identifier, capacity refusal and restart behavior.\
+It must also cover outstanding credentials, pre-commit handoff, sessions spanning the grace interval, unavailable observations and late or superseded lifecycle completions under section 3.\
+A successful AGP equality check cannot certify those issuer properties.
+
+---
+
+## 9. Review gates and integration ownership
+
+The producer contract stays in AGP; consumer repositories should reference it and document their own composition.\
+No normative SDK, schema, wire contract, decision record or implementation is changed by this draft.
+
+| Area | Proposed integration point and required guardrail |
+|---|---|
+| Public data | `@agp/core` types and owned schemas; bounded association, delivery capture, policy and local error vocabulary |
+| Routing | Core candidate query and `DataRoutingPort`; direct filtering must preserve canonical order and leave ordinary resolution unchanged |
+| Admission | Exact controller and callback-result boundary; coordinate stale-result/expiry handling with `B53` |
+| Sending | `AgpNode`, shared data plane and writer; no duplicated browser/CLI or ordinary/restricted send engine |
+| Consumers | `D61` records agreement on the association and public shape; `D62` confirms lifecycle obligations; caller-identity, credential issuer and operation-call still owe implementation and every required adoption branch |
+| Lease lifecycle | `D62` settles ownership and the two required facts; `B6` must select and declare the producer API, coordinating `B53` integration without reopening its frozen records |
+| Protection and scale | Carrier guarantees remain `B50`; credential lifecycle remains `B6`; operating-envelope/resource decisions remain `B54` |
+
+Before implementation selection:
+
+1. Carry `D61`'s selected instance-binding identifier and `D62`'s lifecycle agreements into AGP review; do not reopen them as unanswered questions.
+2. Review the public entry point, protection floor, identifier bounds, errors, migration costs and exact-controller integration as the `B51` contract; keep the unselected `B6` lifecycle API explicit without treating it as a prerequisite to reviewing that contract.
+3. Obtain adversarial design review and the required axiom-alignment verdict; this author's mapping below is not that verdict.
+4. Record the AGP decision, update the normative contracts and select implementation with consumer acceptance ownership; the `B51` admission integration must honor `B53`'s guarded commit, and production issuer reclamation acceptance separately requires the `B6` producer API and its composition evidence.
+
+The product's [ratified applicability map](axioms.md) remains unchanged.\
+The design's load-bearing tensions are:
+
+| Axiom boundary | Design obligation and remaining risk |
+|---|---|
+| A3 composition | Admission owns identity meaning; AGP owns equality and routing enforcement; the public surface is earned by operation-call's demonstrated requirement |
+| A4 durable contract | Capture authority at receipt and preserve `D60`'s lifetime finding, `D61`'s selection and `D62`'s lifecycle obligations; the unresolved producer API remains distinct from consumer agreement and implementation |
+| A8 gated integrity | Neither this draft nor documentation checks approve implementation or authenticate a browser deployment |
+| A9 adversity scope | Later verification must cover replacement, withdrawal, saturation and stale authority at the declared boundaries; no deployment conformance is claimed |
+| A14 finding lifecycle | Retain the unknown-option compatibility hazard and caller-bound/host-lifetime distinction as acceptance obligations, not informal cautions |
+
+The present next move is AGP design and axiom review of the reconciled `B51` contract; Zorg's public-shape and lifecycle-obligation agreements are recorded.\
+Selection of the exact `B6` lifecycle API remains a separate joint design action and a gate on production issuer reclamation, not an unanswered `B51` consumer requirement.\
+The admission repair, disposition acceptance and browser deployment evidence do not close through this contract draft.
+
+---
+
+## 10. Mechanics rationale and consequence
+
+### Mechanics
+
+A direct delivery captures an admission-owned association.\
+A restricted send filters named-endpoint candidates by direct peer, exact association and protection, then uses the same atomic admission and writer ownership as ordinary sends.\
+The existing pin and one-hop budget constrain the packet without carrying identity policy on the wire.
+
+### Rationale
+
+A frozen principal tuple avoids mutable lookup but cannot distinguish later allocations of the same node identity.\
+A stable identifier for one authorized instance binding allows reconnect continuity without turning AGP into a credential issuer or relying on application timeouts to retire stale authority.\
+An explicit supported entry point prevents version skew from silently weakening the request.
+
+### Consequence
+
+Conflating caller completion with host reply lifetime makes finite identity retention look sufficient when it is not established.\
+Conflating authentication with protection overstates confidentiality, while treating ordinary pins as direct-channel restrictions changes neither the actual egress nor its trust boundary.\
+Duplicating admission paths would make future fixes depend on which runtime or method a consumer used.
