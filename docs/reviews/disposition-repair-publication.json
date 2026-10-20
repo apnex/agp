@@ -1,0 +1,215 @@
+{
+  "kind": "disposition-repair-candidate-publication",
+  "recordedAt": "2026-10-18 02:11:42 UTC",
+  "authority": "Director selected the recommended repair-only candidate publication with continue; main and runtime acceptance remain unchanged.",
+  "repository": "https://github.com/apnex/agp.git",
+  "sourceCommit": "ae83dc3574c7e84549b9e7097bc077495f8ac3b9",
+  "sourceParent": "2d0f4875ad94e51e3274871f8221163d6ee445e2",
+  "publishedBase": "f16266aaafa66f6301d7afbf09c55e3a1f990274",
+  "candidateCommit": "2f26eeb7a01e79a5ee0690b2b8ace32cd8c7fa2c",
+  "branch": "repair/disposition-write-observation",
+  "workingDirectory": "/tmp/agp-disposition-candidate.erNkOC/worktree",
+  "scope": [
+    "packages/node/src/dispositions.ts",
+    "packages/node/test/README.md",
+    "packages/node/test/contract/disposition-write-observation.test.js"
+  ],
+  "excluded": {
+    "precedingDocumentationCommits": 9,
+    "laterLocalCommits": 32,
+    "uncommittedWork": true,
+    "mainUpdate": true,
+    "tagOrPackageRelease": true,
+    "deployment": true
+  },
+  "contentIdentity": "Source and candidate differ only under docs/; the candidate's complete delta against its sole parent is exactly the three listed repair paths.",
+  "runtime": {
+    "node": "v24.12.0",
+    "npm": "11.6.2",
+    "typescript": "5.9.3",
+    "platform": "linux",
+    "arch": "x64"
+  },
+  "installation": {
+    "command": "npm ci --ignore-scripts --no-audit --no-fund",
+    "cwd": "/tmp/agp-disposition-candidate.erNkOC/worktree",
+    "candidate": "2f26eeb7a01e79a5ee0690b2b8ace32cd8c7fa2c",
+    "startedAt": null,
+    "exitCode": 0,
+    "output": "\nadded 18 packages in 527ms\n"
+  },
+  "build": {
+    "command": "npm run build",
+    "cwd": "/tmp/agp-disposition-candidate.erNkOC/worktree",
+    "candidate": "2f26eeb7a01e79a5ee0690b2b8ace32cd8c7fa2c",
+    "startedAt": "2026-10-18 02:10:24 UTC",
+    "exitCode": 0,
+    "output": "\n> agp@0.1.0 build\n> tsc -b\n\n"
+  },
+  "fulfilledWriteChecks": {
+    "command": "node --test --test-concurrency=1 --test-timeout=120000 packages/node/test/contract/disposition-write-observation.test.js",
+    "cwd": "/tmp/agp-disposition-candidate.erNkOC/worktree",
+    "candidate": "2f26eeb7a01e79a5ee0690b2b8ace32cd8c7fa2c",
+    "startedAt": "2026-10-18 02:10:31 UTC",
+    "exitCode": 0,
+    "output": "✔ Given a successful disposition write, when the explicit flush path sends it, then rejection observation is registered before the flush returns (4.396233ms)\n✔ Given a successful disposition write, when the all flush path sends it, then rejection observation is registered before the flush returns (0.383554ms)\n✔ Given a successful disposition write, when the timer flush path sends it, then rejection observation is registered before the flush returns (0.328375ms)\n✔ Given a successful disposition write, when the count flush path sends it, then rejection observation is registered before the flush returns (0.291542ms)\nℹ tests 4\nℹ suites 0\nℹ pass 4\nℹ fail 0\nℹ cancelled 0\nℹ skipped 0\nℹ todo 0\nℹ duration_ms 727.311294\n"
+  },
+  "checks": [
+    {
+      "name": "Candidate source identity",
+      "command": "git diff --exit-code ae83dc3574c7e84549b9e7097bc077495f8ac3b9 HEAD -- . ':(exclude)docs/**'",
+      "cwd": "/tmp/agp-disposition-candidate.erNkOC/worktree",
+      "candidate": "2f26eeb7a01e79a5ee0690b2b8ace32cd8c7fa2c",
+      "startedAt": null,
+      "exitCode": 0,
+      "output": ""
+    },
+    {
+      "name": "Candidate parent",
+      "command": "git rev-parse HEAD^",
+      "cwd": "/tmp/agp-disposition-candidate.erNkOC/worktree",
+      "candidate": "2f26eeb7a01e79a5ee0690b2b8ace32cd8c7fa2c",
+      "startedAt": null,
+      "exitCode": 0,
+      "output": "f16266aaafa66f6301d7afbf09c55e3a1f990274\n"
+    },
+    {
+      "name": "Published delta",
+      "command": "git diff-tree --no-commit-id --name-status -r HEAD",
+      "cwd": "/tmp/agp-disposition-candidate.erNkOC/worktree",
+      "candidate": "2f26eeb7a01e79a5ee0690b2b8ace32cd8c7fa2c",
+      "startedAt": null,
+      "exitCode": 0,
+      "output": "M\tpackages/node/src/dispositions.ts\nM\tpackages/node/test/README.md\nA\tpackages/node/test/contract/disposition-write-observation.test.js\n"
+    },
+    {
+      "name": "Candidate clean state",
+      "command": "git status --porcelain=v1",
+      "cwd": "/tmp/agp-disposition-candidate.erNkOC/worktree",
+      "candidate": "2f26eeb7a01e79a5ee0690b2b8ace32cd8c7fa2c",
+      "startedAt": null,
+      "exitCode": 0,
+      "output": ""
+    },
+    {
+      "name": "Candidate test documentation",
+      "command": "tools/check-docs.sh packages/node/test/README.md",
+      "cwd": "/tmp/agp-disposition-candidate.erNkOC/worktree",
+      "candidate": "2f26eeb7a01e79a5ee0690b2b8ace32cd8c7fa2c",
+      "startedAt": null,
+      "exitCode": 0,
+      "output": "\nclean: 1 file(s), rule S13.\n\nclean: 1 file(s), rule S6.\n\nclean: 1 file(s), rule S10.\n\nclean: 1 file(s), rule S12.\n\nclean: 1 file(s), rule S8.\ndocs: 1 file(s) clean against S6, S8, S10, S12, S13.\n"
+    },
+    {
+      "name": "Runtime and compiler",
+      "command": "node -p 'JSON.stringify({node:process.version,platform:process.platform,arch:process.arch,typescript:require(\"typescript/package.json\").version})'",
+      "cwd": "/tmp/agp-disposition-candidate.erNkOC/worktree",
+      "candidate": "2f26eeb7a01e79a5ee0690b2b8ace32cd8c7fa2c",
+      "startedAt": null,
+      "exitCode": 0,
+      "output": "{\"node\":\"v24.12.0\",\"platform\":\"linux\",\"arch\":\"x64\",\"typescript\":\"5.9.3\"}\n"
+    }
+  ],
+  "publication": {
+    "command": "git push --porcelain --no-follow-tags --force-with-lease=refs/heads/repair/disposition-write-observation: origin 2f26eeb7a01e79a5ee0690b2b8ace32cd8c7fa2c:refs/heads/repair/disposition-write-observation",
+    "cwd": "/tmp/agp-disposition-candidate.erNkOC/worktree",
+    "candidate": "2f26eeb7a01e79a5ee0690b2b8ace32cd8c7fa2c",
+    "startedAt": "2026-10-18 02:11:14 UTC",
+    "exitCode": 0,
+    "output": "remote: \nremote: Create a pull request for 'repair/disposition-write-observation' on GitHub by visiting:        \nremote:      https://github.com/apnex/agp/pull/new/repair/disposition-write-observation        \nremote: \nTo https://github.com/apnex/agp.git\n*\t2f26eeb7a01e79a5ee0690b2b8ace32cd8c7fa2c:refs/heads/repair/disposition-write-observation\t[new branch]\nDone\n"
+  },
+  "remoteReadback": {
+    "command": "git ls-remote origin refs/heads/main refs/heads/repair/disposition-write-observation",
+    "cwd": "/home/apnex/taceng/agp",
+    "candidate": "2f26eeb7a01e79a5ee0690b2b8ace32cd8c7fa2c",
+    "startedAt": null,
+    "exitCode": 0,
+    "output": "f16266aaafa66f6301d7afbf09c55e3a1f990274\trefs/heads/main\n2f26eeb7a01e79a5ee0690b2b8ace32cd8c7fa2c\trefs/heads/repair/disposition-write-observation\n",
+    "checkedAt": "2026-10-18 02:11:42 UTC"
+  },
+  "acceptance": {
+    "candidateAvailability": "published and remote revision verified",
+    "authorChecks": "build and four fulfilled-write checks passed",
+    "independentReview": "prior independent source review covers the original repair; no new independent review or runtime acceptance is claimed for this publication",
+    "remaining": [
+      "failure callback behavior on unsuccessful control writes",
+      "duplicate-safe exact-session teardown",
+      "process survival",
+      "replacement-session isolation",
+      "declared release-regression scope and results",
+      "distinct runtime acceptance judgment"
+    ],
+    "B56": "open",
+    "consumerInstruction": "Candidate availability only; no automatic pin change, safeguard removal, new fault reproduction or production promotion requested."
+  },
+  "handoff": {
+    "path": "/home/apnex/taceng/zorg/upstream/agp-disposition-repair-candidate-publication.md",
+    "sha256": "13588f6b34363b2ef5802d1f62c0692bd60c07b92408ed4b16691ab4d3881cc1",
+    "state": "placed locally; acknowledgment and adoption not claimed"
+  },
+  "trackingValidation": {
+    "initialStyleCheck": {
+      "name": "Documentation style",
+      "command": "tools/check-docs.sh docs/BOARD.md docs/VERIFICATION.md /home/apnex/taceng/zorg/upstream/agp-disposition-repair-candidate-publication.md",
+      "cwd": "/home/apnex/taceng/agp",
+      "exitCode": 1,
+      "output": "\nclean: 3 file(s), rule S13.\nFAIL  S6   docs/VERIFICATION.md:3674  sentence layout differs from S6; run --fix\nFAIL  S6   /home/apnex/taceng/zorg/upstream/agp-disposition-repair-candidate-publication.md:3  sentence layout differs from S6; run --fix\n\n2 S6 failure(s) across 3 file(s).\n\nclean: 3 file(s), rule S10.\n\nclean: 3 file(s), rule S12.\n\nclean: 3 file(s), rule S8.\n"
+    },
+    "checks": [
+      {
+        "name": "Documentation style",
+        "command": "tools/check-docs.sh docs/BOARD.md docs/VERIFICATION.md /home/apnex/taceng/zorg/upstream/agp-disposition-repair-candidate-publication.md",
+        "cwd": "/home/apnex/taceng/agp",
+        "exitCode": 0,
+        "output": "\nclean: 3 file(s), rule S13.\n\nclean: 3 file(s), rule S6.\n\nclean: 3 file(s), rule S10.\n\nclean: 3 file(s), rule S12.\n\nclean: 3 file(s), rule S8.\ndocs: 3 file(s) clean against S6, S8, S10, S12, S13.\n"
+      },
+      {
+        "name": "Board and record consistency",
+        "command": "node --test --test-concurrency=1 --test-timeout=120000 test/conformance/board-record.test.js test/conformance/record-integrity.test.js",
+        "cwd": "/home/apnex/taceng/agp",
+        "exitCode": 0,
+        "output": "✔ Given the triage ledger, when each candidate is read, then it is scored on both dimensions and cites a record (12.462439ms)\n✔ Given every record cited by the board, when the link is resolved, then the target and its anchor exist (137.137613ms)\n✔ Given the held section, when each item is read, then it is scored and carries a revival trigger (1.84693ms)\n✔ Given the decisions required, when each is read, then it names exactly what it blocks (0.998385ms)\n✔ Given every board identifier, when the ledger and milestones are compared, then neither contains an item the other omits (0.976294ms)\n✔ Given every board item, when its ledger status is compared with where it sits, then the board does not disagree with itself about its state (6.86851ms)\n✔ Given the milestones, when each is read, then no landed item is presented as a live move and the closed count matches the closed set (2.583721ms)\n✔ Given every record that cites a board item, when the citation is resolved, then the item exists on the board (38.720784ms)\n✔ Given the architecture maturity table, when a reopen trigger is read, then it names a condition that has not already happened (1.546505ms)\n✔ Given confirmed intent, when a row says it was amended, then it names the decision that amended it (1.141278ms)\n✔ Given every ratified decision, when it is checked against the vision, then it has been absorbed or explicitly ruled not to change purpose (1.187635ms)\nℹ tests 11\nℹ suites 0\nℹ pass 11\nℹ fail 0\nℹ cancelled 0\nℹ skipped 0\nℹ todo 0\nℹ duration_ms 311.580153\n"
+      },
+      {
+        "name": "AGP whitespace",
+        "command": "git diff --check",
+        "cwd": "/home/apnex/taceng/agp",
+        "exitCode": 0,
+        "output": ""
+      },
+      {
+        "name": "Zorg whitespace",
+        "command": "git -C /home/apnex/taceng/zorg diff --check",
+        "cwd": "/home/apnex/taceng/agp",
+        "exitCode": 0,
+        "output": ""
+      }
+    ],
+    "correction": "Applied sentence-break formatting only to the new verification section and new Zorg note.",
+    "preservation": {
+      "/home/apnex/taceng/agp": {
+        "head": "a09e4bcda9d668b52ff3212c3813fad30fa7ac10",
+        "indexUnchanged": true,
+        "preexistingDirtyFilesPreserved": 77,
+        "newPaths": [
+          "docs/reviews/disposition-repair-publication.json"
+        ]
+      },
+      "/home/apnex/taceng/zorg": {
+        "head": "db74bf6a4befdc449a1a5fe53714b82eae50f401",
+        "indexUnchanged": true,
+        "preexistingDirtyFilesPreserved": 0,
+        "newPaths": [
+          "upstream/agp-disposition-repair-candidate-publication.md"
+        ]
+      },
+      "preservation": {
+        "boardOutsideTwoRows": true,
+        "verificationOutsideCurrentFindingAndAppend": true
+      },
+      "localLinksChecked": 7,
+      "candidateClean": true,
+      "noteSha256": "13588f6b34363b2ef5802d1f62c0692bd60c07b92408ed4b16691ab4d3881cc1"
+    }
+  }
+}

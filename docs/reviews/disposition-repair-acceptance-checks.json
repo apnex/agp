@@ -1,0 +1,1051 @@
+{
+  "kind": "disposition-repair-acceptance-checks",
+  "status": "Author assessment complete: not ready for main; four runtime properties remain unestablished",
+  "authority": "Director selected work through B56 acceptance and release decision with continue; no main publication, new fault reproduction or external handoff selected.",
+  "plan": {
+    "scope": "Assess B56 release readiness, record Zorg recurrence, and refresh only previously reviewed non-fault build/type/fulfilled-write/healthy-delivery checks on exact candidate 2f26eeb. No main promotion.",
+    "readOrder": [
+      "Applicable guidance and closest publication/acceptance records",
+      "Candidate build scripts and every selected test/helper before execution",
+      "Exact candidate checkout/ref identities and bounded source content equivalence",
+      "Existing Zorg logs/provenance then new non-fault candidate checks",
+      "Compare measured evidence with six pre-existing acceptance requirements"
+    ],
+    "outputs": [
+      "docs/reviews/disposition-repair-acceptance-checks.json: raw commands/results and source identities",
+      "docs/VERIFICATION.md: append current acceptance assessment without rewriting historical checkpoints",
+      "docs/BOARD.md: current B56 evidence and actual next dependency, preserving I2/P2 and first priority"
+    ],
+    "vocabulary": [
+      "exact controller",
+      "writeControl",
+      "onWriteFailure",
+      "fulfilled-write observation",
+      "runtime acceptance",
+      "repair-only release",
+      "B56",
+      "MX24",
+      "BL24"
+    ],
+    "absences": [
+      "Candidate runtime evidence for failed-write callback, duplicate-safe teardown, process survival, replacement-session isolation",
+      "Declared bounded regression scope versus full-suite result",
+      "Distinct acceptance judgment and main-release authority"
+    ],
+    "parked": [
+      "No crash-triggering reproduction or failure-injection execution",
+      "No new tests, implementation changes, model calls or agents",
+      "No context-lab dependency, new design, survey or browser-package changes",
+      "No sibling correspondence, commit, push or branch promotion",
+      "No deletion or repair of stale pre-existing worktree registration"
+    ],
+    "finish": "Record exact healthy-regression scope and evidence, then stop with a candid not-ready decision if the required failed-write runtime properties remain unestablished; do not offer another equivalent review loop."
+  },
+  "provenance": {
+    "missionKit": "8094818273864e6a0429ad2ee981aaa09716160d",
+    "evidenceAuthority": "Author-side local checks; not an independent acceptance judgment",
+    "guidance": "Research and writing guidance separate consumer claims, raw measured results and author interpretation; preserve the original report and earlier acceptance/publication records."
+  },
+  "baseline": {
+    "command": "node --input-type=module -e 'import fs from \"node:fs\";import cp from \"node:child_process\";import crypto from \"node:crypto\";import path from \"node:path\";import assert from \"node:assert/strict\";\nconst agp=\"/home/apnex/taceng/agp\",zorg=\"/home/apnex/taceng/zorg\";\nconst git=(cwd,...args)=>cp.execFileSync(\"git\",args,{cwd,encoding:\"utf8\"});const sha=b=>crypto.createHash(\"sha256\").update(b).digest(\"hex\");\nconst recordPath=\"docs/reviews/disposition-repair-acceptance-checks.json\";assert.equal(fs.existsSync(path.join(agp,recordPath)),false);\nconst dirty=git(agp,\"ls-files\",\"--modified\",\"--others\",\"--exclude-standard\",\"-z\").split(\"\\0\").filter(Boolean).sort();\nconst preserved=git(agp,\"ls-files\",\"-z\",\"docs/reviews/browser-peer-scale-assurance\",\"VISION.md\",\"docs/DECISIONS.md\",\"packages/node/src/dispositions.ts\",\"packages/node/test/contract/disposition-write-observation.test.js\",\"packages/node/test/README.md\",\"package.json\",\"package-lock.json\").split(\"\\0\").filter(Boolean);\nconst files=Object.fromEntries([...new Set([...dirty,...preserved])].sort().map(p=>{const b=fs.readFileSync(path.join(agp,p));return[p,{bytes:b.length,sha256:sha(b)}]}));\nconst board=fs.readFileSync(path.join(agp,\"docs/BOARD.md\"),\"utf8\");const verification=fs.readFileSync(path.join(agp,\"docs/VERIFICATION.md\"),\"utf8\");\nassert.equal(verification.includes(\"### 4.79 \"),false);\nconst sourcePaths=[zorg+\"/upstream/zorg-agp-disposition-write-recurrence.md\",zorg+\"/upstream/agp-disposition-repair-candidate-publication.md\",zorg+\"/upstream/agp-disposition-write-status.md\",\"/home/apnex/taceng/zorg-eval-runs/delta-4/stage-5/verify-attempt-3/logs/D4-E5-checkouts.log\",\"/home/apnex/taceng/zorg-eval-runs/delta-4/stage-5/verify-attempt-3/logs/zorg-test.log\",\"/home/apnex/taceng/zorg-eval-runs/delta-4/stage-5/verify-attempt-3/logs/zorg-hub-command-retry.log\"];\nconst sources=sourcePaths.map(p=>{const b=fs.readFileSync(p);return{path:p,bytes:b.length,sha256:sha(b)}});\nconst result={measuredAt:new Date().toISOString(),environment:{node:process.version,execPath:process.execPath,platform:process.platform,arch:process.arch},recordPath,agp:{head:git(agp,\"rev-parse\",\"HEAD\").trim(),origin:git(agp,\"rev-parse\",\"origin/main\").trim(),candidate:git(agp,\"rev-parse\",\"repair/disposition-write-observation\").trim(),candidateParent:git(agp,\"rev-parse\",\"repair/disposition-write-observation^\").trim(),index:git(agp,\"diff\",\"--cached\",\"--binary\"),status:git(agp,\"status\",\"--porcelain=v1\",\"--untracked-files=all\"),worktrees:git(agp,\"worktree\",\"list\",\"--porcelain\"),dirty,files},zorg:{head:git(zorg,\"rev-parse\",\"HEAD\").trim(),origin:git(zorg,\"rev-parse\",\"origin/main\").trim(),index:git(zorg,\"diff\",\"--cached\",\"--binary\"),status:git(zorg,\"status\",\"--porcelain=v1\",\"--untracked-files=all\"),reportCommit:git(zorg,\"rev-parse\",\"707a8d5\").trim()},sources,boardLines:board.split(\"\\n\").filter(l=>l.startsWith(\"| `B56` |\")||l.startsWith(\"| 1 | `B56` |\")),mx24:verification.split(\"\\n\").find(l=>l.startsWith(\"| `MX24` |\")),staleCandidateWorktree:{path:\"/tmp/agp-disposition-candidate.erNkOC/worktree\",exists:fs.existsSync(\"/tmp/agp-disposition-candidate.erNkOC/worktree\")}};console.log(JSON.stringify(result));'",
+    "data": {
+      "measuredAt": "2026-10-19T23:16:47.984Z",
+      "environment": {
+        "node": "v24.12.0",
+        "execPath": "/home/apnex/.nvm/versions/node/v24.12.0/bin/node",
+        "platform": "linux",
+        "arch": "x64"
+      },
+      "recordPath": "docs/reviews/disposition-repair-acceptance-checks.json",
+      "agp": {
+        "head": "a98c03fcfe3bfdaeee32c8943971ecc32eb4f898",
+        "origin": "f16266aaafa66f6301d7afbf09c55e3a1f990274",
+        "candidate": "2f26eeb7a01e79a5ee0690b2b8ace32cd8c7fa2c",
+        "candidateParent": "f16266aaafa66f6301d7afbf09c55e3a1f990274",
+        "index": "",
+        "status": " M docs/BOARD.md\n M docs/VERIFICATION.md\n M docs/design/mechanisms.md\n?? docs/design/admission-use-lifecycle.md\n?? docs/design/direct-peer-send.md\n?? docs/reviews/admission-acquisition-handoff-checks.json\n?? docs/reviews/admission-acquisition-independent-review.txt\n?? docs/reviews/admission-acquisition-review-checks.json\n?? docs/reviews/admission-acquisition-review.md\n?? docs/reviews/admission-diagnostic-correction-checks.json\n?? docs/reviews/admission-diagnostic-correction-handoff-checks.json\n?? docs/reviews/admission-diagnostic-correction-handoff.md\n?? docs/reviews/admission-diagnostic-correction-request.md\n?? docs/reviews/admission-lifecycle-comparison.md\n?? docs/reviews/admission-lifetime-adoption.md\n?? docs/reviews/admission-lifetime-correction-r2.md\n?? docs/reviews/admission-lifetime-correction-r3.md\n?? docs/reviews/admission-lifetime-correction.md\n?? docs/reviews/admission-lifetime-independent-review-r2.md\n?? docs/reviews/admission-lifetime-independent-review-r3.md\n?? docs/reviews/admission-lifetime-independent-review.md\n?? docs/reviews/admission-redemption-independent-review.txt\n?? docs/reviews/admission-redemption-review-checks.json\n?? docs/reviews/admission-redemption-timing-checks.json\n?? docs/reviews/admission-use-lifecycle-checks.json\n?? docs/reviews/admission-use-lifecycle-fit-handoff-checks.json\n?? docs/reviews/admission-use-lifecycle-fit-request.md\n?? docs/reviews/admission-use-lifecycle-fit-response.md\n?? docs/reviews/browser-carrier-feasibility.md\n?? docs/reviews/browser-peer-feasibility.md\n?? docs/reviews/browser-peer-scale-amendment.md\n?? docs/reviews/browser-peer-scale-assurance/browser-scale-execution-readiness-checks.json\n?? docs/reviews/browser-peer-scale-assurance/browser-scale-execution-readiness.md\n?? docs/reviews/browser-peer-scale-assurance/browser-scale-key-recheck-02.txt\n?? docs/reviews/browser-peer-scale-assurance/browser-scale-key-recheck-checks-02.json\n?? docs/reviews/browser-peer-scale-assurance/browser-scale-public-binding-checks.json\n?? docs/reviews/browser-peer-scale-assurance/browser-scale-public-binding-handoff-checks.json\n?? docs/reviews/browser-peer-scale-assurance/browser-scale-public-binding.md\n?? docs/reviews/browser-peer-scale-revision-checks.json\n?? docs/reviews/context-lab-assurance-correction-handoff-checks.json\n?? docs/reviews/context-lab-assurance-correction-request.md\n?? docs/reviews/context-lab-assurance-feedback.md\n?? docs/reviews/direct-peer-send-adoption-checks.json\n?? docs/reviews/direct-peer-send-adoption.md\n?? docs/reviews/direct-peer-send-assurance/direct-peer-acceptance-mapping-checks.json\n?? docs/reviews/direct-peer-send-assurance/direct-peer-acceptance-mapping.md\n?? docs/reviews/direct-peer-send-assurance/direct-peer-context-lab-contract-request.md\n?? docs/reviews/direct-peer-send-assurance/direct-peer-context-lab-handoff-checks.json\n?? docs/reviews/direct-peer-send-assurance/direct-peer-context-lab-handoff.md\n?? docs/reviews/direct-peer-send-assurance/direct-peer-context-lab-request-checks.json\n?? docs/reviews/direct-peer-send-assurance/direct-peer-key-recheck-02.txt\n?? docs/reviews/direct-peer-send-assurance/direct-peer-key-recheck-checks-02.json\n?? docs/reviews/direct-peer-send-design-checks.json\n?? docs/reviews/direct-peer-send-design-review.md\n?? docs/reviews/direct-peer-send-draft-checks.json\n?? docs/reviews/direct-peer-send-draft-response.md\n?? docs/reviews/direct-peer-send-independent-review.txt\n?? docs/reviews/direct-peer-send-lifecycle-checks.json\n?? docs/reviews/direct-peer-send-lifecycle-response.md\n?? docs/reviews/disposition-repair-publication.json\n?? docs/reviews/evidence/admission-acquisition-review-input.txt\n?? docs/reviews/evidence/admission-redemption-review-input.txt\n?? docs/reviews/evidence/admission-use-lifecycle-before-acquisition.txt\n?? docs/reviews/evidence/browser-feasibility-chrome136.json\n?? docs/reviews/evidence/browser-feasibility-chrome151.json\n?? docs/reviews/evidence/direct-peer-send-before-d61.txt\n?? docs/reviews/evidence/direct-peer-send-before-d62.txt\n?? docs/reviews/evidence/direct-peer-send-design-review-input.txt\n?? docs/reviews/evidence/operation-call-acceptance/case-logs/honest-call-ending.test.js.log.txt\n?? docs/reviews/evidence/operation-call-acceptance/case-logs/not-delivered-signal.test.js.log.txt\n?? docs/reviews/evidence/operation-call-acceptance/case-logs/request-correlation.test.js.log.txt\n?? docs/reviews/evidence/operation-call-acceptance/cert-o.txt\n?? docs/reviews/evidence/operation-call-acceptance/checkouts-o.json\n?? docs/reviews/evidence/operation-call-acceptance/run-o.out\n?? docs/reviews/reply-isolation-checks.json\n?? docs/reviews/reply-isolation-handoff.json\n?? docs/reviews/reply-isolation-qualifications-handoff.json\n?? docs/reviews/reply-isolation-qualifications.md\n?? docs/reviews/reply-isolation-response.md\n?? docs/reviews/reply-isolation-review.md\n?? docs/reviews/reply-isolation-sources.json\n?? docs/reviews/upstream-feedback-handoff-checks.json\n?? docs/reviews/upstream-reply-reconciliation-checks.json\n?? docs/reviews/zorg-requirements-review.md\n?? docs/reviews/zorg-review-reply-assessment.md\n?? docs/reviews/zorg-review-response.md\n?? docs/surveys/shared-transport-survey.md\n?? scripts/browser-feasibility.mjs\n",
+        "worktrees": "worktree /home/apnex/taceng/agp\nHEAD a98c03fcfe3bfdaeee32c8943971ecc32eb4f898\nbranch refs/heads/main\n\nworktree /tmp/agp-disposition-candidate.erNkOC/worktree\nHEAD 2f26eeb7a01e79a5ee0690b2b8ace32cd8c7fa2c\nbranch refs/heads/repair/disposition-write-observation\n\n",
+        "dirty": [
+          "docs/BOARD.md",
+          "docs/VERIFICATION.md",
+          "docs/design/admission-use-lifecycle.md",
+          "docs/design/direct-peer-send.md",
+          "docs/design/mechanisms.md",
+          "docs/reviews/admission-acquisition-handoff-checks.json",
+          "docs/reviews/admission-acquisition-independent-review.txt",
+          "docs/reviews/admission-acquisition-review-checks.json",
+          "docs/reviews/admission-acquisition-review.md",
+          "docs/reviews/admission-diagnostic-correction-checks.json",
+          "docs/reviews/admission-diagnostic-correction-handoff-checks.json",
+          "docs/reviews/admission-diagnostic-correction-handoff.md",
+          "docs/reviews/admission-diagnostic-correction-request.md",
+          "docs/reviews/admission-lifecycle-comparison.md",
+          "docs/reviews/admission-lifetime-adoption.md",
+          "docs/reviews/admission-lifetime-correction-r2.md",
+          "docs/reviews/admission-lifetime-correction-r3.md",
+          "docs/reviews/admission-lifetime-correction.md",
+          "docs/reviews/admission-lifetime-independent-review-r2.md",
+          "docs/reviews/admission-lifetime-independent-review-r3.md",
+          "docs/reviews/admission-lifetime-independent-review.md",
+          "docs/reviews/admission-redemption-independent-review.txt",
+          "docs/reviews/admission-redemption-review-checks.json",
+          "docs/reviews/admission-redemption-timing-checks.json",
+          "docs/reviews/admission-use-lifecycle-checks.json",
+          "docs/reviews/admission-use-lifecycle-fit-handoff-checks.json",
+          "docs/reviews/admission-use-lifecycle-fit-request.md",
+          "docs/reviews/admission-use-lifecycle-fit-response.md",
+          "docs/reviews/browser-carrier-feasibility.md",
+          "docs/reviews/browser-peer-feasibility.md",
+          "docs/reviews/browser-peer-scale-amendment.md",
+          "docs/reviews/browser-peer-scale-assurance/browser-scale-execution-readiness-checks.json",
+          "docs/reviews/browser-peer-scale-assurance/browser-scale-execution-readiness.md",
+          "docs/reviews/browser-peer-scale-assurance/browser-scale-key-recheck-02.txt",
+          "docs/reviews/browser-peer-scale-assurance/browser-scale-key-recheck-checks-02.json",
+          "docs/reviews/browser-peer-scale-assurance/browser-scale-public-binding-checks.json",
+          "docs/reviews/browser-peer-scale-assurance/browser-scale-public-binding-handoff-checks.json",
+          "docs/reviews/browser-peer-scale-assurance/browser-scale-public-binding.md",
+          "docs/reviews/browser-peer-scale-revision-checks.json",
+          "docs/reviews/context-lab-assurance-correction-handoff-checks.json",
+          "docs/reviews/context-lab-assurance-correction-request.md",
+          "docs/reviews/context-lab-assurance-feedback.md",
+          "docs/reviews/direct-peer-send-adoption-checks.json",
+          "docs/reviews/direct-peer-send-adoption.md",
+          "docs/reviews/direct-peer-send-assurance/direct-peer-acceptance-mapping-checks.json",
+          "docs/reviews/direct-peer-send-assurance/direct-peer-acceptance-mapping.md",
+          "docs/reviews/direct-peer-send-assurance/direct-peer-context-lab-contract-request.md",
+          "docs/reviews/direct-peer-send-assurance/direct-peer-context-lab-handoff-checks.json",
+          "docs/reviews/direct-peer-send-assurance/direct-peer-context-lab-handoff.md",
+          "docs/reviews/direct-peer-send-assurance/direct-peer-context-lab-request-checks.json",
+          "docs/reviews/direct-peer-send-assurance/direct-peer-key-recheck-02.txt",
+          "docs/reviews/direct-peer-send-assurance/direct-peer-key-recheck-checks-02.json",
+          "docs/reviews/direct-peer-send-design-checks.json",
+          "docs/reviews/direct-peer-send-design-review.md",
+          "docs/reviews/direct-peer-send-draft-checks.json",
+          "docs/reviews/direct-peer-send-draft-response.md",
+          "docs/reviews/direct-peer-send-independent-review.txt",
+          "docs/reviews/direct-peer-send-lifecycle-checks.json",
+          "docs/reviews/direct-peer-send-lifecycle-response.md",
+          "docs/reviews/disposition-repair-publication.json",
+          "docs/reviews/evidence/admission-acquisition-review-input.txt",
+          "docs/reviews/evidence/admission-redemption-review-input.txt",
+          "docs/reviews/evidence/admission-use-lifecycle-before-acquisition.txt",
+          "docs/reviews/evidence/browser-feasibility-chrome136.json",
+          "docs/reviews/evidence/browser-feasibility-chrome151.json",
+          "docs/reviews/evidence/direct-peer-send-before-d61.txt",
+          "docs/reviews/evidence/direct-peer-send-before-d62.txt",
+          "docs/reviews/evidence/direct-peer-send-design-review-input.txt",
+          "docs/reviews/evidence/operation-call-acceptance/case-logs/honest-call-ending.test.js.log.txt",
+          "docs/reviews/evidence/operation-call-acceptance/case-logs/not-delivered-signal.test.js.log.txt",
+          "docs/reviews/evidence/operation-call-acceptance/case-logs/request-correlation.test.js.log.txt",
+          "docs/reviews/evidence/operation-call-acceptance/cert-o.txt",
+          "docs/reviews/evidence/operation-call-acceptance/checkouts-o.json",
+          "docs/reviews/evidence/operation-call-acceptance/run-o.out",
+          "docs/reviews/reply-isolation-checks.json",
+          "docs/reviews/reply-isolation-handoff.json",
+          "docs/reviews/reply-isolation-qualifications-handoff.json",
+          "docs/reviews/reply-isolation-qualifications.md",
+          "docs/reviews/reply-isolation-response.md",
+          "docs/reviews/reply-isolation-review.md",
+          "docs/reviews/reply-isolation-sources.json",
+          "docs/reviews/upstream-feedback-handoff-checks.json",
+          "docs/reviews/upstream-reply-reconciliation-checks.json",
+          "docs/reviews/zorg-requirements-review.md",
+          "docs/reviews/zorg-review-reply-assessment.md",
+          "docs/reviews/zorg-review-response.md",
+          "docs/surveys/shared-transport-survey.md",
+          "scripts/browser-feasibility.mjs"
+        ],
+        "files": {
+          "VISION.md": {
+            "bytes": 9750,
+            "sha256": "7450b55418271077c412faade2c2be5018c0f7c335cf2aa4806f8aaf22b9cb60"
+          },
+          "docs/BOARD.md": {
+            "bytes": 47461,
+            "sha256": "9537d4df2f4f0c626d57d280e63db81bec63270641890fd82e727ebcbb7d96ab"
+          },
+          "docs/DECISIONS.md": {
+            "bytes": 82825,
+            "sha256": "eb5eff64200afa01e84cb6493754a0fd2782ef9cd40da3a4ccc87d64c6c26a50"
+          },
+          "docs/VERIFICATION.md": {
+            "bytes": 386879,
+            "sha256": "9a4ddc5ba20e2b968143722634bca673bc29d013ba0f15c45571bc71d117816a"
+          },
+          "docs/design/admission-use-lifecycle.md": {
+            "bytes": 66143,
+            "sha256": "49a57e583eb0fbd6d46933273d376936e8cafc6ae95ec4944750ec2878b82097"
+          },
+          "docs/design/direct-peer-send.md": {
+            "bytes": 35367,
+            "sha256": "c62574382b91cfd30a443ba5e16b23d10dae797c3278539277666f0a316eedea"
+          },
+          "docs/design/mechanisms.md": {
+            "bytes": 30420,
+            "sha256": "3d00bc685488f81e54d31e12cd00f579f86421db00ee37fb9de26c4d1b74a99d"
+          },
+          "docs/reviews/admission-acquisition-handoff-checks.json": {
+            "bytes": 32763,
+            "sha256": "3b86449d256459f7526b96eac209a34e3c96823acc7bdeb89d273c27fc764a67"
+          },
+          "docs/reviews/admission-acquisition-independent-review.txt": {
+            "bytes": 25146,
+            "sha256": "3a67d83b8dabcef9a7028947ea3c040488422840eae7e541e4a67703d2d859e6"
+          },
+          "docs/reviews/admission-acquisition-review-checks.json": {
+            "bytes": 44468,
+            "sha256": "bcec739d9abe87d2749cd93fe854eaed5a998a1820b1e327bfa7e075e510cdef"
+          },
+          "docs/reviews/admission-acquisition-review.md": {
+            "bytes": 10037,
+            "sha256": "0f979875b53bad4b09e9e658e99912e0f3504ea8c09aed029f4d99bcfb4f848d"
+          },
+          "docs/reviews/admission-diagnostic-correction-checks.json": {
+            "bytes": 120023,
+            "sha256": "aedc25300e0384daec329e5588346e618dd9cafcb639befea16dec131d435698"
+          },
+          "docs/reviews/admission-diagnostic-correction-handoff-checks.json": {
+            "bytes": 75021,
+            "sha256": "4730a294a8b393030201184aa4becef77d702329002b85a5b55c00f029331d02"
+          },
+          "docs/reviews/admission-diagnostic-correction-handoff.md": {
+            "bytes": 3310,
+            "sha256": "8b1f91220787bbad196d22d5ee06c97804d71bc3feddd7bbc0549ce159574645"
+          },
+          "docs/reviews/admission-diagnostic-correction-request.md": {
+            "bytes": 10148,
+            "sha256": "bc65b758725d381f4fd0275b8b03f043182bddcd1af0bfde9c4e29b22cbebf05"
+          },
+          "docs/reviews/admission-lifecycle-comparison.md": {
+            "bytes": 25009,
+            "sha256": "27a39f7fccc8e6ac4fab52340edbf9cff1235462ba8256e3f66ecf122be8dcea"
+          },
+          "docs/reviews/admission-lifetime-adoption.md": {
+            "bytes": 12915,
+            "sha256": "d6a53fc231d1ba03db5f39661ab2d8629409d05b83d532fdf0ee24f305af59d0"
+          },
+          "docs/reviews/admission-lifetime-correction-r2.md": {
+            "bytes": 53917,
+            "sha256": "b89a3328ae7cd41feb38a498b75b16fe06d47f232d9c09dffe42542438f005fb"
+          },
+          "docs/reviews/admission-lifetime-correction-r3.md": {
+            "bytes": 56562,
+            "sha256": "6ccf9ba0e7d94b83897fade8f865fe3fb1328db292d92cce4d5cc85bc28fc2f2"
+          },
+          "docs/reviews/admission-lifetime-correction.md": {
+            "bytes": 41424,
+            "sha256": "01bae9c2446bf6ff6d8e0027735976f5ff84c4216d31942c2d8fef80ffde0ed0"
+          },
+          "docs/reviews/admission-lifetime-independent-review-r2.md": {
+            "bytes": 6348,
+            "sha256": "01a30e624c63a4d2e3f466595c62514ee97ab2d4c4d164988975103df0d31979"
+          },
+          "docs/reviews/admission-lifetime-independent-review-r3.md": {
+            "bytes": 8325,
+            "sha256": "8f1b4cf8c725bc083ebb2d299fa12263bbb15f701f299ea1e26bb6055b3cbf8f"
+          },
+          "docs/reviews/admission-lifetime-independent-review.md": {
+            "bytes": 10956,
+            "sha256": "7ef3974fa4d54aa2724b539bf7a34fc8ef03992f350ad37fd2d006005940fe1f"
+          },
+          "docs/reviews/admission-redemption-independent-review.txt": {
+            "bytes": 27568,
+            "sha256": "e5a7352feb878ba4d4192a67388b6a5b3f54a9cdf8e9fc8360df1f942f85ca30"
+          },
+          "docs/reviews/admission-redemption-review-checks.json": {
+            "bytes": 76182,
+            "sha256": "1911627a380ac5abcdfd90510d7891682a7185ecb93d26d5742873f45263fe44"
+          },
+          "docs/reviews/admission-redemption-timing-checks.json": {
+            "bytes": 82624,
+            "sha256": "196fd797c061ba079e342bf4176a0d45a0aa3d5595ae0f76e127bc5b40c60e4e"
+          },
+          "docs/reviews/admission-use-lifecycle-checks.json": {
+            "bytes": 22453,
+            "sha256": "c1778ad0f1361ab8e5e6bde3319243b9c73b158cd8185412e9c4b4cf1abc3199"
+          },
+          "docs/reviews/admission-use-lifecycle-fit-handoff-checks.json": {
+            "bytes": 60335,
+            "sha256": "417ef53f4edc6b28d4366f7eefd1baa461e19b23a11b89ac88c1d6cb399eebe8"
+          },
+          "docs/reviews/admission-use-lifecycle-fit-request.md": {
+            "bytes": 7334,
+            "sha256": "7e180ac181630d8c6bebce986b78701ab9be694c975ca715e3f00f0aaaa001c9"
+          },
+          "docs/reviews/admission-use-lifecycle-fit-response.md": {
+            "bytes": 3589,
+            "sha256": "189e4ed221767c8b43d82823d3b93997c5e492e6b352416dc64e68429360bab4"
+          },
+          "docs/reviews/browser-carrier-feasibility.md": {
+            "bytes": 15480,
+            "sha256": "c57dd0a9dc8071d761bba1ffb9fb4ce5a7aa66313d944ece46cad283e1fe797c"
+          },
+          "docs/reviews/browser-peer-feasibility.md": {
+            "bytes": 14996,
+            "sha256": "f66876ba9ce4f0c926c33143460bcf196372747a69197703aab6517e757501c3"
+          },
+          "docs/reviews/browser-peer-scale-amendment.md": {
+            "bytes": 10676,
+            "sha256": "1579675e8263508338c007f243b23d2b2b2ecb857d342d7664f14589f319cda3"
+          },
+          "docs/reviews/browser-peer-scale-assurance/browser-scale-answer-key.json": {
+            "bytes": 16336,
+            "sha256": "b23f1c52e5c07217f6955fe3b6f8aec5f0f7eb0e0ad857be9f8c90e2ab521955"
+          },
+          "docs/reviews/browser-peer-scale-assurance/browser-scale-assurance-preparation.md": {
+            "bytes": 13075,
+            "sha256": "feba52b9eefb8adc5018a3986da89be49cc66babbd9c3c26ca81671fc441b612"
+          },
+          "docs/reviews/browser-peer-scale-assurance/browser-scale-comparison-rule.json": {
+            "bytes": 1047,
+            "sha256": "92013ba4cb4e6d1d067233e5c7a419536066aeecf36fefa6f9b6f4d0c2d4fae4"
+          },
+          "docs/reviews/browser-peer-scale-assurance/browser-scale-execution-readiness-checks.json": {
+            "bytes": 72618,
+            "sha256": "6c7097e4141d5fe0236ba2256736757202ec47ecb3a373c797490fcf3f73d31d"
+          },
+          "docs/reviews/browser-peer-scale-assurance/browser-scale-execution-readiness.md": {
+            "bytes": 10949,
+            "sha256": "e2c98b8a95d5291873480c0e3ee8b0ef8366475797743470ee4771b9221e3d44"
+          },
+          "docs/reviews/browser-peer-scale-assurance/browser-scale-input-manifest.json": {
+            "bytes": 10761,
+            "sha256": "4e863486d1b0a524bbe8160e48f635cc0cbb1abdc2665e2dec291d8ae5e83901"
+          },
+          "docs/reviews/browser-peer-scale-assurance/browser-scale-key-audit-01.txt": {
+            "bytes": 11492,
+            "sha256": "b2eaa7315a8108bff0da81cc0990093ddb58a20a21cd20e94c4179f9d9171053"
+          },
+          "docs/reviews/browser-peer-scale-assurance/browser-scale-key-correction-checks.json": {
+            "bytes": 41860,
+            "sha256": "7c6b5e13ec88f2527e1e92d09b4dec47238e3cb2cb592f4057d081ffdb5b543a"
+          },
+          "docs/reviews/browser-peer-scale-assurance/browser-scale-key-correction.md": {
+            "bytes": 6080,
+            "sha256": "41019fc623dd14845a2cd587259a4da55a06fd4db4cda3077b02689dd3acf90e"
+          },
+          "docs/reviews/browser-peer-scale-assurance/browser-scale-key-recheck-02.txt": {
+            "bytes": 9073,
+            "sha256": "b1f4d949b9fa35dbafe806223a2de49a4e3db9095d916f5a2c907c7854cf2dd8"
+          },
+          "docs/reviews/browser-peer-scale-assurance/browser-scale-key-recheck-checks-02.json": {
+            "bytes": 43401,
+            "sha256": "4f64c7888c044cbaf634f0786c9671d37216ad93455cac7a93021a74ff05a096"
+          },
+          "docs/reviews/browser-peer-scale-assurance/browser-scale-packet.test.mjs": {
+            "bytes": 14888,
+            "sha256": "a8cdee00160934ee5c771bee25e24c393bbe2792b6e39854bff624d1afcda2ca"
+          },
+          "docs/reviews/browser-peer-scale-assurance/browser-scale-preparation-checks.json": {
+            "bytes": 25048,
+            "sha256": "098ca45216119ef1da384e3a5ce86e57018b7d72802cc0b2e9b9a612ff802379"
+          },
+          "docs/reviews/browser-peer-scale-assurance/browser-scale-public-binding-checks.json": {
+            "bytes": 74155,
+            "sha256": "ce03fb75194589606dd3461af02bd820a22c33854ab6a572e83a3f3081ee8940"
+          },
+          "docs/reviews/browser-peer-scale-assurance/browser-scale-public-binding-handoff-checks.json": {
+            "bytes": 85419,
+            "sha256": "60bbe0bc28d559475af09445de55631468cfa2ef681e25accdbb9f54e06184b7"
+          },
+          "docs/reviews/browser-peer-scale-assurance/browser-scale-public-binding.md": {
+            "bytes": 10625,
+            "sha256": "f826dc52f3df0f4fb49c0ece5e36f5b40c0f914d836e032e99bb4c92500828c4"
+          },
+          "docs/reviews/browser-peer-scale-assurance/browser-scale-questions.json": {
+            "bytes": 2732,
+            "sha256": "f540a58bfb9d2ebe8a3bf0519289b6b2f74185e29a61d2b138916956a3e5c63f"
+          },
+          "docs/reviews/browser-peer-scale-assurance/browser-scale-reader-instructions.md": {
+            "bytes": 1214,
+            "sha256": "07a286cf13e04c491e7f087be2ce20721b438d8194ccfd6836d4009eac0fdf01"
+          },
+          "docs/reviews/browser-peer-scale-assurance/project-browser-scale-judge-key.mjs": {
+            "bytes": 1759,
+            "sha256": "ab04356abb19a249b0df2365f934181ce372ea57e829d5dc83b2d6ca3f7840dc"
+          },
+          "docs/reviews/browser-peer-scale-assurance/project-browser-scale-readings.mjs": {
+            "bytes": 2667,
+            "sha256": "048584c410a3c0716d162fdb3af222a932af20cba11cc4fe393eb53ca16222db"
+          },
+          "docs/reviews/browser-peer-scale-assurance/readings/k84/browser-scale-judge-key.json": {
+            "bytes": 11847,
+            "sha256": "358708aa3e4c5f5a69b07a4cdd46681688670ab4b937cd16a1bdddaa55b38507"
+          },
+          "docs/reviews/browser-peer-scale-assurance/readings/k84/browser-scale-reading.txt": {
+            "bytes": 17264,
+            "sha256": "55e09bc9ad660b66bcc2c1eb0b689e66554282e438cd4ad5cc3b7bc9bcb2bb44"
+          },
+          "docs/reviews/browser-peer-scale-assurance/readings/s17/browser-scale-judge-key.json": {
+            "bytes": 12936,
+            "sha256": "ba75c101e32c54bf0be3209472f04d0367918efa8663061a2b766d66910b4387"
+          },
+          "docs/reviews/browser-peer-scale-assurance/readings/s17/browser-scale-reading.txt": {
+            "bytes": 17702,
+            "sha256": "7c150f4f0d48e57af1191561cbccf0c3a59cb1050ab21430a94fb3ca2fde1bd9"
+          },
+          "docs/reviews/browser-peer-scale-assurance/sources/browser-scale-amendment.txt": {
+            "bytes": 10676,
+            "sha256": "1579675e8263508338c007f243b23d2b2b2ecb857d342d7664f14589f319cda3"
+          },
+          "docs/reviews/browser-peer-scale-assurance/sources/browser-scale-confirmed-intent.txt": {
+            "bytes": 7568,
+            "sha256": "4d311b9dc1c55715b31a2a3dc5cfe69236dc5a9cc1242071f284e5dc57c31cce"
+          },
+          "docs/reviews/browser-peer-scale-assurance/sources/browser-scale-vision.txt": {
+            "bytes": 9750,
+            "sha256": "7450b55418271077c412faade2c2be5018c0f7c335cf2aa4806f8aaf22b9cb60"
+          },
+          "docs/reviews/browser-peer-scale-revision-checks.json": {
+            "bytes": 32881,
+            "sha256": "553268d5c2c94c6203f42c3f13ac632f8c47a639796e0ed2546da607be8b728a"
+          },
+          "docs/reviews/context-lab-assurance-correction-handoff-checks.json": {
+            "bytes": 6048,
+            "sha256": "28db01a5a6dae662338773afba1b282f611780a7af61fa5921533c6f87aef278"
+          },
+          "docs/reviews/context-lab-assurance-correction-request.md": {
+            "bytes": 9849,
+            "sha256": "205c64cd52b50224c33fc5b2cdfbf11f370c298a9ee3c73365c4422be2330ca4"
+          },
+          "docs/reviews/context-lab-assurance-feedback.md": {
+            "bytes": 5119,
+            "sha256": "d8e5f5f539b009a53b6966b24f478e938f440a1a0b035efa675bc36a01bea4c5"
+          },
+          "docs/reviews/direct-peer-send-adoption-checks.json": {
+            "bytes": 35422,
+            "sha256": "f50ace1eb44e470d9406e6475f72c6639e069622487bb63d20fd775426106f98"
+          },
+          "docs/reviews/direct-peer-send-adoption.md": {
+            "bytes": 21251,
+            "sha256": "a4915b471b9ab1b330fc8524beb5441c6857ad1416c63ea6be240cb9f67ed06c"
+          },
+          "docs/reviews/direct-peer-send-assurance/direct-peer-acceptance-mapping-checks.json": {
+            "bytes": 23541,
+            "sha256": "3d22d4de45e8b0b06f029bee5dafacc1bcfadfc87ec708efc9fe143146ef1888"
+          },
+          "docs/reviews/direct-peer-send-assurance/direct-peer-acceptance-mapping.md": {
+            "bytes": 19737,
+            "sha256": "dcd30d480575007dbf71d82cbb7cd3edb1119be33fa6a706609ba74d402a2ec4"
+          },
+          "docs/reviews/direct-peer-send-assurance/direct-peer-context-lab-contract-request.md": {
+            "bytes": 8914,
+            "sha256": "b9227b06087d98b21089e168021cd7527ef0252724600bcd83b5c83e7a75ebdc"
+          },
+          "docs/reviews/direct-peer-send-assurance/direct-peer-context-lab-handoff-checks.json": {
+            "bytes": 40592,
+            "sha256": "0a96464c0984bfe21301e60693930a438b8fa95e1cd0091c7dca6a64221f9fa2"
+          },
+          "docs/reviews/direct-peer-send-assurance/direct-peer-context-lab-handoff.md": {
+            "bytes": 2967,
+            "sha256": "2c2c9c09e972e4e1a3259ad0665dd968cc6a946356d7c9f8f1209449f3eb422e"
+          },
+          "docs/reviews/direct-peer-send-assurance/direct-peer-context-lab-request-checks.json": {
+            "bytes": 64411,
+            "sha256": "42ccf6673a02ad90e2fbdddcd407f54ed1074170ccc4ea35343ef52f135e8dd4"
+          },
+          "docs/reviews/direct-peer-send-assurance/direct-peer-key-recheck-02.txt": {
+            "bytes": 8765,
+            "sha256": "2078d3391fa500acebd14e97c16bdfa51ef9fe0d23061714fac6eee438b7a7be"
+          },
+          "docs/reviews/direct-peer-send-assurance/direct-peer-key-recheck-checks-02.json": {
+            "bytes": 99507,
+            "sha256": "87a73b75583194b8b0626ebefbdbbaf053bd8f4c2c97ec0429b2525e53d60e46"
+          },
+          "docs/reviews/direct-peer-send-design-checks.json": {
+            "bytes": 30521,
+            "sha256": "e25314d9da912015a2e1b6c6202147cb2cd7f1fc72b6a9f68d1185e1b82048aa"
+          },
+          "docs/reviews/direct-peer-send-design-review.md": {
+            "bytes": 10136,
+            "sha256": "5d5da0bef33fa6587455e91a4c672b9bb0a0be91f78aae71351929c697f066ab"
+          },
+          "docs/reviews/direct-peer-send-draft-checks.json": {
+            "bytes": 31214,
+            "sha256": "e1937d8cacf1abff3b08ee1159044515b7493d32b15f1afbd190dd463b6fc24b"
+          },
+          "docs/reviews/direct-peer-send-draft-response.md": {
+            "bytes": 4142,
+            "sha256": "f37d32da1df0c740aa3b371cbfedf8f2f5634444b2f0c6ecb7656b721653b3b8"
+          },
+          "docs/reviews/direct-peer-send-independent-review.txt": {
+            "bytes": 14503,
+            "sha256": "2f9b2e8044abcf8829539c8a68aed3e36fb4ba6eb0aa0d77315be2b284092656"
+          },
+          "docs/reviews/direct-peer-send-lifecycle-checks.json": {
+            "bytes": 22497,
+            "sha256": "d518d33717e328bd0f652f8cf2f90d33368a45531694c8b2fd634442ab4ee933"
+          },
+          "docs/reviews/direct-peer-send-lifecycle-response.md": {
+            "bytes": 3367,
+            "sha256": "72d2122f7ff8fd618d753c7139231d436c8d6985922a79575f97825031d0318a"
+          },
+          "docs/reviews/disposition-repair-publication.json": {
+            "bytes": 12388,
+            "sha256": "23125558521ea33b6bd7712f3772328b60bc84402776762eb9e0efd790fc0e98"
+          },
+          "docs/reviews/evidence/admission-acquisition-review-input.txt": {
+            "bytes": 55565,
+            "sha256": "2a2d73991919584990df6ac57a9d3f4eb78d8f4b5c7c8fc162d4c88db61b6900"
+          },
+          "docs/reviews/evidence/admission-redemption-review-input.txt": {
+            "bytes": 66143,
+            "sha256": "49a57e583eb0fbd6d46933273d376936e8cafc6ae95ec4944750ec2878b82097"
+          },
+          "docs/reviews/evidence/admission-use-lifecycle-before-acquisition.txt": {
+            "bytes": 26645,
+            "sha256": "63ea4be2c888fe56eb6fd077a9521959c48b203e8f8751b909f43f05adeb5268"
+          },
+          "docs/reviews/evidence/browser-feasibility-chrome136.json": {
+            "bytes": 4117,
+            "sha256": "7559df9db7497cb5d36431a737196c6aea1cf2951cfb94ab196b56ea098ba42a"
+          },
+          "docs/reviews/evidence/browser-feasibility-chrome151.json": {
+            "bytes": 4201,
+            "sha256": "a24b766999ef503bcc6e40637b28df620ec3ddad8e602d90bdc7a262347aecdb"
+          },
+          "docs/reviews/evidence/direct-peer-send-before-d61.txt": {
+            "bytes": 28449,
+            "sha256": "6e8122f93ffb2496426cdc3d5f45cf7ffbf52c97bf5b1d695083acf9db7d26e7"
+          },
+          "docs/reviews/evidence/direct-peer-send-before-d62.txt": {
+            "bytes": 32448,
+            "sha256": "2a91d6c8d8263bc39a94880d93d95506fa7ab0e5d359f4f150d84153a0b6b251"
+          },
+          "docs/reviews/evidence/direct-peer-send-design-review-input.txt": {
+            "bytes": 34955,
+            "sha256": "bede054da088b516f55e09aa02e111a9dfdb61b57ead5b493cc90f4f2110119a"
+          },
+          "docs/reviews/evidence/operation-call-acceptance/case-logs/honest-call-ending.test.js.log.txt": {
+            "bytes": 6718,
+            "sha256": "8f525d67bb18e688e9296a137a7ef9fd63b8741fabb8b86fb07d207966fcebc0"
+          },
+          "docs/reviews/evidence/operation-call-acceptance/case-logs/not-delivered-signal.test.js.log.txt": {
+            "bytes": 1584,
+            "sha256": "b50ad78897b667d4fa8a6207efd2262bf53ff036a4e286e23a34432644bab567"
+          },
+          "docs/reviews/evidence/operation-call-acceptance/case-logs/request-correlation.test.js.log.txt": {
+            "bytes": 921,
+            "sha256": "6e541c909ab23946a6358f36260dd6bcb5915e45f06bc4a2e967f00b58fee5ec"
+          },
+          "docs/reviews/evidence/operation-call-acceptance/cert-o.txt": {
+            "bytes": 39031,
+            "sha256": "e1cb917a0b21b994df126f37643b955002025fbb0ff4d20b6c5def738805fd88"
+          },
+          "docs/reviews/evidence/operation-call-acceptance/checkouts-o.json": {
+            "bytes": 577,
+            "sha256": "46fe733dc9799e3a3294c097cdb206b1493cd2199559e5b9d9da896a775ad36b"
+          },
+          "docs/reviews/evidence/operation-call-acceptance/run-o.out": {
+            "bytes": 126,
+            "sha256": "c7b317357c4b6119ef28fdf2442a1b3efd4d987da65a163227e28fad2a9bc9ac"
+          },
+          "docs/reviews/reply-isolation-checks.json": {
+            "bytes": 25821,
+            "sha256": "86214a7346f68a21e6c9985914681ad4631154600aa3d30524afc77619f59469"
+          },
+          "docs/reviews/reply-isolation-handoff.json": {
+            "bytes": 28313,
+            "sha256": "ffc76f817ab2aefdeb5e743398b7abf8e7cafd953fc75cac6a593bbaffbf15bd"
+          },
+          "docs/reviews/reply-isolation-qualifications-handoff.json": {
+            "bytes": 12025,
+            "sha256": "867db9ebb9943180435224a3149063654e500b955eef257a6be40da26b0f8e30"
+          },
+          "docs/reviews/reply-isolation-qualifications.md": {
+            "bytes": 6401,
+            "sha256": "1719559114f768594911fbe125096c84d01fbb4f89105628e1e90808aa39e376"
+          },
+          "docs/reviews/reply-isolation-response.md": {
+            "bytes": 6467,
+            "sha256": "d6ed8be5a6b3f59530f83d4952f8e125769997d16ba78f44f8667fb15ce89210"
+          },
+          "docs/reviews/reply-isolation-review.md": {
+            "bytes": 21966,
+            "sha256": "213d60b6c74f4dc3a3adc8765566dc3a67f6bac360e8f042509f2b93f5a1a2f6"
+          },
+          "docs/reviews/reply-isolation-sources.json": {
+            "bytes": 15924,
+            "sha256": "1c2fc0b7d6edc6e8fdc144cb6a25087b1eae2a9c197127e40f48c4ee64692b39"
+          },
+          "docs/reviews/upstream-feedback-handoff-checks.json": {
+            "bytes": 92255,
+            "sha256": "808f515151c810ebafe153c49db309b4ce074a4fc656e7e44d0832a712631785"
+          },
+          "docs/reviews/upstream-reply-reconciliation-checks.json": {
+            "bytes": 241315,
+            "sha256": "d6e2b588deaf4e8003e72861f97d06befd869c25c4a25f19b7db5848f064d811"
+          },
+          "docs/reviews/zorg-requirements-review.md": {
+            "bytes": 20218,
+            "sha256": "2fa0c3348b3b0f765d009a2632b0fdb59e7c54d01f768edd88b6ebd17cfed933"
+          },
+          "docs/reviews/zorg-review-reply-assessment.md": {
+            "bytes": 11620,
+            "sha256": "af653f0b819bb8845cf56e095bcbcdcaa21d25e911e11395f5cfffc676a1f3c6"
+          },
+          "docs/reviews/zorg-review-response.md": {
+            "bytes": 8303,
+            "sha256": "f76295f2c26678321c011d33bc1d1dc838133afbd1ca7de5b459b9c0f614bd17"
+          },
+          "docs/surveys/shared-transport-survey.md": {
+            "bytes": 23687,
+            "sha256": "f096f84b74ac861f02c1203bce6726748fbd4c57f22bfadab13a7b68e56d093e"
+          },
+          "package-lock.json": {
+            "bytes": 7880,
+            "sha256": "18d01ab76220cd45079ed261d0bc030cbc6cb7c2f3c5af0273f73291815f9cbb"
+          },
+          "package.json": {
+            "bytes": 2386,
+            "sha256": "ca26d9fb685cc0b2e49a531224c1c3ac5ad6f930135e68e6ab4c38e15ecea1b3"
+          },
+          "packages/node/src/dispositions.ts": {
+            "bytes": 16137,
+            "sha256": "fb685be25db91052189ab367349faeea4c6b55028f132c4d1c65525e1c6e7bdd"
+          },
+          "packages/node/test/README.md": {
+            "bytes": 9257,
+            "sha256": "fda8aeef3472dbbb35155599cd0998f5c2cf12e438244b805f7f04539dbfc7ca"
+          },
+          "packages/node/test/contract/disposition-write-observation.test.js": {
+            "bytes": 2738,
+            "sha256": "b0de665d392a2e93b041f5e54ffbfe7c9f641cde331b6cf15ab535e8d76ad423"
+          },
+          "scripts/browser-feasibility.mjs": {
+            "bytes": 9367,
+            "sha256": "e3161585c822b369db1e99f87474cd6e6fbeb8c1d7c7b445a33090db75380455"
+          }
+        }
+      },
+      "zorg": {
+        "head": "6ed85528d4adcf48c7e557e1ea009e2193c1a97e",
+        "origin": "d4be4913062126322b243641658da87daf5c0ffe",
+        "index": "",
+        "status": "",
+        "reportCommit": "707a8d5530f2cfc067ea3194f2f5ab4d23154608"
+      },
+      "sources": [
+        {
+          "path": "/home/apnex/taceng/zorg/upstream/zorg-agp-disposition-write-recurrence.md",
+          "bytes": 4501,
+          "sha256": "41966998e8e0a779c6a4148486b7f7ea0ed0a46be90ec111bb42bc400729332e"
+        },
+        {
+          "path": "/home/apnex/taceng/zorg/upstream/agp-disposition-repair-candidate-publication.md",
+          "bytes": 2183,
+          "sha256": "13588f6b34363b2ef5802d1f62c0692bd60c07b92408ed4b16691ab4d3881cc1"
+        },
+        {
+          "path": "/home/apnex/taceng/zorg/upstream/agp-disposition-write-status.md",
+          "bytes": 2252,
+          "sha256": "1c15ff2e59dc3b4f97b640b53d546ce71f8fb0d0220b6d61a29c9e787456e4dd"
+        },
+        {
+          "path": "/home/apnex/taceng/zorg-eval-runs/delta-4/stage-5/verify-attempt-3/logs/D4-E5-checkouts.log",
+          "bytes": 479,
+          "sha256": "87cd0694282d36ec6e84c450e72c553f606860da1a0a888900e8e75725611989"
+        },
+        {
+          "path": "/home/apnex/taceng/zorg-eval-runs/delta-4/stage-5/verify-attempt-3/logs/zorg-test.log",
+          "bytes": 22813,
+          "sha256": "15b1d5c1dde8a422332238408b5232d7df708fde534fadb3e445298d8ea20cf5"
+        },
+        {
+          "path": "/home/apnex/taceng/zorg-eval-runs/delta-4/stage-5/verify-attempt-3/logs/zorg-hub-command-retry.log",
+          "bytes": 1090,
+          "sha256": "94364991b998b77625794f2f4294d4dde482c23c9b61027da7b2b4f41e687f24"
+        }
+      ],
+      "boardLines": [
+        "| `B56` | Observe disposition write failures through the existing exact-session teardown path | `I2` | `P2` | [`MX24`](VERIFICATION.md#46-open-findings-from-sweeps), [candidate publication](VERIFICATION.md#472-disposition-repair-candidate-publication) and [acceptance requirements](VERIFICATION.md#437-disposition-repair-independent-source-review-and-acceptance-requirements) | open |",
+        "| 1 | `B56` | Repair-only candidate published; runtime acceptance remains | [Candidate publication](VERIFICATION.md#472-disposition-repair-candidate-publication) preserves the independently source-reviewed repair and leaves remote `main` unchanged; callback behavior, process survival and late-failure isolation remain unmeasured |"
+      ],
+      "mx24": "| `MX24` | At the pre-repair baseline, disposition flush discards the rejectable `writeControl` result inside a synchronous catch; carrier failure, queue refusal or shutdown can therefore leave that promise unobserved. | Open, `B56`; [section 4.37](#437-disposition-repair-independent-source-review-and-acceptance-requirements) records the independent source review and remaining requirements; [section 4.72](#472-disposition-repair-candidate-publication) records repair-only candidate publication with remote `main` unchanged; runtime acceptance remains unclaimed |",
+      "staleCandidateWorktree": {
+        "path": "/tmp/agp-disposition-candidate.erNkOC/worktree",
+        "exists": false
+      }
+    }
+  },
+  "temporaryCheckout": {
+    "root": "/tmp/agp-disposition-acceptance.mYHr2g",
+    "worktree": "/tmp/agp-disposition-acceptance.mYHr2g/worktree",
+    "allocation": {
+      "chunk_id": "737ee8",
+      "wall_time_seconds": 0.000018984,
+      "exit_code": 0,
+      "original_token_count": 10,
+      "output": "/tmp/agp-disposition-acceptance.mYHr2g\n"
+    },
+    "setup": {
+      "command": "git worktree add --detach /tmp/agp-disposition-acceptance.mYHr2g/worktree 2f26eeb7a01e79a5ee0690b2b8ace32cd8c7fa2c",
+      "cwd": "/home/apnex/taceng/agp",
+      "chunk_id": "46a6ec",
+      "wall_time_seconds": 0.008390545,
+      "exit_code": 0,
+      "original_token_count": 28,
+      "output": "Preparing worktree (detached HEAD 2f26eeb)\nHEAD is now at 2f26eeb Observe disposition control-write rejections\n"
+    },
+    "oldRegistration": "Pre-existing /tmp/agp-disposition-candidate.erNkOC/worktree is absent and its registration is left untouched."
+  },
+  "identities": [
+    {
+      "name": "candidate-status",
+      "command": "git status --porcelain=v1 --untracked-files=all",
+      "cwd": "/tmp/agp-disposition-acceptance.mYHr2g/worktree",
+      "chunk_id": "370d11",
+      "wall_time_seconds": 0.587823016,
+      "exit_code": 0,
+      "original_token_count": 0,
+      "output": ""
+    },
+    {
+      "name": "candidate-revisions",
+      "command": "git rev-parse HEAD HEAD^",
+      "cwd": "/tmp/agp-disposition-acceptance.mYHr2g/worktree",
+      "chunk_id": "a515f9",
+      "wall_time_seconds": 0.63183143,
+      "exit_code": 0,
+      "original_token_count": 21,
+      "output": "2f26eeb7a01e79a5ee0690b2b8ace32cd8c7fa2c\nf16266aaafa66f6301d7afbf09c55e3a1f990274\n"
+    },
+    {
+      "name": "candidate-delta",
+      "command": "git diff-tree --no-commit-id --name-status -r HEAD",
+      "cwd": "/tmp/agp-disposition-acceptance.mYHr2g/worktree",
+      "chunk_id": "0f3ef2",
+      "wall_time_seconds": 0.546378925,
+      "exit_code": 0,
+      "original_token_count": 34,
+      "output": "M\tpackages/node/src/dispositions.ts\nM\tpackages/node/test/README.md\nA\tpackages/node/test/contract/disposition-write-observation.test.js\n"
+    },
+    {
+      "name": "source-equivalence",
+      "command": "git diff --exit-code ae83dc3574c7e84549b9e7097bc077495f8ac3b9 HEAD -- . ':(exclude)docs/**'",
+      "cwd": "/tmp/agp-disposition-acceptance.mYHr2g/worktree",
+      "chunk_id": "36b470",
+      "wall_time_seconds": 0.512320429,
+      "exit_code": 0,
+      "original_token_count": 0,
+      "output": ""
+    },
+    {
+      "name": "runtime",
+      "command": "node -p 'JSON.stringify({node:process.version,executable:process.execPath,platform:process.platform,arch:process.arch,typescript:require(\"typescript/package.json\").version})'",
+      "cwd": "/tmp/agp-disposition-acceptance.mYHr2g/worktree",
+      "chunk_id": "423f22",
+      "wall_time_seconds": 0.640684257,
+      "exit_code": 0,
+      "original_token_count": 35,
+      "output": "{\"node\":\"v24.12.0\",\"executable\":\"/home/apnex/.nvm/versions/node/v24.12.0/bin/node\",\"platform\":\"linux\",\"arch\":\"x64\",\"typescript\":\"5.9.3\"}\n"
+    },
+    {
+      "name": "npm-version",
+      "command": "npm --version",
+      "cwd": "/tmp/agp-disposition-acceptance.mYHr2g/worktree",
+      "chunk_id": "9f1cd4",
+      "wall_time_seconds": 0.756740713,
+      "exit_code": 0,
+      "original_token_count": 2,
+      "output": "11.6.2\n"
+    },
+    {
+      "name": "remote-refs",
+      "command": "git ls-remote origin refs/heads/main refs/heads/repair/disposition-write-observation",
+      "cwd": "/home/apnex/taceng/agp",
+      "chunk_id": "9b2fa3",
+      "wall_time_seconds": 0.22346427,
+      "exit_code": 0,
+      "original_token_count": 37,
+      "output": "f16266aaafa66f6301d7afbf09c55e3a1f990274\trefs/heads/main\n2f26eeb7a01e79a5ee0690b2b8ace32cd8c7fa2c\trefs/heads/repair/disposition-write-observation\n"
+    }
+  ],
+  "retainedInputs": {
+    "command": "node --input-type=module -e 'import fs from \"node:fs\";import crypto from \"node:crypto\";const paths=[\"/home/apnex/taceng/zorg/upstream/zorg-agp-disposition-write-recurrence.md\",\"/home/apnex/taceng/zorg/upstream/agp-disposition-repair-candidate-publication.md\",\"/home/apnex/taceng/zorg/upstream/agp-disposition-write-status.md\",\"/home/apnex/taceng/zorg-eval-runs/delta-4/stage-5/verify-attempt-3/logs/D4-E5-checkouts.log\",\"/home/apnex/taceng/zorg-eval-runs/delta-4/stage-5/verify-attempt-3/logs/zorg-test.log\",\"/home/apnex/taceng/zorg-eval-runs/delta-4/stage-5/verify-attempt-3/logs/zorg-hub-command-retry.log\"];console.log(JSON.stringify(paths.map(path=>{const b=fs.readFileSync(path);return{path,bytes:b.length,sha256:crypto.createHash(\"sha256\").update(b).digest(\"hex\"),raw:b.toString(\"utf8\")}})));'",
+    "cwd": "/home/apnex/taceng/agp",
+    "files": [
+      {
+        "path": "/home/apnex/taceng/zorg/upstream/zorg-agp-disposition-write-recurrence.md",
+        "bytes": 4501,
+        "sha256": "41966998e8e0a779c6a4148486b7f7ea0ed0a46be90ec111bb42bc400729332e",
+        "raw": "# Zorg to AGP: the disposition-write defect recurred, with its cause captured - please finish and publish the repair\n\n**Status: sent to AGP by the director's decision, 2026-10-20.**\\\n**From:** zorg, building its Delta 4, which pins AGP at `f16266a`.\\\n**Answers:** `agp-disposition-repair-candidate-publication.md` and `agp-disposition-write-status.md`, received; follows `agp-stage6-bug-reports.md`, defect 1.\n\n---\n\n## The point\n\nDefect 1 of zorg's Stage 6 report - the unobserved rejection of `writeControl` in `packages/node/src/dispositions.ts` - has now ended a zorg hub process outside a fault fixture, and its standard error names AGP's frame.\\\nIt is AGP's to fix: the rejected promise is created and dropped inside AGP's disposition batcher, so no caller of `@agp/node` can observe it without a process-wide handler that would hide every other failure.\\\nZorg asks AGP to finish the runtime acceptance of the repair candidate `2f26eeb` on `repair/disposition-write-observation` and publish it on `main`; zorg will then move its pin.\n\n---\n\n## What happened\n\nIn the third verification of zorg's Delta 4, stage 5, from clean checkouts with AGP at `f16266a`, the test `RT1: --node-id, --store-name and --history are taken as given, in either form, and the store is served under its name on that node` of `zorg/packages/zorg-hub/test/hub-command.test.js` stopped a WebSocket peer and then sent the hub `SIGTERM`.\\\nThe hub exited with status 1 rather than 0, and printed this on its standard error:\n```text\nTransportOperationError: channel is closing or terminal\n    at operationError (agp/packages/transport-node-ws/dist/errors.js:3:12)\n    at NodeWsChannel.send (agp/packages/transport-node-ws/dist/channel.js:74:35)\n    at #pumpLoop (agp/packages/node/dist/session-writer.js:184:37)\n    at #pump (agp/packages/node/dist/session-writer.js:168:28)\n    at #enqueue (agp/packages/node/dist/session-writer.js:161:19)\n    at SessionWriter.enqueueControl (agp/packages/node/dist/session-writer.js:88:29)\n    at PeerController.writeControl (agp/packages/node/dist/session-controller.js:177:28)\n    at #send (agp/packages/node/dist/dispositions.js:228:35)\n    at Timeout._onTimeout (agp/packages/node/dist/dispositions.js:200:27)\n    at listOnTimeout (node:internal/timers:605:17) {\n  code: 'CHANNEL_TERMINAL',\n  phase: 'send',\n  acceptance: 'not-accepted'\n}\n```\n\nA disposition batch's debounce timer fired after the peer's channel had begun closing, `#send` called `writeControl`, and the rejection it returned was never observed, so Node ended the process.\\\nThe same test had failed the same way once before, in the verification of Delta 4's stage 3, before the hub printed its standard error; zorg parked it as `BL24` in `zorg/docs/BACKLOG.md`.\\\nRun again at once, the test passed both times: it is a race between a peer's channel closing and a pending disposition batch, not a failure a test can call up on demand.\n\nThe full log is `zorg-eval-runs/delta-4/stage-5/verify-attempt-3/logs/zorg-test.log`, relative to the shared `taceng` workspace; the paths above are shortened from it.\n\n---\n\n## What this adds to the repair's acceptance\n\n`agp-disposition-write-status.md` names, among what runtime acceptance still needs, \"process survival after unsuccessful disposition writes\", and the candidate's checks \"establish rejection-handler registration for successful writes, not behavior after a failed write\".\\\nThis recurrence is an unsuccessful disposition write ending a production process: the repair's rejection handler, forwarding the cause to `onWriteFailure`, is the change that would have kept the hub alive.\\\nZorg requests no new fault reproduction from AGP; it offers the hub test above as one more check of the candidate, if AGP wants it run against `2f26eeb`.\n\n---\n\n## What zorg asks, and what it will do\n\n1. AGP finishes the runtime acceptance it has already scoped for `2f26eeb` - failure-callback behaviour, duplicate-safe teardown, process survival and replacement-connection isolation - and publishes the repair on `main`.\n2. AGP tells zorg the published commit through `zorg/upstream/incoming/`.\n3. Zorg then moves its pin from `f16266a`, runs `hub-command.test.js` and its end-to-end tests against it, and retires `BL24`.\n\nUntil then zorg keeps its pin, its fixtures keep closing peers before stopping a hub, and a recurrence in zorg's verifications is recorded against `BL24` rather than against the stage that met it.\\\nNothing here changes zorg's closed Delta 1 or its current Delta 4.\n"
+      },
+      {
+        "path": "/home/apnex/taceng/zorg/upstream/agp-disposition-repair-candidate-publication.md",
+        "bytes": 2183,
+        "sha256": "13588f6b34363b2ef5802d1f62c0692bd60c07b92408ed4b16691ab4d3881cc1",
+        "raw": "# AGP disposition repair candidate publication\n\nAGP has published a repair-only candidate for the disposition control-write observation defect.\\\nRuntime acceptance remains open; this is not a production release or a request to change Zorg's pin.\n\n## Published revision\n\n| Item | Identity |\n|---|---|\n| Candidate branch | `repair/disposition-write-observation` |\n| Candidate commit | `2f26eeb7a01e79a5ee0690b2b8ace32cd8c7fa2c` |\n| Parent and unchanged remote `main` | `f16266aaafa66f6301d7afbf09c55e3a1f990274` |\n| Original reviewed repair | `ae83dc3574c7e84549b9e7097bc077495f8ac3b9` |\n\nThe branch and unchanged `main` were read back from the AGP remote on 2026-10-18.\\\nThe candidate has one commit above that parent, containing only the unchanged repair, its fulfilled-write observation test and the test-ownership entry.\\\nThe nine intervening assurance-document commits, later local commits and uncommitted work are excluded.\n\n## Verification and limits\n\nThe candidate build and all four fulfilled-write observation checks pass on Node `v24.12.0` with TypeScript `5.9.3`.\\\nThese checks establish rejection-handler registration for successful writes, not behavior after a failed write.\n\nThe original repair's independent source review found no blocking source defect.\\\nContent comparison confirms the candidate preserves that repair; it does not constitute a new independent runtime verdict.\n\nAGP still owns acceptance evidence for failure-callback behavior, duplicate-safe teardown, process survival, replacement-session isolation and the declared release-regression scope.\\\nNo new fault reproduction, workaround removal or reopening of Zorg's closed Delta 1 is requested.\\\nAny later adoption remains separate from this candidate publication.\n\nThis updates the publication status in the [earlier repair handoff](agp-disposition-write-status.md), whose runtime limits remain applicable.\\\nThe [AGP publication record](../../agp/docs/VERIFICATION.md#472-disposition-repair-candidate-publication) and [exact commands and raw results](../../agp/docs/reviews/disposition-repair-publication.json) retain the evidence.\\\nThese local records are not part of the three-file candidate commit.\n"
+      },
+      {
+        "path": "/home/apnex/taceng/zorg/upstream/agp-disposition-write-status.md",
+        "bytes": 2252,
+        "sha256": "1c15ff2e59dc3b4f97b640b53d546ce71f8fb0d0220b6d61a29c9e787456e4dd",
+        "raw": "# AGP disposition write repair status\n\nStatus: incoming draft for Zorg receipt, 2026-10-16.\n\nThe disposition-write defect in Zorg's Stage 6 report has a locally committed repair and an independent source review with no blocking source defect found.\\\nRuntime acceptance remains open, and the repair is not on `origin/main`.\n\n## Local repair\n\nThe write promise now has a rejection handler that forwards the original controller and cause through the existing failure callback.\\\nSynchronous exception handling, batching, wire format and delivery certainty are unchanged; the production callback terminates that original connection.\n\n- Local repair: `ae83dc3574c7e84549b9e7097bc077495f8ac3b9`.\n- Published AGP `origin/main`, verified for this note: `f16266aaafa66f6301d7afbf09c55e3a1f990274`.\n\n## Verification boundary\n\nThe author recorded a successful build and 18 selected contract and healthy-delivery checks.\\\nFour of those checks use successful writes to verify rejection-handler registration; they do not exercise failure recovery.\\\nThe independent review inspected source and existing logs without rerunning tests.\n\nRuntime acceptance still needs evidence of:\n\n- Correct failure-callback behavior and duplicate-safe teardown.\n- Process survival after unsuccessful disposition writes.\n- Isolation of replacement connections from late failures belonging to old connections.\n\nA declared regression scope and results tied to the exact candidate are also outstanding; the selected checks are not a full-suite result.\n\n## Consumer action\n\nNo Zorg pin change, workaround removal or reopening of its closed Delta 1 is requested.\\\nAGP retains responsibility for acceptance and a separate publication decision; this is a status handoff, not a request for new fault reproductions.\\\nThe URL and listener observations are outside this repair.\n\nSource record: `agp/docs/VERIFICATION.md`, sections 4.35-4.37, including the complete independent review and acceptance requirements; that record is currently local and uncommitted.\\\nInput: `zorg/upstream/agp-stage6-bug-reports.md` at `b03baff7de76c8579c2af6ef11c0e74b9fc3b5b0`.\\\nPaths are relative to the shared `taceng` workspace, so they remain meaningful if Zorg copies this draft into its received correspondence.\n"
+      },
+      {
+        "path": "/home/apnex/taceng/zorg-eval-runs/delta-4/stage-5/verify-attempt-3/logs/D4-E5-checkouts.log",
+        "bytes": 479,
+        "sha256": "87cd0694282d36ec6e84c450e72c553f606860da1a0a888900e8e75725611989",
+        "raw": "zorg 5f050262923a1dc3f8e51844a2723456821d9604\nshape-check a4f4e2891cfe3ee45c7bc15cac09b0382b90dca4\nentity-store 468043be168c88c04d681ac7440cd0b69b750e79\noperation-call cfe6708d4151bea9f3fdbccd8b26155f3d9c13af\nentity-api dce35cb20a272f8615cef1fec200eaa5eabd5306\ncaller-identity 738435c61179e7d851749e271da8b6e043f04d59\noperation-proxy c9003cc4215a4908020149f6f51b03960ad27671\noperation-command 1196cd00b11c346242762c13ecb5347bbe771f26\nagp f16266aaafa66f6301d7afbf09c55e3a1f990274\n"
+      },
+      {
+        "path": "/home/apnex/taceng/zorg-eval-runs/delta-4/stage-5/verify-attempt-3/logs/zorg-test.log",
+        "bytes": 22813,
+        "sha256": "15b1d5c1dde8a422332238408b5232d7df708fde534fadb3e445298d8ea20cf5",
+        "raw": "\n> @apnex/zorg@0.0.0 test\n> npm run build && node --test \"packages/*/test/**/*.test.js\" \"test/*.test.js\" && node --test --test-concurrency=1 \"test/e2e/*.test.js\"\n\n\n> @apnex/zorg@0.0.0 build\n> tsc -b\n\n✔ RT2: each command invokes its operation through zorg-sdk with exactly the input its flags give, pinned to the hub's node under the store's name (77.288305ms)\n✔ RT2, RT6: a call's bound is --timeout, its identity the one the command prints, and only a command that changes something given --invocation marks a repeat (10.986292ms)\n✔ RT2, RT3: the settings - a flag over its variable over its default - give the proxy key, the hub's node and the store; one caller serves each key (3.019465ms)\n✔ RT3: prepare is given the command's deadline - when it began reading its arguments plus --connect-timeout - on its clock port, through zorg-sdk (5.651259ms)\n✔ RT2, OC2: each kind of usage error exits 1 on standard error alone, with nothing prepared or invoked (93.937306ms)\n✔ RT5: the plain form words each answer with its position among its lines; --json prints the answer unchanged (11.990046ms)\n✔ RT5, OC4: a summary holding a control character is written as JSON, and an answer not in its operation's form is printed as JSON with one diagnostic line (4.592475ms)\n✔ RT5, EM16, OC4: a value of changes holding a control character is written as JSON, and an answer of changes not in its form, or holding an item in no item's form, is printed as JSON with one diagnostic line (33.741109ms)\n✔ RT5, RT6: every ending prints its record and status; an unknown ending's repeat carries zorg's settings as taken, and --invocation only for a command that changes something (9.950074ms)\n✔ RT2, RT3: zorg proxy is a local command that runs the identity's proxy with the hub's settings, and exits with its status (6.0749ms)\n✔ RT3, OC3, D54, D55: a caller whose preparing returns a then getter or a non-native thenable, holding a rejected promise, ends not delivered - status 3, null codes - with no then read or called, nothing invoked and no unhandled rejection (64.463848ms)\n✔ RT1, RT2: --hub takes a query, as zorg-hub's --listen does and its ready line publishes; still no fragment, whitespace or control character (30.724499ms)\n✔ RT1, RT2, D56: --hub is a hub address - the URL parser decides its host, the hub-address pattern the rest - and a value it refuses is a usage error reaching no proxy, by flag or by variable (72.721043ms)\n✔ RT2, OC6, D3-E4: declareZorg(ports).program.reference() generates the deterministic reference of the zorg command (1.334092ms)\n✔ RT5, E15: an interruption while the send is held before AGP admits it ends the command not delivered with agpCode ABORTED, and the hub's operation never receives the request (json) (623.601708ms)\n✔ RT5, E15: an interruption while the send is held before AGP admits it ends the command not delivered with agpCode ABORTED, and the hub's operation never receives the request (plain) (370.287925ms)\n✔ RT5, E15: an interruption after AGP admitted the send leaves the command reporting the call layer's ending unchanged (127.935188ms)\n✔ RT5, E15: a second interruption after the first, both after admission, leaves the command reporting the call layer's ending unchanged (225.613039ms)\n✔ RT5, E15: interruptions after the ending was given, and while it is printed, leave the command reporting the call layer's ending unchanged (103.504512ms)\n✔ RT5, E15: an interruption while preparing exits with status 1, prints only on standard error, and invokes nothing (json) (297.38449ms)\n✔ RT5, E15: an interruption while preparing exits with status 1, prints only on standard error, and invokes nothing (plain) (302.239288ms)\n✔ RT3, E15: a welcome before the deadline readies the command, which reaches the hub's operation; prepare is given the time left until the deadline on the command's clock port (350.625288ms)\n✔ RT3, E15: readiness held past the deadline and then given ends the command not delivered with proxy-unreachable, its output whole, and nothing reaches run or the hub's operation (1015.711644ms)\n✔ RT3, E15: a deadline already past when preparing starts ends the command not delivered with proxy-unreachable at once, having sent nothing (86.310631ms)\n✔ RT3, OC3: a client half already prepared is ready even when the deadline has passed as preparing starts (190.482266ms)\n✔ RT3, E15: a ready decided in time whose observation is delayed past the deadline reaches the hub's operation (2604.257522ms)\n✔ RT3: the proxy's caller is ready only once its session with the hub is established, a route snapshot from the hub is applied on it, and the hub has acknowledged the reply route on it (3.108184ms)\n✔ EM13: a proxy's node is named for the identity, a dot, and 16 random lowercase hexadecimal digits (1.600509ms)\n✔ RT3, PX9: zorg's proxy application serves the key of the application zorg, the identity and <hub URL> <hub node>, with the idle time --proxy-idle gives (2.130006ms)\n✔ RT3, EM13: the proxy's caller is on one AGP node named for the identity with the hub as its one peer, and is ready by the readiness test against zorg-hub (362.830532ms)\n✔ RT3, PX7: a caller whose hub never answers is never ready, and its readiness test ends once the proxy stops it (209.138025ms)\n✔ RT3: a command naming a store the hub does not serve ends not delivered with AGP's own NO_ROUTE, and leaves the proxy ready for the next (140.176879ms)\n✔ RT3, PX3: the launched proxy is `zorg proxy` with the hub's settings, the identity and the idle time the launching command took (0.461848ms)\n✔ RT3: every call through the proxy keeps operation-proxy's default hop allowance, 50 milliseconds (0.263756ms)\n✔ EM12: the machine clock's timer never calls back before its delay has passed on CLOCK_MONOTONIC (102.21086ms)\n✔ EM14: the export map names the package and exactly its exported paths (3.49336ms)\n✔ EM14: @apnex/zorg-cli exposes exactly what the map names (106.791522ms)\n✔ EM14: each export names a target part and only capabilities the target says that part exposes (0.743995ms)\n✔ EM14: the capability the target says zorg-cli exposes is served, and none is deferred (0.502734ms)\n✔ RT2: the package's bin is the zorg command, and it is built (0.61715ms)\n✔ principle 6, EM14: the test knows a module particular to one runtime when it reads one (22.565047ms)\n✔ principle 6: only a file named for the adapter it is imports a module particular to one runtime, or names a global of Node's (2.603437ms)\n✔ RT1, D56: a publication leaving out port 80 is announced with :80 written, and one already writing its port is announced unchanged (329.500492ms)\n✔ RT1, D56: a publication that is no hub address, its port written, stops the hub as listen-failed with its change log closed (279.492927ms)\n✔ EM13, E5: a well-formed node's request has its node and its asserted principal, which the hub records as the writer (292.897291ms)\n✔ EM13, E5: a node with no dot has no principal: its write is refused as invalid-identity, taking no position, and its read is answered (91.450352ms)\n✔ EM13, E5: a node whose identity breaks EM1's pattern has no principal, and its write is refused as invalid-identity (154.317501ms)\n✔ EM13, E5: a request whose origin is not the ingress node has the origin node and no principal, though the ingress session has one (130.104209ms)\n✔ EM13, E5: a request after its session closed has its principal while caller-identity keeps the record, and none once it is forgotten (102.881188ms)\n✔ EM13, E5: a reconnection under a new session has its own record, and the old session's context loses its principal once forgotten (179.905918ms)\n✔ EM13, E5: one session number on two nodes: each node's requests find its own record and its own writer (208.396127ms)\n✔ EM13, E5, E18: over AGP's WebSocket transport under trusted-development security, AGP gives the admission port no authentication, and a proxy's node's request has its asserted principal, never proved (178.171481ms)\n✔ RT1: the hub prints its ready line, recovering an absent change log with its header, and stops cleanly on SIGTERM and on SIGINT (4264.417884ms)\n✖ RT1: --node-id, --store-name and --history are taken as given, in either form, and the store is served under its name on that node (2361.054928ms)\n✔ RT1: the history bound's range is 1 second to 365 days (6802.801461ms)\n✔ RT1: each kind of usage error prints one usage line and exits with status 1, opening no change log (1670.298322ms)\n✔ RT1, EM15: a change log that does not recover stops the hub as log-corrupt, and one that cannot be created as log-unwritable (5824.068647ms)\n✔ RT1: a listener that cannot bind stops the hub as listen-failed, after its change log is recovered (4196.63521ms)\n✔ RT1, D56: the ready line announces a hub address - the parser's form of the bound listener - and one that cannot be announced stops the hub as listen-failed; a wildcard host is announced as given (3988.806707ms)\n✔ EM10, D7, E8: each of the store's operations is its own endpoint on the hub's node, seen in a peer's route view, and describe lists them (342.471416ms)\n✔ E8: an operation the hub does not declare has no endpoint, so AGP refuses its request before any handler runs (117.757595ms)\n✔ RT1: the hub's node forwards nothing between its peers (152.772567ms)\n✔ RT1, EM15: once the hub has stopped and closed its change log, a request that still reaches its handler appends nothing and is no append failure (163.672029ms)\n✔ RT8, EM15, D24: killed and started again on its change log, the hub recovers every entity, revision, writer and write identity, and takes the next position (4845.691005ms)\n✔ EM15: an append that fails stops the hub at once with status 2, answering nothing; the record it cut short is discarded on recovery (6434.272778ms)\n✔ EM15: in the composition, an append that fails halts the hub - it sends nothing more, its owner is told, and it stops itself (4195.10748ms)\n✔ RT9: a fault plan is read from the file ZORG_HUB_TEST_FAULT_PLAN names, said so on standard error, and drops the end message of the first count requests of its operation (3089.011811ms)\n✔ RT9: with ZORG_HUB_TEST_FAULT_PLAN unset or empty the hub reads no plan; a plan that cannot be read or is malformed is a usage error (3524.165085ms)\n✔ EM13: a write whose evidence holds no principal is refused as invalid-identity first, whatever else holds (8.083874ms)\n✔ EM13, D25: create, read, find, history-bound and changes are allowed to any caller, one whose evidence holds no principal included for all but create (0.591525ms)\n✔ EM13, D25: update and delete are allowed when the target does not exist, when its writer is the caller, or when the write is a recognised repeat (0.571558ms)\n✔ EM13, D25: an update or delete of another agent's entity is refused as not-writer, naming its writer (0.986774ms)\n✔ EM13: the policy rules on entity-api's store operations alone; a target naming no writer is no entity of the store (1.225812ms)\n✔ E5, EM13: through the hub, the writer is the caller's principal, and another agent's update or delete is refused unchanged with no position (561.358082ms)\n✔ E5, EM13: an update or delete naming no entity is allowed by the policy and refused by the store; a request claiming a writer is refused by operation-call (244.243672ms)\n✔ EM13: a repeated rename whose old name another agent has since taken is recognised and returns its first answer (367.347455ms)\n✔ EM14: the export map names the package and exactly its exported paths (3.91305ms)\n✔ EM14: @apnex/zorg-hub exposes exactly what the map names (1945.130016ms)\n✔ EM14: each export names a target part and only capabilities the target says that part exposes (0.853513ms)\n✔ EM14: every capability the target says zorg-hub and zorg-policy expose is served, and none is deferred (0.562132ms)\n✔ RT1: the package's bin is the zorg-hub command, and it is built (0.652346ms)\n✔ EM10: the store's reach name is zorg (0.471531ms)\n✔ principle 6: only a file named for the adapter it is imports a module of Node's (1.502015ms)\n✔ the kind is named knowledge-entry, and its shape is exactly EM4's (4.591715ms)\n✔ shape-check accepts the shape as a shape (1.355283ms)\n✔ a well-formed entry fits: an https pointer and a short summary (1.598371ms)\n✔ a well-formed entry fits: a pointer of exactly 2048 characters (12.196168ms)\n✔ a well-formed entry fits: a summary of exactly 1024 code points, some outside the Basic Multilingual Plane (0.93187ms)\n✔ a well-formed entry fits: a pointer with another scheme (0.56643ms)\n✔ a malformed entry is refused with a misfit record: no pointer (0.884456ms)\n✔ a malformed entry is refused with a misfit record: no summary (0.370069ms)\n✔ a malformed entry is refused with a misfit record: a pointer that is not an absolute URI (1.093881ms)\n✔ a malformed entry is refused with a misfit record: a pointer holding a space (1.176774ms)\n✔ a malformed entry is refused with a misfit record: a pointer of 2049 characters (0.838676ms)\n✔ a malformed entry is refused with a misfit record: a pointer that is not a string (1.5661ms)\n✔ a malformed entry is refused with a misfit record: an empty summary (0.302182ms)\n✔ a malformed entry is refused with a misfit record: a summary of 1025 code points (0.291658ms)\n✔ a malformed entry is refused with a misfit record: a summary that is not a string (0.601119ms)\n✔ a malformed entry is refused with a misfit record: a field the kind does not declare (0.618738ms)\n✔ a malformed entry is refused with a misfit record: a body that is not an object (1.18853ms)\n✔ several malformed fields are each refused, in shape-check's order (0.812522ms)\n✔ the export map names the package and exactly its exported paths (3.806102ms)\n✔ @apnex/zorg-kinds exposes what the map names (8.536723ms)\n✔ every capability the target says this part exposes is served (1.583405ms)\n✔ the source imports no module particular to one runtime (1.046782ms)\n✔ the knowledge entry shape type-checks against shape-check's public entry point (7831.408567ms)\n✔ knowledge-client, EM4: publish invokes create with the knowledge-entry kind, its name and tags, and a body of pointer and summary, under the options given (7.592623ms)\n✔ knowledge-client, EM10: a read names its target by identity or by name of the kind; one naming both or neither is sent for the store to refuse (2.017744ms)\n✔ knowledge-client, EM10, RT4: an update sends only what it names - a rename, tags replacing the set, a body of the pointer or summary named, an expected revision (1.595245ms)\n✔ knowledge-client, EM10: a delete names its target and, when given, an expected revision; history-bound sends an empty input (1.195669ms)\n✔ knowledge-client, honest-call-ending: every single call's ending is the caller's, unchanged (2.211274ms)\n✔ knowledge-client, EM10: find is the whole find - every page as of the first page's position, after the last page's next, each within the one deadline, the first under the identity given (6.442986ms)\n✔ knowledge-client, EM16, RT2: changes is the whole changes - its since sent unchanged, each later page since the previous page's next, each within the one deadline, the first under the identity given, answered with the last page's position (3.272615ms)\n✔ knowledge-client, EM16: a later page of changes refused ends changes refused, with that page's refusal unchanged, under the first page's identity, and no partial answer (2.38003ms)\n✔ knowledge-client, EM12: arguments that break the client's types are thrown as a TypeError, nothing sent (4.587894ms)\n✔ RT3: prepare hands the caller the time left until the deadline on the clock port given, and the signal, and passes its decision on unchanged (1.343564ms)\n✔ RT3: a caller that offers no preparing needs none and is ready; a request that is no preparing request is thrown (2.877415ms)\n✔ RT3, D54, D55: prepare is no async function - it returns what the caller's preparing returns raw, a malformed thenable included, reading or calling none of its then (59.02154ms)\n✔ RT3, OC3, D54, D55: composed with operation-command, a malformed preparation ends not delivered (status 3, null codes) with no then read or called, nothing invoked and no unhandled rejection (96.86451ms)\n✔ EM14: the export map names the package and exactly its exported paths (5.886557ms)\n✔ EM14: @apnex/zorg-sdk exposes exactly what the map names (85.91904ms)\n✔ EM14: each export names a target part and only capabilities the target says that part exposes (0.568261ms)\n✔ EM14: the capability the target says zorg-sdk exposes is served, and none is deferred (1.853875ms)\n✔ principle 6, D31: no file imports a module particular to one runtime, or names a global of Node's (1.549723ms)\n✔ zorg-sdk depends on the parts it consumes and nothing else: entity-api and zorg-kinds (11.174694ms)\n✔ E16: docs/ARCHITECTURE.md is exactly what tools/derive-architecture.mjs derives from this workspace (783.793903ms)\n✔ E16: the derived document states each built part, what it exposes and consumes as built, and where it runs (5.454857ms)\n✔ E16: the derived document passes the documentation checks (406.239543ms)\n✔ E16: a fixture copied from this workspace derives, with each part's section (777.025886ms)\n✔ E16: the document states the record as the delta has it: a stage whose last attempt is not certified, and one with an attempt recorded (1203.858161ms)\n✔ E16: the generator fails on a target part with no built package (736.568346ms)\n✔ E16: the generator fails on a target component with no repository, and on AGP's packages away from the pin (788.928408ms)\n✔ E16: the generator fails on a dependency no contract declares, in zorg's packages and in a component (575.530523ms)\n✔ E16: an optional dependency is a runtime dependency - an undeclared one or one overriding a declared link fails the generator, in zorg's packages and in a component (673.579667ms)\n✔ E16: a bundled dependency is a runtime dependency - one no contract declares, one no other map names, or a malformed list fails the generator (479.300439ms)\n✔ E16: a component's dependency named only in its contract's reference is declared, and stated so (470.015211ms)\n✔ E16: taking away the target's consumes line, or a contract's edge and its reference, leaves a dependency no contract declares (315.829545ms)\n✔ E16: the generator fails on a dependency that is no package of a part, one not linked to its checkout, and a map naming a part the target lacks (324.029558ms)\n✔ E16: the command writes nothing and exits 1 when the derivation fails, naming each problem (384.604195ms)\n✔ E16: the command writes docs/ARCHITECTURE.md, and --check fails while the document is missing or differs (1375.801134ms)\n✔ EM14: the fence, read from fence item 1 and its amendments, names every component of the target and zorg (4.422194ms)\n✔ EM14: every component repository and zorg package holds an export map in the format of EM14 (2.280201ms)\n✔ E12, EM14: no fenced row or capability is deferred or served by no export (1.5078ms)\n✔ E12, EM14: the check fails on a fenced row deferred, on one served by no export, and on a zorg capability not served (3.811558ms)\n✔ EM14: each fenced row is a row of its component's contract, and each row the fence leaves out is deferred with a ruling or served with its own contract test (3.736081ms)\n✔ EM14: a row the fence leaves out passes deferred with a ruling or served with its own contract test, and fails when neither, deferred under a ruling the record lacks, both, or served without its test (3.011505ms)\n✔ E12: in each component repository, every fenced row is named by a contract test file (2.258721ms)\n✔ EM14, fence item 4: the fence is the census of what zorg's parts use, as tools/check-capabilities.mjs counts it (97.391725ms)\n✔ RT1, RT2: zorg-hub and zorg-cli hold the same hub-address pattern (2.253637ms)\n✔ RT1, RT2, E1, E2, E15: every address of stage 6's verifications, and D56's boundaries (84.282182ms)\n✔ RT1, RT2, E1, E2, E15: a generated set of more than 100000 addresses keeps every property (21729.458401ms)\nℹ tests 151\nℹ suites 0\nℹ pass 150\nℹ fail 1\nℹ cancelled 0\nℹ skipped 0\nℹ todo 0\nℹ duration_ms 32151.974063\n\n✖ failing tests:\n\ntest at packages/zorg-hub/test/hub-command.test.js:51:1\n✖ RT1: --node-id, --store-name and --history are taken as given, in either form, and the store is served under its name on that node (2361.054928ms)\n  AssertionError [ERR_ASSERTION]: the hub's standard error: file:///home/apnex/zorg-eval-work/verify-d4s5c/out-o/agp/packages/transport-node-ws/dist/errors.js:3\n      return new TransportOperationError({\n             ^\n  \n  TransportOperationError: channel is closing or terminal\n      at operationError (file:///home/apnex/zorg-eval-work/verify-d4s5c/out-o/agp/packages/transport-node-ws/dist/errors.js:3:12)\n      at NodeWsChannel.send (file:///home/apnex/zorg-eval-work/verify-d4s5c/out-o/agp/packages/transport-node-ws/dist/channel.js:74:35)\n      at #pumpLoop (file:///home/apnex/zorg-eval-work/verify-d4s5c/out-o/agp/packages/node/dist/session-writer.js:184:37)\n      at #pump (file:///home/apnex/zorg-eval-work/verify-d4s5c/out-o/agp/packages/node/dist/session-writer.js:168:28)\n      at #enqueue (file:///home/apnex/zorg-eval-work/verify-d4s5c/out-o/agp/packages/node/dist/session-writer.js:161:19)\n      at SessionWriter.enqueueControl (file:///home/apnex/zorg-eval-work/verify-d4s5c/out-o/agp/packages/node/dist/session-writer.js:88:29)\n      at PeerController.writeControl (file:///home/apnex/zorg-eval-work/verify-d4s5c/out-o/agp/packages/node/dist/session-controller.js:177:28)\n      at #send (file:///home/apnex/zorg-eval-work/verify-d4s5c/out-o/agp/packages/node/dist/dispositions.js:228:35)\n      at Timeout._onTimeout (file:///home/apnex/zorg-eval-work/verify-d4s5c/out-o/agp/packages/node/dist/dispositions.js:200:27)\n      at listOnTimeout (node:internal/timers:605:17) {\n    code: 'CHANNEL_TERMINAL',\n    phase: 'send',\n    acceptance: 'not-accepted'\n  }\n  \n  Node.js v24.12.0\n  \n  + actual - expected\n  \n    {\n  +   code: 1,\n  -   code: 0,\n      signal: null\n    }\n  \n      at TestContext.<anonymous> (file:///home/apnex/zorg-eval-work/verify-d4s5c/out-o/zorg/packages/zorg-hub/test/hub-command.test.js:61:9)\n      at process.processTicksAndRejections (node:internal/process/task_queues:103:5)\n      at async Test.run (node:internal/test_runner/test:1113:7)\n      at async Test.processPendingSubtests (node:internal/test_runner/test:788:7) {\n    generatedMessage: false,\n    code: 'ERR_ASSERTION',\n    actual: { code: 1, signal: null },\n    expected: { code: 0, signal: null },\n    operator: 'deepStrictEqual',\n    diff: 'simple'\n  }\n"
+      },
+      {
+        "path": "/home/apnex/taceng/zorg-eval-runs/delta-4/stage-5/verify-attempt-3/logs/zorg-hub-command-retry.log",
+        "bytes": 1090,
+        "sha256": "94364991b998b77625794f2f4294d4dde482c23c9b61027da7b2b4f41e687f24",
+        "raw": "✔ RT1: the hub prints its ready line, recovering an absent change log with its header, and stops cleanly on SIGTERM and on SIGINT (2150.327698ms)\n✔ RT1: --node-id, --store-name and --history are taken as given, in either form, and the store is served under its name on that node (1242.468787ms)\n✔ RT1: the history bound's range is 1 second to 365 days (4865.850821ms)\n✔ RT1: each kind of usage error prints one usage line and exits with status 1, opening no change log (1613.716532ms)\n✔ RT1, EM15: a change log that does not recover stops the hub as log-corrupt, and one that cannot be created as log-unwritable (4930.792861ms)\n✔ RT1: a listener that cannot bind stops the hub as listen-failed, after its change log is recovered (2962.642742ms)\n✔ RT1, D56: the ready line announces a hub address - the parser's form of the bound listener - and one that cannot be announced stops the hub as listen-failed; a wildcard host is announced as given (3813.757805ms)\nℹ tests 7\nℹ suites 0\nℹ pass 7\nℹ fail 0\nℹ cancelled 0\nℹ skipped 0\nℹ todo 0\nℹ duration_ms 22550.793998\n"
+      }
+    ]
+  },
+  "installation": {
+    "command": "npm ci --offline --ignore-scripts --no-audit --no-fund",
+    "cwd": "/tmp/agp-disposition-acceptance.mYHr2g/worktree",
+    "chunk_id": "3a1d47",
+    "wall_time_seconds": 1.001545176,
+    "original_token_count": 0,
+    "output": "\nadded 18 packages in 1s\n",
+    "exit_code": 0
+  },
+  "build": {
+    "command": "npm run build",
+    "cwd": "/tmp/agp-disposition-acceptance.mYHr2g/worktree",
+    "startedAt": "2026-10-19 23:17:10 UTC",
+    "chunk_id": "b5fd83",
+    "wall_time_seconds": 1.000728511,
+    "original_token_count": 8,
+    "output": "\n> agp@0.1.0 build\n> tsc -b\n\n",
+    "exit_code": 0
+  },
+  "regressionScope": {
+    "scope": "Build plus the exact two declared test selections on the detached candidate; same selected categories previously run on the original repair, now with complete candidate-specific commands and output.",
+    "expectedTests": 18,
+    "categories": [
+      "Four fulfilled-write handler-registration flush paths",
+      "One public TypeScript surface compile check",
+      "Six valid relay/label-translation/compression/denominator/consume-once cases with fulfilled writes",
+      "Two release-on-success cases",
+      "Five healthy disposition/correlation/filter/local-send cases"
+    ],
+    "excluded": [
+      "Unsuccessful control writes and failure-callback behavior",
+      "Duplicate-failure teardown races",
+      "Process-survival reproduction",
+      "Late old-session failure against replacement",
+      "Over-bound inbound ranges, throwing handlers, forced peer loss, eviction cases",
+      "WebSocket consumer shutdown recurrence",
+      "Full package, integration, topology, resilience, CLI and system suites"
+    ],
+    "testSelection": [
+      {
+        "name": "observation-types-valid-relay",
+        "command": "node --test --test-concurrency=1 --test-timeout=120000 --test-name-pattern='successful disposition write|public node package|Given a transit binding|Given several bound labels|outcomes with distinct denominators' packages/node/test/contract/disposition-write-observation.test.js packages/node/test/contract/disposition-types.test.js packages/node/test/contract/disposition-relay.test.js",
+        "expected": 11
+      },
+      {
+        "name": "healthy-release-and-surface",
+        "command": "node --test --test-concurrency=1 --test-timeout=120000 --test-name-pattern='Given messages that all succeed|Given far more messages|Given a request with attempt correlation|Given a message that is delivered|Given a message whose outcome|Given a stream filtered|Given a destination on the sending node' packages/node/test/contract/disposition-release.test.js packages/node/test/contract/disposition-surface.test.js",
+        "expected": 7
+      }
+    ],
+    "interpretation": "Explicitly scoped regression evidence; excluded cases are not passes, and an approved complete release-regression verdict is not claimed."
+  },
+  "regressionRuns": [
+    {
+      "name": "observation-types-valid-relay",
+      "command": "node --test --test-concurrency=1 --test-timeout=120000 --test-name-pattern='successful disposition write|public node package|Given a transit binding|Given several bound labels|outcomes with distinct denominators' packages/node/test/contract/disposition-write-observation.test.js packages/node/test/contract/disposition-types.test.js packages/node/test/contract/disposition-relay.test.js",
+      "expected": 11,
+      "cwd": "/tmp/agp-disposition-acceptance.mYHr2g/worktree",
+      "startedAt": "2026-10-19 23:18:07 UTC",
+      "chunk_id": "d87376",
+      "wall_time_seconds": 1.002202068,
+      "original_token_count": 0,
+      "output": "✔ Given a transit binding, when a failure returns, then relay uses recorded ingress and translates only hop-local identity (14.685275ms)\n✔ Given a transit binding, when a delivery returns, then the binding releases and the delivery relays under the upstream label (1.716319ms)\n✔ Given several bound labels, when their deliveries return, then the relayed batch compresses them to one run (1.011684ms)\n✔ Given a transit binding, when uncertainty returns, then it releases once and relays only uncertainty under the upstream label (1.239104ms)\n✔ Given delivered outcomes with distinct denominators, when relayed, then compression preserves each denominator (1.041502ms)\n✔ Given unknown outcomes with distinct denominators, when relayed, then compression preserves each denominator (0.931869ms)\n✔ Given the public node package, when a TypeScript consumer uses disposition methods, then their exact signatures compile and invalid calls are rejected (6596.496784ms)\n✔ Given a successful disposition write, when the explicit flush path sends it, then rejection observation is registered before the flush returns (5.431162ms)\n✔ Given a successful disposition write, when the all flush path sends it, then rejection observation is registered before the flush returns (0.761332ms)\n✔ Given a successful disposition write, when the timer flush path sends it, then rejection observation is registered before the flush returns (0.756875ms)\n✔ Given a successful disposition write, when the count flush path sends it, then rejection observation is registered before the flush returns (0.579478ms)\nℹ tests 11\nℹ suites 0\nℹ pass 11\nℹ fail 0\nℹ cancelled 0\nℹ skipped 0\nℹ todo 0\nℹ duration_ms 10856.097901\n",
+      "exit_code": 0,
+      "finalChunk": "278ca0"
+    },
+    {
+      "name": "healthy-release-and-surface",
+      "command": "node --test --test-concurrency=1 --test-timeout=120000 --test-name-pattern='Given messages that all succeed|Given far more messages|Given a request with attempt correlation|Given a message that is delivered|Given a message whose outcome|Given a stream filtered|Given a destination on the sending node' packages/node/test/contract/disposition-release.test.js packages/node/test/contract/disposition-surface.test.js",
+      "expected": 7,
+      "cwd": "/tmp/agp-disposition-acceptance.mYHr2g/worktree",
+      "startedAt": "2026-10-19 23:18:07 UTC",
+      "chunk_id": "e8c2b7",
+      "wall_time_seconds": 1.00099666,
+      "original_token_count": 0,
+      "output": "✔ Given messages that all succeed, when their dispositions return, then the label table empties without waiting for expiry (190.364068ms)\n✔ Given far more messages than the table holds, when each is reported, then none is refused for want of a label (326.477473ms)\n✔ Given a request with attempt correlation, when the application echoes it in a reply, then both reports retain the label and distinct message identities (168.585639ms)\n✔ Given a message that is delivered, when its disposition returns, then the sender is told it settled and how many destinations owed it (75.067255ms)\n✔ Given a message whose outcome has not arrived, when the sender reads it, then the total is unknown rather than assumed to be one (51.378377ms)\n✔ Given a stream filtered to one endpoint, when two endpoints send, then only that endpoint's dispositions arrive (54.494899ms)\n✔ Given a destination on the sending node itself, when it is sent to, then the surface reports it settled without a binding to carry it (37.013532ms)\nℹ tests 7\nℹ suites 0\nℹ pass 7\nℹ fail 0\nℹ cancelled 0\nℹ skipped 0\nℹ todo 0\nℹ duration_ms 3995.273692\n",
+      "exit_code": 0,
+      "finalChunk": "b81389"
+    }
+  ],
+  "assessment": {
+    "basis": "Raw Zorg checkout/failure/retry logs, exact candidate identity and source-equivalence checks, and declared non-fault regressions.",
+    "established": [
+      "Captured hub-process exit on the old consumer baseline",
+      "Published repair-only candidate content matches the original reviewed repair outside documentation",
+      "Current exact-candidate build and 18 selected non-fault tests pass"
+    ],
+    "unestablished": [
+      "Failure callback behavior after an unsuccessful control write",
+      "Duplicate-safe exact-session teardown",
+      "Candidate process survival after unsuccessful disposition writes",
+      "Replacement-session isolation from late old-session failure",
+      "Completeness and acceptance of the release-regression scope",
+      "Distinct runtime acceptance judgment"
+    ],
+    "decision": "Do not promote to main on this evidence.",
+    "boundary": "No crash-triggering reproduction was created or run. No delegation or request to reproduce was sent. Existing evidence can be assessed if supplied; a new source review or healthy-only rerun cannot close the gap.",
+    "runtimeAcceptanceVerdict": null
+  },
+  "tracking": {
+    "boardChanges": [
+      {
+        "old": "| `B56` | Observe disposition write failures through the existing exact-session teardown path | `I2` | `P2` | [`MX24`](VERIFICATION.md#46-open-findings-from-sweeps), [candidate publication](VERIFICATION.md#472-disposition-repair-candidate-publication) and [acceptance requirements](VERIFICATION.md#437-disposition-repair-independent-source-review-and-acceptance-requirements) | open |",
+        "next": "| `B56` | Observe disposition write failures through the existing exact-session teardown path | `I2` | `P2` | [`MX24`](VERIFICATION.md#46-open-findings-from-sweeps), [recurrence and candidate checks](VERIFICATION.md#479-disposition-repair-recurrence-and-candidate-acceptance-status) and [acceptance requirements](VERIFICATION.md#437-disposition-repair-independent-source-review-and-acceptance-requirements) | open |"
+      },
+      {
+        "old": "| 1 | `B56` | Repair-only candidate published; runtime acceptance remains | [Candidate publication](VERIFICATION.md#472-disposition-repair-candidate-publication) preserves the independently source-reviewed repair and leaves remote `main` unchanged; callback behavior, process survival and late-failure isolation remain unmeasured |",
+        "next": "| 1 | `B56` | Candidate build and 18 non-fault checks pass; runtime acceptance remains unestablished | [Current assessment](VERIFICATION.md#479-disposition-repair-recurrence-and-candidate-acceptance-status) records Zorg's baseline hub exit; candidate-specific callback, duplicate-safe teardown, process-survival and replacement-session evidence is still required before acceptance and a repair-only main release |"
+      }
+    ],
+    "mx24": {
+      "old": "| `MX24` | At the pre-repair baseline, disposition flush discards the rejectable `writeControl` result inside a synchronous catch; carrier failure, queue refusal or shutdown can therefore leave that promise unobserved. | Open, `B56`; [section 4.37](#437-disposition-repair-independent-source-review-and-acceptance-requirements) records the independent source review and remaining requirements; [section 4.72](#472-disposition-repair-candidate-publication) records repair-only candidate publication with remote `main` unchanged; runtime acceptance remains unclaimed |",
+      "next": "| `MX24` | At the pre-repair baseline, disposition flush discards the rejectable `writeControl` result inside a synchronous catch; carrier failure, queue refusal or shutdown can therefore leave that promise unobserved. | Open, `B56`; [section 4.79](#479-disposition-repair-recurrence-and-candidate-acceptance-status) records Zorg's captured baseline hub exit and the repair candidate's build plus 18 non-fault checks; four runtime properties and a distinct acceptance judgment remain unestablished, with remote `main` unchanged |"
+    },
+    "section": "### 4.79 Disposition repair recurrence and candidate acceptance status\n\nThe director selected the `B56` acceptance and release assessment with \"continue\"; no promotion to `main` was selected.\\\nThe [checks and retained inputs](reviews/disposition-repair-acceptance-checks.json) record exact revisions, source hashes, commands, runtime, exit statuses and raw output.\n\n#### Measured evidence Tier 2\n\nZorg's [recurrence report](../../zorg/upstream/zorg-agp-disposition-write-recurrence.md) is committed at `707a8d5530f2cfc067ea3194f2f5ab4d23154608`.\\\nIts retained checkout log identifies AGP `f16266aaafa66f6301d7afbf09c55e3a1f990274`; the [test log](../../zorg-eval-runs/delta-4/stage-5/verify-attempt-3/logs/zorg-test.log) records a hub subprocess exiting 1 instead of 0, with `CHANNEL_TERMINAL` through the disposition timer and `writeControl`.\\\nThat run reports 150 passing tests and one failure; the separate seven-test retry passes on the same baseline, not the repair candidate.\n\nA fresh detached checkout tested `2f26eeb7a01e79a5ee0690b2b8ace32cd8c7fa2c`, whose sole parent remains the published baseline.\\\nIts complete parent-to-tip change is the same three repair paths; content outside `docs/` matches the originally reviewed repair.\\\nThe older temporary checkout no longer exists; its stale registration was not repaired or removed.\n\n| Check on the exact candidate | Result and scope |\n|---|---|\n| Offline lockfile installation with lifecycle scripts disabled | Exits zero; no dependency change |\n| Build | Exits zero on Node `v24.12.0`, npm `11.6.2`, TypeScript `5.9.3` |\n| Fulfilled-write observation, public types and valid relay cases | Eleven selected tests pass |\n| Healthy binding release, correlation and disposition surface | Seven selected tests pass |\n| Remote ref readback | Repair branch remains at the candidate; `main` remains at its parent |\n\nThe defined regression subset excludes unsuccessful control writes, teardown races, replacement-session failures and the WebSocket shutdown recurrence.\\\nIt also excludes the other package, integration, topology, resilience, CLI and system tests; eighteen selected passes are not a full-suite result.\n\n#### Author assessment Tier 3\n\nZorg's evidence strengthens the existing `B56` finding and confirms the local correspondence was received.\\\nIt establishes an actual hub executable failing during verification, not a deployed-production incident.\\\nThe claim that the candidate would have preserved that process remains an inference; the baseline failure and its passing retry supply no candidate recovery evidence.\n\n| Existing acceptance requirement | Current assessment |\n|---|---|\n| Failure callback receives the correct controller and cause | Source support only; failed-write runtime evidence remains unestablished |\n| Duplicate-safe exact-session teardown | Source support only; runtime evidence remains unestablished |\n| Process survival after an unsuccessful disposition write | Baseline process failure is now captured; candidate survival remains unestablished |\n| Isolation of a replacement session from an old session's late failure | Source support only; runtime evidence remains unestablished |\n| Release-regression scope | The non-fault subset and exclusions are explicit; complete release coverage is not established |\n| Candidate provenance and distinct judgment | Provenance is complete for these local checks; no distinct runtime acceptance judgment is supplied |\n\nRelease assessment: not ready for `main`; runtime acceptance has no verdict.\\\nThe four missing runtime properties require existing candidate-specific evidence before a reviewer can assess them; another source review or healthy-test rerun cannot substitute for it.\\\nNo new crash-triggering reproduction was created or run, and this assessment does not request one from Zorg.\n\n`B56` remains open at `I2`/`P2` and first in build order; browser design and context-lab are not dependencies of this repair.\\\nZorg's future pin change and consumer checks remain separate from AGP acceptance and publication.\\\nNo implementation, test source, prior verdict, normative contract or other proposal changed, and no sibling message, new agent, model call, commit or push occurred.\n\nMechanics: bind each observed result to its tested revision and compare it with the pre-existing acceptance requirements.\\\nRationale: evidence that the old release fails is not evidence that the candidate recovers.\\\nConsequence: retain the release hold without weakening the requirements or treating the unrelated local backlog as a repair-only publication.\n\n---\n\n",
+    "insertBefore": "## 5. Modular test architecture"
+  },
+  "validation": {
+    "status": "passed for record integrity and scoped preservation; not a runtime acceptance verdict",
+    "checks": [
+      {
+        "name": "documentation-style",
+        "command": "tools/check-docs.sh docs/BOARD.md docs/VERIFICATION.md",
+        "cwd": "/home/apnex/taceng/agp",
+        "chunk_id": "b48826",
+        "wall_time_seconds": 0.71739992,
+        "exit_code": 0,
+        "original_token_count": 49,
+        "output": "\nclean: 2 file(s), rule S13.\n\nclean: 2 file(s), rule S6.\n\nclean: 2 file(s), rule S10.\n\nclean: 2 file(s), rule S12.\n\nclean: 2 file(s), rule S8.\ndocs: 2 file(s) clean against S6, S8, S10, S12, S13.\n"
+      },
+      {
+        "name": "record-tests",
+        "command": "node --test test/conformance/board-record.test.js test/conformance/record-integrity.test.js test/conformance/architecture-record.test.js",
+        "cwd": "/home/apnex/taceng/agp",
+        "chunk_id": "a70b21",
+        "wall_time_seconds": 1.000904631,
+        "original_token_count": 470,
+        "output": "✔ Given the confirmed intent record, when its numbered subsections are read, then every number is unique and ordered (30.103576ms)\n✔ Given the reconciled architecture, when its current paths and scope owners are resolved, then none points at a fictional module or a forked deferred list (52.163254ms)\n✔ Given the triage ledger, when each candidate is read, then it is scored on both dimensions and cites a record (124.612027ms)\n✔ Given every record cited by the board, when the link is resolved, then the target and its anchor exist (670.581559ms)\n✔ Given the held section, when each item is read, then it is scored and carries a revival trigger (2.673112ms)\n✔ Given the decisions required, when each is read, then it names exactly what it blocks (2.210833ms)\n✔ Given every board identifier, when the ledger and milestones are compared, then neither contains an item the other omits (3.874096ms)\n✔ Given every board item, when its ledger status is compared with where it sits, then the board does not disagree with itself about its state (95.40575ms)\n✔ Given the milestones, when each is read, then no landed item is presented as a live move and the closed count matches the closed set (28.865215ms)\n✔ Given every record that cites a board item, when the citation is resolved, then the item exists on the board (231.926574ms)\n✔ Given the architecture maturity table, when a reopen trigger is read, then it names a condition that has not already happened (9.473092ms)\n✔ Given confirmed intent, when a row says it was amended, then it names the decision that amended it (2.266483ms)\n✔ Given every ratified decision, when it is checked against the vision, then it has been absorbed or explicitly ruled not to change purpose (9.609897ms)\nℹ tests 13\nℹ suites 0\nℹ pass 13\nℹ fail 0\nℹ cancelled 0\nℹ skipped 0\nℹ todo 0\nℹ duration_ms 995.471156\n",
+        "exit_code": 0,
+        "poll": {
+          "chunk_id": "1e4d9f",
+          "wall_time_seconds": 0.000018556,
+          "exit_code": 0,
+          "original_token_count": 0,
+          "output": ""
+        }
+      },
+      {
+        "name": "whitespace",
+        "command": "git diff --check",
+        "cwd": "/home/apnex/taceng/agp",
+        "chunk_id": "b0fbc9",
+        "wall_time_seconds": 0.000023902,
+        "exit_code": 0,
+        "original_token_count": 0,
+        "output": ""
+      }
+    ],
+    "scopeAttempts": [
+      {
+        "outcome": "invalid scope-check assumption",
+        "reason": "The first checker tried to compare pre-existing untracked browser-scale records against HEAD.",
+        "correction": "Restrict HEAD-equivalence checking to tracked browser-scale files; retain byte-hash preservation checks for every pre-existing scoped file.",
+        "command": "node --input-type=module <<'NODE'\nimport fs from 'node:fs';\nimport path from 'node:path';\nimport crypto from 'node:crypto';\nimport {execFileSync} from 'node:child_process';\nconst root=process.cwd();\nconst receiptPath='docs/reviews/disposition-repair-acceptance-checks.json';\nconst r=JSON.parse(fs.readFileSync(receiptPath,'utf8'));\nconst b=r.baseline.data;\nconst issues=[];\nconst sha=(v)=>crypto.createHash('sha256').update(v).digest('hex');\nconst g=(cwd,...args)=>execFileSync('git',args,{cwd,encoding:'utf8'});\nconst eq=(name,actual,expected)=>{if(actual!==expected) issues.push({name,actual,expected});};\nconst replaceOnce=(text,from,to,name)=>{const count=text.split(from).length-1;eq(name+' count',count,1);return text.replace(from,to);};\nconst board=fs.readFileSync('docs/BOARD.md','utf8');\nconst verification=fs.readFileSync('docs/VERIFICATION.md','utf8');\nlet reverseBoard=board;\nfor(const change of r.tracking.boardChanges)reverseBoard=replaceOnce(reverseBoard,change.next,change.old,'board change');\neq('board limited to selected replacements',sha(reverseBoard),b.agp.files['docs/BOARD.md'].sha256);\nlet reverseVerification=replaceOnce(verification,r.tracking.section,'','new verification section');\nreverseVerification=replaceOnce(reverseVerification,r.tracking.mx24.next,r.tracking.mx24.old,'current MX24 row');\neq('verification history preserved',sha(reverseVerification),b.agp.files['docs/VERIFICATION.md'].sha256);\nconst allowed=new Set(['docs/BOARD.md','docs/VERIFICATION.md']);\nlet preserved=0;\nfor(const [file,id] of Object.entries(b.agp.files)){\n if(allowed.has(file))continue;\n const bytes=fs.readFileSync(file);\n eq(file+' bytes',bytes.length,id.bytes);eq(file+' hash',sha(bytes),id.sha256);preserved++;\n}\nconst dirty=g(root,'status','--porcelain=v1','--untracked-files=all').trimEnd().split('\\n').filter(Boolean).map(x=>x.slice(3)).sort();\neq('dirty set',JSON.stringify(dirty),JSON.stringify([...b.agp.dirty,receiptPath].sort()));\nfor(const [name,args] of Object.entries({head:['rev-parse','HEAD'],origin:['rev-parse','origin/main'],candidate:['rev-parse','repair/disposition-write-observation'],candidateParent:['rev-parse','repair/disposition-write-observation^']})){\n eq('agp '+name,g(root,...args).trim(),b.agp[name]);\n}\neq('agp index',g(root,'diff','--cached','--name-status'),b.agp.index);\nconst zorg='/home/apnex/taceng/zorg';\neq('zorg head',g(zorg,'rev-parse','HEAD').trim(),b.zorg.head);\neq('zorg origin',g(zorg,'rev-parse','origin/main').trim(),b.zorg.origin);\neq('zorg index',g(zorg,'diff','--cached','--name-status'),b.zorg.index);\neq('zorg status',g(zorg,'status','--porcelain=v1','--untracked-files=all'),b.zorg.status);\nfor(const source of b.sources){\n const bytes=fs.readFileSync(source.path);\n eq(source.path+' bytes',bytes.length,source.bytes);eq(source.path+' hash',sha(bytes),source.sha256);\n const raw=r.retainedInputs.files.find(x=>x.path===source.path);\n if(!raw){issues.push({name:'missing raw input',path:source.path});continue;}\n eq(source.path+' retained raw',sha(raw.raw),source.sha256);\n}\nconst frozen=Object.keys(b.agp.files).filter(x=>x.startsWith('docs/reviews/browser-peer-scale-assurance/'));\nfor(const file of frozen)eq('frozen HEAD '+file,sha(fs.readFileSync(file)),sha(execFileSync('git',['show','HEAD:'+file],{cwd:root})));\neq('build exit',r.build.exit_code,0);\neq('installation exit',r.installation.exit_code,0);\nlet regressionCount=0;\nfor(const run of r.regressionRuns){\n eq(run.name+' exit',run.exit_code,0);\n const total=Number(run.output.match(/(?:# |ℹ )tests (\\d+)/)?.[1]);\n const pass=Number(run.output.match(/(?:# |ℹ )pass (\\d+)/)?.[1]);\n const fail=Number(run.output.match(/(?:# |ℹ )fail (\\d+)/)?.[1]);\n eq(run.name+' total',total,run.expected);eq(run.name+' pass',pass,run.expected);eq(run.name+' fail',fail,0);\n regressionCount+=total;\n}\neq('regression count',regressionCount,18);\nconst links=[];\nconst slug=(x)=>x.toLowerCase().replace(/<[^>]*>/g,'').replace(/[^\\p{L}\\p{N}\\s_-]/gu,'').trim().replace(/\\s/g,'-');\nfor(const [from,body] of [['docs/BOARD.md',r.tracking.boardChanges.map(c=>c.next).join('\\n')],['docs/VERIFICATION.md',r.tracking.mx24.next+'\\n'+r.tracking.section]]){\n for(const match of body.matchAll(/\\[[^\\]]*\\]\\(([^)]+)\\)/g)){\n  const [target,anchor]=match[1].split('#');const file=target?path.resolve(path.dirname(path.resolve(from)),target):path.resolve(from);\n  if(!fs.existsSync(file)){issues.push({name:'missing link target',from,target});continue;}\n  if(anchor){const heads=[...fs.readFileSync(file,'utf8').matchAll(/^#{1,6} +(.+)$/gm)].map(h=>slug(h[1]));if(!heads.includes(anchor))issues.push({name:'missing anchor',from,target,anchor});}\n  links.push({from,target:match[1]});\n }\n}\nconst candidate=r.temporaryCheckout.worktree;\nif(fs.existsSync(candidate)){\n eq('candidate checked out HEAD',g(candidate,'rev-parse','HEAD').trim(),b.agp.candidate);\n eq('candidate clean',g(candidate,'status','--porcelain=v1','--untracked-files=all'),'');\n eq('candidate common dir',fs.realpathSync(path.resolve(candidate,g(candidate,'rev-parse','--git-common-dir').trim())),fs.realpathSync(path.resolve(root,g(root,'rev-parse','--git-common-dir').trim())));\n}else{\n eq('worktree registrations restored',g(root,'worktree','list','--porcelain'),b.agp.worktrees);\n}\neq('old missing checkout still absent',fs.existsSync(b.staleCandidateWorktree.path),false);\nconst artifactHashes=Object.fromEntries(['docs/BOARD.md','docs/VERIFICATION.md'].map(file=>[file,{bytes:fs.statSync(file).size,sha256:sha(fs.readFileSync(file))}]));\nconsole.log(JSON.stringify({measuredAt:new Date().toISOString(),pass:issues.length===0,preservedFiles:preserved,dirtyCount:dirty.length,frozenPacketFiles:frozen.length,rawInputs:b.sources.length,regressionCount,links,artifactHashes,temporaryCheckoutExists:fs.existsSync(candidate),issues},null,2));\nif(issues.length)process.exitCode=1;\nNODE",
+        "cwd": "/home/apnex/taceng/agp",
+        "chunk_id": "3dd5a7",
+        "wall_time_seconds": 0.184072882,
+        "exit_code": 1,
+        "original_token_count": 629,
+        "output": "fatal: Path 'docs/reviews/browser-peer-scale-assurance/browser-scale-execution-readiness-checks.json' exists on disk, but not in 'HEAD'.\nnode:internal/errors:985\n  const err = new Error(message);\n              ^\n\nError: Command failed: git show HEAD:docs/reviews/browser-peer-scale-assurance/browser-scale-execution-readiness-checks.json\nfatal: Path 'docs/reviews/browser-peer-scale-assurance/browser-scale-execution-readiness-checks.json' exists on disk, but not in 'HEAD'.\n\n    at genericNodeError (node:internal/errors:985:15)\n    at wrappedFn (node:internal/errors:539:14)\n    at checkExecSyncError (node:child_process:925:11)\n    at execFileSync (node:child_process:961:15)\n    at file:///home/apnex/taceng/agp/[eval1]:48:80\n    at ModuleJob.run (node:internal/modules/esm/module_job:413:25)\n    at process.processTicksAndRejections (node:internal/process/task_queues:103:5)\n    at async onImport.tracePromise.__proto__ (node:internal/modules/esm/loader:268:26)\n    at async ModuleLoader.executeModuleJob (node:internal/modules/esm/loader:265:20)\n    at async asyncRunEntryPointWithESMLoader (node:internal/modules/run_main:101:5) {\n  status: 128,\n  signal: null,\n  output: [\n    null,\n    Buffer(0) [Uint8Array] [],\n    Buffer(137) [Uint8Array] [\n      102,  97, 116,  97, 108,  58,  32,  80,  97, 116, 104,  32,\n       39, 100, 111,  99, 115,  47, 114, 101, 118, 105, 101, 119,\n      115,  47,  98, 114, 111, 119, 115, 101, 114,  45, 112, 101,\n      101, 114,  45, 115,  99,  97, 108, 101,  45,  97, 115, 115,\n      117, 114,  97, 110,  99, 101,  47,  98, 114, 111, 119, 115,\n      101, 114,  45, 115,  99,  97, 108, 101,  45, 101, 120, 101,\n       99, 117, 116, 105, 111, 110,  45, 114, 101,  97, 100, 105,\n      110, 101, 115, 115,  45,  99, 104, 101,  99, 107, 115,  46,\n      106, 115, 111, 110,\n      ... 37 more items\n    ]\n  ],\n  pid: 805538,\n  stdout: Buffer(0) [Uint8Array] [],\n  stderr: Buffer(137) [Uint8Array] [\n    102,  97, 116,  97, 108,  58,  32,  80,  97, 116, 104,  32,\n     39, 100, 111,  99, 115,  47, 114, 101, 118, 105, 101, 119,\n    115,  47,  98, 114, 111, 119, 115, 101, 114,  45, 112, 101,\n    101, 114,  45, 115,  99,  97, 108, 101,  45,  97, 115, 115,\n    117, 114,  97, 110,  99, 101,  47,  98, 114, 111, 119, 115,\n    101, 114,  45, 115,  99,  97, 108, 101,  45, 101, 120, 101,\n     99, 117, 116, 105, 111, 110,  45, 114, 101,  97, 100, 105,\n    110, 101, 115, 115,  45,  99, 104, 101,  99, 107, 115,  46,\n    106, 115, 111, 110,\n    ... 37 more items\n  ]\n}\n\nNode.js v24.12.0\n"
+      },
+      {
+        "outcome": "detected concurrent sibling progress",
+        "reason": "Zorg HEAD advanced in two commits while these checks ran; all six source inputs remained byte-identical.",
+        "correction": "Record the external HEAD movement separately and check source preservation, index and worktree state without claiming the sibling repository is stationary.",
+        "command": "node --input-type=module <<'NODE'\nimport fs from 'node:fs';\nimport path from 'node:path';\nimport crypto from 'node:crypto';\nimport {execFileSync} from 'node:child_process';\nconst root=process.cwd();\nconst receiptPath='docs/reviews/disposition-repair-acceptance-checks.json';\nconst r=JSON.parse(fs.readFileSync(receiptPath,'utf8'));\nconst b=r.baseline.data;\nconst issues=[];\nconst sha=(v)=>crypto.createHash('sha256').update(v).digest('hex');\nconst g=(cwd,...args)=>execFileSync('git',args,{cwd,encoding:'utf8'});\nconst eq=(name,actual,expected)=>{if(actual!==expected) issues.push({name,actual,expected});};\nconst replaceOnce=(text,from,to,name)=>{const count=text.split(from).length-1;eq(name+' count',count,1);return text.replace(from,to);};\nconst board=fs.readFileSync('docs/BOARD.md','utf8');\nconst verification=fs.readFileSync('docs/VERIFICATION.md','utf8');\nlet reverseBoard=board;\nfor(const change of r.tracking.boardChanges)reverseBoard=replaceOnce(reverseBoard,change.next,change.old,'board change');\neq('board limited to selected replacements',sha(reverseBoard),b.agp.files['docs/BOARD.md'].sha256);\nlet reverseVerification=replaceOnce(verification,r.tracking.section,'','new verification section');\nreverseVerification=replaceOnce(reverseVerification,r.tracking.mx24.next,r.tracking.mx24.old,'current MX24 row');\neq('verification history preserved',sha(reverseVerification),b.agp.files['docs/VERIFICATION.md'].sha256);\nconst allowed=new Set(['docs/BOARD.md','docs/VERIFICATION.md']);\nlet preserved=0;\nfor(const [file,id] of Object.entries(b.agp.files)){\n if(allowed.has(file))continue;\n const bytes=fs.readFileSync(file);\n eq(file+' bytes',bytes.length,id.bytes);eq(file+' hash',sha(bytes),id.sha256);preserved++;\n}\nconst dirty=g(root,'status','--porcelain=v1','--untracked-files=all').trimEnd().split('\\n').filter(Boolean).map(x=>x.slice(3)).sort();\neq('dirty set',JSON.stringify(dirty),JSON.stringify([...b.agp.dirty,receiptPath].sort()));\nfor(const [name,args] of Object.entries({head:['rev-parse','HEAD'],origin:['rev-parse','origin/main'],candidate:['rev-parse','repair/disposition-write-observation'],candidateParent:['rev-parse','repair/disposition-write-observation^']})){\n eq('agp '+name,g(root,...args).trim(),b.agp[name]);\n}\neq('agp index',g(root,'diff','--cached','--name-status'),b.agp.index);\nconst zorg='/home/apnex/taceng/zorg';\neq('zorg head',g(zorg,'rev-parse','HEAD').trim(),b.zorg.head);\neq('zorg origin',g(zorg,'rev-parse','origin/main').trim(),b.zorg.origin);\neq('zorg index',g(zorg,'diff','--cached','--name-status'),b.zorg.index);\neq('zorg status',g(zorg,'status','--porcelain=v1','--untracked-files=all'),b.zorg.status);\nfor(const source of b.sources){\n const bytes=fs.readFileSync(source.path);\n eq(source.path+' bytes',bytes.length,source.bytes);eq(source.path+' hash',sha(bytes),source.sha256);\n const raw=r.retainedInputs.files.find(x=>x.path===source.path);\n if(!raw){issues.push({name:'missing raw input',path:source.path});continue;}\n eq(source.path+' retained raw',sha(raw.raw),source.sha256);\n}\nconst tracked=new Set(g(root,'ls-files','-z').split('\\0').filter(Boolean));\nconst frozen=Object.keys(b.agp.files).filter(x=>tracked.has(x)&&x.startsWith('docs/reviews/browser-peer-scale-assurance/'));\nfor(const file of frozen)eq('frozen HEAD '+file,sha(fs.readFileSync(file)),sha(execFileSync('git',['show','HEAD:'+file],{cwd:root})));\neq('build exit',r.build.exit_code,0);\neq('installation exit',r.installation.exit_code,0);\nlet regressionCount=0;\nfor(const run of r.regressionRuns){\n eq(run.name+' exit',run.exit_code,0);\n const total=Number(run.output.match(/(?:# |ℹ )tests (\\d+)/)?.[1]);\n const pass=Number(run.output.match(/(?:# |ℹ )pass (\\d+)/)?.[1]);\n const fail=Number(run.output.match(/(?:# |ℹ )fail (\\d+)/)?.[1]);\n eq(run.name+' total',total,run.expected);eq(run.name+' pass',pass,run.expected);eq(run.name+' fail',fail,0);\n regressionCount+=total;\n}\neq('regression count',regressionCount,18);\nconst links=[];\nconst slug=(x)=>x.toLowerCase().replace(/<[^>]*>/g,'').replace(/[^\\p{L}\\p{N}\\s_-]/gu,'').trim().replace(/\\s/g,'-');\nfor(const [from,body] of [['docs/BOARD.md',r.tracking.boardChanges.map(c=>c.next).join('\\n')],['docs/VERIFICATION.md',r.tracking.mx24.next+'\\n'+r.tracking.section]]){\n for(const match of body.matchAll(/\\[[^\\]]*\\]\\(([^)]+)\\)/g)){\n  const [target,anchor]=match[1].split('#');const file=target?path.resolve(path.dirname(path.resolve(from)),target):path.resolve(from);\n  if(!fs.existsSync(file)){issues.push({name:'missing link target',from,target});continue;}\n  if(anchor){const heads=[...fs.readFileSync(file,'utf8').matchAll(/^#{1,6} +(.+)$/gm)].map(h=>slug(h[1]));if(!heads.includes(anchor))issues.push({name:'missing anchor',from,target,anchor});}\n  links.push({from,target:match[1]});\n }\n}\nconst candidate=r.temporaryCheckout.worktree;\nif(fs.existsSync(candidate)){\n eq('candidate checked out HEAD',g(candidate,'rev-parse','HEAD').trim(),b.agp.candidate);\n eq('candidate clean',g(candidate,'status','--porcelain=v1','--untracked-files=all'),'');\n eq('candidate common dir',fs.realpathSync(path.resolve(candidate,g(candidate,'rev-parse','--git-common-dir').trim())),fs.realpathSync(path.resolve(root,g(root,'rev-parse','--git-common-dir').trim())));\n}else{\n eq('worktree registrations restored',g(root,'worktree','list','--porcelain'),b.agp.worktrees);\n}\neq('old missing checkout still absent',fs.existsSync(b.staleCandidateWorktree.path),false);\nconst artifactHashes=Object.fromEntries(['docs/BOARD.md','docs/VERIFICATION.md'].map(file=>[file,{bytes:fs.statSync(file).size,sha256:sha(fs.readFileSync(file))}]));\nconsole.log(JSON.stringify({measuredAt:new Date().toISOString(),pass:issues.length===0,preservedFiles:preserved,dirtyCount:dirty.length,frozenPacketFiles:frozen.length,rawInputs:b.sources.length,regressionCount,links,artifactHashes,temporaryCheckoutExists:fs.existsSync(candidate),issues},null,2));\nif(issues.length)process.exitCode=1;\nNODE",
+        "cwd": "/home/apnex/taceng/agp",
+        "chunk_id": "2b0320",
+        "wall_time_seconds": 0.597316888,
+        "exit_code": 1,
+        "original_token_count": 448,
+        "output": "{\n  \"measuredAt\": \"2026-10-19T23:22:33.396Z\",\n  \"pass\": false,\n  \"preservedFiles\": 113,\n  \"dirtyCount\": 89,\n  \"frozenPacketFiles\": 20,\n  \"rawInputs\": 6,\n  \"regressionCount\": 18,\n  \"links\": [\n    {\n      \"from\": \"docs/BOARD.md\",\n      \"target\": \"VERIFICATION.md#46-open-findings-from-sweeps\"\n    },\n    {\n      \"from\": \"docs/BOARD.md\",\n      \"target\": \"VERIFICATION.md#479-disposition-repair-recurrence-and-candidate-acceptance-status\"\n    },\n    {\n      \"from\": \"docs/BOARD.md\",\n      \"target\": \"VERIFICATION.md#437-disposition-repair-independent-source-review-and-acceptance-requirements\"\n    },\n    {\n      \"from\": \"docs/BOARD.md\",\n      \"target\": \"VERIFICATION.md#479-disposition-repair-recurrence-and-candidate-acceptance-status\"\n    },\n    {\n      \"from\": \"docs/VERIFICATION.md\",\n      \"target\": \"#479-disposition-repair-recurrence-and-candidate-acceptance-status\"\n    },\n    {\n      \"from\": \"docs/VERIFICATION.md\",\n      \"target\": \"reviews/disposition-repair-acceptance-checks.json\"\n    },\n    {\n      \"from\": \"docs/VERIFICATION.md\",\n      \"target\": \"../../zorg/upstream/zorg-agp-disposition-write-recurrence.md\"\n    },\n    {\n      \"from\": \"docs/VERIFICATION.md\",\n      \"target\": \"../../zorg-eval-runs/delta-4/stage-5/verify-attempt-3/logs/zorg-test.log\"\n    }\n  ],\n  \"artifactHashes\": {\n    \"docs/BOARD.md\": {\n      \"bytes\": 47574,\n      \"sha256\": \"acb7250e4d36f437746992c115825db33c378860c482dd5c341eba020d4aeba0\"\n    },\n    \"docs/VERIFICATION.md\": {\n      \"bytes\": 391420,\n      \"sha256\": \"3f678321c409c55504e8f36c8385b16fa846eb8fc990fb268ef29076a663bc49\"\n    }\n  },\n  \"temporaryCheckoutExists\": true,\n  \"issues\": [\n    {\n      \"name\": \"zorg head\",\n      \"actual\": \"0c2b9528dce2458092e248790b8236fcca2c9928\",\n      \"expected\": \"6ed85528d4adcf48c7e557e1ea009e2193c1a97e\"\n    }\n  ]\n}\n"
+      }
+    ],
+    "finalScopeCheck": {
+      "command": "node --input-type=module <<'NODE'\nimport fs from 'node:fs';\nimport path from 'node:path';\nimport crypto from 'node:crypto';\nimport {execFileSync} from 'node:child_process';\nconst root=process.cwd();\nconst receiptPath='docs/reviews/disposition-repair-acceptance-checks.json';\nconst r=JSON.parse(fs.readFileSync(receiptPath,'utf8'));\nconst b=r.baseline.data;\nconst issues=[];\nconst sha=(v)=>crypto.createHash('sha256').update(v).digest('hex');\nconst g=(cwd,...args)=>execFileSync('git',args,{cwd,encoding:'utf8'});\nconst eq=(name,actual,expected)=>{if(actual!==expected) issues.push({name,actual,expected});};\nconst replaceOnce=(text,from,to,name)=>{const count=text.split(from).length-1;eq(name+' count',count,1);return text.replace(from,to);};\nconst board=fs.readFileSync('docs/BOARD.md','utf8');\nconst verification=fs.readFileSync('docs/VERIFICATION.md','utf8');\nlet reverseBoard=board;\nfor(const change of r.tracking.boardChanges)reverseBoard=replaceOnce(reverseBoard,change.next,change.old,'board change');\neq('board limited to selected replacements',sha(reverseBoard),b.agp.files['docs/BOARD.md'].sha256);\nlet reverseVerification=replaceOnce(verification,r.tracking.section,'','new verification section');\nreverseVerification=replaceOnce(reverseVerification,r.tracking.mx24.next,r.tracking.mx24.old,'current MX24 row');\neq('verification history preserved',sha(reverseVerification),b.agp.files['docs/VERIFICATION.md'].sha256);\nconst allowed=new Set(['docs/BOARD.md','docs/VERIFICATION.md']);\nlet preserved=0;\nfor(const [file,id] of Object.entries(b.agp.files)){\n if(allowed.has(file))continue;\n const bytes=fs.readFileSync(file);\n eq(file+' bytes',bytes.length,id.bytes);eq(file+' hash',sha(bytes),id.sha256);preserved++;\n}\nconst dirty=g(root,'status','--porcelain=v1','--untracked-files=all').trimEnd().split('\\n').filter(Boolean).map(x=>x.slice(3)).sort();\neq('dirty set',JSON.stringify(dirty),JSON.stringify([...b.agp.dirty,receiptPath].sort()));\nfor(const [name,args] of Object.entries({head:['rev-parse','HEAD'],origin:['rev-parse','origin/main'],candidate:['rev-parse','repair/disposition-write-observation'],candidateParent:['rev-parse','repair/disposition-write-observation^']})){\n eq('agp '+name,g(root,...args).trim(),b.agp[name]);\n}\neq('agp index',g(root,'diff','--cached','--name-status'),b.agp.index);\nconst zorg='/home/apnex/taceng/zorg';\nconst zorgHead=g(zorg,'rev-parse','HEAD').trim();\nconst zorgChangedPathsSinceBaseline=g(zorg,'diff','--name-status',b.zorg.head,zorgHead);\neq('zorg origin',g(zorg,'rev-parse','origin/main').trim(),b.zorg.origin);\neq('zorg index',g(zorg,'diff','--cached','--name-status'),b.zorg.index);\neq('zorg status',g(zorg,'status','--porcelain=v1','--untracked-files=all'),b.zorg.status);\nfor(const source of b.sources){\n const bytes=fs.readFileSync(source.path);\n eq(source.path+' bytes',bytes.length,source.bytes);eq(source.path+' hash',sha(bytes),source.sha256);\n const raw=r.retainedInputs.files.find(x=>x.path===source.path);\n if(!raw){issues.push({name:'missing raw input',path:source.path});continue;}\n eq(source.path+' retained raw',sha(raw.raw),source.sha256);\n}\nconst tracked=new Set(g(root,'ls-files','-z').split('\\0').filter(Boolean));\nconst frozen=Object.keys(b.agp.files).filter(x=>tracked.has(x)&&x.startsWith('docs/reviews/browser-peer-scale-assurance/'));\nfor(const file of frozen)eq('frozen HEAD '+file,sha(fs.readFileSync(file)),sha(execFileSync('git',['show','HEAD:'+file],{cwd:root})));\neq('build exit',r.build.exit_code,0);\neq('installation exit',r.installation.exit_code,0);\nlet regressionCount=0;\nfor(const run of r.regressionRuns){\n eq(run.name+' exit',run.exit_code,0);\n const total=Number(run.output.match(/(?:# |ℹ )tests (\\d+)/)?.[1]);\n const pass=Number(run.output.match(/(?:# |ℹ )pass (\\d+)/)?.[1]);\n const fail=Number(run.output.match(/(?:# |ℹ )fail (\\d+)/)?.[1]);\n eq(run.name+' total',total,run.expected);eq(run.name+' pass',pass,run.expected);eq(run.name+' fail',fail,0);\n regressionCount+=total;\n}\neq('regression count',regressionCount,18);\nconst links=[];\nconst slug=(x)=>x.toLowerCase().replace(/<[^>]*>/g,'').replace(/[^\\p{L}\\p{N}\\s_-]/gu,'').trim().replace(/\\s/g,'-');\nfor(const [from,body] of [['docs/BOARD.md',r.tracking.boardChanges.map(c=>c.next).join('\\n')],['docs/VERIFICATION.md',r.tracking.mx24.next+'\\n'+r.tracking.section]]){\n for(const match of body.matchAll(/\\[[^\\]]*\\]\\(([^)]+)\\)/g)){\n  const [target,anchor]=match[1].split('#');const file=target?path.resolve(path.dirname(path.resolve(from)),target):path.resolve(from);\n  if(!fs.existsSync(file)){issues.push({name:'missing link target',from,target});continue;}\n  if(anchor){const heads=[...fs.readFileSync(file,'utf8').matchAll(/^#{1,6} +(.+)$/gm)].map(h=>slug(h[1]));if(!heads.includes(anchor))issues.push({name:'missing anchor',from,target,anchor});}\n  links.push({from,target:match[1]});\n }\n}\nconst candidate=r.temporaryCheckout.worktree;\nif(fs.existsSync(candidate)){\n eq('candidate checked out HEAD',g(candidate,'rev-parse','HEAD').trim(),b.agp.candidate);\n eq('candidate clean',g(candidate,'status','--porcelain=v1','--untracked-files=all'),'');\n eq('candidate common dir',fs.realpathSync(path.resolve(candidate,g(candidate,'rev-parse','--git-common-dir').trim())),fs.realpathSync(path.resolve(root,g(root,'rev-parse','--git-common-dir').trim())));\n}else{\n eq('worktree registrations restored',g(root,'worktree','list','--porcelain'),b.agp.worktrees);\n}\neq('old missing checkout still absent',fs.existsSync(b.staleCandidateWorktree.path),false);\nconst artifactHashes=Object.fromEntries(['docs/BOARD.md','docs/VERIFICATION.md'].map(file=>[file,{bytes:fs.statSync(file).size,sha256:sha(fs.readFileSync(file))}]));\nconsole.log(JSON.stringify({measuredAt:new Date().toISOString(),pass:issues.length===0,preservedFiles:preserved,dirtyCount:dirty.length,frozenPacketFiles:frozen.length,rawInputs:b.sources.length,regressionCount,links,artifactHashes,temporaryCheckoutExists:fs.existsSync(candidate),zorgHead,zorgChangedPathsSinceBaseline,issues},null,2));\nif(issues.length)process.exitCode=1;\nNODE",
+      "cwd": "/home/apnex/taceng/agp",
+      "chunk_id": "40f41a",
+      "wall_time_seconds": 0.587994953,
+      "exit_code": 0,
+      "original_token_count": 453,
+      "output": "{\n  \"measuredAt\": \"2026-10-19T23:23:25.339Z\",\n  \"pass\": true,\n  \"preservedFiles\": 113,\n  \"dirtyCount\": 89,\n  \"frozenPacketFiles\": 20,\n  \"rawInputs\": 6,\n  \"regressionCount\": 18,\n  \"links\": [\n    {\n      \"from\": \"docs/BOARD.md\",\n      \"target\": \"VERIFICATION.md#46-open-findings-from-sweeps\"\n    },\n    {\n      \"from\": \"docs/BOARD.md\",\n      \"target\": \"VERIFICATION.md#479-disposition-repair-recurrence-and-candidate-acceptance-status\"\n    },\n    {\n      \"from\": \"docs/BOARD.md\",\n      \"target\": \"VERIFICATION.md#437-disposition-repair-independent-source-review-and-acceptance-requirements\"\n    },\n    {\n      \"from\": \"docs/BOARD.md\",\n      \"target\": \"VERIFICATION.md#479-disposition-repair-recurrence-and-candidate-acceptance-status\"\n    },\n    {\n      \"from\": \"docs/VERIFICATION.md\",\n      \"target\": \"#479-disposition-repair-recurrence-and-candidate-acceptance-status\"\n    },\n    {\n      \"from\": \"docs/VERIFICATION.md\",\n      \"target\": \"reviews/disposition-repair-acceptance-checks.json\"\n    },\n    {\n      \"from\": \"docs/VERIFICATION.md\",\n      \"target\": \"../../zorg/upstream/zorg-agp-disposition-write-recurrence.md\"\n    },\n    {\n      \"from\": \"docs/VERIFICATION.md\",\n      \"target\": \"../../zorg-eval-runs/delta-4/stage-5/verify-attempt-3/logs/zorg-test.log\"\n    }\n  ],\n  \"artifactHashes\": {\n    \"docs/BOARD.md\": {\n      \"bytes\": 47574,\n      \"sha256\": \"acb7250e4d36f437746992c115825db33c378860c482dd5c341eba020d4aeba0\"\n    },\n    \"docs/VERIFICATION.md\": {\n      \"bytes\": 391420,\n      \"sha256\": \"3f678321c409c55504e8f36c8385b16fa846eb8fc990fb268ef29076a663bc49\"\n    }\n  },\n  \"temporaryCheckoutExists\": false,\n  \"zorgHead\": \"0c2b9528dce2458092e248790b8236fcca2c9928\",\n  \"zorgChangedPathsSinceBaseline\": \"M\\tdocs/ARCHITECTURE-TARGET.md\\nM\\tdocs/ARCHITECTURE.md\\nM\\tdocs/DELTAS/DELTA-4.md\\n\",\n  \"issues\": []\n}\n"
+    },
+    "candidatePreCleanupCheck": {
+      "command": "node --input-type=module <<'NODE'\nimport fs from 'node:fs';\nimport path from 'node:path';\nimport crypto from 'node:crypto';\nimport {execFileSync} from 'node:child_process';\nconst root=process.cwd();\nconst receiptPath='docs/reviews/disposition-repair-acceptance-checks.json';\nconst r=JSON.parse(fs.readFileSync(receiptPath,'utf8'));\nconst b=r.baseline.data;\nconst issues=[];\nconst sha=(v)=>crypto.createHash('sha256').update(v).digest('hex');\nconst g=(cwd,...args)=>execFileSync('git',args,{cwd,encoding:'utf8'});\nconst eq=(name,actual,expected)=>{if(actual!==expected) issues.push({name,actual,expected});};\nconst replaceOnce=(text,from,to,name)=>{const count=text.split(from).length-1;eq(name+' count',count,1);return text.replace(from,to);};\nconst board=fs.readFileSync('docs/BOARD.md','utf8');\nconst verification=fs.readFileSync('docs/VERIFICATION.md','utf8');\nlet reverseBoard=board;\nfor(const change of r.tracking.boardChanges)reverseBoard=replaceOnce(reverseBoard,change.next,change.old,'board change');\neq('board limited to selected replacements',sha(reverseBoard),b.agp.files['docs/BOARD.md'].sha256);\nlet reverseVerification=replaceOnce(verification,r.tracking.section,'','new verification section');\nreverseVerification=replaceOnce(reverseVerification,r.tracking.mx24.next,r.tracking.mx24.old,'current MX24 row');\neq('verification history preserved',sha(reverseVerification),b.agp.files['docs/VERIFICATION.md'].sha256);\nconst allowed=new Set(['docs/BOARD.md','docs/VERIFICATION.md']);\nlet preserved=0;\nfor(const [file,id] of Object.entries(b.agp.files)){\n if(allowed.has(file))continue;\n const bytes=fs.readFileSync(file);\n eq(file+' bytes',bytes.length,id.bytes);eq(file+' hash',sha(bytes),id.sha256);preserved++;\n}\nconst dirty=g(root,'status','--porcelain=v1','--untracked-files=all').trimEnd().split('\\n').filter(Boolean).map(x=>x.slice(3)).sort();\neq('dirty set',JSON.stringify(dirty),JSON.stringify([...b.agp.dirty,receiptPath].sort()));\nfor(const [name,args] of Object.entries({head:['rev-parse','HEAD'],origin:['rev-parse','origin/main'],candidate:['rev-parse','repair/disposition-write-observation'],candidateParent:['rev-parse','repair/disposition-write-observation^']})){\n eq('agp '+name,g(root,...args).trim(),b.agp[name]);\n}\neq('agp index',g(root,'diff','--cached','--name-status'),b.agp.index);\nconst zorg='/home/apnex/taceng/zorg';\nconst zorgHead=g(zorg,'rev-parse','HEAD').trim();\nconst zorgChangedPathsSinceBaseline=g(zorg,'diff','--name-status',b.zorg.head,zorgHead);\neq('zorg origin',g(zorg,'rev-parse','origin/main').trim(),b.zorg.origin);\neq('zorg index',g(zorg,'diff','--cached','--name-status'),b.zorg.index);\neq('zorg status',g(zorg,'status','--porcelain=v1','--untracked-files=all'),b.zorg.status);\nfor(const source of b.sources){\n const bytes=fs.readFileSync(source.path);\n eq(source.path+' bytes',bytes.length,source.bytes);eq(source.path+' hash',sha(bytes),source.sha256);\n const raw=r.retainedInputs.files.find(x=>x.path===source.path);\n if(!raw){issues.push({name:'missing raw input',path:source.path});continue;}\n eq(source.path+' retained raw',sha(raw.raw),source.sha256);\n}\nconst tracked=new Set(g(root,'ls-files','-z').split('\\0').filter(Boolean));\nconst frozen=Object.keys(b.agp.files).filter(x=>tracked.has(x)&&x.startsWith('docs/reviews/browser-peer-scale-assurance/'));\nfor(const file of frozen)eq('frozen HEAD '+file,sha(fs.readFileSync(file)),sha(execFileSync('git',['show','HEAD:'+file],{cwd:root})));\neq('build exit',r.build.exit_code,0);\neq('installation exit',r.installation.exit_code,0);\nlet regressionCount=0;\nfor(const run of r.regressionRuns){\n eq(run.name+' exit',run.exit_code,0);\n const total=Number(run.output.match(/(?:# |ℹ )tests (\\d+)/)?.[1]);\n const pass=Number(run.output.match(/(?:# |ℹ )pass (\\d+)/)?.[1]);\n const fail=Number(run.output.match(/(?:# |ℹ )fail (\\d+)/)?.[1]);\n eq(run.name+' total',total,run.expected);eq(run.name+' pass',pass,run.expected);eq(run.name+' fail',fail,0);\n regressionCount+=total;\n}\neq('regression count',regressionCount,18);\nconst links=[];\nconst slug=(x)=>x.toLowerCase().replace(/<[^>]*>/g,'').replace(/[^\\p{L}\\p{N}\\s_-]/gu,'').trim().replace(/\\s/g,'-');\nfor(const [from,body] of [['docs/BOARD.md',r.tracking.boardChanges.map(c=>c.next).join('\\n')],['docs/VERIFICATION.md',r.tracking.mx24.next+'\\n'+r.tracking.section]]){\n for(const match of body.matchAll(/\\[[^\\]]*\\]\\(([^)]+)\\)/g)){\n  const [target,anchor]=match[1].split('#');const file=target?path.resolve(path.dirname(path.resolve(from)),target):path.resolve(from);\n  if(!fs.existsSync(file)){issues.push({name:'missing link target',from,target});continue;}\n  if(anchor){const heads=[...fs.readFileSync(file,'utf8').matchAll(/^#{1,6} +(.+)$/gm)].map(h=>slug(h[1]));if(!heads.includes(anchor))issues.push({name:'missing anchor',from,target,anchor});}\n  links.push({from,target:match[1]});\n }\n}\nconst candidate=r.temporaryCheckout.worktree;\nif(fs.existsSync(candidate)){\n eq('candidate checked out HEAD',g(candidate,'rev-parse','HEAD').trim(),b.agp.candidate);\n eq('candidate clean',g(candidate,'status','--porcelain=v1','--untracked-files=all'),'');\n eq('candidate common dir',fs.realpathSync(path.resolve(candidate,g(candidate,'rev-parse','--git-common-dir').trim())),fs.realpathSync(path.resolve(root,g(root,'rev-parse','--git-common-dir').trim())));\n}else{\n eq('worktree registrations restored',g(root,'worktree','list','--porcelain'),b.agp.worktrees);\n}\neq('old missing checkout still absent',fs.existsSync(b.staleCandidateWorktree.path),false);\nconst artifactHashes=Object.fromEntries(['docs/BOARD.md','docs/VERIFICATION.md'].map(file=>[file,{bytes:fs.statSync(file).size,sha256:sha(fs.readFileSync(file))}]));\nconsole.log(JSON.stringify({measuredAt:new Date().toISOString(),pass:issues.length===0,preservedFiles:preserved,dirtyCount:dirty.length,frozenPacketFiles:frozen.length,rawInputs:b.sources.length,regressionCount,links,artifactHashes,temporaryCheckoutExists:fs.existsSync(candidate),zorgHead,zorgChangedPathsSinceBaseline,issues},null,2));\nif(issues.length)process.exitCode=1;\nNODE",
+      "cwd": "/home/apnex/taceng/agp",
+      "chunk_id": "e65e74",
+      "wall_time_seconds": 0.633767428,
+      "exit_code": 0,
+      "original_token_count": 452,
+      "output": "{\n  \"measuredAt\": \"2026-10-19T23:23:00.508Z\",\n  \"pass\": true,\n  \"preservedFiles\": 113,\n  \"dirtyCount\": 89,\n  \"frozenPacketFiles\": 20,\n  \"rawInputs\": 6,\n  \"regressionCount\": 18,\n  \"links\": [\n    {\n      \"from\": \"docs/BOARD.md\",\n      \"target\": \"VERIFICATION.md#46-open-findings-from-sweeps\"\n    },\n    {\n      \"from\": \"docs/BOARD.md\",\n      \"target\": \"VERIFICATION.md#479-disposition-repair-recurrence-and-candidate-acceptance-status\"\n    },\n    {\n      \"from\": \"docs/BOARD.md\",\n      \"target\": \"VERIFICATION.md#437-disposition-repair-independent-source-review-and-acceptance-requirements\"\n    },\n    {\n      \"from\": \"docs/BOARD.md\",\n      \"target\": \"VERIFICATION.md#479-disposition-repair-recurrence-and-candidate-acceptance-status\"\n    },\n    {\n      \"from\": \"docs/VERIFICATION.md\",\n      \"target\": \"#479-disposition-repair-recurrence-and-candidate-acceptance-status\"\n    },\n    {\n      \"from\": \"docs/VERIFICATION.md\",\n      \"target\": \"reviews/disposition-repair-acceptance-checks.json\"\n    },\n    {\n      \"from\": \"docs/VERIFICATION.md\",\n      \"target\": \"../../zorg/upstream/zorg-agp-disposition-write-recurrence.md\"\n    },\n    {\n      \"from\": \"docs/VERIFICATION.md\",\n      \"target\": \"../../zorg-eval-runs/delta-4/stage-5/verify-attempt-3/logs/zorg-test.log\"\n    }\n  ],\n  \"artifactHashes\": {\n    \"docs/BOARD.md\": {\n      \"bytes\": 47574,\n      \"sha256\": \"acb7250e4d36f437746992c115825db33c378860c482dd5c341eba020d4aeba0\"\n    },\n    \"docs/VERIFICATION.md\": {\n      \"bytes\": 391420,\n      \"sha256\": \"3f678321c409c55504e8f36c8385b16fa846eb8fc990fb268ef29076a663bc49\"\n    }\n  },\n  \"temporaryCheckoutExists\": true,\n  \"zorgHead\": \"0c2b9528dce2458092e248790b8236fcca2c9928\",\n  \"zorgChangedPathsSinceBaseline\": \"M\\tdocs/ARCHITECTURE-TARGET.md\\nM\\tdocs/ARCHITECTURE.md\\nM\\tdocs/DELTAS/DELTA-4.md\\n\",\n  \"issues\": []\n}\n"
+    },
+    "concurrentZorgProgress": [
+      {
+        "name": "zorg-commits",
+        "command": "git log --format=fuller --stat 6ed85528d4adcf48c7e557e1ea009e2193c1a97e..HEAD",
+        "cwd": "/home/apnex/taceng/zorg",
+        "chunk_id": "ccc86b",
+        "wall_time_seconds": 0.628960744,
+        "exit_code": 0,
+        "original_token_count": 246,
+        "output": "commit 0c2b9528dce2458092e248790b8236fcca2c9928\nAuthor:     Andrew Obersnel <aobersnel@apnex.com.au>\nAuthorDate: Tue Oct 20 10:19:01 2026 +1100\nCommit:     Andrew Obersnel <aobersnel@apnex.com.au>\nCommitDate: Tue Oct 20 10:19:01 2026 +1100\n\n    Delta 4 stage 7 design absorbed: EM18 entity-api following, EM9 too-many-follows, EM10/EM13/RT1 under amendment 6; entity-api CONTRACT 2cd72df\n\n docs/ARCHITECTURE-TARGET.md | 36 ++++++++++++++++++++++++++++++++----\n docs/ARCHITECTURE.md        |  2 +-\n docs/DELTAS/DELTA-4.md      |  7 +++++++\n 3 files changed, 40 insertions(+), 5 deletions(-)\n\ncommit 666e5fe306a392ec776953dd3a0dbf7cd6340cde\nAuthor:     Andrew Obersnel <aobersnel@apnex.com.au>\nAuthorDate: Tue Oct 20 10:16:59 2026 +1100\nCommit:     Andrew Obersnel <aobersnel@apnex.com.au>\nCommitDate: Tue Oct 20 10:16:59 2026 +1100\n\n    Delta 4 amendment 6 (director): zorg's hub serves follow from stage 7\n\n docs/DELTAS/DELTA-4.md | 13 +++++++++++++\n 1 file changed, 13 insertions(+)\n"
+      },
+      {
+        "name": "zorg-changed-paths",
+        "command": "git diff --name-status 6ed85528d4adcf48c7e557e1ea009e2193c1a97e HEAD",
+        "cwd": "/home/apnex/taceng/zorg",
+        "chunk_id": "febf9c",
+        "wall_time_seconds": 0.799093837,
+        "exit_code": 0,
+        "original_token_count": 20,
+        "output": "M\tdocs/ARCHITECTURE-TARGET.md\nM\tdocs/ARCHITECTURE.md\nM\tdocs/DELTAS/DELTA-4.md\n"
+      }
+    ],
+    "cleanup": {
+      "command": "git worktree remove /tmp/agp-disposition-acceptance.mYHr2g/worktree",
+      "cwd": "/home/apnex/taceng/agp",
+      "chunk_id": "26d682",
+      "wall_time_seconds": 0.000027233,
+      "exit_code": 0,
+      "original_token_count": 0,
+      "output": ""
+    },
+    "artifactHashes": {
+      "docs/BOARD.md": {
+        "bytes": 47574,
+        "sha256": "acb7250e4d36f437746992c115825db33c378860c482dd5c341eba020d4aeba0"
+      },
+      "docs/VERIFICATION.md": {
+        "bytes": 391420,
+        "sha256": "3f678321c409c55504e8f36c8385b16fa846eb8fc990fb268ef29076a663bc49"
+      }
+    },
+    "interpretation": "Documentation style, board/record consistency, selected links, historical-content preservation and unchanged scoped inputs pass. These checks do not establish any of the four missing runtime properties. The newly created detached worktree was removed; the pre-existing stale registration was left untouched."
+  }
+}
