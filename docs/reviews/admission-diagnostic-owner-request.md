@@ -3,6 +3,9 @@
 From: AGP project, 2026-10-17 Australia/Melbourne.\
 To: context-lab maintainer; provider-side questions also need the Nexus/OpenCode and separate Codex account operators.
 
+**Publication correction:** Repository-relative links replace the original workstation-absolute links below.\
+The [original handoff bytes](https://github.com/apnex/agp/blob/0aa6be75ccacf4e2c3770a49c5ea39970a25a98a/docs/reviews/admission-diagnostic-owner-request.md) remain preserved; requirements and historical status are unchanged.
+
 Please identify existing supported controls and evidence that could unblock AGP's admission-design diagnostic.\
 This is an information request, not authorization to implement facilities, change configuration, run probes or spend on model calls.\
 AGP's read-only inventory stopped before any diagnostic call because the required evidence was not established; it does not claim the deployed providers lack the capabilities.
@@ -45,8 +48,8 @@ Backend effective reply limits may remain unknown where independent aggregate re
 
 ## References and reply
 
-The full [proposal](/home/apnex/taceng/agp/docs/reviews/admission-diagnostic-proposal.md) and [capability-first amendment](/home/apnex/taceng/agp/docs/reviews/admission-diagnostic-amendment-01.md) retain the requirements and stop rules.\
-The [source findings](/home/apnex/taceng/agp/docs/reviews/admission-diagnostic-capability-findings.md), [inventory result](/home/apnex/taceng/agp/docs/reviews/admission-diagnostic-capability-result.md) and [complete inspection record](/home/apnex/taceng/agp/docs/reviews/admission-diagnostic-capability-checks.json) preserve the exact observations and their limits.
+The full [proposal](admission-diagnostic-proposal.md) and [capability-first amendment](admission-diagnostic-amendment-01.md) retain the requirements and stop rules.\
+The [source findings](admission-diagnostic-capability-findings.md), [inventory result](admission-diagnostic-capability-result.md) and [complete inspection record](admission-diagnostic-capability-checks.json) preserve the exact observations and their limits.
 
 | Reference | Identity |
 |---|---|

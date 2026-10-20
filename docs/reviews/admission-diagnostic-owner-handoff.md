@@ -11,9 +11,12 @@ The director selected sending the bounded owner request after the capability inv
 | Nexus/OpenCode provider operator | Direct delivery pending a destination; the context-lab request also asks for routing if these questions belong elsewhere |
 | Separate Codex account/runtime operator | Direct delivery pending a destination; Nexus evidence alone will not cover this path |
 
-The [retained request](admission-diagnostic-owner-request.md) and [placed copy](/home/apnex/taceng/context-lab/incoming/agp-admission-diagnostic-capability-request.md) are byte-identical: 5,316 bytes, SHA-256 `a28c10993dbc919f03ee73307fd645be5d3f2fa3a78207fe88ce046c417d1e19`.\
+The [retained request as handed off](https://github.com/apnex/agp/blob/0aa6be75ccacf4e2c3770a49c5ea39970a25a98a/docs/reviews/admission-diagnostic-owner-request.md) and [placed copy](../../../context-lab/incoming/agp-admission-diagnostic-capability-request.md) are byte-identical: 5,316 bytes, SHA-256 `a28c10993dbc919f03ee73307fd645be5d3f2fa3a78207fe88ce046c417d1e19`.\
 Only the new request was added to context-lab; its tracked files are unchanged, and no recipient-repository commit or push was made.\
 The [handoff checks](admission-diagnostic-owner-handoff-checks.json) retain the placement checks, routing-search scope and before-state identities.
+
+**Publication correction:** The retained-request link identifies the original committed bytes.\
+The [current local copy](admission-diagnostic-owner-request.md) has rebased links and a publication note, not changed requirements.
 
 No provider-owner destination was established in the inspected context-lab documentation or local workspace directory names.\
 The director was asked for that destination; this is a routing gap, not a claim that the operators lack the capabilities.

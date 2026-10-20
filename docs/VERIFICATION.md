@@ -3190,7 +3190,7 @@ Consequence: silently changing retries, output surfaces, validity or aggregation
 The director selected delivery of the local direct-peer contract request with "continue".\
 Context-lab's existing `incoming` folder contains the earlier AGP admission request and a maintainer response, establishing the local handoff route without creating a new channel or contacting another owner.
 
-The [handoff record](reviews/direct-peer-send-assurance/direct-peer-context-lab-handoff.md) identifies the [placed request](/home/apnex/taceng/context-lab/incoming/agp-direct-peer-assurance-contract-request.md) and exact source/delivery hashes.\
+The [handoff record](reviews/direct-peer-send-assurance/direct-peer-context-lab-handoff.md) identifies the [placed request](../../context-lab/incoming/agp-direct-peer-assurance-contract-request.md) and exact source/delivery hashes.\
 A 703-byte delivery cover clarifies current placement and the source's historical draft status; the full 8,914-byte approved request follows unchanged.\
 The original draft, prior check record, assurance packet, original key-audit FAIL and bounded recheck remain untouched.
 
@@ -3882,7 +3882,7 @@ The independent key/protocol PASS is unchanged; pack validation, execution resou
 ### 4.78 Browser peer scale public binding handoff
 
 The director selected placement of the prepared public-binding questions with "continue".\
-The [request](/home/apnex/taceng/context-lab/incoming/agp-browser-scale-public-binding-request.md) is now in context-lab's existing local `incoming` folder for a contract answer only.
+The [request](../../context-lab/incoming/agp-browser-scale-public-binding-request.md) is now in context-lab's existing local `incoming` folder for a contract answer only.
 
 The three questions concern paired preregistration, model-free inspection of assembled prompts, and exact delivery with replayable evidence.\
 The placed copy preserves the [prepared mapping](reviews/browser-peer-scale-assurance/browser-scale-public-binding.md), with only the title, recipient, placement/source wording, reply instruction and local link destinations adjusted.\

@@ -7,11 +7,14 @@ The request is placed in context-lab's existing local `incoming` folder; this re
 
 | Artifact | Measured identity |
 |---|---|
-| [Retained request](direct-peer-context-lab-contract-request.md) | 8,914 bytes; SHA-256 `b9227b06087d98b21089e168021cd7527ef0252724600bcd83b5c83e7a75ebdc` |
-| [Placed request](/home/apnex/taceng/context-lab/incoming/agp-direct-peer-assurance-contract-request.md) | 9,617 bytes; SHA-256 `e4791ef59b32cd477677c99b3c4675e7edc70c1992bac5baf7d257e74639a0b7` |
+| [Retained request as handed off](https://github.com/apnex/agp/blob/a97932d8582efa02ce4521061e0608852820f00d/docs/reviews/direct-peer-send-assurance/direct-peer-context-lab-contract-request.md) | 8,914 bytes; SHA-256 `b9227b06087d98b21089e168021cd7527ef0252724600bcd83b5c83e7a75ebdc` |
+| [Placed request](../../../../context-lab/incoming/agp-direct-peer-assurance-contract-request.md) | 9,617 bytes; SHA-256 `e4791ef59b32cd477677c99b3c4675e7edc70c1992bac5baf7d257e74639a0b7` |
 | Delivery readback | `2026-10-17T10:44:08.675Z`; the 703-byte delivery cover is followed by the complete byte-identical retained request |
 | AGP head at handoff inspection | `a09e4bcda9d668b52ff3212c3813fad30fa7ac10` |
 | Context-lab head at handoff inspection | `f323a93ebe1effc7145d1e8a41b2268204f76f5f` |
+
+**Publication correction:** The retained-request link identifies the original committed bytes.\
+The [current local copy](direct-peer-context-lab-contract-request.md) has rebased links and a publication note, not changed requirements.
 
 The cover resolves the retained draft's historical "not delivered" status and asks for a separate owner reply.\
 No requirement, question, source reference or measurement rule was changed.\

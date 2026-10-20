@@ -4,6 +4,9 @@ From: AGP project.\
 To: context-lab maintainer.\
 Status: local draft, not delivered.
 
+**Publication correction:** Repository-relative links replace the original workstation-absolute links below.\
+The [original handoff bytes](https://github.com/apnex/agp/blob/a97932d8582efa02ce4521061e0608852820f00d/docs/reviews/direct-peer-send-assurance/direct-peer-context-lab-contract-request.md) remain preserved; requirements and historical status are unchanged.
+
 Please identify the supported public contract for running AGP's direct-peer documentation comparison without changing its frozen measurement rules.\
 The immediate issue is automatic retry; answer extraction, record completeness and limit enforcement also need explicit bindings before AGP constructs an execution pack.
 
@@ -12,8 +15,8 @@ Context-lab owns execution, isolation, judging and replayable records; AGP owns 
 
 ## Comparison requirements
 
-The [preparation protocol](/home/apnex/taceng/agp/docs/reviews/direct-peer-send-assurance/direct-peer-assurance-preparation.md) and corrected [key](/home/apnex/taceng/agp/docs/reviews/direct-peer-send-assurance/direct-peer-answer-key.json) govern the comparison.\
-The [bounded key recheck](/home/apnex/taceng/agp/docs/reviews/direct-peer-send-assurance/direct-peer-key-recheck-02.txt) passed instrument correctness, not execution readiness.
+The [preparation protocol](direct-peer-assurance-preparation.md) and corrected [key](direct-peer-answer-key.json) govern the comparison.\
+The [bounded key recheck](direct-peer-key-recheck-02.txt) passed instrument correctness, not execution readiness.
 
 | Requirement | Frozen scope |
 |---|---|
@@ -49,7 +52,7 @@ Which public contract maps runtime events to the user-visible response eligible 
 AGP must distinguish a completed eligible response missing one answer, which scores zero for that question, from unestablished invocation or eligibility, which leaves no comparison verdict.
 
 The [scenario schema](https://github.com/apnex/context-lab/blob/7388c9a68c446dc7b2a3db17613c9983973908a5/docs/OPERATIONS.md#33-scenariosidjson-schema) binds `answerHeading` splitting to `scoredFile`.\
-AGP's [reader instructions](/home/apnex/taceng/agp/docs/reviews/direct-peer-send-assurance/direct-peer-reader-instructions.md) request a response, not a file, and prohibit executing code or opening other files.
+AGP's [reader instructions](direct-peer-reader-instructions.md) request a response, not a file, and prohibit executing code or opening other files.
 
 Please identify a supported response-based split into the twelve question units.\
 If a scored file is required, name the reader-task amendment for separate prospective review; do not treat it as already authorized.

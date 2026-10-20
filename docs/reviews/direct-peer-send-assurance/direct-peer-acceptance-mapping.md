@@ -76,7 +76,7 @@ Missing attempt evidence remains unknown even if a numeric vote is present.
 ### Extraction compatibility remains open
 
 The [reader instructions](direct-peer-reader-instructions.md) require each question identifier as a heading but do not require heading level three.\
-The reviewed [public operations contract](../../../../context-lab/docs/OPERATIONS.md#33-scenariosidjson-schema) describes response splitting at exactly `### <answerHeading>`.\
+Section 3.3 of the reviewed [public operations contract](../../../../context-lab/docs/OPERATIONS.md) describes response splitting at exactly `### <answerHeading>`.\
 That difference needs a supported extraction contract or a separately reviewed prospective instruction change; this draft does not choose one.\
 An answer using a reader-permitted heading must not become zero merely because a narrower parser failed to recognize it.
 
