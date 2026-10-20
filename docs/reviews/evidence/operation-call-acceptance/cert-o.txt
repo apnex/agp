@@ -1,0 +1,223 @@
+# Stage 4 certification record
+
+Verifier: GPT-6 (Codex). Date: 2026-10-11. Authority: zorg D27. I did not build this implementation or write its design. This is an independent verification of Delta 1 stage 4, accepting stages 0, 1 and 2 as certified prerequisites.
+
+I cloned the five repositories side by side in this directory and checked out the specified commits. Measured `git rev-parse HEAD` results:
+
+| Checkout | Commit |
+|---|---|
+| zorg | `3c3120399367978f4bfe78d889959d6c8ce6269f` |
+| operation-call | `2e435a8e09a46b1b2bf32c26ea6383514b47d2ea` |
+| agp | `f16266aaafa66f6301d7afbf09c55e3a1f990274` |
+| shape-check | `2bae7237385db952bd69a23e0fcc27a3350cd629` |
+| entity-store | `f3bac6528b7aad18451082f1ff0b5a7c2501666a` |
+
+All five final `git status --porcelain` results are empty; see `checkouts-o.json`. No tracked source, test or design was changed. Dependencies and generated build products are ignored by their repositories. Nothing under `/home/apnex/taceng` was modified. Probes, logs and this record are outside the checkouts.
+
+In citations, `T` means `zorg/docs/ARCHITECTURE-TARGET.md`, `OC` means `operation-call`, and paths are relative to this record unless absolute. Source references are to the checkouts above. The actual comparison `git diff b60ce1d 3c31203 -- docs/ARCHITECTURE-TARGET.md` is saved as `target-diff-o.patch`. I read both previous certification records, the relevant rulings, OC's contract and D2, and operation-proxy's PX10 read-only. The latter working repository is now at `189c97152cb4b0c4f6b0568b4e53a761e6c02845`; I also read `git show 439ba68:CONTRACT.md` and compared them: PX10 is unchanged, and the only contract changes are introductory status statements. This record does not certify operation-proxy, browser execution, confidentiality, or zorg's later end-to-end composition.
+
+## Earlier findings
+
+- Attempt 2 F1 — **resolved**: unchanged R1 finds **0/100** early bound-10 endings, minimum **10.229196 ms**; unchanged R8 uses the unchanged default caller over the production carrier, all **40/40** handlers run, **0/40** bound-20 endings are early, minimum **20.198498 ms**. `OC/src/caller.ts:208–224` now rereads the absolute deadline on every wake and reschedules while time remains; `src/system-ports.ts:42–54` independently enforces the default clock's delay. Deterministic early-wakeup tests and N4 also accept an answer before the true deadline.
+- Attempt 2 F2 — **resolved**: unchanged R3 and R6 read the aliased getter **once**, preserving its first value at both paths; R6 now answers over the production carrier instead of throwing. `OC/src/json-value.ts:93–150` retains completed copies by object identity separately from active ancestors. N4, N7 and maintained caller/host cases cover nested aliases, a second read that would throw or produce NaN, and genuine cycles.
+- Attempt 1 F1–F5 — **remain resolved**: unchanged P11 passes every **58/58** hop case; P13/P14/P17 retain bound precedence (including zero sends after exhausted preparation); P12 rejects the deliberately mutable-ending caller, demonstrating the exported checks; P8 returns operation-failed for result inspection failure; P18 settles despite throwing cleanup with no unhandled rejection. The maintained counterparts are `caller-suite-hop-allowance.test.js:32–47`, `caller-chosen-bound.test.js:57–88`, `src/suite/caller-observable-cases.ts:142–198`, `serve-named-operations.test.js:140–199`, and `honest-call-ending.test.js:115–169`.
+
+All seven historical probe programs were copied byte-for-byte from attempt 2 and rerun against these checkouts. Their results, rather than the builder's dispositions alone, support these judgments. P12 still prints `ok:false` because its historical assertion expected the bad implementation to pass; the failure is the intended negative control and is not a product regression. The obsolete “38” in P11's title is also historical; its measured registration count is 58.
+
+## Test run
+
+Environment measured: Node `v24.12.0`, npm `11.6.2`.
+
+Commands ran in the prescribed order: AGP `npm ci --offline`, `npm run build`; shape-check `npm ci --offline`, `npm run build`; entity-store `npm ci --offline`, `npm run build`; operation-call `npm ci --offline`, `npm test`, `npm run docs:check`. All exited 0. Captures are `logs/agp-build.log`, `logs/shape-check-build.log`, `logs/entity-store-build.log`, and `logs/operation-call-test.log` (the last includes installation, test and docs output).
+
+The stock test command reports **15 tests, 15 pass, 0 fail, 0 cancelled, 0 skipped, 0 todo**, duration **39839.873742 ms**. These are file-level results in this environment. To measure the actual cases, I separately executed each unchanged contract file with `node test/contract/<file>.test.js`, capturing its output and process return code. Every process exited 0. An initial shell census attempt failed to open its log paths before executing tests; it is not counted. The successful census used Python subprocess capture, with logs in `case-logs/` and counts in `test-counts-o.json`.
+
+| Contract file | Tests | Pass | Todo |
+|---|---:|---:|---:|
+| advertiser-instance-select | 4 | 4 | 0 |
+| call-refusal | 9 | 9 | 0 |
+| caller-chosen-bound | 16 | 16 | 0 |
+| caller-suite-hop-allowance | 64 | 64 | 0 |
+| contract-coverage | 3 | 1 | 2 |
+| declared-shape-validation | 283 | 283 | 0 |
+| honest-call-ending | 44 | 44 | 0 |
+| invocation-identity | 7 | 7 | 0 |
+| message-format | 6 | 6 | 0 |
+| not-delivered-signal | 9 | 9 | 0 |
+| operation-descriptions | 7 | 7 | 0 |
+| peer-identity-evidence | 6 | 6 | 0 |
+| public-surface | 11 | 11 | 0 |
+| request-correlation | 6 | 6 | 0 |
+| serve-named-operations | 8 | 8 | 0 |
+| **Total** | **483** | **481** | **2** |
+
+Every file has zero failures, cancellations and skips. The two to-dos are exactly answer-in-parts and cancel-invocation, deferred by D15. The shape file contains the corpus census plus all 282 corpus cases. The hop file contains all 58 exported cases plus six registration/negative-control checks. The docs check reports all five files clean against S6, S8, S10, S12 and S13.
+
+The exported suite additionally passed **58/58 directly**, **58/58 through allowance 50**, **58/58 through allowance 17**, and **58/58 through allowance 23** in the probe runs. No full standalone AGP, shape-check or entity-store test rerun is claimed: their prescribed builds and stage 4's comparisons were executed.
+
+Real-clock limits: there was no timing failure to explain away or exclude. R8's 20 ms calls ranged from **20.198498 to 23.321896 ms**; its minimum margin above the lower bound was **0.198498 ms**. N9's timely case (500 ms bound, 200 ms busy handler) answered at **203.169529 ms**, **296.830471 ms** before the deadline; its late case (50 ms bound, 90 ms busy handler) ended bound-passed at **92.400560 ms**. The maintained timely real-clock case uses a 1000 ms bound and 250 ms nominal headroom relative to the call beneath the hop (`src/suite/event-time-cases.ts:133–159`). Those timely-answer cases are load-sensitive if scheduling/transport consumes that headroom. A busy JavaScript thread can delay observation and resolution; these measurements test no early ending and correct late-event precedence, not a hard real-time scheduling guarantee.
+
+## Coverage
+
+The eleven fenced rows are at `zorg/docs/DELTAS/DELTA-1.md:33`; the stage gate is at `:90`. I inspected behavioral assertions, their registration, and the production topology, rather than counting filenames as proof. `OC/test/support/fixture.js:40–77` constructs the real `@agp/transport-loopback` fabric, two host nodes and a caller node; it supplies independent AGP and call clocks, executor holds and real channel loss. `OC/package.json` declares the required sibling `file:` dependencies, and the public-surface test verifies them.
+
+In the following tables, contract filenames abbreviate `OC/test/contract/<name>.test.js`, and suite filenames abbreviate `OC/src/suite/<name>.ts`. `OC/src/caller-suite.ts:32–41` is the binding from contract row to exported cases. The named local contract file runs that row directly; the hop file runs every exported row with no exclusions.
+
+| Fenced row | Behavioral assertions | Assessment |
+|---|---|---|
+| honest-call-ending | `honest-call-ending:33–234`; `honest-call-ending-cases:18–165`, `event-time-cases:57–161`, `channel-loss-cases:10–104`, `caller-observable-cases:68–164` | Pass: four endings, one immutable decision, exact frozen fields, failure codes, reports, both deadlines, late callbacks, channel loss/reconnect, early wake and failed-port cleanup. |
+| caller-chosen-bound | `caller-chosen-bound:28–153`; `bound-and-correlation-cases:14–74`, `event-time-cases:163–224`, `caller-observable-cases:48–55` | Pass: 1 and 2147483647; invalid bounds/no send; entry-time start; remaining admission time/rounding/minimum; abort forwarding; preparation; default clock and deterministic early wakes. |
+| invocation-identity | `invocation-identity:18–78`; `refusal-and-identity-cases:103–125`, `caller-observable-cases:58–65` | Pass: exact widths/time flooring and padding, port errors, envelope source, repeats keep invocation and change attempt; malformed supplied identity sends nothing. |
+| request-correlation | `request-correlation:17–71`; `bound-and-correlation-cases:76–156` | Pass: late attempt, wrong origin/endpoint/operation/label/form, absent label and part discarded; discard count; copied reply label; reports never answer. |
+| not-delivered-signal | `not-delivered-signal:17`; `not-delivered-cases:11–93`, `caller-observable-cases:168–198` | Pass: queue expiry/abort never execute after draining; stale readiness; earlier uncertainty; fresh/repeat distinction; peer limit; exact fields and INTERNAL fallback. |
+| call-refusal | `call-refusal:18–100`; `refusal-and-identity-cases:37–101` | Pass: all three owned records, carried refusal/misfits unchanged, malformed request recovery or discard, bad handler refusal becomes failure, oversized refusal fallback, request size/depth/numeric gates. |
+| operation-descriptions | `operation-descriptions:21–124`; `caller-observable-cases:202–231` | Pass: each declaration reason/details/order, reserved/duplicate names, parts error, description size/aggregate/nonmutation, exact remote shape/order, describe accepts only empty object. |
+| declared-shape-validation (carried) | `declared-shape-validation:36–83` | Pass: all 282 independent corpus cases, shape refusal and no endpoint, expected and entity-store canonical misfits, no handler on misfit, fit reaches handler. |
+| serve-named-operations | `serve-named-operations:22–199` | Pass: one endpoint per operation on both hosts and route view, undeclared operation before evidence/handler, throw/rejection/invalid result, unsendable answer, one bounded fallback, throwing getters/proxies and shared result snapshots. |
+| peer-identity-evidence (carried) | `peer-identity-evidence:18–111` | Pass: evidence before judging/running, original delivery object and evidence identity, origin/ingress/session/label, null default, throw/rejected promise, asynchronous wait. This tests the port, not caller-identity's policy. |
+| advertiser-instance-select (carried) | `advertiser-instance-select:15–35`; `refusal-and-identity-cases:127–157` | Pass: both advertisers, exact selector even when AGP selects the other route, unavailable pin, undeclared endpoint, no wrong-host execution. |
+
+Every applicable target “Tested by” case has an assertion at the following locations. Store/entity-api/zorg obligations sharing a paragraph are not silently claimed as operation-call tests.
+
+| Target binding / case | Assertion location |
+|---|---|
+| EM9, T:331: owned refusal records and carriage | `call-refusal:23–47` asserts exact keys, part/code/details and canonical misfit; shared `refusal-and-identity-cases:37–63` asserts unchanged foreign refusal/misfits. Shape corpus comparisons at `declared-shape-validation:69–80`. AGP failures are separately endings, as E6 below proves. |
+| EM10, T:361–362,406: declaration refusal for each reason, facts and order | `operation-descriptions:40–92`: invalid service/operation, reserved and duplicate name, depth, shape-check problems, unsafe pointer, bytes/limit; simultaneous-defect cases prove ordering. Non-JSON/cycle and parts errors at `:95–105`; 20,21,5000 levels and const/nested enum unsafe values at `:60–92`. |
+| EM10: single shape too large; two fit alone but not together | `operation-descriptions:70–78,108–124` checks single and aggregate failures; accepts the second shape alone as a control. |
+| EM10: description exactly 524288 / 524289 bytes | `operation-descriptions:108–115`, measured with an independent canonical serializer and UTF-8 byte counter. |
+| EM10: earlier description unchanged and no endpoint after refusal | `operation-descriptions:55–79,116–124` compares complete previous description and endpoint set. |
+| EM10: every remote declared input shape unchanged | `operation-descriptions:21` registers `caller-observable-cases:204–216`: entire description on both hosts, names sorted, nested shape key order preserved, whole answer mode, describe omitted. Empty input restriction at `:220–228`. |
+| EM11, T:438: request and answer exactly 30 / 31 levels | `message-format:69–83,112–114`; shared `refusal-and-identity-cases:65–76` and `honest-call-ending-cases:48–63`; real-carrier acceptance/refusal/replacement, not only local helper booleans. |
+| EM11: request 16777216 / 16777217 bytes | `message-format:85–96,115–120`; shared `refusal-and-identity-cases:92–106`. At the exact local limit AGP may refuse its larger enveloped packet; one more is locally not-sendable. Independent N5 also measures both with a four-byte character. |
+| EM11: request below own maximum, above peer limit | `message-format:118`, `not-delivered-cases:82–91`: MESSAGE_TOO_LARGE, another call in flight and small call following both answer. |
+| EM11: oversized answer becomes unknown/answer-not-sendable/MESSAGE_TOO_LARGE | `message-format:119`, `honest-call-ending-cases:66–79`; oversized refusal at `call-refusal:88–100`. |
+| EM11: message form, host recovery, reply acceptance and endpoint/pin | `message-format:17–67`, `call-refusal:50–88`, `request-correlation:21–71`, `serve-named-operations:22–49`, `advertiser-instance-select:17–35`, and shared correlation/instance cases. |
+| EM12, T:461: AGP deadline first, call deadline first, later event inert | `honest-call-ending:33` registers `honest-call-ending-cases:95–135`; queue release/drain also proves no later execution. N8 independently checks both orders and abort. |
+| EM12 table and first-event rule | `honest-call-ending:39–111`: seven terminal observation variants before and at deadline, reports before/after; exported `event-time-cases:57–161`, `honest-call-ending-cases:18–165` cover production carrier, separate clocks and real clock. Historical P1 covers 49 ordered terminal combinations; R5 and new N1 each cover 18 boundary observations. |
+| EM12 fields, errors, read-once input, codeless failure | `caller-observable-cases:48–198`, `suite-support:214–235`; registered into the named bound/identity/honest/not-delivered files. Shared aliases now covered at `:102–139`; local exhausted preparation at `caller-chosen-bound:57–88`, the explicit suite exception in T:462. |
+| EM12 corrected timers and clock fault | `caller-chosen-bound:109–153`, `honest-call-ending:172–234`, shared `event-time-cases:133–159,195–208`: deterministic fractional early wake, reschedule, timely answer, unchanged default clock, cancellation, post-send throwing reads on five terminal events and timer-only ending. This closes attempt 2's noted maintained-test gap for throwing reads. |
+| PX10 / T:462: every exported case through working hop | `caller-suite-hop-allowance:32–47`: all 58 cases, registry equality, deliberately misstated allowance rejected. Shared time calculations at `suite-support:191–202` and `bound-and-correlation-cases:47–64`. Held-hop checks later in the local file are negative controls of this suite, not exported held-hop cases; actual held/stopped proxy behavior remains stage 4a. |
+| RT7, T:632: lost before report / after delivered / after failed; reconnect and release before / after bound | `channel-loss-cases:12–27,30–46,49–67,70–83,86–102`, registered by `honest-call-ending:33`. Each schedule asserts its distinct report/ending and late-event behavior. |
+| Principle 6 / EM14, T:59,487–507 | `public-surface:23–114`: exact package paths and runtime exports, every served/deferred row, runtime-specific import/global scan, type-only AGP, confinement of clock/random reads, file dependencies. Eleven pass. |
+
+EM1's T:188–192 binding concerns entity naming in entity-store/zorg; operation-call applies its pattern to service/operation names as covered above. EM13's hub policy tests at T:473 are later composition obligations; the host's evidence port specified at T:429 is tested here. No missing case was found among target bindings to operation-call files. No E15, E16 or E17 end-to-end execution is claimed.
+
+Stage exit criteria, including every case in AGP's consumer handoff (`agp/docs/ZORG-RESPONSE.md:106–122`):
+
+| Criterion / case | Assertion and outcome |
+|---|---|
+| E6, handoff 1: handler ran, return channel lost | `channel-loss-cases:12–27`: records actual execution, loses channel, retains unknown and never infers non-delivery. Pass. |
+| E6, handoff 2: queued admission expiry | `not-delivered-cases:13–29`; `honest-call-ending-cases:96–116`: TIMEOUT and no arrival after release/drain. Pass. |
+| E6, handoff 2: queued admission abort | `not-delivered-cases:32–45`: ABORTED and no arrival after release/drain. Pass. |
+| E6, handoff 3: explicit label copying and earlier-attempt reply | `request-correlation:52–71`; `bound-and-correlation-cases:78–98,117–125`: exact reply context/label and prior reply cannot complete repeat. Pass. |
+| E6, handoff 3: report is not answer/processing | `bound-and-correlation-cases:101–114`, `channel-loss-cases:12–45`: delivered/unknown leave pending. Pass. |
+| E6, handoff 4: stale readiness | `not-delivered-cases:48–56`: observe route, close host, observe withdrawal, handle actual AGP refusal with zero handler runs. Pass. |
+| E6, handoff 5: unknown then definite refusal | `not-delivered-cases:59–71`: same invocation/new attempt, repeat uncertainty true. Pass. |
+| E6: admitted unanswered call ends once at bound, late answer inert | `bound-and-correlation-cases:16–30`, shared real-clock `event-time-cases:195–208`, deterministic early-wake and historical R1/R8 regressions. Pass. |
+| E6: deadline/abort after committed admission but before receipt, answered alternative | `honest-call-ending-cases:137–146` with `afterNextAdmission`: answer wins, never not-delivered. Pass. |
+| E6: same admission schedule, no-answer alternative | `honest-call-ending-cases:149–163`: remains pending then unknown at its own bound, retaining report. Pass. |
+| E6: every AGP failure keeps code and never becomes refusal | `honest-call-ending-cases:82–92`, queue/report and peer-limit cases, `serve-named-operations:99–123`; additional enumerated probes test all 21 SDK codes, all 9 delivery codes and 21 host answer-send fallbacks. Pass. Enumeration proves mapping, not natural inducibility of every code in this topology. |
+| E7: part then end | `message-format:17–35`: exact encode, production-carrier ordered delivery, decode unchanged. Pass; streaming execution remains deferred. |
+| E8, fixture scope | `serve-named-operations:22–49`, `advertiser-instance-select:17–35`, `refusal-and-identity-cases:127–157`: two advertisers, endpoint/route view, unknown endpoint before handler/evidence, exact/unavailable pin. Pass. |
+| E9 | `declared-shape-validation:43–83`: every one of 282 corpus cases, independent expected records and entity-store comparison, canonical equality and no execution on misfit. Pass. |
+
+AGP source audit at the pinned f16266a follows. `node.ts`, `data-plane.ts`, `send-admission.ts`, `outstanding.ts` and `dispositions.ts` below are in `agp/packages/node/src/`; protocol files are in `agp/packages/protocol/src/`.
+
+| Relied-on behavior | Source and judgment |
+|---|---|
+| Named endpoint exposure/withdrawal | `node.ts:519–585`: validates, registers binding, installs route, close withdraws binding. OC uses public expose/close, one endpoint per operation. |
+| Send admission / deadline / abort | `node.ts:589–662`, `send-admission.ts:15–84`, `data-plane.ts:429–488`: positive integer timeout; already-aborted rejection; retained queued failure; checks after waits and immediately before commit; cancellation authority ends before dispatch. Receipt is admission, not application completion. |
+| Timer semantics | `send-admission.ts:66–77` rereads remaining time and rounds up on reschedule. Independent OC deadline is necessary; admitted sends are no longer aborted by this guard. |
+| Disposition snapshot and settled | `node.ts:665–684`, `outstanding.ts:92–144,163–167`: absent/aged-out information is possible; settled can finish without proof of delivery. OC retains its own bound and reads both initial and settled observations. |
+| Failure code preservation | `dispositions.ts:272–314`, `node.ts:411–435`: failed report's original code enters the SDK outcome unchanged. OC copies it into the ending. |
+| Delivery is not processing | `data-plane.ts:567–600`: endpoint dispatch and delivered report occur without awaiting handler result. Caller correctly continues waiting. |
+| Channel loss and previous knowledge | `node.ts:935–949` settles lost egress as unknown; `outstanding.ts:97–106` preserves an already settled report. Matches RT7 schedules. |
+| Correlation label | `node.ts:604–613`, `data-plane.ts:477–484,575–587,695–714`: label validated and carried in packet/context; reply copy is the application's responsibility. OC explicitly supplies it on both sends (`caller.ts:229–234`, `host.ts:129–132`). |
+| Delivery context | `data-plane.ts:575–587,717–742`: message, label, original endpoint/node, destination, timestamp, revision, and remote ingress node/session. OC gives that delivery object unchanged to evidence and handler (`host.ts:149–170`). |
+| Route resolution and instance pinning | `data-plane.ts:278–339`: first tries instance route; absent instance visibility can fall back to selected endpoint route; local delivery enforces pin and refuses INSTANCE_UNREACHABLE for wrong node; no selected route gives NO_ROUTE. Pinning prevents wrong-instance execution, not traversal of another node's channel. |
+| Receive limits | `protocol/constants.ts:9–19`, `node.ts:2034–2039`, `data-plane.ts:386–399`, `protocol/codec.ts:15–36,95–141`: default 1048576, maximum 16777216; encoded AGP packet compared with receiver limit. OC's 16777216-byte message limit is a local gate, not a guarantee an enveloped packet that large can be received. |
+| Depth/numeric profile | `protocol/constants.ts:14,19`, `protocol/preflight.ts:87–104,428–431,520–539`, `protocol/codec.ts:52–72,103–117`: 32 packet levels and safe-integer magnitude enforced on receive; encode does not repeat full validation. OC must enforce 30 message levels plus AGP's two enclosing levels and safe integers before send. |
+| Production carrier | `OC/test/support/fixture.js:7–10,40–77` imports and builds AGP's actual loopback transport. Injected node surfaces in diagnostic probes isolate code mapping/event order and are not substitutes for the integration runs. |
+
+No dependency mismatch or reliance on a private AGP production API was found. Amendments 3 and 5 govern the f16266a pin despite the original E6 paragraph's older literal revision. D51's future authenticated reply-isolation check is not supplied by this AGP revision; T:426–428 explicitly acknowledges that first-version limitation, addressed further below.
+
+## Probes
+
+All probe programs import the public entry-point modules that the package exports resolve to (`dist/index.js`, `dist/message-format.js`, `dist/caller-suite.js`). Production-carrier probes reuse topology setup; controlled-node probes exercise the public caller/host ports with independently chosen events. Logs are in `logs/<program>.log`.
+
+Historical programs, rerun unchanged:
+
+| Program / cases | Measured result |
+|---|---|
+| `earlier-probes-o.mjs`, P1–P10 | 11/11 groups pass, including 49 terminal orderings, two nonterminal reports, 29 failure-code checks, wrong/late reply matrix, exact byte/depth/integer boundaries, two clocks, evidence/declarations, malformed result, direct 58/58 and hop50 58/58. P9's PAYLOAD_NOT_JSON is injected by its node port; it does not claim actual AGP rejects the now-read-once input. |
+| `earlier-probes-extra-o.mjs`, P11–P15 | P11 all 58/58 through hop50; P12 expected negative-control rejection (“ending is frozen”); P13 zero sends with preparation at time 101 for bound 100; P14 real preflight takes 8.748393 ms on bound 1 and ends bound-passed; P15 malformed request beats failed evidence, exact description+1 refused, default evidence null. |
+| `earlier-probes-final-o.mjs`, P16–P18 | Ten programming errors, zero sends; bound20/busy60 ends bound-passed at 73.255225 ms; throwing cleanup settles with no unhandled rejection. All pass. |
+| `probes-contract-o.mjs`, C1–C6 | 6/6 groups pass: 15 code mappings, correlation/repeat, nine local and eight real-carrier boundary checks, five declaration precedences and description boundary, three independent-clock schedules, all 58/58 hop17 cases. |
+| `probes-codes-o.mjs` | 51/51 mappings: 21 rejected-send SDK codes, 9 failed-disposition codes, 21 answer-send fallback codes; all unchanged, no refusal conversion, no unhandled rejection. |
+| `probes-revision-o.mjs`, R1–R7 | 7/7 groups pass: no early default timer in 100 calls; five throwing-clock terminal events; aliased getter once; shared/null-prototype/own __proto__ snapshot fidelity; 18 boundary terminal events; real-carrier aliased input answered; rejected handler/evidence promises consumed. |
+| `probes-timer-o.mjs`, R8 | 40/40 admitted silent default-clock calls; no early ending, all bound-passed; exit 0. Individual times preserved in log. |
+
+I wrote `probes-independent-o.mjs` for this verification. All **11/11** groups passed, with zero unhandled rejections:
+
+| New case | Independent assertion |
+|---|---|
+| N1 | Six terminal events (answer, refusal, both failed-end reasons, send rejection, failed report) at 79.75,80,80.25 for bound80: 18 checks. Predeadline event wins; at/after deadline loses; frozen ending; later reply/timer cannot change decision. |
+| N2 | Delivered then unknown reports leave pending; wrong host/endpoint/operation/attempt/form, part and wrong label rejected; seven discards before bound, eighth for old attempt during repeat. Unknown report retained; repeat not-delivered/NO_ROUTE retains earlier uncertainty and changes attempt only. |
+| N3 | Reads enums from the pinned AGP schemas, then injects all 21 SDK rejection codes and nine delivery failure codes through the public node port. Each yields not-delivered with identical code and no refusal field. |
+| N4 | Early timer wakes at 0.5,79.25,79.75 for deadline80 do not end call; reschedule delays are 80,1,1; answer at79.75 wins. Multiply shared nested object getter read once; complete snapshot compared; a true cycle still rejects TypeError. |
+| N5 | Production-carrier request/answer levels30 accepted, level31 refused/replaced; level4001 refused without stack failure; both signed safe integer boundaries and one beyond, plus fraction. Independently measured UTF-8 request sizes16777216/16777217 with a four-byte character: exact size reaches AGP and gets MESSAGE_TOO_LARGE; +1 is local refusal with zero sends. Oversized answer gives unknown/answer-not-sendable/MESSAGE_TOO_LARGE; subsequent small call answers. |
+| N6 | Five simultaneous-defect declaration precedence cases; no endpoint/description mutation after refusal; accepted declaration isolated from later input mutation; reserved/duplicate name; D15 error message; descriptions524288/524289 independently sized and accepted/refused with exact details. |
+| N7 | Real carrier: asynchronous evidence awaited before handler, evidence/context identity retained, origin/session present; aliased handler answer getter read once and both copies sent; rejected evidence ends operation-failed without another handler execution. Historical P15/C4 separately assert malformed-request precedence over evidence failure. |
+| N8 | Real carrier/executor hold: AGP clock first gives TIMEOUT, abort first ABORTED, call clock first unknown/bound-passed. Advance both clocks and drain queue: no execution and identical earlier ending. |
+| N9 | Unchanged default clock and production carrier: timely answer with measured headroom accepted; busy handler beyond bound rejected as bound-passed despite callback ordering. Measurements reported above. |
+| N10 direct | All 58 registered exported cases run with allowance0; 58 pass. |
+| N10 hop23 | All 58 registered exported cases run through working stand-in hop with allowance23; 58 pass, none filtered. |
+
+Source review included caller, host, declarations, message/refusal validation, identity generation, iterative JSON walkers, default ports, exported suite and its reactions. `source-audit-o.txt` retains import/global/promise searches, and `assertion-index-o.txt` the assertion index. I also read the source itself: searches alone are not the audit. No runtime-specific production import/global outside the public-surface rule was found. AGP is imported as types; shape-check is the runtime component dependency; time/random defaults are in `system-ports.ts`; the suite's turn wait uses portable `globalThis.setTimeout` (`suite-check.ts:29–32`).
+
+For promise handling, handler invocation/assimilation/result inspection share a catch (`host.ts:168–174`), evidence rejection is consumed (`:152–154`), answer-send fallback is bounded (`:127–145`), and declaration queue rejection has a handler (`:195–209`). Caller settlement/removal precedes guarded timer cleanup (`caller.ts:167–176`); send and settled reactions have rejection handlers (`:240–246`); the suite watcher consumes its derived rejection (`suite-check.ts:58–63`). Historical P18/R7 and the new probe listener observed zero unhandled rejections. I found no additional source behavior contradicting a declaration, or demonstrated host/caller-induced internal unhandled rejection, in this scope. This is not a claim that an application can ignore its own returned rejected promises safely.
+
+## Design answers
+
+The builder's twenty points occupy nineteen printed rows in `zorg/docs/DELTAS/DELTA-1.md`'s Stage 4 build record. I count “host's correlation checks; answer size” as two points. Each judgment compares the actual target diff against b60ce1d, the pinned AGP source, OC's contract/D2, and zorg D2–D9, D21, D31, D33, D41, D42, D45, with D46/D48's explicit amendments. E13 is assessed for this stage, not as certification of later components.
+
+| # | Answer | E13 / consistency / stage-0 judgment |
+|---|---|---|
+| 1 | Ending fields and freezing | T:456 gives exact discriminated records, including identities and per-ending fields. Concrete; refines the existing four endings without dropping one. Tested in shared ending-field checks. |
+| 2 | proxyCode null at call layer | T:456 is explicit and testable; preserves AGP evidence versus proxy-owned code boundary under D21. No silent change. |
+| 3 | operation-threw renamed operation-failed | T:419,451 defines throw, malformed result and evidence failure. Concrete and consistently implemented. This changes the wire reason from b60ce1d, but the build record explicitly discloses it as a change to build; it is not silently presented as compatible. |
+| 4 | Every call pins a host | T:425,433 states the existing D7 requirement; receipt acceptance depends on the same named host. No formerly promised unpinned call is removed. AGP's actual final-host enforcement matches. |
+| 5 | Suite harness / allowance | T:462, D45/D46/D48 and PX10 define per-case hooks, working hop, all cases, and bound beneath from original less allowance. Concrete. The original hard-coded admission expectation is repaired, and all 58 cases pass. The actual proxy, held/stopped hops, zero-allowance limits and socket/browser transports still belong to its own stage. |
+| 6 | Which cases are exported | T:462 explicitly includes caller-observable errors, exact frozen endings and remote descriptions; excludes host-only cases and wholly exhausted preparation, with the reason stated. Concrete and consistent with PX10. New timer and alias observations are in the shared suite, and local port-specific regressions supplement them. |
+| 7 | Optional evidence port | T:429 specifies original delivery context, before request reading, promise awaiting, null default, failure conversion, and malformed-request precedence. Concrete; implements the host seam EM13 needs without inventing principal policy in OC. |
+| 8 | Handler result | T:419 plus EM9/EM11 distinguish answer/refusal, malformed result, inspection failure and unsendable answer. Concrete and consistent with the four call endings; inspected results now remain within the failure boundary. |
+| 9 | Reserved describe / duplicate name | T:362 chooses invalid-name, and T:361 requires no endpoint or description change. Concrete, consistent with endpoint-per-operation. |
+| 10 | Parts declaration | T:362 chooses TypeError naming D15. Concrete deferred-feature behavior, preserving D9's part message format and E7. |
+| 11 | Part reaches caller | T:431 explicitly discards and counts it. Concrete for the parked execution feature; encoding/decoding remains supported. |
+| 12 | Declaration refusal form | T:362 specifies code/message/details and each fact, including name truncation, depth/limit, problems, pointer and bytes/limit. Concrete; opening/declaration refusals remain distinct from EM9 call refusals. |
+| 13 | Caller programming errors | T:459 names TypeError/RangeError and no-send semantics; T:458 specifies input snapshot. Concrete, tested locally and through the exported suite. The alias fix now realizes the read-once promise without accepting cycles. |
+| 14 | Rejected send without code | T:457 chooses INTERNAL, while a supplied AGP code remains unchanged. Concrete defensive rule, with no application-refusal conversion. |
+| 15 | Host correlation checks | T:430–431 makes recovery depend on a valid attempt label, requires the endpoint's operation, and gives caller source/attempt checks. This was substantially present in b60ce1d; tests can be written directly from it. |
+| 16 | Answer size | T:434–437 gives depth/numbers, replacement failed end, code/null and no recursive fallback. Substantially unchanged, concrete and supported by AGP's actual receive enforcement. |
+| 17 | Portable globals/imports | Principle6 and EM14 give a testable static rule; standard default clock/random globals behind ports are consistent with D31. Eleven surface tests and source inspection pass. This is not browser execution certification. |
+| 18 | AGP sends too-deep packet / receiver closes | Confirmed by protocol encode versus receive preflight source. OC's 30-level gate is still needed. Recording the AGP gap upstream is consistent with D42; no declaration relies on AGP rejecting depth at send admission. |
+| 19 | Unreachable pinned host | T:432 chooses NO_ROUTE or INSTANCE_UNREACHABLE and forbids other-host execution. Concrete when read with AGP's endpoint-route fallback/final-host check; neither readiness nor pin is a route reservation. Tests assert both allowed refusal codes and no handler. |
+| 20 | Test placement / E6 pin | T:438 names format/correlation/serve/pin files and boundaries; amendments3/5 establish f16266a. Concrete and realized by the named assertions and sibling dependencies. |
+
+The additional changes since the build are also concrete: T:444 judges observed terminal events by the call clock against the absolute deadline; T:458 fixes the input value once and gives observed-event precedence on a throwing clock; the attempt-2 disposition requires early timer wakeups to reread/reschedule. The maintained regressions now cover both early and late timer cases and completed-object memoization. Neither change reduces the caller's direct decision window.
+
+The changed RT3/RT7 paragraphs implement D46/D48's expressly ruled comparison to the direct call the proxy actually makes, with its shorter bound and relayed abort. They do change the stronger old proxy-equivalence claim, but do so openly under those rulings. They do not authorize shortening a direct operation-call invocation.
+
+The diff also adds the D51 reply-ownership/confidentiality paragraph (T:426–428). AGP at f16266a can forward a pinned reply over a selected route, and trusted-development identity is asserted; the new target expressly records this and leaves the authenticated channel isolation check to agreement with AGP. D51's named costs likewise state the first-version non-claim. The previous target promised a reply pinned to its origin, not confidentiality or a direct authenticated channel; pinning and acceptance are preserved. I therefore found no silent withdrawal of a certified stage-0 behavior here and do not certify the future isolation mechanism by implication.
+
+All twenty answers and these additional changed declarations are concrete enough for their tests without inventing behavior and consistent within this stage's stated scope. D2's one-attempt non-delivery limitation, D3/D21's refusal boundary, D7's pin, D8/D9's ending/message model, D31's runtime boundary and D42's pinned-dependency check remain intact. D6 and D33's store change semantics are not replaced or reverified by this call layer.
+
+## Findings
+
+No blocking, material or minor finding remains for the requested stage 4 scope. The two previous findings are resolved; the five findings from attempt 1 remain resolved. I found no new departure in the independent probes or source review. The explicitly deferred streaming/cancellation rows, later proxy/browser composition and authenticated reply isolation are not represented as completed capabilities.
+
+## Verdict
+
+CERTIFIED
+
+At the recorded commits, all eleven fenced rows have passing behavioral contract assertions; all target-bound operation-call cases are accounted for; E6 (including all five AGP handoff cases), E7, E8 for fixture operations, and E9 pass. The prescribed offline builds and docs check pass, as do 481 active maintained cases and all 58 exported caller cases directly and through working hops. Earlier defects are resolved, new probes find no departure, and the design answers meet E13 for this scope. No blocking finding remains.

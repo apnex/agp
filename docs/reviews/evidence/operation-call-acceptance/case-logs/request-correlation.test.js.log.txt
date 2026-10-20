@@ -1,0 +1,14 @@
+✔ request-correlation: a late reply to an earlier attempt never completes a later attempt of the same invocation (351.468729ms)
+✔ request-correlation: no delivery report is taken for an answer: a report of delivered leaves the call waiting until its bound (200.455259ms)
+✔ request-correlation: each attempt's identity is AGP's correlation label for its request and its answer (159.575628ms)
+✔ request-correlation: a message from another node, another endpoint or operation, under another label, out of form, or a part, is discarded (245.25625ms)
+✔ the caller counts every message its reply endpoint discards, and takes the one that matches (44.857907ms)
+✔ the host answers under the request's correlation label, from the operation's endpoint, pinned to the request's origin node (48.655678ms)
+ℹ tests 6
+ℹ suites 0
+ℹ pass 6
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 1060.080353

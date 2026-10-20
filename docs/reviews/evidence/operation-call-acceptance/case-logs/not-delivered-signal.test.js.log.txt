@@ -1,0 +1,17 @@
+✔ not-delivered-signal: a send whose admission deadline expires while queued is not delivered, with TIMEOUT, and after the queue is released and drained it has not arrived (350.186861ms)
+✔ not-delivered-signal: a send cancelled while queued is not delivered, with ABORTED, and after the queue is released and drained it has not arrived (226.21391ms)
+✔ not-delivered-signal: a route observed reachable and then withdrawn before the send ends not delivered, from AGP's refusal, and no other advertiser handles it (198.920876ms)
+✔ not-delivered-signal: an attempt that ends unknown followed by one refused outright leaves the invocation's uncertainty standing (169.076479ms)
+✔ not-delivered-signal: an invocation named but not marked a repeat, refused outright, says no earlier attempt is uncertain (149.851716ms)
+✔ not-delivered-signal: a request within 16777216 bytes but over the peer's receive limit ends not delivered with MESSAGE_TOO_LARGE, another call in flight and a small one following answered (195.697004ms)
+✔ not-delivered-signal: a repeat flag that is not a boolean throws a TypeError, and nothing is sent (184.809515ms)
+✔ not-delivered-signal: a not-delivered ending is one frozen object holding exactly its address, AGP's code unchanged, a null proxy code, and whether earlier attempts are uncertain (157.488992ms)
+✔ not-delivered-signal: a send rejected with no AGP code ends not delivered with INTERNAL, never a refusal (142.199368ms)
+ℹ tests 9
+ℹ suites 0
+ℹ pass 9
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 1785.217111

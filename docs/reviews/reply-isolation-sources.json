@@ -1,0 +1,350 @@
+{
+  "purpose": "Pinned source identities for the advisory reply-isolation proposal review; not runtime or independent assurance.",
+  "observedAt": "2026-10-17T00:43:23.847Z",
+  "repositories": [
+    {
+      "root": "/home/apnex/taceng/agp",
+      "head": "0aa6be75ccacf4e2c3770a49c5ea39970a25a98a",
+      "files": [
+        {
+          "path": "VISION.md",
+          "bytes": 9750,
+          "lines": 179,
+          "sha256": "7450b55418271077c412faade2c2be5018c0f7c335cf2aa4806f8aaf22b9cb60",
+          "headBlob": "e4faa34cb04f38f71bc3d41075681682df7a1050",
+          "matchesHead": true
+        },
+        {
+          "path": "docs/ARCHITECTURE.md",
+          "bytes": 35520,
+          "lines": 589,
+          "sha256": "ae0a4a5ed55fc596fbed386b1e88090b5642f16c72c93e7daddfefe22d55813d",
+          "headBlob": "79585f8ec46ba12a286d123d23e28262abfa2b22",
+          "matchesHead": true
+        },
+        {
+          "path": "docs/DECISIONS.md",
+          "bytes": 82825,
+          "lines": 1143,
+          "sha256": "eb5eff64200afa01e84cb6493754a0fd2782ef9cd40da3a4ccc87d64c6c26a50",
+          "headBlob": "a8e5337b1f31e612808be01691c9a4df805f5450",
+          "matchesHead": true
+        },
+        {
+          "path": "docs/design/axioms.md",
+          "bytes": 8536,
+          "lines": 122,
+          "sha256": "26564a9ac5678f296150e736de2ac0b0e0f43ae3429053e4c3c3cb0325b0c29b",
+          "headBlob": "7955bc366ffd69cbf7a38bcb5604910e8066958a",
+          "matchesHead": true
+        },
+        {
+          "path": "docs/design/destination-selection.md",
+          "bytes": 14033,
+          "lines": 214,
+          "sha256": "d4372bc87b62c9b4aafa14f388e47da959490796a054fefcdaba14ca151690e5",
+          "headBlob": "104c25cff9fa6e62ba53b2f5125f211562af8cba",
+          "matchesHead": true
+        },
+        {
+          "path": "docs/design/transport-contract.md",
+          "bytes": 64463,
+          "lines": 1247,
+          "sha256": "77ee1d71f89a62dfb8a3912fd9803c25f081d52be6c1eff96a1e3d9ff091a9ac",
+          "headBlob": "86a72210f7c525eff5ece9e10f7e8d88992e2b44",
+          "matchesHead": true
+        },
+        {
+          "path": "docs/reviews/zorg-review-response.md",
+          "bytes": 8303,
+          "lines": 102,
+          "sha256": "f76295f2c26678321c011d33bc1d1dc838133afbd1ca7de5b459b9c0f614bd17",
+          "headBlob": null,
+          "matchesHead": false
+        },
+        {
+          "path": "docs/reviews/zorg-review-reply-assessment.md",
+          "bytes": 11620,
+          "lines": 132,
+          "sha256": "af653f0b819bb8845cf56e095bcbcdcaa21d25e911e11395f5cfffc676a1f3c6",
+          "headBlob": null,
+          "matchesHead": false
+        },
+        {
+          "path": "packages/core/src/types.ts",
+          "bytes": 27660,
+          "lines": 911,
+          "sha256": "ab98ffd07445d778ccb4afc54827bea18b35f59619ebcb236b8d4a0e706479c1",
+          "headBlob": "a066d7925568f0abed90e453dee05b1460a0fe24",
+          "matchesHead": true
+        },
+        {
+          "path": "packages/core/src/routing.ts",
+          "bytes": 58530,
+          "lines": 1789,
+          "sha256": "e80bb08cf3715355b1d38d6cd04b4fb89f3b3abea26f75d3775f82d902abba6a",
+          "headBlob": "f11680730c863cb71e8e6340497f9c91660a31e6",
+          "matchesHead": true
+        },
+        {
+          "path": "packages/core/src/schemas/v1/sdk/send-policy.schema.json",
+          "bytes": 988,
+          "lines": 32,
+          "sha256": "b4a215c752e45a9a26a6d67a09d1a7f1943617af45702768d498ffb94cee3239",
+          "headBlob": "6ca2670c2efbef667afc412eb7566aaf333f14dc",
+          "matchesHead": true
+        },
+        {
+          "path": "packages/transport/src/types.ts",
+          "bytes": 4606,
+          "lines": 140,
+          "sha256": "4f62b97c6ff961a33d0373eb03bfb112c36f21a99ddd5656fa896760a15bee6a",
+          "headBlob": "4231cee52709b145e65fe3ceba907153842018bd",
+          "matchesHead": true
+        },
+        {
+          "path": "packages/transport/src/schemas/v1/contracts/transport-peer-evidence.schema.json",
+          "bytes": 2457,
+          "lines": 86,
+          "sha256": "9927593a233dd711bba3aec6a00d74c982018b54abe8a566370933112cf1ad2a",
+          "headBlob": "1ebc5489ab305b4494090e0c946a6d0b0c11d018",
+          "matchesHead": true
+        },
+        {
+          "path": "packages/node/src/node.ts",
+          "bytes": 81222,
+          "lines": 2374,
+          "sha256": "964b82337a0b67b0659729b049976692b5048a6873ec2f614986e3d9fdd5e4aa",
+          "headBlob": "cd78b3cf5ea82cad9f5cb492abc966da4eb7cf35",
+          "matchesHead": true
+        },
+        {
+          "path": "packages/node/src/data-plane.ts",
+          "bytes": 25355,
+          "lines": 782,
+          "sha256": "b42241bb09e6114ee9974f832f653d93dd089e86a6453ad824e7e31b233eda4f",
+          "headBlob": "ed9f27145c210b0850060ba5e14fc69050e66a8d",
+          "matchesHead": true
+        },
+        {
+          "path": "packages/node/src/session-controller.ts",
+          "bytes": 33994,
+          "lines": 1072,
+          "sha256": "6640bce12b23fb5423e2b7753e69f596c9ae91e784e1a1e9ec21dd1bcb6e71be",
+          "headBlob": "54879dfe752099a2b3cc076c6016f64c8303331c",
+          "matchesHead": true
+        },
+        {
+          "path": "packages/node/src/session-writer.ts",
+          "bytes": 13379,
+          "lines": 394,
+          "sha256": "aa400931af619e2724c2073ae28a69d440017eda9fee8c84f4097c796145e18d",
+          "headBlob": "699ebd738cf75ea15e58c41bc4b5c244c0f33877",
+          "matchesHead": true
+        },
+        {
+          "path": "packages/node/src/controller.ts",
+          "bytes": 1187,
+          "lines": 42,
+          "sha256": "5e8ef5f7ea8f7965192f696f5d5a7d7ffe2c6c86855aae2c99c94d0077a0ccbf",
+          "headBlob": "258880ebcfe3df6c2b7b172d790a26d336d7772f",
+          "matchesHead": true
+        },
+        {
+          "path": "packages/node/src/send-admission.ts",
+          "bytes": 2979,
+          "lines": 85,
+          "sha256": "22fe0522486eaf2a2e5dc696405feef56ea29cc67a36bfa229a90250886015b5",
+          "headBlob": "06780ca233aa88576f08db8216363cb25f8df334",
+          "matchesHead": true
+        },
+        {
+          "path": "packages/node/src/label-table.ts",
+          "bytes": 10701,
+          "lines": 310,
+          "sha256": "b518e9bccb8f8484c5650e339671fd485784bfd3fbcdd739ca272d2b574f4abd",
+          "headBlob": "780509f16b5c917284dddb31ea1c08efb8fb5a1b",
+          "matchesHead": true
+        },
+        {
+          "path": "packages/node/test/contract/destination-selector.test.js",
+          "bytes": 10575,
+          "lines": 246,
+          "sha256": "0bb3719ded51fe740618d011e6695ac631973b3edc06b74b2833a7e2d4834bf3",
+          "headBlob": "c44c77a5f40567016be1891c6d024909e4179101",
+          "matchesHead": true
+        },
+        {
+          "path": "packages/node/test/contract/identity-peer-evidence.test.js",
+          "bytes": 2181,
+          "lines": 74,
+          "sha256": "db9022c1023695d49373803cb01142db282b2e6178134ee7fd71a0670690532e",
+          "headBlob": "584dfa73128d8d19d57b627abb24a04107a1910b",
+          "matchesHead": true
+        },
+        {
+          "path": "packages/node/test/contract/label-binding-exact-identity.test.js",
+          "bytes": 892,
+          "lines": 28,
+          "sha256": "00a19bebe8fe7bf3a11f9b56a844469dd48ce6683e98d3745c0b535e9c838e41",
+          "headBlob": "8d466fcef962aa16c0f0006afe1d35565d228a77",
+          "matchesHead": true
+        },
+        {
+          "path": "packages/node/test/contract/withdrawal-writer-order.test.js",
+          "bytes": 1331,
+          "lines": 46,
+          "sha256": "5b1ca936c007d5cd3a7c641b036a5b62e27112d2c186530cc1835c05728a8ef7",
+          "headBlob": "6ee5959509997d9cd9c0d6d02948e7244a6ec2a9",
+          "matchesHead": true
+        }
+      ]
+    },
+    {
+      "root": "/home/apnex/taceng/zorg",
+      "head": "20d0d0a7dd08b417989bda48cfd0c18d0c5a0136",
+      "files": [
+        {
+          "path": "upstream/agp-review-response-reply.md",
+          "bytes": 5870,
+          "lines": 69,
+          "sha256": "e93d6f8fef2d8bb27aeea33f1c7e4ceecd2b9f8543d46c1d647d23a90c51dc34",
+          "headBlob": "7cf8e4803e403de9d623def91ed610faac059535",
+          "matchesHead": true
+        },
+        {
+          "path": "upstream/agp-requirements-response.md",
+          "bytes": 46811,
+          "lines": 358,
+          "sha256": "064e6c912e717127307874b3301d39b225a34667b5121ff8c250b3f6ef8ce9ff",
+          "headBlob": "de7ddea98923c20a9e395ac8e91a2282a0f5e381",
+          "matchesHead": true
+        },
+        {
+          "path": "docs/DECISIONS.md",
+          "bytes": 97417,
+          "lines": 1290,
+          "sha256": "26d5b103b7263438dc06fa0703d3211f689a72915a0982520d946fef6f7f443a",
+          "headBlob": "bb47c33b4980de3137c7166a5907f25a19b6e15b",
+          "matchesHead": true
+        }
+      ]
+    },
+    {
+      "root": "/home/apnex/taceng/operation-call",
+      "head": "fe48a511826f26e3532ea8aa6007b23ba661d80e",
+      "files": [
+        {
+          "path": "src/host.ts",
+          "bytes": 13927,
+          "lines": 259,
+          "sha256": "88cfcc88e9c5974cb5ac308f7bd0a4e9141856386d504e2fc9ac684b5d13b577",
+          "headBlob": "00d3beeccfada3f2de4a1408f204549a8387a132",
+          "matchesHead": true
+        }
+      ]
+    },
+    {
+      "root": "/home/apnex/taceng/caller-identity",
+      "head": "16a1c39f95f719b6123066d5f1a3fd99cfa590e5",
+      "files": [
+        {
+          "path": "CONTRACT.md",
+          "bytes": 20674,
+          "lines": 151,
+          "sha256": "bb482cc2ef0f40bc95923d3d3316a3f4bb4d46547ebec7d5c0aa59aca402f6c4",
+          "headBlob": "e6cbcba38dca44bbf7ae985cad223e83d6aad135",
+          "matchesHead": true
+        },
+        {
+          "path": "src/caller-identity.ts",
+          "bytes": 15575,
+          "lines": 363,
+          "sha256": "c8c42cecec9ac0a7f4e7a07466b302c323b7a77480eca901f8edcff1d34f1bdc",
+          "headBlob": "9b58adfbb21113126477ef9b0a0a02a0ce9bd032",
+          "matchesHead": true
+        },
+        {
+          "path": "src/session-records.ts",
+          "bytes": 3926,
+          "lines": 83,
+          "sha256": "8773169ab72ed4c4f7abf33dc56fc183b6eb9fb04e8271931499b96e51c692e2",
+          "headBlob": "51bf3cdea2455d63f09b3682de17f5b6e3c99119",
+          "matchesHead": true
+        },
+        {
+          "path": "src/identity-types.ts",
+          "bytes": 5168,
+          "lines": 120,
+          "sha256": "b7c97d2bca2afb78735ca482626cf12ca0b6ac0327f4da5608953591de69eeaa",
+          "headBlob": "6d7d8fb125472724fcf9941f3e7d68e15a1a4d13",
+          "matchesHead": true
+        }
+      ]
+    },
+    {
+      "root": "/home/apnex/taceng/credential-issuer",
+      "head": "ff4d9ff5378f47000532c51acdfdf11cd7fc903d",
+      "files": [
+        {
+          "path": "CONTRACT.md",
+          "bytes": 12521,
+          "lines": 146,
+          "sha256": "7a48f312765ad8bbad3eca474404cbcbbab245fd568aca0f1cb5add8500cb26a",
+          "headBlob": "b6e73dbba3b461754324c0bbed7ac2327b2d7780",
+          "matchesHead": true
+        }
+      ]
+    }
+  ],
+  "before": [
+    {
+      "path": "docs/BOARD.md",
+      "bytes": 45484,
+      "sha256": "0c4f77859a3ed622dbd49227f201f99cfbadcfe8827397c67950cf48b5433c6e"
+    },
+    {
+      "path": "docs/VERIFICATION.md",
+      "bytes": 284545,
+      "sha256": "5529b311397714ba93dda0128482a8da8ab998b7f228bea8ea05a1e2707d3605"
+    },
+    {
+      "path": "docs/design/mechanisms.md",
+      "bytes": 30420,
+      "sha256": "3d00bc685488f81e54d31e12cd00f579f86421db00ee37fb9de26c4d1b74a99d"
+    }
+  ],
+  "history": {
+    "destinationSelectionCommit": "e427b6d7b04e9be9b4565d8abc55653e9ceb806b",
+    "read": "commit message and data-plane diff"
+  },
+  "guidance": {
+    "missionKitLastValidatedMain": "ae217c932e50737d0595db9523502a1257b7a4bd",
+    "freshRemoteCheck": "Not established; the preceding turn's API refresh failed. Pinned cache used.",
+    "productApplicability": "docs/design/axioms.md retains its own pinned product map; no applicability change."
+  },
+  "external": [
+    {
+      "url": "https://www.rfc-editor.org/rfc/rfc8446.html#appendix-E.1",
+      "retrievedDate": "2026-10-17",
+      "scope": "Peer authentication and distinct handshake session keys; not AGP conformance."
+    },
+    {
+      "url": "https://www.rfc-editor.org/rfc/rfc5056.html#section-2.1",
+      "retrievedDate": "2026-10-17",
+      "scope": "Binding authentication to the protected channel before sensitive transfer; no particular new mechanism selected."
+    },
+    {
+      "url": "https://www.rfc-editor.org/rfc/rfc5056.html#section-8.1",
+      "retrievedDate": "2026-10-17",
+      "scope": "Caution about reusing authentication assumptions after channel re-establishment."
+    }
+  ],
+  "concurrentChange": {
+    "repository": "/home/apnex/taceng/zorg",
+    "initialHead": "27b0f64ed217fd84bb868d18308b6e1347265d86",
+    "capturedHead": "20d0d0a7dd08b417989bda48cfd0c18d0c5a0136",
+    "selectedFilesDiff": "git diff between these heads for the three captured Zorg inputs was empty."
+  },
+  "sourceCaptureCommand": "node --input-type=module <<'NODE'\nimport { readFileSync } from 'node:fs';\nimport { createHash } from 'node:crypto';\nimport { execFileSync } from 'node:child_process';\nimport { resolve } from 'node:path';\nconst selected = {\n  '/home/apnex/taceng/agp': [\n    'VISION.md','docs/ARCHITECTURE.md','docs/DECISIONS.md','docs/design/axioms.md',\n    'docs/design/destination-selection.md','docs/design/transport-contract.md',\n    'docs/reviews/zorg-review-response.md','docs/reviews/zorg-review-reply-assessment.md',\n    'packages/core/src/types.ts','packages/core/src/routing.ts',\n    'packages/core/src/schemas/v1/sdk/send-policy.schema.json',\n    'packages/transport/src/types.ts',\n    'packages/transport/src/schemas/v1/contracts/transport-peer-evidence.schema.json',\n    'packages/node/src/node.ts','packages/node/src/data-plane.ts',\n    'packages/node/src/session-controller.ts','packages/node/src/session-writer.ts',\n    'packages/node/src/controller.ts','packages/node/src/send-admission.ts',\n    'packages/node/src/label-table.ts',\n    'packages/node/test/contract/destination-selector.test.js',\n    'packages/node/test/contract/identity-peer-evidence.test.js',\n    'packages/node/test/contract/label-binding-exact-identity.test.js',\n    'packages/node/test/contract/withdrawal-writer-order.test.js'\n  ],\n  '/home/apnex/taceng/zorg': [\n    'upstream/agp-review-response-reply.md','upstream/agp-requirements-response.md','docs/DECISIONS.md'\n  ],\n  '/home/apnex/taceng/operation-call': ['src/host.ts'],\n  '/home/apnex/taceng/caller-identity': ['CONTRACT.md','src/caller-identity.ts','src/session-records.ts','src/identity-types.ts'],\n  '/home/apnex/taceng/credential-issuer': ['CONTRACT.md']\n};\nconst sha256 = value => createHash('sha256').update(value).digest('hex');\nconst repositories = Object.entries(selected).map(([root, paths]) => ({\n  root,\n  head: execFileSync('git',['rev-parse','HEAD'],{cwd:root,encoding:'utf8'}).trim(),\n  files: paths.map(path => {\n    const bytes = readFileSync(resolve(root,path));\n    let blob = null, matchesHead = false;\n    try {\n      blob = execFileSync('git',['rev-parse','HEAD:'+path],{cwd:root,encoding:'utf8',stdio:['ignore','pipe','ignore']}).trim();\n      matchesHead = bytes.equals(execFileSync('git',['show','HEAD:'+path],{cwd:root,stdio:['ignore','pipe','ignore']}));\n    } catch {}\n    return {path,bytes:bytes.length,lines:bytes.toString('utf8').split('\\n').length-1,sha256:sha256(bytes),headBlob:blob,matchesHead};\n  })\n}));\nconst agpRoot = '/home/apnex/taceng/agp';\nconst before = ['docs/BOARD.md','docs/VERIFICATION.md','docs/design/mechanisms.md'].map(path => {\n  const bytes=readFileSync(resolve(agpRoot,path)); return {path,bytes:bytes.length,sha256:sha256(bytes)};\n});\nprocess.stdout.write(JSON.stringify({observedAt:new Date().toISOString(),repositories,before},null,2));\nNODE"
+}

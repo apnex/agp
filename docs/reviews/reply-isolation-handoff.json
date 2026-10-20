@@ -1,0 +1,381 @@
+{
+  "kind": "reply-isolation-draft-handoff",
+  "status": "Draft placed in Zorg's ignored inbox with identical retained AGP copy; author checks passed.",
+  "acknowledgment": "Not observed; placement is not acceptance or contract agreement.",
+  "scope": "Correspondence and B51 tracking only; no public API, runtime, authenticated/browser acceptance, commit or push.",
+  "retainedPath": "docs/reviews/reply-isolation-response.md",
+  "incomingPath": "/home/apnex/taceng/zorg/upstream/incoming/agp-reply-isolation-response.md",
+  "inboxRule": ".gitignore:7:upstream/incoming/",
+  "sourceManifest": "reply-isolation-sources.json",
+  "sourceRefresh": {
+    "agpHead": "0aa6be75ccacf4e2c3770a49c5ea39970a25a98a",
+    "zorgHead": "53923cbee49dc16f1ab16fb0af6a2182a4ae26bb",
+    "files": [
+      {
+        "repository": "/home/apnex/taceng/agp",
+        "path": "VISION.md",
+        "unchanged": true
+      },
+      {
+        "repository": "/home/apnex/taceng/agp",
+        "path": "docs/ARCHITECTURE.md",
+        "unchanged": true
+      },
+      {
+        "repository": "/home/apnex/taceng/agp",
+        "path": "docs/DECISIONS.md",
+        "unchanged": true
+      },
+      {
+        "repository": "/home/apnex/taceng/agp",
+        "path": "docs/design/axioms.md",
+        "unchanged": true
+      },
+      {
+        "repository": "/home/apnex/taceng/agp",
+        "path": "docs/design/destination-selection.md",
+        "unchanged": true
+      },
+      {
+        "repository": "/home/apnex/taceng/agp",
+        "path": "docs/design/transport-contract.md",
+        "unchanged": true
+      },
+      {
+        "repository": "/home/apnex/taceng/agp",
+        "path": "docs/reviews/zorg-review-response.md",
+        "unchanged": true
+      },
+      {
+        "repository": "/home/apnex/taceng/agp",
+        "path": "docs/reviews/zorg-review-reply-assessment.md",
+        "unchanged": true
+      },
+      {
+        "repository": "/home/apnex/taceng/agp",
+        "path": "packages/core/src/types.ts",
+        "unchanged": true
+      },
+      {
+        "repository": "/home/apnex/taceng/agp",
+        "path": "packages/core/src/routing.ts",
+        "unchanged": true
+      },
+      {
+        "repository": "/home/apnex/taceng/agp",
+        "path": "packages/core/src/schemas/v1/sdk/send-policy.schema.json",
+        "unchanged": true
+      },
+      {
+        "repository": "/home/apnex/taceng/agp",
+        "path": "packages/transport/src/types.ts",
+        "unchanged": true
+      },
+      {
+        "repository": "/home/apnex/taceng/agp",
+        "path": "packages/transport/src/schemas/v1/contracts/transport-peer-evidence.schema.json",
+        "unchanged": true
+      },
+      {
+        "repository": "/home/apnex/taceng/agp",
+        "path": "packages/node/src/node.ts",
+        "unchanged": true
+      },
+      {
+        "repository": "/home/apnex/taceng/agp",
+        "path": "packages/node/src/data-plane.ts",
+        "unchanged": true
+      },
+      {
+        "repository": "/home/apnex/taceng/agp",
+        "path": "packages/node/src/session-controller.ts",
+        "unchanged": true
+      },
+      {
+        "repository": "/home/apnex/taceng/agp",
+        "path": "packages/node/src/session-writer.ts",
+        "unchanged": true
+      },
+      {
+        "repository": "/home/apnex/taceng/agp",
+        "path": "packages/node/src/controller.ts",
+        "unchanged": true
+      },
+      {
+        "repository": "/home/apnex/taceng/agp",
+        "path": "packages/node/src/send-admission.ts",
+        "unchanged": true
+      },
+      {
+        "repository": "/home/apnex/taceng/agp",
+        "path": "packages/node/src/label-table.ts",
+        "unchanged": true
+      },
+      {
+        "repository": "/home/apnex/taceng/agp",
+        "path": "packages/node/test/contract/destination-selector.test.js",
+        "unchanged": true
+      },
+      {
+        "repository": "/home/apnex/taceng/agp",
+        "path": "packages/node/test/contract/identity-peer-evidence.test.js",
+        "unchanged": true
+      },
+      {
+        "repository": "/home/apnex/taceng/agp",
+        "path": "packages/node/test/contract/label-binding-exact-identity.test.js",
+        "unchanged": true
+      },
+      {
+        "repository": "/home/apnex/taceng/agp",
+        "path": "packages/node/test/contract/withdrawal-writer-order.test.js",
+        "unchanged": true
+      },
+      {
+        "repository": "/home/apnex/taceng/zorg",
+        "path": "upstream/agp-review-response-reply.md",
+        "unchanged": true
+      },
+      {
+        "repository": "/home/apnex/taceng/zorg",
+        "path": "upstream/agp-requirements-response.md",
+        "unchanged": true
+      },
+      {
+        "repository": "/home/apnex/taceng/zorg",
+        "path": "docs/DECISIONS.md",
+        "unchanged": true
+      },
+      {
+        "repository": "/home/apnex/taceng/operation-call",
+        "path": "src/host.ts",
+        "unchanged": true
+      },
+      {
+        "repository": "/home/apnex/taceng/caller-identity",
+        "path": "CONTRACT.md",
+        "unchanged": true
+      },
+      {
+        "repository": "/home/apnex/taceng/caller-identity",
+        "path": "src/caller-identity.ts",
+        "unchanged": true
+      },
+      {
+        "repository": "/home/apnex/taceng/caller-identity",
+        "path": "src/session-records.ts",
+        "unchanged": true
+      },
+      {
+        "repository": "/home/apnex/taceng/caller-identity",
+        "path": "src/identity-types.ts",
+        "unchanged": true
+      },
+      {
+        "repository": "/home/apnex/taceng/credential-issuer",
+        "path": "CONTRACT.md",
+        "unchanged": true
+      }
+    ]
+  },
+  "guidance": {
+    "repository": "https://github.com/apnex/mission-kit",
+    "mainObserved": "ae217c932e50737d0595db9523502a1257b7a4bd"
+  },
+  "before": [
+    {
+      "path": "docs/BOARD.md",
+      "sha256": "af0a80eeb381bc1f04da42b702017226d218209e47445c7a089091d370986876",
+      "bytes": 45725
+    },
+    {
+      "path": "docs/VERIFICATION.md",
+      "sha256": "210efa7c0c8bdaa86bd8bc02f0e7131fa225f8837877ccc2a42ca1bbcda79e2b",
+      "bytes": 287830
+    },
+    {
+      "path": "docs/design/mechanisms.md",
+      "sha256": "3d00bc685488f81e54d31e12cd00f579f86421db00ee37fb9de26c4d1b74a99d",
+      "bytes": 30420
+    }
+  ],
+  "validation": "Author checks only; no independent or fresh-reader assurance.",
+  "history": {
+    "initial": {
+      "docs": {
+        "cmd": "tools/check-docs.sh docs/reviews/reply-isolation-response.md docs/BOARD.md docs/VERIFICATION.md /home/apnex/taceng/zorg/upstream/incoming/agp-reply-isolation-response.md > /tmp/agp-reply-isolation-handoff.D4DoNl/docs-check-01.txt 2>&1",
+        "chunk_id": "596328",
+        "wall_time_seconds": 0.152017998,
+        "exit_code": 1,
+        "original_token_count": 0,
+        "output": "",
+        "capturedOutput": "\nclean: 4 file(s), rule S13.\nFAIL  S6   docs/reviews/reply-isolation-response.md:8  sentence layout differs from S6; run --fix\nFAIL  S6   /home/apnex/taceng/zorg/upstream/incoming/agp-reply-isolation-response.md:8  sentence layout differs from S6; run --fix\n\n2 S6 failure(s) across 4 file(s).\nFAIL  S10  docs/reviews/reply-isolation-response.md:1  5 H2 sections but 0 horizontal rules; need 4\nFAIL  S10  /home/apnex/taceng/zorg/upstream/incoming/agp-reply-isolation-response.md:1  5 H2 sections but 0 horizontal rules; need 4\n\n2 S10 failure(s) across 4 file(s).\n\nclean: 4 file(s), rule S12.\n\nclean: 4 file(s), rule S8.\n"
+      },
+      "records": {
+        "cmd": "node --test test/conformance/board-record.test.js test/conformance/record-integrity.test.js test/conformance/architecture-record.test.js > /tmp/agp-reply-isolation-handoff.D4DoNl/record-check-01.txt 2>&1",
+        "chunk_id": "743d89",
+        "wall_time_seconds": 0.180890738,
+        "exit_code": 0,
+        "original_token_count": 0,
+        "output": "",
+        "capturedOutput": "✔ Given the confirmed intent record, when its numbered subsections are read, then every number is unique and ordered (11.8228ms)\n✔ Given the reconciled architecture, when its current paths and scope owners are resolved, then none points at a fictional module or a forked deferred list (11.666708ms)\n✔ Given the triage ledger, when each candidate is read, then it is scored on both dimensions and cites a record (22.377727ms)\n✔ Given every record cited by the board, when the link is resolved, then the target and its anchor exist (165.496044ms)\n✔ Given the held section, when each item is read, then it is scored and carries a revival trigger (1.847607ms)\n✔ Given the decisions required, when each is read, then it names exactly what it blocks (2.045221ms)\n✔ Given every board identifier, when the ledger and milestones are compared, then neither contains an item the other omits (5.157203ms)\n✔ Given every board item, when its ledger status is compared with where it sits, then the board does not disagree with itself about its state (21.156158ms)\n✔ Given the milestones, when each is read, then no landed item is presented as a live move and the closed count matches the closed set (5.266672ms)\n✔ Given every record that cites a board item, when the citation is resolved, then the item exists on the board (72.799263ms)\n✔ Given the architecture maturity table, when a reopen trigger is read, then it names a condition that has not already happened (2.841806ms)\n✔ Given confirmed intent, when a row says it was amended, then it names the decision that amended it (2.746001ms)\n✔ Given every ratified decision, when it is checked against the vision, then it has been absorbed or explicitly ruled not to change purpose (2.602742ms)\nℹ tests 13\nℹ suites 0\nℹ pass 13\nℹ fail 0\nℹ cancelled 0\nℹ skipped 0\nℹ todo 0\nℹ duration_ms 286.402158\n"
+      },
+      "preservation": {
+        "cmd": "node /tmp/agp-reply-isolation-handoff.D4DoNl/reply-isolation-handoff-check.mjs > /tmp/agp-reply-isolation-handoff.D4DoNl/preservation-check-01.json 2>&1",
+        "chunk_id": "9c00dd",
+        "wall_time_seconds": 0.000018807,
+        "exit_code": 0,
+        "original_token_count": 0,
+        "output": "",
+        "capturedOutput": {
+          "scope": "Author-only copy identity, source identity and pre-existing record preservation",
+          "identicalCopies": true,
+          "responseSha256": "f026bfd2ad331ec6d9ec7929a94efdb0572d2decfcca96a1cf0250551c2a2c06",
+          "responseBytes": 6421,
+          "sourcesChecked": 33,
+          "boardChanges": [
+            {
+              "line": 228,
+              "before": "| 4 | `B51` | Advisory review recommends direct-only egress; the identity association remains to be agreed | [Reply-isolation review](reviews/reply-isolation-review.md) separates endpoint pins from authorized channels, identifies the conflicting relay clause and the principal-continuity boundary, and preserves D26 for ordinary sends; no public contract or implementation is approved |",
+              "after": "| 4 | `B51` | Reply-isolation response placed in Zorg's draft inbox; scope and identity ownership await agreement | [Response](reviews/reply-isolation-response.md) asks Zorg to resolve the relay clause, identify the principal-continuity guarantee and confirm all-branch consumer integration; placement is not acknowledgment, and no public contract or implementation is approved |"
+            },
+            {
+              "line": 294,
+              "before": "Status: the scale amendment is drafted, not ratified; the reply-isolation review recommends direct-only egress with an explicit principal-continuity obligation, while the joint lifecycle proposal remains under review.\\",
+              "after": "Status: the scale amendment is drafted, not ratified; the reply-isolation response is placed with Zorg for direct-only scope and principal-continuity agreement, while the joint lifecycle proposal remains under review.\\"
+            },
+            {
+              "line": 302,
+              "before": "| `B51` | Agree direct-only reply scope and the principal-association boundary | [Advisory review](reviews/reply-isolation-review.md) requires reconciliation of Zorg's relay clause and either a proved stable node-to-principal admission invariant or an explicit immutable association; shared send enforcement and consumer adoption remain unbuilt, and server push is deferred |",
+              "after": "| `B51` | Obtain and assess Zorg's response on direct-only scope and identity ownership | [Draft response](reviews/reply-isolation-response.md), placed in Zorg's incoming folder, carries the [review](reviews/reply-isolation-review.md) forward; agree a stable node-to-principal invariant or explicit immutable association before public types; shared enforcement and consumer adoption remain unbuilt, and server push is deferred |"
+            },
+            {
+              "line": 344,
+              "before": "| Do we agree direct-only reply egress and its principal-association contract before choosing public types? | `B51` design selection; [review](reviews/reply-isolation-review.md) recommends excluding AGP relays from this guarantee and agreeing the admission invariant or immutable association with Zorg; ordinary D26 behavior remains unchanged |",
+              "after": "| Do we agree direct-only reply egress and its principal-association contract before choosing public types? | `B51` design selection; the [response placed with Zorg](reviews/reply-isolation-response.md) requests scope reconciliation and the identity owners' guarantee; no acknowledgment or agreement yet, and ordinary D26 behavior remains unchanged |"
+            }
+          ],
+          "existingVerificationPreserved": true,
+          "existingMechanismsPreserved": true,
+          "agpHead": "0aa6be75ccacf4e2c3770a49c5ea39970a25a98a",
+          "zorgHead": "8c10ffcb2f8e7c0f3f51be696c65b52690065598",
+          "zorgStatus": "",
+          "artifacts": [
+            {
+              "path": "docs/reviews/reply-isolation-response.md",
+              "sha256": "f026bfd2ad331ec6d9ec7929a94efdb0572d2decfcca96a1cf0250551c2a2c06",
+              "bytes": 6421
+            },
+            {
+              "path": "docs/BOARD.md",
+              "sha256": "930180d6a4352be4d846485f8d62899fdc734e3ecf1ebe2c8cca3f69c0f9f89d",
+              "bytes": 45777
+            },
+            {
+              "path": "docs/VERIFICATION.md",
+              "sha256": "45b0ce47d09369c95e65be4f34d7b4dacdf3a37304582be7636b57c32e63daa0",
+              "bytes": 289635
+            }
+          ]
+        }
+      }
+    },
+    "final": {
+      "docs": {
+        "cmd": "tools/check-docs.sh docs/reviews/reply-isolation-response.md docs/BOARD.md docs/VERIFICATION.md /home/apnex/taceng/zorg/upstream/incoming/agp-reply-isolation-response.md > /tmp/agp-reply-isolation-handoff.D4DoNl/docs-check-02.txt 2>&1",
+        "chunk_id": "8fff8e",
+        "wall_time_seconds": 0.007083078,
+        "exit_code": 0,
+        "original_token_count": 0,
+        "output": "",
+        "capturedOutput": "\nclean: 4 file(s), rule S13.\n\nclean: 4 file(s), rule S6.\n\nclean: 4 file(s), rule S10.\n\nclean: 4 file(s), rule S12.\n\nclean: 4 file(s), rule S8.\ndocs: 4 file(s) clean against S6, S8, S10, S12, S13.\n"
+      },
+      "records": {
+        "cmd": "node --test test/conformance/board-record.test.js test/conformance/record-integrity.test.js test/conformance/architecture-record.test.js > /tmp/agp-reply-isolation-handoff.D4DoNl/record-check-02.txt 2>&1",
+        "chunk_id": "5664f5",
+        "wall_time_seconds": 0.032819561,
+        "exit_code": 0,
+        "original_token_count": 0,
+        "output": "",
+        "capturedOutput": "✔ Given the confirmed intent record, when its numbered subsections are read, then every number is unique and ordered (4.941312ms)\n✔ Given the reconciled architecture, when its current paths and scope owners are resolved, then none points at a fictional module or a forked deferred list (4.473845ms)\n✔ Given the triage ledger, when each candidate is read, then it is scored on both dimensions and cites a record (6.881348ms)\n✔ Given every record cited by the board, when the link is resolved, then the target and its anchor exist (84.380372ms)\n✔ Given the held section, when each item is read, then it is scored and carries a revival trigger (0.899011ms)\n✔ Given the decisions required, when each is read, then it names exactly what it blocks (0.849522ms)\n✔ Given every board identifier, when the ledger and milestones are compared, then neither contains an item the other omits (0.772218ms)\n✔ Given every board item, when its ledger status is compared with where it sits, then the board does not disagree with itself about its state (8.061741ms)\n✔ Given the milestones, when each is read, then no landed item is presented as a live move and the closed count matches the closed set (3.119344ms)\n✔ Given every record that cites a board item, when the citation is resolved, then the item exists on the board (26.984458ms)\n✔ Given the architecture maturity table, when a reopen trigger is read, then it names a condition that has not already happened (1.260629ms)\n✔ Given confirmed intent, when a row says it was amended, then it names the decision that amended it (1.610081ms)\n✔ Given every ratified decision, when it is checked against the vision, then it has been absorbed or explicitly ruled not to change purpose (1.128388ms)\nℹ tests 13\nℹ suites 0\nℹ pass 13\nℹ fail 0\nℹ cancelled 0\nℹ skipped 0\nℹ todo 0\nℹ duration_ms 147.770724\n"
+      },
+      "preservation": {
+        "cmd": "node /tmp/agp-reply-isolation-handoff.D4DoNl/reply-isolation-handoff-check.mjs > /tmp/agp-reply-isolation-handoff.D4DoNl/preservation-check-02.json 2>&1",
+        "chunk_id": "9d575d",
+        "wall_time_seconds": 0.000014079,
+        "exit_code": 0,
+        "original_token_count": 0,
+        "output": "",
+        "capturedOutput": {
+          "scope": "Author-only copy identity, source identity and pre-existing record preservation",
+          "identicalCopies": true,
+          "responseSha256": "d6ed8be5a6b3f59530f83d4952f8e125769997d16ba78f44f8667fb15ce89210",
+          "responseBytes": 6467,
+          "sourcesChecked": 33,
+          "boardChanges": [
+            {
+              "line": 228,
+              "before": "| 4 | `B51` | Advisory review recommends direct-only egress; the identity association remains to be agreed | [Reply-isolation review](reviews/reply-isolation-review.md) separates endpoint pins from authorized channels, identifies the conflicting relay clause and the principal-continuity boundary, and preserves D26 for ordinary sends; no public contract or implementation is approved |",
+              "after": "| 4 | `B51` | Reply-isolation response placed in Zorg's draft inbox; scope and identity ownership await agreement | [Response](reviews/reply-isolation-response.md) asks Zorg to resolve the relay clause, identify the principal-continuity guarantee and confirm all-branch consumer integration; placement is not acknowledgment, and no public contract or implementation is approved |"
+            },
+            {
+              "line": 294,
+              "before": "Status: the scale amendment is drafted, not ratified; the reply-isolation review recommends direct-only egress with an explicit principal-continuity obligation, while the joint lifecycle proposal remains under review.\\",
+              "after": "Status: the scale amendment is drafted, not ratified; the reply-isolation response is placed with Zorg for direct-only scope and principal-continuity agreement, while the joint lifecycle proposal remains under review.\\"
+            },
+            {
+              "line": 302,
+              "before": "| `B51` | Agree direct-only reply scope and the principal-association boundary | [Advisory review](reviews/reply-isolation-review.md) requires reconciliation of Zorg's relay clause and either a proved stable node-to-principal admission invariant or an explicit immutable association; shared send enforcement and consumer adoption remain unbuilt, and server push is deferred |",
+              "after": "| `B51` | Obtain and assess Zorg's response on direct-only scope and identity ownership | [Draft response](reviews/reply-isolation-response.md), placed in Zorg's incoming folder, carries the [review](reviews/reply-isolation-review.md) forward; agree a stable node-to-principal invariant or explicit immutable association before public types; shared enforcement and consumer adoption remain unbuilt, and server push is deferred |"
+            },
+            {
+              "line": 344,
+              "before": "| Do we agree direct-only reply egress and its principal-association contract before choosing public types? | `B51` design selection; [review](reviews/reply-isolation-review.md) recommends excluding AGP relays from this guarantee and agreeing the admission invariant or immutable association with Zorg; ordinary D26 behavior remains unchanged |",
+              "after": "| Do we agree direct-only reply egress and its principal-association contract before choosing public types? | `B51` design selection; the [response placed with Zorg](reviews/reply-isolation-response.md) requests scope reconciliation and the identity owners' guarantee; no acknowledgment or agreement yet, and ordinary D26 behavior remains unchanged |"
+            }
+          ],
+          "existingVerificationPreserved": true,
+          "existingMechanismsPreserved": true,
+          "agpHead": "0aa6be75ccacf4e2c3770a49c5ea39970a25a98a",
+          "zorgHead": "8c10ffcb2f8e7c0f3f51be696c65b52690065598",
+          "zorgStatus": "",
+          "artifacts": [
+            {
+              "path": "docs/reviews/reply-isolation-response.md",
+              "sha256": "d6ed8be5a6b3f59530f83d4952f8e125769997d16ba78f44f8667fb15ce89210",
+              "bytes": 6467
+            },
+            {
+              "path": "docs/BOARD.md",
+              "sha256": "930180d6a4352be4d846485f8d62899fdc734e3ecf1ebe2c8cca3f69c0f9f89d",
+              "bytes": 45777
+            },
+            {
+              "path": "docs/VERIFICATION.md",
+              "sha256": "45b0ce47d09369c95e65be4f34d7b4dacdf3a37304582be7636b57c32e63daa0",
+              "bytes": 289635
+            }
+          ]
+        }
+      },
+      "whitespace": {
+        "cmd": "git diff --check",
+        "chunk_id": "d56dff",
+        "wall_time_seconds": 0.00001309,
+        "exit_code": 0,
+        "original_token_count": 0,
+        "output": ""
+      }
+    }
+  },
+  "zorgConcurrentAdvance": {
+    "cmd": "git diff --name-status 53923cbee49dc16f1ab16fb0af6a2182a4ae26bb 8c10ffcb2f8e7c0f3f51be696c65b52690065598 -- upstream docs/DECISIONS.md",
+    "chunk_id": "114a3c",
+    "wall_time_seconds": 0.000016291,
+    "exit_code": 0,
+    "original_token_count": 0,
+    "output": "",
+    "note": "Zorg advanced during the handoff; the reviewed source hashes still match, and the scoped diff records any correspondence or decision changes."
+  },
+  "checkerSource": "import assert from \"node:assert/strict\";\nimport {readFileSync} from \"node:fs\";\nimport {createHash} from \"node:crypto\";\nimport {execFileSync} from \"node:child_process\";\nconst root=\"/home/apnex/taceng/agp\";\nconst sha256=value=>createHash(\"sha256\").update(value).digest(\"hex\");\nconst read=name=>readFileSync(root+\"/\"+name);\nconst expected={\n  \"heads\": {\n    \"agp\": \"0aa6be75ccacf4e2c3770a49c5ea39970a25a98a\",\n    \"zorg\": \"53923cbee49dc16f1ab16fb0af6a2182a4ae26bb\"\n  },\n  \"before\": [\n    {\n      \"path\": \"docs/BOARD.md\",\n      \"sha256\": \"af0a80eeb381bc1f04da42b702017226d218209e47445c7a089091d370986876\",\n      \"bytes\": 45725\n    },\n    {\n      \"path\": \"docs/VERIFICATION.md\",\n      \"sha256\": \"210efa7c0c8bdaa86bd8bc02f0e7131fa225f8837877ccc2a42ca1bbcda79e2b\",\n      \"bytes\": 287830\n    },\n    {\n      \"path\": \"docs/design/mechanisms.md\",\n      \"sha256\": \"3d00bc685488f81e54d31e12cd00f579f86421db00ee37fb9de26c4d1b74a99d\",\n      \"bytes\": 30420\n    }\n  ],\n  \"boardLines\": [\n    {\n      \"line\": 228,\n      \"before\": \"| 4 | `B51` | Advisory review recommends direct-only egress; the identity association remains to be agreed | [Reply-isolation review](reviews/reply-isolation-review.md) separates endpoint pins from authorized channels, identifies the conflicting relay clause and the principal-continuity boundary, and preserves D26 for ordinary sends; no public contract or implementation is approved |\"\n    },\n    {\n      \"line\": 294,\n      \"before\": \"Status: the scale amendment is drafted, not ratified; the reply-isolation review recommends direct-only egress with an explicit principal-continuity obligation, while the joint lifecycle proposal remains under review.\\\\\"\n    },\n    {\n      \"line\": 302,\n      \"before\": \"| `B51` | Agree direct-only reply scope and the principal-association boundary | [Advisory review](reviews/reply-isolation-review.md) requires reconciliation of Zorg's relay clause and either a proved stable node-to-principal admission invariant or an explicit immutable association; shared send enforcement and consumer adoption remain unbuilt, and server push is deferred |\"\n    },\n    {\n      \"line\": 344,\n      \"before\": \"| Do we agree direct-only reply egress and its principal-association contract before choosing public types? | `B51` design selection; [review](reviews/reply-isolation-review.md) recommends excluding AGP relays from this guarantee and agreeing the admission invariant or immutable association with Zorg; ordinary D26 behavior remains unchanged |\"\n    }\n  ]\n};\nconst currentLines=read(\"docs/BOARD.md\").toString().split(\"\\n\");\nconst boardChanges=expected.boardLines.map(item=>({...item,after:currentLines[item.line-1]}));\nfor (const change of boardChanges) {\n  assert.notEqual(change.before,change.after,\"board readiness entry unchanged\");\n  currentLines[change.line-1]=change.before;\n}\nassert.equal(sha256(currentLines.join(\"\\n\")),expected.before.find(x=>x.path===\"docs/BOARD.md\").sha256,\"unrelated board content changed\");\nconst verification=read(\"docs/VERIFICATION.md\").toString();\nconst start=verification.indexOf(\"### 4.48 Reply isolation response placement\\n\");\nconst end=verification.indexOf(\"## 5. Modular test architecture\",start);\nassert.ok(start>=0 && end>start);\nassert.equal(sha256(verification.slice(0,start)+verification.slice(end)),expected.before.find(x=>x.path===\"docs/VERIFICATION.md\").sha256,\"earlier verification content changed\");\nassert.equal(sha256(read(\"docs/design/mechanisms.md\")),expected.before.find(x=>x.path===\"docs/design/mechanisms.md\").sha256,\"existing mechanisms edit changed\");\nconst response=read(\"docs/reviews/reply-isolation-response.md\");\nconst incoming=readFileSync(\"/home/apnex/taceng/zorg/upstream/incoming/agp-reply-isolation-response.md\");\nassert.ok(response.equals(incoming),\"incoming draft differs from retained copy\");\nconst sourceManifest=JSON.parse(read(\"docs/reviews/reply-isolation-sources.json\"));\nlet sourcesChecked=0;\nfor (const repo of sourceManifest.repositories) {\n  for (const file of repo.files) {\n    assert.equal(sha256(readFileSync(repo.root+\"/\"+file.path)),file.sha256,\"review source changed: \"+file.path);\n    sourcesChecked++;\n  }\n}\nconst agpHead=execFileSync(\"git\",[\"rev-parse\",\"HEAD\"],{cwd:root,encoding:\"utf8\"}).trim();\nassert.equal(agpHead,expected.heads.agp,\"AGP HEAD changed\");\nconst zorgHead=execFileSync(\"git\",[\"rev-parse\",\"HEAD\"],{cwd:\"/home/apnex/taceng/zorg\",encoding:\"utf8\"}).trim();\nconst zorgStatus=execFileSync(\"git\",[\"status\",\"--short\"],{cwd:\"/home/apnex/taceng/zorg\",encoding:\"utf8\"});\nconst artifacts=[\"docs/reviews/reply-isolation-response.md\",\"docs/BOARD.md\",\"docs/VERIFICATION.md\"].map(path=>({path,sha256:sha256(read(path)),bytes:read(path).length}));\nconsole.log(JSON.stringify({scope:\"Author-only copy identity, source identity and pre-existing record preservation\",identicalCopies:true,responseSha256:sha256(response),responseBytes:response.length,sourcesChecked,boardChanges,existingVerificationPreserved:true,existingMechanismsPreserved:true,agpHead,zorgHead,zorgStatus,artifacts},null,2));\n"
+}
