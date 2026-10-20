@@ -26,6 +26,8 @@ Review basis:
 - [Earlier direct-peer reply](../../../context-lab/incoming/agp-direct-peer-assurance-contract-response.md) SHA-256: `7c43b3f23f7f307285e9cad7d004d0c019521b9fed5d264e13693af46a5cccfc`.
 - Evidence class: static source and test inspection, with no runtime reproduction, model calls or provider probes; source links name workspace files, while revision and line references identify the reviewed content.
 
+---
+
 ## Pinned source findings
 
 | Finding | Source fact |
@@ -36,6 +38,8 @@ Review basis:
 | Invalid retry settings | The [CLI flag parser](../../../context-lab/packages/core/src/cli-flags.ts), lines 6-12, silently omits a supplied value outside `1` or `2`, allowing the experiment setting or default to apply instead of rejecting the input |
 | Response bound | The run conductor splits answers at lines 404-411 before calling the measure hook at lines 438-449; the [code measurer](../../../context-lab/packages/core/src/code-measurer.ts), lines 23-44, accepts scores, not replacement response text |
 | Record completeness | The run conductor's `snapshot.experiment`, lines 137-143 and 257-260, contains variation/default only, not the full experiment or effective retry policy; the [blinder](../../../context-lab/packages/core/src/blinder.ts), lines 105-129, omits unusable cells and places absent answers outside `units` |
+
+---
 
 ## Requested corrections and acceptance evidence
 
@@ -83,6 +87,8 @@ A content hash identifies an input; it is not a retained copy of that input or o
 These requests do not prescribe internal modules, a new API shape, or a universal one-attempt policy for probes and judges.\
 Those retry policies remain separate choices to freeze and account for before AGP selects execution.
 
+---
+
 ## AGP owned acceptance work
 
 AGP will use supported public records and hooks, not copy the runner or replace context-lab's judging mechanism.\
@@ -96,6 +102,8 @@ The project-owned binding must:
 
 These are remaining preparation duties, not completed acceptance evidence.\
 Neither this request nor eventual capability fixes authorize an AGP scored run or close Zorg's runtime requirements.
+
+---
 
 ## Requested owner response
 
