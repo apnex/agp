@@ -1,0 +1,157 @@
+{
+  "observedAt": "2026-10-10T04:41:31.407Z",
+  "sourceRevision": "ee99d741b6c250c0f2525a24b8dbd4ef3a14cab8",
+  "worktree": "M docs/BOARD.md\n M docs/VERIFICATION.md\n M docs/design/mechanisms.md\n M packages/node/src/node.ts\n M packages/node/test/README.md\n?? docs/reviews/\n?? packages/node/test/contract/disposition-types.test.js\n?? packages/node/test/fixtures/\n?? scripts/browser-feasibility.mjs",
+  "node": "v24.12.0",
+  "tools": {
+    "esbuild": "0.28.2",
+    "esbuildModule": "/home/apnex/.npm/_npx/fd45a72a545557e9/node_modules/esbuild/lib/main.js",
+    "playwrightModule": "/home/apnex/.cache/ms-playwright-go/1.50.1/package/index.mjs"
+  },
+  "bundles": {
+    "node": {
+      "outcome": "blocked",
+      "errors": [
+        {
+          "text": "Could not resolve \"node:crypto\"",
+          "location": {
+            "column": 40,
+            "file": "packages/node/dist/node.js",
+            "length": 13,
+            "line": 1,
+            "lineText": "import { randomBytes, randomUUID } from \"node:crypto\";",
+            "namespace": "",
+            "suggestion": ""
+          }
+        }
+      ]
+    },
+    "protocol": {
+      "outcome": "built",
+      "bytes": 370910,
+      "sha256": "5a366f2a9e26809fff05a541baae79f51ea32d338abce4241d28cc5828aee6b8",
+      "warnings": []
+    },
+    "core": {
+      "outcome": "built",
+      "bytes": 741978,
+      "sha256": "224fa823f137b8f73dbc25942688b2d4097fb98964f7a12bf24263f425bdaf51",
+      "warnings": []
+    },
+    "transport": {
+      "outcome": "built",
+      "bytes": 315966,
+      "sha256": "7afa0a5a78c70ebee4c7b7836bb2e03d2236136306817910848935b21779bb44",
+      "warnings": []
+    }
+  },
+  "csp": [
+    {
+      "package": "protocol",
+      "policy": "strict",
+      "outcome": "blocked",
+      "name": "EvalError",
+      "message": "Evaluating a string as JavaScript violates the following Content Security Policy directive because 'unsafe-eval' is not an allowed source of script: script-src 'self'\".\n"
+    },
+    {
+      "package": "protocol",
+      "policy": "control",
+      "outcome": "loaded",
+      "exports": 32
+    },
+    {
+      "package": "core",
+      "policy": "strict",
+      "outcome": "blocked",
+      "name": "EvalError",
+      "message": "Evaluating a string as JavaScript violates the following Content Security Policy directive because 'unsafe-eval' is not an allowed source of script: script-src 'self'\".\n"
+    },
+    {
+      "package": "core",
+      "policy": "control",
+      "outcome": "loaded",
+      "exports": 54
+    },
+    {
+      "package": "transport",
+      "policy": "strict",
+      "outcome": "blocked",
+      "name": "EvalError",
+      "message": "Evaluating a string as JavaScript violates the following Content Security Policy directive because 'unsafe-eval' is not an allowed source of script: script-src 'self'\".\n"
+    },
+    {
+      "package": "transport",
+      "policy": "control",
+      "outcome": "loaded",
+      "exports": 17
+    }
+  ],
+  "complete": true,
+  "browser": "151.0.7922.47",
+  "browserExecutable": "/home/apnex/.cache/puppeteer/chrome-headless-shell/linux-151.0.7922.47/chrome-headless-shell-linux64/chrome-headless-shell",
+  "native": {
+    "received": [
+      [
+        9
+      ],
+      [
+        1,
+        2,
+        3
+      ],
+      [
+        4,
+        5
+      ],
+      [
+        6
+      ]
+    ],
+    "closeCodes": {
+      "1002": "InvalidAccessError",
+      "1003": "InvalidAccessError",
+      "1007": "InvalidAccessError",
+      "1009": "InvalidAccessError",
+      "1011": "InvalidAccessError"
+    },
+    "capabilities": {
+      "secureContext": true,
+      "randomUUID": "function",
+      "getRandomValues": "function",
+      "setImmediate": "undefined",
+      "pause": "undefined",
+      "terminate": "undefined"
+    },
+    "protocol": "agp.v1",
+    "extensions": "",
+    "sendReturn": "undefined",
+    "close": {
+      "code": 1000,
+      "wasClean": true
+    }
+  },
+  "serverPackets": [
+    {
+      "binary": true,
+      "bytes": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "binary": true,
+      "bytes": [
+        4,
+        5
+      ]
+    },
+    {
+      "binary": true,
+      "bytes": [
+        6
+      ]
+    }
+  ],
+  "pageErrors": []
+}
