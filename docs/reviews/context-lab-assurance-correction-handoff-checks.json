@@ -1,0 +1,141 @@
+{
+  "schemaVersion": 1,
+  "purpose": "Source-preserving delivery of the reviewed context-lab assurance compatibility correction request; not runtime or documentation-assurance evidence.",
+  "checkedAt": "2026-10-18 00:17:39 UTC",
+  "checkpoint": "After delivery and AGP tracking updates, before creating this check record.",
+  "authority": "The director selected delivery of the prepared request with continue.",
+  "source": {
+    "path": "/home/apnex/taceng/agp/docs/reviews/context-lab-assurance-correction-request.md",
+    "sha256": "205c64cd52b50224c33fc5b2cdfbf11f370c298a9ee3c73365c4422be2330ca4",
+    "bytes": 9849
+  },
+  "delivery": {
+    "path": "/home/apnex/taceng/context-lab/incoming/agp-assurance-correction-request.md",
+    "sha256": "fba2e75e6245fdf0b0f5f81c1c342c28eadc03d34e3a0903f9b5674078a61179",
+    "bytes": 10564
+  },
+  "transformation": {
+    "coverAdded": true,
+    "sourceBodyRecoveredByteForByte": true,
+    "rebasedLinkCount": 10,
+    "rebasedLinks": [
+      {
+        "from": "../../../context-lab/incoming/agp-assurance-capability-feedback-response.md",
+        "to": "agp-assurance-capability-feedback-response.md",
+        "resolvedPath": "/home/apnex/taceng/context-lab/incoming/agp-assurance-capability-feedback-response.md"
+      },
+      {
+        "from": "../../../context-lab/packages/core/test/run-conductor.test.ts",
+        "to": "../packages/core/test/run-conductor.test.ts",
+        "resolvedPath": "/home/apnex/taceng/context-lab/packages/core/test/run-conductor.test.ts"
+      },
+      {
+        "from": "direct-peer-send-assurance/direct-peer-assurance-preparation.md",
+        "to": "../../agp/docs/reviews/direct-peer-send-assurance/direct-peer-assurance-preparation.md",
+        "resolvedPath": "/home/apnex/taceng/agp/docs/reviews/direct-peer-send-assurance/direct-peer-assurance-preparation.md"
+      },
+      {
+        "from": "context-lab-assurance-feedback.md",
+        "to": "../../agp/docs/reviews/context-lab-assurance-feedback.md",
+        "resolvedPath": "/home/apnex/taceng/agp/docs/reviews/context-lab-assurance-feedback.md"
+      },
+      {
+        "from": "../../../context-lab/incoming/agp-direct-peer-assurance-contract-response.md",
+        "to": "agp-direct-peer-assurance-contract-response.md",
+        "resolvedPath": "/home/apnex/taceng/context-lab/incoming/agp-direct-peer-assurance-contract-response.md"
+      },
+      {
+        "from": "../../../context-lab/packages/core/src/judge-panel.ts",
+        "to": "../packages/core/src/judge-panel.ts",
+        "resolvedPath": "/home/apnex/taceng/context-lab/packages/core/src/judge-panel.ts"
+      },
+      {
+        "from": "../../../context-lab/packages/core/src/run-conductor.ts",
+        "to": "../packages/core/src/run-conductor.ts",
+        "resolvedPath": "/home/apnex/taceng/context-lab/packages/core/src/run-conductor.ts"
+      },
+      {
+        "from": "../../../context-lab/packages/core/src/cli-flags.ts",
+        "to": "../packages/core/src/cli-flags.ts",
+        "resolvedPath": "/home/apnex/taceng/context-lab/packages/core/src/cli-flags.ts"
+      },
+      {
+        "from": "../../../context-lab/packages/core/src/code-measurer.ts",
+        "to": "../packages/core/src/code-measurer.ts",
+        "resolvedPath": "/home/apnex/taceng/context-lab/packages/core/src/code-measurer.ts"
+      },
+      {
+        "from": "../../../context-lab/packages/core/src/blinder.ts",
+        "to": "../packages/core/src/blinder.ts",
+        "resolvedPath": "/home/apnex/taceng/context-lab/packages/core/src/blinder.ts"
+      }
+    ],
+    "deliveredLinkCount": 11,
+    "allDeliveredLinksResolve": true
+  },
+  "ownerReplies": [
+    {
+      "path": "/home/apnex/taceng/context-lab/incoming/agp-assurance-capability-feedback-response.md",
+      "sha256": "67aa9b96c32789003db28015625bc188f9c8ec785cc3ee0e2a4898731ed0b50e",
+      "preserved": true
+    },
+    {
+      "path": "/home/apnex/taceng/context-lab/incoming/agp-direct-peer-assurance-contract-response.md",
+      "sha256": "7c43b3f23f7f307285e9cad7d004d0c019521b9fed5d264e13693af46a5cccfc",
+      "preserved": true
+    }
+  ],
+  "tracking": {
+    "boardPath": "/home/apnex/taceng/agp/docs/BOARD.md",
+    "boardSha256": "c86db58331e245fcedf51c73fb879d93d7e1f80be49486ec6a1df1a21c57ff0d",
+    "updatedB51References": 4,
+    "verificationPath": "/home/apnex/taceng/agp/docs/VERIFICATION.md",
+    "verificationSha256": "2a3471a9c50e6273922ca0c57210c802735f1a81bc1ce208f460fcd97e149271",
+    "section": "4.69 Context-lab assurance compatibility correction handoff",
+    "boardPrioritiesUnchanged": true,
+    "executionRevisionSelected": false,
+    "nextAction": "Draft AGP-owned outcome/vote accounting and judge-payload mapping; reassess context-lab correction evidence when supplied."
+  },
+  "repositoryChecks": {
+    "agp": {
+      "head": "a09e4bcda9d668b52ff3212c3813fad30fa7ac10",
+      "headUnchanged": true,
+      "stagedDiffSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stagedStateUnchanged": true,
+      "existingChangedFileCount": 76,
+      "priorFilesPreservedExcept": [
+        "docs/BOARD.md",
+        "docs/VERIFICATION.md"
+      ],
+      "addedFiles": []
+    },
+    "contextLab": {
+      "head": "d17feb9ea7cec067176804e7e3c25f92281e6d04",
+      "headUnchanged": true,
+      "stagedDiffSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stagedStateUnchanged": true,
+      "existingChangedFileCount": 10,
+      "priorFilesPreservedExcept": [],
+      "addedFiles": [
+        "incoming/agp-assurance-correction-request.md"
+      ]
+    }
+  },
+  "whitespaceCheck": {
+    "command": "git diff --check",
+    "repository": "agp",
+    "exitCode": 0
+  },
+  "boundaries": {
+    "recipientAcknowledgmentClaimed": false,
+    "productCodeChanged": false,
+    "executionSettingsChanged": false,
+    "runtimeTestsRun": false,
+    "productExecutionPerformed": false,
+    "modelOrProviderCallsPerformed": false,
+    "reviewAgentsStarted": false,
+    "staged": false,
+    "committed": false,
+    "pushed": false
+  }
+}
