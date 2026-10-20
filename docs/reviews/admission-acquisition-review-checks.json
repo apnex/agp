@@ -1,0 +1,268 @@
+{
+  "kind": "admission-acquisition-independent-review-author-checks",
+  "status": "review-recorded-author-validation-complete-existing-documentation-failure-retained",
+  "authority": "Director selected one read-only independent review agent; primary records assessment and current tracking. No design repair, implementation, outbound note, commit or push selected.",
+  "reviewer": "/root/admission_acquisition_independent_review",
+  "target": {
+    "path": "docs/design/admission-use-lifecycle.md",
+    "sha256": "2a2d73991919584990df6ac57a9d3f4eb78d8f4b5c7c8fc162d4c88db61b6900"
+  },
+  "independentReport": "docs/reviews/admission-acquisition-independent-review.txt",
+  "technicalVerdict": "FAIL",
+  "scopedM7Verdict": "FAIL",
+  "disposition": "revise-before-implementation",
+  "findings": {
+    "blocking": 1,
+    "nonblockingClarifications": 1
+  },
+  "provenance": "The independent report owns the verdict. This file records author validation only.",
+  "sourceCheckpoints": {
+    "agp": "a09e4bcda9d668b52ff3212c3813fad30fa7ac10",
+    "zorg": "56350495934b90c63a17950bafaac71e16d7568e",
+    "missionKitMain": "b145b359b40d234d8d42b06a85d903ec5f0ec699",
+    "productAxiomPin": "5026604d3ef695651c21b24bd78410c7fec04b58",
+    "guidanceFinalMeasurement": [
+      {
+        "chunk_id": "dd0dc7",
+        "wall_time_seconds": 0.462540213,
+        "exit_code": 0,
+        "original_token_count": 11,
+        "output": "b145b359b40d234d8d42b06a85d903ec5f0ec699\n"
+      },
+      {
+        "chunk_id": "d64b4b",
+        "wall_time_seconds": 0.290199811,
+        "exit_code": 0,
+        "original_token_count": 11,
+        "output": "b145b359b40d234d8d42b06a85d903ec5f0ec699\n"
+      },
+      {
+        "chunk_id": "c4a33e",
+        "wall_time_seconds": 0.280394364,
+        "exit_code": 0,
+        "original_token_count": 0,
+        "output": ""
+      }
+    ]
+  },
+  "environment": {
+    "node": "v24.12.0",
+    "cwd": "/home/apnex/taceng/agp",
+    "baselineCapturedAt": "2026-10-17T21:25:09.113Z",
+    "afterCapturedAt": "2026-10-17T21:42:35.292Z"
+  },
+  "scope": [
+    "docs/reviews/admission-acquisition-independent-review.txt",
+    "docs/reviews/admission-acquisition-review.md",
+    "docs/reviews/admission-acquisition-review-checks.json",
+    "docs/reviews/evidence/admission-acquisition-review-input.txt",
+    "docs/BOARD.md",
+    "docs/VERIFICATION.md"
+  ],
+  "artifacts": {
+    "docs/design/admission-use-lifecycle.md": {
+      "sha256": "2a2d73991919584990df6ac57a9d3f4eb78d8f4b5c7c8fc162d4c88db61b6900"
+    },
+    "docs/reviews/admission-acquisition-independent-review.txt": {
+      "sha256": "3a67d83b8dabcef9a7028947ea3c040488422840eae7e541e4a67703d2d859e6"
+    },
+    "docs/reviews/admission-acquisition-review.md": {
+      "sha256": "0f979875b53bad4b09e9e658e99912e0f3504ea8c09aed029f4d99bcfb4f848d"
+    },
+    "docs/reviews/evidence/admission-acquisition-review-input.txt": {
+      "sha256": "2a2d73991919584990df6ac57a9d3f4eb78d8f4b5c7c8fc162d4c88db61b6900"
+    },
+    "docs/BOARD.md": {
+      "sha256": "78cbdc8230d04aa8f37556dd7db3ecfba7ac6e2ecf7f3f0a5ec8cf3d3e3081d6"
+    },
+    "docs/VERIFICATION.md": {
+      "sha256": "a53d1e403c1078370112f2380882aa27a693d4bed4aaffecab9c695017c48c45"
+    }
+  },
+  "reviewAssessment": {
+    "blockingFinding": "Issuer expiry validation precedes the different private clock instant designated as redemption; no declared temporal handoff ensures validity and establishment share that event.",
+    "acceptedClarification": "Ordinary-stop cleanup accounting must remain distinct from numerical-terminal frozen capture.",
+    "nextAction": "Amend the design, independently review the new hash, then obtain Zorg issuer-transaction fit review.",
+    "draftModified": false,
+    "reportAltered": false,
+    "previousVerdictsRegraded": false,
+    "widerM1AssuranceClaimed": false,
+    "freshReaderAssuranceClaimed": false,
+    "runtimeAcceptanceClaimed": false
+  },
+  "sourceManifestCheck": {
+    "cmd": "node --input-type=module <<'NODE'\nimport assert from 'node:assert/strict';\nimport {readFileSync} from 'node:fs';\nimport {createHash} from 'node:crypto';\nimport {execFileSync} from 'node:child_process';\nconst report=readFileSync('docs/reviews/admission-acquisition-independent-review.txt','utf8');\nconst pin='5026604d3ef695651c21b24bd78410c7fec04b58';\nconst axiomPaths={A3:'axioms/A3-sovereign-composition.md',A4:'axioms/A4-zero-loss-knowledge.md',A8:'axioms/A8-gated-recursive-integrity.md',A9:'axioms/A9-chaos-validated-deployment.md',A14:'axioms/A14-compounding-learning.md'};\nconst checked=[];\nfor(const [,expected,reference] of report.matchAll(/^([0-9a-f]{64})  (.+)$/gmu)) {\n const data=axiomPaths[reference]?\n  execFileSync('git',['-C','/home/apnex/taceng/mission-kit','show',pin+':'+axiomPaths[reference]]):\n  readFileSync(reference);\n const actual=createHash('sha256').update(data).digest('hex');\n assert.equal(actual,expected,reference);\n checked.push({reference,bytes:data.length,sha256:actual});\n}\nassert.equal(checked.length,25);\nlet sourceCitations=0;\nfor(const [,file,line] of report.matchAll(/\\]\\((\\/[^)]+):(\\d+)\\)/gu)) {\n const lines=readFileSync(file,'utf8').trimEnd().split('\\n');\n assert.ok(Number(line)>=1 && Number(line)<=lines.length,file+':'+line);\n sourceCitations++;\n}\nassert.ok(sourceCitations>0);\nconsole.log(JSON.stringify({status:'PASS',checked,sourceCitations,scope:'Source manifest equality and citation file/line existence; not semantic verification or runtime proof.'},null,2));\nNODE",
+    "chunk_id": "e4ee85",
+    "wall_time_seconds": 0.000010187,
+    "exit_code": 0,
+    "original_token_count": 1142,
+    "output": "{\n  \"status\": \"PASS\",\n  \"checked\": [\n    {\n      \"reference\": \"docs/design/admission-use-lifecycle.md\",\n      \"bytes\": 55565,\n      \"sha256\": \"2a2d73991919584990df6ac57a9d3f4eb78d8f4b5c7c8fc162d4c88db61b6900\"\n    },\n    {\n      \"reference\": \"docs/reviews/evidence/admission-acquisition-review-input.txt\",\n      \"bytes\": 55565,\n      \"sha256\": \"2a2d73991919584990df6ac57a9d3f4eb78d8f4b5c7c8fc162d4c88db61b6900\"\n    },\n    {\n      \"reference\": \"packages/transport/src/types.ts\",\n      \"bytes\": 4606,\n      \"sha256\": \"4f62b97c6ff961a33d0373eb03bfb112c36f21a99ddd5656fa896760a15bee6a\"\n    },\n    {\n      \"reference\": \"docs/design/transport-contract.md\",\n      \"bytes\": 64463,\n      \"sha256\": \"77ee1d71f89a62dfb8a3912fd9803c25f081d52be6c1eff96a1e3d9ff091a9ac\"\n    },\n    {\n      \"reference\": \"packages/core/src/types.ts\",\n      \"bytes\": 27660,\n      \"sha256\": \"ab98ffd07445d778ccb4afc54827bea18b35f59619ebcb236b8d4a0e706479c1\"\n    },\n    {\n      \"reference\": \"packages/node/src/node.ts\",\n      \"bytes\": 81222,\n      \"sha256\": \"964b82337a0b67b0659729b049976692b5048a6873ec2f614986e3d9fdd5e4aa\"\n    },\n    {\n      \"reference\": \"packages/node/src/outbound-acquisition.ts\",\n      \"bytes\": 2451,\n      \"sha256\": \"d46f880eda4b592f22f0186115e0e8f34dc3ba61fc031a809dde7b21e21e01a3\"\n    },\n    {\n      \"reference\": \"packages/node/src/session-controller.ts\",\n      \"bytes\": 33994,\n      \"sha256\": \"6640bce12b23fb5423e2b7753e69f596c9ae91e784e1a1e9ec21dd1bcb6e71be\"\n    },\n    {\n      \"reference\": \"packages/node/src/serialized-executor.ts\",\n      \"bytes\": 709,\n      \"sha256\": \"fae03a7a1a1dad647467f41d8b46bf0d67d33aa29ea06a2a4c10fcafa4cbf32a\"\n    },\n    {\n      \"reference\": \"docs/reviews/admission-lifetime-correction-r4.md\",\n      \"bytes\": 72246,\n      \"sha256\": \"082b2c704dfdc3338283f3733732388a15fbffec5d1f28bf78313bad884b97b4\"\n    },\n    {\n      \"reference\": \"docs/design/direct-peer-send.md\",\n      \"bytes\": 35367,\n      \"sha256\": \"c62574382b91cfd30a443ba5e16b23d10dae797c3278539277666f0a316eedea\"\n    },\n    {\n      \"reference\": \"docs/design/axioms.md\",\n      \"bytes\": 8536,\n      \"sha256\": \"26564a9ac5678f296150e736de2ac0b0e0f43ae3429053e4c3c3cb0325b0c29b\"\n    },\n    {\n      \"reference\": \"docs/reviews/evidence/admission-use-lifecycle-before-acquisition.txt\",\n      \"bytes\": 26645,\n      \"sha256\": \"63ea4be2c888fe56eb6fd077a9521959c48b203e8f8751b909f43f05adeb5268\"\n    },\n    {\n      \"reference\": \"docs/reviews/admission-use-lifecycle-checks.json\",\n      \"bytes\": 22453,\n      \"sha256\": \"c1778ad0f1361ab8e5e6bde3319243b9c73b158cd8185412e9c4b4cf1abc3199\"\n    },\n    {\n      \"reference\": \"docs/reviews/admission-acquisition-handoff-checks.json\",\n      \"bytes\": 32763,\n      \"sha256\": \"3b86449d256459f7526b96eac209a34e3c96823acc7bdeb89d273c27fc764a67\"\n    },\n    {\n      \"reference\": \"/home/apnex/taceng/zorg/upstream/agp-direct-peer-send-lifecycle-reply.md\",\n      \"bytes\": 6413,\n      \"sha256\": \"390679b05b37a7883e792984d8c66857b64780e988923dac09aa19983c3ea080\"\n    },\n    {\n      \"reference\": \"/home/apnex/taceng/zorg/upstream/agp-review-response-reply.md\",\n      \"bytes\": 5870,\n      \"sha256\": \"e93d6f8fef2d8bb27aeea33f1c7e4ceecd2b9f8543d46c1d647d23a90c51dc34\"\n    },\n    {\n      \"reference\": \"/home/apnex/taceng/credential-issuer/CONTRACT.md\",\n      \"bytes\": 16119,\n      \"sha256\": \"6c8543d75bcaa1cdc9430d18019dd3c57b4bb966031ff48b48fae98310dbdf6f\"\n    },\n    {\n      \"reference\": \"/home/apnex/taceng/caller-identity/CONTRACT.md\",\n      \"bytes\": 22122,\n      \"sha256\": \"a2fddcaf8707beb781db3072811dd1cd7ef5efea0eebecc0d5f2cca362c7d6c2\"\n    },\n    {\n      \"reference\": \"/home/apnex/taceng/AGENTS.md\",\n      \"bytes\": 15659,\n      \"sha256\": \"ec472eadfcf0afde17f6073000abf1d523de4bc3962958ee6431fc7cb2f4f8ad\"\n    },\n    {\n      \"reference\": \"A3\",\n      \"bytes\": 4707,\n      \"sha256\": \"bacb3bb8313184ec64a5866ee5cd615cf5d6fe3b1cd089bdf62c9eda36736171\"\n    },\n    {\n      \"reference\": \"A4\",\n      \"bytes\": 3782,\n      \"sha256\": \"e1a74a8a607c1ea4c0c066e23aa08a485b762a8f1d648c22ace54c1ede4dc8f9\"\n    },\n    {\n      \"reference\": \"A8\",\n      \"bytes\": 3342,\n      \"sha256\": \"60933d669aa24893e4379a5e8052526c37bf35e322ae200dbbd534d7e48b0750\"\n    },\n    {\n      \"reference\": \"A9\",\n      \"bytes\": 4531,\n      \"sha256\": \"beaaa76927a52d07c0b1a4f2d1ce99d7f5e71536ea8223ea1463af10a9d27a89\"\n    },\n    {\n      \"reference\": \"A14\",\n      \"bytes\": 6108,\n      \"sha256\": \"989925edf674671dbaa5114877a8634e109b6b23fe0d4c6cc9654aed18eff20b\"\n    }\n  ],\n  \"sourceCitations\": 38,\n  \"scope\": \"Source manifest equality and citation file/line existence; not semantic verification or runtime proof.\"\n}\n"
+  },
+  "documentationBaseline": {
+    "cmd": "node --test test/conformance/board-record.test.js test/conformance/architecture-record.test.js test/conformance/record-integrity.test.js test/conformance/markdown-link-integrity.test.js",
+    "chunk_id": "127fe1",
+    "wall_time_seconds": 0.090544962,
+    "exit_code": 1,
+    "original_token_count": 1408,
+    "output": "✔ Given the confirmed intent record, when its numbered subsections are read, then every number is unique and ordered (6.705182ms)\n✔ Given the reconciled architecture, when its current paths and scope owners are resolved, then none points at a fictional module or a forked deferred list (5.057837ms)\n✔ Given the triage ledger, when each candidate is read, then it is scored on both dimensions and cites a record (19.780421ms)\n✔ Given every record cited by the board, when the link is resolved, then the target and its anchor exist (91.010087ms)\n✔ Given the held section, when each item is read, then it is scored and carries a revival trigger (0.882076ms)\n✔ Given the decisions required, when each is read, then it names exactly what it blocks (1.087441ms)\n✔ Given every board identifier, when the ledger and milestones are compared, then neither contains an item the other omits (0.888875ms)\n✖ Given every tracked markdown file, when its local links are resolved, then each target file exists (40.961997ms)\n✔ Given every tracked markdown file, when a link names an anchor, then the target heading exists (35.445151ms)\n✔ Given every board item, when its ledger status is compared with where it sits, then the board does not disagree with itself about its state (8.387125ms)\n✔ Given the milestones, when each is read, then no landed item is presented as a live move and the closed count matches the closed set (2.517767ms)\n✔ Given every record that cites a board item, when the citation is resolved, then the item exists on the board (39.699263ms)\n✔ Given the architecture maturity table, when a reopen trigger is read, then it names a condition that has not already happened (1.643419ms)\n✔ Given confirmed intent, when a row says it was amended, then it names the decision that amended it (0.924655ms)\n✔ Given every ratified decision, when it is checked against the vision, then it has been absorbed or explicitly ruled not to change purpose (1.202504ms)\nℹ tests 15\nℹ suites 0\nℹ pass 14\nℹ fail 1\nℹ cancelled 0\nℹ skipped 0\nℹ todo 0\nℹ duration_ms 187.551978\n\n✖ failing tests:\n\ntest at test/conformance/markdown-link-integrity.test.js:48:1\n✖ Given every tracked markdown file, when its local links are resolved, then each target file exists (40.961997ms)\n  AssertionError [ERR_ASSERTION]: these links resolve to nothing:\n  docs/VERIFICATION.md -> /home/apnex/taceng/context-lab/incoming/agp-direct-peer-assurance-contract-request.md\n  docs/reviews/admission-diagnostic-owner-handoff.md -> /home/apnex/taceng/context-lab/incoming/agp-admission-diagnostic-capability-request.md\n  docs/reviews/admission-diagnostic-owner-request.md -> /home/apnex/taceng/agp/docs/reviews/admission-diagnostic-proposal.md\n  docs/reviews/admission-diagnostic-owner-request.md -> /home/apnex/taceng/agp/docs/reviews/admission-diagnostic-amendment-01.md\n  docs/reviews/admission-diagnostic-owner-request.md -> /home/apnex/taceng/agp/docs/reviews/admission-diagnostic-capability-findings.md\n  docs/reviews/admission-diagnostic-owner-request.md -> /home/apnex/taceng/agp/docs/reviews/admission-diagnostic-capability-result.md\n  docs/reviews/admission-diagnostic-owner-request.md -> /home/apnex/taceng/agp/docs/reviews/admission-diagnostic-capability-checks.json\n  + actual - expected\n  \n  + [\n  +   'docs/VERIFICATION.md -> /home/apnex/taceng/context-lab/incoming/agp-direct-peer-assurance-contract-request.md',\n  +   'docs/reviews/admission-diagnostic-owner-handoff.md -> /home/apnex/taceng/context-lab/incoming/agp-admission-diagnostic-capability-request.md',\n  +   'docs/reviews/admission-diagnostic-owner-request.md -> /home/apnex/taceng/agp/docs/reviews/admission-diagnostic-proposal.md',\n  +   'docs/reviews/admission-diagnostic-owner-request.md -> /home/apnex/taceng/agp/docs/reviews/admission-diagnostic-amendment-01.md',\n  +   'docs/reviews/admission-diagnostic-owner-request.md -> /home/apnex/taceng/agp/docs/reviews/admission-diagnostic-capability-findings.md',\n  +   'docs/reviews/admission-diagnostic-owner-request.md -> /home/apnex/taceng/agp/docs/reviews/admission-diagnostic-capability-result.md',\n  +   'docs/reviews/admission-diagnostic-owner-request.md -> /home/apnex/taceng/agp/docs/reviews/admission-diagnostic-capability-checks.json'\n  + ]\n  - []\n  \n      at TestContext.<anonymous> (file:///home/apnex/taceng/agp/test/conformance/markdown-link-integrity.test.js:61:10)\n      at async Test.run (node:internal/test_runner/test:1113:7)\n      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:358:3) {\n    generatedMessage: false,\n    code: 'ERR_ASSERTION',\n    actual: [ 'docs/VERIFICATION.md -> /home/apnex/taceng/context-lab/incoming/agp-direct-peer-assurance-contract-request.md', 'docs/reviews/admission-diagnostic-owner-handoff.md -> /home/apnex/taceng/context-lab/incoming/agp-admission-diagnostic-capability-request.md', 'docs/reviews/admission-diagnostic-owner-request.md -> /home/apnex/taceng/agp/docs/reviews/admission-diagnostic-proposal.md', 'docs/reviews/admission-diagnostic-owner-request.md -> /home/apnex/taceng/agp/docs/reviews/admission-diagnostic-amendment-01.md', 'docs/reviews/admission-diagnostic-owner-request.md -> /home/apnex/taceng/agp/docs/reviews/admission-diagnostic-capability-findings.md', 'docs/reviews/admission-diagnostic-owner-request.md -> /home/apnex/taceng/agp/docs/reviews/admission-diagnostic-capability-result.md', 'docs/reviews/admission-diagnostic-owner-request.md -> /home/apnex/taceng/agp/docs/reviews/admission-diagnostic-capability-checks.json' ],\n    expected: [],\n    operator: 'deepStrictEqual',\n    diff: 'simple'\n  }\n"
+  },
+  "documentationFinal": [
+    {
+      "cmd": "tools/check-docs.sh docs/reviews/admission-acquisition-review.md docs/BOARD.md docs/VERIFICATION.md",
+      "chunk_id": "daa2f5",
+      "wall_time_seconds": 0.061593138,
+      "exit_code": 0,
+      "original_token_count": 49,
+      "output": "\nclean: 3 file(s), rule S13.\n\nclean: 3 file(s), rule S6.\n\nclean: 3 file(s), rule S10.\n\nclean: 3 file(s), rule S12.\n\nclean: 3 file(s), rule S8.\ndocs: 3 file(s) clean against S6, S8, S10, S12, S13.\n"
+    },
+    {
+      "cmd": "node --test test/conformance/board-record.test.js test/conformance/architecture-record.test.js test/conformance/record-integrity.test.js test/conformance/markdown-link-integrity.test.js",
+      "chunk_id": "d54d8a",
+      "wall_time_seconds": 0.105460191,
+      "exit_code": 1,
+      "original_token_count": 1407,
+      "output": "✔ Given the confirmed intent record, when its numbered subsections are read, then every number is unique and ordered (9.76601ms)\n✔ Given the reconciled architecture, when its current paths and scope owners are resolved, then none points at a fictional module or a forked deferred list (8.34661ms)\n✔ Given the triage ledger, when each candidate is read, then it is scored on both dimensions and cites a record (7.990958ms)\n✔ Given every record cited by the board, when the link is resolved, then the target and its anchor exist (109.393905ms)\n✔ Given the held section, when each item is read, then it is scored and carries a revival trigger (0.649021ms)\n✔ Given the decisions required, when each is read, then it names exactly what it blocks (0.905021ms)\n✔ Given every board identifier, when the ledger and milestones are compared, then neither contains an item the other omits (0.727403ms)\n✖ Given every tracked markdown file, when its local links are resolved, then each target file exists (39.867561ms)\n✔ Given every tracked markdown file, when a link names an anchor, then the target heading exists (41.236264ms)\n✔ Given every board item, when its ledger status is compared with where it sits, then the board does not disagree with itself about its state (16.512744ms)\n✔ Given the milestones, when each is read, then no landed item is presented as a live move and the closed count matches the closed set (3.93944ms)\n✔ Given every record that cites a board item, when the citation is resolved, then the item exists on the board (42.945107ms)\n✔ Given the architecture maturity table, when a reopen trigger is read, then it names a condition that has not already happened (1.816745ms)\n✔ Given confirmed intent, when a row says it was amended, then it names the decision that amended it (1.094066ms)\n✔ Given every ratified decision, when it is checked against the vision, then it has been absorbed or explicitly ruled not to change purpose (1.340526ms)\nℹ tests 15\nℹ suites 0\nℹ pass 14\nℹ fail 1\nℹ cancelled 0\nℹ skipped 0\nℹ todo 0\nℹ duration_ms 188.360178\n\n✖ failing tests:\n\ntest at test/conformance/markdown-link-integrity.test.js:48:1\n✖ Given every tracked markdown file, when its local links are resolved, then each target file exists (39.867561ms)\n  AssertionError [ERR_ASSERTION]: these links resolve to nothing:\n  docs/VERIFICATION.md -> /home/apnex/taceng/context-lab/incoming/agp-direct-peer-assurance-contract-request.md\n  docs/reviews/admission-diagnostic-owner-handoff.md -> /home/apnex/taceng/context-lab/incoming/agp-admission-diagnostic-capability-request.md\n  docs/reviews/admission-diagnostic-owner-request.md -> /home/apnex/taceng/agp/docs/reviews/admission-diagnostic-proposal.md\n  docs/reviews/admission-diagnostic-owner-request.md -> /home/apnex/taceng/agp/docs/reviews/admission-diagnostic-amendment-01.md\n  docs/reviews/admission-diagnostic-owner-request.md -> /home/apnex/taceng/agp/docs/reviews/admission-diagnostic-capability-findings.md\n  docs/reviews/admission-diagnostic-owner-request.md -> /home/apnex/taceng/agp/docs/reviews/admission-diagnostic-capability-result.md\n  docs/reviews/admission-diagnostic-owner-request.md -> /home/apnex/taceng/agp/docs/reviews/admission-diagnostic-capability-checks.json\n  + actual - expected\n  \n  + [\n  +   'docs/VERIFICATION.md -> /home/apnex/taceng/context-lab/incoming/agp-direct-peer-assurance-contract-request.md',\n  +   'docs/reviews/admission-diagnostic-owner-handoff.md -> /home/apnex/taceng/context-lab/incoming/agp-admission-diagnostic-capability-request.md',\n  +   'docs/reviews/admission-diagnostic-owner-request.md -> /home/apnex/taceng/agp/docs/reviews/admission-diagnostic-proposal.md',\n  +   'docs/reviews/admission-diagnostic-owner-request.md -> /home/apnex/taceng/agp/docs/reviews/admission-diagnostic-amendment-01.md',\n  +   'docs/reviews/admission-diagnostic-owner-request.md -> /home/apnex/taceng/agp/docs/reviews/admission-diagnostic-capability-findings.md',\n  +   'docs/reviews/admission-diagnostic-owner-request.md -> /home/apnex/taceng/agp/docs/reviews/admission-diagnostic-capability-result.md',\n  +   'docs/reviews/admission-diagnostic-owner-request.md -> /home/apnex/taceng/agp/docs/reviews/admission-diagnostic-capability-checks.json'\n  + ]\n  - []\n  \n      at TestContext.<anonymous> (file:///home/apnex/taceng/agp/test/conformance/markdown-link-integrity.test.js:61:10)\n      at async Test.run (node:internal/test_runner/test:1113:7)\n      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:358:3) {\n    generatedMessage: false,\n    code: 'ERR_ASSERTION',\n    actual: [ 'docs/VERIFICATION.md -> /home/apnex/taceng/context-lab/incoming/agp-direct-peer-assurance-contract-request.md', 'docs/reviews/admission-diagnostic-owner-handoff.md -> /home/apnex/taceng/context-lab/incoming/agp-admission-diagnostic-capability-request.md', 'docs/reviews/admission-diagnostic-owner-request.md -> /home/apnex/taceng/agp/docs/reviews/admission-diagnostic-proposal.md', 'docs/reviews/admission-diagnostic-owner-request.md -> /home/apnex/taceng/agp/docs/reviews/admission-diagnostic-amendment-01.md', 'docs/reviews/admission-diagnostic-owner-request.md -> /home/apnex/taceng/agp/docs/reviews/admission-diagnostic-capability-findings.md', 'docs/reviews/admission-diagnostic-owner-request.md -> /home/apnex/taceng/agp/docs/reviews/admission-diagnostic-capability-result.md', 'docs/reviews/admission-diagnostic-owner-request.md -> /home/apnex/taceng/agp/docs/reviews/admission-diagnostic-capability-checks.json' ],\n    expected: [],\n    operator: 'deepStrictEqual',\n    diff: 'simple'\n  }\n"
+    },
+    {
+      "cmd": "node --input-type=module <<'NODE'\nimport assert from 'node:assert/strict';\nimport {readFileSync,existsSync} from 'node:fs';\nimport path from 'node:path';\nconst files = ['docs/reviews/admission-acquisition-review.md','docs/BOARD.md','docs/VERIFICATION.md'];\nfunction slug(text) {\n return text.trim().toLowerCase().replace(/<[^>]*>/gu,'').replace(/[\\x60*_~]/gu,'').replace(/[.,:;!?()[\\]{}'\"\\\\/|<>@#$%^&+=]/gu,'').replace(/\\s/gu,'-');\n}\nfunction anchors(text) {\n const result=new Set(); const seen=new Map();\n for(const line of text.split(/\\r?\\n/u)) {\n  const m=/^#{1,6}\\s+(.+?)\\s*$/u.exec(line); if(!m) continue;\n  const base=slug(m[1]); const ordinal=seen.get(base)??0; seen.set(base,ordinal+1);\n  result.add(ordinal===0?base:base+'-'+ordinal);\n }\n return result;\n}\nlet localLinks=0;\nconst problems=[];\nfor(const file of files) {\n const text=readFileSync(file,'utf8');\n for(const match of text.matchAll(/\\]\\(([^)\\s#]*)(#[^)\\s]+)?\\)/gu)) {\n  const [,reference,fragment]=match;\n  if(/^(?:https?:|mailto:)/u.test(reference)) continue;\n  const target=reference?path.resolve(path.dirname(file),reference):path.resolve(file);\n  localLinks++;\n  if(!existsSync(target)) {problems.push(file+' -> '+reference+': missing'); continue;}\n  if(fragment && target.endsWith('.md') && !anchors(readFileSync(target,'utf8')).has(fragment.slice(1))) problems.push(file+' -> '+reference+fragment+': missing anchor');\n }\n}\nassert.ok(localLinks>0);\nassert.deepEqual(problems,[]);\nconsole.log(JSON.stringify({files,localLinks,problems,status:'PASS',scope:'Supplementary changed-file link resolution, including untracked documents. Does not replace the repository checker.'},null,2));\nNODE",
+      "chunk_id": "336350",
+      "wall_time_seconds": 0.055385759,
+      "exit_code": 0,
+      "original_token_count": 78,
+      "output": "{\n  \"files\": [\n    \"docs/reviews/admission-acquisition-review.md\",\n    \"docs/BOARD.md\",\n    \"docs/VERIFICATION.md\"\n  ],\n  \"localLinks\": 457,\n  \"problems\": [],\n  \"status\": \"PASS\",\n  \"scope\": \"Supplementary changed-file link resolution, including untracked documents. Does not replace the repository checker.\"\n}\n"
+    },
+    {
+      "cmd": "git diff --check",
+      "chunk_id": "5057f4",
+      "wall_time_seconds": 0.000014187,
+      "exit_code": 0,
+      "original_token_count": 0,
+      "output": ""
+    },
+    {
+      "cmd": "sha256sum docs/design/admission-use-lifecycle.md docs/reviews/evidence/admission-acquisition-review-input.txt docs/reviews/admission-acquisition-independent-review.txt docs/reviews/admission-acquisition-review.md",
+      "chunk_id": "0a1772",
+      "wall_time_seconds": 0.000016061,
+      "exit_code": 0,
+      "original_token_count": 117,
+      "output": "2a2d73991919584990df6ac57a9d3f4eb78d8f4b5c7c8fc162d4c88db61b6900  docs/design/admission-use-lifecycle.md\n2a2d73991919584990df6ac57a9d3f4eb78d8f4b5c7c8fc162d4c88db61b6900  docs/reviews/evidence/admission-acquisition-review-input.txt\n3a67d83b8dabcef9a7028947ea3c040488422840eae7e541e4a67703d2d859e6  docs/reviews/admission-acquisition-independent-review.txt\n0f979875b53bad4b09e9e658e99912e0f3504ea8c09aed029f4d99bcfb4f848d  docs/reviews/admission-acquisition-review.md\n"
+    }
+  ],
+  "preservation": {
+    "status": "PASS",
+    "beforeFileCount": 1051,
+    "afterFileCount": 1055,
+    "unchangedPreexistingFileCount": 1049,
+    "changed": [
+      "docs/BOARD.md",
+      "docs/VERIFICATION.md"
+    ],
+    "added": [
+      "docs/reviews/admission-acquisition-independent-review.txt",
+      "docs/reviews/admission-acquisition-review-checks.json",
+      "docs/reviews/admission-acquisition-review.md",
+      "docs/reviews/evidence/admission-acquisition-review-input.txt"
+    ],
+    "removed": [],
+    "externalSourcesUnchanged": 4,
+    "headUnchanged": true,
+    "indexUnchanged": true,
+    "indexEmpty": true,
+    "zorgHeadUnchanged": true,
+    "zorgWorktreeUnchanged": true,
+    "exactTextChecks": [
+      "docs/BOARD.md",
+      "docs/VERIFICATION.md",
+      "docs/reviews/admission-acquisition-independent-review.txt",
+      "docs/reviews/admission-acquisition-review.md",
+      "docs/reviews/evidence/admission-acquisition-review-input.txt",
+      "docs/design/admission-use-lifecycle.md"
+    ],
+    "boardReplacementCount": 4,
+    "verificationPriorHistoryPreserved": true,
+    "documentationBaseline": {
+      "passed": 14,
+      "failed": 1
+    },
+    "documentationFinal": {
+      "passed": 14,
+      "failed": 1
+    },
+    "unchangedDocumentationFailureReferences": [
+      "docs/VERIFICATION.md -> /home/apnex/taceng/context-lab/incoming/agp-direct-peer-assurance-contract-request.md",
+      "docs/reviews/admission-diagnostic-owner-handoff.md -> /home/apnex/taceng/context-lab/incoming/agp-admission-diagnostic-capability-request.md",
+      "docs/reviews/admission-diagnostic-owner-request.md -> /home/apnex/taceng/agp/docs/reviews/admission-diagnostic-proposal.md",
+      "docs/reviews/admission-diagnostic-owner-request.md -> /home/apnex/taceng/agp/docs/reviews/admission-diagnostic-amendment-01.md",
+      "docs/reviews/admission-diagnostic-owner-request.md -> /home/apnex/taceng/agp/docs/reviews/admission-diagnostic-capability-findings.md",
+      "docs/reviews/admission-diagnostic-owner-request.md -> /home/apnex/taceng/agp/docs/reviews/admission-diagnostic-capability-result.md",
+      "docs/reviews/admission-diagnostic-owner-request.md -> /home/apnex/taceng/agp/docs/reviews/admission-diagnostic-capability-checks.json"
+    ],
+    "recordSelfHashExcluded": "The author check record is finalized after this comparison; it is a new allowed path and no frozen source."
+  },
+  "preservationCaptureCommand": "node --input-type=module <<'NODE'\nimport {execFileSync} from 'node:child_process';\nimport {readFileSync, lstatSync} from 'node:fs';\nimport {createHash} from 'node:crypto';\nconst run = (...args) => execFileSync('git', args, {encoding:'utf8'});\nconst hash = file => createHash('sha256').update(readFileSync(file)).digest('hex');\nconst files = run('ls-files','--cached','--others','--exclude-standard','-z').split('\\0').filter(Boolean);\nconst externalPaths = [\n'/home/apnex/taceng/zorg/upstream/agp-direct-peer-send-lifecycle-reply.md',\n'/home/apnex/taceng/zorg/upstream/agp-review-response-reply.md',\n'/home/apnex/taceng/credential-issuer/CONTRACT.md',\n'/home/apnex/taceng/caller-identity/CONTRACT.md'];\nconst snapshot = {\nhead:run('rev-parse','HEAD').trim(),\nindex:run('diff','--cached','--raw'),\nstatus:run('status','--short'),\nfiles:Object.fromEntries(files.filter(p=>lstatSync(p).isFile()).map(p=>[p,hash(p)])),\nexternal:Object.fromEntries(externalPaths.map(p=>[p,hash(p)])),\nzorgHead:execFileSync('git',['-C','/home/apnex/taceng/zorg','rev-parse','HEAD'],{encoding:'utf8'}).trim(),\nzorgStatus:execFileSync('git',['-C','/home/apnex/taceng/zorg','status','--short'],{encoding:'utf8'}),\ncapturedAt:new Date().toISOString()\n};\nprocess.stdout.write(JSON.stringify(snapshot));\nNODE",
+  "before": {
+    "head": "a09e4bcda9d668b52ff3212c3813fad30fa7ac10",
+    "index": "",
+    "status": " M docs/BOARD.md\n M docs/VERIFICATION.md\n M docs/design/mechanisms.md\n?? docs/design/admission-use-lifecycle.md\n?? docs/design/direct-peer-send.md\n?? docs/reviews/admission-acquisition-handoff-checks.json\n?? docs/reviews/admission-diagnostic-correction-checks.json\n?? docs/reviews/admission-diagnostic-correction-handoff-checks.json\n?? docs/reviews/admission-diagnostic-correction-handoff.md\n?? docs/reviews/admission-diagnostic-correction-request.md\n?? docs/reviews/admission-lifecycle-comparison.md\n?? docs/reviews/admission-lifetime-adoption.md\n?? docs/reviews/admission-lifetime-correction-r2.md\n?? docs/reviews/admission-lifetime-correction-r3.md\n?? docs/reviews/admission-lifetime-correction.md\n?? docs/reviews/admission-lifetime-independent-review-r2.md\n?? docs/reviews/admission-lifetime-independent-review-r3.md\n?? docs/reviews/admission-lifetime-independent-review.md\n?? docs/reviews/admission-use-lifecycle-checks.json\n?? docs/reviews/browser-carrier-feasibility.md\n?? docs/reviews/browser-peer-feasibility.md\n?? docs/reviews/browser-peer-scale-amendment.md\n?? docs/reviews/direct-peer-send-adoption-checks.json\n?? docs/reviews/direct-peer-send-adoption.md\n?? docs/reviews/direct-peer-send-assurance/direct-peer-context-lab-contract-request.md\n?? docs/reviews/direct-peer-send-assurance/direct-peer-context-lab-handoff-checks.json\n?? docs/reviews/direct-peer-send-assurance/direct-peer-context-lab-handoff.md\n?? docs/reviews/direct-peer-send-assurance/direct-peer-context-lab-request-checks.json\n?? docs/reviews/direct-peer-send-assurance/direct-peer-key-recheck-02.txt\n?? docs/reviews/direct-peer-send-assurance/direct-peer-key-recheck-checks-02.json\n?? docs/reviews/direct-peer-send-design-checks.json\n?? docs/reviews/direct-peer-send-design-review.md\n?? docs/reviews/direct-peer-send-draft-checks.json\n?? docs/reviews/direct-peer-send-draft-response.md\n?? docs/reviews/direct-peer-send-independent-review.txt\n?? docs/reviews/direct-peer-send-lifecycle-checks.json\n?? docs/reviews/direct-peer-send-lifecycle-response.md\n?? docs/reviews/evidence/\n?? docs/reviews/reply-isolation-checks.json\n?? docs/reviews/reply-isolation-handoff.json\n?? docs/reviews/reply-isolation-qualifications-handoff.json\n?? docs/reviews/reply-isolation-qualifications.md\n?? docs/reviews/reply-isolation-response.md\n?? docs/reviews/reply-isolation-review.md\n?? docs/reviews/reply-isolation-sources.json\n?? docs/reviews/zorg-requirements-review.md\n?? docs/reviews/zorg-review-reply-assessment.md\n?? docs/reviews/zorg-review-response.md\n?? docs/surveys/\n?? scripts/browser-feasibility.mjs\n",
+    "external": {
+      "/home/apnex/taceng/zorg/upstream/agp-direct-peer-send-lifecycle-reply.md": "390679b05b37a7883e792984d8c66857b64780e988923dac09aa19983c3ea080",
+      "/home/apnex/taceng/zorg/upstream/agp-review-response-reply.md": "e93d6f8fef2d8bb27aeea33f1c7e4ceecd2b9f8543d46c1d647d23a90c51dc34",
+      "/home/apnex/taceng/credential-issuer/CONTRACT.md": "6c8543d75bcaa1cdc9430d18019dd3c57b4bb966031ff48b48fae98310dbdf6f",
+      "/home/apnex/taceng/caller-identity/CONTRACT.md": "a2fddcaf8707beb781db3072811dd1cd7ef5efea0eebecc0d5f2cca362c7d6c2"
+    },
+    "zorgHead": "56350495934b90c63a17950bafaac71e16d7568e",
+    "zorgStatus": ""
+  },
+  "after": {
+    "head": "a09e4bcda9d668b52ff3212c3813fad30fa7ac10",
+    "index": "",
+    "status": " M docs/BOARD.md\n M docs/VERIFICATION.md\n M docs/design/mechanisms.md\n?? docs/design/admission-use-lifecycle.md\n?? docs/design/direct-peer-send.md\n?? docs/reviews/admission-acquisition-handoff-checks.json\n?? docs/reviews/admission-acquisition-independent-review.txt\n?? docs/reviews/admission-acquisition-review-checks.json\n?? docs/reviews/admission-acquisition-review.md\n?? docs/reviews/admission-diagnostic-correction-checks.json\n?? docs/reviews/admission-diagnostic-correction-handoff-checks.json\n?? docs/reviews/admission-diagnostic-correction-handoff.md\n?? docs/reviews/admission-diagnostic-correction-request.md\n?? docs/reviews/admission-lifecycle-comparison.md\n?? docs/reviews/admission-lifetime-adoption.md\n?? docs/reviews/admission-lifetime-correction-r2.md\n?? docs/reviews/admission-lifetime-correction-r3.md\n?? docs/reviews/admission-lifetime-correction.md\n?? docs/reviews/admission-lifetime-independent-review-r2.md\n?? docs/reviews/admission-lifetime-independent-review-r3.md\n?? docs/reviews/admission-lifetime-independent-review.md\n?? docs/reviews/admission-use-lifecycle-checks.json\n?? docs/reviews/browser-carrier-feasibility.md\n?? docs/reviews/browser-peer-feasibility.md\n?? docs/reviews/browser-peer-scale-amendment.md\n?? docs/reviews/direct-peer-send-adoption-checks.json\n?? docs/reviews/direct-peer-send-adoption.md\n?? docs/reviews/direct-peer-send-assurance/direct-peer-context-lab-contract-request.md\n?? docs/reviews/direct-peer-send-assurance/direct-peer-context-lab-handoff-checks.json\n?? docs/reviews/direct-peer-send-assurance/direct-peer-context-lab-handoff.md\n?? docs/reviews/direct-peer-send-assurance/direct-peer-context-lab-request-checks.json\n?? docs/reviews/direct-peer-send-assurance/direct-peer-key-recheck-02.txt\n?? docs/reviews/direct-peer-send-assurance/direct-peer-key-recheck-checks-02.json\n?? docs/reviews/direct-peer-send-design-checks.json\n?? docs/reviews/direct-peer-send-design-review.md\n?? docs/reviews/direct-peer-send-draft-checks.json\n?? docs/reviews/direct-peer-send-draft-response.md\n?? docs/reviews/direct-peer-send-independent-review.txt\n?? docs/reviews/direct-peer-send-lifecycle-checks.json\n?? docs/reviews/direct-peer-send-lifecycle-response.md\n?? docs/reviews/evidence/\n?? docs/reviews/reply-isolation-checks.json\n?? docs/reviews/reply-isolation-handoff.json\n?? docs/reviews/reply-isolation-qualifications-handoff.json\n?? docs/reviews/reply-isolation-qualifications.md\n?? docs/reviews/reply-isolation-response.md\n?? docs/reviews/reply-isolation-review.md\n?? docs/reviews/reply-isolation-sources.json\n?? docs/reviews/zorg-requirements-review.md\n?? docs/reviews/zorg-review-reply-assessment.md\n?? docs/reviews/zorg-review-response.md\n?? docs/surveys/\n?? scripts/browser-feasibility.mjs\n",
+    "external": {
+      "/home/apnex/taceng/zorg/upstream/agp-direct-peer-send-lifecycle-reply.md": "390679b05b37a7883e792984d8c66857b64780e988923dac09aa19983c3ea080",
+      "/home/apnex/taceng/zorg/upstream/agp-review-response-reply.md": "e93d6f8fef2d8bb27aeea33f1c7e4ceecd2b9f8543d46c1d647d23a90c51dc34",
+      "/home/apnex/taceng/credential-issuer/CONTRACT.md": "6c8543d75bcaa1cdc9430d18019dd3c57b4bb966031ff48b48fae98310dbdf6f",
+      "/home/apnex/taceng/caller-identity/CONTRACT.md": "a2fddcaf8707beb781db3072811dd1cd7ef5efea0eebecc0d5f2cca362c7d6c2"
+    },
+    "zorgHead": "56350495934b90c63a17950bafaac71e16d7568e",
+    "zorgStatus": ""
+  },
+  "exactTrackingChanges": {
+    "boardReplacements": [
+      [
+        "| 5 | `B6` | Acquisition and lifecycle proposal drafted; independent challenge and Zorg fit review are next | [Lifecycle proposal](design/admission-use-lifecycle.md) now specifies the local-redeemer factory, one-use inbound/outbound handoff, shared clock and required finite limits; authentication-role scope, custody and issuer registration need review before adoption |",
+        "| 5 | `B6` | Independent design/axiom review FAIL; repair the redemption-time contract next | [Review assessment](reviews/admission-acquisition-review.md) accepts one blocking expiry/anchor gap and a stop-accounting clarification; amend and re-review before Zorg issuer-fit review, with the original proposal and verdict preserved |"
+      ],
+      [
+        "| `B6` | Independently challenge the acquisition/lifecycle proposal, then obtain Zorg's fit review | [Producer proposal](design/admission-use-lifecycle.md) gives both local-redemption acquisition directions the same observation, custody and deadline contract; client fresh-key/refusal-rearm, concrete proof carriage, review and implementation remain separate work |",
+        "| `B6` | Align credential validity and establishment timing to one redemption instant, then re-review | [Independent review and assessment](reviews/admission-acquisition-review.md) record technical and scoped M7 FAIL; also distinguish ordinary-stop cleanup accounting from numerical-terminal freezing before Zorg fit review; client fresh-key/refusal-rearm and concrete carriage remain separate |"
+      ],
+      [
+        "| Do both owners accept the proposed acquisition handoff, shared-clock ownership and explicit finite configuration? | `B6` lifecycle agreement and handoff; [the concrete acquisition proposal](design/admission-use-lifecycle.md#4-continuous-reservation-and-handoff) requires review and ratification, not another requirements round; live renewal remains outside this slice |",
+        "| Do both owners accept the repaired acquisition handoff, shared-clock ownership and explicit finite configuration? | `B6` lifecycle agreement and handoff; [the independent review](reviews/admission-acquisition-review.md#2-findings-and-author-disposition) requires one redemption instant for expiry and establishment timing before re-review and Zorg fit assessment; live renewal remains outside this slice |"
+      ],
+      [
+        "| Do both owners adopt the proposed per-use observation handle and conservative observed-close grace rule? | `B6` production issuer reclamation acceptance; [the producer proposal](design/admission-use-lifecycle.md#9-remaining-decisions-and-handoff) keeps complete-snapshot alternatives visible and requires independent review, issuer transaction fit and joint agreement before implementation; this does not reopen the completed B51 design review |",
+        "| Do both owners adopt the proposed per-use observation handle and conservative observed-close grace rule? | `B6` production issuer reclamation acceptance; [the review handoff](reviews/admission-acquisition-review.md#4-next-action-and-zorg-handoff) places timing repair and re-review before issuer transaction fit and joint agreement; complete-snapshot alternatives remain visible and the B51 design verdict is unchanged |"
+      ]
+    ],
+    "verificationAppend": "### 4.63 Admission acquisition independent design review\n\nThe director selected one independent read-only reviewer for the completed acquisition/lifecycle proposal.\\\nThe [independent report](reviews/admission-acquisition-independent-review.txt) gives technical FAIL and scoped M7 FAIL against the [preserved exact input](reviews/evidence/admission-acquisition-review-input.txt).\\\nThe [author assessment](reviews/admission-acquisition-review.md) accepts one blocking timing defect and one nonblocking accounting clarification.\n\nThe issuer checks credential expiry before AGP samples the later instant designated as redemption.\\\nThe declared interface carries neither credential expiry into that check nor the sampled instant back to the issuer; synchronous serialization does not stop the monotonic clock.\\\nRepair must define one redemption instant for both validity and the inherited establishment deadline without moving credential policy into AGP.\\\nThe clarification must preserve B53's distinction between ordinary-stop cleanup accounting and frozen numerical-terminal operations state.\n\nThe reviewed proposal remains byte-identical to its checkpoint; the full reviewer response, ruled-out concerns and validation guardrails are preserved separately.\\\nThe finding is a proposed-contract defect, not an executed reproduction or a claim that current AGP implements the new API.\\\nThis single static challenge is not wider M1 assurance, fresh-reader documentation assurance, joint acceptance or implementation approval.\n\nB6 stays open at its existing score and order; four current board entries now place the timing amendment and re-review before Zorg issuer-fit review.\\\nEarlier B53/B51 verdicts, author checks and verification history are unchanged.\\\nThe [author check record](reviews/admission-acquisition-review-checks.json) retains source identities, report/input equality, preservation and documentation-only checks, including the existing tracked-link failure.\n\nMechanics: preserve the failed design and independent verdict, assess each finding against its owning contract, and carry exact repair criteria into the next revision.\\\nRationale: state serialization and a shared clock cannot substitute for an agreed temporal event at the issuer/node boundary.\\\nConsequence: an unspecified redemption anchor can break the expiry-to-establishment guarantee even when each component follows its own local sequence.\n\nOne independent reviewer was used.\\\nNo runtime implementation, AGP execution, authentication probe, assurance experiment, new Zorg note, commit or push occurred.\\\nThe next recommended action is a design amendment, not provisional consumer implementation.\n\n---\n\n"
+  },
+  "writingConventions": {
+    "exemplar": "docs/reviews/direct-peer-send-design-review.md",
+    "comparison": "Retains separate independent transcript and author assessment, source identity, disposition/guardrails, next action and mechanics/rationale/consequence. This failed-review assessment adds explicit finding dispositions instead of borrowing the exemplar's PASS.",
+    "skills": [
+      "pages:write-page (repository artifact conventions; no Page created)",
+      "write-discoverable-code (admission-acquisition review filenames)"
+    ],
+    "transcript": "Verbatim text artifact; no style normalization applied to the independent report."
+  },
+  "nonclaims": [
+    "No runtime implementation or AGP/authentication probe.",
+    "No assurance experiment or further model/agent delegation beyond the selected independent reviewer.",
+    "No outgoing Zorg note or external project edit.",
+    "No design adoption, ratification, consumer acceptance or implementation selection.",
+    "No commit, push or index change.",
+    "The pre-existing tracked-link failure remains FAIL; supplementary changed-file checks do not replace it.",
+    "Baseline preservation assertions are author evidence, not independent runtime assurance."
+  ]
+}

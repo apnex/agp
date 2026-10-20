@@ -1,0 +1,325 @@
+# Admission use lifecycle proposal
+
+Status: preliminary producer API proposal for `B6`, coordinated with `B53` and `B51`; not ratified, implemented, independently reviewed or sent to Zorg.\
+Audience: AGP maintainers and Zorg's credential-issuer and caller-identity owners.
+
+Recommend one process-local observation handle for each attempted credential redemption, retained continuously from before redemption until the exact admitted controller becomes terminal.\
+The issuer records that handle with the successful redemption; AGP updates its admission and terminal facts at the corresponding guarded commits.\
+The issuer can then reclaim a lease without inferring absence from a management snapshot or depending on delivery of an event.
+
+This proposal specifies the observation surface and its required ownership semantics.\
+The acquisition attachment, factory wiring and finite configuration still need a complete public-contract design before implementation selection.\
+It does not select browser credential carriage, an authentication protocol, live reauthorization or new credential policy.
+
+---
+
+## 1. Authority and source boundary
+
+The director selected this work by replying "continue" to developing the connection-lifecycle API proposal after the Zorg status review.\
+The fixed brief is Zorg's two agreed lifecycle facts, with one mechanism across CLI and browser carriers and clean ownership of credential policy.\
+Explicit survey bypass: those outcomes are already specified by the director and [Zorg's lifecycle reply](../../../zorg/upstream/agp-direct-peer-send-lifecycle-reply.md), so this step proposes technical choices rather than running another intent survey.\
+The [existing survey](../surveys/shared-transport-survey.md) retains its qualifications, including bounded cleanup overlap, application-owned offline work and separate approval of migrations.
+
+| Input | Constraint carried into this proposal |
+|---|---|
+| [Zorg's lifecycle reply](../../../zorg/upstream/agp-direct-peer-send-lifecycle-reply.md) | Issuer owns the lease and reclamation; binding/AGP owes exact redemption handoff or termination and exact admitted-controller lifetime |
+| [Zorg's establishment clarification](../../../zorg/upstream/agp-review-response-reply.md#2-the-whole-establishment-interval) | One absolute bound from redemption through establishment, including pre-channel work and handoff |
+| [Credential-issuer contract](../../../credential-issuer/CONTRACT.md) | One in-process redeemer per audience, irreversible use, generation-based restart refusal and four conjunctive reclamation conditions |
+| [Caller-identity contract](../../../caller-identity/CONTRACT.md) | Application identity remains consumer-owned; existing bounded admission and record retention remain until verified migration |
+| [Direct-peer contract draft](direct-peer-send.md) | Immutable authorization association, stable instance binding across reconnects, distinct binding on later allocation |
+| [Admission correction revision 4](../reviews/admission-lifetime-correction-r4.md) | Guarded commits, independent provider-work accounting, runtime-terminal preflight and no external callbacks inside the executor |
+| [Earlier lifecycle comparison](../reviews/admission-lifecycle-comparison.md) | Binding-side redemption remains the leading candidate, not an adopted authentication profile |
+
+Measured source facts, distinct from proposed behavior:
+
+- [Transport acquisition types](../../packages/transport/src/types.ts) return a channel or accept a channel envelope; neither declares a redeemed-use attachment or inherited opening deadline.
+- [Identity admission types](../../packages/core/src/types.ts) provide a credential-free request and allow/deny result; no exact lifetime handle exists there.
+- [The node's connection projection](../../packages/node/src/node.ts) derives from its controllers, so it is not an inventory of the binding's pre-acquisition work.
+- [The controller's admission path](../../packages/node/src/session-controller.ts) receives the policy answer before identity retention and FSM identity commit; callback `allow` is not the commit fact.
+
+The [check record](../reviews/admission-use-lifecycle-checks.json) pins the read inputs and local validation.\
+This draft does not amend any earlier review verdict or the frozen admission-correction documents.
+
+---
+
+## 2. Choice and alternatives
+
+| Candidate | Benefit | Cost and limitation |
+|---|---|---|
+| Exact per-use query handle, recommended | Starts before redemption, follows one controller and retains its terminal fact without a subscription | Requires a declared creation/attachment boundary and bounded issuer-held handle retention |
+| Extended complete connection snapshot | Fits existing sweep-oriented consumers and can show a population in one read | Must include binding-owned pre-acquisition uses, exact incarnations and a complete consistent cut; adding `instanceBinding` alone is insufficient |
+| Lifecycle events alone | Prompt notification with small common-case latency | Missed events, late subscription and observer failures require authoritative resynchronization; events alone cannot establish absence |
+| Existing snapshots plus a grace TTL | No new producer surface | Does not establish the agreed pre-admission or exact-controller facts and cannot support production reclamation |
+
+An extended snapshot is not intrinsically incorrect.\
+Its complete inventory would be a larger contract than the per-use fact Zorg needs, and it still needs the underlying lifecycle accounting.\
+Keep management snapshots observational; do not make issuer correctness depend on adding authority to that projection.
+
+No callback stream is required for the first query-handle design.\
+Zorg can use its existing sweep model over a finite set of handles; delayed sweeps conservatively delay reclamation.\
+If wakeups are later earned, they only request a reread and cannot authorize release by themselves.
+
+---
+
+## 3. Proposed observation surface
+
+The handle is a trusted process-local capability, not a JSON credential, wire field, public session identifier or portable proof.\
+One handle denotes one attempt and can acquire at most one admitted controller for its entire lifetime.\
+The same object survives the binding-to-controller ownership transfer, so the issuer never removes one reservation while waiting to learn its replacement.
+
+Proposed types, using the association from the separate direct-peer draft:
+```ts
+interface AdmissionSessionIdentity {
+  readonly remoteNodeId: NodeId;
+  readonly localSessionId: SessionId;
+  readonly authorizationAssociation: PeerAuthorizationAssociation;
+}
+
+type AdmissionUseSnapshot =
+  | { readonly state: "pending" }
+  | {
+      readonly state: "admitted" | "established";
+      readonly session: AdmissionSessionIdentity;
+    }
+  | {
+      readonly state: "terminal";
+      readonly admittedSession?: never;
+      readonly reachedEstablished: false;
+    }
+  | {
+      readonly state: "terminal";
+      readonly admittedSession: AdmissionSessionIdentity;
+      readonly reachedEstablished: boolean;
+    };
+
+interface AdmissionUseObservation {
+  readAdmissionUse(): AdmissionUseSnapshot;
+}
+
+interface AdmissionUseControl {
+  requestAdmissionTermination(): void;
+}
+
+interface RedeemedAdmissionContext {
+  readonly redemptionId: string;
+  readonly lifecycle: AdmissionUseObservation;
+}
+```
+
+`AdmissionSessionIdentity` is copied descriptive data; its session string is never the key for control or reclamation.\
+The non-reassignable handle itself identifies the exact attempt/controller incarnation, even when public identifiers are reused.\
+Two handles may carry equal session strings and association values without denoting the same controller.\
+No handle, control capability or retained controller is added to `EndpointDeliveryContext.directPeer`.
+
+`readAdmissionUse()` is a synchronous, bounded, side-effect-free read of AGP-owned state.\
+It returns a fresh or shared immutable value and runs no consumer callback, getter, clock adapter or diagnostic sink.\
+A read is a point-in-time fact; a previously returned pending/admitted value is not a liveness guarantee for a later decision.\
+Terminal is irreversible and remains queryable from an already-held handle after runtime detachment, without retaining the controller, channel, provider result or node object graph.
+
+Permitted progression:
+```text
+pending -> admitted -> established -> terminal
+pending --------------------------> terminal
+           admitted --------------> terminal
+```
+
+`admitted` means identity and collision ownership actually committed, including the immutable authorization association.\
+`established` additionally means protocol confirmation committed.\
+Either state retains the issuer's lease; the opening deadline still applies while merely admitted.\
+Terminal retains the bounded last admitted identity, if any, and whether establishment occurred, so a consumer that missed both intermediate states does not invent pre-admission failure.
+
+Query failure, an invalid result, a missing registration or lost lifecycle knowledge means unknown to the consumer, never terminal.\
+A copied or deserialized object is not a valid handle; construction and attachment must validate runtime provenance, not rely on TypeScript structural typing alone.\
+An untrusted `redemptionId` string is not proof of credential redemption.
+
+Propose the same bounded-string rule as the association draft for `redemptionId`: 1 to 256 Unicode scalar values, excluding controls and unpaired surrogates.\
+The issuer must confirm that bound fits its identifier format; AGP treats the value as opaque and compares it exactly.\
+The terminal variants deliberately prohibit a claim of establishment without an admitted identity.
+
+---
+
+## 4. Continuous reservation and handoff
+
+The following sequence is the producer obligation for the leading binding-redemption candidate.\
+It describes linearization points, not calls to an existing factory.
+
+| Step | Owner and effect | Required invariant |
+|---|---|---|
+| Reserve attempt | Binding composition obtains a bounded pending handle and exact termination capability before invoking redemption | No irreversible redemption depends on capacity allocated afterwards |
+| Commit redemption | Issuer serializes its proof/expiry checks, irreversible spent record and registration of that handle under its unique `redemptionId` | Every successful use is already represented in the issuer's complete reservation set before success is returned |
+| Bind the opening deadline | Redemption records its monotonic instant and absolute bound; the lifecycle owner arms the wake before releasing a publishable handoff | Setup cannot grant publication without the bound; a failed attachment leaves the key spent and terminates the attempt |
+| Transfer acquired channel | Binding hands the exact channel, use attachment, deadline and any pending termination intent to AGP | The old publication permit is consumed once; the same handle remains pending with no unowned interval |
+| Evaluate identity | AGP supplies the trusted redemption reference and observation through process-local evaluation options | The provider checks node/issuer/principal/binding constraints; no secret enters the request DTO or `peerEvidence` |
+| Commit identity | AGP's prepared guarded transaction installs exact controller ownership, validated association and the handle's admitted state together | Provider `allow`, collision preparation or an unconsumed transaction permit cannot publish admission |
+| Confirm establishment | The exact controller passes every active opening guard and commits protocol confirmation | Handle becomes established and the opening deadline loses authority only at this commit |
+| Terminate | The current owner irrevocably removes publication/use authority and commits terminal state | Late work can complete accounting only; it cannot reattach the handle or affect another attempt |
+
+Before any successful redemption becomes visible, the issuer's declared serialized owner must record both the spent use and the handle.\
+No asynchronous gap, reentrant consumer call or second independent reservation writer is permitted in that registration.\
+If an exceptional failure leaves ownership uncertain, retain the lease and invalidate the attempted publication; do not roll the key back to unused.
+
+If redemption settles after local termination, the issuer may still record that irreversible use against the same already-terminal handle.\
+It cannot publish a new session or revive a released lease; an old issuer allocation/generation must be rejected at the redemption commit itself.\
+The issuer's usable-key check and serialized redemption/reclamation rules remain essential even before a successful-use reservation exists.
+
+For identity-admission redemption, the same handle is already attached to the pending controller before the redeemer runs.\
+Registration, exact ownership and terminal semantics stay the same, but consumption occurs later and sensitive-material exposure differs as recorded in the earlier comparison.\
+This shared observation design does not erase that difference or select different redemption timing by client type.
+
+---
+
+## 5. Deadline and resource boundaries
+
+The redemption-to-establishment deadline is distinct from credential expiry, AGP's existing OPEN timer and the admission-provider timeout.\
+Credential expiry limits successful redemption; it does not terminate an established connection.\
+The inherited opening bound covers all remaining proof/handshake completion, channel transfer, identity admission and confirmation, with no reset at a phase boundary.
+
+The first supported composition must share one monotonic clock domain between its redeemer, binding lifecycle and AGP runtime, as Zorg's in-process deployment proposes.\
+Do not pass unrelated `performance.now()` values from different processes or clock instances as comparable deadlines.\
+The final producer API must identify and validate this clock ownership; restarting creates a new scope rather than restoring an old deadline or handle.
+
+Every publication guard checks `now < deadline`; equality is expired.\
+The earlier active bound wins, independently of callback arrival order.\
+An inherited bound uses the existing OPEN-expiry semantics after channel adoption and terminates the pending attempt before adoption; equal OPEN bounds have the same outcome.\
+An equal admission-provider and opening bound retains the admission correction's OPEN precedence.\
+An early timer wake rearms the positive remainder, and a stale wake has no authority.
+
+The inherited bound remains active through `admitted` until `established`.\
+Routine successful credential rotation changes neither an established handle nor its immutable association.\
+Live revocation or changing the admitted principal is a separate policy and control contract.
+
+The minimum retention accounting is:
+
+| Retention | Owner and release condition |
+|---|---|
+| Pending lifecycle cell and publication permit | Binding/opening owner; transfer to admitted ownership or release on irrevocable terminal invalidation |
+| Admitted lifecycle cell | AGP session owner until terminal detachment; issuer may retain its bounded terminal value |
+| Unsettled provider work or retained result | Existing admission/binding work owner until actual settlement and disposal, not logical terminal |
+| Closing socket and transport work | Carrier owner until its declared resource-release observation, including after lease reclamation |
+| Issuer use/lease references | Issuer's finite tables; key-expiry cleanup cannot drop a reference to a still-live admitted controller |
+
+Finite pending-use, admitted-controller and retained-work capacities must be checked before starting work, with refusal rather than live eviction or an unbounded wait queue.\
+This draft selects no numeric limit or hundreds-of-peers capacity claim.\
+It adds no per-transition history or subscriber queue; a terminal handle must not retain an executor closure that keeps a node alive.\
+Host-retained handles remain host-owned memory, with issuer limits explicit rather than attributed to AGP's runtime budget.
+
+---
+
+## 6. Issuer reclamation and exact termination
+
+Within the issuer's serialized reclaim decision, it checks all four conditions agreed with Zorg: no usable key, no pending use that can publish, no live admitted controller, and elapsed reconnect grace.\
+The handle set is complete because registration accompanies every successful redemption, not because AGP enumerates all credentials.
+
+For each registered use, only a valid terminal observation satisfies both lifecycle absence conditions.\
+A pending, admitted, established or unknown observation retains the lease.\
+The issuer checks its allocation generation and outstanding keys again in that same no-yield decision before releasing; issuance, renewal and redemption cannot interleave with it.\
+If implementation needs to await any observation, it must reacquire the issuer's serialization and redo the whole decision, not release using the earlier checks.
+
+Recommendation: use the issuer's first valid terminal observation as the conservative close-activity timestamp for its reconnect-grace calculation.\
+This can extend retention by a sweep delay but cannot shorten the agreed grace after actual close.\
+It avoids exporting another clock-sensitive timestamp solely for reclamation; tighter reclamation timing would require a separately specified authoritative timestamp mapping.\
+Later issuance or renewal still advances activity, and no prior terminal handle may release a newer allocation.
+
+The separate `AdmissionUseControl` is handed only to authorized host composition.\
+`requestAdmissionTermination()` is idempotent, targets that handle's one incarnation and coalesces to at most one outstanding control intent.\
+Its return acknowledges a request, not terminal state or physical release; the consumer rereads the observation to establish completion.\
+The intent follows an ownership transfer, and the current owner applies it through its guarded terminal path without replacing an earlier terminal cause.\
+The binding controls its pending carrier; after handoff, AGP controls the session and invokes carrier cleanup through the normal transport contract.
+
+The issuer decides whether a proved live-key reuse warrants that request under its existing policy.\
+AGP does not inspect reuse events, decide key validity, close every session for a node or expose this capability to remote messages.\
+Expired reuse remains issuer policy and does not gain new close authority from this draft.
+
+---
+
+## 7. Integration with admission repair and public packages
+
+The lifecycle state change must be part of the same prepared commit as identity ownership and the `B51` association.\
+No issuer callback, arbitrary property access, observer notification or abort handler runs inside that commit.\
+On node stop/failure, revoke every attached publication permit and make its terminal fact authoritative as part of runtime detachment, before freezing terminal operations state.\
+Later cleanup cannot mutate session authority or turn a frozen operational count into a fresh resource-release claim.
+
+Recommended public placement and migration obligations:
+
+| Surface | Proposed treatment |
+|---|---|
+| Observation and host-control types | Declared process-local public contracts, with data values distinct from capabilities; no package-private imports |
+| Identity evaluation | Identity-specific extension of the admission correction's optional evaluation options, carrying `redeemedAdmission: RedeemedAdmissionContext` when present; the shared cancellation signal retains only evaluation authority |
+| Request/result DTOs | Keep credentials, control handles and clock capabilities out of schema-backed requests; the validated association remains the separate `B51` result addition |
+| Channel acquisition | Explicit one-use attachment travelling with the exact acquired channel for both inbound and outbound paths; no undocumented global lookup by session string |
+| Composition support | A credential-enabled profile requires the lifecycle-capable binding/node contract and refuses unsupported composition before redemption; no silent downgrade to legacy acquisition |
+| Existing uncredentialed transport | Retains its current contract; a generic wrapper must not silently claim support on its behalf |
+| Management and ordinary delivery | No new write endpoint, credential exposure or change to ordinary send semantics |
+
+The neutral transport must not import AGP core, and the carrier must not interpret `PeerAuthorizationAssociation`.\
+The binding supplies proof and the attachment through a declared host composition boundary; core/node owns AGP identity meaning.\
+The observation may be shared with the issuer without sharing close authority.
+
+The exact factory, attachment/envelope signature and package ownership are intentionally not declared complete here.\
+Current connect returns a bare channel while accept receives an envelope; a complete proposal must cover both and refusal before unsupported use, rather than adding a field that an older node can ignore.\
+These are next design obligations, not discretionary implementation details or authority to fork native and browser paths.
+
+---
+
+## 8. Acceptance properties for later verification
+
+These are defensive contract predicates for later verification, not runtime tests executed by this drafting step.
+
+| Property | Required result |
+|---|---|
+| Continuous registration | Every successful redemption is already represented by exactly one issuer-held handle before it can publish a session |
+| Identity commit fidelity | Pending becomes admitted only with the exact guarded identity/collision/association commit; callback allow alone changes no observation |
+| Missed intermediate observations | A terminal read identifies whether identity and establishment committed even if the consumer never observed those states |
+| Incarnation isolation | An old handle cannot become live again or observe/terminate a replacement using the same public session strings |
+| Deadline conservation | Handoff, identity commit and confirmation never refresh the inherited redemption bound; all publication checks use the still-current absolute deadline |
+| Terminal and late settlement | Revoked work cannot publish; irreversible redemption remains spent; provider and carrier reservations remain charged until their own release conditions |
+| Reclamation serialization | A complete valid terminal set is necessary but not sufficient; usable keys, current allocation and grace are checked together with issuance/redemption/renewal excluded |
+| Unknown observation | Observation failure never becomes absence and never causes live lease eviction |
+| Exact close | One host request follows the same pending/admitted owner, preserves first cause and cannot act on a replacement or claim physical cleanup |
+| Routine rotation | Expiry or a fresh admission key does not terminate or mutate an already-established association |
+| Capacity conservation | Nonterminal cells and retained work stay within their separately declared limits; capacity refusal starts no unaccounted work |
+| Scope restart | Old handles and credentials cannot attach to a new node/redeemer generation; no cross-process clock comparison is assumed |
+| Compatibility | Existing providers compile; credential-enabled composition fails closed on missing support; both acquisition directions carry the same declared ownership contract |
+| Carrier parity | The same observation, deadline and termination rules apply to native and browser profiles; physical resource guarantees remain profile-specific and unclaimed until verified |
+
+---
+
+## 9. Remaining decisions and handoff
+
+The near-term choice is whether to use this per-use query handle as the joint lifecycle observation contract.\
+Recommendation: advance it for review, including the conservative observed-close grace rule; keep the complete-snapshot alternative visible with its inventory cost.
+
+Before this can be a build-ready design:
+
+1. Complete the factory, channel attachment and clock-domain contracts across both acquisition directions, with finite capacity configuration and no inverted package dependency.
+2. Ask Zorg to assess whether the proposed handle and terminal-history shape satisfy its issuer reservation accounting and caller-identity integration, and whether conservative observed-close grace is acceptable.
+3. Obtain independent technical and scoped axiom review, complete required documentation assurance, then seek AGP ratification and explicit implementation selection.
+4. Implement with the admission repair's guarded commit and the direct-peer association; verify the producer before consumer adoption and production lease reclamation acceptance.
+
+This is not a request for Zorg to repeat its settled requirements or build against provisional methods.\
+No new outbound note is sent by this drafting step.\
+The original admission and direct-peer assurance gates remain separate; neither blocks preparing this proposal nor closes through it.
+
+The [ratified axiom applicability map](axioms.md) remains unchanged.\
+Review must make A3 load-bearing at the issuer/binding/node boundaries, A4 load-bearing for exact state meanings and retained agreements, and A8 load-bearing for the distinction between this proposal and verified capability.\
+A9 and A14 apply only within AGP's already-declared verification and finding-lifecycle subsets; this author mapping is not an independent verdict.
+
+---
+
+## 10. Mechanics rationale and consequence
+
+### Mechanics
+
+One bounded, non-reassignable observation follows one redemption attempt into at most one admitted controller.\
+The producer commits lifecycle facts with runtime authority, while the issuer serializes its complete lease-release predicate and the carrier accounts for physical cleanup separately.
+
+### Rationale
+
+Zorg's contract already assigns finite use accounting to the issuer, which needs exact facts about those uses rather than a second credential database or a widened management authority.\
+A stable handle preserves continuity across the handoff and permits sweep-based consumption without an event-delivery guarantee.
+
+### Consequence
+
+Returning terminal before publication is irrevocably disabled could release a still-usable lease.\
+Retaining a raw controller behind a terminal handle could instead make correct logical reclamation hide unbounded runtime retention.\
+Both sides of that distinction are required before claiming the lifecycle contract is complete.

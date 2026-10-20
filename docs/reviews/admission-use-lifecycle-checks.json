@@ -1,0 +1,197 @@
+{
+  "kind": "admission-use-lifecycle-author-checks",
+  "status": "draft-authored-local-checks-complete-existing-documentation-failure-retained",
+  "authority": "Director selected developing the lifecycle API proposal with continue; no implementation or outbound delivery selected.",
+  "scope": [
+    "docs/design/admission-use-lifecycle.md",
+    "docs/reviews/admission-use-lifecycle-checks.json",
+    "docs/BOARD.md",
+    "docs/VERIFICATION.md"
+  ],
+  "sourceCheckpoints": {
+    "agp": "a09e4bcda9d668b52ff3212c3813fad30fa7ac10",
+    "zorg": "56350495934b90c63a17950bafaac71e16d7568e",
+    "missionKitMain": "672d5c3414934dacd11b9562c1cff9c0e7cc2d31"
+  },
+  "sources": [
+    {
+      "path": "docs/surveys/shared-transport-survey.md",
+      "sha256": "f096f84b74ac861f02c1203bce6726748fbd4c57f22bfadab13a7b68e56d093e"
+    },
+    {
+      "path": "docs/reviews/admission-lifecycle-comparison.md",
+      "sha256": "27a39f7fccc8e6ac4fab52340edbf9cff1235462ba8256e3f66ecf122be8dcea"
+    },
+    {
+      "path": "docs/reviews/admission-lifetime-correction-r4.md",
+      "sha256": "082b2c704dfdc3338283f3733732388a15fbffec5d1f28bf78313bad884b97b4"
+    },
+    {
+      "path": "docs/design/direct-peer-send.md",
+      "sha256": "c62574382b91cfd30a443ba5e16b23d10dae797c3278539277666f0a316eedea"
+    },
+    {
+      "path": "docs/design/axioms.md",
+      "sha256": "26564a9ac5678f296150e736de2ac0b0e0f43ae3429053e4c3c3cb0325b0c29b"
+    },
+    {
+      "path": "packages/transport/src/types.ts",
+      "sha256": "4f62b97c6ff961a33d0373eb03bfb112c36f21a99ddd5656fa896760a15bee6a"
+    },
+    {
+      "path": "packages/core/src/types.ts",
+      "sha256": "ab98ffd07445d778ccb4afc54827bea18b35f59619ebcb236b8d4a0e706479c1"
+    },
+    {
+      "path": "packages/node/src/session-controller.ts",
+      "sha256": "6640bce12b23fb5423e2b7753e69f596c9ae91e784e1a1e9ec21dd1bcb6e71be"
+    },
+    {
+      "path": "packages/node/src/node.ts",
+      "sha256": "964b82337a0b67b0659729b049976692b5048a6873ec2f614986e3d9fdd5e4aa"
+    }
+  ],
+  "externalSources": [
+    {
+      "path": "/home/apnex/taceng/zorg/upstream/agp-direct-peer-send-lifecycle-reply.md",
+      "sha256": "390679b05b37a7883e792984d8c66857b64780e988923dac09aa19983c3ea080"
+    },
+    {
+      "path": "/home/apnex/taceng/zorg/upstream/agp-direct-peer-send-lifecycle-response.md",
+      "sha256": "72d2122f7ff8fd618d753c7139231d436c8d6985922a79575f97825031d0318a"
+    },
+    {
+      "path": "/home/apnex/taceng/credential-issuer/CONTRACT.md",
+      "sha256": "6c8543d75bcaa1cdc9430d18019dd3c57b4bb966031ff48b48fae98310dbdf6f"
+    },
+    {
+      "path": "/home/apnex/taceng/caller-identity/CONTRACT.md",
+      "sha256": "a2fddcaf8707beb781db3072811dd1cd7ef5efea0eebecc0d5f2cca362c7d6c2"
+    }
+  ],
+  "preservation": {
+    "pass": true,
+    "altered": [
+      "docs/BOARD.md",
+      "docs/VERIFICATION.md"
+    ],
+    "added": [
+      "docs/design/admission-use-lifecycle.md",
+      "docs/reviews/admission-use-lifecycle-checks.json"
+    ],
+    "externalChanges": [],
+    "unchangedFileCount": 1045,
+    "headUnchanged": true,
+    "indexUnchanged": true,
+    "boardExact": true,
+    "verificationAppendOnly": true
+  },
+  "checks": {
+    "documentationBaseline": {
+      "scope": "After initial draft creation, before board/verification edits; draft untracked",
+      "command": "node --test test/conformance/board-record.test.js test/conformance/architecture-record.test.js test/conformance/record-integrity.test.js test/conformance/markdown-link-integrity.test.js",
+      "exitCode": 1,
+      "output": "✔ Given the confirmed intent record, when its numbered subsections are read, then every number is unique and ordered (42.285684ms)\n✔ Given the reconciled architecture, when its current paths and scope owners are resolved, then none points at a fictional module or a forked deferred list (37.823017ms)\n✔ Given the triage ledger, when each candidate is read, then it is scored on both dimensions and cites a record (42.138558ms)\n✔ Given every record cited by the board, when the link is resolved, then the target and its anchor exist (308.253358ms)\n✔ Given the held section, when each item is read, then it is scored and carries a revival trigger (1.828096ms)\n✔ Given the decisions required, when each is read, then it names exactly what it blocks (1.969027ms)\n✔ Given every board identifier, when the ledger and milestones are compared, then neither contains an item the other omits (2.234968ms)\n✖ Given every tracked markdown file, when its local links are resolved, then each target file exists (124.41153ms)\n✔ Given every tracked markdown file, when a link names an anchor, then the target heading exists (125.137351ms)\n✔ Given every board item, when its ledger status is compared with where it sits, then the board does not disagree with itself about its state (19.286181ms)\n✔ Given the milestones, when each is read, then no landed item is presented as a live move and the closed count matches the closed set (19.825815ms)\n✔ Given every record that cites a board item, when the citation is resolved, then the item exists on the board (128.442974ms)\n✔ Given the architecture maturity table, when a reopen trigger is read, then it names a condition that has not already happened (3.097216ms)\n✔ Given confirmed intent, when a row says it was amended, then it names the decision that amended it (2.165646ms)\n✔ Given every ratified decision, when it is checked against the vision, then it has been absorbed or explicitly ruled not to change purpose (2.02763ms)\nℹ tests 15\nℹ suites 0\nℹ pass 14\nℹ fail 1\nℹ cancelled 0\nℹ skipped 0\nℹ todo 0\nℹ duration_ms 529.501567\n\n✖ failing tests:\n\ntest at test/conformance/markdown-link-integrity.test.js:48:1\n✖ Given every tracked markdown file, when its local links are resolved, then each target file exists (124.41153ms)\n  AssertionError [ERR_ASSERTION]: these links resolve to nothing:\n  docs/VERIFICATION.md -> /home/apnex/taceng/context-lab/incoming/agp-direct-peer-assurance-contract-request.md\n  docs/reviews/admission-diagnostic-owner-handoff.md -> /home/apnex/taceng/context-lab/incoming/agp-admission-diagnostic-capability-request.md\n  docs/reviews/admission-diagnostic-owner-request.md -> /home/apnex/taceng/agp/docs/reviews/admission-diagnostic-proposal.md\n  docs/reviews/admission-diagnostic-owner-request.md -> /home/apnex/taceng/agp/docs/reviews/admission-diagnostic-amendment-01.md\n  docs/reviews/admission-diagnostic-owner-request.md -> /home/apnex/taceng/agp/docs/reviews/admission-diagnostic-capability-findings.md\n  docs/reviews/admission-diagnostic-owner-request.md -> /home/apnex/taceng/agp/docs/reviews/admission-diagnostic-capability-result.md\n  docs/reviews/admission-diagnostic-owner-request.md -> /home/apnex/taceng/agp/docs/reviews/admission-diagnostic-capability-checks.json\n  + actual - expected\n  \n  + [\n  +   'docs/VERIFICATION.md -> /home/apnex/taceng/context-lab/incoming/agp-direct-peer-assurance-contract-request.md',\n  +   'docs/reviews/admission-diagnostic-owner-handoff.md -> /home/apnex/taceng/context-lab/incoming/agp-admission-diagnostic-capability-request.md',\n  +   'docs/reviews/admission-diagnostic-owner-request.md -> /home/apnex/taceng/agp/docs/reviews/admission-diagnostic-proposal.md',\n  +   'docs/reviews/admission-diagnostic-owner-request.md -> /home/apnex/taceng/agp/docs/reviews/admission-diagnostic-amendment-01.md',\n  +   'docs/reviews/admission-diagnostic-owner-request.md -> /home/apnex/taceng/agp/docs/reviews/admission-diagnostic-capability-findings.md',\n  +   'docs/reviews/admission-diagnostic-owner-request.md -> /home/apnex/taceng/agp/docs/reviews/admission-diagnostic-capability-result.md',\n  +   'docs/reviews/admission-diagnostic-owner-request.md -> /home/apnex/taceng/agp/docs/reviews/admission-diagnostic-capability-checks.json'\n  + ]\n  - []\n  \n      at TestContext.<anonymous> (file:///home/apnex/taceng/agp/test/conformance/markdown-link-integrity.test.js:61:10)\n      at async Test.run (node:internal/test_runner/test:1113:7)\n      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:358:3) {\n    generatedMessage: false,\n    code: 'ERR_ASSERTION',\n    actual: [ 'docs/VERIFICATION.md -> /home/apnex/taceng/context-lab/incoming/agp-direct-peer-assurance-contract-request.md', 'docs/reviews/admission-diagnostic-owner-handoff.md -> /home/apnex/taceng/context-lab/incoming/agp-admission-diagnostic-capability-request.md', 'docs/reviews/admission-diagnostic-owner-request.md -> /home/apnex/taceng/agp/docs/reviews/admission-diagnostic-proposal.md', 'docs/reviews/admission-diagnostic-owner-request.md -> /home/apnex/taceng/agp/docs/reviews/admission-diagnostic-amendment-01.md', 'docs/reviews/admission-diagnostic-owner-request.md -> /home/apnex/taceng/agp/docs/reviews/admission-diagnostic-capability-findings.md', 'docs/reviews/admission-diagnostic-owner-request.md -> /home/apnex/taceng/agp/docs/reviews/admission-diagnostic-capability-result.md', 'docs/reviews/admission-diagnostic-owner-request.md -> /home/apnex/taceng/agp/docs/reviews/admission-diagnostic-capability-checks.json' ],\n    expected: [],\n    operator: 'deepStrictEqual',\n    diff: 'simple'\n  }\n"
+    },
+    "finalRuns": [
+      {
+        "command": "tools/check-docs.sh docs/design/admission-use-lifecycle.md docs/BOARD.md docs/VERIFICATION.md",
+        "exitCode": 0,
+        "output": "\nclean: 3 file(s), rule S13.\n\nclean: 3 file(s), rule S6.\n\nclean: 3 file(s), rule S10.\n\nclean: 3 file(s), rule S12.\n\nclean: 3 file(s), rule S8.\ndocs: 3 file(s) clean against S6, S8, S10, S12, S13.\n"
+      },
+      {
+        "command": "node --test test/conformance/board-record.test.js test/conformance/architecture-record.test.js test/conformance/record-integrity.test.js test/conformance/markdown-link-integrity.test.js",
+        "exitCode": 1,
+        "output": "✔ Given the confirmed intent record, when its numbered subsections are read, then every number is unique and ordered (40.63557ms)\n✔ Given the reconciled architecture, when its current paths and scope owners are resolved, then none points at a fictional module or a forked deferred list (28.633079ms)\n✔ Given the triage ledger, when each candidate is read, then it is scored on both dimensions and cites a record (42.445891ms)\n✔ Given every record cited by the board, when the link is resolved, then the target and its anchor exist (262.769154ms)\n✔ Given the held section, when each item is read, then it is scored and carries a revival trigger (4.640265ms)\n✔ Given the decisions required, when each is read, then it names exactly what it blocks (5.687079ms)\n✔ Given every board identifier, when the ledger and milestones are compared, then neither contains an item the other omits (4.342593ms)\n✖ Given every tracked markdown file, when its local links are resolved, then each target file exists (162.238765ms)\n✔ Given every tracked markdown file, when a link names an anchor, then the target heading exists (167.377388ms)\n✔ Given every board item, when its ledger status is compared with where it sits, then the board does not disagree with itself about its state (17.430224ms)\n✔ Given the milestones, when each is read, then no landed item is presented as a live move and the closed count matches the closed set (12.159497ms)\n✔ Given every record that cites a board item, when the citation is resolved, then the item exists on the board (90.002727ms)\n✔ Given the architecture maturity table, when a reopen trigger is read, then it names a condition that has not already happened (3.012075ms)\n✔ Given confirmed intent, when a row says it was amended, then it names the decision that amended it (1.890553ms)\n✔ Given every ratified decision, when it is checked against the vision, then it has been absorbed or explicitly ruled not to change purpose (2.915653ms)\nℹ tests 15\nℹ suites 0\nℹ pass 14\nℹ fail 1\nℹ cancelled 0\nℹ skipped 0\nℹ todo 0\nℹ duration_ms 465.041285\n\n✖ failing tests:\n\ntest at test/conformance/markdown-link-integrity.test.js:48:1\n✖ Given every tracked markdown file, when its local links are resolved, then each target file exists (162.238765ms)\n  AssertionError [ERR_ASSERTION]: these links resolve to nothing:\n  docs/VERIFICATION.md -> /home/apnex/taceng/context-lab/incoming/agp-direct-peer-assurance-contract-request.md\n  docs/reviews/admission-diagnostic-owner-handoff.md -> /home/apnex/taceng/context-lab/incoming/agp-admission-diagnostic-capability-request.md\n  docs/reviews/admission-diagnostic-owner-request.md -> /home/apnex/taceng/agp/docs/reviews/admission-diagnostic-proposal.md\n  docs/reviews/admission-diagnostic-owner-request.md -> /home/apnex/taceng/agp/docs/reviews/admission-diagnostic-amendment-01.md\n  docs/reviews/admission-diagnostic-owner-request.md -> /home/apnex/taceng/agp/docs/reviews/admission-diagnostic-capability-findings.md\n  docs/reviews/admission-diagnostic-owner-request.md -> /home/apnex/taceng/agp/docs/reviews/admission-diagnostic-capability-result.md\n  docs/reviews/admission-diagnostic-owner-request.md -> /home/apnex/taceng/agp/docs/reviews/admission-diagnostic-capability-checks.json\n  + actual - expected\n  \n  + [\n  +   'docs/VERIFICATION.md -> /home/apnex/taceng/context-lab/incoming/agp-direct-peer-assurance-contract-request.md',\n  +   'docs/reviews/admission-diagnostic-owner-handoff.md -> /home/apnex/taceng/context-lab/incoming/agp-admission-diagnostic-capability-request.md',\n  +   'docs/reviews/admission-diagnostic-owner-request.md -> /home/apnex/taceng/agp/docs/reviews/admission-diagnostic-proposal.md',\n  +   'docs/reviews/admission-diagnostic-owner-request.md -> /home/apnex/taceng/agp/docs/reviews/admission-diagnostic-amendment-01.md',\n  +   'docs/reviews/admission-diagnostic-owner-request.md -> /home/apnex/taceng/agp/docs/reviews/admission-diagnostic-capability-findings.md',\n  +   'docs/reviews/admission-diagnostic-owner-request.md -> /home/apnex/taceng/agp/docs/reviews/admission-diagnostic-capability-result.md',\n  +   'docs/reviews/admission-diagnostic-owner-request.md -> /home/apnex/taceng/agp/docs/reviews/admission-diagnostic-capability-checks.json'\n  + ]\n  - []\n  \n      at TestContext.<anonymous> (file:///home/apnex/taceng/agp/test/conformance/markdown-link-integrity.test.js:61:10)\n      at async Test.run (node:internal/test_runner/test:1113:7)\n      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:358:3) {\n    generatedMessage: false,\n    code: 'ERR_ASSERTION',\n    actual: [ 'docs/VERIFICATION.md -> /home/apnex/taceng/context-lab/incoming/agp-direct-peer-assurance-contract-request.md', 'docs/reviews/admission-diagnostic-owner-handoff.md -> /home/apnex/taceng/context-lab/incoming/agp-admission-diagnostic-capability-request.md', 'docs/reviews/admission-diagnostic-owner-request.md -> /home/apnex/taceng/agp/docs/reviews/admission-diagnostic-proposal.md', 'docs/reviews/admission-diagnostic-owner-request.md -> /home/apnex/taceng/agp/docs/reviews/admission-diagnostic-amendment-01.md', 'docs/reviews/admission-diagnostic-owner-request.md -> /home/apnex/taceng/agp/docs/reviews/admission-diagnostic-capability-findings.md', 'docs/reviews/admission-diagnostic-owner-request.md -> /home/apnex/taceng/agp/docs/reviews/admission-diagnostic-capability-result.md', 'docs/reviews/admission-diagnostic-owner-request.md -> /home/apnex/taceng/agp/docs/reviews/admission-diagnostic-capability-checks.json' ],\n    expected: [],\n    operator: 'deepStrictEqual',\n    diff: 'simple'\n  }\n"
+      },
+      {
+        "command": "git diff --check",
+        "exitCode": 0,
+        "output": ""
+      }
+    ],
+    "knownFailure": {
+      "unchanged": true,
+      "brokenReferences": [
+        "docs/VERIFICATION.md -> /home/apnex/taceng/context-lab/incoming/agp-direct-peer-assurance-contract-request.md",
+        "docs/reviews/admission-diagnostic-owner-handoff.md -> /home/apnex/taceng/context-lab/incoming/agp-admission-diagnostic-capability-request.md",
+        "docs/reviews/admission-diagnostic-owner-request.md -> /home/apnex/taceng/agp/docs/reviews/admission-diagnostic-amendment-01.md",
+        "docs/reviews/admission-diagnostic-owner-request.md -> /home/apnex/taceng/agp/docs/reviews/admission-diagnostic-capability-checks.json",
+        "docs/reviews/admission-diagnostic-owner-request.md -> /home/apnex/taceng/agp/docs/reviews/admission-diagnostic-capability-findings.md",
+        "docs/reviews/admission-diagnostic-owner-request.md -> /home/apnex/taceng/agp/docs/reviews/admission-diagnostic-capability-result.md",
+        "docs/reviews/admission-diagnostic-owner-request.md -> /home/apnex/taceng/agp/docs/reviews/admission-diagnostic-proposal.md"
+      ],
+      "explanation": "Tracked-link checker joins absolute paths to the document directory. Existing failure is retained; supplementary resolution does not replace this result."
+    },
+    "supplemental": {
+      "command": "node --input-type=module -e <script>",
+      "script": "import assert from \"node:assert/strict\";\nimport {readFileSync,existsSync} from \"node:fs\";\nimport path from \"node:path\";\nconst files=[\"docs/design/admission-use-lifecycle.md\",\"docs/BOARD.md\",\"docs/VERIFICATION.md\"];\nconst slug=s=>s.trim().toLowerCase().replace(/<[^>]*>/gu,\"\").replace(/[`*_~]/gu,\"\").replace(/[.,:;!?()[\\]{}'\"\\\\/|<>@#$%^&+=]/gu,\"\").replace(/\\s/gu,\"-\");\nfunction headings(source){const seen=new Map(), out=new Set(); for(const line of source.split(/\\r?\\n/u)){const m=/^#{1,6}\\s+(.+?)\\s*$/u.exec(line); if(!m)continue; const b=slug(m[1]), n=seen.get(b)??0; seen.set(b,n+1);out.add(n===0?b:b+\"-\"+n);}return out;}\nlet total=0; const bad=[], counts={};const cache=new Map();\nfor(const file of files){const text=readFileSync(file,\"utf8\");counts[file]=0;assert(!/[^\\x00-\\x7f]/u.test(text),file+\" non-ASCII\");\nfor(const m of text.matchAll(/\\]\\(([^)\\s#]*)(#[^)\\s]*)?\\)/gu)){const ref=m[1], fragment=m[2];if(/^(?:https?:|mailto:)/u.test(ref))continue;total++;counts[file]++;\nconst target=ref ? path.resolve(path.dirname(path.resolve(file)),ref) : path.resolve(file);\nif(!existsSync(target)){bad.push({file,ref,error:\"target missing\"});continue;}\nif(fragment&&target.endsWith(\".md\")){if(!cache.has(target))cache.set(target,headings(readFileSync(target,\"utf8\")));if(!cache.get(target).has(fragment.slice(1)))bad.push({file,ref:ref+fragment,error:\"anchor missing\"});}\n}}\nassert.deepEqual(bad,[]);\nconst proposed=readFileSync(files[0],\"utf8\");\nassert(proposed.startsWith(\"# Admission use lifecycle proposal\\n\\nStatus: preliminary\"));\nassert.equal((proposed.match(/^## /gmu)||[]).length,10);\nassert(!proposed.split(\"\\n\").some(line=>/[ \\t]+$/u.test(line)));\nconsole.log(JSON.stringify({pass:true,totalLocalLinks:total,byFile:counts,bad,scope:\"target/anchor integrity, ASCII, trailing whitespace and declared draft structure only; not semantic or runtime assurance\"},null,2));",
+      "exitCode": 0,
+      "output": "{\n  \"pass\": true,\n  \"totalLocalLinks\": 451,\n  \"byFile\": {\n    \"docs/design/admission-use-lifecycle.md\": 15,\n    \"docs/BOARD.md\": 167,\n    \"docs/VERIFICATION.md\": 269\n  },\n  \"bad\": [],\n  \"scope\": \"target/anchor integrity, ASCII, trailing whitespace and declared draft structure only; not semantic or runtime assurance\"\n}\n"
+    }
+  },
+  "reviewStatus": {
+    "independentTechnical": "not-run",
+    "axiomGate": "not-run",
+    "documentationAssurance": "not-run",
+    "jointAgreement": "not-obtained",
+    "implementation": "not-selected",
+    "outbound": "not-sent"
+  },
+  "openDesignObligations": [
+    "Factory and exact one-use acquisition attachment across connect and accept",
+    "Package placement without inverse transport-to-core dependency",
+    "Shared monotonic clock-domain ownership and validation",
+    "Finite capacity and default configuration",
+    "Consumer agreement on conservative observed-close grace and proposed redemption identifier bound"
+  ],
+  "nonClaims": [
+    "No runtime behavior validated",
+    "No live authentication or vulnerability-triggering inputs created or executed",
+    "No claim that TypeScript sketches are implemented or compile against current exports",
+    "No browser or hundreds-of-peers conformance",
+    "No new agent or model invocation",
+    "No commit or push"
+  ],
+  "skillsApplied": [
+    "pages:write-page: existing repository proposal conventions, concise opening and claim qualifications",
+    "write-discoverable-code: searchable admission-use-lifecycle name and domain-specific API names"
+  ],
+  "outputs": [
+    {
+      "path": "docs/design/admission-use-lifecycle.md",
+      "sha256": "63ea4be2c888fe56eb6fd077a9521959c48b203e8f8751b909f43f05adeb5268"
+    },
+    {
+      "path": "docs/BOARD.md",
+      "sha256": "1dbdd539036a5be1bf64736eed1e67cd8c30e426f2c0118bfe5100d5be8c855f"
+    },
+    {
+      "path": "docs/VERIFICATION.md",
+      "sha256": "291f7729a765f2a088701d48107d47589e6df85f065d6e5c97cb834c74bb612f"
+    }
+  ],
+  "authorReview": {
+    "scope": "Read-only author challenge of proposal and requirements; not independent gate",
+    "findings": [
+      {
+        "finding": "Terminal shape allowed reachedEstablished without an admitted identity",
+        "disposition": "Corrected the proposed discriminated union before final validation."
+      },
+      {
+        "finding": "Package dependency wording was directionally ambiguous",
+        "disposition": "States explicitly that neutral transport must not import AGP core and carriers must not interpret AGP authorization associations."
+      },
+      {
+        "finding": "Calling proposed issuer serialization existing could overstate implementation",
+        "disposition": "Names the declared issuer owner; describes finite accounting as a contract duty."
+      },
+      {
+        "finding": "Complete acquisition attachment/factory/clock/capacity contracts not yet designed",
+        "disposition": "Retained as explicit next design obligations; no build-ready or runtime claim."
+      }
+    ],
+    "exemplar": "docs/design/direct-peer-send.md: compared authority/source, ownership, public-shape, acceptance, gates and mechanics/rationale/consequence structure; shorter preliminary scope preserves living conventions.",
+    "survey": "Explicit bypass in proposal: fixed director brief and D62 outcomes; no stakeholder answers inferred."
+  }
+}

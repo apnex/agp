@@ -1,0 +1,245 @@
+# Independent admission redemption/lifecycle re-review
+
+Technical verdict: PASS — static review of the amended contract.
+
+Scoped M7 verdict: PASS — within AGP’s adopted axiom boundary, with the guardrails below.
+
+The amendment repairs the previously identified two-instant redemption defect at the written-contract level and explicitly resolves the stop-accounting ambiguity. I found no additional blocking contradiction in the retained acquisition, custody or lifecycle contract.
+
+These verdicts do not ratify the proposal, approve implementation, establish consumer acceptance, or certify runtime behavior. The historical technical FAIL and scoped M7 FAIL remain valid for their original input.
+
+## Identity, provenance and scope
+
+Reviewer: independent, non-author agent `/root/admission_redemption_re_review`, conducting the one authorized static challenge for B6, coordinated with B53 and B51.
+
+I read the complete 734-line candidate, the complete 652-line previously failed input and its independent report, both original Zorg requirements, both consumer contracts, prospective B53 r4 and B51 designs, and relevant actual transport/core/node source. The amendment author’s check record was consulted for scope and provenance; its conclusions and reported checks were not treated as independent proof.
+
+Candidate SHA256 before review:
+
+`49a57e583eb0fbd6d46933273d376936e8cafc6ae95ec4944750ec2878b82097`
+
+Candidate SHA256 after review:
+
+`49a57e583eb0fbd6d46933273d376936e8cafc6ae95ec4944750ec2878b82097`
+
+The preserved input, `docs/reviews/evidence/admission-redemption-review-input.txt`, has the same hash. The review pin remained valid.
+
+AGP HEAD remained `a09e4bcda9d668b52ff3212c3813fad30fa7ac10`. Existing worktree changes were left untouched; the file manifest below identifies the reviewed material rather than implying that HEAD alone contains it.
+
+I read `/home/apnex/taceng/AGENTS.md`, checked for nested instructions, and read Mission Kit’s complete INDEX and applicable review guidance. The local Mission Kit checkout was independently verified clean at `b145b359b40d234d8d42b06a85d903ec5f0ec699` before and after review. The parent supplied the canonical-main measurement; I did not repeat its remote lookup.
+
+Product axiom authority remains [AGP’s applicability declaration](/home/apnex/taceng/agp/docs/design/axioms.md:10), pinned to `5026604d3ef695651c21b24bd78410c7fec04b58`. I read and hashed the actual pinned A3, A4, A8, A9 and A14 texts using `git show`. Current process guidance did not replace that product pin.
+
+The research-artefacts guidance informed the separation of measured source facts, contract requirements and design inference. This is one independent non-author challenge, not completed wider M1 assurance, different-model triangulation, or a fresh-reader M2 exercise. Author-generated artifacts are not independent votes; the previous review concerns a different input.
+
+## Measured baseline and governing requirements
+
+These are source facts, not claims that the proposal is implemented:
+
+- [Transport types](/home/apnex/taceng/agp/packages/transport/src/types.ts:30), lines 30–86 and 117–124, expose neutral channel acquisition without the proposed lifecycle attachment. The [transport contract](/home/apnex/taceng/agp/docs/design/transport-contract.md:383), particularly lines 383–490 and 675–885, supplies existing custody, terminal and resource-release boundaries.
+- [Core types](/home/apnex/taceng/agp/packages/core/src/types.ts:97), lines 97–101 and 862–879, provide the clock and existing credential-free identity-provider contract. The proposed redemption authorization, lifecycle handle and provider-support declaration are not current APIs.
+- [Node acquisition](/home/apnex/taceng/agp/packages/node/src/node.ts:1176), lines 1176–1191 and 1416–1593, currently adopts ordinary channels. Its connection projection at lines 1731–1830 is derived from controllers, not a complete inventory of pre-acquisition binding work.
+- [Controller admission](/home/apnex/taceng/agp/packages/node/src/session-controller.ts:571), lines 571–657 and 736–748, distinguishes provider evaluation from identity retention and FSM installation. Its release path at lines 998–1040 also demonstrates why logical termination and completed cleanup cannot be treated as synonymous.
+- [Outbound acquisition](/home/apnex/taceng/agp/packages/node/src/outbound-acquisition.ts:29), lines 29–78, already distinguishes pre-adoption cancellation from adopted ownership. The [serialized executor](/home/apnex/taceng/agp/packages/node/src/serialized-executor.ts:9), lines 9–18, is a Promise-tail queue, not the proposed bounded synchronous prepared-commit coordinator.
+- [B53 r4](/home/apnex/taceng/agp/docs/reviews/admission-lifetime-correction-r4.md:435) describes that prospective coordinator and its terminal replacement. [B51](/home/apnex/taceng/agp/docs/design/direct-peer-send.md:177) describes the prospective authorization association. Neither design supplies implemented capability merely by being referenced.
+
+The governing consumer requirements are explicit:
+
+- [Zorg’s lifecycle reply](/home/apnex/taceng/zorg/upstream/agp-direct-peer-send-lifecycle-reply.md:18), lines 18–29 and 38–46, requires four conjunctive reclamation conditions, exact pending-use and controller-incarnation facts, unknown-retains behavior, and finite capacity without live eviction.
+- [Zorg’s establishment reply](/home/apnex/taceng/zorg/upstream/agp-review-response-reply.md:34), lines 34–49, distinguishes proof from atomic redemption, requires expiry checked at redemption, and requires one absolute bound covering the remaining establishment interval.
+- The [issuer contract](/home/apnex/taceng/credential-issuer/CONTRACT.md:72), lines 72–82, retains irreversibility, generation refusal, issuer-owned policy and those lifecycle requirements.
+- The [caller-identity contract](/home/apnex/taceng/caller-identity/CONTRACT.md:60), lines 60–74, retains its existing admission/record-retention behavior. Zorg expressly keeps that protection until a verified migration is available, in its establishment reply at line 66.
+
+Missing implementation alone is not a defect in this proposal. It does, however, limit what this review can certify.
+
+## Severity-ordered findings and prior-finding dispositions
+
+No new blocking or nonblocking contract defect was established.
+
+### 1. Previously high-priority blocking finding: repaired in this candidate’s contract
+
+The [previous independent report](/home/apnex/taceng/agp/docs/reviews/admission-acquisition-independent-review.txt:44), lines 44–85, identified a genuine mechanism: issuer expiry checking preceded the later node sample designated as redemption, while neither the expiry boundary nor the earlier authoritative event crossed the interface. Synchrony did not prevent the clock from advancing between those events.
+
+The consequence was that either an expired credential could be recorded as redeemed, or the opening allowance could begin later than the event actually validated. The minimum remedy was an exact common event, sufficient declared temporal authority at the seam, and explicit refusal/registration dispositions.
+
+The amendment supplies that remedy:
+
+1. The issuer supplies `validBeforeMonotonicMs = E`, no later than actual credential expiry, in the agreed monotonic domain.
+2. After normalization and preflight, the node takes one final sample `r`.
+3. That sample must satisfy `r < E` and every active acquisition bound.
+4. The inherited opening deadline is anchored to that same sample: `R = r + establishmentTimeoutMs`.
+5. The issuer adopts successful recording as its redemption event and installs its prepared spent record and handle registration before another issuer decision or any handoff becomes visible.
+
+These are explicit requirements in the [amended timing contract](/home/apnex/taceng/agp/docs/design/admission-use-lifecycle.md:375), lines 375–412.
+
+My design inference is that the former permitted expiry gap no longer satisfies the contract: expiry before the authoritative sample now requires refusal. Expiry after successful `r` does not invalidate the earlier event and cannot refresh `R`. Arming uses the remaining allowance rather than another full duration.
+
+This repair does not depend on a hidden callback or an unchecked conversion of a remote timestamp:
+
+- The issuer selects the policy limit and validates proof, generation, unspent state and non-temporal policy.
+- AGP enforces the supplied temporal guard without interpreting credentials.
+- Clock identity is checked, but the text expressly does not claim that identity proves honest numeric derivation.
+- Derivation from the current shared clock and issuing generation is an explicit trusted-issuer integration obligation.
+- Policies whose remaining time dependence cannot be expressed as this exclusive upper bound require a reviewed extension.
+
+That scope is stated at candidate lines 380–385 and 440–446. It is a legitimate declared trust boundary, not runtime proof of issuer correctness.
+
+The [refusal table](/home/apnex/taceng/agp/docs/design/admission-use-lifecycle.md:414), lines 414–434, also closes the necessary failure cases:
+
+- Ordinary expiry or invalid authorization on an unrecorded attempt grants no new recording or publication authority.
+- Duplicate recording preserves the original record and bound.
+- Arming failure cannot return successful authority; any privately installed historical fact is revoked before return.
+- Exceptional issuer installation failure cannot publish an unregistered handoff or restore a genuinely spent or uncertain key to unused.
+- Late issuer settlement cannot revive a released allocation or terminal use.
+- Discarding prepared registration does not refund unfinished acquisition work.
+
+Disposition: the blocking defect is repaired and independently confirmed at the static contract level. The old FAIL remains attached to hash `2a2d73991919584990df6ac57a9d3f4eb78d8f4b5c7c8fc162d4c88db61b6900`. This is not implementation-level recurrence closure.
+
+### 2. Previously medium-priority nonblocking clarification: resolved explicitly
+
+The previous report’s [stop-accounting concern](/home/apnex/taceng/agp/docs/reviews/admission-acquisition-independent-review.txt:87), lines 87–104, concerned wording that could conflate ordinary stop with numerical-domain terminal freezing.
+
+Its mechanism was interpretive ambiguity; its consequence would be premature freezing of ordinary-stop cleanup accounting or misleading resource-release claims. The minimum remedy was an explicit distinction matching B53.
+
+The candidate now makes that distinction at [lines 582–587](/home/apnex/taceng/agp/docs/design/admission-use-lifecycle.md:582):
+
+- Ordinary stopped instances can advance cleanup gauges and revisions.
+- Numerical operational-domain termination freezes retained-resource values, revision and capture time together.
+- Neither logical terminal state nor private cleanup after a frozen capture becomes fresh public evidence of physical release.
+
+This agrees with [B53’s accounting contract](/home/apnex/taceng/agp/docs/reviews/admission-lifetime-correction-r4.md:391), lines 391–403 and 479–481.
+
+Disposition: clarification resolved; no remaining contract-level ambiguity established on this point.
+
+## Assessment of the two original lifecycle facts
+
+### Per-redemption handoff or irrevocable pre-admission termination
+
+The proposal now specifies a continuous authoritative object, not a join between snapshots or interchangeable public strings.
+
+Reservation precedes profile work. Successful redemption is registered against that same observation before publication. The trusted reference reaches identity evaluation, and provider resolution requires both the reference and the identical registered observation. Admission is published only with guarded identity, collision ownership and association installation. A failed attempt becomes terminal only after its publication authority is irrevocably removed.
+
+The relevant contract is in [candidate lines 73–144](/home/apnex/taceng/agp/docs/design/admission-use-lifecycle.md:73), 318–345, 396–404 and 626–634.
+
+My design inference is that this supplies Zorg’s first required fact without a registration gap at controller handoff. The inherited deadline continues across handoff and admitted-but-not-established state; it does not start again at OPEN or provider evaluation.
+
+### Exact admitted-controller liveness and terminal close
+
+The observation is non-reassignable and identifies one attempt/controller incarnation independently of reusable session strings. Terminal state retains the admitted identity and whether establishment occurred, even if intermediate observations were missed.
+
+Only valid terminal observations satisfy the two lifecycle-absence predicates. Unknown or incomplete information retains the lease. Issuer serialization still owns outstanding-key, current-allocation and grace checks. The proposed first-terminal-observation timestamp conservatively delays grace rather than shortening it.
+
+These requirements are in [candidate lines 554–576](/home/apnex/taceng/agp/docs/design/admission-use-lifecycle.md:554), together with the observation semantics above.
+
+My design inference is that this supplies the second required fact without requiring a complete management snapshot or reliable event delivery. It does not transfer lease-reclamation policy to AGP.
+
+Thus both original facts are represented coherently in the proposed contract. Their implementation and consumer fit remain unverified.
+
+## Retained concerns challenged but not established as defects
+
+| Concern | Static conclusion and retained obligation |
+|---|---|
+| Successful recording followed by incomplete issuer registration | The issuer’s prepared installation remains serialized and non-yielding; exceptional failure forbids handoff and retains spent/uncertain state. The implementation must make this a real transaction boundary, not merely place two asynchronous operations nearby. |
+| Reentrancy or a second mutation ledger | [Candidate lines 591–604](/home/apnex/taceng/agp/docs/design/admission-use-lifecycle.md:591) require the same B53 coordinator, normalization outside commit, full preflight, bounded synchronous entry and no nested mutation. The current Promise-tail executor does not already fulfill this obligation. |
+| Ambiguous custody before controller adoption | [Lines 338–359](/home/apnex/taceng/agp/docs/design/admission-use-lifecycle.md:338) distinguish sealing, inbound normal return, outbound successful settlement and guarded adoption. Reserved outcome handling and post-stop disposal address delayed continuations without claiming instantaneous cleanup. |
+| Foreign, replayed or wrong-generation handoffs | Runtime provenance and exact source/node binding are required. A rejected foreign offer does not authorize cleanup of somebody else’s channel, and replay cannot restore binding ownership after transfer. |
+| Source cancellation affecting an adopted session | Lines 361–364 end source cancellation authority at adoption. The exact controller and inherited opening bound then govern; the separate control capability follows that exact use. |
+| Early finish or terminal observation refunding ongoing work | Lines 366–371 require finish plus actual handoff disposition. [Lines 520–548](/home/apnex/taceng/agp/docs/design/admission-use-lifecycle.md:520) separately bound pending cells, controllers, acquisition work, provider work, carrier resources and issuer references. Late work remains charged. |
+| Terminal handles retaining the node graph | Lines 538–542 explicitly require detachment of controller/source/executor/clock/timer/channel links and bounded terminal data. Whether closures and registrations actually satisfy that property requires implementation inspection and validation. |
+| Delayed timers extending authority | Lines 498–514 make final deadline guards authoritative, equality expired, and arming dependent on remaining time. Timer delivery is only a request to reevaluate. Checked, representable deadline arithmetic remains necessary. |
+| Termination requests being mistaken for completed close | Lines 567–572 distinguish immediate publication-permit revocation, eventual terminal observation and physical cleanup. Control targets one incarnation and preserves the first cause. |
+| Old runtimes or one-argument providers silently bypassing authentication | [Lines 225–232](/home/apnex/taceng/agp/docs/design/admission-use-lifecycle.md:225) require inert construction and fail-closed activation; lines 626–638 require explicit provider support and authenticated association in the new branch. Actual package/schema compatibility still needs verification. |
+| Credential expiry or routine rotation closing established sessions | The opening bound ends at establishment; credential expiry restricts fresh redemption, not established-session lifetime. Live revocation remains separate issuer policy/control. |
+| Issuer compaction losing live lifecycle knowledge | The issuer’s finite-table and conservative-compaction obligations are explicit. Its approximate key/spent-record retention period cannot be assumed to authorize deleting a still-required lifecycle reference. This must be demonstrated in consumer fit, not inferred from token expiry. |
+| CLI/browser symmetry hiding different trust roles | Lines 219–223 distinguish a local redeemer from a client presenting a key remotely. The homogeneous local-redeemer contract can cover either acquisition direction; it does not claim to finish client credential acquisition, refusal/rearm or browser carriage. |
+
+These conclusions concern the written contract. None is evidence that the current runtime already enforces the stated invariant.
+
+## Scoped M7 assessment
+
+The [ratified applicability map](/home/apnex/taceng/agp/docs/design/axioms.md:30) limits this assessment to A3, A4, A8, A9 and A14 at AGP’s stated boundaries.
+
+| Axiom | Weight | Assessment |
+|---|---|---|
+| A3 — Sovereign Composition | Load-bearing | PASS for the proposal’s composition boundary. Issuer policy, carrier custody, node lifecycle authority and provider identity decisions have declared owners. The amended temporal input makes the formerly incomplete issuer/node seam explicit. Guardrail: no credential-policy callback inside the coordinator, neutral transport dependency inversion, hidden side table or second session runtime. |
+| A4 — Zero-Loss Knowledge | Load-bearing | PASS for the reviewed design artifact. The candidate distinguishes exact lifecycle states, preserves terminal history, states the failure dispositions and records the prior FAIL rather than replacing it. Guardrail: retain these semantics in public contracts, implementation documentation and evidence; do not reduce them to “atomic” or “cleanup completed.” |
+| A8 — Gated Recursive Integrity | Load-bearing | PASS for this scoped design audit. Proposed APIs, prospective prerequisites, author checks and verified capability remain distinct. Guardrail: this review must not bypass B53/B51 integration, wider required assurance, ratification, implementation selection or producer-before-consumer verification. |
+| A9 — Chaos-Validated Deployment | Supporting, adopted sandbox-evidence subset only | The proposal identifies relevant deadline, custody and late-settlement predicates. No such validation was executed here. No sandbox gate or full deployment-conformance PASS is claimed. |
+| A14 — Compounding Learning | Supporting, finding-lifecycle subset only | The original finding, exact failed input and repair rationale remain preserved. This re-review supplies independent static disposition. Implementation-level closure still needs independently checked evidence, including appropriate recurrence coverage, or an explicit authorized deferral. No wider measured-learning or payback claim is made. |
+
+A0 remains lineage context. A1, A2, A5, A6, A7 and A10–A13 are not imported as AGP product requirements.
+
+No required candidate amendment or accepted deviation was identified by this review. The remaining obligations below are not waived by the PASS.
+
+### Layered tensions and guardrails
+
+- At the issuer/node boundary, policy ownership and temporal enforcement are split. The resolution is an issuer-authorized exclusive bound checked at the node’s exact redemption event. Guardrail: clock-object equality must never be presented as proof of correct expiry derivation.
+- At the transaction layer, synchronous issuer registration must coexist with serialized node mutation. Guardrail: implement one bounded coordinator entry; do not await the current executor while holding issuer serialization or introduce nested callbacks.
+- At the lifecycle/resource layer, terminal authority can be established before physical work disappears. Guardrail: retain independent resource charges and truthful ordinary-stop versus frozen-terminal accounting.
+- At the capacity layer, unknown state and unfinished work can reduce availability. Guardrail: refuse new work rather than evict live authority, refund unsettled resources or create an unbounded queue.
+- At the package/consumer layer, a stronger acquisition contract costs compatibility and migration work. Guardrail: fail closed before redemption, preserve neutral transport boundaries, and keep existing caller-identity protection until verified replacement.
+- At the assurance layer, a coherent same-process proposal is narrower than authenticated-browser or production readiness. Guardrail: keep those claims and gates separate.
+
+## Next gates and closeout hooks
+
+1. Preserve this review against the exact amended input and preserve the original FAIL unchanged. A later material revision needs review against its new hash.
+2. Obtain authorized Zorg fit review of the actual producer/issuer transaction: derivation of `E`, shared-clock and generation ownership, prepared registration and failure handling, complete lifecycle-reference retention, identifier bounds, conservative observed-close grace and explicit finite limits.
+3. Complete the remaining required design/documentation assurance and seek ratification plus explicit implementation selection. This one review is not wider M1 or fresh-reader M2 completion.
+4. During separately authorized implementation, integrate with B53 and B51 through one owner. Closeout must inspect every new publication and accounting path, exact incarnation matching, custody transfer, late settlement, numerical-terminal revocation and ordinary-stop accounting.
+5. Independently verify the producer before consumer migration or production lease reclamation. Required defensive validation includes single-event validity/deadline conservation, refusal and arming/registration failure, source-generation isolation, exact-controller admission/termination, finite retention, compatibility and conservative arithmetic. Existing author compile/check records do not close those gates.
+
+Fresh-key-per-dial, explicit-refusal rearm, concrete proof/carriage integration, browser support and operating-envelope/deployment evidence remain separate work.
+
+## Explicitly unperformed checks
+
+I did not edit files, run product code, tests, compilation, documentation checkers, runtime or authentication probes, or executable reproductions. I did not construct triggering inputs, invoke additional models/providers, spawn further agents, contact external projects, stage, commit or push.
+
+I did not verify actual clock behavior, issuer implementation correctness, cryptography, native resource release, package compatibility, browser parity, scale limits or production safety. No consumer acceptance, ratification, implementation approval, wider M1 assurance or M2 result is claimed.
+
+## Measured substantive input manifest
+
+Paths without a leading slash are relative to `/home/apnex/taceng/agp`. The following substantive file hashes were remeasured at close.
+
+```text
+49a57e583eb0fbd6d46933273d376936e8cafc6ae95ec4944750ec2878b82097  docs/design/admission-use-lifecycle.md
+49a57e583eb0fbd6d46933273d376936e8cafc6ae95ec4944750ec2878b82097  docs/reviews/evidence/admission-redemption-review-input.txt
+2a2d73991919584990df6ac57a9d3f4eb78d8f4b5c7c8fc162d4c88db61b6900  docs/reviews/evidence/admission-acquisition-review-input.txt
+3a67d83b8dabcef9a7028947ea3c040488422840eae7e541e4a67703d2d859e6  docs/reviews/admission-acquisition-independent-review.txt
+196fd797c061ba079e342bf4176a0d45a0aa3d5595ae0f76e127bc5b40c60e4e  docs/reviews/admission-redemption-timing-checks.json
+082b2c704dfdc3338283f3733732388a15fbffec5d1f28bf78313bad884b97b4  docs/reviews/admission-lifetime-correction-r4.md
+c62574382b91cfd30a443ba5e16b23d10dae797c3278539277666f0a316eedea  docs/design/direct-peer-send.md
+26564a9ac5678f296150e736de2ac0b0e0f43ae3429053e4c3c3cb0325b0c29b  docs/design/axioms.md
+77ee1d71f89a62dfb8a3912fd9803c25f081d52be6c1eff96a1e3d9ff091a9ac  docs/design/transport-contract.md
+4f62b97c6ff961a33d0373eb03bfb112c36f21a99ddd5656fa896760a15bee6a  packages/transport/src/types.ts
+ab98ffd07445d778ccb4afc54827bea18b35f59619ebcb236b8d4a0e706479c1  packages/core/src/types.ts
+964b82337a0b67b0659729b049976692b5048a6873ec2f614986e3d9fdd5e4aa  packages/node/src/node.ts
+6640bce12b23fb5423e2b7753e69f596c9ae91e784e1a1e9ec21dd1bcb6e71be  packages/node/src/session-controller.ts
+d46f880eda4b592f22f0186115e0e8f34dc3ba61fc031a809dde7b21e21e01a3  packages/node/src/outbound-acquisition.ts
+fae03a7a1a1dad647467f41d8b46bf0d67d33aa29ea06a2a4c10fcafa4cbf32a  packages/node/src/serialized-executor.ts
+390679b05b37a7883e792984d8c66857b64780e988923dac09aa19983c3ea080  /home/apnex/taceng/zorg/upstream/agp-direct-peer-send-lifecycle-reply.md
+e93d6f8fef2d8bb27aeea33f1c7e4ceecd2b9f8543d46c1d647d23a90c51dc34  /home/apnex/taceng/zorg/upstream/agp-review-response-reply.md
+6c8543d75bcaa1cdc9430d18019dd3c57b4bb966031ff48b48fae98310dbdf6f  /home/apnex/taceng/credential-issuer/CONTRACT.md
+a2fddcaf8707beb781db3072811dd1cd7ef5efea0eebecc0d5f2cca362c7d6c2  /home/apnex/taceng/caller-identity/CONTRACT.md
+ec472eadfcf0afde17f6073000abf1d523de4bc3962958ee6431fc7cb2f4f8ad  /home/apnex/taceng/AGENTS.md
+```
+
+Pinned product axiom bytes from Mission Kit commit `5026604d3ef695651c21b24bd78410c7fec04b58`:
+
+```text
+bacb3bb8313184ec64a5866ee5cd615cf5d6fe3b1cd089bdf62c9eda36736171  axioms/A3-sovereign-composition.md
+e1a74a8a607c1ea4c0c066e23aa08a485b762a8f1d648c22ace54c1ede4dc8f9  axioms/A4-zero-loss-knowledge.md
+60933d669aa24893e4379a5e8052526c37bf35e322ae200dbbd534d7e48b0750  axioms/A8-gated-recursive-integrity.md
+beaaa76927a52d07c0b1a4f2d1ce99d7f5e71536ea8223ea1463af10a9d27a89  axioms/A9-chaos-validated-deployment.md
+989925edf674671dbaa5114877a8634e109b6b23fe0d4c6cc9654aed18eff20b  axioms/A14-compounding-learning.md
+```
+
+Selected process-guidance hashes from the clean Mission Kit checkout at `b145b359b40d234d8d42b06a85d903ec5f0ec699`:
+
+```text
+cbf397718805b9dae982324d79214f5667b1008c7262993016731c17d6224829  INDEX.md
+ec472eadfcf0afde17f6073000abf1d523de4bc3962958ee6431fc7cb2f4f8ad  AGENTS.md
+12c92b2090d84af4a9048d052a8e4c82c7802fb87cec79dcc74ef28691c71b92  methods/M7-axiom-alignment-audit.md
+ca0a8e1f3d1c5ed0a5f5227017ab54fca238e9d58c863f4f1fd1889f308a6870  methods/M1-triangulated-review.md
+74f19f14721b98f94dfdd3e580655b42024b81bd14cfcdc9f6f8e194d95769f2  methods/M2-test-drive-docs-by-execution.md
+14344c9a111e948b0442200ebcb8f62429445fc9d1de71d3f03a7404a5883ac1  skills/research-artefacts/SKILL.md
+```
