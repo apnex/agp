@@ -1,0 +1,262 @@
+# B53 admission assurance revised route: independent review
+
+Methodology verdict: **FAIL — revise before exact packet preparation.**
+
+Scoped M7 verdict: **FAIL — unresolved acceptance-rule and evidence-loss deviations.**
+
+The route may not advance on an ordinary PASS. Two prospective issues require disposition now: its PASS conditions permit an unacknowledged class of old/new regressions, and its accepted interruption-loss policy is not equivalent to A4 alignment. Missing exact-profile qualification is a later prerequisite, not an additional reason for these verdicts.
+
+Neither verdict reopens the frozen R4 technical review, changes the product target, or supplies a document-assurance, runtime, adoption or release verdict.
+
+## 1. Identity, scope and method
+
+Reviewer: `/root/admission_revised_route_review`, one explicitly authorized non-author reviewer; no delegation.
+
+Date: 2026-10-26, Australia/Melbourne. Final identity checkpoint: `2026-10-26 00:03:36 UTC`.
+
+Target: `docs/reviews/admission-assurance-revised-route.md`, all 209 lines.
+
+SHA-256, measured initially and again at closeout:
+
+`a6a42f8fff9cb467d164523b158d1d44253cc1c209979c7ac868b5add457592b`
+
+Question reviewed: whether this prospective route can safely advance to **exact packet preparation**, under decision 0002’s accepted absence of guaranteed provider-request/spending ceilings and its proposed invalidation of interrupted comparisons.
+
+Before substantive research, I fixed this bounded scaffold:
+
+1. Establish target identity, authority and independent evidence lineages.
+2. Challenge extraction, scoring and complete-slot accounting.
+3. Challenge document/no-document separation, controls and seven-duty coverage.
+4. Check component, resource, interruption and axiom boundaries.
+5. Reconcile preparation ordering, necessary corrections and later qualification hooks.
+
+The review used an original-source reading pass followed by reconciliation. The research-artefacts discipline kept source declarations, measured identities and analytical conclusions distinct. No repository-wide implementation audit was attempted.
+
+References below use:
+
+- `T` — the target.
+- `MK/` — `/home/apnex/taceng/mission-kit/`.
+- `CL/` — `/home/apnex/taceng/context-lab/`.
+- Other paths — relative to `/home/apnex/taceng/agp/`.
+
+## 2. Source establishment and evidence limits
+
+Measured repository identities:
+
+| Surface | Identity and qualification |
+|---|---|
+| AGP HEAD/main | `baa2c1a87f6c681f569f9e7b745e3e18b14c1160`; target is untracked and therefore bound by content hash, not that commit |
+| Current workflow | Mission Kit HEAD/main `d06ff987154ff1a8f2d4669e4ba962fcfb2c7ebc`; relevant tracked guidance unchanged; unrelated untracked audit not opened |
+| Evaluator consumer contract | Context-lab HEAD `9b4641b05d50c1ce54ab6b9efa1b06820ae16a68`; inspected `docs/OPERATIONS.md` matches the stated hash |
+| Product axiom authority | `docs/design/axioms.md` remains pinned to Mission Kit `5026604d3ef695651c21b24bd78410c7fec04b58` |
+
+I read the complete R3 and R4 originals, approval route, implementation map, independent technical review, completed-measurement review, feasibility record and advisory review. I read current M1/M2/M7, E7/E8, RU2, R3/R4, W10/W22, C2, the current axiom charter and underlying A1–A14 texts. I separately read the five applicable product axiom texts at the product pin.
+
+For evaluator fit, I read the public operations schema, extraction/provenance, preview, records and retry/resume contract, plus the four named owner responses. No evaluator implementation was inspected.
+
+### Evidence lineages
+
+The reconciliation used four distinct originating lineages, not four summaries by the proposal’s author:
+
+1. **AGP authored requirements and design ancestry:** R3/R4, preparation decisions and the unchanged seven-duty map. These establish intended scope, not implemented behavior.
+2. **Independent measurement production and review:** the original completed-measurement report, plus direct inspection of the retained Gemini judge job containing the A16 penalty and the retained completed-empty reader cell. The original independent technical review supplies separate challenge history, not inherited approval.
+3. **Evaluator-owner contract and correspondence:** C2’s referenced public operations contract and context-lab’s capability/correction statements. Owner-reported tests were not rerun or promoted into AGP qualification.
+4. **Methodology and authority:** current Mission Kit rules and underlying axioms, separately from AGP’s product pin.
+
+These are independently originating constraint/evidence lineages, not four independent empirical demonstrations. Historical answers were elicited using AGP-authored questions; owner documents and owner tests share a lineage; prior reviewers examined overlapping materials. This is one ordinary independent static review, not a cross-family review panel or broad production assurance.
+
+E8’s distinction is retained: prior verdicts are recorded judgments. Their underlying observations and artifacts, not the verdict labels, inform this review.
+
+## 3. Findings — analytical judgment
+
+### 1. HIGH — separating clarification regressions can pass unnoticed by the non-regression condition
+
+Sources: `T:78–89`, `T:97–111`, `T:130–136`; `MK/methods/M2-test-drive-docs-by-execution.md:48–56`.
+
+The decision axis is described as serving “decision non-regression” at `T:83`. However, condition 3 prohibits regression only on controls and on nonseparating probes. It does not cover a **separating clarification**.
+
+A falsifying mathematical witness, not an executed test:
+
+| One separating clarification | Predecessor | Candidate | No document |
+|---|---|---|---|
+| Conservative decision scores | `(1,1,1)` | `(1,1,0)` | `(0,0,0)` |
+| Conservative grounded scores | `(2,2,2)` | `(2,2,1)` | Irrelevant to favorable evidence |
+
+All nine answers can be present, eligible and faithfully judged. The candidate’s third answer can be safely incomplete rather than wrong or unsafe, with no substantive judge defect or unresolved document ambiguity.
+
+This case:
+
+- Satisfies the candidate floor: two grounded twos, no grounded zero.
+- Separates from no document by more than the stated margin.
+- Loses both correctness and grounded usability against the predecessor.
+- Escapes condition 3 because it is neither a control nor nonseparating.
+
+A different separating clarification can improve and satisfy condition 4; all other probes can tie, satisfy coverage and meet their floors. The comparison can therefore PASS despite the first loss.
+
+This is a prospective acceptance-rule issue, not unknown evaluator behavior. The phrase “Gains on other probes cannot compensate” does not close the hole because its operative condition omits this category. It also leaves M2’s warning that gains must not hide damage unresolved.
+
+**Required now:** explicitly resolve how material regressions on separating clarification probes affect the gate, consistently across both axes and the claimed non-compensation rule. If tolerating such losses is intentional, that is a substantive acceptance choice requiring explicit prospective justification and authority—not an implementation detail for the packet author to infer.
+
+### 2. HIGH — interruption invalidation protects verdict validity, but does not satisfy knowledge preservation
+
+Sources: `T:121–128`, `T:150–155`, `T:184–189`; `admission-lifetime-approval-route.md:150–167`; `CL/incoming/agp-admission-diagnostic-correction-response.md:54,66,74–79`; `CL/incoming/agp-assurance-compatibility-correction-response.md:32`; `MK/axioms/README.md:79–103`; `MK/axioms/A4-zero-loss-knowledge.md:14–24,29–32`; `MK/methods/M7-axiom-alignment-audit.md:44–51`.
+
+The owner declares a concrete persistence gap: invocation events remain buffered until return, and parent termination can lose them. The route deliberately accepts this exposure, preserves surviving evidence and invalidates the whole comparison.
+
+Those measures prevent unsupported assurance and invented reconstruction. They do **not** preserve a substantive answer or adverse observation already emitted but not durably written. An invalid comparison can still contain organizational knowledge whose loss matters.
+
+This is not a demand that every existing system already attain an impossible absolute. Current A0 assesses direction and explicitly addresses known gaps touched or newly depended upon. Here the preparation policy changes from requiring retention to permitting a workflow through a known retention gap. Honest disclosure does not itself turn that relaxation into movement toward A4.
+
+Decision 0002 genuinely accepts the named risk for preparation. It does not purport to be an M7 override, and expressly authorizes no assurance exception. It must not be silently reinterpreted as one.
+
+**Required now:** record this as an explicit scoped axiom deviation if the route retains it, with its authority and affected preparation/execution boundaries. Under M7/E7, proceeding past this failed alignment gate requires a recorded Director override; the verdict remains FAIL. Alternatively, revise the route’s reliance on the gap. This report supplies neither that decision nor a replacement design.
+
+This finding concerns the LLM delivery procedure’s evidence, not a new persistence requirement for AGP’s ephemeral runtime.
+
+### 3. MEDIUM — flat grammar is a plausible prospective restriction, not demonstrated extraction completeness
+
+Sources: `T:61–72`; `CL/docs/OPERATIONS.md:151–159,436–453,465–489`; `context-lab-extraction-defect-assessment.md:18–24,34–40,49–58`.
+
+The proposed flat headings and JSON-encoded quotations avoid the documented subsection boundary in conforming responses. The route correctly:
+
+- Leaves extraction with context-lab.
+- Forbids a project-local reconstruction or replacement answer.
+- Separates noncanonical substantive content from demonstrated absence.
+- Requires observations to be retained without entering answer units.
+- Refuses favorable retries after reader-format failure.
+
+The unresolved B26/B27 record means neither a clean extraction-findings list nor `endedAt: null` proves completeness. Qualification must reconcile raw, bounded, selected, masked and actually judged text, including malformed/noncanonical responses.
+
+**Disposition:** later qualification guardrail, not an additional preparation blocker. The target already makes this qualification mandatory. No claim that the present evaluator satisfies it is justified by this review.
+
+### 4. MEDIUM — two-axis judging is coherent only with complete semantic and cross-axis reconciliation
+
+Sources: `T:78–93,132–140`; `CL/docs/OPERATIONS.md:143–155,467–479`; `admission-lifetime-assurance-r4/admission-gate-review-01.txt:37–74,92–105`; retained judge job `admission-clarity.answer.answers.g.15.json:2–7`.
+
+Decision correctness separated from grounding correctly prevents citation availability from manufacturing M2 separation. Conservative other-family minima do not, however, establish semantic validity.
+
+I directly inspected the retained A16 answer and raw judge reply. The reply assigns a penalty for accurately treating the proposed projection as unadopted. That supports the new requirement to review actual reasons rather than trusting diagnostic tags, totals or agreement.
+
+The later packet must also preserve the logical relationship between axes: grounded `2` requires complete correct decisions, so an accepted decision `0` with grounded `2` for the same required decisions needs investigation. Both properties must receive the same complete answer and the correct distinct rubric. Quote matching can establish fidelity, not entailment.
+
+**Disposition:** later qualification and completed-measurement guardrail. The target’s invalidation rule is appropriate; no score substitution, favorable vote selection or retrospective repair is permitted.
+
+### 5. MEDIUM — no-document separation is correctly framed, but supports only the stated descriptive claim
+
+Sources: `T:48–59,95–111,133–136`; current M2 `:39–70`.
+
+The proposed rule meets M2’s principal separation requirements at design level:
+
+- Same questions and decision criteria for old, new and no-document arms.
+- Either document arm may establish separation, in either direction.
+- Integer totals implement the preregistered one-third margin.
+- Controls receive the same separation test.
+- Nonseparating probes supply no favorable evidence but retain adverse accounting.
+- Complete presence of all nine units is required for favorable separation.
+- Qualifying probes must cover every duty and public migration.
+
+An explicit inability to decide can legitimately be a present decision-zero answer; it is not equivalent to a missing response.
+
+With three readers per arm, the margin can be crossed by one conservative decision difference. That is a descriptive sensitivity threshold, not statistical significance or proof of broad generalization. Family matching must remain exact across arms; aggregate control totals can conceal within-probe redistribution between families and must not be advertised as family-wise non-regression.
+
+**Disposition:** retain these limitations and qualification checks. Finding 1 remains the separate acceptance defect.
+
+### 6. MEDIUM — slot accounting and resource inventory are distinct, and neither establishes a provider ceiling
+
+Sources: `T:117–128,139–158`; `CL/docs/OPERATIONS.md:118–129,432–456,477–487`; owner retry/record correction `:58–72`.
+
+The proposed arithmetic is correct:
+
+- `24 × 2 × 3 × 3 = 432` intended axis outcomes.
+- Two other-family votes per axis yield `864` intended vote slots.
+
+A demonstrated absent answer requires two behavioral-zero axis outcomes and four explicitly uncast vote slots. One wholly empty reader leaves 48 axis outcomes and 96 uncast slots—not manufactured votes or a smaller denominator. Missing required eligible-answer votes remain a validity defect.
+
+`9 + 2P + 3J` is an inventory under declared retry rules, not a hard quota. `J` is the actual batched judge-job inventory, not the vote-slot count. `P` must enumerate required reader/judge isolation probes from the exact packet and declared profiles; the public preview’s reader/judge rendering alone is not a complete probe census. Calibration is additional.
+
+The record correctly distinguishes local timeout from remote cancellation, scored-response bounds from generation memory/billing, and observed usage from hidden retries.
+
+**Disposition:** later packet guardrails. I do not restore the old 36-invocation/120-request/USD 20 envelope or reject preparation merely because provider ceilings are absent; that risk choice was explicitly changed.
+
+## 4. Scoped M7 map and authority boundaries
+
+This procedure belongs to a record-keeping, multi-actor, LLM-in-the-loop delivery system. E5 explicitly distinguishes that organization from the product it builds. Merely using a pack does not establish T2’s continuously reconciled declarative-system trait.
+
+| Axiom | Weight for this route | Alignment or tension |
+|---|---|---|
+| A1 | Supporting | Exact manifests and retained records support shared truth; incomplete invocation records retain the preservation tension in finding 2 |
+| A2 | Not materially implicated | No demonstrated continuous declaration/reconciliation mechanism is being changed |
+| A3 | Load-bearing | Public pack/hook/record seams; no private runner, extractor, isolation fork or budget-service imitation |
+| A4 | Load-bearing | Frozen originals and full raw evidence are preserved where available; explicit interruption loss requires deviation disposition |
+| A5 | Load-bearing | Reader/judge projections and raw-to-judged fidelity must be verified; intentional experimental blinding is not permission for inaccurate delivery |
+| A6 | Supporting | Explicit role handoffs and reuse of frozen inputs; no claim of frictionless organization-wide execution |
+| A7 | Supporting | Failure classification and stopped paths are actionable; no phantom recovery or silent replacement; durable-loss limitation remains |
+| A8 | Load-bearing | Distinct gates are retained, but the acceptance hole and unresolved deviation prevent this route’s promotion on PASS |
+| A9 | Not materially implicated in this verdict | No deployment is approved; product runtime/chaos acceptance remains outstanding |
+| A10 | Supporting | Prior scoring/extraction friction informs prospective correction; no automatic-remediation conformance claimed |
+| A11 | Load-bearing | Shape/quote/accounting work belongs in deterministic checks; semantic judgment remains cognitive; usage unknowns are not hard ceilings |
+| A12 | Load-bearing | Bounded, structured projections and representative-volume qualification; no silent truncation may become favorable evidence |
+| A13 | Load-bearing | Director retains route selection, deviations, spending/execution and product ratification; reviewer cannot synthesize those decisions |
+| A14 | Load-bearing | Historical failures and owner defects remain recorded; a new grammar does not close the broader extraction defects |
+
+A0 supplies the current composition/direction rule; it is not an additional axiom or an AGP `AX0` certificate.
+
+The product map at `docs/design/axioms.md:10–22,32–42,97–106` remains authoritative at its separate pin. Its A3/A4/A8/A9/A14 boundaries are not silently migrated. The seven retained duties are runtime commit authority; admission/work lifetimes; ordered continuation storage; route preparation/application; deadline/cleanup composition; adjacency supervision; and public/operational contracts. No new Zorg requirement, timer-only scope reduction, mandatory provider migration or consumer-wrapper removal follows.
+
+### Principal tensions
+
+- **Validity versus preservation:** invalidation resolves whether incomplete evidence can support a verdict; it does not resolve loss of knowledge.
+- **Document sensitivity versus improvement:** separation establishes that a probe responds to supplied content; it does not establish that the candidate improved it.
+- **Composition versus known defects:** using C2’s public seam respects ownership, but does not prove fit or excuse building on a declared gap.
+- **Preparation versus execution:** unresolved profile details may be prepared for qualification; an unresolved acceptance rule must not be silently decided during that preparation.
+
+## 5. Required changes, validation and closeout hooks
+
+Before exact packet preparation proceeds on a normal approval path:
+
+1. Resolve finding 1 prospectively in the route’s acceptance contract.
+2. Resolve finding 2 through a changed reliance boundary or an explicit recorded deviation/Director override, retaining the failed M7 verdict where overridden.
+3. Bind the resulting route revision by hash and obtain the required prospective review/selection. Do not rewrite this report or the frozen historical records to imply the new revision was reviewed here.
+
+Later packet/readiness work must carry these hooks:
+
+- Commit fresh purpose-derived questions, keys, coverage and control classifications before reader exposure; independently audit keys against both full originals.
+- Review exact old/new projections for fidelity and neutrality, including proposal status, public migration and ordinary-behavior controls.
+- Qualify the pinned public extractor, masking, both scoring axes, observations, truncation and noncanonical-answer dispositions without manual reconstruction.
+- Reconcile every assigned slot, all retries, all raw answers, accepted reasons and adverse outcomes.
+- Freeze routes, time/input/output limits, probe/job inventory, calibration allowance and observed-cost stop rules through supported interfaces.
+- Keep calibration unrelated and sessions disjoint from assurance readers; a short canary does not establish representative-volume or scoring qualification.
+- On interruption or substantive measurement defect, retain surviving evidence and uncertainty; no automatic restart, selective replacement, rescoring or cross-run splicing.
+- Preserve the historical FAIL and later NO VERDICT. A later valid document PASS still precedes separate public ratification, complete implementation and independent runtime verification.
+
+## 6. Measured content identities
+
+All values below are SHA-256 measurements from this review.
+
+| Artifact | SHA-256 |
+|---|---|
+| `admission-lifetime-approval-route.md` | `6cb63db24f436c80acb93e5e6f76e81b8507d2a70ee67283e12f7ca270904a5a` |
+| `admission-lifetime-implementation-map.md` | `78e642dc8d4d56d08fdb4b0d8b2b98c3b13230378d3cb86d861b6d6c55b33a35` |
+| `admission-lifetime-correction-r3.md` | `6ccf9ba0e7d94b83897fade8f865fe3fb1328db292d92cce4d5cc85bc28fc2f2` |
+| `admission-lifetime-correction-r4.md` | `082b2c704dfdc3338283f3733732388a15fbffec5d1f28bf78313bad884b97b4` |
+| `admission-lifetime-independent-review-r4.txt` | `7f3b6b0e24acf55d7795e6ec7454724b678bc6359639c80c999d93a6c463b88c` |
+| R4 `admission-gate-review-01.txt` | `7197bfae7413f1ca76d47f0adbf2f376bb8a97a4731e2d427c18244f883689f9` |
+| `admission-reader-feasibility.md` | `682b51df9b38b0d14c8c5ec6f2317667c7ea6c5ba4d6608155fc0f66991d9915` |
+| `admission-reader-feasibility-review-01.txt` | `1610c1571f8bd18cc63bc68f936af702f2d2c965481bfc3c1a5750a0f2ef91fb` |
+| `context-lab-extraction-defect-assessment.md` | `41817aea79a73472ff8d10b453874cad0de73649f0c2a9ac2a12be70f0a23cff` |
+| `docs/design/axioms.md` | `26564a9ac5678f296150e736de2ac0b0e0f43ae3429053e4c3c3cb0325b0c29b` |
+| `CL/docs/OPERATIONS.md` | `66d782fb65776f6283b4eb179ac69a585a9920cd7f19f994153f2019a8f7f31e` |
+| CL admission diagnostic correction response | `8d365d9faf48c8ca00b58a9ec1b07b938776ed0f0b50f61f642af997c0db60dd` |
+| CL assurance compatibility correction response | `eb2383187cdf8d05ccf5da7b0f3e9dbca40d1ff63da7b7a839a974535b84d904` |
+| CL 2026-10-20 addendum, current inspected bytes | `886550efd38d3442215584a521c3db1a8b58812ecfd33b8447a0da61cf3bedc4` |
+| CL direct-peer assurance contract response | `7c43b3f23f7f307285e9cad7d004d0c019521b9fed5d264e13693af46a5cccfc` |
+| Current M1 | `ca0a8e1f3d1c5ed0a5f5227017ab54fca238e9d58c863f4f1fd1889f308a6870` |
+| Current M2 | `7e87a13f75cc1705790cfab8fc52091623ef2e670d72dbe042b970d5e82462fe` |
+| Current M7 | `12c92b2090d84af4a9048d052a8e4c82c7802fb87cec79dcc74ef28691c71b92` |
+| Current C2 | `6661b8edafac8d0a7a521c65ddbfccf7e50d4fef060dd5792c3186fdab45edba` |
+| Historical judge job `admission-clarity.answer.answers.g.15.json` | `a7183070c0dac9f88c87a222182822c9900815284c252ad5c951c94ce8040544` |
+| Historical reader cell `admission-clarity.m42.g.1.json` | `e3f25304ab2baa0023b6d2b51da0fc01d1b2e758a26ac38cf8bdd72a57436516` |
+
+The CL correspondence is untracked and individually content-pinned. The current addendum differs from the historical feasibility record’s recorded identity; its current declarations were not substituted retroactively into that earlier review.
+
+No files were created or edited. No tests, experiments, context-lab commands, qualification probes, model/provider calls, network queries, owner contacts, commits or pushes were performed. The arithmetic witness is analysis only. The review stops at the two prospective dispositions above.

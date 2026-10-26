@@ -1,0 +1,53 @@
+## Bounded conclusion: supported
+
+The author’s limited conclusion is justified: no supported replacement path has been established under the proposed boundaries. This is an advisory finding, not an assurance PASS, M2 fresh-reader result, exact-packet readiness verdict or full M7 assessment. It does not establish that every alternative is impossible.
+
+### Checkpoint identities
+
+Measured during this review:
+
+| Artifact | Identity |
+|---|---|
+| AGP HEAD | `baa2c1a87f6c681f569f9e7b745e3e18b14c1160` |
+| Feasibility finding, SHA-256 | `882ce490e49d76b6d8a1fc54012ad800483a254916805ad75598ccff1514cd5c` |
+| Approval-route proposal, SHA-256 | `fd83d26b65d8cbc3884b8ee5bb56a1698ea44efdaf569a446cc5365854d487d5` |
+| BOARD checkpoint, SHA-256 | `4e9bb1e006bcfc3bd9d24544af8ebc96884e3db09061217e8d95a55e1bee6c12` |
+| Mission-kit clean local HEAD | `8fa9dad08c98146a14a0596c93f528658b2403ac` |
+| Context-lab HEAD | `349ca1d96fb97db494f8bda94dab628b934783f2` |
+| Operations guide at that HEAD, SHA-256 | `c9d7fb1d64b15dfb137593ff6c59820a8b55311415def03867d5fdc522a865f2` |
+| Resource/retention correspondence, SHA-256 | `8d365d9faf48c8ca00b58a9ec1b07b938776ed0f0b50f61f642af997c0db60dd` |
+| Compatibility correction correspondence, SHA-256 | `eb2383187cdf8d05ccf5da7b0f3e9dbca40d1ff63da7b7a839a974535b84d904` |
+| Current addendum, SHA-256 | `69ddb7f9a30f18f43b2c10e9aeb3a8709df75e18cc8e7413157d31fc5e7ebe7f` |
+| Frozen R4, SHA-256 | `082b2c704dfdc3338283f3733732388a15fbffec5d1f28bf78313bad884b97b4` |
+| Existing technical review, SHA-256 | `7f3b6b0e24acf55d7795e6ec7454724b678bc6359639c80c999d93a6c463b88c` |
+
+Provenance qualification: context-lab’s working operations guide changed after the author’s initial checkpoint. Its observed working SHA-256 was `dc0a9c07e8237387d15198d45a762fc367fde54b44bd55b45a951f5c2388c006`. This review used the immutable HEAD bytes. Preserve “matches HEAD” as an initial measurement, not a continuing claim about the worktree. The later dirty material supplies no delivered-capability evidence.
+
+### Findings
+
+1. **The old numerical envelope is not incorrectly made mandatory.**  
+   [Feasibility line 44](/home/apnex/taceng/agp/docs/reviews/admission-reader-feasibility.md:44) explicitly says the 36-invocation, 120-request and USD 20 envelope “does not automatically transfer.” [Approval-route lines 83–84](/home/apnex/taceng/agp/docs/reviews/admission-lifetime-approval-route.md:83) distinguish session ceilings from request/currency ceilings and require agreement on a different risk boundary. M2 requires fresh, blinded readers and precommitted, independently audited probes; it does not prescribe those numerical caps. The stop is therefore supported as a finding under these proposed guarantees, not a universal prerequisite for every conceivable M2 route.
+
+2. **Neither ordinary shared agents nor tools-off review establishes the missing conjunction of guarantees.**  
+   The active collaboration declaration preserves shared filesystem access; omitting conversation does not remove that access. [M2 lines 51–56](/home/apnex/taceng/mission-kit/methods/M2-test-drive-docs-by-execution.md:51) require readers holding only the document, without repository or session history. The pinned operations guide, lines 527–531, declares tools-off review and structured findings, but not complete billable-request accounting or an experimental comparison protocol. Tools-off remains a useful supported review capability; it is not demonstrated to satisfy all proposed reader-route requirements.
+
+3. **Resource and interruption gaps are evidenced, not invented.**  
+   The [corrected owner response, lines 52–55 and 64–67](/home/apnex/taceng/context-lab/incoming/agp-admission-diagnostic-correction-response.md:52), distinguishes unsupported context-lab controls from unknown account controls and explicitly identifies loss of buffered in-flight events after parent termination. Its lines 74–86 label possible remedies as unimplemented owner-side work. The [compatibility response](/home/apnex/taceng/context-lab/incoming/agp-assurance-compatibility-correction-response.md:32) retains that exclusion; line 54 excludes generation-memory and billing bounds, and line 72 separates probe/judge retries from cell retry limits. Fewer assignments, response truncation or refusal to resume cannot substitute for those guarantees.
+
+4. **The new addendum improves evidence but does not close these gaps.**  
+   [Addendum lines 27–39](/home/apnex/taceng/context-lab/incoming/agp-context-lab-addendum-2026-10-20.md:27) correct assigned-reading/answer separation; lines 48–49 add delivery, probe-attempt, cost and dissent reporting. The pinned operations guide, line 431, defines `costs` as statistics over counted cells’ scored attempts—not a complete provider-request or monetary ledger. The addendum also leaves B21 open and expressly claims no AGP isolation result or scored run at line 59. These improvements warrant later compatibility triage, not automatic B53 qualification.
+
+5. **The proposed disposition preserves authority and the existing component boundary.**  
+   [Feasibility lines 65–72](/home/apnex/taceng/agp/docs/reviews/admission-reader-feasibility.md:65) distinguish waiting for evidence, prospectively changing risk boundaries, an explicit assurance exception, and selecting other work. This is consistent with [E7’s distinction between evidence, no verdict and override](/home/apnex/taceng/mission-kit/entities/E7-gate.md:43). The reviewed BOARD changes retain those distinctions. Stopping before another harness also respects [C2’s public-contract fit rule and upstream adjustment policy](/home/apnex/taceng/mission-kit/components/C2-context-lab.md:59).
+
+### Guardrails and supported alternatives
+
+- Keep context-lab’s declared experiment seam as the existing supported starting point for re-triage when matching evidence arrives; do not certify it from these declarations alone.
+- Tools-off review can support separately authorized advisory/key-review work. `pick` judges existing outcomes; it does not acquire fresh reader answers. An `external` runtime entry alone establishes neither acquisition controls nor accounting.
+- A genuinely different supported surface remains possible. It must be named and assessed, not excluded by this bounded search or presumed ready.
+- Any different resource/interruption policy is a prospective decision with explicit residual risk—not an inherited budget, retroactive regrading or proof that absent evidence exists.
+- Preserve the valid historical FAIL, later NO VERDICT, frozen technical-review scope, and separate public-ratification/runtime-verification obligations.
+
+### Work not performed
+
+No edits, tests, context-lab invocation, experiment, reader/scorer assignment, runtime/provider diagnostic, network/account change, commit, push or downstream-project message. No runtime-design re-review or implementation-map verification. This was one ordinary non-author advisory review, without enforced experimental isolation or a cross-family-independence claim. Review stopped here.

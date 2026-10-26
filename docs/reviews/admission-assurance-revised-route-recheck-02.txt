@@ -1,0 +1,352 @@
+# B53 admission assurance route: independent composite recheck
+
+Methodology verdict: **PASS - suitable for exact packet preparation selection.**
+
+Scoped M7 verdict: **FAIL - the A4 retention deviation remains, with decision 0004's preparation-only Director override recorded beside it.**
+
+The amendment resolves the previous acceptance-rule defect at the explicitly selected per-probe, per-axis arm-total grain.
+The remaining retention deviation is explicitly and sufficiently disposed for preparation selection, not cured or converted into alignment.
+
+**No non-overridden blocker to exact packet preparation was identified in this bounded review.**
+Actual packet construction still requires the subsequent Director selection stated in the composite.
+This review grants no readiness, calibration, experimental spending, document-assurance, implementation, adoption or release approval.
+
+## 1. Identity, scope and source establishment
+
+Reviewer: `/root/admission_revised_route_review`, one expressly authorized non-author reviewer, without delegation.
+
+Date: 2026-10-26, Australia/Melbourne.\
+Closeout identity checkpoint: `2026-10-26 00:58:28 UTC`.
+
+### Exact reviewed composite
+
+All four hashes matched the assignment initially and again at closeout.
+
+| Reference | Artifact | Measured SHA-256 |
+|---|---|---|
+| `T` | [Frozen route](/home/apnex/taceng/agp/docs/reviews/admission-assurance-revised-route.md), all 209 lines | `a6a42f8fff9cb467d164523b158d1d44253cc1c209979c7ac868b5add457592b` |
+| `A` | [Amendment 01](/home/apnex/taceng/agp/docs/reviews/admission-assurance-route-amendment-01.md), all 142 lines | `3c027a759e99d7f0419c7676a08ea853d0f9066d1a3be237ae04399639f8e018` |
+| `D` | [Approval-route carrier](/home/apnex/taceng/agp/docs/reviews/admission-lifetime-approval-route.md), all 222 lines; operative decision 0004 at lines 198-221 | `233aa2a2e8dfd82d0f63a3d38cd6a0f55a64ea775b35cff7a3832cfdff5114f3` |
+| `R` | [Full previous independent report](/home/apnex/taceng/agp/docs/reviews/admission-assurance-revised-route-review-01.txt), all 262 lines | `47ac7cfaaade410422742341066168cf6240c66654b1ebc85d875a62b00220f8` |
+
+References below use these aliases and line numbers.
+`MK/` means `/home/apnex/taceng/mission-kit/`; `CL/` means `/home/apnex/taceng/context-lab/`.
+Other paths are relative to `/home/apnex/taceng/agp/`.
+
+The review question is whether the complete composite can advance to exact packet **preparation**, particularly whether it resolves prior finding 1 and explicitly disposes prior finding 2.
+It does not repeat the completed R4 technical review.
+
+### Review scaffold and provenance
+
+Before substantive reading, I fixed five checks:
+
+1. Verify the four input identities and workflow source pin.
+2. Read the complete base, amendment, authority carrier and previous report.
+3. Reconcile universal non-regression with separation, presence, validity, coverage and strict improvement.
+4. Examine the A4 deviation and the actual preparation-only override.
+5. Separate remaining preparation blockers from later qualification obligations and authority.
+
+The research-artefacts skill kept source declarations, measured identities and analytical conclusions distinct.
+An original-source reading pass preceded reconciliation.
+
+Current workflow guidance was read from immutable Mission Kit commit `b3982e9a4af776da19ab683be2f491100c9ec849`, the main identity supplied as remotely validated by the parent.
+I independently verified that local identity before reading.
+I did not perform a network fetch.
+
+Concurrent unrelated work later advanced local Mission Kit HEAD/main to `5cb6555522127407c21a50a52a090b9504365a66`.
+A scoped diff found no changes to the applied guidance between the review pin and that closeout HEAD.
+The reviewed methods, axioms and gate guidance also had no changes from the previous review's `d06ff987154ff1a8f2d4669e4ba962fcfb2c7ebc` pin.
+Unrelated working changes and audit contents were not used.
+
+Other measured HEAD/main identities at closeout:
+
+| Repository | Identity |
+|---|---|
+| AGP | `baa2c1a87f6c681f569f9e7b745e3e18b14c1160` |
+| Context-lab | `9b4641b05d50c1ce54ab6b9efa1b06820ae16a68` |
+
+The composite is bound by its file hashes, not by an assertion that these preparation artifacts belong to AGP's committed baseline.
+
+### Independent input lineages and limitations
+
+The reconciliation used four originating lineages:
+
+| Lineage | Original material and limitation |
+|---|---|
+| AGP requirements and prospective design | Complete composite, recorded Director authority, unchanged product applicability map and seven-duty requirements; declarations, not implemented behavior |
+| Historical measurement production | Retained judge prompt/reply containing the A16 proposal-status penalty and the completed-empty reader outcome; independently generated historical observations, not new qualification |
+| Evaluator-owner contract | Public operations contract and the two original retention/retry correction responses; owner declarations and reported tests, not independently reproduced here |
+| Upstream methodology and authority | Current M1/M2/M7, E7/E8, R3/R4, RU2, W10/W22, C2, E5 and underlying axioms at the workflow pin |
+
+The base, amendment and decision carrier are not three independent corroborations.
+My previous report is also not a new independent lineage: I am the same reviewer, though still not the author of the route or amendment.
+Under E8, its verdicts remain judgments; its referenced observations and the present composite are the material examined.
+
+This is one static independent recheck, not four independent experiments, a cross-family review panel or production assurance.
+No exact-profile qualification was expected or obtained at this stage.
+
+## 2. Findings and dispositions
+
+### 1. Prior HIGH acceptance defect: resolved in the composite
+
+Sources: `A:27-43,47-76`; `T:78-110,130-140`; current `MK/methods/M2-test-drive-docs-by-execution.md:48-56`.
+
+The replacement condition is explicit:
+
+- For every probe, `D_new(q) >= D_old(q)`.
+- Independently, for every probe, `G_new(q) >= G_old(q)`.
+- Both totals use the same three assigned reader families.
+- Controls, clarifications, separating probes and nonseparating probes all remain inside the conjunction.
+- The no-document arm cannot replace the predecessor baseline.
+
+A negative difference on either axis makes a required conjunct false.
+Neither another probe's gain, the other axis's gain nor separation can reverse that result.
+
+The previous witness now necessarily fails:
+
+| Quantity | Predecessor | Candidate | Result |
+|---|---|---|---|
+| Decision scores | `(1,1,1)` | `(1,1,0)` | Total falls from `3` to `2` |
+| Grounded scores | `(2,2,2)` | `(2,2,1)` | Total falls from `6` to `5` |
+
+The candidate floor and separation may still hold, but amended condition 3 does not.
+A gain elsewhere cannot produce overall PASS.
+
+This is an analytical check, not an executed evaluator test.
+The later packet must mechanically enforce the conjunction and retain every computable adverse difference, as `A:75-76` requires.
+
+**Declared limitation:** within-probe, within-axis redistribution between families can still preserve a total while one family's outcome worsens.
+`A:41-43` explicitly selects this arm-total grain and forbids family-wise or population-superiority claims.
+That limitation is not a remaining contradiction at the selected grain, and this review does not introduce a new family-wise acceptance requirement.
+
+### 2. Prior HIGH retention deviation: remains an M7 FAIL, explicitly overridden for preparation only
+
+Sources: `D:198-221`; `A:80-102`; `T:121-128,150-158`; `CL/incoming/agp-admission-diagnostic-correction-response.md:54,66,74-79`; `CL/incoming/agp-assurance-compatibility-correction-response.md:32`; current A0, A4, M7 and E7.
+
+The owner-declared gap remains concrete: parent termination can lose buffered in-flight evidence, including already emitted substantive answers or adverse observations.
+Invalidating the comparison protects verdict validity.
+It does not preserve or recover that knowledge.
+
+Decision 0004 now supplies the disposition missing from decision 0002:
+
+- It identifies finding 2 as the retention-related scoped M7 preparation stop.
+- It explicitly accepts the A4 deviation and irreversible-loss exposure.
+- It preserves the failed verdicts.
+- It records the durable-capture alternative and its unresolved owner-work cost.
+- It retains surviving evidence, missing identities and uncertainty.
+- It forbids reconstruction, automatic resume, selective replacement and cross-run splicing.
+- It requires reconsideration when durability evidence arrives, retention behavior changes or execution authority is requested.
+
+This satisfies M7's requirement for an explicit Director override to proceed despite a failed alignment gate.
+It does **not** make the route A4-aligned.
+
+The authority boundary remains narrow.
+`A:88-91,123-128` and `D:217-220` distinguish authorized correction/review preparation from later exact packet construction.
+The recorded override is sufficient as the retention disposition required before packet preparation may be selected.
+It is not itself that subsequent selection.
+
+Any execution decision must expressly reconsider and accept the exact profile's loss exposure, or require qualified durable capture.
+The preparation exception cannot be inherited into execution silently.
+
+**Disposition:** no further retention disposition is required merely to offer the unchanged composite for preparation selection.
+The physical retention gap and scoped M7 FAIL remain open.
+
+### 3. MEDIUM retained guardrail: the joined conditions prevent ties, nonseparating gains or incomplete coverage from becoming PASS
+
+Sources: `A:45-57,108-117`; `T:48-59,95-111,130-140`; current M2 `:39-70`.
+
+The amendment replaces condition 3 without deleting conditions 1, 2, 4 or 5.
+Consequently:
+
+| Analytical case | Composite consequence |
+|---|---|
+| All per-probe totals tie | Non-regression holds, but strict grounded improvement is absent: FAIL |
+| Grounded improvement occurs only on nonseparating probes | It supplies no favorable change evidence and cannot satisfy condition 4 |
+| A separating improvement exists, but qualifying probes miss a duty or public-migration concern | FAIL for coverage |
+| Coverage and improvement exist, but one probe loses either axis | FAIL under amended condition 3 |
+| Candidate usability floor fails on any probe | FAIL, regardless of gains elsewhere |
+| Material delivery, attribution or substantive scoring validity remains unresolved | NO VERDICT, not arithmetic PASS or ordinary assurance FAIL |
+
+Separation remains a descriptive decision-score difference of at least one integer point across three assigned readers: the stated one-third mean margin.
+Either document arm may separate from the no-document arm in either direction.
+Citation availability and grounding scores cannot establish separation.
+
+Favorable separation requires all nine answer units to be present, eligible and faithfully judged.
+Controls face the same separation rule.
+A nonseparating probe's usability floor remains a possible disqualifier, not favorable evidence for the change.
+
+The composite requires coverage of every duty, but not a strict improvement on every duty.
+It requires at least one separating grounded improvement overall.
+Neither that condition nor the one-third margin establishes statistical significance, family-wise preservation or broad superiority.
+
+**Disposition:** coherent for preparation at the declared grain.
+The exact packet must make these joins mechanical and auditable without weakening their quantifiers.
+
+### 4. MEDIUM retained guardrail: demonstrated absence and unknown evidence remain different states
+
+Sources: `A:54-57,71-76,113`; `T:69-72,117-128,139`; `docs/reviews/context-lab-extraction-defect-assessment.md:49-59`.
+
+A completed wholly empty response or proved empty canonical section can receive behavioral zeroes.
+An explicit inability to decide is instead a present answer, judged under the decision rubric.
+
+Lost, truncated, noncanonical or unassignable substantive text cannot be treated as demonstrated absence.
+Missing required eligible-answer votes remain a validity defect.
+An empty extracted unit, clean findings list or null termination field alone does not prove the reader omitted an answer.
+
+The accounting remains:
+
+- `24 x 2 x 3 x 3 = 432` intended axis outcomes.
+- Two other-family votes per axis produce `864` intended vote slots.
+- One demonstrated absent answer retains two zero axis outcomes and four explicitly uncast vote slots.
+- One wholly empty reader retains 48 zero axis outcomes and 96 explicitly uncast slots.
+
+No denominator shrinks.
+Candidate behavioral absence defeats its usability floor in an otherwise valid comparison.
+Absence in another arm cannot manufacture favorable separation because the all-nine-present safeguard fails.
+
+An invalid comparison may still contain computable adverse differences.
+Those must survive in the record without being promoted into a valid whole-comparison verdict.
+
+**Disposition:** no unresolved design contradiction found.
+The exact packet must implement this distinction and reconcile every assigned identity.
+
+### 5. MEDIUM later qualification obligation: grammar and conservative scoring are not demonstrated evaluator fidelity
+
+Sources: `T:29-42,61-93,167-175`; `A:110-116`; `CL/docs/OPERATIONS.md:143-159,436-453,465-489`.
+
+The proposed flat grammar remains a plausible restriction, not proof of complete extraction.
+Later qualification must reconcile raw, bounded, selected, masked and actually judged text, retaining observations without including them in answer units.
+It must cover noncanonical responses and truncation, not only compliant examples.
+
+Only the public extractor may produce judged answer text.
+A project check may reject a response but may not reconstruct or substitute it.
+The amendment does not close the separate B51/B50 extraction requests.
+
+Both scoring properties must receive the same complete answer and their intended distinct rubrics.
+Other-family minima are conservative aggregation, not proof of semantic validity.
+Grounded `2` requires complete correct decisions; an associated decision `0` therefore requires investigation.
+An independently established substantive score/reason contradiction invalidates the comparison, without retrospective score repair.
+
+The retained A16 judge reply directly illustrates why accepted reasons need review: it penalized an answer for accurately identifying proposed rather than adopted status.
+That historical artifact is not evidence that the new scoring profile works.
+
+**Disposition:** mandatory later qualification and completed-measurement checks.
+Their absence now does not block preparation, because the composite neither claims qualification nor permits scored execution without it.
+
+### 6. MEDIUM later resource and authority obligation: planned work is not a spending ceiling
+
+Sources: `T:144-175`; `A:91,100-101,113-116`; `D:162-170,217-220`; owner compatibility response `:58-72`.
+
+`9 + 2P + 3J` remains an invocation inventory under declared retry rules, separate from calibration.
+`P` must enumerate actual required isolation probes.
+`J` must represent actual judge jobs, not the 864 vote slots.
+The public preview alone is not a complete probe census.
+
+The exact packet still needs supported model routes, finite time/input/output limits, retry attribution, calibration allowance and observed-cost stop rules.
+Neither response-byte bounds nor local timeouts prove bounded provider billing or remote cancellation.
+Decision 0002's changed preparation boundary does not authorize unlimited experimental spending.
+
+**Disposition:** future packet and execution-selection obligations, not new preparation blockers.
+No old 36-invocation/120-request/USD 20 ceiling is silently restored or inherited.
+
+## 3. Scoped M7 map and layer boundaries
+
+The reviewed procedure belongs to a record-keeping, multi-actor, LLM-in-the-loop delivery system.
+E5 distinguishes that organization from the AGP product it builds.
+Using a pack does not by itself establish a continuously reconciled declarative-system trait.
+
+| Axiom | Weight | Composite assessment |
+|---|---|---|
+| A1 | Supporting | Explicit manifests and unknown identities support shared truth; the known persistence exposure remains part of finding 2 |
+| A2 | Not materially implicated | No continuous specification-to-runtime reconciliation mechanism is being changed |
+| A3 | Load-bearing | C2 owns runner, extraction and isolation; AGP remains at public pack, hook and record seams |
+| A4 | Load-bearing | **FAIL:** interruption can destroy knowledge; preparation-only override recorded, not alignment |
+| A5 | Load-bearing | Exact delivery and raw-to-judged fidelity remain required; experimental blinding does not excuse inaccurate projections |
+| A6 | Supporting | Frozen inputs and explicit role handoffs are retained; author checks do not replace independent review |
+| A7 | Supporting | Typed invalidity and explicit restart decisions avoid phantom recovery; no lossless-recovery claim |
+| A8 | Load-bearing | Acceptance defect corrected; binary gates and the distinction between FAIL and override remain explicit |
+| A9 | Not materially implicated in this verdict | No deployment or product runtime acceptance is approved |
+| A10 | Supporting | Previous friction produces a prospective correction; no autonomous-remediation capability is claimed |
+| A11 | Load-bearing | Predicate, quote and slot checks belong in deterministic mechanisms; semantic judgment remains cognitive |
+| A12 | Load-bearing | Bounded structured projections and representative-volume qualification remain obligations, not measured support |
+| A13 | Load-bearing | Director retains preparation selection, deviation, execution and product authority |
+| A14 | Load-bearing | Historical findings remain frozen; unresolved retention and extraction gaps retain ownership and revival conditions |
+
+A0 supplies the current direction and composition rule, not an additional product certificate.
+The remaining M7 FAIL is the known retention deviation, not a demand that every adjacent component attain every asymptote before preparation.
+
+Principal tensions are now explicit:
+
+- Document sensitivity and improvement are different conditions; both are required.
+- Aggregate preservation can conceal family redistribution; the claim is expressly limited to arm totals.
+- Invalidation protects validity but not knowledge; the latter remains an overridden deviation.
+- Public-contract fit is not exact-profile qualification; qualification stays later.
+- Preparation progress is not downstream delivery; authority and product gates remain separate.
+
+The product map at `docs/design/axioms.md:10-22,32-42,97-106` remains pinned to Mission Kit `5026604d3ef695651c21b24bd78410c7fec04b58`.
+Current workflow guidance does not migrate that product authority.
+
+All seven product duties remain: runtime commit authority; admission/work lifetimes; ordered continuation storage; route preparation/application; deadline/cleanup composition; adjacency supervision; and public/operational contracts.
+Types, cancellation compatibility, ordinary behavior and public migration remain in scope.
+No new Zorg requirement, private evaluator mechanism, scope reduction or wrapper-removal authority follows.
+
+## 4. Next deliverable and closeout hooks
+
+**Required prospective design changes before preparation selection: none identified within this review's scope.**
+Finding 1 is corrected.
+Finding 2 remains a failed alignment condition with an explicit preparation-only override.
+
+The next concrete selectable deliverable is the **exact B53 assurance packet**:
+
+- Committed fresh probes, answer key, control classification and seven-duty/public-migration coverage.
+- Exact neutral R3/R4 projections with both full originals retained.
+- Public pack declarations, two-axis rubrics and deterministic acceptance/accounting rules.
+- Calibration cases, complete route/resource inventory and explicit interruption/stop dispositions.
+
+The remaining authority boundary is the subsequent Director selection required by `A:128`, `D:217` and `T:167`.
+This review does not make that selection.
+
+Later closeout must retain:
+
+1. Independent key and projection-fidelity review before reader exposure.
+2. Exact model-free prompt, extraction and accounting checks, followed by separately authorized profile qualification.
+3. Calibration on unrelated material and sessions, including representative response volume and status-versus-hedge distinctions.
+4. Explicit execution reconsideration of the retention deviation and resource exposure.
+5. Complete raw-answer, accepted-reason, observation, retry and slot reconciliation before any assurance verdict.
+6. Separate public ratification, complete implementation, independent runtime verification and authorized publication/handoff before Zorg adoption.
+
+The previous route's methodology FAIL and scoped M7 FAIL remain unchanged.
+The original assurance FAIL and later NO VERDICT also remain unchanged.
+This composite methodology PASS is progress toward a preparable assurance instrument, not closure of Zorg's native-delivery dependency.
+
+## 5. Supporting measured identities and execution limits
+
+All values below were measured in this recheck.
+
+| Artifact | SHA-256 |
+|---|---|
+| `admission-lifetime-correction-r3.md` | `6ccf9ba0e7d94b83897fade8f865fe3fb1328db292d92cce4d5cc85bc28fc2f2` |
+| `admission-lifetime-correction-r4.md` | `082b2c704dfdc3338283f3733732388a15fbffec5d1f28bf78313bad884b97b4` |
+| `admission-lifetime-implementation-map.md` | `78e642dc8d4d56d08fdb4b0d8b2b98c3b13230378d3cb86d861b6d6c55b33a35` |
+| `docs/design/axioms.md` | `26564a9ac5678f296150e736de2ac0b0e0f43ae3429053e4c3c3cb0325b0c29b` |
+| `context-lab-extraction-defect-assessment.md` | `41817aea79a73472ff8d10b453874cad0de73649f0c2a9ac2a12be70f0a23cff` |
+| `CL/docs/OPERATIONS.md`, working file and committed evaluator-pin bytes | `66d782fb65776f6283b4eb179ac69a585a9920cd7f19f994153f2019a8f7f31e` |
+| CL admission diagnostic correction response | `8d365d9faf48c8ca00b58a9ec1b07b938776ed0f0b50f61f642af997c0db60dd` |
+| CL assurance compatibility correction response | `eb2383187cdf8d05ccf5da7b0f3e9dbca40d1ff63da7b7a839a974535b84d904` |
+| Historical judge job `admission-clarity.answer.answers.g.15.json` | `a7183070c0dac9f88c87a222182822c9900815284c252ad5c951c94ce8040544` |
+| Historical reader cell `admission-clarity.m42.g.1.json` | `e3f25304ab2baa0023b6d2b51da0fc01d1b2e758a26ac38cf8bdd72a57436516` |
+| Current M1 | `ca0a8e1f3d1c5ed0a5f5227017ab54fca238e9d58c863f4f1fd1889f308a6870` |
+| Current M2 | `7e87a13f75cc1705790cfab8fc52091623ef2e670d72dbe042b970d5e82462fe` |
+| Current M7 | `12c92b2090d84af4a9048d052a8e4c82c7802fb87cec79dcc74ef28691c71b92` |
+| Current E7 | `5249e22d12c9d27df4b37a772e23a9f9c8e59998912ef9fde8b800e0a212446f` |
+| Current E8 | `b5ee1f990433a07c5386572556a27383036228f63c81293fc8036ee1987b6c7d` |
+| Current C2 | `6661b8edafac8d0a7a521c65ddbfccf7e50d4fef060dd5792c3186fdab45edba` |
+
+The historical raw artifacts are under `docs/reviews/admission-lifetime-assurance-r4/records/2026-10-16-060526-admission-clarity/`, in `judging/` and `cells/` respectively.
+Their prompts/replies and absence fields were inspected read-only.
+No historical result was rescored.
+
+No files were created or edited.
+No tests, runtime execution, evaluator commands, qualification probes, experimental model/provider calls, network queries, owner contacts, delegation, commits or pushes occurred.
+Evaluator internals were not inspected.
+The boundary cases above are analytical reasoning only.
