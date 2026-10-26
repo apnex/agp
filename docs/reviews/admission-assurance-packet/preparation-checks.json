@@ -1,0 +1,238 @@
+{
+  "schema": "agp.admission-preparation-checks/1",
+  "date": "2026-10-26",
+  "claim": "Author model-free preparation evidence only; execution HOLD; no independent key verdict yet.",
+  "inputs": [
+    {
+      "path": "../admission-lifetime-correction-r3.md",
+      "sha256": "6ccf9ba0e7d94b83897fade8f865fe3fb1328db292d92cce4d5cc85bc28fc2f2"
+    },
+    {
+      "path": "../admission-lifetime-correction-r4.md",
+      "sha256": "082b2c704dfdc3338283f3733732388a15fbffec5d1f28bf78313bad884b97b4"
+    },
+    {
+      "path": "../admission-lifetime-implementation-map.md",
+      "sha256": "78e642dc8d4d56d08fdb4b0d8b2b98c3b13230378d3cb86d861b6d6c55b33a35"
+    },
+    {
+      "path": "../admission-lifetime-independent-review-r4.txt",
+      "sha256": "7f3b6b0e24acf55d7795e6ec7454724b678bc6359639c80c999d93a6c463b88c"
+    },
+    {
+      "path": "../admission-assurance-revised-route.md",
+      "sha256": "a6a42f8fff9cb467d164523b158d1d44253cc1c209979c7ac868b5add457592b"
+    },
+    {
+      "path": "../admission-assurance-route-amendment-01.md",
+      "sha256": "3c027a759e99d7f0419c7676a08ea853d0f9066d1a3be237ae04399639f8e018"
+    },
+    {
+      "path": "../admission-assurance-revised-route-review-01.txt",
+      "sha256": "47ac7cfaaade410422742341066168cf6240c66654b1ebc85d875a62b00220f8"
+    },
+    {
+      "path": "../admission-assurance-revised-route-recheck-02.txt",
+      "sha256": "74d3eab1acf1f075ff4f415c1c5cfc4fd8307f61166a74e1c50829e17ae8f5a6"
+    },
+    {
+      "path": "../admission-lifetime-approval-route.md",
+      "sha256": "d8aa583fba87f73c1fd0f322229337acb3dc74226b617db666376800350705f9"
+    }
+  ],
+  "originals": "Complete R3/R4 stay at their original repository paths and hashes; no old question or answer reused.",
+  "readings": [
+    {
+      "arm": "v17",
+      "revision": 3,
+      "sha256": "5e1f002dcd777fff6148dc1f31a8b227acfa9bb07db3836a02c4f4affa6e2435"
+    },
+    {
+      "arm": "k83",
+      "revision": 4,
+      "sha256": "4a18c65c146b9b931ed7184b9b6acfb7cdeeb3cde3114905512944b033cc5ec1"
+    }
+  ],
+  "localTests": {
+    "command": "node --test docs/reviews/admission-assurance-packet/admission-packet.test.mjs",
+    "passed": 15,
+    "failed": 0,
+    "log": "/tmp/agp-admission-packet.1ZAzJe/packet-tests-01.log"
+  },
+  "publicCheck": {
+    "command": "check docs/reviews/admission-assurance-packet",
+    "result": "clean; declared result but not preregistered",
+    "log": "/tmp/agp-admission-packet.1ZAzJe/pack-check.log"
+  },
+  "preview": {
+    "schema": "agp.admission-preview-checks/1",
+    "evaluator": "9b4641b05d50c1ce54ab6b9efa1b06820ae16a68",
+    "experimentalCalls": 0,
+    "reports": [
+      {
+        "name": "canonical",
+        "rawBytes": 4587,
+        "shape": {
+          "kind": "canonical-candidate",
+          "findings": []
+        },
+        "readers": 9,
+        "answers": 432,
+        "judgeJobs": 432,
+        "maxJudgePromptBytes": 129205,
+        "preview": "/tmp/agp-admission-packet.1ZAzJe/qualification-03/canonical/PREVIEW.json",
+        "sha256": "a79e3c81e76dcdd241ce4b66c42f563a62460a387f027cf62e969a14b58b3bd7",
+        "disposition": "model-free checks passed, not live qualification"
+      },
+      {
+        "name": "volume",
+        "rawBytes": 53588,
+        "shape": {
+          "kind": "canonical-candidate",
+          "findings": []
+        },
+        "readers": 9,
+        "answers": 432,
+        "judgeJobs": 432,
+        "maxJudgePromptBytes": 178018,
+        "preview": "/tmp/agp-admission-packet.1ZAzJe/qualification-03/volume/PREVIEW.json",
+        "sha256": "07049ba5fe4613a801f001b626c9bee1629eaa78bf3cb364aad147bbd3c02435",
+        "disposition": "model-free checks passed, not live qualification"
+      },
+      {
+        "name": "nested",
+        "rawBytes": 4598,
+        "shape": {
+          "kind": "noncanonical",
+          "findings": [
+            "heading-sequence"
+          ]
+        },
+        "readers": 3,
+        "answers": 144,
+        "judgeJobs": 0,
+        "maxJudgePromptBytes": 0,
+        "preview": "/tmp/agp-admission-packet.1ZAzJe/qualification-03/nested/PREVIEW.json",
+        "sha256": "2aca731bc321573a8658f4da64938434077580777af5c7b9a6853743645b5b54",
+        "disposition": "reject or NO VERDICT; never reconstruct answers or credit absence"
+      },
+      {
+        "name": "duplicate",
+        "rawBytes": 4628,
+        "shape": {
+          "kind": "noncanonical",
+          "findings": [
+            "heading-sequence",
+            "answer-labels:Q01"
+          ]
+        },
+        "readers": 3,
+        "answers": 144,
+        "judgeJobs": 0,
+        "maxJudgePromptBytes": 0,
+        "preview": "/tmp/agp-admission-packet.1ZAzJe/qualification-03/duplicate/PREVIEW.json",
+        "sha256": "255a7889ae24118053f8f37c1c6e5248eb608860414e9b2b48f6ee12024da739",
+        "disposition": "reject or NO VERDICT; never reconstruct answers or credit absence"
+      },
+      {
+        "name": "fenced",
+        "rawBytes": 4607,
+        "shape": {
+          "kind": "noncanonical",
+          "findings": [
+            "heading-sequence",
+            "fenced-block",
+            "answer-labels:Q02"
+          ]
+        },
+        "readers": 3,
+        "answers": 144,
+        "judgeJobs": 0,
+        "maxJudgePromptBytes": 0,
+        "preview": "/tmp/agp-admission-packet.1ZAzJe/qualification-03/fenced/PREVIEW.json",
+        "sha256": "aa2a55a089f31934369a2ce56ee3c7a8458dd4c280693284069e2b7d461d6c40",
+        "disposition": "reject or NO VERDICT; never reconstruct answers or credit absence"
+      },
+      {
+        "name": "missing",
+        "rawBytes": 4579,
+        "shape": {
+          "kind": "noncanonical",
+          "findings": [
+            "heading-sequence",
+            "answer-labels:Q01"
+          ]
+        },
+        "readers": 3,
+        "answers": 144,
+        "judgeJobs": 0,
+        "maxJudgePromptBytes": 0,
+        "preview": "/tmp/agp-admission-packet.1ZAzJe/qualification-03/missing/PREVIEW.json",
+        "sha256": "4ac2a4b454644ccd36fb62c1991d58b47764b8edced2e4c3647b6431314049c5",
+        "disposition": "reject or NO VERDICT; never reconstruct answers or credit absence"
+      },
+      {
+        "name": "empty-section",
+        "rawBytes": 4408,
+        "shape": {
+          "kind": "canonical-candidate",
+          "findings": []
+        },
+        "readers": 3,
+        "answers": 144,
+        "judgeJobs": 0,
+        "maxJudgePromptBytes": 0,
+        "preview": "/tmp/agp-admission-packet.1ZAzJe/qualification-03/empty-section/PREVIEW.json",
+        "sha256": "483e16814d48c2c15d95fa65fee56b3c172f1fd0f83ccfdc8368aa217df0a23d",
+        "disposition": "synthetic proved absence only; real absence still needs complete evidence"
+      },
+      {
+        "name": "whole-empty",
+        "rawBytes": 0,
+        "shape": {
+          "kind": "whole-empty",
+          "findings": []
+        },
+        "readers": 3,
+        "answers": 144,
+        "judgeJobs": 0,
+        "maxJudgePromptBytes": 0,
+        "preview": "/tmp/agp-admission-packet.1ZAzJe/qualification-03/whole-empty/PREVIEW.json",
+        "sha256": "c18edaa2daba393b4b4cb031be68fbff30558435d13dd0a181be880d2a533ca4",
+        "disposition": "synthetic proved absence only; real absence still needs complete evidence"
+      },
+      {
+        "name": "utf8-bound",
+        "rawBytes": 124594,
+        "shape": {
+          "kind": "canonical-candidate",
+          "findings": []
+        },
+        "readers": 9,
+        "answers": 432,
+        "judgeJobs": 18,
+        "maxJudgePromptBytes": 311829,
+        "preview": "/tmp/agp-admission-packet.1ZAzJe/qualification-03/utf8-bound/PREVIEW.json",
+        "sha256": "27526e115a70d587b07cfd49b9227a727e1ce0cb5ba507379160dec29fbf4c51",
+        "disposition": "reject or NO VERDICT; never reconstruct answers or credit absence"
+      }
+    ]
+  },
+  "retainedAuthorCorrections": [
+    {
+      "artifact": "/tmp/agp-admission-packet.1ZAzJe/qualification-01.log",
+      "finding": "Author assertion expected numeric reading bytes for no-document arm; public preview reports null. Corrected author checker, not evaluator or scoring."
+    },
+    {
+      "artifact": "/tmp/agp-admission-packet.1ZAzJe/qualification-02/qualification.json",
+      "finding": "Single-member selection removes other-family judge jobs; extraction checks were useful but volume/judgment and UTF-8 judge assertions were insufficient. Qualification 03 runs all families for canonical/volume/UTF-8 and asserts nonempty jobs."
+    }
+  ],
+  "limits": [
+    "Nine fixtures are model-free transformations, not live runtime/model/isolation tests.",
+    "Nested/fenced/duplicate/missing cases remain rejection/NO VERDICT; known B26/B27 provenance defects are not claimed fixed.",
+    "UTF-8 invalid reply produces a 311829-byte maximum public judge prompt, exceeding the proposed 262144-byte input request; supported enforcement/bounds must be resolved before execution.",
+    "Every full raw generated response and public preview remains at named temporary paths; these local paths are not a portable or durable published evidence archive.",
+    "No actual experimental reader, judge, provider or probe invoked."
+  ]
+}

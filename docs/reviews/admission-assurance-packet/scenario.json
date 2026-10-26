@@ -1,0 +1,779 @@
+{
+  "id": "admission-decisions",
+  "tags": [
+    "admission-decisions"
+  ],
+  "fixture": null,
+  "answerSource": "final",
+  "task": "Answer every question below using the common response grammar. These are static design-comprehension questions, not instructions to execute anything.\n\n### Q01\nAssign the owners for policy execution, admission-token legality, unfinished-work capacity and numeric terminal replacement. May either policy port run application callbacks inside the serialized commit, and does this design bound every allocation made by a provider?\n\n### Q02\nA timely identity allow and a timely complete route decision arrive with current authority. State the normal identity path, the effect of an explicit policy refusal, and what must become committed before a route ACK is allowed.\n\n### Q03\nWhat authorizes the first provider call, and what authorizes each eventual success, rejection, thrown/invalid result or expiry to affect a session? Include a stopped host and a replaced controller in your answer.\n\n### Q04\nCompare three reservations: a permit revoked before invocation, an invoked promise still pending after session cleanup, and a fulfilled result waiting for serialized application. When may each slot be returned, and what may a late observer retain?\n\n### Q05\nA continuation drain yields with older commands still queued and a fresh ordinary command arrives. Where does it go? Specify the barrier-opening condition and how ownership of the head packet changes if dispatch starts another admission.\n\n### Q06\nWhile policy is pending, distinguish an ordinary KEEPALIVE or peer-credit-bearing packet from fatal notification, invalid input and transport terminal. May the runtime use another reader to finish cleanup or treat returned receive-ring capacity as free continuation storage?\n\n### Q07\nA snapshot includes statically rejected routes and policy-eligible tuples; unrelated sessions change RIB occupancy while evaluation runs. Describe the two validation points and the atomic application boundary.\n\n### Q08\nA non-admission operations publication exhausts its numeric domain after a route result has been prepared. Can the caller install its ordinary mutation or dispatch its queued intents? Describe the required handoff and its integration scope.\n\n### Q09\nAt numeric terminal replacement, one uninvoked reservation is disposable and another evaluation has not settled. What appears in focused and aggregate captures now and after that evaluation is privately disposed?\n\n### Q10\nIdentity admission finishes while the connection is still confirming and hold is disabled. Which opening bound remains active, when does it stop, and how should oversized delays or stale timer callbacks be handled?\n\n### Q11\nIdentity work fills its pool while an established peer needs route policy. What bounds apply, what is reported when a local evaluation cannot reserve, and can a remote rejection establish that a local pool is exhausted?\n\n### Q12\nAn initially configured adjacency has reconnect disabled and identity capacity is unavailable. Separately, consider a repeat-eligible adjacency whose backoff is running when capacity is released. What state, timer, attempt and wake ownership are permitted in each case?\n\n### Q13\nAn inbound winner in OpenConfirm satisfies an adjacency that has accumulated failed retries. Then that winner is lost before establishment. Describe retry history, ownership/projection and the point at which a later success may reset history.\n\n### Q14\nA consumer has existing one-argument identity and route providers and a bounded wrapper. What migration does the proposed shared cancellation capability require, what does its signal govern, and where must it not appear?\n\n### Q15\nState the proposed admission timeout and queue/work-pool default sources, the validation domain and effective-configuration duty. Which coordinated public artifacts change for capacity refusal and queue overflow, and what scale claim follows from the defaults?\n\n### Q16\nA current route result is applied exactly at its admission deadline, before its timer callback runs. What transition is taken now, what happens to result effects and the later timer, and how does an early timer wake differ?\n\n### Q17\nBoth identity-admission and outer OPEN deadlines have elapsed before either callback is processed. How is the cause selected if one deadline was earlier or they were equal? What if OPEN is already elapsed immediately before provider invocation?\n\n### Q18\nA timely result plan obtains preflight, but its bound expires before the final guard. Preparing the expiry transition then discovers numeric exhaustion. Identify which plans and permits survive and whether any ordinary result or expiry publication occurs.\n\n### Q19\nA terminal notification is queued behind another send. Which configuration and anchor supply the total cleanup interval, do later phases obtain fresh time, and what changes for deployments accustomed to a full write allowance followed by a full close allowance?\n\n### Q20\nGraceful close has resolved but the reader has not observed transport terminal. An early cleanup wake is followed by numeric node failure and then a late per-send timeout. Specify deadline ownership, forcing behavior and what those continuations may change.\n\n### Q21\nStatic filtering leaves no policy-eligible route. For a still-authorized reserved action, is a call required and what result is valid? Contrast a malformed current result, explicit route denial and insufficient final RIB capacity.\n\n### Q22\nA terminal cause other than queue overflow wins while the continuation FIFO holds KEEPALIVE, credit-bearing data and a command that would start policy work. What becomes of these inputs and their reservations, and what still has to be read?\n\n### Q23\nAfter ordinary stop, an evaluation settles and its retained work is disposed; then a query is repeated. Contrast revision and capture-time behavior with the same disposal and queries after numeric terminal replacement.\n\n### Q24\nWrite the recommended process-local evaluation-options shape and describe whether each of an omitted second argument, an empty options object, or a signal intended to close an established session fits it. Which compatibility evidence is required before adopting that recommendation?\n\n### OBSERVATIONS\nRecord conflicts, missing authority and implementation ambiguities not already covered; say NONE if none. Keep observations separate from the scored decisions.",
+  "properties": [
+    {
+      "id": "q01-d",
+      "type": "comprehension",
+      "decidedBy": "judge",
+      "answerHeading": "Q01",
+      "question": "Assign the owners for policy execution, admission-token legality, unfinished-work capacity and numeric terminal replacement. May either policy port run application callbacks inside the serialized commit, and does this design bound every allocation made by a provider?",
+      "key": "1. Core FSM owns legal transitions/tokens; session controller owns exact admission effects; provider owns policy work.\n2. Node work ledger owns evaluation reservations; node commit coordinator owns live runtime terminal replacement, with core store supplying numeric preflight and immutable capture.\n3. Provider execution, result normalization involving application code and abort-event delivery stay outside the executor.\n4. Counts bound AGP evaluations/retained logical inputs, not arbitrary provider allocations or CPU; host isolation remains external.",
+      "scale": [
+        0,
+        1
+      ],
+      "rubric": "Decision correctness only: 1 iff every numbered required decision is explicit, complete and correct; 0 if any required decision is wrong, omitted or uncertain. Ignore citations, grounding and document availability. Accurate proposed/not-adopted or intended-scope qualifications do not turn a correct decision into uncertainty. Do not add unasked requirements. Explain each missing/wrong decision.",
+      "judgedWith": [
+        "delivered"
+      ]
+    },
+    {
+      "id": "q01-g",
+      "type": "comprehension",
+      "decidedBy": "judge",
+      "answerHeading": "Q01",
+      "question": "Assign the owners for policy execution, admission-token legality, unfinished-work capacity and numeric terminal replacement. May either policy port run application callbacks inside the serialized commit, and does this design bound every allocation made by a provider?",
+      "key": "1. Core FSM owns legal transitions/tokens; session controller owns exact admission effects; provider owns policy work.\n2. Node work ledger owns evaluation reservations; node commit coordinator owns live runtime terminal replacement, with core store supplying numeric preflight and immutable capture.\n3. Provider execution, result normalization involving application code and abort-event delivery stay outside the executor.\n4. Counts bound AGP evaluations/retained logical inputs, not arbitrary provider allocations or CPU; host isolation remains external.",
+      "scale": [
+        0,
+        2
+      ],
+      "rubric": "Grounded usability only: 2 iff all numbered decisions are complete/correct and supported by valid supplied-text premises (logical derivation from multiple premises allowed); 1 for safe but incomplete/uncertain/unsupported decisions; 0 for wrong/unsafe decisions or demonstrated absence. Proposal-status qualifications are not uncertainty. Missing text must not be invented. A quote match alone does not establish entailment. Give concrete reasons, not tags alone.",
+      "judgedWith": [
+        "delivered"
+      ]
+    },
+    {
+      "id": "q02-d",
+      "type": "comprehension",
+      "decidedBy": "judge",
+      "answerHeading": "Q02",
+      "question": "A timely identity allow and a timely complete route decision arrive with current authority. State the normal identity path, the effect of an explicit policy refusal, and what must become committed before a route ACK is allowed.",
+      "key": "1. Identity allow retains normal collision/confirmation rules, not immediate unconditional establishment.\n2. Identity deny remains policy refusal; explicit per-route deny is nonfatal policy rejection.\n3. Complete surviving routes, rejection decisions and inbound revision install atomically before one ACK has authority.",
+      "scale": [
+        0,
+        1
+      ],
+      "rubric": "Decision correctness only: 1 iff every numbered required decision is explicit, complete and correct; 0 if any required decision is wrong, omitted or uncertain. Ignore citations, grounding and document availability. Accurate proposed/not-adopted or intended-scope qualifications do not turn a correct decision into uncertainty. Do not add unasked requirements. Explain each missing/wrong decision.",
+      "judgedWith": [
+        "delivered"
+      ]
+    },
+    {
+      "id": "q02-g",
+      "type": "comprehension",
+      "decidedBy": "judge",
+      "answerHeading": "Q02",
+      "question": "A timely identity allow and a timely complete route decision arrive with current authority. State the normal identity path, the effect of an explicit policy refusal, and what must become committed before a route ACK is allowed.",
+      "key": "1. Identity allow retains normal collision/confirmation rules, not immediate unconditional establishment.\n2. Identity deny remains policy refusal; explicit per-route deny is nonfatal policy rejection.\n3. Complete surviving routes, rejection decisions and inbound revision install atomically before one ACK has authority.",
+      "scale": [
+        0,
+        2
+      ],
+      "rubric": "Grounded usability only: 2 iff all numbered decisions are complete/correct and supported by valid supplied-text premises (logical derivation from multiple premises allowed); 1 for safe but incomplete/uncertain/unsupported decisions; 0 for wrong/unsafe decisions or demonstrated absence. Proposal-status qualifications are not uncertainty. Missing text must not be invented. A quote match alone does not establish entailment. Give concrete reasons, not tags alone.",
+      "judgedWith": [
+        "delivered"
+      ]
+    },
+    {
+      "id": "q03-d",
+      "type": "comprehension",
+      "decidedBy": "judge",
+      "answerHeading": "Q03",
+      "question": "What authorizes the first provider call, and what authorizes each eventual success, rejection, thrown/invalid result or expiry to affect a session? Include a stopped host and a replaced controller in your answer.",
+      "key": "1. Only an accepted still-current BeginIdentityAdmission/BeginRouteAdmission action with reserved capacity and valid invocation permit starts the provider.\n2. Immediately before invocation recheck authority/deadlines with no asynchronous gap.\n3. Before any completion effect check runtime gate, exact controller/incarnation, kind, token and deadline; success/fault/expiry all require exact authority.\n4. Stopping/Stopped/Failed or replaced/stale owners prevent effects; reducer token guards are defense in depth, not permission for earlier side effects.",
+      "scale": [
+        0,
+        1
+      ],
+      "rubric": "Decision correctness only: 1 iff every numbered required decision is explicit, complete and correct; 0 if any required decision is wrong, omitted or uncertain. Ignore citations, grounding and document availability. Accurate proposed/not-adopted or intended-scope qualifications do not turn a correct decision into uncertainty. Do not add unasked requirements. Explain each missing/wrong decision.",
+      "judgedWith": [
+        "delivered"
+      ]
+    },
+    {
+      "id": "q03-g",
+      "type": "comprehension",
+      "decidedBy": "judge",
+      "answerHeading": "Q03",
+      "question": "What authorizes the first provider call, and what authorizes each eventual success, rejection, thrown/invalid result or expiry to affect a session? Include a stopped host and a replaced controller in your answer.",
+      "key": "1. Only an accepted still-current BeginIdentityAdmission/BeginRouteAdmission action with reserved capacity and valid invocation permit starts the provider.\n2. Immediately before invocation recheck authority/deadlines with no asynchronous gap.\n3. Before any completion effect check runtime gate, exact controller/incarnation, kind, token and deadline; success/fault/expiry all require exact authority.\n4. Stopping/Stopped/Failed or replaced/stale owners prevent effects; reducer token guards are defense in depth, not permission for earlier side effects.",
+      "scale": [
+        0,
+        2
+      ],
+      "rubric": "Grounded usability only: 2 iff all numbered decisions are complete/correct and supported by valid supplied-text premises (logical derivation from multiple premises allowed); 1 for safe but incomplete/uncertain/unsupported decisions; 0 for wrong/unsafe decisions or demonstrated absence. Proposal-status qualifications are not uncertainty. Missing text must not be invented. A quote match alone does not establish entailment. Give concrete reasons, not tags alone.",
+      "judgedWith": [
+        "delivered"
+      ]
+    },
+    {
+      "id": "q04-d",
+      "type": "comprehension",
+      "decidedBy": "judge",
+      "answerHeading": "Q04",
+      "question": "Compare three reservations: a permit revoked before invocation, an invoked promise still pending after session cleanup, and a fulfilled result waiting for serialized application. When may each slot be returned, and what may a late observer retain?",
+      "key": "1. Uninvoked revoked permit may release immediately.\n2. Invoked unsettled work retains its reservation despite timeout, cancellation request or connection removal.\n3. Settled result waiting for application/disposal still retains capacity; release exactly once only after actual disposal.\n4. Detach session-effect target on revocation; late observer retains bounded accounting/disposal state, not controller/channel authority or a closure retaining them.",
+      "scale": [
+        0,
+        1
+      ],
+      "rubric": "Decision correctness only: 1 iff every numbered required decision is explicit, complete and correct; 0 if any required decision is wrong, omitted or uncertain. Ignore citations, grounding and document availability. Accurate proposed/not-adopted or intended-scope qualifications do not turn a correct decision into uncertainty. Do not add unasked requirements. Explain each missing/wrong decision.",
+      "judgedWith": [
+        "delivered"
+      ]
+    },
+    {
+      "id": "q04-g",
+      "type": "comprehension",
+      "decidedBy": "judge",
+      "answerHeading": "Q04",
+      "question": "Compare three reservations: a permit revoked before invocation, an invoked promise still pending after session cleanup, and a fulfilled result waiting for serialized application. When may each slot be returned, and what may a late observer retain?",
+      "key": "1. Uninvoked revoked permit may release immediately.\n2. Invoked unsettled work retains its reservation despite timeout, cancellation request or connection removal.\n3. Settled result waiting for application/disposal still retains capacity; release exactly once only after actual disposal.\n4. Detach session-effect target on revocation; late observer retains bounded accounting/disposal state, not controller/channel authority or a closure retaining them.",
+      "scale": [
+        0,
+        2
+      ],
+      "rubric": "Grounded usability only: 2 iff all numbered decisions are complete/correct and supported by valid supplied-text premises (logical derivation from multiple premises allowed); 1 for safe but incomplete/uncertain/unsupported decisions; 0 for wrong/unsafe decisions or demonstrated absence. Proposal-status qualifications are not uncertainty. Missing text must not be invented. A quote match alone does not establish entailment. Give concrete reasons, not tags alone.",
+      "judgedWith": [
+        "delivered"
+      ]
+    },
+    {
+      "id": "q05-d",
+      "type": "comprehension",
+      "decidedBy": "judge",
+      "answerHeading": "Q05",
+      "question": "A continuation drain yields with older commands still queued and a fresh ordinary command arrives. Where does it go? Specify the barrier-opening condition and how ownership of the head packet changes if dispatch starts another admission.",
+      "key": "1. Arrival joins same bounded FIFO, never bypasses backlog during drain yields.\n2. Barrier opens only in serialized turn observing no pending admission, no queued command and no scheduled/in-progress drain.\n3. Keep head reservation during synchronous preparation; dequeue only after disposal or transfer to another bounded owner, including a reserved evaluation.\n4. At most one admission and one drain task per controller; a new admission pauses draining; count and original-byte bounds both apply.",
+      "scale": [
+        0,
+        1
+      ],
+      "rubric": "Decision correctness only: 1 iff every numbered required decision is explicit, complete and correct; 0 if any required decision is wrong, omitted or uncertain. Ignore citations, grounding and document availability. Accurate proposed/not-adopted or intended-scope qualifications do not turn a correct decision into uncertainty. Do not add unasked requirements. Explain each missing/wrong decision.",
+      "judgedWith": [
+        "delivered"
+      ]
+    },
+    {
+      "id": "q05-g",
+      "type": "comprehension",
+      "decidedBy": "judge",
+      "answerHeading": "Q05",
+      "question": "A continuation drain yields with older commands still queued and a fresh ordinary command arrives. Where does it go? Specify the barrier-opening condition and how ownership of the head packet changes if dispatch starts another admission.",
+      "key": "1. Arrival joins same bounded FIFO, never bypasses backlog during drain yields.\n2. Barrier opens only in serialized turn observing no pending admission, no queued command and no scheduled/in-progress drain.\n3. Keep head reservation during synchronous preparation; dequeue only after disposal or transfer to another bounded owner, including a reserved evaluation.\n4. At most one admission and one drain task per controller; a new admission pauses draining; count and original-byte bounds both apply.",
+      "scale": [
+        0,
+        2
+      ],
+      "rubric": "Grounded usability only: 2 iff all numbered decisions are complete/correct and supported by valid supplied-text premises (logical derivation from multiple premises allowed); 1 for safe but incomplete/uncertain/unsupported decisions; 0 for wrong/unsafe decisions or demonstrated absence. Proposal-status qualifications are not uncertainty. Missing text must not be invented. A quote match alone does not establish entailment. Give concrete reasons, not tags alone.",
+      "judgedWith": [
+        "delivered"
+      ]
+    },
+    {
+      "id": "q06-d",
+      "type": "comprehension",
+      "decidedBy": "judge",
+      "answerHeading": "Q06",
+      "question": "While policy is pending, distinguish an ordinary KEEPALIVE or peer-credit-bearing packet from fatal notification, invalid input and transport terminal. May the runtime use another reader to finish cleanup or treat returned receive-ring capacity as free continuation storage?",
+      "key": "1. Ordinary commands queue with no hold refresh, credit grant or protocol effect before ordered dispatch.\n2. Fatal/invalid/transport terminal bypass semantic barrier through one terminal disposition, retaining already-observed transport evidence.\n3. Sole reader drains accepted FIFO through terminal without semantic effects after logical release; no replacement reader or early read cancellation.\n4. Receive-ring capacity and continuation reservations are distinct; returning one cannot refund the other.",
+      "scale": [
+        0,
+        1
+      ],
+      "rubric": "Decision correctness only: 1 iff every numbered required decision is explicit, complete and correct; 0 if any required decision is wrong, omitted or uncertain. Ignore citations, grounding and document availability. Accurate proposed/not-adopted or intended-scope qualifications do not turn a correct decision into uncertainty. Do not add unasked requirements. Explain each missing/wrong decision.",
+      "judgedWith": [
+        "delivered"
+      ]
+    },
+    {
+      "id": "q06-g",
+      "type": "comprehension",
+      "decidedBy": "judge",
+      "answerHeading": "Q06",
+      "question": "While policy is pending, distinguish an ordinary KEEPALIVE or peer-credit-bearing packet from fatal notification, invalid input and transport terminal. May the runtime use another reader to finish cleanup or treat returned receive-ring capacity as free continuation storage?",
+      "key": "1. Ordinary commands queue with no hold refresh, credit grant or protocol effect before ordered dispatch.\n2. Fatal/invalid/transport terminal bypass semantic barrier through one terminal disposition, retaining already-observed transport evidence.\n3. Sole reader drains accepted FIFO through terminal without semantic effects after logical release; no replacement reader or early read cancellation.\n4. Receive-ring capacity and continuation reservations are distinct; returning one cannot refund the other.",
+      "scale": [
+        0,
+        2
+      ],
+      "rubric": "Grounded usability only: 2 iff all numbered decisions are complete/correct and supported by valid supplied-text premises (logical derivation from multiple premises allowed); 1 for safe but incomplete/uncertain/unsupported decisions; 0 for wrong/unsafe decisions or demonstrated absence. Proposal-status qualifications are not uncertainty. Missing text must not be invented. A quote match alone does not establish entailment. Give concrete reasons, not tags alone.",
+      "judgedWith": [
+        "delivered"
+      ]
+    },
+    {
+      "id": "q07-d",
+      "type": "comprehension",
+      "decidedBy": "judge",
+      "answerHeading": "Q07",
+      "question": "A snapshot includes statically rejected routes and policy-eligible tuples; unrelated sessions change RIB occupancy while evaluation runs. Describe the two validation points and the atomic application boundary.",
+      "key": "1. Before policy, validate envelope/exact next revision/canonical snapshot, preserve static LOOP/PATH_TOO_LONG rejections and construct immutable eligible subset.\n2. Validate exactly one decision per eligible tuple, including no extra/missing/duplicate decisions; do not require decisions for statically rejected routes.\n3. Compute available RIB capacity at final serialized commit, not from a stale earlier reservation.\n4. No partial controller revision/RIB mutation; prepare complete result and commit surviving routes, rejection list and consumed revision before ACK.",
+      "scale": [
+        0,
+        1
+      ],
+      "rubric": "Decision correctness only: 1 iff every numbered required decision is explicit, complete and correct; 0 if any required decision is wrong, omitted or uncertain. Ignore citations, grounding and document availability. Accurate proposed/not-adopted or intended-scope qualifications do not turn a correct decision into uncertainty. Do not add unasked requirements. Explain each missing/wrong decision.",
+      "judgedWith": [
+        "delivered"
+      ]
+    },
+    {
+      "id": "q07-g",
+      "type": "comprehension",
+      "decidedBy": "judge",
+      "answerHeading": "Q07",
+      "question": "A snapshot includes statically rejected routes and policy-eligible tuples; unrelated sessions change RIB occupancy while evaluation runs. Describe the two validation points and the atomic application boundary.",
+      "key": "1. Before policy, validate envelope/exact next revision/canonical snapshot, preserve static LOOP/PATH_TOO_LONG rejections and construct immutable eligible subset.\n2. Validate exactly one decision per eligible tuple, including no extra/missing/duplicate decisions; do not require decisions for statically rejected routes.\n3. Compute available RIB capacity at final serialized commit, not from a stale earlier reservation.\n4. No partial controller revision/RIB mutation; prepare complete result and commit surviving routes, rejection list and consumed revision before ACK.",
+      "scale": [
+        0,
+        2
+      ],
+      "rubric": "Grounded usability only: 2 iff all numbered decisions are complete/correct and supported by valid supplied-text premises (logical derivation from multiple premises allowed); 1 for safe but incomplete/uncertain/unsupported decisions; 0 for wrong/unsafe decisions or demonstrated absence. Proposal-status qualifications are not uncertainty. Missing text must not be invented. A quote match alone does not establish entailment. Give concrete reasons, not tags alone.",
+      "judgedWith": [
+        "delivered"
+      ]
+    },
+    {
+      "id": "q08-d",
+      "type": "comprehension",
+      "decidedBy": "judge",
+      "answerHeading": "Q08",
+      "question": "A non-admission operations publication exhausts its numeric domain after a route result has been prepared. Can the caller install its ordinary mutation or dispatch its queued intents? Describe the required handoff and its integration scope.",
+      "key": "1. All live runtime publications, not only admission, pass through node-owned prepared transaction/preflight/final guard.\n2. Numeric exhaustion discards ordinary plan and returns replaced-by-terminal, not committed authority; no ordinary identity/collision/RIB/revision/ACK/export effect from rejected transaction.\n3. Close runtime gate/generation, detach effect authority and invalidate admission/acquisition/supervisor permits before terminal capture; external cleanup follows outside executor.\n4. Inventory all publications and pre/post-publication callers; store-only receipt wrapper, mutation then rollback or nested publication is insufficient.",
+      "scale": [
+        0,
+        1
+      ],
+      "rubric": "Decision correctness only: 1 iff every numbered required decision is explicit, complete and correct; 0 if any required decision is wrong, omitted or uncertain. Ignore citations, grounding and document availability. Accurate proposed/not-adopted or intended-scope qualifications do not turn a correct decision into uncertainty. Do not add unasked requirements. Explain each missing/wrong decision.",
+      "judgedWith": [
+        "delivered"
+      ]
+    },
+    {
+      "id": "q08-g",
+      "type": "comprehension",
+      "decidedBy": "judge",
+      "answerHeading": "Q08",
+      "question": "A non-admission operations publication exhausts its numeric domain after a route result has been prepared. Can the caller install its ordinary mutation or dispatch its queued intents? Describe the required handoff and its integration scope.",
+      "key": "1. All live runtime publications, not only admission, pass through node-owned prepared transaction/preflight/final guard.\n2. Numeric exhaustion discards ordinary plan and returns replaced-by-terminal, not committed authority; no ordinary identity/collision/RIB/revision/ACK/export effect from rejected transaction.\n3. Close runtime gate/generation, detach effect authority and invalidate admission/acquisition/supervisor permits before terminal capture; external cleanup follows outside executor.\n4. Inventory all publications and pre/post-publication callers; store-only receipt wrapper, mutation then rollback or nested publication is insufficient.",
+      "scale": [
+        0,
+        2
+      ],
+      "rubric": "Grounded usability only: 2 iff all numbered decisions are complete/correct and supported by valid supplied-text premises (logical derivation from multiple premises allowed); 1 for safe but incomplete/uncertain/unsupported decisions; 0 for wrong/unsafe decisions or demonstrated absence. Proposal-status qualifications are not uncertainty. Missing text must not be invented. A quote match alone does not establish entailment. Give concrete reasons, not tags alone.",
+      "judgedWith": [
+        "delivered"
+      ]
+    },
+    {
+      "id": "q09-d",
+      "type": "comprehension",
+      "decidedBy": "judge",
+      "answerHeading": "Q09",
+      "question": "At numeric terminal replacement, one uninvoked reservation is disposable and another evaluation has not settled. What appears in focused and aggregate captures now and after that evaluation is privately disposed?",
+      "key": "1. Detach live authorities and release only uninvoked/actually disposable work; retain unresolved evaluation reservation in truthful terminal resource counts.\n2. Adjacency/connection/routing projections become empty but resource counts do not falsely become zero.\n3. Freeze revision, values and capturedAt together; focused/aggregate queries keep same terminal capture.\n4. Later private disposal cannot publish new revision/event/counter, refresh capture time, restore authority or schedule retry; counts are last-known, not live release proof.",
+      "scale": [
+        0,
+        1
+      ],
+      "rubric": "Decision correctness only: 1 iff every numbered required decision is explicit, complete and correct; 0 if any required decision is wrong, omitted or uncertain. Ignore citations, grounding and document availability. Accurate proposed/not-adopted or intended-scope qualifications do not turn a correct decision into uncertainty. Do not add unasked requirements. Explain each missing/wrong decision.",
+      "judgedWith": [
+        "delivered"
+      ]
+    },
+    {
+      "id": "q09-g",
+      "type": "comprehension",
+      "decidedBy": "judge",
+      "answerHeading": "Q09",
+      "question": "At numeric terminal replacement, one uninvoked reservation is disposable and another evaluation has not settled. What appears in focused and aggregate captures now and after that evaluation is privately disposed?",
+      "key": "1. Detach live authorities and release only uninvoked/actually disposable work; retain unresolved evaluation reservation in truthful terminal resource counts.\n2. Adjacency/connection/routing projections become empty but resource counts do not falsely become zero.\n3. Freeze revision, values and capturedAt together; focused/aggregate queries keep same terminal capture.\n4. Later private disposal cannot publish new revision/event/counter, refresh capture time, restore authority or schedule retry; counts are last-known, not live release proof.",
+      "scale": [
+        0,
+        2
+      ],
+      "rubric": "Grounded usability only: 2 iff all numbered decisions are complete/correct and supported by valid supplied-text premises (logical derivation from multiple premises allowed); 1 for safe but incomplete/uncertain/unsupported decisions; 0 for wrong/unsafe decisions or demonstrated absence. Proposal-status qualifications are not uncertainty. Missing text must not be invented. A quote match alone does not establish entailment. Give concrete reasons, not tags alone.",
+      "judgedWith": [
+        "delivered"
+      ]
+    },
+    {
+      "id": "q10-d",
+      "type": "comprehension",
+      "decidedBy": "judge",
+      "answerHeading": "Q10",
+      "question": "Identity admission finishes while the connection is still confirming and hold is disabled. Which opening bound remains active, when does it stop, and how should oversized delays or stale timer callbacks be handled?",
+      "key": "1. OPEN timer remains through OpenConfirm until Established or teardown; identity success and zero hold do not cancel it.\n2. Monotonic elapsed time/deadlines govern invocation and commit; callback timing alone cannot establish validity.\n3. Use tokened generations, chunk oversized host delays and round positive fractional remainders upward; cancellation alone is not stale-generation protection.",
+      "scale": [
+        0,
+        1
+      ],
+      "rubric": "Decision correctness only: 1 iff every numbered required decision is explicit, complete and correct; 0 if any required decision is wrong, omitted or uncertain. Ignore citations, grounding and document availability. Accurate proposed/not-adopted or intended-scope qualifications do not turn a correct decision into uncertainty. Do not add unasked requirements. Explain each missing/wrong decision.",
+      "judgedWith": [
+        "delivered"
+      ]
+    },
+    {
+      "id": "q10-g",
+      "type": "comprehension",
+      "decidedBy": "judge",
+      "answerHeading": "Q10",
+      "question": "Identity admission finishes while the connection is still confirming and hold is disabled. Which opening bound remains active, when does it stop, and how should oversized delays or stale timer callbacks be handled?",
+      "key": "1. OPEN timer remains through OpenConfirm until Established or teardown; identity success and zero hold do not cancel it.\n2. Monotonic elapsed time/deadlines govern invocation and commit; callback timing alone cannot establish validity.\n3. Use tokened generations, chunk oversized host delays and round positive fractional remainders upward; cancellation alone is not stale-generation protection.",
+      "scale": [
+        0,
+        2
+      ],
+      "rubric": "Grounded usability only: 2 iff all numbered decisions are complete/correct and supported by valid supplied-text premises (logical derivation from multiple premises allowed); 1 for safe but incomplete/uncertain/unsupported decisions; 0 for wrong/unsafe decisions or demonstrated absence. Proposal-status qualifications are not uncertainty. Missing text must not be invented. A quote match alone does not establish entailment. Give concrete reasons, not tags alone.",
+      "judgedWith": [
+        "delivered"
+      ]
+    },
+    {
+      "id": "q11-d",
+      "type": "comprehension",
+      "decidedBy": "judge",
+      "answerHeading": "Q11",
+      "question": "Identity work fills its pool while an established peer needs route policy. What bounds apply, what is reported when a local evaluation cannot reserve, and can a remote rejection establish that a local pool is exhausted?",
+      "key": "1. Separate node-wide finite identity and route pools; identity pressure cannot take route slots; current and revoked-unsettled work count.\n2. Refuse before provider invocation via exact-current AdmissionCapacityExceeded, not policy denial/provider fault; retain refusing local pool for supervisor eligibility.\n3. Safe notification uses existing INTERNAL_ERROR and existing configured-dial reconnect disposition; accepted controllers do not gain retries.\n4. Remote refusal does not prove local capacity or add a local refusing pool; never-settling work keeps its slot.",
+      "scale": [
+        0,
+        1
+      ],
+      "rubric": "Decision correctness only: 1 iff every numbered required decision is explicit, complete and correct; 0 if any required decision is wrong, omitted or uncertain. Ignore citations, grounding and document availability. Accurate proposed/not-adopted or intended-scope qualifications do not turn a correct decision into uncertainty. Do not add unasked requirements. Explain each missing/wrong decision.",
+      "judgedWith": [
+        "delivered"
+      ]
+    },
+    {
+      "id": "q11-g",
+      "type": "comprehension",
+      "decidedBy": "judge",
+      "answerHeading": "Q11",
+      "question": "Identity work fills its pool while an established peer needs route policy. What bounds apply, what is reported when a local evaluation cannot reserve, and can a remote rejection establish that a local pool is exhausted?",
+      "key": "1. Separate node-wide finite identity and route pools; identity pressure cannot take route slots; current and revoked-unsettled work count.\n2. Refuse before provider invocation via exact-current AdmissionCapacityExceeded, not policy denial/provider fault; retain refusing local pool for supervisor eligibility.\n3. Safe notification uses existing INTERNAL_ERROR and existing configured-dial reconnect disposition; accepted controllers do not gain retries.\n4. Remote refusal does not prove local capacity or add a local refusing pool; never-settling work keeps its slot.",
+      "scale": [
+        0,
+        2
+      ],
+      "rubric": "Grounded usability only: 2 iff all numbered decisions are complete/correct and supported by valid supplied-text premises (logical derivation from multiple premises allowed); 1 for safe but incomplete/uncertain/unsupported decisions; 0 for wrong/unsafe decisions or demonstrated absence. Proposal-status qualifications are not uncertainty. Missing text must not be invented. A quote match alone does not establish entailment. Give concrete reasons, not tags alone.",
+      "judgedWith": [
+        "delivered"
+      ]
+    },
+    {
+      "id": "q12-d",
+      "type": "comprehension",
+      "decidedBy": "judge",
+      "answerHeading": "Q12",
+      "question": "An initially configured adjacency has reconnect disabled and identity capacity is unavailable. Separately, consider a repeat-eligible adjacency whose backoff is running when capacity is released. What state, timer, attempt and wake ownership are permitted in each case?",
+      "key": "1. Disabled reconnect forbids repeats, not initial acquisition or its pre-acquisition capacity wait.\n2. One supervisor owns level-check plus waiter registration atomically; initial capacity wait has no fabricated attempt, controller/session token or backoff.\n3. Project retry-wait with capacity reason; retryAt only for actual live backoff, retryAttempt unchanged by capacity observations.\n4. Actual release not settlement alone coalesces wake; recheck levels/guards before start, preserve existing backoff deadline, never multiply timers or consume attempts on wake.",
+      "scale": [
+        0,
+        1
+      ],
+      "rubric": "Decision correctness only: 1 iff every numbered required decision is explicit, complete and correct; 0 if any required decision is wrong, omitted or uncertain. Ignore citations, grounding and document availability. Accurate proposed/not-adopted or intended-scope qualifications do not turn a correct decision into uncertainty. Do not add unasked requirements. Explain each missing/wrong decision.",
+      "judgedWith": [
+        "delivered"
+      ]
+    },
+    {
+      "id": "q12-g",
+      "type": "comprehension",
+      "decidedBy": "judge",
+      "answerHeading": "Q12",
+      "question": "An initially configured adjacency has reconnect disabled and identity capacity is unavailable. Separately, consider a repeat-eligible adjacency whose backoff is running when capacity is released. What state, timer, attempt and wake ownership are permitted in each case?",
+      "key": "1. Disabled reconnect forbids repeats, not initial acquisition or its pre-acquisition capacity wait.\n2. One supervisor owns level-check plus waiter registration atomically; initial capacity wait has no fabricated attempt, controller/session token or backoff.\n3. Project retry-wait with capacity reason; retryAt only for actual live backoff, retryAttempt unchanged by capacity observations.\n4. Actual release not settlement alone coalesces wake; recheck levels/guards before start, preserve existing backoff deadline, never multiply timers or consume attempts on wake.",
+      "scale": [
+        0,
+        2
+      ],
+      "rubric": "Grounded usability only: 2 iff all numbered decisions are complete/correct and supported by valid supplied-text premises (logical derivation from multiple premises allowed); 1 for safe but incomplete/uncertain/unsupported decisions; 0 for wrong/unsafe decisions or demonstrated absence. Proposal-status qualifications are not uncertainty. Missing text must not be invented. A quote match alone does not establish entailment. Give concrete reasons, not tags alone.",
+      "judgedWith": [
+        "delivered"
+      ]
+    },
+    {
+      "id": "q13-d",
+      "type": "comprehension",
+      "decidedBy": "judge",
+      "answerHeading": "Q13",
+      "question": "An inbound winner in OpenConfirm satisfies an adjacency that has accumulated failed retries. Then that winner is lost before establishment. Describe retry history, ownership/projection and the point at which a later success may reset history.",
+      "key": "1. OpenConfirm winner suppresses dialing and clears waiter/timer/refusing pools, but preserves retry history and records exact winner.\n2. On exact winner loss clear winner ownership, apply existing disposition/backoff once with preserved history; no active controller in wait; stale loss inert.\n3. Only exact current Established success or adoption of already-established exact winner resets once; channel adoption/identity victory do not.\n4. Last terminal row remains bounded through capacity waits and is retired at actual next acquisition or supersession, not timer expiry alone.",
+      "scale": [
+        0,
+        1
+      ],
+      "rubric": "Decision correctness only: 1 iff every numbered required decision is explicit, complete and correct; 0 if any required decision is wrong, omitted or uncertain. Ignore citations, grounding and document availability. Accurate proposed/not-adopted or intended-scope qualifications do not turn a correct decision into uncertainty. Do not add unasked requirements. Explain each missing/wrong decision.",
+      "judgedWith": [
+        "delivered"
+      ]
+    },
+    {
+      "id": "q13-g",
+      "type": "comprehension",
+      "decidedBy": "judge",
+      "answerHeading": "Q13",
+      "question": "An inbound winner in OpenConfirm satisfies an adjacency that has accumulated failed retries. Then that winner is lost before establishment. Describe retry history, ownership/projection and the point at which a later success may reset history.",
+      "key": "1. OpenConfirm winner suppresses dialing and clears waiter/timer/refusing pools, but preserves retry history and records exact winner.\n2. On exact winner loss clear winner ownership, apply existing disposition/backoff once with preserved history; no active controller in wait; stale loss inert.\n3. Only exact current Established success or adoption of already-established exact winner resets once; channel adoption/identity victory do not.\n4. Last terminal row remains bounded through capacity waits and is retired at actual next acquisition or supersession, not timer expiry alone.",
+      "scale": [
+        0,
+        2
+      ],
+      "rubric": "Grounded usability only: 2 iff all numbered decisions are complete/correct and supported by valid supplied-text premises (logical derivation from multiple premises allowed); 1 for safe but incomplete/uncertain/unsupported decisions; 0 for wrong/unsafe decisions or demonstrated absence. Proposal-status qualifications are not uncertainty. Missing text must not be invented. A quote match alone does not establish entailment. Give concrete reasons, not tags alone.",
+      "judgedWith": [
+        "delivered"
+      ]
+    },
+    {
+      "id": "q14-d",
+      "type": "comprehension",
+      "decidedBy": "judge",
+      "answerHeading": "Q14",
+      "question": "A consumer has existing one-argument identity and route providers and a bounded wrapper. What migration does the proposed shared cancellation capability require, what does its signal govern, and where must it not appear?",
+      "key": "1. Optional shared second options argument to both evaluate ports; AGP supplies it but existing one-argument providers may ignore it and remain usable.\n2. Evaluation signal governs only pending evaluation, not established-session close or credential validity; no reuse after current result commits.\n3. Request/result DTOs stay unchanged and credential-free; clocks/callbacks/cancellation authority stay out of schemas and wire.\n4. Inventory/compile public existing and cancellation-aware providers and exports before adoption; wrapper need not be removed; ignored cancellation still requires work accounting.",
+      "scale": [
+        0,
+        1
+      ],
+      "rubric": "Decision correctness only: 1 iff every numbered required decision is explicit, complete and correct; 0 if any required decision is wrong, omitted or uncertain. Ignore citations, grounding and document availability. Accurate proposed/not-adopted or intended-scope qualifications do not turn a correct decision into uncertainty. Do not add unasked requirements. Explain each missing/wrong decision.",
+      "judgedWith": [
+        "delivered"
+      ]
+    },
+    {
+      "id": "q14-g",
+      "type": "comprehension",
+      "decidedBy": "judge",
+      "answerHeading": "Q14",
+      "question": "A consumer has existing one-argument identity and route providers and a bounded wrapper. What migration does the proposed shared cancellation capability require, what does its signal govern, and where must it not appear?",
+      "key": "1. Optional shared second options argument to both evaluate ports; AGP supplies it but existing one-argument providers may ignore it and remain usable.\n2. Evaluation signal governs only pending evaluation, not established-session close or credential validity; no reuse after current result commits.\n3. Request/result DTOs stay unchanged and credential-free; clocks/callbacks/cancellation authority stay out of schemas and wire.\n4. Inventory/compile public existing and cancellation-aware providers and exports before adoption; wrapper need not be removed; ignored cancellation still requires work accounting.",
+      "scale": [
+        0,
+        2
+      ],
+      "rubric": "Grounded usability only: 2 iff all numbered decisions are complete/correct and supported by valid supplied-text premises (logical derivation from multiple premises allowed); 1 for safe but incomplete/uncertain/unsupported decisions; 0 for wrong/unsafe decisions or demonstrated absence. Proposal-status qualifications are not uncertainty. Missing text must not be invented. A quote match alone does not establish entailment. Give concrete reasons, not tags alone.",
+      "judgedWith": [
+        "delivered"
+      ]
+    },
+    {
+      "id": "q15-d",
+      "type": "comprehension",
+      "decidedBy": "judge",
+      "answerHeading": "Q15",
+      "question": "State the proposed admission timeout and queue/work-pool default sources, the validation domain and effective-configuration duty. Which coordinated public artifacts change for capacity refusal and queue overflow, and what scale claim follows from the defaults?",
+      "key": "1. Both admission defaults 10000ms; earlier applicable OPEN still wins; finite route admission even with hold disabled.\n2. Queue messages/bytes derive from resolved receive packets/bytes, with room for one maximum packet; identity/route work limits derive from maxPendingHandshakes/maxSessions and are independently configurable.\n3. Selected finite bounds resolve once as positive safe integers and appear in effective config; separately supported zero-hold is not removed.\n4. Coordinate capacity types/config, closed local event schema/generated types, gauges and operations/docs; existing INTERNAL_ERROR wire code, no new protocol code.\n5. Defaults are proposed finite starting policy, not measured tuning or hundreds-of-peers certification.",
+      "scale": [
+        0,
+        1
+      ],
+      "rubric": "Decision correctness only: 1 iff every numbered required decision is explicit, complete and correct; 0 if any required decision is wrong, omitted or uncertain. Ignore citations, grounding and document availability. Accurate proposed/not-adopted or intended-scope qualifications do not turn a correct decision into uncertainty. Do not add unasked requirements. Explain each missing/wrong decision.",
+      "judgedWith": [
+        "delivered"
+      ]
+    },
+    {
+      "id": "q15-g",
+      "type": "comprehension",
+      "decidedBy": "judge",
+      "answerHeading": "Q15",
+      "question": "State the proposed admission timeout and queue/work-pool default sources, the validation domain and effective-configuration duty. Which coordinated public artifacts change for capacity refusal and queue overflow, and what scale claim follows from the defaults?",
+      "key": "1. Both admission defaults 10000ms; earlier applicable OPEN still wins; finite route admission even with hold disabled.\n2. Queue messages/bytes derive from resolved receive packets/bytes, with room for one maximum packet; identity/route work limits derive from maxPendingHandshakes/maxSessions and are independently configurable.\n3. Selected finite bounds resolve once as positive safe integers and appear in effective config; separately supported zero-hold is not removed.\n4. Coordinate capacity types/config, closed local event schema/generated types, gauges and operations/docs; existing INTERNAL_ERROR wire code, no new protocol code.\n5. Defaults are proposed finite starting policy, not measured tuning or hundreds-of-peers certification.",
+      "scale": [
+        0,
+        2
+      ],
+      "rubric": "Grounded usability only: 2 iff all numbered decisions are complete/correct and supported by valid supplied-text premises (logical derivation from multiple premises allowed); 1 for safe but incomplete/uncertain/unsupported decisions; 0 for wrong/unsafe decisions or demonstrated absence. Proposal-status qualifications are not uncertainty. Missing text must not be invented. A quote match alone does not establish entailment. Give concrete reasons, not tags alone.",
+      "judgedWith": [
+        "delivered"
+      ]
+    },
+    {
+      "id": "q16-d",
+      "type": "comprehension",
+      "decidedBy": "judge",
+      "answerHeading": "Q16",
+      "question": "A current route result is applied exactly at its admission deadline, before its timer callback runs. What transition is taken now, what happens to result effects and the later timer, and how does an early timer wake differ?",
+      "key": "1. Timely only now < deadline; equality is expired regardless of settlement time.\n2. Current result path commits AdmissionExpired in that serialized turn via shared owner; discard result effects rather than await timer.\n3. Revoke/detach and cancel once, request cooperative abort outside executor; reservation follows actual uninvoked-or-settled/disposed rule.\n4. Later consumed-token callback is inert; current early wake checks monotonic time and rearms positive remainder without expiry.",
+      "scale": [
+        0,
+        1
+      ],
+      "rubric": "Decision correctness only: 1 iff every numbered required decision is explicit, complete and correct; 0 if any required decision is wrong, omitted or uncertain. Ignore citations, grounding and document availability. Accurate proposed/not-adopted or intended-scope qualifications do not turn a correct decision into uncertainty. Do not add unasked requirements. Explain each missing/wrong decision.",
+      "judgedWith": [
+        "delivered"
+      ]
+    },
+    {
+      "id": "q16-g",
+      "type": "comprehension",
+      "decidedBy": "judge",
+      "answerHeading": "Q16",
+      "question": "A current route result is applied exactly at its admission deadline, before its timer callback runs. What transition is taken now, what happens to result effects and the later timer, and how does an early timer wake differ?",
+      "key": "1. Timely only now < deadline; equality is expired regardless of settlement time.\n2. Current result path commits AdmissionExpired in that serialized turn via shared owner; discard result effects rather than await timer.\n3. Revoke/detach and cancel once, request cooperative abort outside executor; reservation follows actual uninvoked-or-settled/disposed rule.\n4. Later consumed-token callback is inert; current early wake checks monotonic time and rearms positive remainder without expiry.",
+      "scale": [
+        0,
+        2
+      ],
+      "rubric": "Grounded usability only: 2 iff all numbered decisions are complete/correct and supported by valid supplied-text premises (logical derivation from multiple premises allowed); 1 for safe but incomplete/uncertain/unsupported decisions; 0 for wrong/unsafe decisions or demonstrated absence. Proposal-status qualifications are not uncertainty. Missing text must not be invented. A quote match alone does not establish entailment. Give concrete reasons, not tags alone.",
+      "judgedWith": [
+        "delivered"
+      ]
+    },
+    {
+      "id": "q17-d",
+      "type": "comprehension",
+      "decidedBy": "judge",
+      "answerHeading": "Q17",
+      "question": "Both identity-admission and outer OPEN deadlines have elapsed before either callback is processed. How is the cause selected if one deadline was earlier or they were equal? What if OPEN is already elapsed immediately before provider invocation?",
+      "key": "1. Choose earlier absolute elapsed deadline; equality chooses OpenExpired.\n2. Result guard and both timer inputs use same selection while identity is current; callback arrival order cannot select later bound.\n3. Already-elapsed OPEN before invocation revokes uninvoked permit and requests existing OpenExpired without provider call.",
+      "scale": [
+        0,
+        1
+      ],
+      "rubric": "Decision correctness only: 1 iff every numbered required decision is explicit, complete and correct; 0 if any required decision is wrong, omitted or uncertain. Ignore citations, grounding and document availability. Accurate proposed/not-adopted or intended-scope qualifications do not turn a correct decision into uncertainty. Do not add unasked requirements. Explain each missing/wrong decision.",
+      "judgedWith": [
+        "delivered"
+      ]
+    },
+    {
+      "id": "q17-g",
+      "type": "comprehension",
+      "decidedBy": "judge",
+      "answerHeading": "Q17",
+      "question": "Both identity-admission and outer OPEN deadlines have elapsed before either callback is processed. How is the cause selected if one deadline was earlier or they were equal? What if OPEN is already elapsed immediately before provider invocation?",
+      "key": "1. Choose earlier absolute elapsed deadline; equality chooses OpenExpired.\n2. Result guard and both timer inputs use same selection while identity is current; callback arrival order cannot select later bound.\n3. Already-elapsed OPEN before invocation revokes uninvoked permit and requests existing OpenExpired without provider call.",
+      "scale": [
+        0,
+        2
+      ],
+      "rubric": "Grounded usability only: 2 iff all numbered decisions are complete/correct and supported by valid supplied-text premises (logical derivation from multiple premises allowed); 1 for safe but incomplete/uncertain/unsupported decisions; 0 for wrong/unsafe decisions or demonstrated absence. Proposal-status qualifications are not uncertainty. Missing text must not be invented. A quote match alone does not establish entailment. Give concrete reasons, not tags alone.",
+      "judgedWith": [
+        "delivered"
+      ]
+    },
+    {
+      "id": "q18-d",
+      "type": "comprehension",
+      "decidedBy": "judge",
+      "answerHeading": "Q18",
+      "question": "A timely result plan obtains preflight, but its bound expires before the final guard. Preparing the expiry transition then discovers numeric exhaustion. Identify which plans and permits survive and whether any ordinary result or expiry publication occurs.",
+      "key": "1. Discard unconsumed ordinary permit/result plan when final guard sees expiry; no result effects.\n2. Prepare and preflight kind-appropriate expiry in same serialized turn, not await later timer.\n3. If that preflight requires numeric terminal replacement, replacement wins with no ordinary expiry publication or result effect; one runtime terminal authority remains.",
+      "scale": [
+        0,
+        1
+      ],
+      "rubric": "Decision correctness only: 1 iff every numbered required decision is explicit, complete and correct; 0 if any required decision is wrong, omitted or uncertain. Ignore citations, grounding and document availability. Accurate proposed/not-adopted or intended-scope qualifications do not turn a correct decision into uncertainty. Do not add unasked requirements. Explain each missing/wrong decision.",
+      "judgedWith": [
+        "delivered"
+      ]
+    },
+    {
+      "id": "q18-g",
+      "type": "comprehension",
+      "decidedBy": "judge",
+      "answerHeading": "Q18",
+      "question": "A timely result plan obtains preflight, but its bound expires before the final guard. Preparing the expiry transition then discovers numeric exhaustion. Identify which plans and permits survive and whether any ordinary result or expiry publication occurs.",
+      "key": "1. Discard unconsumed ordinary permit/result plan when final guard sees expiry; no result effects.\n2. Prepare and preflight kind-appropriate expiry in same serialized turn, not await later timer.\n3. If that preflight requires numeric terminal replacement, replacement wins with no ordinary expiry publication or result effect; one runtime terminal authority remains.",
+      "scale": [
+        0,
+        2
+      ],
+      "rubric": "Grounded usability only: 2 iff all numbered decisions are complete/correct and supported by valid supplied-text premises (logical derivation from multiple premises allowed); 1 for safe but incomplete/uncertain/unsupported decisions; 0 for wrong/unsafe decisions or demonstrated absence. Proposal-status qualifications are not uncertainty. Missing text must not be invented. A quote match alone does not establish entailment. Give concrete reasons, not tags alone.",
+      "judgedWith": [
+        "delivered"
+      ]
+    },
+    {
+      "id": "q19-d",
+      "type": "comprehension",
+      "decidedBy": "judge",
+      "answerHeading": "Q19",
+      "question": "A terminal notification is queued behind another send. Which configuration and anchor supply the total cleanup interval, do later phases obtain fresh time, and what changes for deployments accustomed to a full write allowance followed by a full close allowance?",
+      "key": "1. Resolved timers.transportCloseTimeoutMs supplies one absolute interval from terminal-cause commit, default 5000ms; includes sends/notification, close and sole-reader terminal observation.\n2. No new phase budget; independent per-send timeout may abort earlier, never extend total cleanup or replace existing cause.\n3. Reuse changes meaning from graceful-close start; update FSM row and all public config/types/schema/caller/migration descriptions together; shorter remaining graceful allowance is observable.\n4. StopPolicy.drainTimeoutMs is SDK drain policy, not source or new global stop deadline.",
+      "scale": [
+        0,
+        1
+      ],
+      "rubric": "Decision correctness only: 1 iff every numbered required decision is explicit, complete and correct; 0 if any required decision is wrong, omitted or uncertain. Ignore citations, grounding and document availability. Accurate proposed/not-adopted or intended-scope qualifications do not turn a correct decision into uncertainty. Do not add unasked requirements. Explain each missing/wrong decision.",
+      "judgedWith": [
+        "delivered"
+      ]
+    },
+    {
+      "id": "q19-g",
+      "type": "comprehension",
+      "decidedBy": "judge",
+      "answerHeading": "Q19",
+      "question": "A terminal notification is queued behind another send. Which configuration and anchor supply the total cleanup interval, do later phases obtain fresh time, and what changes for deployments accustomed to a full write allowance followed by a full close allowance?",
+      "key": "1. Resolved timers.transportCloseTimeoutMs supplies one absolute interval from terminal-cause commit, default 5000ms; includes sends/notification, close and sole-reader terminal observation.\n2. No new phase budget; independent per-send timeout may abort earlier, never extend total cleanup or replace existing cause.\n3. Reuse changes meaning from graceful-close start; update FSM row and all public config/types/schema/caller/migration descriptions together; shorter remaining graceful allowance is observable.\n4. StopPolicy.drainTimeoutMs is SDK drain policy, not source or new global stop deadline.",
+      "scale": [
+        0,
+        2
+      ],
+      "rubric": "Grounded usability only: 2 iff all numbered decisions are complete/correct and supported by valid supplied-text premises (logical derivation from multiple premises allowed); 1 for safe but incomplete/uncertain/unsupported decisions; 0 for wrong/unsafe decisions or demonstrated absence. Proposal-status qualifications are not uncertainty. Missing text must not be invented. A quote match alone does not establish entailment. Give concrete reasons, not tags alone.",
+      "judgedWith": [
+        "delivered"
+      ]
+    },
+    {
+      "id": "q20-d",
+      "type": "comprehension",
+      "decidedBy": "judge",
+      "answerHeading": "Q20",
+      "question": "Graceful close has resolved but the reader has not observed transport terminal. An early cleanup wake is followed by numeric node failure and then a late per-send timeout. Specify deadline ownership, forcing behavior and what those continuations may change.",
+      "key": "1. Keep independent cleanup guard until sole-reader terminal and owned cleanup, even after close resolves; early wake rearms remainder and stale generation is inert.\n2. Node detachment preserves original absolute deadline or forces sooner; exact detached cleanup generation still authorizes bounded cleanup, not public operations/retry/controller restoration.\n3. On first current expiry stop writer/directly abort outside executor and cancel pending close; leave sole reader to drain FIFO; observe started promises.\n4. Late per-send timeout can force earlier abort but cannot replace terminal cause, emit second teardown event or restart budget; existing transport terminal classification remains immutable.",
+      "scale": [
+        0,
+        1
+      ],
+      "rubric": "Decision correctness only: 1 iff every numbered required decision is explicit, complete and correct; 0 if any required decision is wrong, omitted or uncertain. Ignore citations, grounding and document availability. Accurate proposed/not-adopted or intended-scope qualifications do not turn a correct decision into uncertainty. Do not add unasked requirements. Explain each missing/wrong decision.",
+      "judgedWith": [
+        "delivered"
+      ]
+    },
+    {
+      "id": "q20-g",
+      "type": "comprehension",
+      "decidedBy": "judge",
+      "answerHeading": "Q20",
+      "question": "Graceful close has resolved but the reader has not observed transport terminal. An early cleanup wake is followed by numeric node failure and then a late per-send timeout. Specify deadline ownership, forcing behavior and what those continuations may change.",
+      "key": "1. Keep independent cleanup guard until sole-reader terminal and owned cleanup, even after close resolves; early wake rearms remainder and stale generation is inert.\n2. Node detachment preserves original absolute deadline or forces sooner; exact detached cleanup generation still authorizes bounded cleanup, not public operations/retry/controller restoration.\n3. On first current expiry stop writer/directly abort outside executor and cancel pending close; leave sole reader to drain FIFO; observe started promises.\n4. Late per-send timeout can force earlier abort but cannot replace terminal cause, emit second teardown event or restart budget; existing transport terminal classification remains immutable.",
+      "scale": [
+        0,
+        2
+      ],
+      "rubric": "Grounded usability only: 2 iff all numbered decisions are complete/correct and supported by valid supplied-text premises (logical derivation from multiple premises allowed); 1 for safe but incomplete/uncertain/unsupported decisions; 0 for wrong/unsafe decisions or demonstrated absence. Proposal-status qualifications are not uncertainty. Missing text must not be invented. A quote match alone does not establish entailment. Give concrete reasons, not tags alone.",
+      "judgedWith": [
+        "delivered"
+      ]
+    },
+    {
+      "id": "q21-d",
+      "type": "comprehension",
+      "decidedBy": "judge",
+      "answerHeading": "Q21",
+      "question": "Static filtering leaves no policy-eligible route. For a still-authorized reserved action, is a call required and what result is valid? Contrast a malformed current result, explicit route denial and insufficient final RIB capacity.",
+      "key": "1. Authorized reserved action invokes once with empty route inputs; exact required result is empty decisions list.\n2. Malformed/incomplete/thrown current result faults via AdmissionFaulted, safe INTERNAL_ERROR, purge/release and no ACK; stale result lacks authority and elapsed current result uses expiry.\n3. Explicit denial is nonfatal POLICY; final RIB shortage is canonical per-route CAPACITY, not whole-snapshot failure or evaluation-pool refusal.\n4. Commit surviving routes/rejections/revision atomically before ACK.",
+      "scale": [
+        0,
+        1
+      ],
+      "rubric": "Decision correctness only: 1 iff every numbered required decision is explicit, complete and correct; 0 if any required decision is wrong, omitted or uncertain. Ignore citations, grounding and document availability. Accurate proposed/not-adopted or intended-scope qualifications do not turn a correct decision into uncertainty. Do not add unasked requirements. Explain each missing/wrong decision.",
+      "judgedWith": [
+        "delivered"
+      ]
+    },
+    {
+      "id": "q21-g",
+      "type": "comprehension",
+      "decidedBy": "judge",
+      "answerHeading": "Q21",
+      "question": "Static filtering leaves no policy-eligible route. For a still-authorized reserved action, is a call required and what result is valid? Contrast a malformed current result, explicit route denial and insufficient final RIB capacity.",
+      "key": "1. Authorized reserved action invokes once with empty route inputs; exact required result is empty decisions list.\n2. Malformed/incomplete/thrown current result faults via AdmissionFaulted, safe INTERNAL_ERROR, purge/release and no ACK; stale result lacks authority and elapsed current result uses expiry.\n3. Explicit denial is nonfatal POLICY; final RIB shortage is canonical per-route CAPACITY, not whole-snapshot failure or evaluation-pool refusal.\n4. Commit surviving routes/rejections/revision atomically before ACK.",
+      "scale": [
+        0,
+        2
+      ],
+      "rubric": "Grounded usability only: 2 iff all numbered decisions are complete/correct and supported by valid supplied-text premises (logical derivation from multiple premises allowed); 1 for safe but incomplete/uncertain/unsupported decisions; 0 for wrong/unsafe decisions or demonstrated absence. Proposal-status qualifications are not uncertainty. Missing text must not be invented. A quote match alone does not establish entailment. Give concrete reasons, not tags alone.",
+      "judgedWith": [
+        "delivered"
+      ]
+    },
+    {
+      "id": "q22-d",
+      "type": "comprehension",
+      "decidedBy": "judge",
+      "answerHeading": "Q22",
+      "question": "A terminal cause other than queue overflow wins while the continuation FIFO holds KEEPALIVE, credit-bearing data and a command that would start policy work. What becomes of these inputs and their reservations, and what still has to be read?",
+      "key": "1. Every terminal cause disposes queued semantic backlog; no later hold refresh, credit grant, provider invocation or protocol effects.\n2. Dispose queue reservations without refunding already-started evaluation work.\n3. Same sole reader consumes already-accepted transport packets and rejection evidence in FIFO through terminal without semantic dispatch; no second reader or early read cancellation.",
+      "scale": [
+        0,
+        1
+      ],
+      "rubric": "Decision correctness only: 1 iff every numbered required decision is explicit, complete and correct; 0 if any required decision is wrong, omitted or uncertain. Ignore citations, grounding and document availability. Accurate proposed/not-adopted or intended-scope qualifications do not turn a correct decision into uncertainty. Do not add unasked requirements. Explain each missing/wrong decision.",
+      "judgedWith": [
+        "delivered"
+      ]
+    },
+    {
+      "id": "q22-g",
+      "type": "comprehension",
+      "decidedBy": "judge",
+      "answerHeading": "Q22",
+      "question": "A terminal cause other than queue overflow wins while the continuation FIFO holds KEEPALIVE, credit-bearing data and a command that would start policy work. What becomes of these inputs and their reservations, and what still has to be read?",
+      "key": "1. Every terminal cause disposes queued semantic backlog; no later hold refresh, credit grant, provider invocation or protocol effects.\n2. Dispose queue reservations without refunding already-started evaluation work.\n3. Same sole reader consumes already-accepted transport packets and rejection evidence in FIFO through terminal without semantic dispatch; no second reader or early read cancellation.",
+      "scale": [
+        0,
+        2
+      ],
+      "rubric": "Grounded usability only: 2 iff all numbered decisions are complete/correct and supported by valid supplied-text premises (logical derivation from multiple premises allowed); 1 for safe but incomplete/uncertain/unsupported decisions; 0 for wrong/unsafe decisions or demonstrated absence. Proposal-status qualifications are not uncertainty. Missing text must not be invented. A quote match alone does not establish entailment. Give concrete reasons, not tags alone.",
+      "judgedWith": [
+        "delivered"
+      ]
+    },
+    {
+      "id": "q23-d",
+      "type": "comprehension",
+      "decidedBy": "judge",
+      "answerHeading": "Q23",
+      "question": "After ordinary stop, an evaluation settles and its retained work is disposed; then a query is repeated. Contrast revision and capture-time behavior with the same disposal and queries after numeric terminal replacement.",
+      "key": "1. Ordinary stopped instance can publish cleanup gauge change as one canonical revision without reopening lifecycle/event subscriptions; query itself does not advance revision and captures fresh query time.\n2. Numeric replacement instead freezes truthful resource values, revision and capturedAt across focused/aggregate queries.\n3. After numeric terminal, disposal is private and cannot publish event/counter/revision or fresh timestamp; stopped and numeric-terminal semantics must not be conflated.",
+      "scale": [
+        0,
+        1
+      ],
+      "rubric": "Decision correctness only: 1 iff every numbered required decision is explicit, complete and correct; 0 if any required decision is wrong, omitted or uncertain. Ignore citations, grounding and document availability. Accurate proposed/not-adopted or intended-scope qualifications do not turn a correct decision into uncertainty. Do not add unasked requirements. Explain each missing/wrong decision.",
+      "judgedWith": [
+        "delivered"
+      ]
+    },
+    {
+      "id": "q23-g",
+      "type": "comprehension",
+      "decidedBy": "judge",
+      "answerHeading": "Q23",
+      "question": "After ordinary stop, an evaluation settles and its retained work is disposed; then a query is repeated. Contrast revision and capture-time behavior with the same disposal and queries after numeric terminal replacement.",
+      "key": "1. Ordinary stopped instance can publish cleanup gauge change as one canonical revision without reopening lifecycle/event subscriptions; query itself does not advance revision and captures fresh query time.\n2. Numeric replacement instead freezes truthful resource values, revision and capturedAt across focused/aggregate queries.\n3. After numeric terminal, disposal is private and cannot publish event/counter/revision or fresh timestamp; stopped and numeric-terminal semantics must not be conflated.",
+      "scale": [
+        0,
+        2
+      ],
+      "rubric": "Grounded usability only: 2 iff all numbered decisions are complete/correct and supported by valid supplied-text premises (logical derivation from multiple premises allowed); 1 for safe but incomplete/uncertain/unsupported decisions; 0 for wrong/unsafe decisions or demonstrated absence. Proposal-status qualifications are not uncertainty. Missing text must not be invented. A quote match alone does not establish entailment. Give concrete reasons, not tags alone.",
+      "judgedWith": [
+        "delivered"
+      ]
+    },
+    {
+      "id": "q24-d",
+      "type": "comprehension",
+      "decidedBy": "judge",
+      "answerHeading": "Q24",
+      "question": "Write the recommended process-local evaluation-options shape and describe whether each of an omitted second argument, an empty options object, or a signal intended to close an established session fits it. Which compatibility evidence is required before adopting that recommendation?",
+      "key": "1. Shape is AdmissionEvaluationOptions with readonly signal: AbortSignal; second argument optional, but supplied options must contain signal, so omitted valid and empty object invalid.\n2. Signal applies only to pending evaluation; no established-session/credential-validity authority.\n3. Both identity and route ports share shape; compile existing one-argument and cancellation-aware providers through public packages/exports, verify no schema/wire leak; recommendation is not already adopted.",
+      "scale": [
+        0,
+        1
+      ],
+      "rubric": "Decision correctness only: 1 iff every numbered required decision is explicit, complete and correct; 0 if any required decision is wrong, omitted or uncertain. Ignore citations, grounding and document availability. Accurate proposed/not-adopted or intended-scope qualifications do not turn a correct decision into uncertainty. Do not add unasked requirements. Explain each missing/wrong decision.",
+      "judgedWith": [
+        "delivered"
+      ]
+    },
+    {
+      "id": "q24-g",
+      "type": "comprehension",
+      "decidedBy": "judge",
+      "answerHeading": "Q24",
+      "question": "Write the recommended process-local evaluation-options shape and describe whether each of an omitted second argument, an empty options object, or a signal intended to close an established session fits it. Which compatibility evidence is required before adopting that recommendation?",
+      "key": "1. Shape is AdmissionEvaluationOptions with readonly signal: AbortSignal; second argument optional, but supplied options must contain signal, so omitted valid and empty object invalid.\n2. Signal applies only to pending evaluation; no established-session/credential-validity authority.\n3. Both identity and route ports share shape; compile existing one-argument and cancellation-aware providers through public packages/exports, verify no schema/wire leak; recommendation is not already adopted.",
+      "scale": [
+        0,
+        2
+      ],
+      "rubric": "Grounded usability only: 2 iff all numbered decisions are complete/correct and supported by valid supplied-text premises (logical derivation from multiple premises allowed); 1 for safe but incomplete/uncertain/unsupported decisions; 0 for wrong/unsafe decisions or demonstrated absence. Proposal-status qualifications are not uncertainty. Missing text must not be invented. A quote match alone does not establish entailment. Give concrete reasons, not tags alone.",
+      "judgedWith": [
+        "delivered"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,49 @@
+{
+  "schema": "agp.admission-calibration-cases/1",
+  "status": "Prepared unrelated semantic cases; no calls or live qualification",
+  "reading": "# Parcel policy\nStatus: proposed, not adopted or implemented.\nA parcel may be assigned to exactly one shelf.\nOnly a completed shelf scan authorizes pickup.\nIf a scan is not completed, wait without claiming pickup is authorized.",
+  "question": "Under the proposed policy, may a parcel occupy two shelves, and when is pickup authorized?",
+  "required": [
+    "Exactly one shelf, never two.",
+    "Pickup authorized only by completed shelf scan."
+  ],
+  "cases": [
+    {
+      "id": "qualified-correct",
+      "answer": "Under the proposal, which is not adopted, exactly one shelf; pickup only after completed scan.\nQUOTE: \"A parcel may be assigned to exactly one shelf.\"\nQUOTE: \"Only a completed shelf scan authorizes pickup.\"",
+      "decision": 1,
+      "grounding": 2
+    },
+    {
+      "id": "missing-decision",
+      "answer": "Exactly one shelf. I cannot decide pickup authorization.\nQUOTE: \"A parcel may be assigned to exactly one shelf.\"",
+      "decision": 0,
+      "grounding": 1
+    },
+    {
+      "id": "wrong-decision",
+      "answer": "Two shelves are permitted and pickup precedes the scan.",
+      "decision": 0,
+      "grounding": 0
+    },
+    {
+      "id": "correct-no-support",
+      "answer": "Exactly one shelf; pickup only after the completed shelf scan.",
+      "decision": 1,
+      "grounding": 1
+    },
+    {
+      "id": "true-quote-wrong-conclusion",
+      "answer": "A parcel can use two shelves.\nQUOTE: \"A parcel may be assigned to exactly one shelf.\"",
+      "decision": 0,
+      "grounding": 0
+    },
+    {
+      "id": "grounded-inference",
+      "answer": "If the scan is incomplete, no pickup is authorized; the parcel remains assigned to exactly one shelf.\nQUOTE: \"Only a completed shelf scan authorizes pickup.\"\nQUOTE: \"A parcel may be assigned to exactly one shelf.\"",
+      "decision": 1,
+      "grounding": 2
+    }
+  ],
+  "qualification": "Every family must receive the identical status rule and both complete axis rubrics; inspect raw reasons, not just numeric agreement. Add a separately identified volume-delivery fixture covering the chosen response bound; it may not become an assurance reader. Exact public calibration binding and isolation census remain open."
+}

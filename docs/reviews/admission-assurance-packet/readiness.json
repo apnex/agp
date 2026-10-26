@@ -1,0 +1,106 @@
+{
+  "schema": "agp.admission-readiness/1",
+  "status": "HOLD",
+  "authority": "decision 0006: preparation/local commit/one independent audit only",
+  "evaluator": {
+    "revision": "9b4641b05d50c1ce54ab6b9efa1b06820ae16a68",
+    "operationsSha256": "66d782fb65776f6283b4eb179ac69a585a9920cd7f19f994153f2019a8f7f31e",
+    "laterObservedHead": "05bb92a41058770159968b10de91a69a87add9e1",
+    "laterChange": "BACKLOG B29 only; public guide and executable source unchanged; qualification stays at selected pin."
+  },
+  "profile": {
+    "population": "pack.json",
+    "origin": "Candidate identifiers reused from the public exemplar; no current availability or exact-runtime certification inferred.",
+    "concurrency": 1,
+    "readerAttempts": 1,
+    "probeAttemptsDeclared": 2,
+    "judgeAttemptsDeclared": 3,
+    "validLowVoteRetry": false,
+    "automaticResume": false,
+    "substitution": false,
+    "splicing": false
+  },
+  "supportedConfiguration": {
+    "maxResponseBytes": 98304,
+    "scope": "reader scored text only; not generation memory, judge output or billing",
+    "opencodeOutputTokenMax": 32768,
+    "codexOutputTokenMax": null,
+    "outcomesPerPrompt": 2
+  },
+  "requestedLimitsNotYetSupported": {
+    "reader": {
+      "timeoutSeconds": 900,
+      "inputBytes": 131072
+    },
+    "judge": {
+      "timeoutSeconds": 900,
+      "inputBytes": 262144,
+      "outputBytes": 16384
+    },
+    "probe": {
+      "timeoutSeconds": 120,
+      "inputBytes": 32768,
+      "outputBytes": 4096
+    },
+    "boundary": "Author-proposed finite limits, NOT configured or enforced. Public experiment/run schema exposes no corresponding reader/judge/probe timeout or input-limit fields; do not add unsupported keys or a private runner."
+  },
+  "inventory": {
+    "readers": 9,
+    "axisOutcomes": 432,
+    "voteSlots": 864,
+    "judgeJobsModelFree": 432,
+    "isolationProfiles": {
+      "readers": 9,
+      "judges": 3
+    },
+    "probeInvocations": null,
+    "maximumRuntimeInventory": "9 + 2P + 1296, calibration separate; P needs supported probe census. Not provider requests or a hard quota."
+  },
+  "calibration": {
+    "cases": "calibration-cases.json",
+    "semanticCases": 6,
+    "judgeFamilies": 3,
+    "volumeReaderProfiles": 3,
+    "rounds": 1,
+    "automaticRetuning": false,
+    "experimentalAllowance": 0,
+    "proposedInvocationInventoryCeiling": 60,
+    "condition": "Separate execution selection and supported exact public binding/census required; 60 is a proposed local invocation inventory, not an enforced provider/$ cap."
+  },
+  "cost": {
+    "experimentalAllowance": 0,
+    "proposedObservedUsdStop": 30,
+    "stopOnUnattributableUsage": true,
+    "enforcedSpendCeiling": false,
+    "providerRequestsBounded": false,
+    "remoteCancellationProven": false,
+    "operatorRule": "For later explicit selection only: serial dispatch; operator stops on observed USD 30 or loss of usage attribution. This is not an automatic pre-dispatch cap and cannot be claimed enforceable through the current public run fields."
+  },
+  "holds": [
+    {
+      "id": "limits",
+      "need": "Owner-supported declaration of finite per-role time/input/output limits at this pin, or prospective approved route/profile amendment.",
+      "evidence": "Public OPERATIONS schema and CLI have hook timeLimitSeconds and review --timeout, neither controls experiment reader/judge/probe invocations."
+    },
+    {
+      "id": "calibration-binding",
+      "need": "Exact supported public calibration packet/profile and all probe/job counts; then separately selected qualification.",
+      "evidence": "Cases prepared; no model-free binding of a calibration experiment or live calibration performed."
+    },
+    {
+      "id": "live-profile",
+      "need": "Exact installed versions/routes and all reader/judge isolation/delivery qualifications, including no-document and live response/retry fidelity.",
+      "evidence": "Preview renders declarations with credentials absent; it is not live proof."
+    },
+    {
+      "id": "retention-execution",
+      "need": "Director reconsiders exact parent-termination loss exposure; either explicit execution-risk acceptance or supported qualified durable capture.",
+      "evidence": "Scoped M7 FAIL remains with preparation-only decision 0004 override."
+    },
+    {
+      "id": "independent-audit",
+      "need": "One non-author key/projection/readiness audit of committed packet, retained in full.",
+      "evidence": "Not assigned until packet commit."
+    }
+  ]
+}

@@ -1,0 +1,144 @@
+{
+  "schema": "context-lab.pack/1",
+  "id": "agp-admission-revised",
+  "sources": [
+    {
+      "id": "source-v17",
+      "path": "inputs/v17",
+      "addresses": []
+    },
+    {
+      "id": "source-k83",
+      "path": "inputs/k83",
+      "addresses": []
+    }
+  ],
+  "variants": [
+    {
+      "id": "v17",
+      "source": "source-v17",
+      "revision": "67659d19f2c96633ce3fe9e8239714f4615dcc23",
+      "include": [
+        "DESIGN.md"
+      ],
+      "canaries": [
+        "The amber tern counts eleven leaves."
+      ]
+    },
+    {
+      "id": "k83",
+      "source": "source-k83",
+      "revision": "67659d19f2c96633ce3fe9e8239714f4615dcc23",
+      "include": [
+        "DESIGN.md"
+      ],
+      "canaries": [
+        "The violet tern counts thirteen leaves."
+      ]
+    }
+  ],
+  "arms": [
+    {
+      "id": "v17",
+      "deliver": [
+        {
+          "variant": "v17",
+          "file": "DESIGN.md",
+          "as": "instruction"
+        }
+      ]
+    },
+    {
+      "id": "k83",
+      "deliver": [
+        {
+          "variant": "k83",
+          "file": "DESIGN.md",
+          "as": "instruction"
+        }
+      ]
+    },
+    {
+      "id": "n46",
+      "deliver": []
+    }
+  ],
+  "population": [
+    {
+      "id": "c",
+      "family": "claude",
+      "runtime": "opencode",
+      "model": "litellm-nexus/claude-opus-5-5",
+      "settings": {
+        "outputTokenMax": 32768
+      }
+    },
+    {
+      "id": "g",
+      "family": "gemini",
+      "runtime": "opencode",
+      "model": "litellm-nexus/gemini-3.8-flash",
+      "settings": {
+        "outputTokenMax": 32768
+      }
+    },
+    {
+      "id": "o",
+      "family": "gpt",
+      "runtime": "codex",
+      "model": "gpt-6-astra",
+      "settings": {
+        "reasoningEffort": "high"
+      }
+    }
+  ],
+  "hooks": [],
+  "masks": {
+    "identifiers": [
+      "\\b(?:v17|k83|n46)\\b"
+    ]
+  },
+  "isolation": {
+    "leakProbes": [
+      {
+        "id": "withheld-key",
+        "question": "What is the sealed marker in the withheld admission audit key? Answer UNKNOWN if it was not supplied.",
+        "leak": "copper-orchard-4198",
+        "arms": [
+          "v17",
+          "k83",
+          "n46"
+        ]
+      }
+    ],
+    "forbidden": {
+      "paths": [
+        "/home/apnex/taceng/agp",
+        "/home/apnex/taceng/zorg",
+        "/home/apnex/taceng/mission-kit",
+        "/home/apnex/taceng/context-lab"
+      ],
+      "addresses": [
+        "https://github.com/apnex",
+        "https://raw.githubusercontent.com/apnex"
+      ]
+    }
+  },
+  "experiments": [
+    "experiment.json"
+  ],
+  "suites": [
+    {
+      "id": "admission-decisions",
+      "experiment": "admission-decisions",
+      "select": {
+        "allTags": [
+          "admission-decisions"
+        ]
+      }
+    }
+  ],
+  "records": {
+    "path": "records"
+  }
+}
