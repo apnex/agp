@@ -1,0 +1,312 @@
+# B53 admission packet: independent audit
+
+**Key/question fit: FAIL — revise before preregistration or reader exposure.**  
+**Projection and deterministic accounting: PASS within the inspected preparation scope.**  
+**Execution readiness: HOLD. No experimental assurance or product-readiness verdict.**  
+**Scoped M7: the existing A4 retention FAIL remains, with decision 0004’s preparation-only override unchanged.**
+
+The additional material blocker is an over-demanding answer key: several mandatory clauses are not actually asked by their questions. The technical rules themselves are supported; the defect is making their omission a scoring failure.
+
+## 1. Identity, authority and evidence boundary
+
+Reviewer: `/root/admission_packet_key_readiness_audit`, the expressly authorized non-author reviewer under approval-route decision 0006.
+
+Closeout: **2026-10-26 02:40:19 UTC**.
+
+Reviewed AGP commit:
+
+`a4f47c3497ef1c3a089a08da3d616f39b021d809`
+
+Reading/input/route commit:
+
+`67659d19f2c96633ce3fe9e8239714f4615dcc23`
+
+I independently checked the reviewed files against the packet commit and rechecked that they remained unchanged at closeout.
+
+Workflow guidance was read from Mission Kit:
+
+`a3f0cae023c6cdd1e7177783e8062c5616d904d6`
+
+I verified that local identity. Remote-main validation was supplied by the parent, not repeated here. Applied guidance includes M2, M7, E7, strengthened E8, C2 and the research-artefacts skill. The skill kept source declarations, independently inspected results and review judgments separate.
+
+The AGP product-applicability pin remains:
+
+`5026604d3ef695651c21b24bd78410c7fec04b58`
+
+This review does not migrate that product authority.
+
+### Measured input identities
+
+Paths below are relative to `docs/reviews/`.
+
+| Input | SHA-256 |
+|---|---|
+| `admission-lifetime-correction-r3.md` | `6ccf9ba0e7d94b83897fade8f865fe3fb1328db292d92cce4d5cc85bc28fc2f2` |
+| `admission-lifetime-correction-r4.md` | `082b2c704dfdc3338283f3733732388a15fbffec5d1f28bf78313bad884b97b4` |
+| `admission-lifetime-implementation-map.md` | `78e642dc8d4d56d08fdb4b0d8b2b98c3b13230378d3cb86d861b6d6c55b33a35` |
+| `admission-assurance-revised-route.md` | `a6a42f8fff9cb467d164523b158d1d44253cc1c209979c7ac868b5add457592b` |
+| `admission-assurance-route-amendment-01.md` | `3c027a759e99d7f0419c7676a08ea853d0f9066d1a3be237ae04399639f8e018` |
+| `admission-assurance-revised-route-recheck-02.txt` | `74d3eab1acf1f075ff4f415c1c5cfc4fd8307f61166a74e1c50829e17ae8f5a6` |
+| `admission-lifetime-approval-route.md` | `d8aa583fba87f73c1fd0f322229337acb3dc74226b617db666376800350705f9` |
+| `admission-assurance-packet/admission-key.json` | `efa4a95ba9a937b81f127e20d079d9144d8de8b7418c17377e99c5445fe4d337` |
+| `admission-assurance-packet/scenario.json` | `9a2fa4f8a86ed4a200551dd36025bd8c46e7e85cda867821c375e5a3320d2251` |
+| `admission-assurance-packet/inputs/v17/DESIGN.md` | `5e1f002dcd777fff6148dc1f31a8b227acfa9bb07db3836a02c4f4affa6e2435` |
+| `admission-assurance-packet/inputs/k83/DESIGN.md` | `4a18c65c146b9b931ed7184b9b6acfb7cdeeb3cde3114905512944b033cc5ec1` |
+
+The remaining reviewed packet files are exactly those at `a4f47c3`: README, pack, experiment, readiness, calibration cases, preparation checks, projector, evidence checker, packet tests and preview qualifier. Their working bytes matched that commit.
+
+The complete originals, all 24 questions/keys/support annotations, exact retained projection bodies, implementation map, route, amendment and full 352-line composite recheck were examined—not replaced by their summaries.
+
+The complete public context-lab guide was read. Its measured SHA-256 is:
+
+`66d782fb65776f6283b4eb179ac69a585a9920cd7f19f994153f2019a8f7f31e`
+
+This matches the packet’s guide identity for evaluator pin `9b4641b05d50c1ce54ab6b9efa1b06820ae16a68`.
+
+No evaluator implementation was inspected. I inspected existing public previews and ran deterministic packet checks; I did not independently certify the evaluator export or execute a live profile.
+
+## 2. Ranked findings
+
+### 1. HIGH — Mandatory keys exceed the questions’ scope
+
+The D rubric requires **every numbered decision**, explicitly and completely. The G rubric likewise requires all numbered decisions for a two. Therefore an adjacent, correct design rule becomes a hidden requirement whenever it is present in the key but absent from the question.
+
+The clearest cases are:
+
+- **Q16:** `admission-key.json:489`; `scenario.json:496`. The question asks the deadline transition, result effects, later timer and early wake. The key additionally requires the reservation-release rule—including the uninvoked-permit branch—and the location of cooperative-abort delivery.
+- **Q19:** `admission-key.json:584`; `scenario.json:592`. The question asks the cleanup configuration/anchor, phase budgets and migration effect. The key additionally requires explicitly excluding `StopPolicy.drainTimeoutMs` and a new global stop deadline.
+
+A static Q19 witness makes the problem concrete:
+
+> Use resolved `timers.transportCloseTimeoutMs`, default 5000 ms, from terminal-cause commit. Pending sends, notification, close and reader-terminal observation share that deadline; phases receive no fresh allowance. A per-send timeout may force earlier cleanup without replacing the cause. Migrating changes the close setting into a whole-teardown budget, leaving potentially less time for graceful close; update the FSM/configuration/types/schema/caller/migration descriptions together.
+
+This answers the question and covers key clauses 1–3. Omitting the unasked StopPolicy exclusion nevertheless fails the literal D completeness rule and prevents G=2.
+
+Similarly, Q16 can completely specify equality expiry, immediate serialized `AdmissionExpired`, discarded result effects, token/timer invalidation, an inert later callback and positive-remainder rearming without answering an unasked reservation-accounting question.
+
+The same scope problem appears more narrowly in:
+
+| Probe | Mandatory material not clearly requested |
+|---|---|
+| Q05 | Count/original-byte bounds and admission/drain cardinality, beyond arrival order, barrier opening and head ownership |
+| Q10 | Provider invocation/result-commit deadline guards, in a question about the surviving OPEN bound and timer handling |
+| Q11 | Retained refusing-pool eligibility and configured-dial versus accepted-controller retry rules, beyond bounds and refusal reporting |
+| Q21 | Stale and elapsed-result branches, while the question expressly asks about a current result |
+
+These are not findings that the design rules are false. They are findings that the instrument does not faithfully delimit what the reader must answer.
+
+**Correction:** prospectively ask for the retained details explicitly, or remove them from mandatory scoring and treat them as optional background. Preserve required coverage through an explicit question somewhere. Update the common task and both property declarations together, then recheck/re-preview before registration or exposure.
+
+Do not cure this through retrospective scoring discretion or an instruction to judges to “be reasonable.” “Require every numbered decision” and “do not add unasked requirements” must agree structurally.
+
+### 2. Execution prerequisites remain genuinely unresolved
+
+This is an existing, honestly declared HOLD—not concealed support and not an additional discovered implementation defect.
+
+The public experiment/run contract does not provide the required per-role timeout/input/judge-output controls. The requested values in `readiness.json` are proposals, not enforced settings. Neither the reader response bound nor `review --timeout` establishes those controls.
+
+The inspected UTF-8 fixture produced a **311,829-byte judge prompt**, exceeding the proposed **262,144-byte input limit**. That fixture is invalid for assurance; it still demonstrates why the proposed number cannot be treated as an enforced limit.
+
+Exact calibration binding, probe census, installed routes/live-profile qualification and execution-specific retention authority remain absent. Their appropriate measurement disposition is **not shown / NO VERDICT**, with execution held.
+
+### 3. Retention deviation remains separate from methodology and key quality
+
+The composite route preserves the known possibility of losing already-emitted in-flight evidence on parent termination.
+
+Decision 0004 permits preparation despite that A4 deviation. It does not establish durable capture or authorize experimental exposure to the same risk. Invalidating a comparison protects its verdict; it does not recover lost knowledge.
+
+The temporary preview artifacts are presently inspectable and were inspected. They are not a portable or durable published evidence archive. Their explicit description as local preparation artifacts is accurate.
+
+No further independent source-support, projection or arithmetic blocker was established in the bounded checks below.
+
+## 3. Per-probe audit dispositions
+
+“PASS” here concerns prospective key support and question fit—not observed reader performance. “REVISE” identifies the scope defect above. All R4 technical decisions are supported; no common key was changed according to arm.
+
+| Probe | Class | Support against both originals and disposition |
+|---|---|---|
+| Q01 | Control | **PASS.** Both ownership tables and admission sequences support the owner split, callback boundary and limits on provider-work claims. |
+| Q02 | Control | **PASS.** Both acceptance sections preserve collision/confirmation, identity refusal, nonfatal route denial and atomic revision/RIB-before-ACK behavior. |
+| Q03 | Control | **PASS.** Both sequences support action/reservation/permit authorization and exact guards for every completion, including stopped and replaced owners. |
+| Q04 | Control | **PASS.** Both three-lifetime sections distinguish uninvoked, unsettled and settled-but-retained work and bounded detached observers. |
+| Q05 | Control | **REVISE scope.** FIFO, barrier and head-transfer answers are supported in both. Clause 4 adds mandatory bounds/cardinality not clearly asked. |
+| Q06 | Control | **PASS.** Both ordered-input sections distinguish ordinary semantic effects, terminal bypass, sole-reader draining and separate storage reservations. |
+| Q07 | Control | **PASS.** Both carry static rejection/eligible-subset preparation, exact result validation, final current RIB capacity and atomic application. |
+| Q08 | Control | **PASS.** Both terminal-handoff sections require all-publication integration, veto ordinary effects and separate runtime authority from store receipts. |
+| Q09 | Control | **PASS.** Both terminal-accounting sequences preserve unresolved work and freeze focused/aggregate values, revision and capture time. |
+| Q10 | Control | **REVISE scope.** Both support OPEN-through-confirmation and monotonic/tokened timer handling. Mandatory invocation/commit guards exceed the specific timer question. |
+| Q11 | Control | **REVISE scope.** Both support separate pools and truthful refusal. Explicitly ask the mandatory supervisor-pool/retry consequences or remove them from required scoring. |
+| Q12 | Control | **PASS.** Both capacity tables support initial acquisition despite disabled repeats, atomic wait registration, unchanged attempts and preserved backoff ownership. |
+| Q13 | Control | **PASS.** Both tables support suppression without early retry reset and terminal-row retention. R3’s no-active-controller consequence is derivable from its wait projection; R4 makes winner clearing more explicit. |
+| Q14 | Control | **PASS.** Both public-migration sections support optional shared options, one-argument compatibility, pending-evaluation-only authority, public compile evidence and retained provider/wrapper duties. |
+| Q15 | Control | **PASS.** Both provide the default sources, positive-safe-integer/effective-config duties, coordinated local artifacts and no workload-certification claim. |
+| Q16 | Clarification | **REVISE scope.** R3 has application-time checks but not the explicit equality/immediate-owner rule; R4 supplies it. Mandatory work-release/abort-location detail is unasked. |
+| Q17 | Clarification | **PASS.** R3 supplies earlier-OPEN precedence but not the complete tie/shared-owner rule; R4 explicitly resolves earlier/equal deadlines and pre-invocation expiry. |
+| Q18 | Clarification | **PASS.** R3 provides final guards and numeric dominance; R4 adds the same-turn expiry re-preparation/permit sequence being asked. |
+| Q19 | Clarification | **REVISE scope.** R3 leaves the total-budget setting/migration unresolved; R4 resolves it. The mandatory StopPolicy/global-stop exclusions are unasked. |
+| Q20 | Clarification | **PASS.** R3 has total/detached cleanup foundations; R4 explicitly supplies retained guard, early wake, detached generation and timeout precedence. |
+| Q21 | Clarification | **REVISE scope.** R3 has exact eligible-subset validation; R4 carries empty invocation and full fault/capacity distinctions. Mandatory stale/elapsed branches are outside the specified current-result question. |
+| Q22 | Clarification | **PASS.** R3 establishes terminal bypass/inert transport draining; R4 explicitly states all-cause semantic-backlog disposal without false work refunds. |
+| Q23 | Clarification | **PASS.** R3 distinguishes stopped cleanup from frozen terminal state; R4 explicitly adds cleanup-change revision and query-time behavior. |
+| Q24 | Clarification | **PASS.** R3 proposes shared optional options; R4 supplies the required readonly signal member and the omitted-versus-empty distinction. Compatibility evidence is explicitly asked. |
+
+### Classification and coverage verdict
+
+The **15 controls and 9 clarifications are substantively defensible classifications**, not merely matching counts. The controls concern mechanics supported in both originals. The clarifications correspond to R4’s explicit resolution of incomplete, implicit or uncarried R3 rules.
+
+A clarification need not be impossible to infer from R3. The common rubric correctly permits valid multi-premise derivation and does not automatically penalize the older arm.
+
+Coverage reaches all seven duties and public migration:
+
+- Runtime authority: Q01/Q03/Q08/Q09/Q18.
+- Admission/work lifetimes: Q03/Q04/Q16/Q17.
+- FIFO/continuation ownership: Q05/Q06/Q22.
+- Route preparation/application: Q02/Q07/Q21.
+- Deadline/cleanup composition: Q10/Q16–Q20/Q22.
+- Supervisor ownership: Q11–Q13.
+- Operations/public contracts: Q09/Q14/Q15/Q23/Q24.
+- Migration: Q14/Q15/Q19/Q24.
+
+Coverage adequacy does not repair question/key mismatch. Conversely, this finding does not justify shrinking the seven-duty scope.
+
+## 4. Projection and public delivery
+
+**Projection fidelity: PASS for this instrument.**
+
+I independently compared the projected bodies with the originals, apart from the declared checkpoint/link-destination removals. The bodies matched. The readings also matched their bytes at `67659d1`.
+
+Measured reading sizes:
+
+- `v17`: **48,875 bytes**.
+- `k83`: **62,160 bytes**.
+
+The neutral introductions preserve proposed/not-adopted status. The identical adoption-prerequisite paragraph retains independent technical/axiom review, fresh-reader assurance, public-addition agreement, separate implementation/runtime verification, transport/event-loop prerequisites and claim limits.
+
+I examined the omitted introductions, review/handoff apparatus and histories against the retained body. No unique correctness-critical mechanism or technical adoption prerequisite was found missing. Removed historical verdicts are not supplied as cues; the full originals remain retained audit sources.
+
+### Direct public-preview checks
+
+I inspected the existing full `PREVIEW.json` artifacts, rather than treating `preparation-checks.json` as sufficient proof.
+
+For **each** canonical and volume fixture:
+
+- Nine reader cells and 432 property/axis units were present.
+- Reader task prompts were identical.
+- No-document prepared inputs contained neither design reading nor source canary.
+- Withheld key/history material was absent from reader delivery.
+- All **864 first-prompt assignments** and **432 retry-prompt assignments** were checked against their unit identity, complete known answer, assigned reading, question, key and **own rubric**.
+- Eight jobs contained the same question heading with different axes; their separate rubric bindings were correct.
+- Other-family assignment was preserved.
+- Observations remained in the raw fixture and were excluded from judged answer text.
+
+Canonical Q24 reports `ended-at-unrequested-heading` because `OBSERVATIONS` follows it. Inspection shows that this is the intended boundary, not lost Q24 content. A future review must inspect the text relationship rather than treating every flag as either automatically fatal or automatically harmless.
+
+| Fixture | Readers / axis units / judge jobs | Inspected disposition |
+|---|---:|---|
+| Canonical | 9 / 432 / 432 | Complete model-free delivery/binding checks passed |
+| Volume | 9 / 432 / 432 | Complete model-free checks passed; raw response 53,588 bytes |
+| Nested, duplicate, fenced, missing | Each 3 / 144 / 0 | Noncanonical; reject, never reconstruct or credit apparent absence |
+| Empty section | 3 / 144 / 0 | Synthetic raw evidence proves Q02 empty; no judge-delivery claim |
+| Whole empty | 3 / 144 / 0 | Synthetic raw evidence proves whole response empty |
+| UTF-8 bound | 9 / 432 / 18 | Truncated; NO VERDICT, not behavioral absence |
+
+Canonical, volume and UTF-8 preview hashes respectively matched:
+
+- `a79e3c81e76dcdd241ce4b66c42f563a62460a387f027cf62e969a14b58b3bd7`
+- `07049ba5fe4613a801f001b626c9bee1629eaa78bf3cb364aad147bbd3c02435`
+- `27526e115a70d587b07cfd49b9227a727e1ce0cb5ba507379160dec29fbf4c51`
+
+All remaining fixture hashes also matched the committed preparation manifest.
+
+The retained qualification-01 null-reading assertion failure and qualification-02 zero-job volume/UTF-8 checks were inspected. Qualification-03 addresses those specific author-check defects. None of these artifacts is independent live runtime evidence.
+
+## 5. Arithmetic and measurement validity
+
+**Deterministic gate arithmetic: PASS at the selected per-probe, per-axis arm-total grain.**
+
+I reran the packet tests: **15 passed, 0 failed**.
+
+Additional independent synthetic checks exercised **72 regression cases** across all 24 probes:
+
+- Decision regression on every probe.
+- Grounding regression on every probe.
+- Grounding regression on every nonseparating probe.
+
+All failed the gate as required. Nonseparating gains could not supply a pass; whole-reader absence retained its slots; invalid D values produced NO VERDICT; exact-quote checking and G-only capping behaved as declared.
+
+An initial reviewer assertion incorrectly expected a present, integer-valued D regression to remain nonseparating. That expectation was corrected: with a one-point separation threshold, differing old/new integer totals cannot both equal the no-document total. This was a reviewer-check error, not a packet failure.
+
+Accounting is coherent:
+
+`24 probes × 3 arms × 3 readers = 216 logical answers`
+
+`216 × 2 axes = 432 axis outcomes`
+
+`432 × 2 other-family judges = 864 vote slots`
+
+One proved absent answer retains two zero outcomes and four uncast slots. One whole empty reader retains 48 zero outcomes and 96 uncast slots. Missing, truncated, malformed or unassignable evidence cannot become an absence zero or shrink the denominator.
+
+The helper correctly preserves:
+
+- Separate D/G minima and G-only quote caps.
+- Universal non-regression, including controls and nonseparating probes.
+- Candidate usability floor.
+- Separation coverage and strict grounded improvement.
+- NO VERDICT precedence for invalid evidence, with computable adverse differences retained.
+
+The limitation is deliberate: family redistribution can preserve an arm total. No family-wise preservation claim follows.
+
+### What remains unmeasured
+
+There are no real accepted votes/reasons or reader observations in this packet to validate. Synthetic checks cannot establish their future semantic validity.
+
+The independent review required by the ledger must inspect **every original accepted vote and reason**, not only minima. The helper’s aggregate contradiction check does not substitute for that review.
+
+The public prompt’s generic score legend permits `0|1|2`, while each D rubric explicitly defines only 0/1. Own-rubric delivery is demonstrated; live scale compliance and invalid-response handling are not. Calibration must establish that D=2 cannot become an accepted D vote or be silently converted.
+
+The six unrelated parcel-policy calibration cases are coherent on paper, including proposal-status qualification, omission, error, unsupported correctness and valid inference. They are not a bound calibration experiment or a calibration result.
+
+## 6. Scoped axiom disposition
+
+This packet belongs to the record-keeping, multi-actor, LLM-in-the-loop delivery process. That scope is distinct from the AGP runtime product and from context-lab’s implementation.
+
+| Axiom | Weight | Disposition |
+|---|---|---|
+| A3 | Load-bearing | Public evaluator seams respected; no private runner/extractor or implementation dependency introduced |
+| A4 | Load-bearing | Existing retention deviation remains **FAIL**, with preparation-only override; originals and adverse history preserved |
+| A5 | Load-bearing | Neutral projections and inspected delivery preserve the intended shared task; no-key/no-design separation is demonstrated model-free only |
+| A8 | Load-bearing | Key mismatch prevents promotion; preparation, execution qualification, assurance and product delivery remain distinct gates |
+| A11 | Load-bearing | Shape, quote and arithmetic work is mechanized; semantic support and reason validity remain genuine review work |
+| A12 | Load-bearing | Structured bounded instrument prepared, but required invocation-resource enforcement remains unresolved |
+| A13 | Load-bearing | Decision 0006 respected; no experimental spending, publication or product adoption inferred |
+| A14 | Load-bearing | Earlier defects and this new key-fit finding must remain durable correction inputs, not disappear into summaries |
+| A1/A6/A7/A10 | Supporting | Explicit manifests, named gaps and role boundaries help; no durable recovery or autonomous-remediation capability is certified |
+| A2/A9 | Not materially implicated in this verdict | No continuous declarative reconciliation or deployment/runtime acceptance is being approved |
+
+The composite methodology PASS is not overturned. Its exact packet implementation has a correctable key-fit failure. The historical A4/M7 FAIL is neither cured by arithmetic nor expanded into an unrelated demand to perfect the evaluator.
+
+## 7. Correction and closure predicates
+
+The next bounded action is **correct the question/key contract**, retaining this committed version and report.
+
+Before the key audit can close:
+
+1. Resolve the mandatory extras identified for Q05/Q10/Q11/Q16/Q19/Q21 by explicit questions or nonmandatory background.
+2. Keep one common key per question across all arms and both axes.
+3. Preserve genuine controls, clarification classification and seven-duty/migration coverage.
+4. Recheck the corrected task/property bindings and repeat the affected model-free prompt checks.
+5. Obtain independent confirmation against the corrected committed identities before preregistration or reader exposure.
+
+Before any execution selection:
+
+1. Resolve the public resource-control gap or approve a prospective route/profile amendment.
+2. Bind and count the exact unrelated calibration and isolation work.
+3. Qualify the installed live profile, including scale/retry behavior, no-document isolation and complete evidence fidelity.
+4. Reconsider the exact retention exposure under separate execution authority.
+5. Preserve full records and inspect every accepted reason/observation before applying the assurance gate.
+
+A successful packet audit would still not close Zorg’s native-delivery dependency. Public ratification, complete implementation, independent runtime verification, remaining native prerequisites and authorized publication remain downstream.
+
+No files were edited; no commits, pushes, sibling messages, delegation, model/provider calls, live isolation/calibration or AGP runtime tests occurred.
+
+END OF ADMISSION PACKET AUDIT
