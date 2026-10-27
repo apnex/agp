@@ -1,0 +1,55 @@
+{
+  "id": "admission-decisions",
+  "declaredStatus": "result",
+  "scenarios": [
+    "scenario.json"
+  ],
+  "factors": {
+    "arms": [
+      "v17",
+      "k83",
+      "n46"
+    ],
+    "population": [
+      "c",
+      "g",
+      "o"
+    ]
+  },
+  "runsPerCell": 1,
+  "maxAttemptsPerCell": 1,
+  "maxResponseBytes": 98304,
+  "phases": [
+    {
+      "id": "answer",
+      "session": "new"
+    }
+  ],
+  "variation": {
+    "difference": 0.3333333333333333,
+    "scope": "property"
+  },
+  "default": "No favorable claim without full independent validity and the separate AGP gate; nonseparating probes retain adverse effects, ties alone fail strict improvement.",
+  "instructions": "You are a fresh implementer considering proposed behavior, not an adopted or implemented contract. Use only the assigned reading if present and the questions. If no reading is supplied, make the same decisions from the questions and your reasoning, label inference honestly and do not invent source quotes. Do not browse, follow links, use tools, read repositories/history/other files, infer version, edit files or execute the design. Answer in your final response. Use exactly the 24 requested level-three headings in order, then ### OBSERVATIONS. Within each question use plain Decision:, Document support:, and Inference or gap: labels; encode each contiguous source excerpt on its own line as QUOTE: followed by a JSON string, preserving punctuation. No other headings, fenced blocks, repeated headings or trailing material outside OBSERVATIONS. Quotes containing headings stay inside JSON strings. Say explicitly when a required decision cannot be made from the supplied text; do not silently repair it. Keep observations/conflicts in OBSERVATIONS; normally 80-150 words plus necessary short quotes per question, but completeness governs.",
+  "judgeInstructions": "Both axes evaluate the same complete answer. Judge only the question, numbered decision key, assigned reading (if any), answer and axis rubric. Never infer version/reader identity. The reading describes proposed/not-adopted behavior; an accurate status qualification is not required-decision uncertainty. All three arms use identical decision criteria; document availability and quotes never affect decision correctness. Grounding requires actual supplied-text premises and valid entailment, not key text or the question. Several quotes can jointly support a derivation; no preferred wording or one-quote-per-clause rule. Missing-authority reports are safe incompleteness, not unsafe invention; explicit wrong actions still score zero. Do not import linked contracts. Explain concrete required-decision/support findings and any apparent contradiction; no reason tag replaces semantic explanation. Guesses about arm identity are not scoring grounds.",
+  "judging": {
+    "judges": [
+      "c",
+      "g",
+      "o"
+    ],
+    "guessGroups": {
+      "sheetOne": [
+        "v17"
+      ],
+      "sheetTwo": [
+        "k83"
+      ],
+      "noSheet": [
+        "n46"
+      ]
+    },
+    "outcomesPerPrompt": 2
+  },
+  "notes": "Preparation only. 9 readers; 216 answers; 432 axis outcomes; 864 cross-family vote slots. No experimental calls authorized. Exact-profile/resource readiness remains held as recorded in readiness.json. No automatic resume, replacement, regrade or cross-run splicing."
+}

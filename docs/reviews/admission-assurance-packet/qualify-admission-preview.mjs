@@ -8,14 +8,21 @@ import { checkAdmissionShape } from './check-admission-evidence.mjs';
 
 // Consumer qualification only: invokes the public model-free preview command.
 // It never supplies reconstructed answer text to a judge or invokes a runtime.
-const [cli, output] = process.argv.slice(2);
-if (!cli || !output) throw new Error('Usage: node qualify-admission-preview.mjs PINNED_PUBLIC_CLI NEW_OUTPUT_DIRECTORY');
-const packet = path.dirname(fileURLToPath(import.meta.url));
+const [cli, output, packetDirectory] = process.argv.slice(2);
+if (!cli || !output) throw new Error('Usage: node qualify-admission-preview.mjs PINNED_PUBLIC_CLI NEW_OUTPUT_DIRECTORY [PACK_DIRECTORY]');
+const packet = path.resolve(packetDirectory ?? path.dirname(fileURLToPath(import.meta.url)));
 fs.mkdirSync(output); // Refuse to overwrite a previous qualification.
 const read = name => fs.readFileSync(path.join(packet, name), 'utf8');
 const scenario = JSON.parse(read('scenario.json'));
 const key = JSON.parse(read('admission-key.json'));
 const experiment = JSON.parse(read('experiment.json'));
+const pack = JSON.parse(read('pack.json'));
+const readArm = arm => {
+  const delivery = pack.arms.find(a => a.id === arm).deliver[0];
+  const variant = pack.variants.find(v => v.id === delivery.variant);
+  const source = pack.sources.find(s => s.id === variant.source);
+  return read(path.join(source.path, delivery.file));
+};
 const headings = key.probes.map(q => q.id);
 const answers = Object.fromEntries(headings.map(id => [id, `Decision: synthetic binding marker ${id}; not an AGP answer.\nDocument support: no substantive claim.\nQUOTE: "# Admission lifetime design"\nInference or gap: synthetic ${id} end marker.`]));
 const response = headings.map(id => `### ${id}\n${answers[id]}`).join('\n\n') + '\n\n### OBSERVATIONS\nOBSERVATION-ONLY-RETAIN-NOT-SCORE\n';
@@ -43,6 +50,8 @@ for (const [name, raw] of fixtures) {
   const preview = JSON.parse(data);
   assert.deepEqual(preview.unsupported, []);
   const shape = checkAdmissionShape(raw, headings);
+  let firstAssignments = 0;
+  let retryAssignments = 0;
   if (['nested', 'duplicate', 'fenced', 'missing'].includes(name)) assert.equal(shape.kind, 'noncanonical');
   if (['canonical', 'volume'].includes(name)) {
     assert.equal(preview.readers.length, 9);
@@ -50,13 +59,14 @@ for (const [name, raw] of fixtures) {
     assert.equal(new Set(preview.readers.map(r => r.prompt)).size, 1);
     for (const r of preview.readers) {
       const delivered = JSON.stringify(r.prepared);
+      assert.ok(r.prompt.includes(scenario.task), `${r.cell}: exact common reader task`);
       assert.ok(!delivered.includes(key.sealedMarker));
       assert.ok(!r.prompt.includes(key.probes[0].decisions[0]));
       if (r.arm === key.roles.none) {
         assert.ok(!delivered.includes('# Admission lifetime design'));
         assert.ok(!delivered.includes('The amber tern') && !delivered.includes('The violet tern'));
       } else {
-        const reading = read(`inputs/${r.arm}/DESIGN.md`);
+        const reading = readArm(r.arm);
         // Configuration escapes some instruction text; compare via JSON encoding.
         const rendered = (r.prepared.files ?? []).map(f => f.text ?? '').join('\n');
         assert.ok(rendered.includes(reading) || rendered.includes(JSON.stringify(reading).slice(1, -1)));
@@ -71,21 +81,37 @@ for (const [name, raw] of fixtures) {
       assert.equal(a.extraction.bounded, false);
       assert.equal(a.extraction.selected, 1);
       const arm = preview.readers.find(r => r.cell === a.cell).arm;
-      const reading = arm === key.roles.none ? '' : read(`inputs/${arm}/DESIGN.md`).trimEnd();
+      const reading = arm === key.roles.none ? '' : readArm(arm).trimEnd();
       if (reading) assert.equal(a.reading.original, Buffer.byteLength(reading));
       else assert.equal(a.reading, null);
       const jobs = preview.judges.filter(j => j.units.some(u => u.id === a.unit));
       assert.equal(jobs.length, 2);
       for (const j of jobs) {
         assert.notEqual(j.judge, preview.readers.find(r => r.cell === a.cell).member);
-        const label = Object.entries(j.first.local).find(([, unit]) => unit === a.unit)?.[0];
-        const block = `--- answer ${label} ---\n` + (reading ? `--- ASSIGNED READING ---\n${reading}\n--- ANSWER ---\n` : '') + expected + '\n';
-        assert.ok(j.first.prompt.includes(block), `${a.cell}/${a.property}: complete selected-to-judged text`);
-        assert.ok(j.first.prompt.includes(property.rubric));
-        assert.ok(j.first.prompt.includes(property.key));
-        assert.ok(!j.first.prompt.includes('OBSERVATION-ONLY-RETAIN-NOT-SCORE'));
+        for (const [kind, invocation] of [['first', j.first], ['retry', j.retry]]) {
+          const label = Object.entries(invocation.local).find(([, unit]) => unit === a.unit)?.[0];
+          if (kind === 'retry' && !label) continue;
+          assert.ok(label, `${a.cell}/${a.property}: ${kind} assignment`);
+          const marker = `--- answer ${label} ---\n`;
+          assert.equal(invocation.prompt.split(marker).length, 2);
+          const block = marker + (reading ? `--- ASSIGNED READING ---\n${reading}\n--- ANSWER ---\n` : '') + expected + '\n';
+          assert.ok(invocation.prompt.includes(block), `${a.cell}/${a.property}: ${kind} complete selected-to-judged text`);
+          // Check the governing probe header, not merely that the right rubric
+          // occurs somewhere in a mixed-axis prompt.
+          const beforeAnswer = invocation.prompt.slice(0, invocation.prompt.indexOf(marker));
+          const headerStart = beforeAnswer.lastIndexOf('\nPROBE ');
+          assert.ok(headerStart >= 0);
+          const header = `PROBE ${property.answerHeading}\n\nQuestion:\n${property.question}\n\nKey:\n${property.key}\n\nRubric:\n${property.rubric}\n\n`;
+          assert.ok(beforeAnswer.slice(headerStart + 1).startsWith(header), `${a.cell}/${a.property}: ${kind} own question/key/rubric`);
+          assert.ok(!invocation.prompt.includes('OBSERVATION-ONLY-RETAIN-NOT-SCORE'));
+          if (kind === 'first') firstAssignments++;
+          else retryAssignments++;
+        }
       }
     }
+    assert.equal(preview.judges.length, 432);
+    assert.equal(firstAssignments, 864);
+    assert.equal(retryAssignments, 432);
   }
   if (name === 'volume') {
     assert.equal(shape.kind, 'canonical-candidate');
@@ -103,7 +129,7 @@ for (const [name, raw] of fixtures) {
     assert.ok(preview.answers.every(a => a.bytes.bounded <= experiment.maxResponseBytes));
     assert.ok(preview.judges.every(j => !j.first.prompt.includes('\ufffd')));
   }
-  reports.push({ name, rawBytes: Buffer.byteLength(raw), shape, readers: preview.readers.length, answers: preview.answers.length, judgeJobs: preview.judges.length,
+  reports.push({ name, rawBytes: Buffer.byteLength(raw), shape, readers: preview.readers.length, answers: preview.answers.length, judgeJobs: preview.judges.length, firstAssignments, retryAssignments,
     maxJudgePromptBytes: Math.max(0, ...preview.judges.map(j => j.first.bytes)), preview: path.join(dir, 'PREVIEW.json'), sha256: createHash('sha256').update(data).digest('hex'),
     disposition: ['canonical', 'volume'].includes(name) ? 'model-free checks passed, not live qualification' : ['empty-section', 'whole-empty'].includes(name) ? 'synthetic proved absence only; real absence still needs complete evidence' : 'reject or NO VERDICT; never reconstruct answers or credit absence' });
   console.log(JSON.stringify(reports.at(-1)));

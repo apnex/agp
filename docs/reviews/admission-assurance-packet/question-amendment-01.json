@@ -1,0 +1,40 @@
+{
+  "schema": "agp.admission-question-amendment/1",
+  "baselineCommit": "a4f47c3497ef1c3a089a08da3d616f39b021d809",
+  "review": "key-readiness-audit-01.txt",
+  "authority": "../admission-lifetime-approval-route.md#0007---question-correction-and-focused-confirmation",
+  "prospectivePack": "questions-02",
+  "scope": "Question scope only; same required decisions, support, classification, duties, rubrics, scores, arms, source pins and experiment. No experimental exposure.",
+  "changes": [
+    {
+      "id": "Q05",
+      "before": "A continuation drain yields with older commands still queued and a fresh ordinary command arrives. Where does it go? Specify the barrier-opening condition and how ownership of the head packet changes if dispatch starts another admission.",
+      "after": "A continuation drain yields with older commands still queued and a fresh ordinary command arrives. Where does it go? Specify the barrier-opening condition, the head packet's reservation/ownership through dispatch, and how another admission affects draining. Which count and byte measures bound the queue, and how many pending admissions and drain tasks may a controller own?"
+    },
+    {
+      "id": "Q10",
+      "before": "Identity admission finishes while the connection is still confirming and hold is disabled. Which opening bound remains active, when does it stop, and how should oversized delays or stale timer callbacks be handled?",
+      "after": "Identity admission finishes while the connection is still confirming and hold is disabled. Which opening bound remains active, and when does it stop? What deadline checks govern provider invocation and result commit? How should oversized host delays, positive fractional remainders and stale timer callbacks be handled?"
+    },
+    {
+      "id": "Q11",
+      "before": "Identity work fills its pool while an established peer needs route policy. What bounds apply, what is reported when a local evaluation cannot reserve, and can a remote rejection establish that a local pool is exhausted?",
+      "after": "Identity work fills its pool while an established peer needs route policy. Which bounds and work states count, including never-settling work? When a local evaluation cannot reserve, specify invocation, event and notification behavior, the information retained for supervisor eligibility, and retry consequences for configured dial adjacencies versus accepted controllers. What can a remote rejection establish about local pool exhaustion and the remembered refusing-pool set?"
+    },
+    {
+      "id": "Q16",
+      "before": "A current route result is applied exactly at its admission deadline, before its timer callback runs. What transition is taken now, what happens to result effects and the later timer, and how does an early timer wake differ?",
+      "after": "A current route result reaches serialized application exactly at its admission deadline, before its timer callback runs. What transition is taken now, and what happens to result effects, token authority and the timer? Specify cooperative-cancellation delivery relative to the executor and reservation release for an uninvoked revoked permit, invoked pending work and a settled result awaiting disposal. How do a later callback and an early timer wake differ?"
+    },
+    {
+      "id": "Q19",
+      "before": "A terminal notification is queued behind another send. Which configuration and anchor supply the total cleanup interval, do later phases obtain fresh time, and what changes for deployments accustomed to a full write allowance followed by a full close allowance?",
+      "after": "A terminal notification is queued behind another send. Which configuration, default, anchor and phases define the total cleanup interval? How do later phases and independent per-send timeouts affect its budget and terminal cause? What observable migration and coordinated contract/caller updates are required? Explain the relationship to StopPolicy.drainTimeoutMs and whether this design introduces a global stop deadline."
+    },
+    {
+      "id": "Q21",
+      "before": "Static filtering leaves no policy-eligible route. For a still-authorized reserved action, is a call required and what result is valid? Contrast a malformed current result, explicit route denial and insufficient final RIB capacity.",
+      "after": "Static filtering leaves no policy-eligible route. For a still-authorized reserved action, is a call required and what result is valid? Contrast malformed, incomplete or thrown current results with stale results and current results whose admission deadline has elapsed. Also distinguish explicit route denial and insufficient final RIB capacity, including their scope and the route/rejection/revision commit ordering required before ACK."
+    }
+  ]
+}

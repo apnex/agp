@@ -1,0 +1,369 @@
+{
+  "schema": "agp.admission-question-checks/1",
+  "date": "2026-10-27T07:42:46.988Z",
+  "authorEvidence": true,
+  "independentVerdict": null,
+  "experimentalCalls": 0,
+  "baseline": "a4f47c3497ef1c3a089a08da3d616f39b021d809",
+  "evaluator": {
+    "pin": "9b4641b05d50c1ce54ab6b9efa1b06820ae16a68",
+    "export": "/tmp/agp-admission-questions.Y0VjQR/evaluator",
+    "trackedFilesCompared": 144,
+    "changed": [],
+    "guideSha256": "66d782fb65776f6283b4eb179ac69a585a9920cd7f19f994153f2019a8f7f31e",
+    "build": "npm install --ignore-scripts --no-audit --no-fund; npm run build",
+    "lockfileNote": "Install added only existing bin metadata; restored those three lines, then all 144 tracked export inputs matched the pin."
+  },
+  "inputs": {
+    "question-amendment-01.json": "fede6fe98975b34657f88b192d4f7c1444d3718514724abf01f3dba536acf261",
+    "admission-question-amendment.test.mjs": "3203ae1fc300d6aea590cc54753e0bcb4a81ac8ca1a6297d13a3a2b4972753cd",
+    "qualify-admission-preview.mjs": "104c6846e366eb7db0a2adb4b55fed4a5e5ead588c5b63eeffca9cfbc0c9ec45",
+    "questions-02/admission-key.json": "ed2f109d6e27a0f1f4a0abfa2c91175cb1c460c7f82b89900fc7de1c4f365b3f",
+    "questions-02/scenario.json": "a80b384f691958e3ca6cd053b592b675e3f6c58899d674334ba167115b990701",
+    "questions-02/pack.json": "ed96c58dc8af534b603f858cecef2502a1cf551e8802866a85500bc0f5079357",
+    "questions-02/experiment.json": "72338603a4b6d4c56996f5aa493d3759a94374bf4aa6a14db29f8a5d6256e471"
+  },
+  "qualification": {
+    "schema": "agp.admission-preview-checks/1",
+    "evaluator": "9b4641b05d50c1ce54ab6b9efa1b06820ae16a68",
+    "experimentalCalls": 0,
+    "reports": [
+      {
+        "name": "canonical",
+        "rawBytes": 4587,
+        "shape": {
+          "kind": "canonical-candidate",
+          "findings": []
+        },
+        "readers": 9,
+        "answers": 432,
+        "judgeJobs": 432,
+        "firstAssignments": 864,
+        "retryAssignments": 432,
+        "maxJudgePromptBytes": 129291,
+        "preview": "/tmp/agp-admission-questions.Y0VjQR/qualification-02/canonical/PREVIEW.json",
+        "sha256": "75586998848e52bfb46d22f3b11137883aa9c03b9510886c56d0de76d1264acc",
+        "disposition": "model-free checks passed, not live qualification"
+      },
+      {
+        "name": "volume",
+        "rawBytes": 53588,
+        "shape": {
+          "kind": "canonical-candidate",
+          "findings": []
+        },
+        "readers": 9,
+        "answers": 432,
+        "judgeJobs": 432,
+        "firstAssignments": 864,
+        "retryAssignments": 432,
+        "maxJudgePromptBytes": 178018,
+        "preview": "/tmp/agp-admission-questions.Y0VjQR/qualification-02/volume/PREVIEW.json",
+        "sha256": "6154b3516873c539933933a8d2e0088897437bf4816e3026e140b2e8f6f881d1",
+        "disposition": "model-free checks passed, not live qualification"
+      },
+      {
+        "name": "nested",
+        "rawBytes": 4598,
+        "shape": {
+          "kind": "noncanonical",
+          "findings": [
+            "heading-sequence"
+          ]
+        },
+        "readers": 3,
+        "answers": 144,
+        "judgeJobs": 0,
+        "firstAssignments": 0,
+        "retryAssignments": 0,
+        "maxJudgePromptBytes": 0,
+        "preview": "/tmp/agp-admission-questions.Y0VjQR/qualification-02/nested/PREVIEW.json",
+        "sha256": "a1e5209b7c794084257603cceb1134527a733acf4d53f23846c42b25d7f82626",
+        "disposition": "reject or NO VERDICT; never reconstruct answers or credit absence"
+      },
+      {
+        "name": "duplicate",
+        "rawBytes": 4628,
+        "shape": {
+          "kind": "noncanonical",
+          "findings": [
+            "heading-sequence",
+            "answer-labels:Q01"
+          ]
+        },
+        "readers": 3,
+        "answers": 144,
+        "judgeJobs": 0,
+        "firstAssignments": 0,
+        "retryAssignments": 0,
+        "maxJudgePromptBytes": 0,
+        "preview": "/tmp/agp-admission-questions.Y0VjQR/qualification-02/duplicate/PREVIEW.json",
+        "sha256": "77b6e0676b1c1ed98bf0382d94d6b9e1eadead70cbed8e51ca6559ee63b138af",
+        "disposition": "reject or NO VERDICT; never reconstruct answers or credit absence"
+      },
+      {
+        "name": "fenced",
+        "rawBytes": 4607,
+        "shape": {
+          "kind": "noncanonical",
+          "findings": [
+            "heading-sequence",
+            "fenced-block",
+            "answer-labels:Q02"
+          ]
+        },
+        "readers": 3,
+        "answers": 144,
+        "judgeJobs": 0,
+        "firstAssignments": 0,
+        "retryAssignments": 0,
+        "maxJudgePromptBytes": 0,
+        "preview": "/tmp/agp-admission-questions.Y0VjQR/qualification-02/fenced/PREVIEW.json",
+        "sha256": "996857c369a3e5c381e8d78ee7b36c7d2ce422d11b133cc8a5776f7d419b0dfb",
+        "disposition": "reject or NO VERDICT; never reconstruct answers or credit absence"
+      },
+      {
+        "name": "missing",
+        "rawBytes": 4579,
+        "shape": {
+          "kind": "noncanonical",
+          "findings": [
+            "heading-sequence",
+            "answer-labels:Q01"
+          ]
+        },
+        "readers": 3,
+        "answers": 144,
+        "judgeJobs": 0,
+        "firstAssignments": 0,
+        "retryAssignments": 0,
+        "maxJudgePromptBytes": 0,
+        "preview": "/tmp/agp-admission-questions.Y0VjQR/qualification-02/missing/PREVIEW.json",
+        "sha256": "e1fd4da0ccaf6417d222348401a7a29f4bb3de5312a4df86582cd50a2d75f572",
+        "disposition": "reject or NO VERDICT; never reconstruct answers or credit absence"
+      },
+      {
+        "name": "empty-section",
+        "rawBytes": 4408,
+        "shape": {
+          "kind": "canonical-candidate",
+          "findings": []
+        },
+        "readers": 3,
+        "answers": 144,
+        "judgeJobs": 0,
+        "firstAssignments": 0,
+        "retryAssignments": 0,
+        "maxJudgePromptBytes": 0,
+        "preview": "/tmp/agp-admission-questions.Y0VjQR/qualification-02/empty-section/PREVIEW.json",
+        "sha256": "87d95f2b039248109ed43e2a26c6cd217ae9b982f381b1117b636f27b82221c8",
+        "disposition": "synthetic proved absence only; real absence still needs complete evidence"
+      },
+      {
+        "name": "whole-empty",
+        "rawBytes": 0,
+        "shape": {
+          "kind": "whole-empty",
+          "findings": []
+        },
+        "readers": 3,
+        "answers": 144,
+        "judgeJobs": 0,
+        "firstAssignments": 0,
+        "retryAssignments": 0,
+        "maxJudgePromptBytes": 0,
+        "preview": "/tmp/agp-admission-questions.Y0VjQR/qualification-02/whole-empty/PREVIEW.json",
+        "sha256": "8702ccf6dfc2a4f97260118968e90ae07514776dc307e094ac92708d350d8ffd",
+        "disposition": "synthetic proved absence only; real absence still needs complete evidence"
+      },
+      {
+        "name": "utf8-bound",
+        "rawBytes": 124594,
+        "shape": {
+          "kind": "canonical-candidate",
+          "findings": []
+        },
+        "readers": 9,
+        "answers": 432,
+        "judgeJobs": 18,
+        "firstAssignments": 0,
+        "retryAssignments": 0,
+        "maxJudgePromptBytes": 311829,
+        "preview": "/tmp/agp-admission-questions.Y0VjQR/qualification-02/utf8-bound/PREVIEW.json",
+        "sha256": "afb2fabb4001726e86f4cee2d865d30db5f4974fa064a20beb6f28105386c358",
+        "disposition": "reject or NO VERDICT; never reconstruct answers or credit absence"
+      }
+    ]
+  },
+  "archive": {
+    "path": "question-preview-evidence-02.tar.xz",
+    "bytes": 741684,
+    "sha256": "1b4eac02e2818a7e1218c5cfdf7195c3319b41f7e5b319f8440adc0adf440990",
+    "members": [
+      {
+        "name": "qualification.json",
+        "bytes": 5565,
+        "sha256": "e3bb8155ad7416b49f25ecdbd419528e140701fc0353bcac6e575435d961cdb9"
+      },
+      {
+        "name": "canonical/PREVIEW.json",
+        "bytes": 159440525,
+        "sha256": "75586998848e52bfb46d22f3b11137883aa9c03b9510886c56d0de76d1264acc"
+      },
+      {
+        "name": "canonical.txt",
+        "bytes": 4587,
+        "sha256": "282bb0e400f2b0121e20799f2f512118be10352a17ab699311d5bd1954dc7357"
+      },
+      {
+        "name": "canonical.log",
+        "bytes": 162,
+        "sha256": "404c68487115f8b49c48c66c437083321626b6b1303baec2e699929a51766be4"
+      },
+      {
+        "name": "volume/PREVIEW.json",
+        "bytes": 166911197,
+        "sha256": "6154b3516873c539933933a8d2e0088897437bf4816e3026e140b2e8f6f881d1"
+      },
+      {
+        "name": "volume.txt",
+        "bytes": 53588,
+        "sha256": "947edeb17fcdc099b8beb4cecad161829a310fbb88adacff45fcd20acfcf7352"
+      },
+      {
+        "name": "volume.log",
+        "bytes": 159,
+        "sha256": "52a23276fd421465446568a51e05f4a1d221887e1e38be9731c759ad5a0f68bb"
+      },
+      {
+        "name": "nested/PREVIEW.json",
+        "bytes": 318931,
+        "sha256": "a1e5209b7c794084257603cceb1134527a733acf4d53f23846c42b25d7f82626"
+      },
+      {
+        "name": "nested.txt",
+        "bytes": 4598,
+        "sha256": "2e08bd25d8206b47babb86c613f722e7e8925e2239331439895f59ba516bf211"
+      },
+      {
+        "name": "nested.log",
+        "bytes": 157,
+        "sha256": "8c37e1718e3b8848e93ceb4c72de47e7df352c0740001e559bef88adf30c721c"
+      },
+      {
+        "name": "duplicate/PREVIEW.json",
+        "bytes": 319835,
+        "sha256": "77b6e0676b1c1ed98bf0382d94d6b9e1eadead70cbed8e51ca6559ee63b138af"
+      },
+      {
+        "name": "duplicate.txt",
+        "bytes": 4628,
+        "sha256": "f20187ae903b6eb3a70b0d92c2c3b8f027929b73b3ad613782ef8c8510e5ba71"
+      },
+      {
+        "name": "duplicate.log",
+        "bytes": 160,
+        "sha256": "1f82be71c8907fd205baa3aad09830da3dbaa8a50940667642a25b27ed163ab7"
+      },
+      {
+        "name": "fenced/PREVIEW.json",
+        "bytes": 319689,
+        "sha256": "996857c369a3e5c381e8d78ee7b36c7d2ce422d11b133cc8a5776f7d419b0dfb"
+      },
+      {
+        "name": "fenced.txt",
+        "bytes": 4607,
+        "sha256": "ce7560d9dc49fcb449bad3c6d17f6d63c36ec72710cbee42cd4d0c6b7f74a220"
+      },
+      {
+        "name": "fenced.log",
+        "bytes": 157,
+        "sha256": "b5e27d40849a270ff16163356db317eb317671957f4a4ef028e57882377f24b7"
+      },
+      {
+        "name": "missing/PREVIEW.json",
+        "bytes": 318989,
+        "sha256": "e1fd4da0ccaf6417d222348401a7a29f4bb3de5312a4df86582cd50a2d75f572"
+      },
+      {
+        "name": "missing.txt",
+        "bytes": 4579,
+        "sha256": "82277ac849aec7f3d01b2a122da9a3c83482232ae3c8413d0d7b88fc5bb2ab75"
+      },
+      {
+        "name": "missing.log",
+        "bytes": 158,
+        "sha256": "a51e75e5583f75472c4d46876fe98bd379ac33e959d572179b44b20aae2b96a1"
+      },
+      {
+        "name": "empty-section/PREVIEW.json",
+        "bytes": 319211,
+        "sha256": "87d95f2b039248109ed43e2a26c6cd217ae9b982f381b1117b636f27b82221c8"
+      },
+      {
+        "name": "empty-section.txt",
+        "bytes": 4408,
+        "sha256": "2ae4310f76f5cfc71a3b17141c5d2fc62a42b472e9bb1d80cd1244dbab8dd4d1"
+      },
+      {
+        "name": "empty-section.log",
+        "bytes": 164,
+        "sha256": "803e27f7ff0d5c626fc7a8a839820849e6aebf1de6dce4dc2e28f59aa154845f"
+      },
+      {
+        "name": "whole-empty/PREVIEW.json",
+        "bytes": 305248,
+        "sha256": "8702ccf6dfc2a4f97260118968e90ae07514776dc307e094ac92708d350d8ffd"
+      },
+      {
+        "name": "whole-empty.txt",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "name": "whole-empty.log",
+        "bytes": 162,
+        "sha256": "e9bc0a9b283332beeee6676fdf229f474beabc86abeb1cb3b91bba5dbfd1e2ff"
+      },
+      {
+        "name": "utf8-bound/PREVIEW.json",
+        "bytes": 23831482,
+        "sha256": "afb2fabb4001726e86f4cee2d865d30db5f4974fa064a20beb6f28105386c358"
+      },
+      {
+        "name": "utf8-bound.txt",
+        "bytes": 124594,
+        "sha256": "043a664572ba35a1dd40d0dd747cdf988a4da494cfc87f5e0819e547839b4fdd"
+      },
+      {
+        "name": "utf8-bound.log",
+        "bytes": 162,
+        "sha256": "a90cedced6c719ba13d288b5bc394d48e192d06efb5804e8b8247de1c25deb1a"
+      }
+    ]
+  },
+  "checks": {
+    "tests": {
+      "command": "node --test docs/reviews/admission-assurance-packet/admission-question-amendment.test.mjs docs/reviews/admission-assurance-packet/admission-packet.test.mjs test/conformance/board-record.test.js test/conformance/record-integrity.test.js test/conformance/architecture-record.test.js test/conformance/design-mrc.test.js",
+      "exitCode": 0,
+      "output": "✔ fresh packet has 15 controls, 9 clarifications and two common-key axes per heading (9.177351ms)\n✔ frozen originals and neutral projections retain measured identity (2.709152ms)\n✔ declared empty arm, fresh sessions, reader retry cap and finite response bound (0.281549ms)\n✔ shape rejects nested/fenced/duplicate/missing sections and labels without repairing text (1.54976ms)\n✔ quote check permits exact multi-premise quotes and rejects invented, malformed and absent support (0.37193ms)\n✔ complete synthetic gate reconciles 216 answers, 432 axes, 864 vote slots (5.314277ms)\n✔ separating clarification regression fails despite floor and other gains (2.388609ms)\n✔ decision loss cannot be compensated by grounding gain (3.049984ms)\n✔ grounding loss alone fails, including a nonseparating control (2.482615ms)\n✔ all ties lack strict improvement; redistribution is not a family-wise regression gate (3.483866ms)\n✔ missing votes yield NO VERDICT while adverse computable differences survive (2.764321ms)\n✔ proved absence retains two zero axes and four uncast slots, never positive separation (4.062537ms)\n✔ whole empty reader retains 48 zero axes and 96 uncast slots (1.605525ms)\n✔ quote failure caps grounding only, never raises zero or changes decisions (3.260377ms)\n✔ invalidity, duplicate/missing rows and cross-axis contradiction cannot pass (12.335055ms)\n✔ question amendment retains the exact failed declarations and full report (2.68095ms)\n✔ only the six authorized question strings change in the common key (1.86102ms)\n✔ reader task and both axis questions have exactly the declared correction (1.715737ms)\n✔ pack relocation preserves source paths, pins, arms, settings and the experiment (0.768153ms)\n✔ question correction retains classification, complete duties and no-document task boundary (0.865378ms)\n✔ Given the confirmed intent record, when its numbered subsections are read, then every number is unique and ordered (6.834177ms)\n✔ Given the reconciled architecture, when its current paths and scope owners are resolved, then none points at a fictional module or a forked deferred list (15.008295ms)\n✔ Given the triage ledger, when each candidate is read, then it is scored on both dimensions and cites a record (8.32644ms)\n✔ Given every record cited by the board, when the link is resolved, then the target and its anchor exist (219.849271ms)\n✔ Given the held section, when each item is read, then it is scored and carries a revival trigger (1.712389ms)\n✔ Given the decisions required, when each is read, then it names exactly what it blocks (0.912894ms)\n✔ Given every board identifier, when the ledger and milestones are compared, then neither contains an item the other omits (0.839565ms)\n✔ Given the normative design allowlist, when AX0 inspects knowledge structure, then every artifact has one mechanics rationale and consequence section (31.554845ms)\n✔ Given normative documents outside the design set, when AX0 inspects knowledge structure, then each one carries the same mechanics rationale and consequence triad (10.513371ms)\n✔ Given every board item, when its ledger status is compared with where it sits, then the board does not disagree with itself about its state (9.354212ms)\n✔ Given the milestones, when each is read, then no landed item is presented as a live move and the closed count matches the closed set (4.516475ms)\n✔ Given every record that cites a board item, when the citation is resolved, then the item exists on the board (72.404138ms)\n✔ Given the architecture maturity table, when a reopen trigger is read, then it names a condition that has not already happened (1.680202ms)\n✔ Given confirmed intent, when a row says it was amended, then it names the decision that amended it (0.949793ms)\n✔ Given every ratified decision, when it is checked against the vision, then it has been absorbed or explicitly ruled not to change purpose (1.065902ms)\nℹ tests 35\nℹ suites 0\nℹ pass 35\nℹ fail 0\nℹ cancelled 0\nℹ skipped 0\nℹ todo 0\nℹ duration_ms 298.149216\n"
+    },
+    "publicCheck": {
+      "command": "node /tmp/agp-admission-questions.Y0VjQR/evaluator/packages/core/dist/src/cli.js check docs/reviews/admission-assurance-packet/questions-02",
+      "exitCode": 0,
+      "output": "clean: pack agp-admission-revised, 1 experiment(s)\nnote: admission-decisions declares result, but a run of it now would be exploration: the experiment is not recorded; record it before its next run\n"
+    },
+    "links": {
+      "command": "node --test test/conformance/markdown-link-integrity.test.js test/conformance/design-link-integrity.test.js",
+      "exitCode": 1,
+      "output": "✔ Given normative Markdown and trace references, when AX0 resolves local targets, then every file and named anchor exists exactly (27.584848ms)\n✔ Given every tracked markdown file, when its local links are resolved, then each target file exists (56.919458ms)\n✖ Given every tracked markdown file, when a link names an anchor, then the target heading exists (54.048631ms)\nℹ tests 3\nℹ suites 0\nℹ pass 2\nℹ fail 1\nℹ cancelled 0\nℹ skipped 0\nℹ todo 0\nℹ duration_ms 163.960766\n\n✖ failing tests:\n\ntest at test/conformance/markdown-link-integrity.test.js:64:1\n✖ Given every tracked markdown file, when a link names an anchor, then the target heading exists (54.048631ms)\n  AssertionError [ERR_ASSERTION]: these anchors do not exist:\n  docs/VERIFICATION.md -> ../../context-lab/docs/OPERATIONS.md#33-scenariosidjson-schema\n  + actual - expected\n  \n  + [\n  +   'docs/VERIFICATION.md -> ../../context-lab/docs/OPERATIONS.md#33-scenariosidjson-schema'\n  + ]\n  - []\n  \n      at TestContext.<anonymous> (file:///home/apnex/taceng/agp/test/conformance/markdown-link-integrity.test.js:84:10)\n      at async Test.run (node:internal/test_runner/test:1113:7)\n      at async Test.processPendingSubtests (node:internal/test_runner/test:788:7) {\n    generatedMessage: false,\n    code: 'ERR_ASSERTION',\n    actual: [ 'docs/VERIFICATION.md -> ../../context-lab/docs/OPERATIONS.md#33-scenariosidjson-schema' ],\n    expected: [],\n    operator: 'deepStrictEqual',\n    diff: 'simple'\n  }\n",
+      "disposition": "Pre-existing VERIFICATION scenario-schema anchor mismatch; no new broken link shown before staging. Recheck new tracked files after staging."
+    }
+  },
+  "retention": {
+    "priorTemporaryTree": "/tmp/agp-admission-packet.1ZAzJe",
+    "present": false,
+    "meaning": "Historical report and committed manifests survive; prior raw previews are not currently inspectable or reconstructed. New archive is model-free public records only, not a live evidence-retention guarantee."
+  },
+  "readiness": "HOLD: per-role public limits, exact calibration/probe census, live qualification and execution-specific retention authority remain unresolved."
+}

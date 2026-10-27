@@ -1,5 +1,8 @@
 # Admission lifetime approval route proposal
 
+Current preparation selection, 2026-10-27: [decision 0007](#0007---question-correction-and-focused-confirmation) selects the six-question correction, scoped local commits, model-free checks and one focused independent confirmation.\
+Earlier selections and verdicts remain historical; execution, product implementation, publication and sibling correspondence remain unselected.
+
 Current preparation selection, 2026-10-26: [decision 0006](#0006---exact-packet-preparation-and-independent-audit) selects the exact packet, scoped local commits and one independent key/readiness audit.\
 Experiments, product implementation, publication and sibling correspondence remain unselected; earlier banners below are historical.
 
@@ -271,3 +274,24 @@ Affects: the new `docs/reviews/admission-assurance-packet/`, its reviewed B53 in
 [OPEN] Commit only this packet and the reviewed B53 input chain before the audit; preserve unrelated dirty work and all frozen originals, questions, answers, scores and reports.\
 [OPEN] No experimental reader, judge, provider, isolation or calibration invocation is authorized; no product ratification, implementation, push, sibling message or downstream migration is selected.\
 [OPEN] Execution would require a separate exact-profile decision that re-examines retention risk, followed by its own validity and assurance gates; Zorg's native release remains open.
+
+---
+
+## 0007 - Question correction and focused confirmation
+
+Status: ratified for the bounded prospective correction and one independent confirmation.\
+Date: 2026-10-27 Australia/Melbourne.\
+Authority: director.\
+Amends: none.\
+Supersedes: none.\
+Affects: `docs/reviews/admission-assurance-packet/`, this record, `docs/BOARD.md`, `docs/VERIFICATION.md` and `docs/reviews/zorg-authenticated-peer-delivery-plan.md`.
+
+[DIRECTOR] "continue" selects the immediately offered six-question correction and focused independent confirmation.\
+[ARGUED] Explicitly ask the existing mandatory details in Q05/Q10/Q11/Q16/Q19/Q21, retaining the common keys, both axes, all three arms and full coverage; weakening the required decisions would not resolve the same instrument defect.\
+[ARGUED] The cost is scoped author work, local commits, model-free public checks and one non-author confirmation; doing nothing leaves the key-fit failure unresolved.
+
+[MEASURED] The prior [audit](admission-assurance-packet/key-readiness-audit-01.txt) found unasked requirements, not unsupported technical rules.\
+[OPEN] Retain its reviewed declarations and failed report; prepare separate amended declarations and commit them before the focused check.\
+[OPEN] One non-author review may inspect the six corrected question/key contracts, unchanged coverage/scoring, exact bindings and model-free results; it is not a fresh-reader experiment or a new broad design review.\
+[OPEN] Preserve unrelated dirty work; no experimental reader/judge/provider invocation, calibration, live isolation, product change, push, sibling message or execution-risk waiver is authorized.\
+[OPEN] Public resource controls, calibration binding, live-profile qualification and an execution-specific retention decision remain separate; no further Zorg requirement is needed.
