@@ -1,0 +1,403 @@
+Admission question-fit confirmation 02
+
+Question/key fit: PASS for the six-question prospective correction at the exact revision below.
+Public model-free question/key/rubric/complete-answer binding: PASS within the inspected preparation scope.
+Execution readiness: HOLD; no experimental document-assurance or product-readiness verdict.
+Scoped M7/A4: the prior retention FAIL remains, with its preparation-only override unchanged.
+
+This is the complete independent report, not a summary for another author to reconstruct.
+Tier 3: reviewer judgments are identified below; measured artifacts and supplied reports are distinguished from those judgments.
+Reviewer: `/root/admission_question_fit_confirmation`, a non-author of the reviewed amendment.
+Review date: 2026-10-27 UTC.
+
+1. Authority, target and method
+
+Authority is `docs/reviews/admission-lifetime-approval-route.md`, decision `0007`.
+That decision selects one focused independent confirmation of the six amended questions, unchanged coverage/scoring and actual model-free bindings.
+It does not select another broad design review, a cold-reader experiment, preregistration, execution, product implementation, publication or sibling correspondence.
+
+Measured target AGP revision:
+`722244e488494b882d7e30a92a4f0fecbf6a54d5`
+
+Measured baseline declaration revision:
+`a4f47c3497ef1c3a089a08da3d616f39b021d809`
+
+Preserved reading-source revision in both variants:
+`67659d19f2c96633ce3fe9e8239714f4615dcc23`
+
+The prospective pack is `docs/reviews/admission-assurance-packet/questions-02/`.
+The root declarations remain the earlier failed instrument, not aliases overwritten by the correction.
+I compared every one of the 25 tracked packet files with the target commit and found identical bytes, including the archive.
+Of the 14 packet files in the baseline, 13 remain byte-identical; the sole changed pre-existing file is the explicitly scoped public-preview qualifier.
+I also compared the frozen R3/R4 originals, implementation map, revised route, scoring amendment and composite recheck with both commits; their bytes are unchanged.
+The approval record matches the target commit; its decision `0007` is the authority for this task.
+
+I read `/home/apnex/taceng/AGENTS.md` and the Mission Kit ledger and relevant guidance myself.
+`K3` is `repo-audit`.
+The measured clean Mission Kit cache is `a3f0cae023c6cdd1e7177783e8062c5616d904d6`; the parent supplied its live-main comparison, which I did not repeat.
+Applied guidance includes M2, E7, E8, RU2, verifier/reactive-gate guidance, and the repo-audit, research-artefacts and write-discoverable-code skills.
+The explicitly bounded task takes precedence over the repo-audit skill's whole-project output tree: no whole-repository feature audit or extra review artifacts were created.
+Research guidance caused the recorded plan, separation of measured facts from judgment, source pinning and full-report retention.
+Naming guidance retained the domain-specific report name and the packet's existing vocabulary.
+
+The plan recorded in this file before substantive input review was: read the prior audit and exact delta; compare the six questions with unchanged keys and full relevant R3/R4 passages; check preservation; inspect and reproduce public previews; inspect first/retry and withholding boundaries; report a bounded verdict with retained holds.
+That plan was followed without further delegation.
+I read the complete 312-line prior audit, not only its disposition or the author's account.
+I read the actual amended questions and keys, relevant full R3/R4 passages, public declarations, qualifier/amendment-test source, amendment records, readiness record and complete pinned public operations guide.
+I did not inspect evaluator implementation source.
+
+2. Six question-to-key clause mappings
+
+Judgment: PASS for all six.
+Each numbered key clause now has a direct question hook; no mandatory clause was weakened or made arm-specific.
+The added wording asks for decision dimensions and contrasting cases, not their correct outcomes.
+It does not supply cardinalities, deadline inequalities, event names, wire codes, release conditions or the selected teardown default as answers.
+No misleading premise or unsupported additional requirement was found in this focused review.
+
+Paths in this section are relative to `docs/reviews/`; source line ranges refer to the target commit.
+The key references are to `admission-assurance-packet/questions-02/admission-key.json`.
+Both property-question fields for each probe were checked against the same question and numbered key, as detailed in section 3.
+
+Q05 - control - key entry starts at line 143
+
+Question: "A continuation drain yields with older commands still queued and a fresh ordinary command arrives. Where does it go? Specify the barrier-opening condition, the head packet's reservation/ownership through dispatch, and how another admission affects draining. Which count and byte measures bound the queue, and how many pending admissions and drain tasks may a controller own?"
+
+- Clause 1, same bounded FIFO/no overtaking: "Where does it go?" asks the destination in the explicit yielded-backlog case.
+- Clause 2, serialized empty/no-admission/no-drain barrier opening: "Specify the barrier-opening condition" asks the complete release predicate.
+- Clause 3, retain the head reservation through synchronous preparation and release only after disposal or bounded transfer, including evaluation ownership: "the head packet's reservation/ownership through dispatch" together with the new-admission branch asks the full ownership change.
+- Clause 4, one pending admission and one drain, new admission pauses draining, message-count/original-byte bounds: the final sentence and "how another admission affects draining" now ask each formerly hidden detail.
+
+Source basis: `admission-lifetime-correction-r3.md:138-175` and `admission-lifetime-correction-r4.md:183-210`, the complete ordered-input passages read in context.
+Both explicitly state original packet bytes and message count, cardinality, drain pause, serialized barrier release and bounded head transfer.
+The amended question names count/byte dimensions but not the answer that both bounds apply, the cardinalities or the release predicate.
+
+Q10 - control - key entry starts at line 293
+
+Question: "Identity admission finishes while the connection is still confirming and hold is disabled. Which opening bound remains active, and when does it stop? What deadline checks govern provider invocation and result commit? How should oversized host delays, positive fractional remainders and stale timer callbacks be handled?"
+
+- Clause 1, OPEN survives identity success and zero hold through confirmation until establishment/teardown: the opening-bound and stop-condition questions ask this directly.
+- Clause 2, monotonic invocation/commit deadline checks and no reliance on callback timing: the new provider-invocation/result-commit question asks the previously unrequested checks; the stale-timer question asks their timer relationship.
+- Clause 3, tokened generations, chunking oversized delays, upward rounding of positive fractions, and cancellation not substituting for stale protection: the last sentence explicitly names all three timer cases without giving their solutions.
+
+Source basis: `admission-lifetime-correction-r3.md:112-136,280-283` and `admission-lifetime-correction-r4.md:126-148,358-361`.
+Both source versions explicitly require invocation and application-time checks, monotonic elapsed time, tokened generations, delay chunking, upward rounding and OPEN-through-confirmation.
+The control classification remains supported by those common passages.
+
+Q11 - control - key entry starts at line 323
+
+Question: "Identity work fills its pool while an established peer needs route policy. Which bounds and work states count, including never-settling work? When a local evaluation cannot reserve, specify invocation, event and notification behavior, the information retained for supervisor eligibility, and retry consequences for configured dial adjacencies versus accepted controllers. What can a remote rejection establish about local pool exhaustion and the remembered refusing-pool set?"
+
+- Clause 1, separate finite node-wide identity/route pools and current/revoked-unsettled accounting: "Which bounds and work states count" in the cross-pool scenario asks both separation and accounting.
+- Clause 2, refuse before invocation with exact-current `AdmissionCapacityExceeded`, not policy denial/provider fault, and retain the refusing pool: "invocation, event ... behavior" and "information retained for supervisor eligibility" ask all of these outcomes.
+- Clause 3, safe `INTERNAL_ERROR` notification, configured-dial reconnect disposition and no accepted-controller retries: notification behavior and the explicit configured-dial/accepted contrast ask these previously hidden retry consequences.
+- Clause 4, remote refusal proves no local exhaustion/adds no local pool, and never-settling work keeps its slot: the final sentence and explicit never-settling-work case ask both rules.
+
+Source basis: `admission-lifetime-correction-r3.md:177-283` and `admission-lifetime-correction-r4.md:254-361`, including both complete capacity-wait subsections.
+The passages explicitly retain the refusing-pool set and exclude remote refusal from it; they also distinguish real release from settlement, preserve never-settling reservations and state the configured-dial/accepted retry split.
+The question asks what a remote rejection can establish; it does not assert local exhaustion or disclose the correct refusal event/code.
+
+Q16 - clarification - key entry starts at line 479
+
+Question: "A current route result reaches serialized application exactly at its admission deadline, before its timer callback runs. What transition is taken now, and what happens to result effects, token authority and the timer? Specify cooperative-cancellation delivery relative to the executor and reservation release for an uninvoked revoked permit, invoked pending work and a settled result awaiting disposal. How do a later callback and an early timer wake differ?"
+
+- Clause 1, timely only while `now < deadline`, equality expired independently of settlement time: the exact-deadline serialized-application case asks the boundary decision rather than assuming it.
+- Clause 2, discard result effects and take `AdmissionExpired` in that turn through the shared owner instead of waiting for the timer: "What transition is taken now" and the result-effects question ask both immediate transition and suppression.
+- Clause 3, synchronous revocation/detachment/cancel-once, cooperative abort outside the executor and real reservation-release conditions: the token/timer question, explicit cancellation-location question and three reservation states now ask every required detail.
+- Clause 4, later consumed-token callback inert and current early wake rechecks/rearms the positive remainder without expiry: the last question explicitly contrasts those paths.
+
+Source basis: `admission-lifetime-correction-r4.md:106-179`, including the full expiry-before-timer table and release-condition paragraph.
+The common foundations are also present in `admission-lifetime-correction-r3.md:92-136,335-385`; R3 requires application-time checks and actual disposal but does not explicitly state the R4 equality/immediate-owner resolution.
+The three reservation states are expressly requested comparisons, not a premise that a current result simultaneously comes from an uninvoked permit and pending work.
+"Reaches serialized application" does not assume result effects have already committed.
+The existing runtime/numeric-preflight authority remains a source-level guard; the amendment introduces no bypass of it.
+
+Q19 - clarification - key entry starts at line 572
+
+Question: "A terminal notification is queued behind another send. Which configuration, default, anchor and phases define the total cleanup interval? How do later phases and independent per-send timeouts affect its budget and terminal cause? What observable migration and coordinated contract/caller updates are required? Explain the relationship to StopPolicy.drainTimeoutMs and whether this design introduces a global stop deadline."
+
+- Clause 1, resolved `timers.transportCloseTimeoutMs`, 5000 ms, terminal-cause anchor and send/notification/close/sole-reader-terminal scope: configuration/default/anchor/phases are now explicitly requested.
+- Clause 2, no new phase budget, independent per-send timeout can abort earlier but cannot extend the interval or replace the cause: the second sentence asks both budget and terminal-cause composition.
+- Clause 3, meaning changes from graceful-close start, all FSM/config/types/schema/caller/migration descriptions change together, and less graceful allowance is observable: the migration/contract/caller question asks both effect and coordinated absorption.
+- Clause 4, SDK drain policy is neither the session-budget source nor a new global stop deadline: the final sentence now explicitly asks both formerly hidden exclusions.
+
+Source basis: `admission-lifetime-correction-r4.md:212-244,254-267,413-432`.
+Those full passages supply the chosen setting/default, interval ownership, timeout precedence, SDK-drain boundary and explicit semantic migration.
+`admission-lifetime-correction-r3.md:165-175,177-189,287-334` supplies a total cleanup budget and public-accounting context without the R4 setting/default/migration choice.
+Naming `StopPolicy.drainTimeoutMs` asks its relationship; it does not tell a reader that it is unrelated, prescribe the correct setting, or imply that a new global deadline exists.
+The prior audit's Q19 witness is no longer a complete answer to this question: the question now expressly requests the omitted SDK/global-stop relationship.
+
+Q21 - clarification - key entry starts at line 634
+
+Question: "Static filtering leaves no policy-eligible route. For a still-authorized reserved action, is a call required and what result is valid? Contrast malformed, incomplete or thrown current results with stale results and current results whose admission deadline has elapsed. Also distinguish explicit route denial and insufficient final RIB capacity, including their scope and the route/rejection/revision commit ordering required before ACK."
+
+- Clause 1, one invocation with empty route inputs and an empty decisions list: the first two sentences ask whether invocation is required and the valid result, without answering either.
+- Clause 2, current fault takes `AdmissionFaulted`, safe `INTERNAL_ERROR`, purge/release/no ACK; stale results have no authority; elapsed current results use expiry: all three result branches are now expressly contrasted.
+- Clause 3, explicit denial is nonfatal per-route `POLICY`; final RIB shortage is canonical per-route `CAPACITY`, not whole-snapshot failure or evaluation-pool refusal: the denial/capacity distinction expressly asks scope.
+- Clause 4, surviving routes/rejections/revision commit atomically before ACK: the final phrase asks this exact commit ordering.
+
+Source basis: `admission-lifetime-correction-r4.md:68-84,126-179,212-244` supplies empty invocation, all result classes, exact authority, terminal release and atomic commit-before-ACK.
+`admission-lifetime-correction-r3.md:61-70,112-136,165-175,388-416` carries eligible-subset validation, exact-current guards, cleanup and atomic-route foundations but not the full explicit R4 empty-call/fault/capacity wording.
+The amended question no longer limits the requested comparison to a current result; stale and elapsed branches are directly asked.
+It names the cases without providing their event names, codes, fatality or ordering answer.
+
+3. Exact preservation and common binding
+
+Measured recursive JSON delta from root declarations to `questions-02`:
+
+- `admission-key.json`: only `/probes/4/question`, `/probes/9/question`, `/probes/10/question`, `/probes/15/question`, `/probes/18/question`, `/probes/20/question`.
+- `scenario.json`: only `/task` and the question fields at property indices `8,9,18,19,20,21,30,31,36,37,40,41`.
+- `pack.json`: only `/sources/0/path` and `/sources/1/path`, each prefixed with `../` to resolve the same original input directory from the extra pack level.
+- `experiment.json`: no parsed difference and byte-identical.
+
+The amendment test separately proved that the task difference is precisely six declared old-to-new string replacements, not another task edit hidden inside the large task field.
+I independently checked every one of the 24 questions occurs exactly once in the reader task and that both matching properties contain that exact question and the same numbered decision list.
+The twelve amended bindings are `q05-d/g`, `q10-d/g`, `q11-d/g`, `q16-d/g`, `q19-d/g`, `q21-d/g`; their declaration entries start at scenario lines `139/155`, `299/315`, `331/347`, `491/507`, `587/603`, `651/667`.
+
+The other 18 probes are exactly preserved in question, decision clauses, support annotations, classification and duties: Q01-Q04, Q06-Q09, Q12-Q15, Q17-Q18, Q20, Q22-Q24.
+This is a preservation finding, not a new broad semantic PASS for those probes.
+Their semantic support/fit dispositions are the prior audit's recorded judgments; I did not rerun that entire review or treat its verdict as newly observed evidence.
+The previous classifications remain 15 controls and 9 clarifications; the six inspected classifications remain consistent with the source relationships above.
+
+Measured unchanged duty membership:
+
+authority: Q01 Q03 Q07 Q08 Q09 Q18 Q20 Q21 Q23
+lifetime: Q01 Q02 Q03 Q04 Q05 Q10 Q11 Q14 Q15 Q16 Q17 Q18 Q21 Q22 Q24
+fifo: Q05 Q06 Q15 Q22
+route: Q02 Q07 Q21
+cleanup: Q06 Q10 Q16 Q17 Q18 Q19 Q20 Q22
+supervisor: Q11 Q12 Q13
+operations: Q04 Q09 Q11 Q12 Q13 Q14 Q15 Q19 Q23 Q24
+migration: Q14 Q15 Q19 Q24
+
+These are the seven retained duties plus public migration; none was removed or traded away to repair question fit.
+The full coverage map is preserved, not merely the number of categories.
+
+There is one common behavioral decision key across `v17` (old), `k83` (candidate) and `n46` (no document), and across D/G.
+The support annotations remain audit-side explanations, not separate arm keys.
+Both axes still see the same complete answer; their scoring criteria remain different by design.
+D remains `[0,1]`, requiring every numbered decision explicit, complete and correct while ignoring document availability/citations; its rubric still forbids unasked requirements.
+G remains `[0,2]`, with valid supplied-text premises/derivation needed for two, safe incomplete/uncertain/unsupported decisions scoring one, and wrong/unsafe decisions or demonstrated absence scoring zero.
+The experiment still rejects treating proposal-status qualification as uncertainty and permits support from multiple premises.
+
+The complete scoring helper, calibration cases, readiness declaration, source readings, projector and original packet tests are byte-preserved.
+The acceptance rule remains per-probe/per-axis non-regression, candidate usability floor, separating coverage, at least one strict grounded improvement, complete evidence reconciliation and independent ambiguity/observation review.
+No arm-total rule was promoted into a family-wise preservation claim.
+The existing fixed accounting remains 9 readers, 216 logical answers, 432 axis outcomes and 864 other-family vote slots.
+Proved absence keeps its zero/uncast slots; missing/truncated/unassignable evidence does not become an absence or shrink the denominator.
+
+Arms, population members and settings, one fresh phase, one reader attempt, `maxResponseBytes = 98304`, `outcomesPerPrompt = 2`, masks, isolation declarations, source revision pins and variant inclusion lists are unchanged.
+The no-document arm still declares `deliver: []`.
+Both source paths still resolve to the same original reading directories; both reading byte sequences match the baseline.
+No `questions-02/register` was created.
+
+The qualifier diff is 38 added/12 removed lines: optional pack-directory argument, reading lookup through declared sources, exact reader-task checks, first/retry assignment enumeration, governing-header question/key/rubric checks and explicit assignment totals.
+Its synthetic fixtures and public-only `preview` command remain visible in its source.
+This working verification code was changed prospectively; its baseline version remains in git history.
+
+4. Independently observed deterministic checks and public previews
+
+I executed with measured Node version `v24.12.0`:
+
+`node --test docs/reviews/admission-assurance-packet/admission-question-amendment.test.mjs docs/reviews/admission-assurance-packet/admission-packet.test.mjs`
+
+Result: 20 tests, 20 passed, 0 failed/skipped/cancelled/todo.
+This is 5 amendment-preservation/binding tests and the unchanged 15 shape/projection/quote/accounting tests.
+The existing tests exercised regression on both axes, nonseparating regression, fixed absence slots, invalidity precedence, quote caps and cross-axis contradiction; this is deterministic synthetic checking, not real judge validity.
+
+`node /tmp/agp-admission-questions.Y0VjQR/evaluator/packages/core/dist/src/cli.js check docs/reviews/admission-assurance-packet/questions-02`
+
+Result: exit 0, `clean: pack agp-admission-revised, 1 experiment(s)`.
+The explicit note remains: it declares result but would run as exploration because the experiment is not recorded.
+No `record` command was issued.
+
+The parent supplied the clean-export construction and comparison of all 144 tracked evaluator input files to `9b4641b05d50c1ce54ab6b9efa1b06820ae16a68`.
+I did not independently certify that build/export provenance or inspect implementation files.
+I independently measured the complete public guide and the used CLI executable hashes, read the guide fully, and used only its public `check`/`preview` interface.
+The guide describes `preview` as rendering first and retry invocations without runtime contact or credential reads; the qualifier source invokes only that command.
+No experimental reader/judge/provider, live isolation, calibration, runtime review or AGP product test was launched.
+
+I listed and extracted the committed archive into new directory `/tmp/admission-question-fit-confirmation.r6PsHK/`.
+Measured archive: 741,684 bytes, SHA-256 `1b4eac02e2818a7e1218c5cfdf7195c3319b41f7e5b319f8440adc0adf440990`.
+All 28 archive members match their individual recorded sizes/hashes: 352,297,702 uncompressed bytes comprising nine complete `PREVIEW.json` files, nine raw synthetic replies, nine public preview logs and one qualification manifest.
+The manifest is not substituted for those files; I parsed the actual full public outputs and examined the raw fixtures.
+
+I then executed:
+
+`node docs/reviews/admission-assurance-packet/qualify-admission-preview.mjs /tmp/agp-admission-questions.Y0VjQR/evaluator/packages/core/dist/src/cli.js /tmp/admission-question-fit-confirmation.r6PsHK/reproduced docs/reviews/admission-assurance-packet/questions-02`
+
+Result: exit 0; all nine public previews and the qualifier assertions completed.
+The output directory did not exist before the qualifier ran.
+The resulting complete `qualification.json` is 5,619 bytes, SHA-256 `67740095dd59e97de568f0e07dc81e5a3c351eaf925f97e3c1e3074c9d813734`.
+
+Independent inspection beyond rerunning the author's qualifier:
+
+- I used a separate read-only assertion program over the full archived canonical/volume outputs, using raw synthetic section bodies as comparison values, never as replacement judge inputs.
+- It checked all 432 selected units per fixture, their exact raw-section byte lengths, single selection, zero cut bytes and unbounded extraction.
+- It parsed each actual first/retry prompt into governing `PROBE` question/key/rubric headers and local answer labels, and resolved each label through the public unit/cell/property identities.
+- For every assignment it compared the entire expected answer and the entire assigned reading, not an excerpt, marker-only check or byte count alone; only the known prompt separators could follow the complete block.
+- It checked the immediately governing header against that unit's own property, not the presence of a matching rubric somewhere else in a mixed prompt.
+- It confirmed exact rendered prompt equality with `prepared.prompt.text`, and exact stdin equality for Codex judge preparations.
+- It independently checked different declared model families for reader/judge, not only unequal member IDs.
+- It checked each retry's local unit list equals the first prompt's list with its first unit removed, including relabeling; this is the public preview's specified retry illustration, not proof of every possible live retry state.
+- It checked no `OBSERVATION-ONLY-RETAIN-NOT-SCORE` text entered judge prompts; the raw fixtures retain that observation section.
+- It checked identical full reader prompts across all nine cells and exact equality to the unchanged experiment instructions plus corrected scenario task.
+- It checked no sealed key marker, key file or prior audit was delivered; none of the complete numbered key sentences was inserted into the reader task.
+- For document arms it checked complete own-reading delivery and absence of the other arm's canary; for all three no-document reader profiles it checked no design/canary text, no source read-only mounts and empty opencode instruction lists where applicable.
+- It checked no-document judged units have null reading metadata and no assigned-reading block, while retaining the same question and key as both document arms.
+
+The comparisons account for the public renderer's terminal-whitespace normalization: section separator whitespace and the reading's trailing newline are not substantive answer/reading content.
+No substantive text is omitted by that normalization in the canonical or volume fixture.
+
+Observed canonical and volume counts, for EACH fixture:
+9 reader cells; 432 selected property/axis units; 432 judge jobs; 864 first-prompt assignments; 432 retry-prompt assignments.
+Every selected unit has exactly two first assignments to the other model families.
+Each fixture has 8 mixed-axis same-heading jobs; all separate governing headers and retry bindings passed.
+
+Directly inspected example: archived canonical job `admission-decisions.answer.answers.c.67`.
+Its first prompt binds `a1 -> u0037 -> q09-g -> admission-decisions.v17.g.1` under the G rubric and `a2 -> u0137 -> q09-d -> admission-decisions.k83.o.1` under the D rubric, with separate `PROBE Q09` headers.
+Its retry retains only `u0137`, relabeled `a1`, under the D rubric with its complete candidate reading and answer.
+This demonstrates why matching a heading or finding both rubrics anywhere in a prompt would have been insufficient.
+The exhaustive assertions cover all such jobs, not only this example.
+
+Canonical Q24's `ended-at-unrequested-heading` is the intentional boundary at `OBSERVATIONS`.
+The complete raw-to-judged Q24 body matches and no scored answer text was lost in that fixture; the flag is not silently ignored or treated as automatically fatal.
+
+Fixture outcomes measured in both archived and reproduced outputs:
+
+canonical: 4,587 raw bytes; 9 readers / 432 units / 432 jobs; full binding PASS; maximum first judge prompt 129,291 bytes.
+volume: 53,588 raw bytes; 9 / 432 / 432; full binding PASS; maximum first judge prompt 178,018 bytes; below reader response bound with no answer truncation.
+nested: 4,598 raw bytes; 3 / 144 / 0; noncanonical and rejected; extraction includes empty-section/unrequested-heading findings.
+duplicate: 4,628 raw bytes; 3 / 144 / 0; noncanonical and rejected; duplicate-heading finding retained.
+fenced: 4,607 raw bytes; 3 / 144 / 0; noncanonical and rejected; fence/duplicate structure is not repaired.
+missing: 4,579 raw bytes; 3 / 144 / 0; noncanonical and rejected; no-heading finding retained.
+empty-section: 4,408 raw bytes; 3 / 144 / 0; Q02 has null selection and one empty match; synthetic proved absence only.
+whole-empty: 0 raw bytes; 3 / 144 / 0; all selections null; synthetic proved absence only.
+utf8-bound: 124,594 raw bytes; 9 / 432 / 18; all 432 units report the bounded response, with cut/no-heading/heading-beyond-bound findings; reject/NO VERDICT, never behavioral absence.
+
+The malformed/absence fixtures use one member and have zero judge jobs; they establish no judge-delivery claim.
+The UTF-8 fixture has actual nonempty rendered judge jobs, no replacement character in first prompts, and effective response bytes at most 98,304.
+Its maximum first judge prompt is still 311,829 bytes, above the proposed 262,144-byte input limit: the requested number remains unenforced.
+
+For all nine fixtures I independently compared archived and reproduced raw replies, reader cell/prompts, seed, selected-answer/extraction metadata, judge job/unit identities, and complete first/retry prompt text/local maps/byte counts.
+Those compared fields are exactly identical.
+Whole-preview hashes differ because fresh generated paths/invocation metadata are retained; I do not claim byte-identical entire environments or a live execution.
+The fresh reproductions and independent checks use the same pinned public rendering instrument; they are not independent experiments on reader usefulness or runtime behavior.
+
+5. Measured preview identities
+
+Archived/reproduced SHA-256 pairs for each complete `PREVIEW.json`:
+
+canonical archived: 75586998848e52bfb46d22f3b11137883aa9c03b9510886c56d0de76d1264acc
+canonical reproduced: ff20a60dd7528f73f3ff4bffb0f120c47f57880f00e37b40671d183b1dbe8b84
+volume archived: 6154b3516873c539933933a8d2e0088897437bf4816e3026e140b2e8f6f881d1
+volume reproduced: 7ff7271166c2397ff7fb54c0a752490cc3fc454859b5186a60d7263a600529e5
+nested archived: a1e5209b7c794084257603cceb1134527a733acf4d53f23846c42b25d7f82626
+nested reproduced: eb007034620035ae7fc13bdda5f388e9f2aec4d60150763a886b6a144229632a
+duplicate archived: 77b6e0676b1c1ed98bf0382d94d6b9e1eadead70cbed8e51ca6559ee63b138af
+duplicate reproduced: e4f89aeb5c538f9bc92ff1a1e72fa9b0254384c195c2bd7e221ee70b7969f147
+fenced archived: 996857c369a3e5c381e8d78ee7b36c7d2ce422d11b133cc8a5776f7d419b0dfb
+fenced reproduced: c31c6b65aee2672e3f74979d6b5fb89c86cf91ab64e18ab384f5e969d9bf9fce
+missing archived: e1fd4da0ccaf6417d222348401a7a29f4bb3de5312a4df86582cd50a2d75f572
+missing reproduced: cc0e96d8862d715ff9597e4df78a841e484996044c12e94a2b547352afbfd2cb
+empty-section archived: 87d95f2b039248109ed43e2a26c6cd217ae9b982f381b1117b636f27b82221c8
+empty-section reproduced: a7842c3bee49a12ea06c02b9d225ac47670fa67533c52ae7a8806a4dc152f96a
+whole-empty archived: 8702ccf6dfc2a4f97260118968e90ae07514776dc307e094ac92708d350d8ffd
+whole-empty reproduced: b41caf6b2b3c31751a525a887b40719eaac3d644208f1863b1ffbc5b26b7d8c4
+utf8-bound archived: afb2fabb4001726e86f4cee2d865d30db5f4974fa064a20beb6f28105386c358
+utf8-bound reproduced: 934b23af93ef01293a01946348361e6818c7db8bf59d3de29174dbd3772fb42f
+
+The archived qualification manifest is SHA-256 `e3bb8155ad7416b49f25ecdbd419528e140701fc0353bcac6e575435d961cdb9`.
+Its full archive member list, raw-reply/log hashes and measured sizes are retained in committed `question-amendment-checks-01.json`; all 28 were independently checked against extracted bytes.
+The archived public records are portable evidence of these preparation renderings, not a runnable evaluator export or proof of durable live capture.
+
+6. Measured review input identities
+
+SHA-256 values below identify the actual bytes inspected or compared.
+Packet-relative paths are under `docs/reviews/admission-assurance-packet/` unless a `../` prefix names another review input.
+Hashing/comparing a preserved artifact does not imply that I repeated its whole semantic review; the reading scope is stated above.
+
+admission-key.json: efa4a95ba9a937b81f127e20d079d9144d8de8b7418c17377e99c5445fe4d337
+scenario.json: 9a2fa4f8a86ed4a200551dd36025bd8c46e7e85cda867821c375e5a3320d2251
+pack.json: c1796bc625be36ddcd18b92cde965ce10d4d30eb83bbc10c703cbd00a551ab40
+experiment.json: 72338603a4b6d4c56996f5aa493d3759a94374bf4aa6a14db29f8a5d6256e471
+readiness.json: 8c5ef9eab510c4ff74c0aeaf0ede493f8455d01f9490e765e536f8d601ddb7d8
+README.md: c70d37cf0b33677a2ad25bc1b5ae79e5927189ddf1811b21e259ad04e2f1375e
+check-admission-evidence.mjs: bacaaa0030c0beebc77d6886003b5aee7221bd2d369a712a45da1045988e3a40
+admission-packet.test.mjs: 9914d6902906bf947d6003419b7705115499a85ff75234e610a457d231c896a3
+calibration-cases.json: 4ab0fb94ea49415e4253272c46370f5818986159cd06b980535e43bbfbdea85e
+preparation-checks.json: 189b2e44a12172defd0822e1cc06dd9a35fcd1ccb8608ff4adee745023de2ab8
+project-admission-reading.mjs: cfd3b5d7ec573d64ad1b14e5bc21b8f1c6434dc0163db4a7009100575ab0bda7
+key-readiness-audit-01.txt: 50c620b3b1ab6a4747689befb458f20f1a03d785825ef3c86e0cffca6e688f67
+audit-disposition.md: 9a9c88860c3f534ca5bd2e140568582c3f72d36599513c2f6fcdd8a308fab200
+question-amendment-01.md: 8253de7794a5428a93c280728ec96a8d456a0f312e2e948fc58699cf432f352f
+question-amendment-01.json: fede6fe98975b34657f88b192d4f7c1444d3718514724abf01f3dba536acf261
+question-amendment-checks-01.json: 3b28524a474d358f33892968f0359b74653b95cd595de8c56d2ea2424061e99c
+admission-question-amendment.test.mjs: 3203ae1fc300d6aea590cc54753e0bcb4a81ac8ca1a6297d13a3a2b4972753cd
+qualify-admission-preview.mjs: 104c6846e366eb7db0a2adb4b55fed4a5e5ead588c5b63eeffca9cfbc0c9ec45
+questions-02/admission-key.json: ed2f109d6e27a0f1f4a0abfa2c91175cb1c460c7f82b89900fc7de1c4f365b3f
+questions-02/scenario.json: a80b384f691958e3ca6cd053b592b675e3f6c58899d674334ba167115b990701
+questions-02/pack.json: ed96c58dc8af534b603f858cecef2502a1cf551e8802866a85500bc0f5079357
+questions-02/experiment.json: 72338603a4b6d4c56996f5aa493d3759a94374bf4aa6a14db29f8a5d6256e471
+inputs/v17/DESIGN.md (48,875 bytes): 5e1f002dcd777fff6148dc1f31a8b227acfa9bb07db3836a02c4f4affa6e2435
+inputs/k83/DESIGN.md (62,160 bytes): 4a18c65c146b9b931ed7184b9b6acfb7cdeeb3cde3114905512944b033cc5ec1
+../admission-lifetime-correction-r3.md: 6ccf9ba0e7d94b83897fade8f865fe3fb1328db292d92cce4d5cc85bc28fc2f2
+../admission-lifetime-correction-r4.md: 082b2c704dfdc3338283f3733732388a15fbffec5d1f28bf78313bad884b97b4
+../admission-lifetime-implementation-map.md: 78e642dc8d4d56d08fdb4b0d8b2b98c3b13230378d3cb86d861b6d6c55b33a35
+../admission-assurance-revised-route.md: a6a42f8fff9cb467d164523b158d1d44253cc1c209979c7ac868b5add457592b
+../admission-assurance-route-amendment-01.md: 3c027a759e99d7f0419c7676a08ea853d0f9066d1a3be237ae04399639f8e018
+../admission-assurance-revised-route-recheck-02.txt: 74d3eab1acf1f075ff4f415c1c5cfc4fd8307f61166a74e1c50829e17ae8f5a6
+../admission-lifetime-approval-route.md: 00987fbd8483682e295900d723392651fab03dcac82404865259891106110e16
+
+Pinned evaluator public guide:
+`/tmp/agp-admission-questions.Y0VjQR/evaluator/docs/OPERATIONS.md`
+SHA-256: `66d782fb65776f6283b4eb179ac69a585a9920cd7f19f994153f2019a8f7f31e`
+
+Public CLI executable actually used:
+`/tmp/agp-admission-questions.Y0VjQR/evaluator/packages/core/dist/src/cli.js`
+SHA-256: `7e359e3b6e4b16fe686bcfbf1be1df289c9d0f3b8f35c0be35f4610bddd872ed`
+That executable hash identifies the file used; it is not an independent build-certification claim.
+
+7. Findings, retained holds and closure boundary
+
+Focused material findings: none remain in the six corrected question/key contracts or inspected public bindings.
+The prior key/question-fit FAIL stays a historical FAIL at its baseline revision; this prospective PASS is a different verdict against different questions.
+The prior report remains exactly 312 lines and 24,402 bytes with its hash above.
+Its earlier projection/accounting results and other 18 semantic dispositions are not broadened by this confirmation.
+
+I independently confirmed `/tmp/agp-admission-packet.1ZAzJe/` is absent.
+I did not inspect its old raw previews, reconstruct them, or claim they remain available.
+The prior full report and committed manifests preserve what was reported then; the new archive preserves the new rendered evidence only.
+The current author's earlier `qualification-01` is not labeled a failed experiment here; no experiment was run in this task.
+
+Execution readiness remains HOLD for all four substantive prerequisites:
+
+1. Public per-role controls: the pinned public experiment/run contract still does not declare the requested reader/judge/probe time and input/output controls; hook limits and `review --timeout` are not substitutes.
+   The UTF-8 fixture independently demonstrates that the proposed judge-input number is not an enforced bound.
+   Unsupported fields, a private runner, or a fictional provider-spend ceiling are not authorized remedies.
+2. Exact calibration/probe census: the six unrelated cases and proposed inventory remain preparation, not a bound public calibration profile, exact probe census or calibration result.
+   This review creates no experimental allowance and performs no calibration.
+3. Live-profile qualification: installed routes/versions, real reader/judge isolation, scale compliance and actual response/retry fidelity remain unshown.
+   The generic prompt legend still allows `0|1|2` while D's own rubric permits only `0|1`; correct rubric delivery is shown here, live scale handling is not.
+   Model-free no-document delivery is not live isolation evidence.
+4. Execution-specific retention authority: decision `0004` permits preparation despite the recorded A4 deviation; it is not transferable execution-risk acceptance.
+   An exact execution decision must accept that profile's loss exposure explicitly or require supported qualified durable capture.
+
+Scoped M7/A4 remains FAIL with the preparation-only override beside it.
+Losing already-emitted evidence is not cured by declaring the comparison invalid; this archive is not a parent-termination retention guarantee.
+No automatic resume, selective replacement, reconstruction, regrading or cross-run splicing is approved.
+Full real records, every accepted reason and all observations would still require non-author measurement-validity review before any assurance verdict.
+
+The parent reported 35 combined packet/document-conformance passes and a two-pass/one-pre-existing-fail broad-link result.
+I independently reran the 20 packet/amendment tests only; I did not rerun the wider board/link checks or repair their historical anchor issue.
+The parent's later untracked negative-test record is outside the target commit and is not relied on for this verdict.
+The initial unrelated dirty files, board/verification and sibling state were not edited by this reviewer.
+
+This PASS closes the bounded six-question-fit and model-free binding preparation blocker only.
+It grants no preregistration/execution authority, fresh-reader usability result, public-contract ratification, AGP runtime/product acceptance or Zorg delivery claim.
+Zorg's full native-delivery dependency remains open; public approval, complete implementation, independent runtime verification, remaining native prerequisites and authorized publication are separate work.
+
+Reviewer writes were limited to this report through `apply_patch`; scratch extraction and fresh generated preview trees were placed in the new temporary directory named above.
+No commits, pushes, sibling writes/messages, extra agents or product changes occurred.
+The reviewed tracked inputs were checked unchanged against the target again before report closeout.
+
+END OF ADMISSION QUESTION FIT CONFIRMATION 02 - 722244E-20261027-R6PSHK

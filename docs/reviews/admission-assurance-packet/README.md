@@ -1,5 +1,8 @@
 # Admission assurance packet
 
+Current prospective packet: [questions-02](questions-02/pack.json), with [independent question/key and model-free binding PASS](question-amendment-disposition.md); execution remains HOLD.\
+The body below preserves the original pre-audit preparation record.
+
 Status: prepared for independent key/projection/readiness audit; execution HOLD.\
 Authority: [decision 0006](../admission-lifetime-approval-route.md#0006---exact-packet-preparation-and-independent-audit), preparation and scoped local commits only.\
 This packet is not a successful experiment, adopted AGP contract or delivered Zorg fix.

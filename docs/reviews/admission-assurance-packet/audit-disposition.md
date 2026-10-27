@@ -1,5 +1,8 @@
 # Admission packet audit disposition
 
+Current correction, 2026-10-27: the [prospective six-question amendment passed focused independent confirmation](question-amendment-disposition.md); execution remains HOLD.\
+The body below preserves the earlier failed-packet disposition, not the corrected packet's verdict.
+
 Status: key/question fit FAIL; execution HOLD.\
 Projection fidelity and deterministic accounting passed within the independent preparation audit's inspected scope, not as experimental assurance or runtime acceptance.
 
