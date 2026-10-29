@@ -80,6 +80,40 @@ The tracked work is `B35` on the [board](BOARD.md#triage-ledger).
 
 ---
 
+## Review scratch retention
+
+Run model-free review tests, previews and retained-reply replays through the shared [review check runner](../scripts/run-review-check.mjs).\
+It gives the command and its children one fresh temporary directory through `TMPDIR`, `TMP` and `TEMP`, then removes that directory on success, failure or handled interruption.\
+Children can pass temporary evidence to later checks inside the same command before cleanup.\
+Cleanup makes owned read-only directories writable without changing hard-linked files or following symlinks into shared dependencies.\
+On POSIX, the runner also stops command descendants before cleanup; it is not a launcher for persistent services.
+
+For example, run the historical receipt fixtures with cleanup:
+```bash
+npm run review:check -- -- node --test docs/reviews/admission-lifetime-assurance-r4/admission-execution-receipt.test.mjs
+```
+
+When a preview or replay must remain available after exit, select retention explicitly:
+```bash
+npm run review:check -- --keep-work -- node --test docs/reviews/admission-lifetime-assurance-r4/admission-execution-receipt.test.mjs
+```
+
+The runner reports the retained directory on stderr.\
+Retain only when another task needs those bytes; the retaining operator owns later disposal after the required evidence has been saved.\
+Default-cleanup runs report that scratch was removed, so temporary paths printed by a child are not persistent evidence links.\
+Explicit output paths outside the owned temporary directory are not removed; saved run records, repositories, sessions and existing scratch are never swept.\
+Directly invoking historical scripts bypasses this lifecycle control, so their original commands must be wrapped for routine development.\
+The historical packages stay byte-identical for provenance checks.
+
+`SIGKILL`, host failure and children that deliberately escape the POSIX process group cannot be cleaned up by this runner.\
+Inspect any resulting leftover directory and its owner before removing it; age alone does not authorize a broad temporary-directory purge.\
+On Windows, only the direct child is stopped, not a POSIX-style descendant group.
+
+The colocated [cleanup tests](../scripts/run-review-check.test.mjs) own command-scratch lifetime, exit propagation, explicit retention, nested evidence handoff and the existing receipt-fixture regression.\
+Run them with `npm run test:review-cleanup`; they also run in `npm test`.
+
+---
+
 ## Required ownership README
 
 Each package test directory and each workspace suite (`conformance`, `integration`, `topology`, `resilience`, and `e2e`) contains an ownership table with:

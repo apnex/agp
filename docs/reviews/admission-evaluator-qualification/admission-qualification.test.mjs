@@ -81,8 +81,11 @@ function captureAdmissionProfile(coreRoot, selectedProfile) {
 function normalizeAdmissionCapture(record) {
   const copy = structuredClone(record);
   // Only the two panel records-directory prefixes in actual prompt fields may vary.
+  // Historical captures used /tmp; current checks can run in an owned TMPDIR.
+  const roots = [...new Set(['/tmp', os.tmpdir()])].map((root) => root.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'));
+  const recordsPath = new RegExp(`(?:${roots.join('|')})/agp-evaluation-static-checks\\.[A-Za-z0-9]+/panel-[A-Za-z0-9]+/records`, 'g');
   for (const [i, run] of copy.runs.entries()) {
-    const normalize = (prompt) => prompt.replace(/\/tmp\/agp-evaluation-static-checks\.[A-Za-z0-9]+\/panel-[A-Za-z0-9]+\/records/g, `<panel-${i}-records>`);
+    const normalize = (prompt) => prompt.replace(recordsPath, `<panel-${i}-records>`);
     for (const capture of run.captures) capture.prompt = normalize(capture.prompt);
     for (const job of Object.values(run.judgments)) job.prompt = normalize(job.prompt);
   }
